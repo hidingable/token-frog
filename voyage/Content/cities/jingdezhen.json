@@ -1,0 +1,91 @@
+{
+  "id": "jingdezhen",
+  "wikidata": "q34405",
+  "status": "active",
+  "lat": 29.2704,
+  "lon": 117.18,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tier": 3,
+  "tags": [
+    "heritage",
+    "art",
+    "food"
+  ],
+  "level": "full",
+  "names": {
+    "zh-Hans": "景德镇",
+    "en": "Jingdezhen"
+  },
+  "wikipedia": {
+    "zh-Hans": "景德镇市",
+    "en": "Jingdezhen"
+  },
+  "facts": [
+    {
+      "id": "imperial-kiln-museum",
+      "type": "place",
+      "names": {
+        "zh-Hans": "景德镇御窑博物馆",
+        "en": "Jingdezhen Imperial Kiln Museum"
+      },
+      "summary": {
+        "zh-Hans": "御窑博物馆的建筑由八个大小不一的拱券结构组成，设计灵感来自景德镇传统窑炉。博物馆位于陶阳里御窑景区。",
+        "en": "The Imperial Kiln Museum has eight vaults of varying sizes, inspired by traditional Jingdezhen kilns. It is part of the Taoyangli Imperial Kiln scenic area."
+      },
+      "sources": [
+        "https://zhuanti.mct.gov.cn/fxzgzm-mtbd_detail/9637.html",
+        "https://production-gcp.moma.org/magazine/articles/626",
+        "https://jdz.gov.cn/zjcd/mljdz/sj/t932856.shtml"
+      ]
+    },
+    {
+      "id": "china-ceramics-museum",
+      "type": "place",
+      "names": {
+        "zh-Hans": "景德镇中国陶瓷博物馆",
+        "en": "Jingdezhen China Ceramics Museum"
+      },
+      "summary": {
+        "zh-Hans": "景德镇中国陶瓷博物馆是一座陶瓷专题博物馆，前身为景德镇陶瓷馆。馆藏涵盖多个历史时期，展示景德镇制瓷历史中的代表性品种。",
+        "en": "This ceramics museum grew out of the former Jingdezhen Ceramics Museum. Its collection spans many periods and includes representative wares from Jingdezhen’s history of porcelain production."
+      },
+      "sources": [
+        "https://jdz.gov.cn/zjcd/mljdz/lylx/t932954.shtml",
+        "https://jdz.gov.cn/zjcd/mljdz/sj/t933002.shtml"
+      ]
+    },
+    {
+      "id": "lengfen",
+      "type": "food",
+      "names": {
+        "zh-Hans": "景德镇冷粉",
+        "en": "Jingdezhen Lengfen"
+      },
+      "summary": {
+        "zh-Hans": "景德镇冷粉使用较粗的圆米粉，煮好后拌入调料。配料可有辣椒、香葱和橘子皮等。",
+        "en": "Jingdezhen lengfen uses thick, round rice noodles tossed with seasonings after cooking. Additions can include chili, scallions and tangerine peel."
+      },
+      "sources": [
+        "https://jdz.gov.cn/zjcd/mljdz/ms/t932933.shtml",
+        "https://www.jdzzsq.gov.cn/qwgxlj/qtfdgkxx/gzdt/t1011802.shtml"
+      ]
+    },
+    {
+      "id": "jiaoziba",
+      "type": "food",
+      "names": {
+        "zh-Hans": "饺子粑",
+        "en": "Jiaoziba Rice Dumplings"
+      },
+      "summary": {
+        "zh-Hans": "饺子粑是外形似饺子的景德镇米制小吃，用米粉皮包入熟制馅料，通常蒸熟。常见馅料有韭菜豆干、萝卜丝虾米等。",
+        "en": "Jiaoziba are Jingdezhen snacks shaped like dumplings, with rice-flour wrappers and cooked fillings, usually steamed. Fillings include chives with dried tofu or shredded radish with dried shrimp."
+      },
+      "sources": [
+        "https://www.jdz.gov.cn/zjcd/mljdz/ms/t932930.shtml",
+        "https://www.jdzzsq.gov.cn/qwgxlj/qtfdgkxx/gzdt/t1011802.shtml"
+      ]
+    }
+  ]
+}

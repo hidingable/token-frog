@@ -1,0 +1,98 @@
+[
+  {
+    "id": "kyoto.menu.yudofu",
+    "kind": "menu",
+    "cityId": "kyoto",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "汤豆腐手绘菜单",
+      "en": "Yudofu Menu Sketch"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在京都吃汤豆腐后画的菜单，小蘸碟比锅还大。",
+      "en": "Drawn after yudofu in Kyoto. The little dipping dish somehow grew larger than the pot."
+    }
+  },
+  {
+    "id": "kyoto.menu.yuba",
+    "kind": "menu",
+    "cityId": "kyoto",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "汤叶手绘菜单",
+      "en": "Yuba Menu Sketch"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在京都画的汤叶菜单，薄薄的层次像叠好的信纸。",
+      "en": "A Kyoto yuba sketch whose delicate layers remind the messenger of folded letter paper."
+    }
+  },
+  {
+    "id": "kyoto.stage-slip",
+    "kind": "souvenir",
+    "cityId": "kyoto",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小纸上的远景",
+      "en": "View on a Small Slip"
+    },
+    "descriptions": {
+      "zh-Hans": "信使离开清水寺后补画的京都远景，边上留着一个很努力的长方形。",
+      "en": "A Kyoto view filled in after leaving Kiyomizu-dera, with one very ambitious rectangle at the edge."
+    }
+  },
+  {
+    "id": "kyoto.pot-note",
+    "kind": "souvenir",
+    "cityId": "kyoto",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小锅座位便签",
+      "en": "A Seat for the Pot"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在京都吃饭时画的草稿，小锅旁边留着给蘸碟的位置。",
+      "en": "A lunch doodle from Kyoto, leaving room beside a little pot for its dipping dish."
+    }
+  },
+  {
+    "id": "kyoto.sound-lines",
+    "kind": "souvenir",
+    "cityId": "kyoto",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "记声音的线",
+      "en": "Lines for a Sound"
+    },
+    "descriptions": {
+      "zh-Hans": "信使离开二条城后和旅人各画的一条线，想记住廊道地板的鸣响。",
+      "en": "Two lines drawn after a visit to Nijo-jo, an attempt to remember the corridor floor’s chirp."
+    }
+  },
+  {
+    "id": "kyoto.shared-sound-card",
+    "kind": "souvenir",
+    "cityId": "kyoto",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "接起来的声音便签",
+      "en": "Joined Sound Drawing"
+    },
+    "descriptions": {
+      "zh-Hans": "信使和旅人重遇时接好的原创便签，记着二条城的一段声音，也记着两次见面。",
+      "en": "An original note joined together at a second meeting: a paper memory of Nijo-jo and of seeing someone again."
+    }
+  }
+]

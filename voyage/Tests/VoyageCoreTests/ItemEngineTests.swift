@@ -155,7 +155,7 @@ private func triggerSeed(letterId: Int = 1, triggered: Bool = true) -> UInt32 {
             #expect(journey.letters.last?.rewards.menuIds == [menu.id])
         }
         #expect(care.menus == [.init(id: menu.id, letterId: 1)])
-        #expect(care.souvenirs.count == 2)
+        #expect(care.souvenirs.count + care.trailClues.values.reduce(0, +) == 2)
         #expect(care.souvenirs.allSatisfy { !$0.shelved })
     }
 
@@ -301,7 +301,10 @@ private func triggerSeed(letterId: Int = 1, triggered: Bool = true) -> UInt32 {
             #expect(care.habits == .init() && letter.itemTriggered == false)
             results.append(letter)
         }
-        #expect(results[0].rewards == results[1].rewards)
+        #expect(results[0].rewards.itemIds == results[1].rewards.itemIds)
+        #expect(results[0].rewards.dropRarity == results[1].rewards.dropRarity)
+        #expect(results[0].rewards.duplicateClueCityId == results[1].rewards.duplicateClueCityId)
+        // The dry-day local meal can also grant a menu; a generic rain story does not.
     }
 
     @Test func savedCarryTriggerAndRewardsRepairCareWithoutDrawingAgain() throws {

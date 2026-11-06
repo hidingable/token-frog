@@ -1,0 +1,98 @@
+[
+  {
+    "id": "jingdezhen.menu-lengfen",
+    "kind": "menu",
+    "cityId": "jingdezhen",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "冷粉手绘菜单",
+      "en": "Lengfen Sketch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在景德镇吃过冷粉后画的菜单。粗圆的米粉旁边，一小片橘子皮被我画得太大，只好补个小碗作比较。",
+      "en": "My menu after trying lengfen in Jingdezhen. The thick noodles share the page with an oversized tangerine-peel sketch and a little bowl added for scale."
+    }
+  },
+  {
+    "id": "jingdezhen.menu-jiaoziba",
+    "kind": "menu",
+    "cityId": "jingdezhen",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "饺子粑手绘菜单",
+      "en": "Jiaoziba Sketch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在景德镇吃过韭菜豆干馅饺子粑后凭记忆画的菜单。多画出来的那一个戴着邮差帽，是我临时安排的菜单看守员。",
+      "en": "Drawn from memory after chive-and-tofu jiaoziba in Jingdezhen. The extra dumpling in a postal cap is my newly appointed menu guard."
+    }
+  },
+  {
+    "id": "jingdezhen.arch-paper-pattern",
+    "kind": "souvenir",
+    "cityId": "jingdezhen",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "拱券练习纸样",
+      "en": "Paper Vault Rehearsal"
+    },
+    "descriptions": {
+      "zh-Hans": "看过景德镇御窑博物馆后，我自己折的弧形纸样。它的折痕有点歪，站起来的每一小会儿都值得记一笔。",
+      "en": "A little curved paper model I folded after seeing Jingdezhen’s Imperial Kiln Museum. Its uneven creases make every brief standing performance worth recording."
+    }
+  },
+  {
+    "id": "jingdezhen.dumpling-count-slip",
+    "kind": "souvenir",
+    "cityId": "jingdezhen",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "饺子粑点数便签",
+      "en": "Dumpling Counting Slip"
+    },
+    "descriptions": {
+      "zh-Hans": "在景德镇吃完饺子粑，我给自己的菜单草稿点了一遍数。多出来的那一个有了邮差帽，这张便签记录了它的上岗。",
+      "en": "After jiaoziba in Jingdezhen, I counted the outlines on my menu draft. The extra one received a postal cap; this homemade slip records its appointment."
+    }
+  },
+  {
+    "id": "jingdezhen.outline-study",
+    "kind": "souvenir",
+    "cityId": "jingdezhen",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "器形弧线对照稿",
+      "en": "A Study of Remembered Curves"
+    },
+    "descriptions": {
+      "zh-Hans": "参观景德镇中国陶瓷博物馆后，我凭记忆画下几道器物轮廓。没有给它们编名字或年代，纸角只写着“今天记住的样子”。",
+      "en": "After Jingdezhen China Ceramics Museum, I drew a few remembered outlines. No invented names or dates, just “Shapes I remembered today” in the corner."
+    }
+  },
+  {
+    "id": "jingdezhen.arch-relay-paper",
+    "kind": "souvenir",
+    "cityId": "jingdezhen",
+    "rarity": "rare",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "三人接力纸隧道",
+      "en": "Three-Part Paper Tunnel"
+    },
+    "descriptions": {
+      "zh-Hans": "在景德镇御窑博物馆外，我和两位旅人各折一段纸样，拼出自己的歪隧道。入口的小邮包和出口的灯，是他们随手添给我的路标。",
+      "en": "Outside Jingdezhen’s Imperial Kiln Museum, two travelers and I each folded a section of our own crooked tunnel. They drew a mailbag and a light at opposite ends to show the way."
+    }
+  }
+]

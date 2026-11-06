@@ -1,0 +1,367 @@
+[
+  {
+    "id": "kyoto.arrival.stage-edge",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "kyoto",
+    "factIds": [
+      "kiyomizu"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "{city}的远景，比便签宽了一点。",
+      "en": "The view in {city} has outgrown my note slip."
+    },
+    "text": {
+      "zh-Hans": "我从清水寺的木舞台望向京都，想把远处的城装进一张便签。城太大，便签太小，最后只装下一个很努力的长方形。我把它留到离开寺院后才补画，明天看看能不能认出今天站的位置。",
+      "en": "From Kiyomizu-dera’s wooden stage, I tried fitting Kyoto onto a note slip. The city proved larger than my stationery. For now there is one ambitious rectangle, filled in after I left the temple. Tomorrow I will see if I can find where I was standing."
+    },
+    "replies": [
+      {
+        "id": "kyoto.arrival.stage-edge.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊画里漏了什么",
+          "en": "Talk about what missed the page"
+        }
+      },
+      {
+        "id": "kyoto.arrival.stage-edge.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "记住舞台边的视野",
+          "en": "Remember the view from the stage"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "kyoto.stage-slip"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "kyoto.arrival.chirping-line",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "kyoto",
+    "factIds": [
+      "nijo"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "{city}的声音，今天先用铅笔寄回来。",
+      "en": "Sending a sound from {city}, with some help from a pencil."
+    },
+    "text": {
+      "zh-Hans": "走过二条城二之丸御殿的廊道，脚下有细细的鸣响。离开后，我和一位同行的旅人各画了一条线，试着记下那个声音。我的线像一根面条，对方的像打了结的细绳。我们约好下次再比一比。",
+      "en": "The corridor floor at Ninomaru Palace gave a little chirp underfoot. After leaving, another visitor and I each drew a line to remember the sound. Mine resembled a noodle; theirs looked like tangled string. We agreed the two drawings needed another meeting."
+    },
+    "replies": [
+      {
+        "id": "kyoto.arrival.chirping-line.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旅人再添一条线",
+          "en": "Ask for one more sound line"
+        }
+      },
+      {
+        "id": "kyoto.arrival.chirping-line.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两条线的弯折",
+          "en": "Compare the bends in the lines"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "kyoto.sound-lines"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "kyoto.arrival.tofu-pause",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "kyoto",
+    "factIds": [
+      "yudofu"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "{city}的这一餐，菜单画得慢一点。",
+      "en": "Taking my time with a menu sketch in {city}."
+    },
+    "text": {
+      "zh-Hans": "吃汤豆腐时，我先把蘸汁碟画在菜单边上，等锅里的豆腐温温地送到碗里。画完才发现，碟子比锅还大。也许这张菜单只是特别重视配角。明天再给小锅找个好位置。",
+      "en": "Over yudofu, I sketched the dipping dish while the tofu warmed in its pot. On the finished menu the dish is larger than the pot. Perhaps my drawing has a soft spot for supporting characters. I will find the little pot a better seat tomorrow."
+    },
+    "replies": [
+      {
+        "id": "kyoto.arrival.tofu-pause.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊谁是菜单主角",
+          "en": "Discuss the star of the menu"
+        }
+      },
+      {
+        "id": "kyoto.arrival.tofu-pause.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把锅和小碟画齐",
+          "en": "Give pot and dish equal space"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "kyoto.pot-note"
+      ],
+      "menuIds": [
+        "kyoto.menu.yudofu"
+      ]
+    }
+  },
+  {
+    "id": "kyoto.arrival.yuba-fold",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "kyoto",
+    "factIds": [
+      "yuba"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "{city}的菜单里，多了一页薄薄的画。",
+      "en": "A delicate new page for my menu collection from {city}."
+    },
+    "text": {
+      "zh-Hans": "今天吃了汤叶，也就是豆浆加热后表面结出的薄膜。我在手绘菜单上画了一层又一层，后来才发现自己把它画成了叠好的信纸。倒也合适，我正想写一封薄薄的信。明天再给画里的信封找收件人。",
+      "en": "Today I tried yuba, the thin skin lifted from heated soy milk. My menu drawing acquired so many layers that it began to resemble folded letter paper. Convenient: I was planning a very small letter. Tomorrow its sketched envelope will need an address."
+    },
+    "replies": [
+      {
+        "id": "kyoto.arrival.yuba-fold.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊画中的收件人",
+          "en": "Choose the drawn letter’s recipient"
+        }
+      },
+      {
+        "id": "kyoto.arrival.yuba-fold.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看薄片的层次",
+          "en": "Look at the delicate layers"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "kyoto.menu.yuba"
+      ]
+    }
+  },
+  {
+    "id": "kyoto.fulfill.sound-postcard",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "kyoto",
+    "factIds": [
+      "nijo"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "kyoto.arrival.chirping-line.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，记声音的便签又长了一截。",
+      "en": "You wrote, “{reply}.” Our paper record of a sound has grown a little longer."
+    },
+    "text": {
+      "zh-Hans": "那位同行的旅人真的又添了一条线，把我们上次画的“面条”和“绳结”连在一起。我在旁边画了小小的邮包，给这张二条城记声音的纸一个寄信的位置。我们都没能画出声音，却多了一张舍不得折的便签。下次得带个宽一点的信封。",
+      "en": "My fellow visitor added a line joining our old noodle and knot. I drew a tiny mailbag beside them, giving this paper memory of Nijo-jo somewhere to post a letter. Neither of us captured the chirp, but now neither wants to fold the drawing. Next time I will bring a wider envelope."
+    },
+    "replies": [
+      {
+        "id": "kyoto.fulfill.sound-postcard.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "下次带个宽信封",
+          "en": "Bring a wider envelope next time"
+        }
+      },
+      {
+        "id": "kyoto.fulfill.sound-postcard.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意新旧线的接头",
+          "en": "Find where the old lines meet"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "kyoto.shared-sound-card"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "kyoto.arrival.meal-talkative",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "kyoto",
+    "factIds": [
+      "yudofu",
+      "yuba"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "{city}的这顿饭，留下两张菜单。",
+      "en": "Two menu sketches from a meal in {city}."
+    },
+    "text": {
+      "zh-Hans": "今天点了小份的汤豆腐，也尝了汤叶。我和邻座聊起两张手绘菜单，一张画锅和蘸碟，另一张画薄薄的豆浆皮。聊完才发现，两张纸被我挤在同一个信封里。我替它们分好座位，明天再来听它们说什么。",
+      "en": "Today I had a small serving of yudofu and tried yuba too. Over a chat with my neighbour, I drew a pot and dipping dish on one menu and delicate soy-milk skin on another. Both pages ended up squeezed into one envelope. They have separate seats now; conversation can resume tomorrow."
+    },
+    "replies": [
+      {
+        "id": "kyoto.arrival.meal-talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊两张菜单",
+          "en": "Talk about the two menus"
+        }
+      },
+      {
+        "id": "kyoto.arrival.meal-talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张画的不同",
+          "en": "Compare the two sketches"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "kyoto.menu.yudofu",
+        "kyoto.menu.yuba"
+      ]
+    }
+  },
+  {
+    "id": "kyoto.arrival.meal-observant",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "kyoto",
+    "factIds": [
+      "yudofu",
+      "yuba"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "{city}的这顿饭，留下两张菜单。",
+      "en": "Two menu sketches from a meal in {city}."
+    },
+    "text": {
+      "zh-Hans": "午饭尝了汤豆腐和汤叶。一个在热汤里温着，一个薄得让我想起信纸，我慢慢画了两张菜单。蘸碟在纸上很安静，汤叶的线却有点歪。我把歪线留下，明天再看看它像什么。",
+      "en": "Lunch was a little yudofu and yuba: tofu kept warm in broth, and a delicate skin that reminded me of letter paper. I took my time drawing two menus. The dipping dish sits very calmly; the yuba lines wander. I kept the wobbly one for tomorrow to explain."
+    },
+    "replies": [
+      {
+        "id": "kyoto.arrival.meal-observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊两张菜单",
+          "en": "Talk about the two menus"
+        }
+      },
+      {
+        "id": "kyoto.arrival.meal-observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张画的不同",
+          "en": "Compare the two sketches"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "kyoto.menu.yudofu",
+        "kyoto.menu.yuba"
+      ]
+    }
+  }
+]

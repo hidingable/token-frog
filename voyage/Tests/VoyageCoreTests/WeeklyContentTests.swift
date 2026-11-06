@@ -91,8 +91,8 @@ import Testing
         }
     }
 
-    @Test func allThirtyDedicatedAndEightHabitFulfillmentsHaveShortBilingualLearnedTexts() throws {
-        let dedicated = testCatalog.stories.all.filter { !$0.fulfills.isEmpty }
+    @Test func allThirtyGenericDedicatedAndEightHabitFulfillmentsHaveShortBilingualLearnedTexts() throws {
+        let dedicated = testCatalog.stories.all.filter { !$0.fulfills.isEmpty && $0.cityId == nil }
         let habits = testCatalog.stories.all.filter { $0.fulfillsHabit != nil }
         #expect(dedicated.count == 30 && habits.count == 8)
         for story in dedicated + habits {

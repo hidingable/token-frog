@@ -24,7 +24,7 @@ extension ContentSandbox {
             #expect(story.replies.count == 2)
             #expect(Set(story.replies.map(\.habit)) == ["talkative", "observant"])
             #expect(story.replies.allSatisfy { $0.text["zh-Hans"]!.count <= 12 })
-            #expect(story.rewards == .init() && story.factIds.isEmpty)
+            if story.cityId == nil { #expect(story.rewards == .init() && story.factIds.isEmpty) }
             for texts in [story.text] + (story.lead.map { [$0] } ?? []) + story.replies.map(\.text) {
                 let chinese = try #require(texts["zh-Hans"])
                 let english = try #require(texts["en"])
@@ -37,7 +37,7 @@ extension ContentSandbox {
 
     @Test func everyArrivalAndTransitReplyHasItsOwnGenericFulfillment() throws {
         let stories = testCatalog.stories.all
-        let replies = stories.filter { ["arrival", "transit"].contains($0.kind) && $0.requires.item == nil }.flatMap(\.replies)
+        let replies = stories.filter { ["arrival", "transit"].contains($0.kind) && $0.requires.item == nil && $0.cityId == nil }.flatMap(\.replies)
         #expect(replies.count == 30)
         let allReplyIds = stories.flatMap { $0.replies.map(\.id) }
         #expect(Set(allReplyIds).count == allReplyIds.count)
@@ -221,7 +221,11 @@ extension ContentSandbox {
         try original.write(to: second)
         #expect(ContentValidator.validate(directory: box.directory).contains { $0.rule == "storyID" })
         try FileManager.default.removeItem(at: second)
-        try box.edit { $0["facts"] = [["id": "window", "type": "place", "names": ["zh-Hans": "窗", "en": "Window"], "sources": ["https://en.wikipedia.org/wiki/Window"]]] }
+        try box.edit {
+            var facts = $0["facts"] as! [[String: Any]]
+            facts.append(["id": "window", "type": "place", "names": ["zh-Hans": "窗", "en": "Window"], "summary": ["zh-Hans": "测试用窗。", "en": "A test window."], "sources": ["https://en.wikipedia.org/wiki/Window"]])
+            $0["facts"] = facts
+        }
         var story = engineStory("local.fact", city: "shanghai")
         story.factIds = ["window"]
         try JSONEncoder().encode([story]).write(to: second)

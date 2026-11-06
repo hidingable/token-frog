@@ -1,0 +1,90 @@
+{
+  "wikidata": "Q4970",
+  "id": "hangzhou",
+  "status": "active",
+  "lat": 30.2519,
+  "lon": 120.1681,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tier": 1,
+  "tags": [
+    "lake",
+    "heritage",
+    "food"
+  ],
+  "level": "full",
+  "names": {
+    "zh-Hans": "杭州",
+    "en": "Hangzhou"
+  },
+  "wikipedia": {
+    "zh-Hans": "杭州市",
+    "en": "Hangzhou"
+  },
+  "facts": [
+    {
+      "id": "west-lake",
+      "type": "place",
+      "names": {
+        "zh-Hans": "西湖",
+        "en": "West Lake"
+      },
+      "summary": {
+        "zh-Hans": "杭州西湖文化景观由西湖及三面环绕的群山组成，湖中有堤道和人工岛。它于2011年列入《世界遗产名录》。",
+        "en": "The West Lake cultural landscape includes the lake, hills on three sides, causeways and artificial islands. It joined the World Heritage List in 2011."
+      },
+      "sources": [
+        "https://whc.unesco.org/en/list/1334/",
+        "https://whc.unesco.org/en/news/767"
+      ]
+    },
+    {
+      "id": "tea-museum-longjing",
+      "type": "place",
+      "names": {
+        "zh-Hans": "中国茶叶博物馆龙井馆区",
+        "en": "China National Tea Museum, Longjing Branch"
+      },
+      "summary": {
+        "zh-Hans": "中国茶叶博物馆以茶和茶文化为主题。龙井馆区位于翁家山，依山而建，周围有茶园。",
+        "en": "The China National Tea Museum explores tea and tea culture. Its Longjing branch is built on a hillside at Wengjiashan, surrounded by tea gardens."
+      },
+      "sources": [
+        "https://www.teamuseum.cn/mobile/basicIntroduction.htm",
+        "https://www.teamuseum.cn/basicInfo/basicIntroduction.htm"
+      ]
+    },
+    {
+      "id": "longjing-shrimp",
+      "type": "food",
+      "names": {
+        "zh-Hans": "龙井虾仁",
+        "en": "Longjing Tea Shrimp"
+      },
+      "summary": {
+        "zh-Hans": "龙井虾仁是杭州地方菜，将虾仁与龙井茶的嫩芽一起烹制，成菜可见白色虾仁和绿色茶叶。",
+        "en": "This Hangzhou dish brings shrimp together with young Longjing tea leaves, pairing pale shrimp with green leaves on the plate."
+      },
+      "sources": [
+        "https://www.hzarchives.org.cn/info/6896",
+        "https://www.moe.gov.cn/jyb_xwfb/xw_zt/moe_357/jyzt_2019n/2019_zt28/2019_zt28_ssfw/2019_zt28_sszn/201910/P020191014410281546053.pdf"
+      ]
+    },
+    {
+      "id": "pianerchuan",
+      "type": "food",
+      "names": {
+        "zh-Hans": "片儿川",
+        "en": "Pian’erchuan Noodle Soup"
+      },
+      "summary": {
+        "zh-Hans": "片儿川是杭州的特色面食，以雪菜、笋片和肉片搭配面条。",
+        "en": "Pian’erchuan is a Hangzhou noodle soup made with preserved mustard greens, sliced bamboo shoots and sliced pork."
+      },
+      "sources": [
+        "https://www.hzarchives.org.cn/info/6937",
+        "https://hznews.hangzhou.com.cn/wghz/content/2024-10/11/content_8798872.htm"
+      ]
+    }
+  ]
+}

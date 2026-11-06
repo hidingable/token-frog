@@ -167,17 +167,19 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
         for story in testCatalog.stories.all {
             var (journey, care) = engineState(seed: 1)
             care.petName = "Pip 小信使"
+            care.habits.talkative = 10
+            care.habits.observant = 10
             if let item = story.requires.item { care.bag.owned = [item]; care.bag.todayItem = item }
             if story.kind == "fulfill" {
                 let origin = story.fulfills.first.flatMap { replyId in
                     testCatalog.stories.all.first { $0.replies.contains { $0.id == replyId } }
                 } ?? engineStory("origin")
-                journey.letters.append(engineLetter(1, arrivals: origin.kind == "transit" ? [] : ["shanghai"]))
+                journey.letters.append(engineLetter(1, arrivals: origin.kind == "transit" ? [] : [origin.cityId ?? "shanghai"], cityId: origin.cityId ?? "shanghai"))
                 CareEngine.process(journey: &journey, care: &care, stories: .init(stories: [origin]), catalog: catalog)
                 let replyId = story.fulfills.first ?? origin.replies.first { $0.habit == story.fulfillsHabit }!.id
                 CareEngine.reply(letterId: 1, replyId: replyId, date: "later", journey: &journey, care: &care)
             }
-            journey.letters.append(engineLetter(story.kind == "fulfill" ? 2 : 1, arrivals: story.kind == "transit" ? [] : ["shanghai"]))
+            journey.letters.append(engineLetter(story.kind == "fulfill" ? 2 : 1, arrivals: story.kind == "transit" ? [] : [story.cityId ?? "shanghai"], cityId: story.cityId ?? "shanghai"))
             CareEngine.process(journey: &journey, care: &care, stories: .init(stories: [story]), catalog: catalog)
             let letter = journey.letters.last!
             #expect(letter.storyId == story.id)
@@ -200,16 +202,19 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
         for origin in stories.all where ["arrival", "transit"].contains(origin.kind) {
             for reply in origin.replies {
                 var (journey, care) = engineState(seed: 1)
+                care.habits.talkative = 10
+                care.habits.observant = 10
                 if let item = origin.requires.item { care.bag.owned = [item]; care.bag.todayItem = item }
-                journey.letters.append(engineLetter(1, arrivals: origin.kind == "transit" ? [] : ["shanghai"]))
+                journey.letters.append(engineLetter(1, arrivals: origin.kind == "transit" ? [] : [origin.cityId ?? "shanghai"], cityId: origin.cityId ?? "shanghai"))
                 CareEngine.process(journey: &journey, care: &care, stories: .init(stories: [origin]), catalog: catalog)
                 #expect(CareEngine.reply(letterId: 1, replyId: reply.id, date: "later", journey: &journey, care: &care))
                 // A payoff must work even when the next letter is written on the road.
-                journey.letters.append(engineLetter(2, arrivals: []))
+                journey.letters.append(engineLetter(2, arrivals: [], cityId: origin.cityId ?? "shanghai"))
                 CareEngine.process(journey: &journey, care: &care, stories: stories, catalog: catalog)
                 let letter = try #require(journey.letters.last)
                 let payoff = try #require(stories.all.first { $0.id == letter.storyId })
-                if origin.requires.item == nil {
+                let hasDedicatedPayoff = stories.all.contains { $0.fulfills == [reply.id] && ($0.cityId == nil || $0.cityId == origin.cityId) }
+                if hasDedicatedPayoff {
                     #expect(payoff.fulfills == [reply.id] && payoff.fulfillsHabit == nil)
                 } else {
                     #expect(payoff.fulfills.isEmpty && payoff.fulfillsHabit == reply.habit)
@@ -220,6 +225,7 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
                     let template = try #require(payoff.text[language])
                     let expected = template.replacingOccurrences(of: "{pet}", with: care.petName)
                         .replacingOccurrences(of: "{reply}", with: replyText)
+                        .replacingOccurrences(of: "{city}", with: catalog.city(letter.cityId).names[language]!)
                     #expect(letter.texts?[language] == expected)
                     #expect(letter.leadTexts[language]?.contains(replyText) == true)
                 }
@@ -228,7 +234,7 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
                     var continuedCare = care
                     #expect(CareEngine.reply(letterId: 2, replyId: followUp.id, date: "later", journey: &continuedJourney, care: &continuedCare))
                     for id in 3...5 {
-                        continuedJourney.letters.append(engineLetter(id, arrivals: []))
+                        continuedJourney.letters.append(engineLetter(id, arrivals: [], cityId: origin.cityId ?? "shanghai"))
                         CareEngine.process(journey: &continuedJourney, care: &continuedCare, stories: stories, catalog: catalog)
                         guard let next = continuedJourney.letters.last, next.fulfilledReplyId != nil else { continue }
                         let template = try #require(stories.all.first { $0.id == next.storyId })
@@ -249,7 +255,8 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
         let box = try ContentSandbox()
         defer { box.cleanUp() }
         let source = "https://en.wikipedia.org/wiki/Window"
-        try box.edit { $0["facts"] = [["id": "window", "type": "place", "names": ["zh-Hans": "窗", "en": "Window"], "sources": [source]]] }
+        let summary = ["zh-Hans": "测试用窗。", "en": "A test window."]
+        try box.edit { $0["facts"] = [["id": "window", "type": "place", "names": ["zh-Hans": "窗", "en": "Window"], "sources": [source], "summary": summary]] }
         var story = engineStory("local.snapshot", city: "shanghai")
         story.factIds = ["window"]
         story.rewards.itemIds = [testCatalog.items.all.first { $0.kind == "souvenir" }!.id]
@@ -258,11 +265,14 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
         let catalog = try CityCatalog.load(directory: box.directory)
         var (journey, care) = engineState()
         journey.letters.append(engineLetter(1))
-        CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
+        CareEngine.process(journey: &journey, care: &care, stories: .init(stories: [story]), catalog: catalog)
         let snapshot = journey.letters[1]
         #expect(snapshot.storyVersion == 1 && snapshot.rewards.itemIds.count == 1 && snapshot.rewards.dropRarity != nil)
         #expect(snapshot.facts.first?.names == ["zh-Hans": "窗", "en": "Window"])
         #expect(snapshot.facts.first?.sources == [source])
+        #expect(snapshot.facts.first?.summary == summary)
+        let encoded = try JSONEncoder().encode(journey)
+        #expect(try JSONDecoder().decode(JourneyState.self, from: encoded).letters[1].facts == snapshot.facts)
         story.version = 2
         story.text = ["zh-Hans": "新的文字", "en": "Replacement body"]
         story.replies[0].text = ["zh-Hans": "改过的回应", "en": "Edited reply"]

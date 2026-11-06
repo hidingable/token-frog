@@ -1,0 +1,418 @@
+[
+  {
+    "id": "quanzhou.arrival.tower-margins",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "quanzhou",
+    "factIds": [
+      "kaiyuan-temple"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天，信纸先给两座塔让了位置。",
+      "en": "Two towers needed a little more paper today."
+    },
+    "text": {
+      "zh-Hans": "到了泉州，我去看开元寺的东西塔。把镇国塔和仁寿塔画到同一张纸上时，第一座画得太大，第二座只好挤在纸边。我给纸边接了一小条空白，两座总算都站稳了。明天再看看，中间那块空地方该留给谁。",
+      "en": "I went to see the twin pagodas at Kaiyuan Temple in Quanzhou. Zhenguo took up so much of my sketch that Renshou nearly fell off the edge. An extra strip of paper gave both a place to stand. Tomorrow I will consider the very important question of what belongs in between."
+    },
+    "replies": [
+      {
+        "id": "quanzhou.arrival.tower-margins.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问同行人想添什么",
+          "en": "Ask a fellow visitor what to add"
+        }
+      },
+      {
+        "id": "quanzhou.arrival.tower-margins.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两座塔之间的空白",
+          "en": "Study the space between the towers"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "quanzhou.tower-margin-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "quanzhou.arrival.bridge-envelope",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "quanzhou",
+    "factIds": [
+      "luoyang-bridge"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我在桥边认出一个像信封角的形状。",
+      "en": "A bridge pier reminded me of an envelope."
+    },
+    "text": {
+      "zh-Hans": "在洛阳桥边，我留意到桥墩朝着上游的一头尖尖的，像信封伸出了一个角。那是船形的分水尖。我在便纸上各画了一个，又给信封画上小腿；桥墩没有跟来，信封倒像随时要出发了。明天给它补个邮包。",
+      "en": "Beside Luoyang Bridge, I noticed a pointed upstream end on a pier. The boat-shaped cutwater went onto my paper beside an envelope corner. Then I gave the envelope legs. The pier stayed sensible, but the envelope now looks ready to leave. A mailbag is next on the drawing list."
+    },
+    "replies": [
+      {
+        "id": "quanzhou.arrival.bridge-envelope.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人给纸上的信封起名",
+          "en": "Invite someone to name the envelope"
+        }
+      },
+      {
+        "id": "quanzhou.arrival.bridge-envelope.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再比较一下两个尖角",
+          "en": "Compare the two pointed shapes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "quanzhou.bridge-point-study"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "quanzhou.arrival.mianxian-menu",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "quanzhou",
+    "factIds": [
+      "mianxianhu"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一碗面线糊，让我的小菜单开张了。",
+      "en": "A bowl of mee sua soup opened my little menu."
+    },
+    "text": {
+      "zh-Hans": "我在泉州吃了一碗面线糊，还选了一颗卤蛋。细面线藏在汤里，画菜单时却不能把它们全省掉。我先画碗，再添了几根细线，最后把卤蛋画得像个等着盖章的小圆包。菜单收好了，明天要看看它和邮包像不像。",
+      "en": "My bowl of mee sua soup in Quanzhou came with a braised egg. The fine noodles were harder to put on my little menu than the bowl was. A few lines helped; the egg ended up looking like a round parcel awaiting a stamp. I have packed the drawing for a comparison with the mailbag tomorrow."
+    },
+    "replies": [
+      {
+        "id": "quanzhou.arrival.mianxian-menu.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问邻座给菜单起什么名",
+          "en": "Ask a neighbor to name the drawing"
+        }
+      },
+      {
+        "id": "quanzhou.arrival.mianxian-menu.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找画里的细面线",
+          "en": "Find the fine noodles in the sketch"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "quanzhou.menu-mianxianhu"
+      ]
+    }
+  },
+  {
+    "id": "quanzhou.arrival.runbing-practice",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "quanzhou",
+    "factIds": [
+      "runbing"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午饭卷好了，纸上的练习还没卷好。",
+      "en": "Lunch was neatly wrapped. My paper rehearsal was less tidy."
+    },
+    "text": {
+      "zh-Hans": "在泉州吃润饼菜，薄饼皮把熟菜和馅料卷在一起。我想把这一卷画进菜单，先拿干净便纸比了比折法。纸卷比吃的那卷胖，放在桌上还自己松开了。我画了个箭头提醒自己扶住它，明天再给纸卷安排一个小座位。",
+      "en": "The runbing I ate in Quanzhou held its cooked fillings inside a thin wrapper. I tried a clean sheet of paper to work out the shape for my menu. My version was much fatter and promptly unrolled on the table. A penciled arrow now says where to hold it. Tomorrow it may need a chair."
+    },
+    "replies": [
+      {
+        "id": "quanzhou.arrival.runbing-practice.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人看看纸卷怎么坐稳",
+          "en": "Ask someone how to seat the paper roll"
+        }
+      },
+      {
+        "id": "quanzhou.arrival.runbing-practice.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看纸卷从哪里松开",
+          "en": "Find where the roll comes undone"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "quanzhou.runbing-fold"
+      ],
+      "menuIds": [
+        "quanzhou.menu-runbing"
+      ]
+    }
+  },
+  {
+    "id": "quanzhou.arrival.shared-towers",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "quanzhou",
+    "factIds": [
+      "kaiyuan-temple"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天，有人愿意接着我的半张画往下画。",
+      "en": "Today someone took over where my drawing stopped."
+    },
+    "text": {
+      "zh-Hans": "看完开元寺的东西塔，我和两位歇脚的旅人聊起各自的画。我们用三张便纸接成一条：我画塔，他们给纸上的路添小小的行人。收笔时才发现，纸上的我比塔还忙，竟然出现了三次。大家把长纸留给了我，明天得找出哪个小身影背着真正的邮包。",
+      "en": "After seeing the twin pagodas at Kaiyuan Temple, I compared sketches with two travelers. We joined three sheets: I drew towers, and they supplied tiny people along our invented path. Somehow I appear three times, looking increasingly busy. They let me keep the strip. Tomorrow I will identify which little figure has my actual mailbag."
+    },
+    "replies": [
+      {
+        "id": "quanzhou.arrival.shared-towers.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给另外两个小身影起名",
+          "en": "Find names for the other two figures"
+        }
+      },
+      {
+        "id": "quanzhou.arrival.shared-towers.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找哪一个背着邮包",
+          "en": "Locate the figure with the mailbag"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "quanzhou.shared-tower-scroll"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "quanzhou.arrival.two-menus-chat",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "quanzhou",
+    "factIds": [
+      "mianxianhu",
+      "runbing"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两样都尝过了，我的菜单却多了一位小评委。",
+      "en": "I tried both dishes, and my menus acquired a small reviewer."
+    },
+    "text": {
+      "zh-Hans": "今天在泉州，我分两次尝了面线糊和润饼菜。一位同桌的旅人想看手绘菜单，我摊开两张，请对方猜哪张先画。没想到答案是“铅笔先饿了”，因为第一张的碗特别大。我把这句笑话记在背面，明天给铅笔也画一份午饭。",
+      "en": "Today in Quanzhou I tried mee sua soup and, later, runbing. A fellow traveler asked to see the two sketch menus, so I offered a challenge: which had I drawn first? “Your pencil got hungry first,” came the answer. The enormous bowl gave it away. I saved the joke on the back. Tomorrow the pencil gets a drawn lunch of its own."
+    },
+    "replies": [
+      {
+        "id": "quanzhou.arrival.two-menus-chat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问铅笔想吃哪一份",
+          "en": "Ask which lunch the pencil wants"
+        }
+      },
+      {
+        "id": "quanzhou.arrival.two-menus-chat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张画的大小",
+          "en": "Compare the scale of the two sketches"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "quanzhou.menu-mianxianhu",
+        "quanzhou.menu-runbing"
+      ]
+    }
+  },
+  {
+    "id": "quanzhou.arrival.two-menus-shapes",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "quanzhou",
+    "factIds": [
+      "mianxianhu",
+      "runbing"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的小菜单，一张圆，一张长。",
+      "en": "Today’s sketch menus came in round and long."
+    },
+    "text": {
+      "zh-Hans": "在泉州，我先尝了一小碗面线糊，后来又尝了一份润饼菜。给它们各画菜单时，圆碗和长长的一卷刚好把纸分成两边。我把两张画换了个位置，空白竟像多出一把椅子。明天要不要请纸上的铅笔坐坐，还得量量它的腿有多长。",
+      "en": "In Quanzhou, I tried a small bowl of mee sua soup and later a serving of runbing. Their separate menu drawings made a pleasing pair: one round bowl, one long roll. Swapping the sheets left a chair-shaped gap between them. Tomorrow I might invite a sketched pencil to sit there, once I work out how long its legs should be."
+    },
+    "replies": [
+      {
+        "id": "quanzhou.arrival.two-menus-shapes.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给纸上的椅子找位客人",
+          "en": "Find a guest for the paper chair"
+        }
+      },
+      {
+        "id": "quanzhou.arrival.two-menus-shapes.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪张画更靠近纸边",
+          "en": "Check which drawing hugs the edge"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "quanzhou.menu-mianxianhu",
+        "quanzhou.menu-runbing"
+      ]
+    }
+  },
+  {
+    "id": "quanzhou.fulfill.tower-blank",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "quanzhou",
+    "factIds": [
+      "kaiyuan-temple"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "quanzhou.arrival.tower-margins.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把那张接长的画又铺开了。",
+      "en": "Your suggestion, “{reply}”, brought out the extended sketch again."
+    },
+    "text": {
+      "zh-Hans": "开元寺东西塔中间那块空白，我终于决定先不画满。只在底下添了一个很小的邮包，远看几乎像标点。这样一来，两座塔有地方站，邮包也有地方歇脚。我把那张接长的纸重新折好，下一回打开时，看看小邮包有没有被折痕遮住。",
+      "en": "The empty space in my Kaiyuan twin-pagoda sketch now contains one tiny mailbag near the bottom, almost a punctuation mark. There is still room for the towers and somewhere for the bag to rest. I folded the extended sheet carefully. Next time I open it, we will see whether a crease has swallowed the little parcel."
+    },
+    "replies": [
+      {
+        "id": "quanzhou.fulfill.tower-blank.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给画里的邮包留句话",
+          "en": "Leave the sketched mailbag a message"
+        }
+      },
+      {
+        "id": "quanzhou.fulfill.tower-blank.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看折痕经过哪里",
+          "en": "Trace the creases across the page"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "quanzhou.tower-margin-note"
+      ],
+      "menuIds": []
+    }
+  }
+]

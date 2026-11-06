@@ -1,0 +1,371 @@
+[
+  {
+    "id": "suzhou.arrival.fan-outline",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "suzhou",
+    "factIds": [
+      "fan-pavilion"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "苏州的第一张速写，先从一个扇形开始。",
+      "en": "My first Suzhou sketch began with the shape of a fan."
+    },
+    "text": {
+      "zh-Hans": "拙政园水边的与谁同坐轩是扇形的，我把轮廓画在纸角。想连水里的倒影一起画，纸就显得太小了。我往左挪，邮包往右歪，像也想替我找角度。先留一半空白，明天把纸翻过来再试。",
+      "en": "The pavilion beside the water in the Humble Administrator’s Garden has a fan-shaped outline. I fitted it into a corner of my paper, but there was no room for the reflection. I shifted left; the mailbag leaned right, offering an opinion. I saved some blank space. Tomorrow I will try the other side."
+    },
+    "replies": [
+      {
+        "id": "suzhou.arrival.fan-outline.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问旁边的人喜欢哪个角度",
+          "en": "Ask a nearby visitor for a favorite angle"
+        }
+      },
+      {
+        "id": "suzhou.arrival.fan-outline.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "翻过纸再画一次",
+          "en": "Turn the sheet over and try again"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "suzhou.fan-outline"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "suzhou.arrival.courtyard-directions",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "suzhou",
+    "factIds": [
+      "suzhou-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天在苏州，我和另一位游客一起找路。",
+      "en": "Today in Suzhou, two visitors tried to give directions."
+    },
+    "text": {
+      "zh-Hans": "苏州博物馆的庭院里有池塘、假山和小桥。我和另一位游客互相问路，最后发现彼此指的是同一座小桥。我在余纸上画桥，他添上两个找路的我们，又把画留给我。桥倒画得很清楚，明天还得给我们补上朝向。",
+      "en": "Suzhou Museum brings a pond, rockwork and bridges into its courtyard. Another visitor and I exchanged directions before realizing we meant the same bridge. I drew it on spare paper; they added two puzzled travelers and let me keep the sketch. The bridge is clear enough. Tomorrow our little figures need arrows."
+    },
+    "replies": [
+      {
+        "id": "suzhou.arrival.courtyard-directions.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把两个人的问路故事讲一遍",
+          "en": "Retell the two-way directions"
+        }
+      },
+      {
+        "id": "suzhou.arrival.courtyard-directions.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看纸上的人朝着哪里",
+          "en": "Check which way the drawn travelers face"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "suzhou.courtyard-question"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "suzhou.arrival.noodle-loop",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "suzhou",
+    "factIds": [
+      "suzhou-noodles"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "苏州今天寄来一碗纸上的面。",
+      "en": "A paper bowl of Suzhou noodles is enclosed today."
+    },
+    "text": {
+      "zh-Hans": "今天吃了苏式汤面，碗里有面、有汤，也有浇头。我画菜单时先画碗，再让一根面条绕着纸走，没想到绕得比碗还大。另拿一张纸试画，它又在边上打了结。小菜单和这团线都收好了，明天想试试从碗外画进去。",
+      "en": "Today I had Suzhou soup noodles: noodles, broth and a topping sharing one bowl. On my menu, a single drawn noodle promptly grew larger than the bowl. A second attempt tied itself into a knot at the edge. I kept both. Tomorrow I might start outside the bowl and work inward."
+    },
+    "replies": [
+      {
+        "id": "suzhou.arrival.noodle-loop.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人猜猜这团线是什么",
+          "en": "Ask someone to identify the tangled line"
+        }
+      },
+      {
+        "id": "suzhou.arrival.noodle-loop.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找哪一圈绕出了碗",
+          "en": "Find the loop that escaped the bowl"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "suzhou.noodle-loop"
+      ],
+      "menuIds": [
+        "suzhou.menu.noodles"
+      ]
+    }
+  },
+  {
+    "id": "suzhou.arrival.fish-ears",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "suzhou",
+    "factIds": [
+      "squirrel-fish"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的菜名，让铅笔先跑偏了一会儿。",
+      "en": "The name of lunch led my pencil briefly astray."
+    },
+    "text": {
+      "zh-Hans": "今天吃到松鼠鳜鱼，鱼做成松鼠似的形状，浇着酸甜的汁。我画手绘菜单时，一不留神给它添了两只耳朵。赶紧另画一遍，把想象出来的耳朵留给纸边的小邮包。菜单这一张总算画对了，明天再想想邮包该怎么戴帽子。",
+      "en": "Lunch was squirrel-shaped mandarin fish with a sweet-and-sour sauce. Halfway through drawing the menu, I caught myself adding two squirrel ears. A fresh attempt sorted that out; the imaginary ears went onto a little mailbag in the margin. The menu is ready. Tomorrow comes the problem of fitting a hat over those ears."
+    },
+    "replies": [
+      {
+        "id": "suzhou.arrival.fish-ears.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给有耳朵的邮包起个名字",
+          "en": "Find a name for the mailbag with ears"
+        }
+      },
+      {
+        "id": "suzhou.arrival.fish-ears.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张鱼图哪里不同",
+          "en": "Compare the two fish drawings"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "suzhou.menu.squirrel-fish"
+      ]
+    }
+  },
+  {
+    "id": "suzhou.arrival.two-menus-chat",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "suzhou",
+    "factIds": [
+      "suzhou-noodles",
+      "squirrel-fish"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天在苏州，菜单旁边也留出了说话的位置。",
+      "en": "Today in Suzhou, the menus left room for a conversation."
+    },
+    "text": {
+      "zh-Hans": "我今天尝了小份苏式汤面，也尝了松鼠鳜鱼。画好两张菜单后，一位邻座问哪张是面，我指着那团绕来绕去的线。他替我在纸角画了个小碗，我则把鱼图递过去给他猜。两张菜单都收好了，明天再问问他看出了什么。",
+      "en": "Today I tried small portions of Suzhou soup noodles and squirrel-shaped mandarin fish. A neighbor looked at my two drawn menus and asked which was the noodles. I pointed to the tangled line. They added a little bowl in the corner, so I handed over the fish drawing for another guess. Both menus are ready; tomorrow I will ask what they saw."
+    },
+    "replies": [
+      {
+        "id": "suzhou.arrival.two-menus-chat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "听听邻座怎样描述鱼图",
+          "en": "Hear the neighbor describe the fish sketch"
+        }
+      },
+      {
+        "id": "suzhou.arrival.two-menus-chat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看小碗添在哪里最合适",
+          "en": "Find the right corner for the little bowl"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "suzhou.menu.noodles",
+        "suzhou.menu.squirrel-fish"
+      ]
+    }
+  },
+  {
+    "id": "suzhou.arrival.two-menus-details",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "suzhou",
+    "factIds": [
+      "suzhou-noodles",
+      "squirrel-fish"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "苏州今天的两张菜单，一个绕圈，一个翘尾。",
+      "en": "Today’s Suzhou menus have loops on one and a tail on the other."
+    },
+    "text": {
+      "zh-Hans": "今天试过小份苏式汤面和松鼠鳜鱼，我把它们各画在一张纸上。汤面那张先画碗，再留出浇头的位置；鱼那张画了松鼠似的轮廓，把酸甜的汁记在旁边。等收起菜单，才发现两张纸背面连着同一道铅笔印。明天试试把那道线接成一条路。",
+      "en": "After small tastes of Suzhou soup noodles and squirrel-shaped mandarin fish, I gave each its own sheet. The noodle drawing left room for the topping; the fish got its squirrel-like outline and a note about the sweet-and-sour sauce. Turning the menus over revealed one pencil mark continuing across both backs. Tomorrow that line might become a road."
+    },
+    "replies": [
+      {
+        "id": "suzhou.arrival.two-menus-details.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问这条路可以通向哪里",
+          "en": "Ask where the pencil road could lead"
+        }
+      },
+      {
+        "id": "suzhou.arrival.two-menus-details.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把背面那道线接起来",
+          "en": "Join the line across the two backs"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "suzhou.menu.noodles",
+        "suzhou.menu.squirrel-fish"
+      ]
+    }
+  },
+  {
+    "id": "suzhou.fulfill.two-sided-fan",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "suzhou",
+    "factIds": [
+      "fan-pavilion"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "suzhou.arrival.fan-outline.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我照着把那张扇亭草稿翻了一面。",
+      "en": "I followed your note, “{reply}”, and turned over the pavilion sketch."
+    },
+    "text": {
+      "zh-Hans": "纸背空着，我又画了一次与谁同坐轩。旁边一位旅人也在画，便和我换着添了几笔，还各替对方画上一只小邮包。他说这张折纸让我带走，自己在另一张纸上继续。现在两面都有风景，明天要试试怎样折才不会把邮包压住。",
+      "en": "The back was blank, ready for another view of the fan-shaped pavilion. A traveler sketching beside me traded a few pencil strokes, and we each added a little mailbag to the other drawing. They sent me off with the folded sheet and started another. Both sides now have a view. Tomorrow I need a fold that spares the bags."
+    },
+    "replies": [
+      {
+        "id": "suzhou.fulfill.two-sided-fan.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把两面速写介绍给别人",
+          "en": "Introduce both sides of the sketch"
+        }
+      },
+      {
+        "id": "suzhou.fulfill.two-sided-fan.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "试试不压到邮包的折法",
+          "en": "Find a fold that misses the little bags"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "suzhou.two-sided-fan"
+      ],
+      "menuIds": []
+    },
+    "learned": {
+      "zh-Hans": "翻一面还能看见新角度",
+      "en": "Another side can hold another view."
+    }
+  }
+]

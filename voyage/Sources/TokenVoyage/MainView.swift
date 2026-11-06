@@ -306,6 +306,10 @@ struct LetterView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(LetterComposer.localized(fact.names, l10n: l10n) ?? "").font(Theme.pixel())
                             .fixedSize(horizontal: false, vertical: true)
+                        if let summary = LetterComposer.localized(fact.summary, l10n: l10n) {
+                            Text(summary).font(.system(size: 14)).lineSpacing(4)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
                         ForEach(fact.sources, id: \.self) { source in
                             if let url = URL(string: source) {
                                 Link(l10n("letter.source", url.host ?? source), destination: url)

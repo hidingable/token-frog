@@ -213,7 +213,7 @@ public enum CareEngine {
         }
         letter.facts = story.factIds.map { id in
             let fact = city.facts.first { $0.id == id }!
-            return .init(id: fact.id, names: fact.names, sources: fact.sources)
+            return .init(id: fact.id, names: fact.names, sources: fact.sources, summary: fact.summary)
         }
     }
 }

@@ -1,0 +1,90 @@
+{
+  "id": "quanzhou",
+  "wikidata": "q68695",
+  "status": "active",
+  "lat": 24.902,
+  "lon": 118.578,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tier": 2,
+  "tags": [
+    "coast",
+    "heritage",
+    "food"
+  ],
+  "level": "full",
+  "names": {
+    "zh-Hans": "泉州",
+    "en": "Quanzhou"
+  },
+  "wikipedia": {
+    "zh-Hans": "泉州市",
+    "en": "Quanzhou"
+  },
+  "facts": [
+    {
+      "id": "kaiyuan-temple",
+      "type": "place",
+      "names": {
+        "zh-Hans": "开元寺东西塔",
+        "en": "Kaiyuan Temple Twin Pagodas"
+      },
+      "summary": {
+        "zh-Hans": "开元寺的东、西两侧分别立着镇国塔和仁寿塔，现存的两座石塔建于宋代。",
+        "en": "The stone pagodas on the east and west sides of Kaiyuan Temple are Zhenguo and Renshou. Both surviving towers date to the Song dynasty."
+      },
+      "sources": [
+        "https://www.quanzhou.gov.cn/lyb/lytj/rmjdtj/202202/t20220224_2699974.htm",
+        "https://www.quanzhou.gov.cn/gastronomy/ch/qzgk/syzc/202502/t20250211_3138589.htm"
+      ]
+    },
+    {
+      "id": "luoyang-bridge",
+      "type": "place",
+      "names": {
+        "zh-Hans": "洛阳桥",
+        "en": "Luoyang Bridge"
+      },
+      "summary": {
+        "zh-Hans": "洛阳桥是宋代修建的跨海石桥，位于洛阳江入海口。桥墩朝向上游的一侧设有船形分水尖，用来缓解水流的冲击。",
+        "en": "Built in the Song dynasty, Luoyang Bridge spans the estuary of the Luoyang River. Boat-shaped points on the upstream sides of its piers help ease the force of the current."
+      },
+      "sources": [
+        "https://www.quanzhou.gov.cn/zfb/xxgk/ztxxgk/ggwhty/whssml/202305/t20230516_2880600.htm",
+        "https://www.quanzhou.gov.cn/lyb/lyxw/202106/t20210608_2570349.htm"
+      ]
+    },
+    {
+      "id": "mianxianhu",
+      "type": "food",
+      "names": {
+        "zh-Hans": "面线糊",
+        "en": "Mee Sua Soup"
+      },
+      "summary": {
+        "zh-Hans": "泉州面线糊用细面线和高汤煮制，加入食用淀粉勾芡。食用时可搭配卤蛋、醋肉等熟食配料。",
+        "en": "Quanzhou mee sua soup combines fine noodles and stock, thickened with starch. Cooked toppings can include braised eggs and cu rou pork."
+      },
+      "sources": [
+        "https://scjgj.quanzhou.gov.cn/xxgk/zfxxgk/fdzdgknr/yzdgkdqtzfxx/202501/P020250102420793363849.pdf",
+        "https://www.quanzhou.gov.cn/gastronomy/ch/sqsm/prjy/202412/t20241231_3124877.htm"
+      ]
+    },
+    {
+      "id": "runbing",
+      "type": "food",
+      "names": {
+        "zh-Hans": "润饼菜",
+        "en": "Runbing"
+      },
+      "summary": {
+        "zh-Hans": "润饼菜用薄面饼皮包卷熟制的蔬菜、肉类等馅料。花生末、海苔等可作为辅料，馅料可按口味选择。",
+        "en": "Runbing wraps cooked vegetables, meat and other fillings in a thin flour wrapper. Crushed peanuts and seaweed are among the optional additions."
+      },
+      "sources": [
+        "https://www.quanzhou.gov.cn/lyb/tstc/tsxc/201910/t20191022_1931040.htm",
+        "https://www.quanzhou.gov.cn/gastronomy/ch/qzgk/yhzc/202412/t20241226_3122652.htm"
+      ]
+    }
+  ]
+}

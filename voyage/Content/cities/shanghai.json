@@ -8,9 +8,11 @@
   "continent": "asia",
   "tags": [
     "river",
+    "heritage",
+    "food",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "上海",
     "en": "Shanghai"
@@ -19,5 +21,70 @@
     "zh-Hans": "上海",
     "en": "Shanghai"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "bund",
+      "type": "place",
+      "names": {
+        "zh-Hans": "外滩",
+        "en": "The Bund"
+      },
+      "summary": {
+        "zh-Hans": "外滩位于黄浦江畔，沿岸保留着多种建筑风格的历史建筑群。",
+        "en": "The Bund is a waterfront area along the Huangpu River, lined with historic buildings in several architectural styles."
+      },
+      "sources": [
+        "https://english.shanghai.gov.cn/en-ScenicSpots/20231205/584672cc6d044eabb5f7f6fc9049a19f.html",
+        "https://www.meet-in-shanghai.net/en/nighttime-culture/bund-sightseeing-area-026252/"
+      ]
+    },
+    {
+      "id": "yuyuan",
+      "type": "place",
+      "names": {
+        "zh-Hans": "豫园",
+        "en": "Yuyuan Garden"
+      },
+      "summary": {
+        "zh-Hans": "豫园位于上海黄浦区，始建于明代，原为私人园林。园内有亭阁、山石和池水。",
+        "en": "Yuyuan in Shanghai’s Huangpu district began as a private garden in the Ming dynasty. Its landscape combines pavilions, rocks and ponds."
+      },
+      "sources": [
+        "https://english.shanghai.gov.cn/en-ScenicSpots/20231205/dc76893b94c248d195eaf7f4d44c6597.html",
+        "https://english.shanghai.gov.cn/en-Parks/20231222/c3dcc573f5204f39accea3b04e2c7205.html"
+      ]
+    },
+    {
+      "id": "nanxiang-xiaolongbao",
+      "type": "food",
+      "names": {
+        "zh-Hans": "南翔小笼",
+        "en": "Nanxiang Xiaolongbao"
+      },
+      "summary": {
+        "zh-Hans": "南翔小笼是上海嘉定南翔的特色点心，皮薄，馅中有鲜肉和汤汁，通常蒸熟食用。",
+        "en": "Nanxiang xiaolongbao are a specialty of Nanxiang in Shanghai’s Jiading district: steamed dumplings with thin wrappers, pork filling and broth."
+      },
+      "sources": [
+        "https://english.shanghai.gov.cn/en-SpecialtyFood/20260511/594d417a429d426e8442a47336c47574.html",
+        "https://english.shanghai.gov.cn/en-GlobalTasteinShanghai2026-LocalFlavors/20260316/00b0c6d1698d406c8d532a6e169e1a1e.html"
+      ]
+    },
+    {
+      "id": "shengjian",
+      "type": "food",
+      "names": {
+        "zh-Hans": "生煎",
+        "en": "Shengjian"
+      },
+      "summary": {
+        "zh-Hans": "生煎是上海常见的点心，用平底锅煎制，底部金黄酥脆。不同做法的面皮和汤汁有所不同。",
+        "en": "Shengjian are pan-fried buns widely eaten in Shanghai, with golden, crisp bases. Dough and broth vary between styles."
+      },
+      "sources": [
+        "https://english.shanghai.gov.cn/en-Snack-travelinshanghai/20231205/1b1c394feda144c283df2abd3e8b2cec.html",
+        "https://english.shanghai.gov.cn/en-GlobalTasteinShanghai2026-LocalFlavors/20260430/c012ba9f05414f3184be86244a03e950.html"
+      ]
+    }
+  ]
 }

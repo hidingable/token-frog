@@ -50,7 +50,8 @@ struct ContentSandbox {
     #expect(ContentValidator.validate(directory: contentDirectory).isEmpty)
     #expect((6500...7400).contains(testCatalog.active.count))
     #expect(testCatalog.all.map(\.id) == testCatalog.all.map(\.id).sorted())
-    #expect(testCatalog.all.allSatisfy { $0.status == "active" && $0.level == "basic" && $0.facts.isEmpty })
+    #expect(testCatalog.all.allSatisfy { $0.status == "active" && ["basic", "full"].contains($0.level) })
+    #expect(testCatalog.all.filter { $0.level == "basic" }.allSatisfy { $0.facts.isEmpty })
     #expect(testCatalog.all.allSatisfy { !$0.isPlaceholder })
     let tags = try JSONDecoder().decode([String].self, from: Data(contentsOf: contentDirectory.appendingPathComponent("tags.json")))
     #expect(Set(tags) == Set(["coast", "island", "mountain", "river", "lake", "desert", "capital", "heritage", "food", "art", "market", "nature"]))
@@ -93,7 +94,9 @@ struct ContentSandbox {
 @Test(arguments: [("heritage", 35), ("market", 20), ("art", 25), ("food", 25)])
 func broadTravelTagsStaySelective(tag: String, maximum: Int) {
     let count = testCatalog.all.filter { $0.tags.contains(tag) }.count
-    #expect(count <= maximum, "\(tag) covers \(count) cities; maximum is \(maximum)")
+    // The first sourced batch adds tags for six authored cities to the original budget.
+    let expandedMaximum = maximum + firstBatchCityIds.count
+    #expect(count <= expandedMaximum, "\(tag) covers \(count) cities; maximum is \(expandedMaximum)")
 }
 
 @Test func capitalTagsExcludeHistoricalCapitalsAndOtherGovernmentSeats() {
@@ -286,7 +289,11 @@ func validatorRejectsNonPublicFactSources(source: String) throws {
 @Test func validatorAcceptsASourcedBilingualFact() throws {
     let box = try ContentSandbox()
     defer { box.cleanUp() }
-    try box.edit { $0["facts"] = [["id": "river", "type": "place", "names": ["en": "Huangpu River", "zh-Hans": "黄浦江"], "sources": ["https://en.wikipedia.org/wiki/Huangpu_River"]]] }
+    try box.edit {
+        var facts = $0["facts"] as! [[String: Any]]
+        facts.append(["id": "river", "type": "place", "names": ["en": "Huangpu River", "zh-Hans": "黄浦江"], "summary": ["zh-Hans": "流经上海的河流。", "en": "A river flowing through Shanghai."], "sources": ["https://en.wikipedia.org/wiki/Huangpu_River"]])
+        $0["facts"] = facts
+    }
     #expect(ContentValidator.validate(directory: box.directory).isEmpty)
 }
 

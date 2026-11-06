@@ -8,9 +8,10 @@
   "continent": "asia",
   "tags": [
     "heritage",
-    "art"
+    "art",
+    "food"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "京都",
     "en": "Kyoto"
@@ -19,5 +20,70 @@
     "zh-Hans": "京都市",
     "en": "Kyoto"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "kiyomizu",
+      "type": "place",
+      "names": {
+        "zh-Hans": "清水寺",
+        "en": "Kiyomizu-dera"
+      },
+      "summary": {
+        "zh-Hans": "清水寺本堂前伸出的木造舞台由高大的木柱支撑，可眺望京都。清水寺是“古京都历史古迹”的组成部分。",
+        "en": "A wooden stage supported by tall pillars projects from Kiyomizu-dera’s Main Hall and overlooks Kyoto. The temple is part of the Historic Monuments of Ancient Kyoto World Heritage property."
+      },
+      "sources": [
+        "https://www.kiyomizudera.or.jp/en/learn/",
+        "https://whc.unesco.org/en/list/688/maps/"
+      ]
+    },
+    {
+      "id": "nijo",
+      "type": "place",
+      "names": {
+        "zh-Hans": "二条城二之丸御殿",
+        "en": "Ninomaru Palace at Nijo-jo"
+      },
+      "summary": {
+        "zh-Hans": "二条城的二之丸御殿由六栋相连的建筑组成。人走过廊道时，地板会因金属连接件与钉子摩擦而发出类似鸟鸣的声音。",
+        "en": "Nijo-jo’s Ninomaru Palace consists of six connected buildings. Its corridor floor chirps as metal clamps rub against nails when people walk over it."
+      },
+      "sources": [
+        "https://nijo-jocastle.city.kyoto.lg.jp/introduction/highlights/ninomaru/?lang=en",
+        "https://whc.unesco.org/en/list/688/maps/"
+      ]
+    },
+    {
+      "id": "yudofu",
+      "type": "food",
+      "names": {
+        "zh-Hans": "汤豆腐",
+        "en": "Yudofu"
+      },
+      "summary": {
+        "zh-Hans": "汤豆腐将豆腐放在热汤中温煮，再蘸调味汁食用，是京都有代表性的豆腐料理。",
+        "en": "Yudofu is a Kyoto tofu dish served warm from a simmering pot, with a dipping sauce alongside."
+      },
+      "sources": [
+        "https://kyoto.travel/en/food-and-drink/",
+        "https://www.japan.travel/en/destinations/kansai/kyoto/"
+      ]
+    },
+    {
+      "id": "yuba",
+      "type": "food",
+      "names": {
+        "zh-Hans": "汤叶",
+        "en": "Yuba"
+      },
+      "summary": {
+        "zh-Hans": "汤叶是加热豆浆时表面形成的薄膜，是京都料理中常见的食材，可以鲜食或加入锅物。",
+        "en": "Yuba is the thin skin that forms on heated soy milk. Used in Kyoto cuisine, it can be eaten fresh or added to hot pots."
+      },
+      "sources": [
+        "https://kyoto.travel/en/food-and-drink/",
+        "https://www.syoku-kyoto.com/en/ren-ding-burando/kyo-yuba"
+      ]
+    }
+  ]
 }

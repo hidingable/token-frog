@@ -1,0 +1,98 @@
+[
+  {
+    "id": "suzhou.menu.noodles",
+    "kind": "menu",
+    "cityId": "suzhou",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "苏式汤面手绘菜单",
+      "en": "Suzhou Noodle Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在苏州吃过汤面后画的菜单，旁边单画了一小格浇头。碗画得太圆，差点滚到纸边。",
+      "en": "A drawn menu from a bowl of soup noodles in Suzhou, with a separate little square for the topping. The bowl is so round it nearly rolls off the page."
+    }
+  },
+  {
+    "id": "suzhou.menu.squirrel-fish",
+    "kind": "menu",
+    "cityId": "suzhou",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "松鼠鳜鱼手绘菜单",
+      "en": "Squirrel Fish Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "吃过松鼠鳜鱼留下的手绘菜单。我把那道鱼画了两遍，第二遍总算没添上松鼠耳朵。",
+      "en": "A menu drawn after squirrel-shaped mandarin fish. It took two attempts to leave out the imaginary squirrel ears."
+    }
+  },
+  {
+    "id": "suzhou.fan-outline",
+    "kind": "souvenir",
+    "cityId": "suzhou",
+    "rarity": "common",
+    "icon": "fan",
+    "habit": null,
+    "names": {
+      "zh-Hans": "扇亭轮廓纸",
+      "en": "Fan Pavilion Outline"
+    },
+    "descriptions": {
+      "zh-Hans": "我在与谁同坐轩旁描的扇形轮廓，没有照着大小画。纸角还留着找角度时的小箭头。",
+      "en": "My small sketch of the fan-shaped pavilion, with an arrow in the corner from the search for a good angle. Very much not to scale."
+    }
+  },
+  {
+    "id": "suzhou.noodle-loop",
+    "kind": "souvenir",
+    "cityId": "suzhou",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "面条绕圈稿",
+      "en": "Noodle Loops"
+    },
+    "descriptions": {
+      "zh-Hans": "吃完苏式汤面，我想一笔画完一碗面。笔尖绕了很久，最后在纸边打了一个小结。",
+      "en": "After my Suzhou noodles, I tried drawing a whole bowl without lifting the pencil. The line eventually tied itself into a knot at the edge."
+    }
+  },
+  {
+    "id": "suzhou.courtyard-question",
+    "kind": "souvenir",
+    "cityId": "suzhou",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "庭院问路画",
+      "en": "Courtyard Directions"
+    },
+    "descriptions": {
+      "zh-Hans": "在苏州博物馆，我和另一位游客互相指路，最后把小桥和两个找路的自己都画在了余纸上。他把画送我留着。",
+      "en": "At Suzhou Museum, another visitor and I tried giving each other directions. Our spare-paper sketch ended up with a bridge and two lost-looking travelers; they gave it to me."
+    }
+  },
+  {
+    "id": "suzhou.two-sided-fan",
+    "kind": "souvenir",
+    "cityId": "suzhou",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "扇亭双面笺",
+      "en": "Two Views of a Fan"
+    },
+    "descriptions": {
+      "zh-Hans": "我和一位旅人在同一张折纸两面画下与谁同坐轩，各给对方添了一个小小的邮包。这是我们临时合作的速写，不是园里的印刷品。",
+      "en": "A traveler and I drew the pavilion on opposite sides of one folded sheet, then each added a tiny mailbag to the other drawing. Our own improvised sketch, rather than a garden print."
+    }
+  }
+]

@@ -196,9 +196,9 @@ private func pick(_ catalog: CityCatalog, seed: UInt32, currentCityId: String = 
         #expect(JourneyState(seed: 7, startCityId: "home", date: "2026-01-01", catalog: box.catalog).targetCityId == "a")
     }
 
-    @Test func honoluluGetsTheNearestFirstStopInTheExpandedCatalog() throws {
+    @Test func honoluluGetsTheNearestContentFirstStopInTheExpandedCatalog() throws {
         let home = testCatalog.city("honolulu")
-        let candidates = testCatalog.active.filter { $0.id != home.id }
+        let candidates = testCatalog.active.filter { $0.id != home.id && $0.level != "basic" }
         let nearest = try #require(candidates.min {
             let left = JourneyState.cost(from: home, to: $0)
             let right = JourneyState.cost(from: home, to: $1)

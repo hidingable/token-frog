@@ -53,6 +53,7 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
         public var id: String
         public var names: [String: String]
         public var sources: [String]
+        public var summary: [String: String]? = nil
     }
 
     public struct Place: Codable, Equatable, Sendable {

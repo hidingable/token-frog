@@ -1,0 +1,91 @@
+{
+  "wikidata": "Q42622",
+  "id": "suzhou",
+  "status": "active",
+  "lat": 31.3024,
+  "lon": 120.6181,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tier": 2,
+  "tags": [
+    "heritage",
+    "art",
+    "food"
+  ],
+  "level": "full",
+  "names": {
+    "zh-Hans": "苏州",
+    "en": "Suzhou"
+  },
+  "wikipedia": {
+    "zh-Hans": "苏州市",
+    "en": "Suzhou"
+  },
+  "facts": [
+    {
+      "id": "fan-pavilion",
+      "type": "place",
+      "names": {
+        "zh-Hans": "拙政园与谁同坐轩",
+        "en": "Fan Pavilion, Humble Administrator’s Garden"
+      },
+      "summary": {
+        "zh-Hans": "与谁同坐轩位于拙政园西部水边，平面呈扇形。轩内的门窗、石桌等也使用了扇形。",
+        "en": "Beside the water in the western part of the Humble Administrator’s Garden, this pavilion has a fan-shaped plan. Fan shapes also appear in its openings and stone table."
+      },
+      "sources": [
+        "https://dfzb.suzhou.gov.cn/dfzb/fzxh/201704/298ecfc1035f44b4b24ed541427af4d5.shtml",
+        "https://lhsr.sh.gov.cn/jnylwh/20200824/7cc5e5102094470b94a8f771808c1f53.html"
+      ]
+    },
+    {
+      "id": "suzhou-museum",
+      "type": "place",
+      "names": {
+        "zh-Hans": "苏州博物馆本馆",
+        "en": "Suzhou Museum, Main Museum"
+      },
+      "summary": {
+        "zh-Hans": "苏州博物馆本馆的新馆建筑由贝聿铭设计，于2006年开放。庭院将池塘、假山、小桥等园林元素融入博物馆空间。",
+        "en": "Designed by I. M. Pei and opened in 2006, the main museum’s newer building brings garden elements such as a pond, rockwork and bridges into the museum."
+      },
+      "sources": [
+        "https://dx.szmuseum.com/views/NewsDetails.aspx?guid=349a54de-f3f5-41bc-b86d-7c3488d3c0d6",
+        "https://dx.szmuseum.com/views/NewsDetails.aspx?guid=b217b8f4-9ae5-492d-b21e-334d72367947"
+      ]
+    },
+    {
+      "id": "suzhou-noodles",
+      "type": "food",
+      "names": {
+        "zh-Hans": "苏式汤面",
+        "en": "Suzhou Soup Noodles"
+      },
+      "summary": {
+        "zh-Hans": "苏式汤面由面条、面汤和浇头组合而成，浇头有焖肉、爆鱼等多种选择。",
+        "en": "Suzhou soup noodles combine noodles, broth and a choice of toppings, including braised pork and fried fish."
+      },
+      "sources": [
+        "https://szfy.wglj.suzhou.com.cn/fy-project/460",
+        "https://english.suzhou.gov.cn/szsenglish/szcuisine/202411/7485ed47cfad49848955e2e9f1a1f88d.shtml"
+      ]
+    },
+    {
+      "id": "squirrel-fish",
+      "type": "food",
+      "names": {
+        "zh-Hans": "松鼠鳜鱼",
+        "en": "Squirrel-Shaped Mandarin Fish"
+      },
+      "summary": {
+        "zh-Hans": "松鼠鳜鱼是苏州传统菜，鱼肉经刀工处理、炸制后呈松鼠状，再浇上酸甜的酱汁。",
+        "en": "A classic Suzhou dish, mandarin fish is cut and fried into a squirrel-like shape, then finished with a sweet-and-sour sauce."
+      },
+      "sources": [
+        "https://www.suzhou.gov.cn/szsrmzf/szyw/202402/6f388b3aa0e946c8a68023ad561d8a9a.shtml",
+        "https://english.suzhou.gov.cn/szsenglish/szcuisine/202411/7485ed47cfad49848955e2e9f1a1f88d.shtml",
+        "https://nyncj.suzhou.gov.cn/nlj/zwyw/202404/358ba821fabd4a8ea9f01b6e25abd1a7.shtml"
+      ]
+    }
+  ]
+}

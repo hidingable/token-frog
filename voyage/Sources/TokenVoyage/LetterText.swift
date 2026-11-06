@@ -11,8 +11,9 @@ struct LetterText: Equatable, Sendable {
 
 /// Story snapshots and legacy semantic templates both render in the current language.
 enum LetterComposer {
-    static func localized(_ texts: [String: String], l10n: L10n) -> String? {
-        [l10n.language.rawValue, "en", "zh-Hans"].lazy.compactMap { texts[$0] }.first { !$0.isEmpty }
+    static func localized(_ texts: [String: String]?, l10n: L10n) -> String? {
+        guard let texts else { return nil }
+        return [l10n.language.rawValue, "en", "zh-Hans"].lazy.compactMap { texts[$0] }.first { !$0.isEmpty }
     }
 
     static func place(for letter: Letter, l10n: L10n) -> Letter.Place? {

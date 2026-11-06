@@ -35,9 +35,9 @@ func engineState(seed: UInt32 = 7) -> (JourneyState, CareState) {
     )
 }
 
-func engineLetter(_ id: Int, arrivals: [String] = ["shanghai"], date: String = "2026-11-01") -> Letter {
+func engineLetter(_ id: Int, arrivals: [String] = ["shanghai"], date: String = "2026-11-01", cityId: String = "shanghai") -> Letter {
     Letter(
-        id: id, kind: .daily, date: date, pet: PetID(rawValue: "pigeon"), cityId: "shanghai",
+        id: id, kind: .daily, date: date, pet: PetID(rawValue: "pigeon"), cityId: cityId,
         transitTargetId: arrivals.isEmpty ? "xian" : nil, arrivals: arrivals, newCountries: [], fuel: 100,
         compareToMedianPercent: nil, vehicles: [.init(client: "codex", percent: 100)], isDeepVisit: false,
         deliverAt: Date(timeIntervalSince1970: 0)

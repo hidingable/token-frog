@@ -24,6 +24,7 @@ public struct City: Codable, Equatable, Sendable, Identifiable {
         public var type: String
         public var names: [String: String]
         public var sources: [String]
+        public var summary: [String: String]? = nil
     }
 
     public var id: String

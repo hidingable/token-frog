@@ -1,0 +1,98 @@
+[
+  {
+    "id": "quanzhou.menu-mianxianhu",
+    "kind": "menu",
+    "cityId": "quanzhou",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "面线糊手绘菜单",
+      "en": "Mee Sua Soup Sketch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在泉州吃过面线糊后画的小菜单。碗里留了几根细线，旁边那颗圆圆的是我选的卤蛋。",
+      "en": "My drawing after a bowl of mee sua soup in Quanzhou. A few fine lines stand for the noodles; the round parcel beside them is my braised egg."
+    }
+  },
+  {
+    "id": "quanzhou.menu-runbing",
+    "kind": "menu",
+    "cityId": "quanzhou",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "润饼菜手绘菜单",
+      "en": "Runbing Sketch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在泉州吃过润饼菜后留下的画。薄饼皮卷着馅料，我在旁边添了一个小箭头，提醒纸上的那卷别自己松开。",
+      "en": "Drawn after trying runbing in Quanzhou. The thin wrapper holds the fillings; an arrow asks my paper version to stay rolled up."
+    }
+  },
+  {
+    "id": "quanzhou.tower-margin-note",
+    "kind": "souvenir",
+    "cityId": "quanzhou",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "双塔接边便签",
+      "en": "Extra Room for Two Towers"
+    },
+    "descriptions": {
+      "zh-Hans": "我在泉州画开元寺东西塔时，把第一座画得太大，只好给纸边接一小条。这是我自己留的笨办法，倒让两座塔都有了位置。",
+      "en": "My Kaiyuan twin-pagoda sketch needed an extra strip after I drew the first tower too large. A homemade solution, with room for both at last."
+    }
+  },
+  {
+    "id": "quanzhou.runbing-fold",
+    "kind": "souvenir",
+    "cityId": "quanzhou",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "润饼折法练习纸",
+      "en": "Runbing Paper Rehearsal"
+    },
+    "descriptions": {
+      "zh-Hans": "在泉州吃润饼菜时，我用干净便纸比划了一回卷法。纸上没有配方，只有一个提醒自己扶住纸卷的箭头。",
+      "en": "A clean sheet I rolled while sketching runbing in Quanzhou. No recipe, just an arrow showing where my uncooperative paper needed a hand."
+    }
+  },
+  {
+    "id": "quanzhou.bridge-point-study",
+    "kind": "souvenir",
+    "cityId": "quanzhou",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "桥墩与信封速写",
+      "en": "Pier and Envelope Study"
+    },
+    "descriptions": {
+      "zh-Hans": "我在泉州洛阳桥边把分水尖和信封角画在一起。后来只给信封添了腿，免得纸上的桥也跟着出发。",
+      "en": "At Luoyang Bridge in Quanzhou, I drew a cutwater beside an envelope corner. Only the envelope received legs; the bridge had better stay put."
+    }
+  },
+  {
+    "id": "quanzhou.shared-tower-scroll",
+    "kind": "souvenir",
+    "cityId": "quanzhou",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "三人接画双塔长纸",
+      "en": "Three Travelers, One Long Sketch"
+    },
+    "descriptions": {
+      "zh-Hans": "在泉州，我和两位旅人把三张便纸接起来画开元寺东西塔。画中的小路是我们随手添的，三个背包小身影却都被说成是我。",
+      "en": "Two travelers and I joined three sheets after seeing the Kaiyuan twin pagodas in Quanzhou. We invented the little path ourselves, then somehow all three backpacked figures became me."
+    }
+  }
+]

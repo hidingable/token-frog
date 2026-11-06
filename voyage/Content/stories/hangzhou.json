@@ -1,0 +1,371 @@
+[
+  {
+    "id": "hangzhou.arrival.lake-fold",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hangzhou",
+    "factIds": [
+      "west-lake"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "到杭州了，我先给信纸留一点湖边的位置。",
+      "en": "A little room on the page for my first look at Hangzhou."
+    },
+    "text": {
+      "zh-Hans": "我在西湖边画堤道，刚画到转弯，纸就用完了。把纸折开，背面倒有一大片空白，邮包却先占了那个位置。我请它挪开一点，继续把线画过去。还缺一小段，明天带张更长的纸来试试。",
+      "en": "My sketch of a West Lake causeway reached a bend just as the paper ran out. There was room on the back, but the mailbag had claimed it. A small rearrangement let the line continue. One stretch is still missing. Tomorrow calls for a longer sheet."
+    },
+    "replies": [
+      {
+        "id": "hangzhou.arrival.lake-fold.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问旁边的人怎么接着画",
+          "en": "Ask a nearby sketcher how to continue"
+        }
+      },
+      {
+        "id": "hangzhou.arrival.lake-fold.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把背面的线也接起来",
+          "en": "Join the lines on the other side"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hangzhou.lake-fold"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "hangzhou.arrival.tea-question",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hangzhou",
+    "factIds": [
+      "tea-museum-longjing"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的问路纸，写着写着长出了叶子。",
+      "en": "Today my scrap of directions sprouted a leaf."
+    },
+    "text": {
+      "zh-Hans": "茶博龙井馆区建在山坡上，四周有茶园。参观后，我和另一位游客聊起随身带的杯子。我把杯口画成了问号，对方顺手添一笔，竟变成两片叶子。纸留给了我，杯子的话题还没讲完，明天再接着听。",
+      "en": "The tea museum’s Longjing branch sits on a hillside among tea gardens. After visiting, I got chatting with another visitor about the cups we carry. My drawing of a cup rim looked like a question mark; one extra stroke from them made it two leaves. I kept the paper. We still have cups to discuss tomorrow."
+    },
+    "replies": [
+      {
+        "id": "hangzhou.arrival.tea-question.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "再交换一个杯子的小故事",
+          "en": "Trade another small cup story"
+        }
+      },
+      {
+        "id": "hangzhou.arrival.tea-question.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看问号怎样变成叶子",
+          "en": "Follow the question mark into a leaf"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hangzhou.question-leaf"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "hangzhou.arrival.shrimp-seat",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hangzhou",
+    "factIds": [
+      "longjing-shrimp"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "杭州这一餐，茶叶也出现在盘子里。",
+      "en": "Tea turned up on the plate at lunch in Hangzhou."
+    },
+    "text": {
+      "zh-Hans": "今天吃了龙井虾仁，白色虾仁旁边是绿色茶叶。我在小菜单上照着画，虾仁很快排好，茶叶却总像在找座位。我索性给其中一片画了张小椅子，留在另一张纸上。菜单先寄给你，明天再替那把椅子找个桌子。",
+      "en": "Lunch was Longjing tea shrimp: pale shrimp with green tea leaves. The shrimp settled neatly into my drawn menu, while one leaf seemed to need its own seat. I gave it a tiny chair on a separate scrap. The menu is enclosed; tomorrow I may have to find that chair a table."
+    },
+    "replies": [
+      {
+        "id": "hangzhou.arrival.shrimp-seat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问别人会给谁留座位",
+          "en": "Ask who else deserves a little seat"
+        }
+      },
+      {
+        "id": "hangzhou.arrival.shrimp-seat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看茶叶和虾仁的颜色",
+          "en": "Look at the green beside the pale shrimp"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hangzhou.tea-seat-note"
+      ],
+      "menuIds": [
+        "hangzhou.menu.longjing-shrimp"
+      ]
+    }
+  },
+  {
+    "id": "hangzhou.arrival.noodle-corners",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hangzhou",
+    "factIds": [
+      "pianerchuan"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天在杭州，小菜单差点不够大。",
+      "en": "My little Hangzhou menu nearly ran out of room."
+    },
+    "text": {
+      "zh-Hans": "片儿川里有雪菜、笋片和肉片。我想给它们各画一个角落，面条却绕来绕去，把空白处全占了。只好把菜名写在碗外，像给这碗面挂了一块小牌子。菜单收好了，明天看看能不能一笔画完那些面条。",
+      "en": "Pian’erchuan brought preserved greens, bamboo shoots and pork to the noodle bowl. I gave each a corner on the menu, then the drawn noodles wandered into every spare space. The dish name had to sit outside the bowl like a tiny sign. Tomorrow I will try those loops without lifting the pencil."
+    },
+    "replies": [
+      {
+        "id": "hangzhou.arrival.noodle-corners.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请邻座给小菜单起个名字",
+          "en": "Ask a neighbor to name the little drawing"
+        }
+      },
+      {
+        "id": "hangzhou.arrival.noodle-corners.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "顺着线找面条的起点",
+          "en": "Find where the noodle line begins"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "hangzhou.menu.pianerchuan"
+      ]
+    }
+  },
+  {
+    "id": "hangzhou.arrival.two-menus-chat",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hangzhou",
+    "factIds": [
+      "longjing-shrimp",
+      "pianerchuan"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天在杭州，两顿小餐有了同一位听众。",
+      "en": "Two small meals in Hangzhou found one willing audience."
+    },
+    "text": {
+      "zh-Hans": "我分两顿尝了小份龙井虾仁和片儿川，晚些时候把两张手绘菜单摊给一位旅人看。他认出了碗，我却把盘子画得像个信封。我们给盘子添个圆边，总算能分清了。两张都寄给你，明天想问问他怎么画杯子。",
+      "en": "I tried small portions of Longjing tea shrimp and Pian’erchuan at separate meals, then showed the two drawn menus to another traveler. They recognized the bowl; my plate looked more like an envelope. We rounded its edges until the difference was clear. Both menus are enclosed. Tomorrow I will ask how they draw a cup."
+    },
+    "replies": [
+      {
+        "id": "hangzhou.arrival.two-menus-chat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "再聊聊怎样画一只杯子",
+          "en": "Talk about drawing a cup next"
+        }
+      },
+      {
+        "id": "hangzhou.arrival.two-menus-chat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比比碗和盘子的轮廓",
+          "en": "Compare the bowl and plate outlines"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "hangzhou.menu.longjing-shrimp",
+        "hangzhou.menu.pianerchuan"
+      ]
+    }
+  },
+  {
+    "id": "hangzhou.arrival.two-menus-details",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hangzhou",
+    "factIds": [
+      "longjing-shrimp",
+      "pianerchuan"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "杭州今天的两张菜单，大小刚好能并排。",
+      "en": "Today’s two Hangzhou menus fit neatly side by side."
+    },
+    "text": {
+      "zh-Hans": "今天分别尝过小份的片儿川和龙井虾仁，我画了两张小菜单。一张记下雪菜、笋片和肉片，另一张给白虾仁旁的绿茶叶点了颜色。两张靠在一起，盘子竟比碗还小。我在背面画个箭头提醒自己，明天再调整大小。",
+      "en": "After trying small portions of Pian’erchuan and Longjing tea shrimp at different meals, I drew a menu for each. Greens, bamboo shoots and pork went on one; green leaves beside pale shrimp went on the other. Put together, my plate was smaller than my bowl. There is an arrow on the back to remind me what needs adjusting tomorrow."
+    },
+    "replies": [
+      {
+        "id": "hangzhou.arrival.two-menus-details.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人看看菜单上的小箭头",
+          "en": "Show someone the arrow on the back"
+        }
+      },
+      {
+        "id": "hangzhou.arrival.two-menus-details.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张图该怎样排",
+          "en": "Try another arrangement for the drawings"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "hangzhou.menu.longjing-shrimp",
+        "hangzhou.menu.pianerchuan"
+      ]
+    }
+  },
+  {
+    "id": "hangzhou.fulfill.unfolding-lake",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "hangzhou",
+    "factIds": [
+      "west-lake"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "hangzhou.arrival.lake-fold.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把那张西湖草稿又拿了出来。",
+      "en": "Your suggestion, “{reply}”, sent me back to the folded West Lake sketch."
+    },
+    "text": {
+      "zh-Hans": "翻到背面，那段没画完的线还在。一位也在画画的旅人把自己的余纸靠过来，我们用两张纸接上了各自看到的一小段湖边。他又在中间添了只歪邮包，把整张长笺送给我。现在每次展开，都像邮包先走了一步；下次给它画条背带。",
+      "en": "The unfinished line was still waiting on the back. Another traveler slid a spare sketch beside mine, and we joined our little pieces of the lakeside. They drew a crooked mailbag between them and gave me the whole folded strip. Unfolding it makes the bag look a step ahead. Next time it needs a strap."
+    },
+    "replies": [
+      {
+        "id": "hangzhou.fulfill.unfolding-lake.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把拼画的故事讲给人听",
+          "en": "Tell someone how the drawings met"
+        }
+      },
+      {
+        "id": "hangzhou.fulfill.unfolding-lake.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看展开时哪条线先出现",
+          "en": "Watch which line appears first"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hangzhou.unfolding-lake"
+      ],
+      "menuIds": []
+    },
+    "learned": {
+      "zh-Hans": "画不下时可以翻一面",
+      "en": "A drawing can continue on the other side."
+    }
+  }
+]

@@ -249,6 +249,7 @@ private func mailUsage(_ day: String) -> DayDetail {
     @Test func contentFallbackOrderAndPetNamesArePreserved() {
         let en = L10n(language: .en)
         let zh = L10n(language: .zhHans)
+        #expect(LetterComposer.localized(nil, l10n: zh) == nil)
         #expect(LetterComposer.localized(["zh-Hans": "中文", "en": "English"], l10n: zh) == "中文")
         #expect(LetterComposer.localized(["en": "English"], l10n: zh) == "English")
         #expect(LetterComposer.localized(["zh-Hans": "中文"], l10n: en) == "中文")
@@ -356,10 +357,11 @@ private func mailUsage(_ day: String) -> DayDetail {
     }
 
     @Test func openingABaseCityLetterRequestsItsWikidataPlace() async throws {
+        let city = try #require(localizationCatalog.active.first { $0.level == "basic" && $0.wikipedia.isEmpty })
         let probe = MailEnrichmentProbe(succeeds: true)
         let fixture = try MailFixture(days: 1, enrichment: probe) { journey, _ in
-            journey.letters[1].cityId = "q68695"
-            journey.letters[1].arrivals = ["q68695"]
+            journey.letters[1].cityId = city.id
+            journey.letters[1].arrivals = [city.id]
             journey.letters[1].transitTargetId = nil
             journey.letters[1].enrichmentDone = true
         }
@@ -367,9 +369,9 @@ private func mailUsage(_ day: String) -> DayDetail {
         let model = fixture.model()
         await model.enrichPlace(letterId: 1)
         let query = try #require(await probe.queries.first)
-        #expect(query.city.id == "q68695")
+        #expect(query.city.id == city.id)
         #expect(query.city.wikipedia.isEmpty)
-        #expect(query.city.wikidata == "q68695")
+        #expect(query.city.wikidata == city.wikidata)
         #expect(query.includePlace && !query.includeWeather && !query.includePhoto)
         #expect(model.state?.letters[1].place["en"] != nil)
     }

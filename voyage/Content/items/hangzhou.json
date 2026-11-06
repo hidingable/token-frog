@@ -1,0 +1,98 @@
+[
+  {
+    "id": "hangzhou.menu.longjing-shrimp",
+    "kind": "menu",
+    "cityId": "hangzhou",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "龙井虾仁手绘菜单",
+      "en": "Longjing Shrimp Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在杭州吃过龙井虾仁后画的菜单。白色虾仁旁边点着几笔绿色，纸上也给茶叶留了座位。",
+      "en": "A menu drawn after a plate of Longjing tea shrimp in Hangzhou. Small green strokes have their own places among the pale shrimp."
+    }
+  },
+  {
+    "id": "hangzhou.menu.pianerchuan",
+    "kind": "menu",
+    "cityId": "hangzhou",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "片儿川手绘菜单",
+      "en": "Pian’erchuan Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在杭州吃过片儿川后画的小菜单。雪菜、笋片和肉片各占一角，面条绕了满满一圈。",
+      "en": "A little menu from a bowl of Pian’erchuan in Hangzhou. Greens, bamboo shoots and pork each get a corner; the noodles take the scenic route."
+    }
+  },
+  {
+    "id": "hangzhou.lake-fold",
+    "kind": "souvenir",
+    "cityId": "hangzhou",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "湖边折线稿",
+      "en": "Lakeside Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "我在西湖边画的堤道草稿，纸太小，线条一直画到折痕上。翻开另一面，空着的地方还很多。",
+      "en": "My causeway sketch from West Lake ran straight into a fold in the paper. Turn it over and there is still plenty of room."
+    }
+  },
+  {
+    "id": "hangzhou.tea-seat-note",
+    "kind": "souvenir",
+    "cityId": "hangzhou",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "茶叶小座位",
+      "en": "A Seat for a Tea Leaf"
+    },
+    "descriptions": {
+      "zh-Hans": "吃过龙井虾仁，我在余纸上给一片画出来的茶叶添了张椅子。这只是我的饭后涂鸦。",
+      "en": "After the Longjing shrimp, I drew a chair for a sketched tea leaf on spare paper. A small after-lunch invention."
+    }
+  },
+  {
+    "id": "hangzhou.question-leaf",
+    "kind": "souvenir",
+    "cityId": "hangzhou",
+    "rarity": "uncommon",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "叶片问号纸",
+      "en": "Leaf-Sized Question"
+    },
+    "descriptions": {
+      "zh-Hans": "逛完茶博龙井馆区，我和一位游客把同一个问号画成了两片叶子。他把这张问路纸留给了我。",
+      "en": "After the tea museum’s Longjing branch, another visitor and I turned one question mark into two leaves. They let me keep our scrap of directions."
+    }
+  },
+  {
+    "id": "hangzhou.unfolding-lake",
+    "kind": "souvenir",
+    "cityId": "hangzhou",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "展开的湖边长笺",
+      "en": "A Lake Unfolded"
+    },
+    "descriptions": {
+      "zh-Hans": "我和另一位旅人把两张西湖速写接在一起，添了同一只歪歪的小邮包。他留下了整张长笺，让那只邮包跟我继续走。",
+      "en": "Another traveler joined their West Lake sketch to mine. We added one very crooked mailbag, then they gave me the whole folded strip so it could keep traveling."
+    }
+  }
+]

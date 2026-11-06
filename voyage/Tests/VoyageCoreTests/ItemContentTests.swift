@@ -32,7 +32,7 @@ extension ContentSandbox {
         for (rarity, minimum) in [("common", 12), ("uncommon", 6), ("rare", 4)] {
             #expect(library.all.filter { $0.kind == "souvenir" && $0.cityId == nil && $0.rarity == rarity }.count >= minimum)
         }
-        #expect(!library.all.contains { $0.kind == "menu" }) // Sourced dishes arrive in step 11.
+        #expect(library.all.filter { $0.kind == "menu" }.count == 12)
         for item in library.all {
             #expect(testCatalog.pets.icons[item.icon] != nil)
             for texts in [item.names, item.descriptions] {

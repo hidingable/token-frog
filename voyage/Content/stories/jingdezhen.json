@@ -1,0 +1,418 @@
+[
+  {
+    "id": "jingdezhen.arrival.eight-paper-arches",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "jingdezhen",
+    "factIds": [
+      "imperial-kiln-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我还没画展品，先被博物馆的屋顶留住了。",
+      "en": "The museum roof kept my pencil busy before anything else."
+    },
+    "text": {
+      "zh-Hans": "到了景德镇，我在御窑博物馆外画那八个大小不一的拱券。画到一半，纸边先到了，后面的拱只好缩小一点。我又折了一张纸样，想让这排弧线立起来；它站稳的时间，刚好够我说一句“收到”。明天再试一次，看能不能多站一会儿。",
+      "en": "At the Imperial Kiln Museum in Jingdezhen, I began sketching the eight differently sized vaults and ran out of page halfway along. The remaining arches became very small. A folded paper version managed to stand just long enough for “Message received!” Tomorrow we shall attempt a longer performance."
+    },
+    "replies": [
+      {
+        "id": "jingdezhen.arrival.eight-paper-arches.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人替纸样报个到",
+          "en": "Invite someone to greet the paper model"
+        }
+      },
+      {
+        "id": "jingdezhen.arrival.eight-paper-arches.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪道折痕先弯下去",
+          "en": "Find the first fold that gives way"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "jingdezhen.arch-paper-pattern"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "jingdezhen.arrival.ceramic-outlines",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "jingdezhen",
+    "factIds": [
+      "china-ceramics-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "从博物馆出来，纸上多了一排没有名字的轮廓。",
+      "en": "I left the museum with a row of nameless outlines."
+    },
+    "text": {
+      "zh-Hans": "看完景德镇中国陶瓷博物馆，我把记住的器物轮廓画在便纸上。同一条弧线，收窄一点和放宽一点，就像换了一个表情。我没有给画编年代，只在下面标了“今天记住的样子”。明天重新打开，看看哪一条弧线最先认得我。",
+      "en": "After visiting Jingdezhen China Ceramics Museum, I drew the outlines I could remember. Narrowing one curve or widening it seemed to change its whole expression. I gave my drawings no dates, just the caption “Shapes I remembered today.” Tomorrow I wonder which curve will look familiar first."
+    },
+    "replies": [
+      {
+        "id": "jingdezhen.arrival.ceramic-outlines.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人也画一个记住的轮廓",
+          "en": "Ask someone for a remembered outline"
+        }
+      },
+      {
+        "id": "jingdezhen.arrival.ceramic-outlines.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较两条弧线的宽窄",
+          "en": "Compare the widths of two curves"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "jingdezhen.outline-study"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "jingdezhen.arrival.lengfen-question",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "jingdezhen",
+    "factIds": [
+      "lengfen"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一碗冷粉里，有一点让我多问了一句的香气。",
+      "en": "A bowl of noodles gave me one extra question."
+    },
+    "text": {
+      "zh-Hans": "我在景德镇吃冷粉，粗圆的米粉拌着调料，里面还有橘子皮。我问了问，便把这一小片也画进手绘菜单。画得太大，它差点成了碗里的主角。我在旁边补了个小碗，这才显出大小。明天看看，是不是该把整张菜单重画一遍。",
+      "en": "My lengfen in Jingdezhen had thick round rice noodles, seasonings and a little tangerine peel. After asking about that last addition, I put it on the sketch menu. I drew it so large it nearly took over lunch. A tiny bowl beside it restored some perspective. Tomorrow the menu may need a second edition."
+    },
+    "replies": [
+      {
+        "id": "jingdezhen.arrival.lengfen-question.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这张菜单起个名字",
+          "en": "Give the sketch menu a title"
+        }
+      },
+      {
+        "id": "jingdezhen.arrival.lengfen-question.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看橘子皮画得有多大",
+          "en": "Check the scale of that tangerine peel"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "jingdezhen.menu-lengfen"
+      ]
+    }
+  },
+  {
+    "id": "jingdezhen.arrival.jiaoziba-count",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "jingdezhen",
+    "factIds": [
+      "jiaoziba"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "蒸过的饺子粑上桌，我先把铅笔收远了一点。",
+      "en": "The steamed dumplings arrived, and the pencil took a short break."
+    },
+    "text": {
+      "zh-Hans": "在景德镇，我尝了米粉皮的饺子粑，选的是韭菜豆干馅。吃完才记起该画菜单，便照着记忆画了一排小轮廓，又在便签上数了一遍。数到最后，图上竟多了一个。我给多出来的那个画了邮差帽，明天它负责替我看住菜单。",
+      "en": "I tried steamed jiaoziba in Jingdezhen, with rice-flour wrappers and a chive-and-tofu filling. Only after eating did I remember the menu sketch. I drew a row from memory, counted them, and discovered an extra dumpling. That one now wears a postal cap. It can guard the menu tomorrow."
+    },
+    "replies": [
+      {
+        "id": "jingdezhen.arrival.jiaoziba-count.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "介绍一下戴帽子的饺子粑",
+          "en": "Introduce the dumpling in the postal cap"
+        }
+      },
+      {
+        "id": "jingdezhen.arrival.jiaoziba-count.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪个是多画的",
+          "en": "Identify the extra dumpling"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "jingdezhen.dumpling-count-slip"
+      ],
+      "menuIds": [
+        "jingdezhen.menu-jiaoziba"
+      ]
+    }
+  },
+  {
+    "id": "jingdezhen.arrival.arch-relay",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "jingdezhen",
+    "factIds": [
+      "imperial-kiln-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我的纸样今天请到了两位临时帮手。",
+      "en": "My paper model found two temporary assistants."
+    },
+    "text": {
+      "zh-Hans": "在御窑博物馆外歇脚时，我请两位旅人看那张总站不稳的拱券纸样。大家各折一段，再把三段排在一起，竟然凑成了一条歪歪的纸隧道。有人在入口画小邮包，另一个人给出口画了灯。临走他们把纸样交给我，明天看看邮包要走几步才到亮处。",
+      "en": "Resting outside the Imperial Kiln Museum, I showed two travelers my wobbly paper vault. We each folded a section and lined them up into a crooked paper tunnel. One traveler drew a mailbag at the entrance; the other added a light at the far end. They gave me the whole thing. Tomorrow I will count the bag’s tiny steps toward that light."
+    },
+    "replies": [
+      {
+        "id": "jingdezhen.arrival.arch-relay.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给小隧道约一句暗号",
+          "en": "Invent a password for the paper tunnel"
+        }
+      },
+      {
+        "id": "jingdezhen.arrival.arch-relay.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看灯画在哪一端",
+          "en": "Locate the light at the far end"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "jingdezhen.arch-relay-paper"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "jingdezhen.arrival.two-menus-chat",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "jingdezhen",
+    "factIds": [
+      "lengfen",
+      "jiaoziba"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两道小吃吃完，菜单又多聊了一会儿。",
+      "en": "Lunch finished before the menu conversation did."
+    },
+    "text": {
+      "zh-Hans": "在景德镇，我尝了小份冷粉，也吃了几个饺子粑。我把两张手绘菜单拿给邻座看，对方指着我画的粗米粉，说像一把排队的铅笔。我顺手给它们画了帽子，饺子粑那边也不能少。明天再看这支纸上的小队，谁会先把帽子戴歪。",
+      "en": "In Jingdezhen, I tried a small serving of lengfen and a few jiaoziba. My neighbor inspected both sketch menus and declared the thick rice noodles a queue of pencils. I drew hats on them, then supplied the dumplings with matching ones. Tomorrow we will find out which member of the paper team wears a hat sideways first."
+    },
+    "replies": [
+      {
+        "id": "jingdezhen.arrival.two-menus-chat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "替纸上的小队点个名",
+          "en": "Call the paper team’s roll"
+        }
+      },
+      {
+        "id": "jingdezhen.arrival.two-menus-chat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找哪顶帽子最歪",
+          "en": "Find the most crooked hat"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "jingdezhen.menu-lengfen",
+        "jingdezhen.menu-jiaoziba"
+      ]
+    }
+  },
+  {
+    "id": "jingdezhen.arrival.two-menus-lines",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "jingdezhen",
+    "factIds": [
+      "lengfen",
+      "jiaoziba"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天吃过的两样，给铅笔出了两道题。",
+      "en": "Two things I tasted set my pencil two small puzzles."
+    },
+    "text": {
+      "zh-Hans": "今天在景德镇，我尝了冷粉和饺子粑，各画了一张小菜单。粗圆米粉的线条绕来绕去，饺子粑的轮廓却挨个排着队。我把两张纸靠在一起，最边上的那根线像正要去队尾报到。明天打开菜单，再看看它有没有找对位置。",
+      "en": "Today in Jingdezhen I tried lengfen and jiaoziba and made a little menu for each. The thick round noodles became wandering lines; the dumpling outlines formed a tidy queue. With the sheets side by side, one noodle seemed about to join the end of that line. Tomorrow I will unfold the menus and check whether it found its place."
+    },
+    "replies": [
+      {
+        "id": "jingdezhen.arrival.two-menus-lines.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给新排队的线条打个招呼",
+          "en": "Welcome the line joining the queue"
+        }
+      },
+      {
+        "id": "jingdezhen.arrival.two-menus-lines.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张画在哪里接上",
+          "en": "Find where the two drawings meet"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "jingdezhen.menu-lengfen",
+        "jingdezhen.menu-jiaoziba"
+      ]
+    }
+  },
+  {
+    "id": "jingdezhen.fulfill.paper-arch-stands",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "jingdezhen",
+    "factIds": [
+      "imperial-kiln-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "jingdezhen.arrival.eight-paper-arches.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我就把御窑博物馆外折的纸样找了出来。",
+      "en": "After “{reply}”, I unpacked the paper model from outside the Imperial Kiln Museum."
+    },
+    "text": {
+      "zh-Hans": "那张拱券纸样的问题找到了：有一道折痕总想躺平。我顺着旧印重新折了一次，它终于能自己站着，旁边的邮包反倒歪了。我把两位都挪稳，给它们画了一张很小的合影。明天收纸样之前，再请它站一次。",
+      "en": "One crease in the paper vault had been trying to lie down all along. Refolding the old line finally let it stand by itself. Naturally, the mailbag chose that moment to lean over. I settled both and drew their very small portrait. Before packing the model tomorrow, I will request one last appearance."
+    },
+    "replies": [
+      {
+        "id": "jingdezhen.fulfill.paper-arch-stands.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请纸样和邮包互相问好",
+          "en": "Introduce the model and the mailbag"
+        }
+      },
+      {
+        "id": "jingdezhen.fulfill.paper-arch-stands.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看新的折痕是否站稳",
+          "en": "Watch the refolded crease hold"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "jingdezhen.arch-paper-pattern"
+      ],
+      "menuIds": []
+    }
+  }
+]

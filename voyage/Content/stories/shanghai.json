@@ -1,0 +1,367 @@
+[
+  {
+    "id": "shanghai.arrival.river-margin",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "shanghai",
+    "factIds": [
+      "bund"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "从{city}寄来，纸边还给江水留着位置。",
+      "en": "A little room for the river in this note from {city}."
+    },
+    "text": {
+      "zh-Hans": "我沿着外滩走，把黄浦江边的楼房画成一排小方块。旁边也在画画的旅人看了看，说我的邮包占了半张纸。我问这幅画该叫什么，对方还在想；明天也许能收到一个比画还长的名字。",
+      "en": "I tried drawing the Bund’s riverside buildings as a row of little boxes. A fellow sketcher noticed that my mailbag had somehow taken up half the page. I asked for a title. They are still thinking; tomorrow the title may need more paper than the picture."
+    },
+    "replies": [
+      {
+        "id": "shanghai.arrival.river-margin.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旅人给画起名",
+          "en": "Ask the sketcher for a title"
+        }
+      },
+      {
+        "id": "shanghai.arrival.river-margin.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看楼房的轮廓",
+          "en": "Look at the building outlines"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "shanghai.river-fold"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "shanghai.arrival.pond-corner",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "shanghai",
+    "factIds": [
+      "yuyuan"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "{city}的这张速写，最安静的地方还没画完。",
+      "en": "The quietest corner of this {city} sketch is unfinished."
+    },
+    "text": {
+      "zh-Hans": "我在豫园看亭阁、山石和池水，想在纸上给它们各留一个角落。画到池水时，铅笔自己先躺下来休息了。我只好把倒影留成一块空白。明天再看，也许这块空白反而最像。",
+      "en": "Pavilions, rocks, ponds: I gave each a corner of my Yuyuan sketch. The pencil lay down for a rest just as I reached the water. Its reflection is still a blank patch. Tomorrow I may decide that was the best part of the drawing."
+    },
+    "replies": [
+      {
+        "id": "shanghai.arrival.pond-corner.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊没画完的角落",
+          "en": "Talk about the unfinished corner"
+        }
+      },
+      {
+        "id": "shanghai.arrival.pond-corner.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留着那一块空白",
+          "en": "Keep that patch of blank paper"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "shanghai.pond-sketch"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "shanghai.arrival.steamer-circles",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "shanghai",
+    "factIds": [
+      "nanxiang-xiaolongbao"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "{city}的午饭，先在菜单上占几个小圆圈。",
+      "en": "A few small circles reserve lunch a place in my {city} notebook."
+    },
+    "text": {
+      "zh-Hans": "午饭吃了南翔小笼。薄皮里包着肉馅和汤汁，我等它凉一点，才开始画菜单。先画的几个小笼都太圆，简直像邮包里的纽扣。我给其中一个补上褶子，剩下的明天再认领。",
+      "en": "Lunch was Nanxiang xiaolongbao, thin wrappers holding pork and broth. While they cooled, I began a menu sketch. My first attempts looked suspiciously like spare buttons. One now has pleats. I will sort out the others tomorrow."
+    },
+    "replies": [
+      {
+        "id": "shanghai.arrival.steamer-circles.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问谁也画过菜单",
+          "en": "Find another menu doodler"
+        }
+      },
+      {
+        "id": "shanghai.arrival.steamer-circles.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "给小圆圈添褶子",
+          "en": "Add pleats to the little circles"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "shanghai.menu.xiaolongbao"
+      ]
+    }
+  },
+  {
+    "id": "shanghai.arrival.crisp-underline",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "shanghai",
+    "factIds": [
+      "shengjian"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "{city}的这张菜单，底下那笔尤其认真。",
+      "en": "One particularly determined underline on today’s menu from {city}."
+    },
+    "text": {
+      "zh-Hans": "今天的生煎有金黄酥脆的底。我画手绘菜单时，在底下描了一条粗线，想把那一点脆也带回去。结果纸背还能看见它，倒像这顿饭自己签了名。明天翻页时要慢一点。",
+      "en": "Today’s shengjian had golden, crisp bases. I drew a firm underline on the menu sketch to remember the crunch. It shows through the paper, as though lunch signed the next page too. I had better turn that page carefully tomorrow."
+    },
+    "replies": [
+      {
+        "id": "shanghai.arrival.crisp-underline.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这道粗线起名",
+          "en": "Give the underline a name"
+        }
+      },
+      {
+        "id": "shanghai.arrival.crisp-underline.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看纸背的印子",
+          "en": "Check the mark on the back"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "shanghai.crisp-slip"
+      ],
+      "menuIds": [
+        "shanghai.menu.shengjian"
+      ]
+    }
+  },
+  {
+    "id": "shanghai.fulfill.river-title",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "shanghai",
+    "factIds": [
+      "bund"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "shanghai.arrival.river-margin.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，那张江边速写真的等到了名字。",
+      "en": "You wrote, “{reply}.” Our riverside sketch finally has its title."
+    },
+    "text": {
+      "zh-Hans": "上回那位画画的旅人给外滩速写想好了名字：邮包也来散步。我把标题写在背面，对方又添了一笔小小的提手。现在这张纸两面都有事做了。我还空着一个角，准备留给下次见面。",
+      "en": "The other sketcher has a title for our Bund picture: Mailbag Goes for a Walk. I put it on the back, and they added one tiny handle. Both sides of the paper are busy now. There is still a corner left for our next meeting."
+    },
+    "replies": [
+      {
+        "id": "shanghai.fulfill.river-title.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "下次再交换一幅画",
+          "en": "Trade another drawing next time"
+        }
+      },
+      {
+        "id": "shanghai.fulfill.river-title.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看新添的提手",
+          "en": "Look at the tiny added handle"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "shanghai.shared-panorama"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "shanghai.arrival.meal-talkative",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "shanghai",
+    "factIds": [
+      "nanxiang-xiaolongbao",
+      "shengjian"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "{city}的这顿饭，留下两张菜单。",
+      "en": "Two menu sketches from a meal in {city}."
+    },
+    "text": {
+      "zh-Hans": "午饭点了小份的南翔小笼和生煎，一份蒸，一份煎。我和邻座聊起画菜单，先给薄皮的小笼画了圆圈，又给生煎添上粗粗的底线。对方说两张纸像在互相写信。我把它们并排收好，明天看看谁先开口。",
+      "en": "Lunch came in two small portions: steamed xiaolongbao and pan-fried shengjian. I chatted with my neighbour while drawing a menu for each, circles for the thin wrappers and bold lines for the crisp bases. They thought the two sheets looked like pen pals. Tomorrow I will see which writes first."
+    },
+    "replies": [
+      {
+        "id": "shanghai.arrival.meal-talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊两张菜单",
+          "en": "Talk about the two menus"
+        }
+      },
+      {
+        "id": "shanghai.arrival.meal-talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张画的不同",
+          "en": "Compare the two sketches"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "shanghai.menu.xiaolongbao",
+        "shanghai.menu.shengjian"
+      ]
+    }
+  },
+  {
+    "id": "shanghai.arrival.meal-observant",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "shanghai",
+    "factIds": [
+      "nanxiang-xiaolongbao",
+      "shengjian"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "{city}的这顿饭，留下两张菜单。",
+      "en": "Two menu sketches from a meal in {city}."
+    },
+    "text": {
+      "zh-Hans": "今天尝了小份的南翔小笼和生煎。我先在菜单上描小笼的薄皮，再给生煎的脆底涂深一点。两张纸摆在一起，深浅刚好不同。我在背面各留了一行，等明天的小发现自己过来。",
+      "en": "I tried small portions of xiaolongbao and shengjian today. On one menu I drew the delicate wrappers; on the other I shaded the crisp bases. Side by side, the pages have quite different moods. There is a spare line on each back for whatever I notice tomorrow."
+    },
+    "replies": [
+      {
+        "id": "shanghai.arrival.meal-observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊两张菜单",
+          "en": "Talk about the two menus"
+        }
+      },
+      {
+        "id": "shanghai.arrival.meal-observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张画的不同",
+          "en": "Compare the two sketches"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "shanghai.menu.xiaolongbao",
+        "shanghai.menu.shengjian"
+      ]
+    }
+  }
+]

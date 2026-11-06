@@ -32,6 +32,7 @@ dubai
 dublin
 edinburgh
 fukuoka
+hangzhou
 hanoi
 havana
 helsinki
@@ -41,6 +42,7 @@ honolulu
 irkutsk
 istanbul
 jakarta
+jingdezhen
 kathmandu
 kualalumpur
 kunming
@@ -7199,6 +7201,7 @@ q999429
 q999493
 q999498
 q999654
+quanzhou
 quebec
 queenstown
 quito
@@ -7216,6 +7219,7 @@ siemreap
 singapore
 stockholm
 suva
+suzhou
 sydney
 taipei
 tashkent

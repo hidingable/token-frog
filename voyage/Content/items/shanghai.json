@@ -1,0 +1,98 @@
+[
+  {
+    "id": "shanghai.menu.xiaolongbao",
+    "kind": "menu",
+    "cityId": "shanghai",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "南翔小笼手绘菜单",
+      "en": "Xiaolongbao Menu Sketch"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在上海吃过小笼后画的菜单，圆圈上慢慢添了褶子。",
+      "en": "Drawn after a xiaolongbao lunch in Shanghai. Little circles gradually acquired pleats."
+    }
+  },
+  {
+    "id": "shanghai.menu.shengjian",
+    "kind": "menu",
+    "cityId": "shanghai",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "生煎手绘菜单",
+      "en": "Shengjian Menu Sketch"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在上海画的生煎菜单，底下的粗线用来记住那一点脆。",
+      "en": "A Shanghai lunch sketch with a bold underline to remember the crisp bases."
+    }
+  },
+  {
+    "id": "shanghai.river-fold",
+    "kind": "souvenir",
+    "cityId": "shanghai",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "江边小折画",
+      "en": "Folded Riverside Sketch"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在上海外滩画的楼房和邮包，折痕刚好留在纸边。",
+      "en": "A messenger’s drawing from the Bund, with buildings, a mailbag and a fold at the edge."
+    }
+  },
+  {
+    "id": "shanghai.crisp-slip",
+    "kind": "souvenir",
+    "cityId": "shanghai",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "粗线小纸条",
+      "en": "Underlined Lunch Slip"
+    },
+    "descriptions": {
+      "zh-Hans": "信使画上海生煎时留下的试笔纸，背面也印出一道浅浅的线。",
+      "en": "Practice paper from a shengjian drawing in Shanghai. A faint line shows through the back."
+    }
+  },
+  {
+    "id": "shanghai.pond-sketch",
+    "kind": "souvenir",
+    "cityId": "shanghai",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "留白池水速写",
+      "en": "Unfinished Pond Sketch"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在豫园画的亭石速写，给池水留了一块安静的空白。",
+      "en": "A messenger’s Yuyuan sketch of pavilion and rocks, with a quiet blank space for water."
+    }
+  },
+  {
+    "id": "shanghai.shared-panorama",
+    "kind": "souvenir",
+    "cityId": "shanghai",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两个人的江边画",
+      "en": "Shared Riverside Drawing"
+    },
+    "descriptions": {
+      "zh-Hans": "信使和偶遇的旅人合添的上海速写，背面写着“邮包也来散步”。这是一张旅途中的原创小画。",
+      "en": "An original travel sketch made by the messenger and a fellow visitor in Shanghai. The back reads “Mailbag Goes for a Walk.”"
+    }
+  }
+]

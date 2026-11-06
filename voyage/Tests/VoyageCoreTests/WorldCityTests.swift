@@ -40,7 +40,7 @@ func worldCityFactsAreCorrect(entry: (String, String, String, String)) throws {
     #expect(city.names["zh-Hans"] == entry.2)
     #expect(city.countryCode == entry.3)
     if entry.0 == "q68695" || entry.0 == "q34405" {
-        #expect(city.id == entry.0 && city.wikipedia.isEmpty && city.tags.isEmpty)
+        #expect(city.level == "full" && !city.wikipedia.isEmpty && !city.tags.isEmpty)
     }
 }
 
@@ -67,11 +67,14 @@ func cuscoDetailIsTheOnlyCuscoInTheCityList(language: Language) throws {
 @Test func futureQuanzhouDetailResolvesSavedWikidataWithoutChangingTheLeg() throws {
     let box = try ContentSandbox()
     defer { box.cleanUp() }
-    var saved = JourneyState(seed: 42, startCityId: "q68695", date: "2026-11-01", catalog: testCatalog)
-    saved.sync(today: DayUsage(date: "2026-11-01", fuel: 123), catalog: testCatalog)
+    try FileManager.default.removeItem(at: box.directory.appendingPathComponent("cities/quanzhou.json"))
+    let beforeCatalog = try CityCatalog.load(directory: box.directory)
+    var saved = JourneyState(seed: 42, startCityId: "q68695", date: "2026-11-01", catalog: beforeCatalog)
+    saved.sync(today: DayUsage(date: "2026-11-01", fuel: 123), catalog: beforeCatalog)
     let data = try JSONEncoder().encode(saved)
-    let original = try #require(testCatalog.find("q68695"))
-    var detail = original
+    let original = try #require(beforeCatalog.find("q68695"))
+    #expect(original.id == "q68695")
+    var detail = testCatalog.city("quanzhou")
     detail.id = "quanzhou"
     detail.wikidata = "Q68695"
     detail.lat = 24.87
@@ -98,7 +101,13 @@ func cuscoDetailIsTheOnlyCuscoInTheCityList(language: Language) throws {
 @Test func baseIDCanBeOverriddenDirectlyWithoutRepeatingWikidata() throws {
     let box = try ContentSandbox()
     defer { box.cleanUp() }
-    var detail = try #require(testCatalog.find("q68695"))
+    try FileManager.default.removeItem(at: box.directory.appendingPathComponent("cities/quanzhou.json"))
+    var detail = try #require(CityContent.readBase(directory: box.directory).first { $0.id == "q68695" })
+    try FileManager.default.removeItem(at: box.directory.appendingPathComponent("stories/quanzhou.json"))
+    try FileManager.default.removeItem(at: box.directory.appendingPathComponent("items/quanzhou.json"))
+    let published = box.directory.appendingPathComponent("published-ids.txt")
+    let ids = try String(contentsOf: published, encoding: .utf8).split(separator: "\n").filter { $0 != "quanzhou" }
+    try (ids.joined(separator: "\n") + "\n").write(to: published, atomically: true, encoding: .utf8)
     detail.wikidata = nil
     detail.tags = ["coast"]
     detail.wikipedia = ["en": "Quanzhou", "zh-Hans": "泉州市"]
@@ -130,6 +139,7 @@ func baseParserRejectsMalformedRows(row: String) throws {
     #expect(DestinationPicker.configuration.tierMultipliers == [8, 4, 2, 1])
     var city = testCatalog.city("shanghai")
     #expect(city.tier == 2)
+    city.level = "basic" // Isolate tier weights from the separately tested content multiplier.
     for (tier, multiplier) in [8, 4, 2, 1].enumerated() {
         city.tier = tier + 1
         #expect(DestinationPicker.cityWeight(city, route: [city.id], stampedCountries: [city.countryCode], wishTags: []) == multiplier)
@@ -139,9 +149,9 @@ func baseParserRejectsMalformedRows(row: String) throws {
 
 @Test(arguments: Language.allCases)
 func citySearchMatchesBothLanguagesCaseAndNoResults(language: Language) {
-    #expect(testCatalog.cities(matching: "QUANZHOU", language: language).map(\.id) == ["q68695"])
-    #expect(testCatalog.cities(matching: " 泉州 ", language: language).map(\.id) == ["q68695"])
-    #expect(testCatalog.cities(matching: "jInGdEzHeN", language: language).map(\.id) == ["q34405"])
+    #expect(testCatalog.cities(matching: "QUANZHOU", language: language).map(\.id) == ["quanzhou"])
+    #expect(testCatalog.cities(matching: " 泉州 ", language: language).map(\.id) == ["quanzhou"])
+    #expect(testCatalog.cities(matching: "jInGdEzHeN", language: language).map(\.id) == ["jingdezhen"])
     #expect(testCatalog.cities(matching: "上海", language: language).map(\.id) == ["shanghai"])
     #expect(testCatalog.cities(matching: "no-such-city-12345", language: language).isEmpty)
     let cities = testCatalog.cities(language: language)
@@ -151,7 +161,7 @@ func citySearchMatchesBothLanguagesCaseAndNoResults(language: Language) {
         $0.names[language.rawValue]!.compare($1.names[language.rawValue]!, locale: locale) != .orderedDescending
     })
     #expect(testCatalog.cities(language: language) == cities)
-    #expect(testCatalog.cities(matching: "泉州", language: language).map(\.id) == ["q68695"])
+    #expect(testCatalog.cities(matching: "泉州", language: language).map(\.id) == ["quanzhou"])
 }
 
 private func residentMemory() throws -> UInt64 {

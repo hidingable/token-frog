@@ -162,6 +162,9 @@ public enum ContentValidator {
             for fact in city.facts {
                 if fact.id.isEmpty || !facts.insert(fact.id).inserted { report(path, "factID", "Fact IDs must be nonempty and unique within a city") }
                 if !complete(fact.names) { report(path, "factNames", "Fact names require zh-Hans and en") }
+                if city.level != "basic", !complete(fact.summary ?? [:]) {
+                    report(path, "factSummary", "Non-basic city facts require zh-Hans and en summaries")
+                }
                 if fact.sources.isEmpty || !fact.sources.allSatisfy(validSource) { report(path, "factSources", "Facts require a public HTTPS source") }
             }
         }
