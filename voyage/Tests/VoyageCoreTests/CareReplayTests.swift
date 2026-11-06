@@ -60,6 +60,8 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
         #expect(care.habits == doubledCare.habits)
         #expect(care.companionDays == doubledCare.companionDays) // The days used for form progression.
         #expect(care.companionDays.count == 50)
+        #expect(Stage.current(companionDays: care.companionDays.count) == Stage.current(companionDays: doubledCare.companionDays.count))
+        #expect(care.weekly == doubledCare.weekly)
         #expect(care.identity == doubledCare.identity)
         #expect(care.pity == doubledCare.pity)
         #expect(normal.letters.map(\.rewards.dropRarity) == doubled.letters.map(\.rewards.dropRarity))

@@ -32,11 +32,13 @@ struct AccountsView: View {
                     Text(l10n.quotaStatus(account.status, source: source))
                         .foregroundStyle(theme.textMuted).fixedSize(horizontal: false, vertical: true)
                     if account.isRefreshing { Text(l10n("quota.loading")).foregroundStyle(theme.textMuted) }
-                    Text(source == .otherTools ? l10n("accounts.tokscaleConsent") : l10n("accounts.localConsent", source.name(l10n)))
-                        .foregroundStyle(theme.textMuted).fixedSize(horizontal: false, vertical: true)
-                    if source == .claude {
-                        Text(l10n("accounts.keychainConsent")).foregroundStyle(theme.textMuted)
+                    if !account.linked {
+                        Text(source == .otherTools ? l10n("accounts.tokscaleConsent") : l10n("accounts.localConsent", source.name(l10n)))
+                            .foregroundStyle(theme.textMuted).fixedSize(horizontal: false, vertical: true)
+                        if source == .claude {
+                            Text(l10n("accounts.keychainConsent")).foregroundStyle(theme.textMuted)
                             .fixedSize(horizontal: false, vertical: true)
+                        }
                     }
                 }
                 .padding(12)
@@ -46,7 +48,8 @@ struct AccountsView: View {
         }
         .font(Theme.pixel())
         .foregroundStyle(theme.text)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .background(theme.background)
     }
 }
 

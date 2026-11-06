@@ -44,10 +44,15 @@ struct HomeTab: View {
                                 .buttonStyle(.plain)
                                 HomeCard {
                                     Text(l10n("home.now")).foregroundStyle(theme.textMuted)
-                                    Text(l10n("home.onRoad", l10n.cityName(catalog.city(state.targetCityId))))
-                                    BlockProgress(progress: state.legProgress, blocks: 16, size: 8)
-                                    Text(l10n("home.today", Format.km(fuel: model.todayFuel))).foregroundStyle(theme.mileageText)
-                                    Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel))).foregroundStyle(theme.textMuted)
+                                    if model.usageDisplayState == .noUsage {
+                                        Text(l10n("usage.noRecords")).foregroundStyle(theme.textMuted)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    } else {
+                                        Text(l10n("home.onRoad", l10n.cityName(catalog.city(state.targetCityId))))
+                                        BlockProgress(progress: state.legProgress, blocks: 16, size: 8)
+                                        Text(l10n("home.today", Format.km(fuel: model.todayFuel))).foregroundStyle(theme.mileageText)
+                                        Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel))).foregroundStyle(theme.textMuted)
+                                    }
                                 }
                             }
                             .frame(width: layout.rightWidth)

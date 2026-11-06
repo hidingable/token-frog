@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 import VoyageCore
 
@@ -9,32 +10,17 @@ struct SettingsTab: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            HStack {
-                Text(l10n("accounts.title"))
-                Spacer()
-                Chip(title: l10n("accounts.manage"), isOn: false) { model.showingAccounts = true }
-            }
-            VStack(alignment: .leading, spacing: 12) {
-                Text(l10n("settings.language")).foregroundStyle(theme.textMuted)
-                HStack {
-                    Text(l10n("settings.interfaceAndLetters"))
-                    Spacer()
-                    Menu {
-                        Picker(l10n("settings.language"), selection: $model.languagePreference) {
-                            ForEach(LanguagePreference.allCases, id: \.self) { preference in
-                                Text(l10n(L10n.languageKeys[preference]!)).tag(preference)
-                            }
+            group("settings.language") {
+                row("settings.interfaceAndLetters") {
+                    Picker(l10n("settings.language"), selection: $model.languagePreference) {
+                        ForEach(LanguagePreference.allCases, id: \.self) { preference in
+                            Text(l10n(L10n.languageKeys[preference]!)).tag(preference)
                         }
-                    } label: {
-                        Text(l10n(L10n.languageKeys[model.languagePreference]!))
-                            .padding(8).pixelBorder(theme.border)
                     }
-                    .menuStyle(.borderlessButton)
-                    .fixedSize()
+                    .labelsHidden().pickerStyle(.menu)
                 }
             }
-            VStack(alignment: .leading, spacing: 12) {
-                Text(l10n("settings.appearance")).foregroundStyle(theme.textMuted)
+            group("settings.appearance") {
                 Picker(l10n("settings.appearance"), selection: $model.appearancePreference) {
                     ForEach(AppearancePreference.standard, id: \.self) { preference in
                         Text(l10n(L10n.appearanceKeys[preference]!)).tag(preference)
@@ -45,34 +31,114 @@ struct SettingsTab: View {
                         }
                     }
                 }
-                .labelsHidden()
-                .pickerStyle(.menu)
+                .labelsHidden().pickerStyle(.menu)
             }
-            VStack(alignment: .leading, spacing: 12) {
-                Text(l10n("settings.display")).foregroundStyle(theme.textMuted)
+            group("settings.display") {
                 Toggle(l10n("settings.notch"), isOn: $model.notchEnabled)
                 Toggle(l10n("settings.floating"), isOn: $model.floatingEnabled)
+                Toggle(l10n("settings.login"), isOn: Binding(get: { model.loginItem.enabled }, set: { model.loginItem.setEnabled($0) }))
+                if let key = model.loginItem.explanationKey { explanation(key) }
             }
-            .toggleStyle(PixelToggleStyle())
+            group("settings.notifications") {
+                Toggle(l10n("settings.morningMail"), isOn: $model.morningNotificationsEnabled)
+                Toggle(l10n("settings.newCountry"), isOn: $model.newCountryNotificationsEnabled)
+                row("settings.deliveryTime") {
+                    Picker(l10n("settings.deliveryTime"), selection: $model.deliveryTime) {
+                        ForEach(DeliveryTime.allCases, id: \.self) { time in Text(time.rawValue).tag(time) }
+                    }
+                    .labelsHidden().pickerStyle(.menu)
+                }
+                explanation("settings.deliveryHint")
+                Text(l10n(Self.authorizationKey(model.notifications.authorization)))
+                    .fixedSize(horizontal: false, vertical: true)
+                if model.notifications.authorization == .denied || model.notifications.authorization == .unavailable {
+                    action("settings.openSystemSettings") {
+                        if let url = URL(string: "x-apple.systempreferences:com.apple.Notifications-Settings.extension") {
+                            NSWorkspace.shared.open(url)
+                        }
+                    }
+                }
+            }
+            .task { if !model.isSnapshotMode { await model.notifications.refreshAuthorization() } }
+            group("accounts.title") {
+                action("accounts.manage") { model.showingAccounts = true }
+            }
             if model.canChangeStart, let state = model.state, let catalog = model.catalog {
-                VStack(alignment: .leading, spacing: 12) {
-                    Text(l10n("settings.home"))
+                group("settings.home") {
                     CitySearchList(catalog: catalog,
                                    selection: Binding(get: { state.route[0] }, set: { model.setStart($0) }), search: $homeSearch)
                         .frame(height: 300)
+                    explanation("onboarding.homeHint")
                 }
-                Text(l10n("onboarding.homeHint")).foregroundStyle(theme.textMuted)
-                    .fixedSize(horizontal: false, vertical: true)
+            }
+            group("settings.data") {
+                action("settings.export") { SaveArchivePanels.exportSave(model: model) }
+                action("settings.import") { SaveArchivePanels.importSave(model: model) }
+                explanation("settings.exportHint")
+                action("settings.openDataFolder") { model.openDataFolder() }
+                if let error = model.archiveError {
+                    Text(l10n.archiveError(error)).foregroundStyle(theme.quotaLowText)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            group("settings.about") {
+                Text(l10n("settings.version", AppModel.appVersion))
+                DisclosureGroup(l10n("settings.licenses")) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Link("tokscale · MIT", destination: URL(string: "https://github.com/junhoyeo/tokscale/blob/main/LICENSE")!)
+                        Link("Fusion Pixel · OFL-1.1", destination: URL(string: "https://github.com/TakWolf/fusion-pixel-font/blob/master/LICENSE-OFL")!)
+                        Link(l10n("settings.naturalEarth"), destination: URL(string: "https://www.naturalearthdata.com/about/terms-of-use/")!)
+                        Link("Wikipedia · CC BY-SA 4.0", destination: URL(string: "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use")!)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading).padding(.top, 8)
+                }
+                explanation("settings.privacy")
             }
         }
+        .toggleStyle(PixelToggleStyle())
         .font(Theme.pixel())
         .foregroundStyle(theme.text)
-        .padding(16)
-        .frame(maxWidth: 520, alignment: .leading)
-        .background(theme.surfaceRaised)
-        .pixelBorder(theme.border)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: 580, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
     }
+
+    static func authorizationKey(_ status: NotificationAuthorization) -> String {
+        switch status {
+        case .notDetermined: "settings.authorizationNotRequested"
+        case .authorized: "settings.authorizationGranted"
+        case .denied: "settings.authorizationDenied"
+        case .unavailable: "settings.authorizationUnavailable"
+        }
+    }
+
+    private func group<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(l10n(title)).foregroundStyle(theme.textMuted)
+            content()
+        }
+        .padding(16).frame(maxWidth: .infinity, alignment: .leading)
+        .background(theme.surfaceRaised).pixelBorder(theme.border)
+    }
+
+    private func row<Control: View>(_ title: String, @ViewBuilder control: () -> Control) -> some View {
+        ViewThatFits(in: .horizontal) {
+            HStack { Text(l10n(title)).fixedSize(); Spacer(minLength: 12); control().fixedSize() }
+            VStack(alignment: .leading, spacing: 8) { Text(l10n(title)); control() }
+        }
+    }
+
+    private func explanation(_ key: String) -> some View {
+        Text(l10n(key)).foregroundStyle(theme.textMuted).fixedSize(horizontal: false, vertical: true)
+    }
+
+    private func action(_ key: String, perform: @escaping () -> Void) -> some View {
+        Button(action: perform) {
+            Text(l10n(key)).fixedSize(horizontal: false, vertical: true)
+                .padding(8).pixelBorder(theme.border)
+        }
+        .buttonStyle(.plain)
+    }
+
 }
 
 private struct PixelToggleStyle: ToggleStyle {

@@ -32,6 +32,7 @@ final class AppModel {
     private(set) var now = Date()
     private(set) var lastScan: Date?
     private(set) var lastError: (any Error)?
+    private var usageFailed = false
     private(set) var isMoving = false
     /// Display-only daily fuel for the trend bars. Days before the journey started never add mileage.
     private(set) var history: [String: Int] = [:]
@@ -64,6 +65,19 @@ final class AppModel {
     private(set) var deferredReplyLetterID: Int?
     var showingSettings = false
     var showingAccounts = false
+    var archiveError: (any Error)?
+    let loginItem: LoginItemSetting
+    let notifications: LetterNotificationService
+    @ObservationIgnored var onNotificationOpen: (() -> Void)?
+    var morningNotificationsEnabled: Bool {
+        didSet { if !isSnapshot { defaults.set(morningNotificationsEnabled, forKey: "morningNotifications") } }
+    }
+    var newCountryNotificationsEnabled: Bool {
+        didSet { if !isSnapshot { defaults.set(newCountryNotificationsEnabled, forKey: "newCountryNotifications") } }
+    }
+    var deliveryTime: DeliveryTime {
+        didSet { if !isSnapshot { defaults.set(deliveryTime.rawValue, forKey: "deliveryTime") } }
+    }
     @ObservationIgnored var onLockChange: (() -> Void)?
     @ObservationIgnored var onLanguageChange: (() -> Void)?
     @ObservationIgnored var onDisplayChange: (() -> Void)?
@@ -93,6 +107,7 @@ final class AppModel {
     private let dataDirectory: URL
     private let store: SaveStore
     private let isSnapshot: Bool
+    var isSnapshotMode: Bool { isSnapshot }
     private let clock: () -> Date
     private let onboardingSeed: UInt32
     private let onboardingReader: OnboardingFlow.UsageReader
@@ -142,6 +157,8 @@ final class AppModel {
          hoursReader: @escaping @Sendable (String, String) async throws -> [HourUsage] = UsageSource.fetchHours,
          enrichmentReader: @escaping Enricher.Fetch = { await Enricher.fetch($0) },
          runtimeEnabled: Bool = true, watcherRoots: @escaping @Sendable () -> [String] = FileWatcher.existingRoots,
+         notificationCenter: (any LetterNotificationCenter)? = nil,
+         loginItemManager: (any LoginItemManaging)? = nil,
          floatingReactionDuration: Duration = .seconds(3)) {
         self.isSnapshot = isSnapshot
         clock = now
@@ -158,6 +175,11 @@ final class AppModel {
         self.floatingReactionDuration = floatingReactionDuration
         self.languageOverride = languageOverride
         self.defaults = defaults
+        morningNotificationsEnabled = defaults.object(forKey: "morningNotifications") as? Bool ?? true
+        newCountryNotificationsEnabled = defaults.object(forKey: "newCountryNotifications") as? Bool ?? false
+        deliveryTime = defaults.string(forKey: "deliveryTime").flatMap(DeliveryTime.init(rawValue:)) ?? .standard
+        notifications = LetterNotificationService(defaults: defaults, center: notificationCenter ?? SystemLetterNotificationCenter(enabled: !isSnapshot && runtimeEnabled))
+        loginItem = LoginItemSetting(manager: loginItemManager ?? (!isSnapshot && runtimeEnabled ? SystemLoginItem() : nil))
         self.appearanceOverride = isSnapshot ? appearanceOverride : nil
         self.systemScheme = systemScheme ?? ThemeScheme(appearance: NSApp?.effectiveAppearance)
         let savedAppearance = AppearancePreference(rawValue: defaults.string(forKey: "appearance") ?? "system")
@@ -205,6 +227,10 @@ final class AppModel {
         }
         refreshSaveStatus()
         processLetters()
+        notifications.onOpenLetter = { [weak self] id in
+            self?.openNotificationLetter(id)
+            self?.onNotificationOpen?()
+        }
     }
 
     var today: DayRecord { state.flatMap { $0.days[$0.openDate] } ?? DayRecord() }
@@ -212,6 +238,28 @@ final class AppModel {
     var unread: Int { state?.unreadCount(now: now) ?? 0 }
     var letters: [Letter] { state?.deliveredLetters(now: now) ?? [] }
     var filteredLetters: [Letter] { letters.filter(mailFilter.includes) }
+
+    var usageDisplayState: UsageDisplayState {
+        if usageFailed || lastError is UsageError { return .failed }
+        if todayTotals == nil && dashboardDays == nil && history.isEmpty && lastScan == nil { return .loading }
+        let hasUsage = (state?.totalFuel ?? 0) > 0 || history.values.contains { $0 > 0 }
+            || (todayTotals?.total ?? 0) > 0 || dashboardDays?.contains { $0.rows.contains { $0.tokens.total > 0 } } == true
+        return hasUsage ? .ready : .noUsage
+    }
+
+    func openNotificationLetter(_ id: Int?) {
+        now = clock()
+        mailFilter = .all
+        selectedLetterID = id.flatMap { target in letters.first { $0.id == target }?.id }
+        navigate(to: .mail)
+    }
+
+    func checkNotifications() async {
+        guard !isSnapshot, !isLocked, onboarding == nil, let state, let catalog else { return }
+        await notifications.evaluate(state: state, now: clock(), l10n: l10n, petName: petName,
+                                     catalog: catalog, morningEnabled: morningNotificationsEnabled,
+                                     newCountryEnabled: newCountryNotificationsEnabled)
+    }
 
     func navigate(to tab: MainTab) {
         ritualLetterID = nil
@@ -489,10 +537,11 @@ final class AppModel {
         quotaRuntime.trigger()
     }
 
-    private func tick() {
+    func tick() {
         guard !isLocked else { return }
         now = clock()
         if let lastMovement, now.timeIntervalSince(lastMovement) > 300 { isMoving = false }
+        Task { await checkNotifications() }
     }
 
     /// Coalesces change events and keeps at least `minScanInterval` between scans.
@@ -540,7 +589,7 @@ final class AppModel {
                 historyDate = todayKey
             }
             let before = state.totalFuel
-            state.sync(today: today, finalized: finalized, catalog: catalog)
+            state.sync(today: today, finalized: finalized, catalog: catalog, deliveryTime: deliveryTime)
             self.state = state
             processLetters(persistChanges: false)
             if state.totalFuel > before {
@@ -548,13 +597,17 @@ final class AppModel {
                 lastMovement = date
             }
             lastError = nil
+            usageFailed = false
             lastScan = date
             now = date
             persist()
+            await checkNotifications()
             if !isSnapshot { await enrichLatest() }
         } catch {
+            guard !isLocked, generation == backgroundGeneration else { return }
             lastScan = date
             lastError = error
+            usageFailed = true
         }
     }
 
@@ -584,8 +637,11 @@ final class AppModel {
                 dashboardLoadedAt = now
             }
             lastError = nil
+            usageFailed = false
         } catch {
+            guard !isLocked, generation == backgroundGeneration else { isScanning = false; return }
             lastError = error
+            usageFailed = true
         }
         // Released between reads so a scan waiting on the graph can run before the slow hourly read.
         isScanning = false
@@ -599,7 +655,9 @@ final class AppModel {
             monthHours = hours
             monthHoursLoadedAt = now
         } catch {
+            guard !isLocked, generation == backgroundGeneration else { return }
             lastError = error
+            usageFailed = true
         }
     }
 
@@ -831,6 +889,18 @@ final class AppModel {
     }
 
     private func resumeAfterRecovery() {
+        // Discard results from reads started against the previous journey.
+        backgroundGeneration += 1
+        dashboardDays = nil
+        dashboardLoadedAt = nil
+        monthHoursLoadedAt = nil
+        monthHours = []
+        todayHours = []
+        todayTotals = nil
+        history = [:]
+        historyDate = nil
+        lastScan = nil
+        usageFailed = false
         recoveryError = nil
         refreshSaveStatus()
         guard !isLocked, let catalog else { return }
@@ -849,10 +919,70 @@ final class AppModel {
             }
         }
         enrichAttempts = [:]
+        placeAttempts = [:]
+        selectedLetterID = nil
+        ritualLetterID = nil
+        deferredReplyLetterID = nil
         lastError = nil
         processLetters()
         start()
         onLockChange?()
+    }
+
+    static var appVersion: String { Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.1.0" }
+
+    func exportSave(to url: URL) {
+        do { try store.exportArchive(to: url, appVersion: Self.appVersion); archiveError = nil }
+        catch { archiveError = error }
+    }
+
+    func validateImport(at url: URL) throws -> ValidatedSaveArchive { try store.validateArchive(at: url) }
+
+    func reportImportError(_ error: any Error) {
+        archiveError = error
+        recoveryError = .restore(error)
+    }
+
+    @discardableResult
+    func importSave(_ candidate: ValidatedSaveArchive) -> Bool {
+        do {
+            try store.importArchive(candidate)
+            archiveError = nil
+            resumeAfterRecovery()
+            return true
+        } catch {
+            archiveError = error
+            recoveryError = .restore(error)
+            refreshSaveStatus()
+            return false
+        }
+    }
+
+    func openDataFolder() {
+        do {
+            try FileManager.default.createDirectory(at: dataDirectory, withIntermediateDirectories: true)
+            NSWorkspace.shared.open(dataDirectory)
+        } catch { archiveError = error }
+    }
+
+    /// In-memory states for snapshot rendering only; no system APIs or saves are touched.
+    func withSnapshotUsage(_ value: UsageDisplayState, render: () -> Void) {
+        precondition(isSnapshot)
+        let previous = (state, lastScan, lastError, history, todayTotals, dashboardDays, usageFailed)
+        defer { (state, lastScan, lastError, history, todayTotals, dashboardDays, usageFailed) = previous }
+        usageFailed = value == .failed
+        if value == .failed { lastError = UsageError.missingBinary }
+        else {
+            if let catalog {
+                state = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: now), now: now, catalog: catalog)
+            }
+            lastScan = now
+            lastError = nil
+            history = [:]
+            todayTotals = nil
+            dashboardDays = []
+        }
+        render()
     }
 
     private static func newJourney(in store: SaveStore, catalog: CityCatalog, now: Date) -> JourneyState {

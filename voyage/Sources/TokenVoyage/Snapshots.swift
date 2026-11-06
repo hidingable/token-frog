@@ -145,6 +145,22 @@ enum Snapshots {
         }
         model.showingSettings = true
         render(MainView(model: model), size: CGSize(width: 760, height: 620), name: "main-settings", directory, model: model)
+        let settingsSize = CGSize(width: 760, height: 2100)
+        render(MainView(model: model), size: settingsSize, name: "settings-full", directory, model: model)
+        model.notifications.withSnapshotAuthorization(.denied) {
+            render(MainView(model: model), size: settingsSize, name: "settings-denied", directory, model: model)
+        }
+        let previousArchiveError = model.archiveError
+        model.archiveError = SaveArchiveError.invalidArchive
+        render(MainView(model: model), size: settingsSize, name: "import-error", directory, model: model)
+        model.archiveError = previousArchiveError
+        model.navigate(to: .home)
+        model.withSnapshotUsage(.noUsage) {
+            render(MainView(model: model), size: mainSize, name: "home-no-usage", directory, model: model)
+        }
+        model.withSnapshotUsage(.failed) {
+            render(MainView(model: model), size: mainSize, name: "usage-failed", directory, model: model)
+        }
 
         model.dataTab = .dashboard
         let dashboardSize = CGSize(width: 940, height: 1240)

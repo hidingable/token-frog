@@ -59,8 +59,9 @@ struct L10n: Sendable {
         .observant: ["habit.observant.0", "habit.observant.1", "habit.observant.2", "habit.observant.3"],
     ]
     static let floatingKeys = ["floating.line.0", "floating.line.1", "floating.line.2"]
+    static let settingsKeys = ["settings.login", "settings.loginFailed", "settings.loginApproval", "settings.loginUnavailable", "settings.notifications", "settings.morningMail", "settings.newCountry", "settings.deliveryTime", "settings.deliveryHint", "settings.openSystemSettings", "settings.authorizationNotRequested", "settings.authorizationGranted", "settings.authorizationDenied", "settings.authorizationUnavailable", "settings.data", "settings.export", "settings.import", "settings.exportHint", "settings.openDataFolder", "settings.about", "settings.version", "settings.licenses", "settings.naturalEarth", "settings.privacy", "usage.noRecords", "usage.recoverableFailure", "settings.language", "settings.interfaceAndLetters", "settings.appearance", "settings.display", "settings.notch", "settings.floating", "settings.home", "accounts.title", "accounts.manage", "onboarding.homeHint"]
     static var dynamicKeys: [String] {
-        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + Array(appearanceKeys.values) + countKeys.values.flatMap { $0 } + Array(onboardingTitleKeys.values) + Enricher.weatherKeys + Array(stageKeys.values) + Array(habitKeys.values) + habitDescriptionKeys.values.flatMap { $0 } + floatingKeys + ["habit.both", "home.bubble.mail", "home.bubble.reply", "home.bubble.bag", "box.next", "box.keep", "box.open"]
+        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + Array(appearanceKeys.values) + countKeys.values.flatMap { $0 } + Array(onboardingTitleKeys.values) + Enricher.weatherKeys + Array(stageKeys.values) + Array(habitKeys.values) + habitDescriptionKeys.values.flatMap { $0 } + floatingKeys + settingsKeys + ["habit.both", "home.bubble.mail", "home.bubble.reply", "home.bubble.bag", "box.next", "box.keep", "box.open"]
     }
 
     func defaultPetName(_ pet: PetID, catalog: PetCatalog) -> String {
@@ -138,6 +139,7 @@ struct L10n: Sendable {
     }
 
     func error(_ error: any Error) -> String {
+        if error is SaveArchiveError { return archiveError(error) }
         if let error = error as? AppError {
             switch error {
             case .save(let cause): return self("error.save", self.error(cause))

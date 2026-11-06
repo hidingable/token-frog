@@ -332,6 +332,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
             let directory = URL(fileURLWithPath: arguments[index + 1])
             Task {
                 await model.scan()
+                await model.loadDashboard()
                 Snapshots.write(model: model, to: directory)
                 NSApp.terminate(nil)
             }
@@ -346,6 +347,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
             statusItem?.button?.setAccessibilityLabel(l10n("app.name"))
         }
         model.onAppearanceChange = { [weak self] in self?.updateWindowTheme() }
+        model.onNotificationOpen = { [weak self] in self?.openMain() }
         appearanceObservation = NSApp.observe(\.effectiveAppearance, options: [.initial, .new]) { [weak self] app, _ in
             MainActor.assumeIsolated { self?.model.systemAppearanceChanged(to: ThemeScheme(appearance: app.effectiveAppearance)) }
         }
@@ -465,12 +467,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
     func applicationDidHide(_ notification: Notification) { model.setMainWindowPresented(false) }
 
     private func importBackup(for file: SaveFile) {
-        let panel = NSOpenPanel()
-        panel.title = l10n("backup.choose", file.rawValue)
-        panel.canChooseDirectories = false
-        panel.allowsMultipleSelection = false
-        guard panel.runModal() == .OK, let url = panel.url else { return }
-        model.restoreSave(SaveBackup(file: file, url: url))
+        SaveArchivePanels.importSave(model: model, legacyFile: file)
     }
 }
 

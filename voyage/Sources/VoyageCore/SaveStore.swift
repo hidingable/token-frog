@@ -1,3 +1,4 @@
+import Darwin
 import Foundation
 
 public enum SaveLoadResult<State> {
@@ -53,6 +54,34 @@ public enum SaveStoreError: Error, Equatable {
     case restartNotAllowed
 }
 
+public enum SaveArchiveError: Error, Equatable {
+    case tooLarge
+    case unreadable
+    case invalidArchive
+    case unsupportedFormat(Int)
+    case newerSave(file: SaveFile, version: Int)
+    case invalidSave(SaveFile)
+    case unavailable
+    case writeFailed
+    case recoveryRequired
+}
+
+/// A fully decoded, migrated pair. Creating this value never changes the current saves.
+public struct ValidatedSaveArchive: Sendable {
+    public let exportedAt: Date
+    public let appVersion: String
+    public let journey: JourneyState
+    public let care: CareState
+    fileprivate let journeyData: Data
+    fileprivate let careData: Data
+}
+
+enum SaveArchiveOperation: Equatable, Sendable {
+    case stage(SaveFile)
+    case backup(SaveFile)
+    case replace(SaveFile)
+}
+
 /// Owns both save files. No caller can save one while the other needs recovery.
 public final class SaveStore {
     public let directory: URL
@@ -66,6 +95,10 @@ public final class SaveStore {
     private let careMigrations: SaveMigrations
     private let files = FileManager.default
     private var pendingRestarts: Set<SaveFile> = []
+    // Test seam for failures at each transaction boundary; production uses Foundation file operations.
+    var archiveOperation: ((SaveArchiveOperation) throws -> Void)?
+
+    public static let maximumArchiveBytes = 50 * 1_024 * 1_024
 
     public init(
         directory: URL, now: @escaping () -> Date = Date.init, pets: PetCatalog?,
@@ -111,6 +144,226 @@ public final class SaveStore {
         let data = try JSONEncoder().encode(state)
         try atomicWrite(data, to: .care)
         care = .loaded(state)
+    }
+
+    public static func suggestedArchiveFilename(date: Date = Date(), calendar: Calendar = .current) -> String {
+        let parts = calendar.dateComponents([.year, .month, .day], from: date)
+        return String(format: "voyage-save-%04d-%02d-%02d.json", parts.year ?? 0, parts.month ?? 0, parts.day ?? 0)
+    }
+
+    /// Exports only the two typed game states. Credentials, settings and photo files are not read.
+    public func exportArchive(appVersion: String) throws -> Data {
+        guard case .loaded(let journey) = journey, case .loaded(let care) = care, !isLocked else {
+            throw SaveArchiveError.unavailable
+        }
+        // Journey's dates use its existing numeric encoding, independently of envelope metadata.
+        let journeyJSON = try JSONSerialization.jsonObject(with: JSONEncoder().encode(journey))
+        let careJSON = try JSONSerialization.jsonObject(with: JSONEncoder().encode(care))
+        let json: [String: Any] = [
+            "format": 1, "exportedAt": ISO8601DateFormatter().string(from: now()), "appVersion": appVersion,
+            "journey": journeyJSON, "care": careJSON,
+        ]
+        return try JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted, .sortedKeys])
+    }
+
+    public func exportArchive(to destination: URL, appVersion: String) throws {
+        let data = try exportArchive(appVersion: appVersion)
+        do { try data.write(to: destination, options: .atomic) }
+        catch { throw SaveArchiveError.writeFailed }
+    }
+
+    /// Reads at most 50 MB, including when the chosen file grows after the size check.
+    public func validateArchive(at source: URL) throws -> ValidatedSaveArchive {
+        let data: Data
+        do {
+            let handle = try FileHandle(forReadingFrom: source)
+            defer { try? handle.close() }
+            guard try handle.seekToEnd() <= UInt64(Self.maximumArchiveBytes) else { throw SaveArchiveError.tooLarge }
+            try handle.seek(toOffset: 0)
+            data = try handle.read(upToCount: Self.maximumArchiveBytes + 1) ?? Data()
+        } catch let error as SaveArchiveError {
+            throw error
+        } catch {
+            throw SaveArchiveError.unreadable
+        }
+        return try validateArchive(data)
+    }
+
+    public func validateArchive(_ data: Data) throws -> ValidatedSaveArchive {
+        guard data.count <= Self.maximumArchiveBytes else { throw SaveArchiveError.tooLarge }
+        struct Header: Decodable {
+            let format: Int
+            let exportedAt: String
+            let appVersion: String
+        }
+        let header: Header
+        let json: [String: Any]
+        do {
+            header = try JSONDecoder().decode(Header.self, from: data)
+            guard let object = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                throw SaveArchiveError.invalidArchive
+            }
+            json = object
+        } catch { throw SaveArchiveError.invalidArchive }
+        guard header.format == 1 else { throw SaveArchiveError.unsupportedFormat(header.format) }
+        let dateParser = ISO8601DateFormatter()
+        guard let exportedAt = dateParser.date(from: header.exportedAt), !header.appVersion.isEmpty else {
+            throw SaveArchiveError.invalidArchive
+        }
+        let (journey, journeyData) = try validatedArchiveState(
+            json["journey"], file: .journey, as: JourneyState.self, migrations: journeyMigrations
+        )
+        let (care, careData) = try validatedArchiveState(
+            json["care"], file: .care, as: CareState.self, migrations: careMigrations
+        )
+        // Imported files cross a trust boundary. These are runtime invariants assumed by route[0],
+        // day settlement and the photo loader; the existing version decoders only check the JSON shape.
+        let dayParser = DateFormatter()
+        dayParser.calendar = Calendar(identifier: .gregorian)
+        dayParser.timeZone = TimeZone(secondsFromGMT: 0)
+        dayParser.locale = Locale(identifier: "en_US_POSIX")
+        dayParser.dateFormat = "yyyy-MM-dd"
+        dayParser.isLenient = false
+        func validDay(_ key: String) -> Bool {
+            guard key.count == 10, let date = dayParser.date(from: key) else { return false }
+            return dayParser.string(from: date) == key
+        }
+        // Settlement multiplies daily fuel by 100 before converting a percentage to Int.
+        // Reserve the same daily range for the next totalFuel += delta operation.
+        let maximumDailyFuel = Int(Double(Int.max).nextDown / 100)
+        func validRecord(_ record: DayRecord) -> Bool {
+            guard (0...maximumDailyFuel).contains(record.fuel) else { return false }
+            var total = 0
+            for fuel in record.byClient.values {
+                guard fuel >= 0 else { return false }
+                let addition = total.addingReportingOverflow(fuel)
+                guard !addition.overflow else { return false }
+                total = addition.partialValue
+            }
+            return true
+        }
+        func validCoordinate(_ coordinate: Coordinate) -> Bool {
+            (-90...90).contains(coordinate.lat) && (-180...180).contains(coordinate.lon)
+        }
+        guard !journey.route.isEmpty, journey.route.allSatisfy({ !$0.isEmpty }),
+              !journey.currentCityId.isEmpty, !journey.targetCityId.isEmpty,
+              (0..<journey.legCost).contains(journey.legFuel),
+              (0...(Int.max - maximumDailyFuel)).contains(journey.totalFuel),
+              validCoordinate(journey.legFrom), validCoordinate(journey.legTo),
+              validDay(journey.startDate), validDay(journey.openDate), journey.startDate <= journey.openDate,
+              journey.days.keys.allSatisfy(validDay), journey.days.values.allSatisfy(validRecord),
+              journey.stamps.allSatisfy({ validDay($0.date) }),
+              journey.letters.allSatisfy({ letter in
+                  guard validDay(letter.date), (0..<Int.max).contains(letter.id), letter.fuel >= 0,
+                        letter.compareToMedianPercent != Int.min else { return false }
+                  guard let name = letter.photoFile else { return true }
+                  return !name.isEmpty && name != "." && name != ".."
+                      && !name.contains("/") && !name.contains("\\") && !name.contains("\0")
+              }) else { throw SaveArchiveError.invalidSave(.journey) }
+        guard validDay(care.hatchedAt), validDay(care.weekly.weekStart),
+              (0...100).contains(care.habits.talkative), (0...100).contains(care.habits.observant),
+              (0..<Int.max).contains(care.pity), (0..<Int.max).contains(care.boxesOpened),
+              care.trailClues.values.allSatisfy({ (0..<Int.max).contains($0) }),
+              care.pendingPromises.allSatisfy({ (0..<Int.max).contains($0.attempts) }),
+              care.companionDays.allSatisfy(validDay), care.weekly.stamps.allSatisfy(validDay),
+              care.memories.allSatisfy({ validDay($0.date) }) else { throw SaveArchiveError.invalidSave(.care) }
+        return ValidatedSaveArchive(exportedAt: exportedAt, appVersion: header.appVersion,
+                                    journey: journey, care: care, journeyData: journeyData, careData: careData)
+    }
+
+    private func validatedArchiveState<State: Codable>(
+        _ object: Any?, file: SaveFile, as type: State.Type, migrations: SaveMigrations
+    ) throws -> (State, Data) {
+        do {
+            guard let object = object as? [String: Any] else { throw SaveArchiveError.invalidSave(file) }
+            let original = try JSONSerialization.data(withJSONObject: object)
+            let result = try validated(original, as: type, migrations: migrations)
+            // Drop unknown external fields, rather than importing arbitrary credential-like data.
+            return (result.state, try JSONEncoder().encode(result.state))
+        } catch {
+            if let saveError = error as? SaveStoreError, case .tooNew(let version) = saveError {
+                throw SaveArchiveError.newerSave(file: file, version: version)
+            }
+            throw SaveArchiveError.invalidSave(file)
+        }
+    }
+
+    /// Call only after the UI confirms replacement. Stages both files before touching either current file.
+    public func importArchive(_ archive: ValidatedSaveArchive) throws {
+        for file in SaveFile.allCases {
+            let currentVersion = file == .journey ? journeyMigrations.currentVersion : careMigrations.currentVersion
+            let incomingVersion = file == .journey ? archive.journey.version : archive.care.version
+            guard incomingVersion == currentVersion else {
+                if incomingVersion > currentVersion { throw SaveArchiveError.newerSave(file: file, version: incomingVersion) }
+                throw SaveArchiveError.invalidSave(file)
+            }
+        }
+        if case .tooNew(let version) = journey { throw SaveArchiveError.newerSave(file: .journey, version: version) }
+        if case .tooNew(let version) = care { throw SaveArchiveError.newerSave(file: .care, version: version) }
+
+        let transactionID = UUID().uuidString
+        let staged = Dictionary(uniqueKeysWithValues: SaveFile.allCases.map {
+            ($0, directory.appendingPathComponent(".voyage-import-\(transactionID)-\($0.rawValue).pending"))
+        })
+        var rollbackFiles: [SaveFile: URL] = [:]
+        var installed: Set<SaveFile> = []
+        var mayRemoveRollback = false
+        defer {
+            for temporary in staged.values { try? files.removeItem(at: temporary) }
+            if mayRemoveRollback {
+                for original in rollbackFiles.values { try? files.removeItem(at: original) }
+            }
+        }
+        do {
+            try files.createDirectory(at: directory, withIntermediateDirectories: true)
+            var current: [SaveFile: Data] = [:]
+            for file in SaveFile.allCases {
+                do { current[file] = try Data(contentsOf: url(for: file)) }
+                catch { if !Self.isMissing(error) { throw error } }
+                try archiveOperation?(.stage(file))
+                try (file == .journey ? archive.journeyData : archive.careData).write(to: staged[file]!, options: .withoutOverwriting)
+                if let original = current[file] {
+                    let rollback = directory.appendingPathComponent(".voyage-import-\(transactionID)-\(file.rawValue).rollback")
+                    rollbackFiles[file] = rollback
+                    try original.write(to: rollback, options: .withoutOverwriting)
+                }
+            }
+            // Preserve exact original bytes before the first replacement, including unreadable JSON.
+            for file in SaveFile.allCases where current[file] != nil {
+                try archiveOperation?(.backup(file))
+                _ = try makeBackup(for: file, version: try? version(in: current[file]!), kind: "import", moving: false)
+            }
+            // Match normal persistence: journey first; care can be replayed from letter snapshots.
+            for file in SaveFile.allCases {
+                try archiveOperation?(.replace(file))
+                try replaceAtomically(staged[file]!, at: url(for: file))
+                installed.insert(file)
+            }
+            mayRemoveRollback = true
+        } catch {
+            do {
+                for file in SaveFile.allCases.reversed() where installed.contains(file) {
+                    if let original = rollbackFiles[file] { try replaceAtomically(original, at: url(for: file)) }
+                    else { try files.removeItem(at: url(for: file)) }
+                }
+                mayRemoveRollback = true
+            } catch {
+                // Preserve rollback files and exact-byte backups if the filesystem also refuses recovery.
+                journey = .unreadable(reason: "The save import needs recovery from its backups.")
+                care = .unreadable(reason: "The save import needs recovery from its backups.")
+                throw SaveArchiveError.recoveryRequired
+            }
+            throw SaveArchiveError.writeFailed
+        }
+        pendingRestarts.removeAll()
+        load()
+    }
+
+    /// POSIX rename atomically replaces an existing file on this same filesystem, without allocating a new copy.
+    private func replaceAtomically(_ staged: URL, at destination: URL) throws {
+        guard Darwin.rename(staged.path, destination.path) == 0 else {
+            throw POSIXError(POSIXErrorCode(rawValue: errno) ?? .EIO)
+        }
     }
 
     public func backups(for file: SaveFile) throws -> [SaveBackup] {

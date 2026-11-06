@@ -323,6 +323,28 @@ private struct QuotaModelFixture {
 }
 
 @MainActor
+@Test func exportingAfterFakeAccountLinkContainsNeitherCredentialsNorTokenFields() async throws {
+    let fixture = try QuotaModelFixture()
+    defer { fixture.remove() }
+    let probe = QuotaProbe()
+    let defaults = QuotaDefaults()
+    let model = fixture.model(probe, defaults: defaults)
+    await model.linkQuota(.codex)
+    #expect(model.quotaRuntime.account(.codex).linked)
+    #expect(await probe.credentialCalls == 1)
+    #expect(await probe.calls == 1)
+    let destination = fixture.directory.appendingPathComponent("export.json")
+    model.exportSave(to: destination)
+    #expect(model.archiveError == nil)
+    let bytes = try Data(contentsOf: destination)
+    let text = try #require(String(data: bytes, encoding: .utf8))
+    #expect(!text.contains(fakeQuotaToken) && !text.contains("accessToken") && !text.contains("token"))
+    let json = try #require(JSONSerialization.jsonObject(with: bytes) as? [String: Any])
+    #expect(Set(json.keys) == ["format", "exportedAt", "appVersion", "journey", "care"])
+    model.quotaRuntime.stop()
+}
+
+@MainActor
 @Test func freshAppStartupScanningQuotaPageAndSnapshotPathsNeverReadCredentials() async throws {
     let fixture = try QuotaModelFixture()
     defer { fixture.remove() }

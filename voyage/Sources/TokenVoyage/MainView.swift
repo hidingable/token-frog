@@ -13,7 +13,8 @@ struct MainView: View {
             navigation
             if let error = model.lastError {
                 HStack(alignment: .top, spacing: 12) {
-                    Text(l10n.error(error)).fixedSize(horizontal: false, vertical: true)
+                    Text(model.usageDisplayState == .failed ? l10n("usage.recoverableFailure") : l10n.error(error))
+                        .fixedSize(horizontal: false, vertical: true)
                     Spacer(minLength: 0)
                     Chip(title: l10n("action.retry"), isOn: false) { model.scheduleScan(immediately: true) }
                 }
@@ -23,7 +24,7 @@ struct MainView: View {
                 .padding(.bottom, 8)
             }
             if model.showingAccounts {
-                ScrollView { AccountsView(model: model).padding(12) }
+                ScrollView { AccountsView(model: model).padding(12) }.scrollContentBackground(.hidden)
             } else if model.showingSettings {
                 ScrollView { SettingsTab(model: model).padding(12) }
             } else if model.ritualLetter != nil {
@@ -498,7 +499,7 @@ struct QuotaTab: View {
             GeometryReader { proxy in
                 ZStack(alignment: .leading) {
                     Rectangle().fill(theme.controlOff)
-                    Rectangle().fill(low ? theme.quotaLowFill : theme.quotaFill)
+                    Rectangle().fill(low ? theme.quotaLowFill : theme.textMuted)
                         .frame(width: (proxy.size.width * max(0, min(metric.remainingPercent, 100)) / 100).rounded())
                 }
             }

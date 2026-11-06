@@ -37,6 +37,10 @@ struct DashboardTab: View {
 
     var body: some View {
         Group {
+            if model.usageDisplayState == .noUsage {
+                Text(l10n("usage.noRecords")).font(Theme.pixel()).foregroundStyle(theme.textMuted)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
             if let days = model.dashboardDays {
                 content(days)
             } else if model.lastError == nil {

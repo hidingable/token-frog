@@ -177,12 +177,12 @@ public struct JourneyState: Codable, Equatable, Sendable {
 
     /// Advances the journey. `finalized` must hold the final count of every day from `openDate` up to,
     /// but excluding, `today.date`; the caller skips this call when those counts could not be read.
-    public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = []) {
+    public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], deliveryTime: DeliveryTime = .standard) {
         guard today.date >= openDate else { return }
         let finals = Dictionary(finalized.map { ($0.date, $0) }, uniquingKeysWith: { _, latest in latest })
         while openDate < today.date {
             apply(finals[openDate] ?? DayUsage(date: openDate), catalog: catalog, wishTags: wishTags)
-            settle(openDate, calendar: calendar)
+            settle(openDate, calendar: calendar, deliveryTime: deliveryTime)
             openDate = DayKey.next(openDate, calendar: calendar)
         }
         apply(today, catalog: catalog, wishTags: wishTags)
@@ -268,7 +268,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         setTarget(next, from: arrivedCoordinate, catalog: catalog)
     }
 
-    private mutating func settle(_ date: String, calendar: Calendar) {
+    private mutating func settle(_ date: String, calendar: Calendar, deliveryTime: DeliveryTime) {
         guard let record = days[date], record.fuel > 0 else { return }
         let median = recentDailyFuel(before: date)
         let hasBaseline = days.filter { $0.value.fuel > 0 && $0.key < date }.count >= 3
@@ -280,7 +280,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
             .filter { $0.percent > 0 }
         guard let day = DayKey.date(from: date, calendar: calendar),
               let nextDay = calendar.date(byAdding: .day, value: 1, to: day),
-              let deliverAt = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: nextDay) else {
+              let deliverAt = calendar.date(bySettingHour: deliveryTime.hour, minute: deliveryTime.minute, second: 0, of: nextDay) else {
             preconditionFailure("Invalid settled date \(date)")
         }
         letters.append(
