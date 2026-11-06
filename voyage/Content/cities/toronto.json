@@ -1,0 +1,22 @@
+{
+  "id": "toronto",
+  "status": "active",
+  "lat": 43.65,
+  "lon": -79.38,
+  "countryCode": "CA",
+  "continent": "north-america",
+  "tags": [
+    "lake",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "多伦多",
+    "en": "Toronto"
+  },
+  "wikipedia": {
+    "zh-Hans": "多伦多",
+    "en": "Toronto"
+  },
+  "facts": []
+}

@@ -1,0 +1,23 @@
+{
+  "id": "capetown",
+  "status": "active",
+  "lat": -33.92,
+  "lon": 18.42,
+  "countryCode": "ZA",
+  "continent": "africa",
+  "tags": [
+    "coast",
+    "mountain",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "开普敦",
+    "en": "Cape Town"
+  },
+  "wikipedia": {
+    "zh-Hans": "开普敦",
+    "en": "Cape Town"
+  },
+  "facts": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "siemreap",
+  "status": "active",
+  "lat": 13.36,
+  "lon": 103.86,
+  "countryCode": "KH",
+  "continent": "asia",
+  "tags": [
+    "heritage",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "暹粒",
+    "en": "Siem Reap"
+  },
+  "wikipedia": {
+    "zh-Hans": "暹粒市",
+    "en": "Siem Reap"
+  },
+  "facts": []
+}

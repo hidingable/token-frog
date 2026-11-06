@@ -1,0 +1,22 @@
+{
+  "id": "stockholm",
+  "status": "active",
+  "lat": 59.33,
+  "lon": 18.07,
+  "countryCode": "SE",
+  "continent": "europe",
+  "tags": [
+    "coast",
+    "capital"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "斯德哥尔摩",
+    "en": "Stockholm"
+  },
+  "wikipedia": {
+    "zh-Hans": "斯德哥尔摩",
+    "en": "Stockholm"
+  },
+  "facts": []
+}

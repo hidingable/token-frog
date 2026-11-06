@@ -1,0 +1,22 @@
+{
+  "id": "accra",
+  "status": "active",
+  "lat": 5.6,
+  "lon": -0.19,
+  "countryCode": "GH",
+  "continent": "africa",
+  "tags": [
+    "coast",
+    "capital"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "阿克拉",
+    "en": "Accra"
+  },
+  "wikipedia": {
+    "zh-Hans": "阿克拉",
+    "en": "Accra"
+  },
+  "facts": []
+}

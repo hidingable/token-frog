@@ -1,0 +1,24 @@
+{
+  "id": "cairo",
+  "status": "active",
+  "lat": 30.04,
+  "lon": 31.24,
+  "countryCode": "EG",
+  "continent": "africa",
+  "tags": [
+    "river",
+    "capital",
+    "heritage",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "开罗",
+    "en": "Cairo"
+  },
+  "wikipedia": {
+    "zh-Hans": "开罗",
+    "en": "Cairo"
+  },
+  "facts": []
+}

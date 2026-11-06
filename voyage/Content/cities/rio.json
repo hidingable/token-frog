@@ -1,0 +1,23 @@
+{
+  "id": "rio",
+  "status": "active",
+  "lat": -22.91,
+  "lon": -43.17,
+  "countryCode": "BR",
+  "continent": "south-america",
+  "tags": [
+    "coast",
+    "mountain",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "里约热内卢",
+    "en": "Rio de Janeiro"
+  },
+  "wikipedia": {
+    "zh-Hans": "里约热内卢",
+    "en": "Rio de Janeiro"
+  },
+  "facts": []
+}

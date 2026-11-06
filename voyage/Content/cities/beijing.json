@@ -1,0 +1,22 @@
+{
+  "id": "beijing",
+  "status": "active",
+  "lat": 39.9,
+  "lon": 116.4,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tags": [
+    "capital",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "北京",
+    "en": "Beijing"
+  },
+  "wikipedia": {
+    "zh-Hans": "北京",
+    "en": "Beijing"
+  },
+  "facts": []
+}

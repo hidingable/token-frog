@@ -1,0 +1,23 @@
+{
+  "id": "prague",
+  "status": "active",
+  "lat": 50.08,
+  "lon": 14.44,
+  "countryCode": "CZ",
+  "continent": "europe",
+  "tags": [
+    "river",
+    "capital",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "布拉格",
+    "en": "Prague"
+  },
+  "wikipedia": {
+    "zh-Hans": "布拉格",
+    "en": "Prague"
+  },
+  "facts": []
+}

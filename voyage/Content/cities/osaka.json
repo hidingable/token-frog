@@ -1,0 +1,22 @@
+{
+  "id": "osaka",
+  "status": "active",
+  "lat": 34.69,
+  "lon": 135.5,
+  "countryCode": "JP",
+  "continent": "asia",
+  "tags": [
+    "food",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "大阪",
+    "en": "Osaka"
+  },
+  "wikipedia": {
+    "zh-Hans": "大阪市",
+    "en": "Osaka"
+  },
+  "facts": []
+}

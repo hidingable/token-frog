@@ -1,0 +1,22 @@
+{
+  "id": "berlin",
+  "status": "active",
+  "lat": 52.52,
+  "lon": 13.4,
+  "countryCode": "DE",
+  "continent": "europe",
+  "tags": [
+    "capital",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "柏林",
+    "en": "Berlin"
+  },
+  "wikipedia": {
+    "zh-Hans": "柏林",
+    "en": "Berlin"
+  },
+  "facts": []
+}

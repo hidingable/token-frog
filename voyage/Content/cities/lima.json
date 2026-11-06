@@ -1,0 +1,24 @@
+{
+  "id": "lima",
+  "status": "active",
+  "lat": -12.05,
+  "lon": -77.04,
+  "countryCode": "PE",
+  "continent": "south-america",
+  "tags": [
+    "coast",
+    "capital",
+    "heritage",
+    "food"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "利马",
+    "en": "Lima"
+  },
+  "wikipedia": {
+    "zh-Hans": "利马",
+    "en": "Lima"
+  },
+  "facts": []
+}

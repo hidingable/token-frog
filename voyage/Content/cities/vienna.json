@@ -1,0 +1,23 @@
+{
+  "id": "vienna",
+  "status": "active",
+  "lat": 48.21,
+  "lon": 16.37,
+  "countryCode": "AT",
+  "continent": "europe",
+  "tags": [
+    "capital",
+    "heritage",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "维也纳",
+    "en": "Vienna"
+  },
+  "wikipedia": {
+    "zh-Hans": "维也纳",
+    "en": "Vienna"
+  },
+  "facts": []
+}

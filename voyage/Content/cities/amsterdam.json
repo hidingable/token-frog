@@ -1,0 +1,23 @@
+{
+  "id": "amsterdam",
+  "status": "active",
+  "lat": 52.37,
+  "lon": 4.9,
+  "countryCode": "NL",
+  "continent": "europe",
+  "tags": [
+    "river",
+    "capital",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "阿姆斯特丹",
+    "en": "Amsterdam"
+  },
+  "wikipedia": {
+    "zh-Hans": "阿姆斯特丹",
+    "en": "Amsterdam"
+  },
+  "facts": []
+}

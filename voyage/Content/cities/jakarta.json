@@ -1,0 +1,22 @@
+{
+  "id": "jakarta",
+  "status": "active",
+  "lat": -6.21,
+  "lon": 106.85,
+  "countryCode": "ID",
+  "continent": "asia",
+  "tags": [
+    "capital",
+    "food"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "雅加达",
+    "en": "Jakarta"
+  },
+  "wikipedia": {
+    "zh-Hans": "雅加达",
+    "en": "Jakarta"
+  },
+  "facts": []
+}

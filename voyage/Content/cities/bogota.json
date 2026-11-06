@@ -1,0 +1,22 @@
+{
+  "id": "bogota",
+  "status": "active",
+  "lat": 4.71,
+  "lon": -74.07,
+  "countryCode": "CO",
+  "continent": "south-america",
+  "tags": [
+    "capital",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "波哥大",
+    "en": "Bogotá"
+  },
+  "wikipedia": {
+    "zh-Hans": "波哥大",
+    "en": "Bogotá"
+  },
+  "facts": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "moscow",
+  "status": "active",
+  "lat": 55.76,
+  "lon": 37.62,
+  "countryCode": "RU",
+  "continent": "europe",
+  "tags": [
+    "capital",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "莫斯科",
+    "en": "Moscow"
+  },
+  "wikipedia": {
+    "zh-Hans": "莫斯科",
+    "en": "Moscow"
+  },
+  "facts": []
+}

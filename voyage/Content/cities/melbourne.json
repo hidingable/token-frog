@@ -1,0 +1,22 @@
+{
+  "id": "melbourne",
+  "status": "active",
+  "lat": -37.81,
+  "lon": 144.96,
+  "countryCode": "AU",
+  "continent": "oceania",
+  "tags": [
+    "food",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "墨尔本",
+    "en": "Melbourne"
+  },
+  "wikipedia": {
+    "zh-Hans": "墨尔本",
+    "en": "Melbourne"
+  },
+  "facts": []
+}

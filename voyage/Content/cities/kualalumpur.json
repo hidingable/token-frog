@@ -1,0 +1,22 @@
+{
+  "id": "kualalumpur",
+  "status": "active",
+  "lat": 3.14,
+  "lon": 101.69,
+  "countryCode": "MY",
+  "continent": "asia",
+  "tags": [
+    "capital",
+    "food"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "吉隆坡",
+    "en": "Kuala Lumpur"
+  },
+  "wikipedia": {
+    "zh-Hans": "吉隆坡",
+    "en": "Kuala Lumpur"
+  },
+  "facts": []
+}

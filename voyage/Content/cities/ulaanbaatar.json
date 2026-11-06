@@ -1,0 +1,22 @@
+{
+  "id": "ulaanbaatar",
+  "status": "active",
+  "lat": 47.89,
+  "lon": 106.91,
+  "countryCode": "MN",
+  "continent": "asia",
+  "tags": [
+    "capital",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "乌兰巴托",
+    "en": "Ulaanbaatar"
+  },
+  "wikipedia": {
+    "zh-Hans": "乌兰巴托",
+    "en": "Ulaanbaatar"
+  },
+  "facts": []
+}

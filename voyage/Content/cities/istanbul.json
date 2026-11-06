@@ -1,0 +1,24 @@
+{
+  "id": "istanbul",
+  "status": "active",
+  "lat": 41.01,
+  "lon": 28.98,
+  "countryCode": "TR",
+  "continent": "europe",
+  "tags": [
+    "coast",
+    "heritage",
+    "food",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "伊斯坦布尔",
+    "en": "Istanbul"
+  },
+  "wikipedia": {
+    "zh-Hans": "伊斯坦布尔",
+    "en": "Istanbul"
+  },
+  "facts": []
+}

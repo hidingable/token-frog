@@ -1,0 +1,22 @@
+{
+  "id": "sanfrancisco",
+  "status": "active",
+  "lat": 37.77,
+  "lon": -122.42,
+  "countryCode": "US",
+  "continent": "north-america",
+  "tags": [
+    "coast",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "旧金山",
+    "en": "San Francisco"
+  },
+  "wikipedia": {
+    "zh-Hans": "旧金山",
+    "en": "San Francisco"
+  },
+  "facts": []
+}

@@ -1,5 +1,6 @@
 import Foundation
 import Testing
+import VoyageCore
 @testable import TokenVoyage
 
 enum LocalizationTestFiles {
@@ -9,6 +10,8 @@ enum LocalizationTestFiles {
     static let appSources = sources.appendingPathComponent("TokenVoyage")
     static let catalog = appSources.appendingPathComponent("Resources/Localizable.xcstrings")
 }
+
+let localizationCatalog = try! CityCatalog.load(directory: LocalizationTestFiles.root.appendingPathComponent("Content"))
 
 private struct StringCatalog: Decodable {
     struct Entry: Decodable {
@@ -85,7 +88,7 @@ private func placeholders(in value: String) throws -> [String: Int] {
 }
 
 @Test func swiftSourcesDoNotContainHardcodedChineseOutsideAllowedFiles() throws {
-    let allowed = Set(["VoyageCore/City.swift", "VoyageCore/Journey.swift", "TokenVoyage/Enricher.swift"])
+    let allowed = Set(["VoyageCore/JourneyMigrations.swift", "VoyageCore/Journey.swift", "TokenVoyage/Enricher.swift"])
     let enumerator = try #require(FileManager.default.enumerator(at: LocalizationTestFiles.sources, includingPropertiesForKeys: nil))
     var scanned = 0
     for case let file as URL in enumerator where file.pathExtension == "swift" {

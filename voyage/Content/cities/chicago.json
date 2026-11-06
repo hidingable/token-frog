@@ -1,0 +1,23 @@
+{
+  "id": "chicago",
+  "status": "active",
+  "lat": 41.88,
+  "lon": -87.63,
+  "countryCode": "US",
+  "continent": "north-america",
+  "tags": [
+    "river",
+    "lake",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "芝加哥",
+    "en": "Chicago"
+  },
+  "wikipedia": {
+    "zh-Hans": "芝加哥",
+    "en": "Chicago"
+  },
+  "facts": []
+}

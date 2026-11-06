@@ -1,0 +1,22 @@
+{
+  "id": "cusco",
+  "status": "active",
+  "lat": -13.53,
+  "lon": -71.97,
+  "countryCode": "PE",
+  "continent": "south-america",
+  "tags": [
+    "mountain",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "库斯科",
+    "en": "Cusco"
+  },
+  "wikipedia": {
+    "zh-Hans": "库斯科",
+    "en": "Cusco"
+  },
+  "facts": []
+}

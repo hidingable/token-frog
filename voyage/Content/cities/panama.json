@@ -1,0 +1,23 @@
+{
+  "id": "panama",
+  "status": "active",
+  "lat": 8.98,
+  "lon": -79.52,
+  "countryCode": "PA",
+  "continent": "north-america",
+  "tags": [
+    "coast",
+    "capital",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "巴拿马城",
+    "en": "Panama City"
+  },
+  "wikipedia": {
+    "zh-Hans": "巴拿马城",
+    "en": "Panama City"
+  },
+  "facts": []
+}

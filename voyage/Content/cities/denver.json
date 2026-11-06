@@ -1,0 +1,22 @@
+{
+  "id": "denver",
+  "status": "active",
+  "lat": 39.74,
+  "lon": -104.99,
+  "countryCode": "US",
+  "continent": "north-america",
+  "tags": [
+    "mountain",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "丹佛",
+    "en": "Denver"
+  },
+  "wikipedia": {
+    "zh-Hans": "丹佛",
+    "en": "Denver"
+  },
+  "facts": []
+}

@@ -1,0 +1,24 @@
+{
+  "id": "muscat",
+  "status": "active",
+  "lat": 23.59,
+  "lon": 58.41,
+  "countryCode": "OM",
+  "continent": "asia",
+  "tags": [
+    "coast",
+    "mountain",
+    "capital",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "马斯喀特",
+    "en": "Muscat"
+  },
+  "wikipedia": {
+    "zh-Hans": "马斯喀特",
+    "en": "Muscat"
+  },
+  "facts": []
+}

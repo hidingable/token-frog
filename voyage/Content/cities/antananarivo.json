@@ -1,0 +1,22 @@
+{
+  "id": "antananarivo",
+  "status": "active",
+  "lat": -18.88,
+  "lon": 47.51,
+  "countryCode": "MG",
+  "continent": "africa",
+  "tags": [
+    "capital",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "塔那那利佛",
+    "en": "Antananarivo"
+  },
+  "wikipedia": {
+    "zh-Hans": "塔那那利佛",
+    "en": "Antananarivo"
+  },
+  "facts": []
+}

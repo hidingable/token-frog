@@ -1,0 +1,23 @@
+{
+  "id": "venice",
+  "status": "active",
+  "lat": 45.44,
+  "lon": 12.33,
+  "countryCode": "IT",
+  "continent": "europe",
+  "tags": [
+    "island",
+    "heritage",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "威尼斯",
+    "en": "Venice"
+  },
+  "wikipedia": {
+    "zh-Hans": "威尼斯",
+    "en": "Venice"
+  },
+  "facts": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "edinburgh",
+  "status": "active",
+  "lat": 55.95,
+  "lon": -3.19,
+  "countryCode": "GB",
+  "continent": "europe",
+  "tags": [
+    "heritage",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "爱丁堡",
+    "en": "Edinburgh"
+  },
+  "wikipedia": {
+    "zh-Hans": "爱丁堡",
+    "en": "Edinburgh"
+  },
+  "facts": []
+}

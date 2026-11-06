@@ -1,0 +1,23 @@
+{
+  "id": "quito",
+  "status": "active",
+  "lat": -0.18,
+  "lon": -78.47,
+  "countryCode": "EC",
+  "continent": "south-america",
+  "tags": [
+    "mountain",
+    "capital",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "基多",
+    "en": "Quito"
+  },
+  "wikipedia": {
+    "zh-Hans": "基多",
+    "en": "Quito"
+  },
+  "facts": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "manila",
+  "status": "active",
+  "lat": 14.6,
+  "lon": 120.98,
+  "countryCode": "PH",
+  "continent": "asia",
+  "tags": [
+    "capital",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "马尼拉",
+    "en": "Manila"
+  },
+  "wikipedia": {
+    "zh-Hans": "马尼拉",
+    "en": "Manila"
+  },
+  "facts": []
+}

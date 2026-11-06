@@ -1,0 +1,22 @@
+{
+  "id": "newyork",
+  "status": "active",
+  "lat": 40.71,
+  "lon": -74.01,
+  "countryCode": "US",
+  "continent": "north-america",
+  "tags": [
+    "food",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "纽约",
+    "en": "New York City"
+  },
+  "wikipedia": {
+    "zh-Hans": "纽约市",
+    "en": "New York City"
+  },
+  "facts": []
+}

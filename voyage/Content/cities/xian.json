@@ -1,0 +1,22 @@
+{
+  "id": "xian",
+  "status": "active",
+  "lat": 34.34,
+  "lon": 108.94,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tags": [
+    "heritage",
+    "food"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "西安",
+    "en": "Xi'an"
+  },
+  "wikipedia": {
+    "zh-Hans": "西安",
+    "en": "Xi'an"
+  },
+  "facts": []
+}

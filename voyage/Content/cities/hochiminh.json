@@ -1,0 +1,22 @@
+{
+  "id": "hochiminh",
+  "status": "active",
+  "lat": 10.82,
+  "lon": 106.63,
+  "countryCode": "VN",
+  "continent": "asia",
+  "tags": [
+    "food",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "胡志明市",
+    "en": "Ho Chi Minh City"
+  },
+  "wikipedia": {
+    "zh-Hans": "胡志明市",
+    "en": "Ho Chi Minh City"
+  },
+  "facts": []
+}

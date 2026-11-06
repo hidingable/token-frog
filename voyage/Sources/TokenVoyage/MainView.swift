@@ -66,53 +66,54 @@ struct JourneyTab: View {
     let model: AppModel
 
     var body: some View {
-        let state = model.state
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .center, spacing: 12) {
-                SpriteView(pet: state.pet, scale: 4, moving: model.isMoving)
-                    .padding(6)
-                    .background(Theme.paper)
-                    .pixelBorder(Theme.dusk)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(Format.km(fuel: model.todayFuel)).font(Theme.pixel(24)).foregroundStyle(Theme.amber)
-                    Text(l10n("journey.todayFuel", l10n.tokens(model.todayFuel))).font(Theme.pixel()).foregroundStyle(Theme.paper)
-                    Text(l10n("journey.total", Format.km(fuel: state.totalFuel)))
-                        .font(Theme.pixel()).foregroundStyle(Theme.dusk)
-                }
-                Spacer()
-                VStack(alignment: .trailing, spacing: 4) {
-                    ForEach(model.todayVehicles, id: \.client) { share in
-                        Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
+        if let state = model.state, let catalog = model.catalog {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(alignment: .center, spacing: 12) {
+                    SpriteView(pet: state.pet, scale: 4, moving: model.isMoving)
+                        .padding(6)
+                        .background(Theme.paper)
+                        .pixelBorder(Theme.dusk)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(Format.km(fuel: model.todayFuel)).font(Theme.pixel(24)).foregroundStyle(Theme.amber)
+                        Text(l10n("journey.todayFuel", l10n.tokens(model.todayFuel))).font(Theme.pixel()).foregroundStyle(Theme.paper)
+                        Text(l10n("journey.total", Format.km(fuel: state.totalFuel)))
+                            .font(Theme.pixel()).foregroundStyle(Theme.dusk)
                     }
+                    Spacer()
+                    VStack(alignment: .trailing, spacing: 4) {
+                        ForEach(model.todayVehicles, id: \.client) { share in
+                            Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
+                        }
+                    }
+                    .font(Theme.pixel())
+                    .foregroundStyle(Theme.paper)
+                }
+
+                PixelMapView(state: state, catalog: catalog, scale: 6).pixelBorder(Theme.dusk).frame(maxWidth: .infinity)
+
+                HStack(spacing: 12) {
+                    Text(l10n("journey.route", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId)))).foregroundStyle(Theme.paper)
+                    BlockProgress(progress: state.legProgress, blocks: 20, size: 8)
+                    Spacer()
+                    Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel))).foregroundStyle(Theme.dusk)
                 }
                 .font(Theme.pixel())
-                .foregroundStyle(Theme.paper)
-            }
 
-            PixelMapView(state: state, scale: 6).pixelBorder(Theme.dusk).frame(maxWidth: .infinity)
-
-            HStack(spacing: 12) {
-                Text(l10n("journey.route", state.current.name, state.target.name)).foregroundStyle(Theme.paper)
-                BlockProgress(progress: state.legProgress, blocks: 20, size: 8)
-                Spacer()
-                Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel))).foregroundStyle(Theme.dusk)
-            }
-            .font(Theme.pixel())
-
-            if model.canChangeStart {
-                HStack(spacing: 8) {
-                    Text(l10n("journey.start")).font(Theme.pixel()).foregroundStyle(Theme.dusk)
-                    Picker(l10n("journey.start"), selection: Binding(get: { state.route[0] }, set: { model.setStart($0) })) {
-                        ForEach(City.all) { Text(l10n("city.country", $0.name, $0.country)).tag($0.id) }
+                if model.canChangeStart {
+                    HStack(spacing: 8) {
+                        Text(l10n("journey.start")).font(Theme.pixel()).foregroundStyle(Theme.dusk)
+                        Picker(l10n("journey.start"), selection: Binding(get: { state.route[0] }, set: { model.setStart($0) })) {
+                            ForEach(model.startCities) { Text(l10n("city.country", l10n.cityName($0), l10n.countryName(catalog.countryNames($0.countryCode)))).tag($0.id) }
+                        }
+                        .labelsHidden()
+                        .fixedSize()
+                        Text(l10n("journey.changeStart")).font(Theme.pixel()).foregroundStyle(Theme.dusk)
                     }
-                    .labelsHidden()
-                    .fixedSize()
-                    Text(l10n("journey.changeStart")).font(Theme.pixel()).foregroundStyle(Theme.dusk)
                 }
-            }
 
-            RecentBars(days: model.recentDays)
-            DestinationCards(model: model)
+                RecentBars(days: model.recentDays)
+                DestinationCards(model: model)
+            }
         }
     }
 }
@@ -145,31 +146,33 @@ struct DestinationCards: View {
     let model: AppModel
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(l10n("destination.prompt", model.state.target.name, model.petName))
-                .font(Theme.pixel())
-                .foregroundStyle(Theme.paper)
-            HStack(alignment: .top, spacing: 8) {
-                ForEach(model.state.destinationCards()) { card in
-                    let selected = model.state.nextChoiceId == card.city.id
-                    Button {
-                        model.choose(selected ? nil : card.city.id)
-                    } label: {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(card.city.name).font(Theme.pixel(24))
-                            Text(card.city.country)
-                            Text(l10n("destination.distance", Format.km(fuel: card.distanceFuel))).foregroundStyle(Theme.sea)
-                            Text(l10n("destination.tokens", l10n.tokens(card.distanceFuel)))
-                            Text(reasonText(card.reason)).foregroundStyle(Theme.brown)
+        if let state = model.state, let catalog = model.catalog {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(l10n("destination.prompt", l10n.cityName(catalog.city(state.targetCityId)), model.petName))
+                    .font(Theme.pixel())
+                    .foregroundStyle(Theme.paper)
+                HStack(alignment: .top, spacing: 8) {
+                    ForEach(state.destinationCards(catalog: catalog)) { card in
+                        let selected = state.nextChoiceId == card.city.id
+                        Button {
+                            model.choose(selected ? nil : card.city.id)
+                        } label: {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(l10n.cityName(card.city)).font(Theme.pixel(24))
+                                Text(l10n.countryName(catalog.countryNames(card.city.countryCode)))
+                                Text(l10n("destination.distance", Format.km(fuel: card.distanceFuel))).foregroundStyle(Theme.sea)
+                                Text(l10n("destination.tokens", l10n.tokens(card.distanceFuel)))
+                                Text(reasonText(card.reason)).foregroundStyle(Theme.brown)
+                            }
+                            .font(Theme.pixel())
+                            .foregroundStyle(Theme.ink)
+                            .padding(10)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Theme.paper)
+                            .pixelBorder(selected ? Theme.amber : Theme.ink, width: selected ? 4 : 2)
                         }
-                        .font(Theme.pixel())
-                        .foregroundStyle(Theme.ink)
-                        .padding(10)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Theme.paper)
-                        .pixelBorder(selected ? Theme.amber : Theme.ink, width: selected ? 4 : 2)
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
             }
         }
@@ -190,42 +193,44 @@ struct MailTab: View {
     @State private var selectedId: Int?
 
     var body: some View {
-        let letters = model.letters
-        let selected = letters.first { $0.id == selectedId } ?? letters.first
-        HStack(alignment: .top, spacing: 0) {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 4) {
-                    ForEach(letters) { letter in
-                        Button { selectedId = letter.id } label: {
-                            HStack(spacing: 6) {
-                                Rectangle().fill(letter.read ? Color.clear : Theme.red).frame(width: 6, height: 6)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(LetterComposer.text(for: letter, l10n: l10n, petName: model.petName).title).lineLimit(1)
-                                    Text(l10n.day(letter.date, full: true)).foregroundStyle(Theme.dusk)
+        if let catalog = model.catalog {
+            let letters = model.letters
+            let selected = letters.first { $0.id == selectedId } ?? letters.first
+            HStack(alignment: .top, spacing: 0) {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 4) {
+                        ForEach(letters) { letter in
+                            Button { selectedId = letter.id } label: {
+                                HStack(spacing: 6) {
+                                    Rectangle().fill(letter.read ? Color.clear : Theme.red).frame(width: 6, height: 6)
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(LetterComposer.text(for: letter, l10n: l10n, petName: model.petName, catalog: catalog).title).lineLimit(1)
+                                        Text(l10n.day(letter.date, full: true)).foregroundStyle(Theme.dusk)
+                                    }
+                                    Spacer(minLength: 0)
                                 }
-                                Spacer(minLength: 0)
+                                .font(Theme.pixel())
+                                .foregroundStyle(Theme.paper)
+                                .padding(6)
+                                .background(letter.id == selected?.id ? Theme.inkRaised : Color.clear)
                             }
-                            .font(Theme.pixel())
-                            .foregroundStyle(Theme.paper)
-                            .padding(6)
-                            .background(letter.id == selected?.id ? Theme.inkRaised : Color.clear)
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
+                    .padding(.horizontal, 8)
                 }
-                .padding(.horizontal, 8)
-            }
-            .frame(minWidth: 160, idealWidth: 190, maxWidth: 240)
+                .frame(minWidth: 160, idealWidth: 190, maxWidth: 240)
 
-            ScrollView {
-                if let selected {
-                    LetterView(letter: selected, photoURL: model.photoURL(selected), petName: model.petName)
-                        .padding(.horizontal, 12)
-                        .padding(.bottom, 12)
-                        .onAppear { model.markRead(selected) }
-                        .onChange(of: selected.id) { model.markRead(selected) }
-                } else {
-                    Text(l10n("mail.empty")).font(Theme.pixel()).foregroundStyle(Theme.dusk).padding()
+                ScrollView {
+                    if let selected {
+                        LetterView(letter: selected, photoURL: model.photoURL(selected), petName: model.petName, catalog: catalog)
+                            .padding(.horizontal, 12)
+                            .padding(.bottom, 12)
+                            .onAppear { model.markRead(selected) }
+                            .onChange(of: selected.id) { model.markRead(selected) }
+                    } else {
+                        Text(l10n("mail.empty")).font(Theme.pixel()).foregroundStyle(Theme.dusk).padding()
+                    }
                 }
             }
         }
@@ -237,9 +242,10 @@ struct LetterView: View {
     var letter: Letter
     var photoURL: URL?
     var petName: String
+    var catalog: CityCatalog
 
     var body: some View {
-        let text = LetterComposer.text(for: letter, l10n: l10n, petName: petName)
+        let text = LetterComposer.text(for: letter, l10n: l10n, petName: petName, catalog: catalog)
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top) {
                 Text(text.title).font(Theme.pixel(24))
@@ -295,29 +301,30 @@ struct PassportTab: View {
     let model: AppModel
 
     var body: some View {
-        let state = model.state
-        let laps = Double(state.totalFuel) / Double(fuelPerKm) / 40_075
-        VStack(alignment: .leading, spacing: 12) {
-            Text(l10n("passport.counts", Format.grouped(state.stamps.count), Format.grouped(Set(state.route).count))).font(Theme.pixel(24)).foregroundStyle(Theme.amber)
-            Text(l10n("passport.summary", Format.km(fuel: state.totalFuel), l10n.decimal(laps, places: 2), l10n.day(state.startDate, full: true)))
-                .font(Theme.pixel())
-                .foregroundStyle(Theme.dusk)
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 4), spacing: 8) {
-                ForEach(state.stamps, id: \.country) { stamp in
-                    VStack(spacing: 4) {
-                        Text(stamp.country).font(Theme.pixel())
-                        Text(City.find(stamp.cityId)?.name ?? "").font(Theme.pixel()).foregroundStyle(Theme.brown)
-                        Text(l10n.day(stamp.date)).font(Theme.pixel()).foregroundStyle(Theme.brown)
+        if let state = model.state, let catalog = model.catalog {
+            let laps = Double(state.totalFuel) / Double(fuelPerKm) / 40_075
+            VStack(alignment: .leading, spacing: 12) {
+                Text(l10n("passport.counts", Format.grouped(state.stamps.count), Format.grouped(Set(state.route).count))).font(Theme.pixel(24)).foregroundStyle(Theme.amber)
+                Text(l10n("passport.summary", Format.km(fuel: state.totalFuel), l10n.decimal(laps, places: 2), l10n.day(state.startDate, full: true)))
+                    .font(Theme.pixel())
+                    .foregroundStyle(Theme.dusk)
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 4), spacing: 8) {
+                    ForEach(state.stamps, id: \.countryCode) { stamp in
+                        VStack(spacing: 4) {
+                            Text(l10n.countryName(catalog.countryNames(stamp.countryCode))).font(Theme.pixel())
+                            Text(l10n.cityName(catalog.city(stamp.cityId))).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                            Text(l10n.day(stamp.date)).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                        }
+                        .foregroundStyle(Theme.ink)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(Theme.mint)
+                        .pixelBorder()
                     }
-                    .foregroundStyle(Theme.ink)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                    .background(Theme.mint)
-                    .pixelBorder()
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

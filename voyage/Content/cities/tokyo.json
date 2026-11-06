@@ -1,0 +1,23 @@
+{
+  "id": "tokyo",
+  "status": "active",
+  "lat": 35.68,
+  "lon": 139.69,
+  "countryCode": "JP",
+  "continent": "asia",
+  "tags": [
+    "coast",
+    "capital",
+    "food"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "东京",
+    "en": "Tokyo"
+  },
+  "wikipedia": {
+    "zh-Hans": "东京",
+    "en": "Tokyo"
+  },
+  "facts": []
+}

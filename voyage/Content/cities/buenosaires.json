@@ -1,0 +1,22 @@
+{
+  "id": "buenosaires",
+  "status": "active",
+  "lat": -34.6,
+  "lon": -58.38,
+  "countryCode": "AR",
+  "continent": "south-america",
+  "tags": [
+    "capital",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "布宜诺斯艾利斯",
+    "en": "Buenos Aires"
+  },
+  "wikipedia": {
+    "zh-Hans": "布宜诺斯艾利斯",
+    "en": "Buenos Aires"
+  },
+  "facts": []
+}

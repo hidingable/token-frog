@@ -1,0 +1,22 @@
+{
+  "id": "barcelona",
+  "status": "active",
+  "lat": 41.39,
+  "lon": 2.17,
+  "countryCode": "ES",
+  "continent": "europe",
+  "tags": [
+    "coast",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "巴塞罗那",
+    "en": "Barcelona"
+  },
+  "wikipedia": {
+    "zh-Hans": "巴塞罗那",
+    "en": "Barcelona"
+  },
+  "facts": []
+}

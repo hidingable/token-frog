@@ -1,0 +1,23 @@
+{
+  "id": "zanzibar",
+  "status": "active",
+  "lat": -6.16,
+  "lon": 39.2,
+  "countryCode": "TZ",
+  "continent": "africa",
+  "tags": [
+    "coast",
+    "island",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "桑给巴尔城",
+    "en": "Zanzibar City"
+  },
+  "wikipedia": {
+    "zh-Hans": "桑给巴尔城",
+    "en": "Zanzibar City"
+  },
+  "facts": []
+}

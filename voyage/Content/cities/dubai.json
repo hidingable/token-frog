@@ -1,0 +1,23 @@
+{
+  "id": "dubai",
+  "status": "active",
+  "lat": 25.2,
+  "lon": 55.27,
+  "countryCode": "AE",
+  "continent": "asia",
+  "tags": [
+    "coast",
+    "desert",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "迪拜",
+    "en": "Dubai"
+  },
+  "wikipedia": {
+    "zh-Hans": "迪拜",
+    "en": "Dubai"
+  },
+  "facts": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "almaty",
+  "status": "active",
+  "lat": 43.24,
+  "lon": 76.89,
+  "countryCode": "KZ",
+  "continent": "asia",
+  "tags": [
+    "mountain",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "阿拉木图",
+    "en": "Almaty"
+  },
+  "wikipedia": {
+    "zh-Hans": "阿拉木图",
+    "en": "Almaty"
+  },
+  "facts": []
+}

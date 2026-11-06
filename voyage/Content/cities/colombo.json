@@ -1,0 +1,22 @@
+{
+  "id": "colombo",
+  "status": "active",
+  "lat": 6.93,
+  "lon": 79.86,
+  "countryCode": "LK",
+  "continent": "asia",
+  "tags": [
+    "coast",
+    "island"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "科伦坡",
+    "en": "Colombo"
+  },
+  "wikipedia": {
+    "zh-Hans": "科伦坡",
+    "en": "Colombo"
+  },
+  "facts": []
+}

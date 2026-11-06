@@ -1,0 +1,23 @@
+{
+  "id": "ushuaia",
+  "status": "active",
+  "lat": -54.8,
+  "lon": -68.3,
+  "countryCode": "AR",
+  "continent": "south-america",
+  "tags": [
+    "coast",
+    "mountain",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "乌斯怀亚",
+    "en": "Ushuaia"
+  },
+  "wikipedia": {
+    "zh-Hans": "乌斯怀亚",
+    "en": "Ushuaia"
+  },
+  "facts": []
+}

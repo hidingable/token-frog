@@ -1,0 +1,23 @@
+{
+  "id": "singapore",
+  "status": "active",
+  "lat": 1.35,
+  "lon": 103.82,
+  "countryCode": "SG",
+  "continent": "asia",
+  "tags": [
+    "island",
+    "capital",
+    "food"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "新加坡",
+    "en": "Singapore"
+  },
+  "wikipedia": {
+    "zh-Hans": "新加坡",
+    "en": "Singapore"
+  },
+  "facts": []
+}

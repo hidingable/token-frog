@@ -1,0 +1,24 @@
+{
+  "id": "doha",
+  "status": "active",
+  "lat": 25.29,
+  "lon": 51.53,
+  "countryCode": "QA",
+  "continent": "asia",
+  "tags": [
+    "coast",
+    "capital",
+    "art",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "多哈",
+    "en": "Doha"
+  },
+  "wikipedia": {
+    "zh-Hans": "多哈",
+    "en": "Doha"
+  },
+  "facts": []
+}

@@ -1,0 +1,23 @@
+{
+  "id": "bali",
+  "status": "active",
+  "lat": -8.65,
+  "lon": 115.22,
+  "countryCode": "ID",
+  "continent": "asia",
+  "tags": [
+    "coast",
+    "island",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "巴厘岛",
+    "en": "Bali"
+  },
+  "wikipedia": {
+    "zh-Hans": "巴厘岛",
+    "en": "Bali"
+  },
+  "facts": []
+}

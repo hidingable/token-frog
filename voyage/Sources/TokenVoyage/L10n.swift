@@ -19,6 +19,16 @@ struct L10n: Sendable {
         return arguments.isEmpty ? template : String(format: template, locale: locale, arguments: arguments)
     }
 
+    func cityName(_ city: City) -> String {
+        [language.rawValue, "en", "zh-Hans"].lazy.compactMap { city.names[$0] }
+            .first { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty } ?? self("city.unknown")
+    }
+
+    func countryName(_ names: [String: String]?) -> String {
+        [language.rawValue, "en", "zh-Hans"].lazy.compactMap { names?[$0] }
+            .first { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty } ?? self("country.unknown")
+    }
+
     static func bundleLookup(_ language: Language, _ key: String) -> String? {
         guard let path = Bundle.module.path(forResource: language.rawValue, ofType: "lproj"),
               let bundle = Bundle(path: path) else { return nil }

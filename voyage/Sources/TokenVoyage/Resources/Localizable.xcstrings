@@ -3434,6 +3434,54 @@
           }
         }
       }
+    },
+    "city.unknown": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown city"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未知城市"
+          }
+        }
+      }
+    },
+    "country.unknown": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown country"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未知国家"
+          }
+        }
+      }
+    },
+    "recovery.content": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Content files are damaged. Please reinstall the app."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "内容文件损坏，请重新安装应用"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

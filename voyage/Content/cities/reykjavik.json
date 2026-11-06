@@ -1,0 +1,23 @@
+{
+  "id": "reykjavik",
+  "status": "active",
+  "lat": 64.15,
+  "lon": -21.94,
+  "countryCode": "IS",
+  "continent": "europe",
+  "tags": [
+    "island",
+    "capital",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "雷克雅未克",
+    "en": "Reykjavík"
+  },
+  "wikipedia": {
+    "zh-Hans": "雷克雅未克",
+    "en": "Reykjavík"
+  },
+  "facts": []
+}

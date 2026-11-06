@@ -1,0 +1,22 @@
+{
+  "id": "marrakesh",
+  "status": "active",
+  "lat": 31.63,
+  "lon": -7.99,
+  "countryCode": "MA",
+  "continent": "africa",
+  "tags": [
+    "heritage",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "马拉喀什",
+    "en": "Marrakesh"
+  },
+  "wikipedia": {
+    "zh-Hans": "马拉喀什",
+    "en": "Marrakesh"
+  },
+  "facts": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "fukuoka",
+  "status": "active",
+  "lat": 33.59,
+  "lon": 130.4,
+  "countryCode": "JP",
+  "continent": "asia",
+  "tags": [
+    "coast",
+    "food"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "福冈",
+    "en": "Fukuoka"
+  },
+  "wikipedia": {
+    "zh-Hans": "福冈市",
+    "en": "Fukuoka"
+  },
+  "facts": []
+}

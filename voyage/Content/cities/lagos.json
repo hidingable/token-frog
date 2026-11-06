@@ -1,0 +1,22 @@
+{
+  "id": "lagos",
+  "status": "active",
+  "lat": 6.52,
+  "lon": 3.38,
+  "countryCode": "NG",
+  "continent": "africa",
+  "tags": [
+    "coast",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "拉各斯",
+    "en": "Lagos"
+  },
+  "wikipedia": {
+    "zh-Hans": "拉各斯",
+    "en": "Lagos"
+  },
+  "facts": []
+}

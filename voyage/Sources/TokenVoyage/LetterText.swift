@@ -10,35 +10,36 @@ struct LetterText: Equatable, Sendable {
 
 /// M0 letters keep semantic data on disk and render in the current language on every read.
 enum LetterComposer {
-    static func text(for letter: Letter, l10n: L10n, petName: String) -> LetterText {
-        let city = City.named(letter.cityId)
+    static func text(for letter: Letter, l10n: L10n, petName: String, catalog: CityCatalog) -> LetterText {
+        let city = catalog.city(letter.cityId)
         let signature = l10n("letter.signature", petName)
         if letter.kind == .departure {
             return LetterText(
-                title: l10n("letter.departureTitle", city.name),
-                voice: l10n("letter.departureBody", city.name),
+                title: l10n("letter.departureTitle", l10n.cityName(city)),
+                voice: l10n("letter.departureBody", l10n.cityName(city)),
                 signature: signature,
                 itinerary: [l10n("letter.mileageRule")]
             )
         }
-        let target = letter.transitTargetId.flatMap(City.find)
-        let title = target.map { l10n("letter.transitTitle", letter.id, $0.name) } ?? l10n("letter.dailyTitle", letter.id, city.name)
-        return LetterText(title: title, voice: voice(letter, city: city, target: target, l10n: l10n), signature: signature, itinerary: itinerary(letter, l10n: l10n))
+        let target = letter.transitTargetId.map { catalog.city($0) }
+        let title = target.map { l10n("letter.transitTitle", letter.id, l10n.cityName($0)) }
+            ?? l10n("letter.dailyTitle", letter.id, l10n.cityName(city))
+        return LetterText(title: title, voice: voice(letter, city: city, target: target, l10n: l10n, catalog: catalog), signature: signature, itinerary: itinerary(letter, l10n: l10n))
     }
 
-    private static func voice(_ letter: Letter, city: City, target: City?, l10n: L10n) -> String {
+    private static func voice(_ letter: Letter, city: City, target: City?, l10n: L10n, catalog: CityCatalog) -> String {
         let quirk = l10n(quirkKeys[letter.pet]![letter.id % 3])
-        if let target { return l10n("letter.transitBody", target.name, quirk) }
+        if let target { return l10n("letter.transitBody", l10n.cityName(target), quirk) }
         var parts: [String] = []
         if letter.isDeepVisit {
-            parts.append(l10n("letter.deepVisit", city.name))
+            parts.append(l10n("letter.deepVisit", l10n.cityName(city)))
         } else if letter.arrivals.count > 1 {
-            let passed = letter.arrivals.dropLast().compactMap { City.find($0)?.name }.joined(separator: l10n("letter.citySeparator"))
-            parts.append(l10n("letter.longTrip", passed, city.name))
+            let passed = letter.arrivals.dropLast().map { l10n.cityName(catalog.city($0)) }.joined(separator: l10n("letter.citySeparator"))
+            parts.append(l10n("letter.longTrip", passed, l10n.cityName(city)))
         } else {
-            parts.append(l10n("letter.arrived", city.name))
+            parts.append(l10n("letter.arrived", l10n.cityName(city)))
         }
-        if let country = letter.newCountries.last { parts.append(l10n("letter.newStamp", country)) }
+        if let country = letter.newCountries.last { parts.append(l10n("letter.newStamp", l10n.countryName(catalog.countryNames(country)))) }
         parts.append(quirk)
         return parts.joined(separator: l10n.language == .zhHans ? "" : " ")
     }

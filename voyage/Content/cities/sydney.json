@@ -1,0 +1,23 @@
+{
+  "id": "sydney",
+  "status": "active",
+  "lat": -33.87,
+  "lon": 151.21,
+  "countryCode": "AU",
+  "continent": "oceania",
+  "tags": [
+    "coast",
+    "art",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "悉尼",
+    "en": "Sydney"
+  },
+  "wikipedia": {
+    "zh-Hans": "悉尼",
+    "en": "Sydney"
+  },
+  "facts": []
+}

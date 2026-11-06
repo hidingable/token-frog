@@ -1,0 +1,22 @@
+{
+  "id": "kunming",
+  "status": "active",
+  "lat": 25.04,
+  "lon": 102.71,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tags": [
+    "lake",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "昆明",
+    "en": "Kunming"
+  },
+  "wikipedia": {
+    "zh-Hans": "昆明",
+    "en": "Kunming"
+  },
+  "facts": []
+}

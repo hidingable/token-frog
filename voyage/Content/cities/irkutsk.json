@@ -1,0 +1,22 @@
+{
+  "id": "irkutsk",
+  "status": "active",
+  "lat": 52.29,
+  "lon": 104.3,
+  "countryCode": "RU",
+  "continent": "asia",
+  "tags": [
+    "lake",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "伊尔库茨克",
+    "en": "Irkutsk"
+  },
+  "wikipedia": {
+    "zh-Hans": "伊尔库茨克",
+    "en": "Irkutsk"
+  },
+  "facts": []
+}

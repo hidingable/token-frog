@@ -1,0 +1,23 @@
+{
+  "id": "taipei",
+  "status": "active",
+  "lat": 25.03,
+  "lon": 121.57,
+  "countryCode": "TW",
+  "continent": "asia",
+  "tags": [
+    "capital",
+    "food",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "台北",
+    "en": "Taipei"
+  },
+  "wikipedia": {
+    "zh-Hans": "台北",
+    "en": "Taipei"
+  },
+  "facts": []
+}

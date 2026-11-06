@@ -1,0 +1,23 @@
+{
+  "id": "helsinki",
+  "status": "active",
+  "lat": 60.17,
+  "lon": 24.94,
+  "countryCode": "FI",
+  "continent": "europe",
+  "tags": [
+    "coast",
+    "capital",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "赫尔辛基",
+    "en": "Helsinki"
+  },
+  "wikipedia": {
+    "zh-Hans": "赫尔辛基",
+    "en": "Helsinki"
+  },
+  "facts": []
+}

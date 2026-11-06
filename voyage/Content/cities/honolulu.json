@@ -1,0 +1,23 @@
+{
+  "id": "honolulu",
+  "status": "active",
+  "lat": 21.31,
+  "lon": -157.86,
+  "countryCode": "US",
+  "continent": "oceania",
+  "tags": [
+    "coast",
+    "island",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "檀香山",
+    "en": "Honolulu"
+  },
+  "wikipedia": {
+    "zh-Hans": "檀香山",
+    "en": "Honolulu"
+  },
+  "facts": []
+}

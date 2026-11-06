@@ -1,0 +1,22 @@
+{
+  "id": "busan",
+  "status": "active",
+  "lat": 35.18,
+  "lon": 129.08,
+  "countryCode": "KR",
+  "continent": "asia",
+  "tags": [
+    "coast",
+    "food"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "釜山",
+    "en": "Busan"
+  },
+  "wikipedia": {
+    "zh-Hans": "釜山",
+    "en": "Busan"
+  },
+  "facts": []
+}

@@ -3,6 +3,7 @@ import VoyageCore
 
 struct SaveRecoveryIssue: Identifiable {
     enum Problem {
+        case content
         case corrupted(backupPath: String)
         case tooNew(version: Int)
         case unreadable(reason: String)
@@ -38,8 +39,10 @@ struct SaveRecoveryView: View {
                     .foregroundStyle(Theme.dusk)
                 ForEach(issues) { issue in
                     VStack(alignment: .leading, spacing: 16) {
-                        Text(issue.file.rawValue).font(Theme.pixel())
+                        if case .content = issue.problem {} else { Text(issue.file.rawValue).font(Theme.pixel()) }
                         switch issue.problem {
+                        case .content:
+                            Text(l10n("recovery.content"))
                         case .corrupted(let path):
                             Text(l10n("recovery.corrupted"))
                             Text(path).foregroundStyle(Theme.dusk).textSelection(.enabled)

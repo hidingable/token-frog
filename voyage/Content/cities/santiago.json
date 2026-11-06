@@ -1,0 +1,22 @@
+{
+  "id": "santiago",
+  "status": "active",
+  "lat": -33.45,
+  "lon": -70.67,
+  "countryCode": "CL",
+  "continent": "south-america",
+  "tags": [
+    "mountain",
+    "capital"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "圣地亚哥",
+    "en": "Santiago"
+  },
+  "wikipedia": {
+    "zh-Hans": "圣地亚哥 (智利)",
+    "en": "Santiago"
+  },
+  "facts": []
+}

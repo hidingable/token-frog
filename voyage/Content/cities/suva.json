@@ -1,0 +1,23 @@
+{
+  "id": "suva",
+  "status": "active",
+  "lat": -18.14,
+  "lon": 178.44,
+  "countryCode": "FJ",
+  "continent": "oceania",
+  "tags": [
+    "coast",
+    "island",
+    "capital"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "苏瓦",
+    "en": "Suva"
+  },
+  "wikipedia": {
+    "zh-Hans": "苏瓦",
+    "en": "Suva"
+  },
+  "facts": []
+}

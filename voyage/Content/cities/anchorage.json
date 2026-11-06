@@ -1,0 +1,22 @@
+{
+  "id": "anchorage",
+  "status": "active",
+  "lat": 61.22,
+  "lon": -149.9,
+  "countryCode": "US",
+  "continent": "north-america",
+  "tags": [
+    "mountain",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "安克雷奇",
+    "en": "Anchorage"
+  },
+  "wikipedia": {
+    "zh-Hans": "安克雷奇",
+    "en": "Anchorage, Alaska"
+  },
+  "facts": []
+}

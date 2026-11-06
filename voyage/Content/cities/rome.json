@@ -1,0 +1,23 @@
+{
+  "id": "rome",
+  "status": "active",
+  "lat": 41.9,
+  "lon": 12.5,
+  "countryCode": "IT",
+  "continent": "europe",
+  "tags": [
+    "capital",
+    "heritage",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "罗马",
+    "en": "Rome"
+  },
+  "wikipedia": {
+    "zh-Hans": "罗马",
+    "en": "Rome"
+  },
+  "facts": []
+}

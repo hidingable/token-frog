@@ -1,0 +1,22 @@
+{
+  "id": "samarkand",
+  "status": "active",
+  "lat": 39.65,
+  "lon": 66.96,
+  "countryCode": "UZ",
+  "continent": "asia",
+  "tags": [
+    "heritage",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "撒马尔罕",
+    "en": "Samarkand"
+  },
+  "wikipedia": {
+    "zh-Hans": "撒马尔罕",
+    "en": "Samarkand"
+  },
+  "facts": []
+}

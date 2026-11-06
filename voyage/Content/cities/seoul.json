@@ -1,0 +1,23 @@
+{
+  "id": "seoul",
+  "status": "active",
+  "lat": 37.57,
+  "lon": 126.98,
+  "countryCode": "KR",
+  "continent": "asia",
+  "tags": [
+    "capital",
+    "food",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "首尔",
+    "en": "Seoul"
+  },
+  "wikipedia": {
+    "zh-Hans": "首尔",
+    "en": "Seoul"
+  },
+  "facts": []
+}

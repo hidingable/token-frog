@@ -1,0 +1,23 @@
+{
+  "id": "tbilisi",
+  "status": "active",
+  "lat": 41.72,
+  "lon": 44.79,
+  "countryCode": "GE",
+  "continent": "asia",
+  "tags": [
+    "river",
+    "capital",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "第比利斯",
+    "en": "Tbilisi"
+  },
+  "wikipedia": {
+    "zh-Hans": "第比利斯",
+    "en": "Tbilisi"
+  },
+  "facts": []
+}

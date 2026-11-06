@@ -1,0 +1,22 @@
+{
+  "id": "shanghai",
+  "status": "active",
+  "lat": 31.23,
+  "lon": 121.47,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tags": [
+    "river",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "上海",
+    "en": "Shanghai"
+  },
+  "wikipedia": {
+    "zh-Hans": "上海",
+    "en": "Shanghai"
+  },
+  "facts": []
+}

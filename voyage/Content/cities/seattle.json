@@ -1,0 +1,23 @@
+{
+  "id": "seattle",
+  "status": "active",
+  "lat": 47.61,
+  "lon": -122.33,
+  "countryCode": "US",
+  "continent": "north-america",
+  "tags": [
+    "coast",
+    "lake",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "西雅图",
+    "en": "Seattle"
+  },
+  "wikipedia": {
+    "zh-Hans": "西雅图",
+    "en": "Seattle"
+  },
+  "facts": []
+}

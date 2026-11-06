@@ -1,0 +1,22 @@
+{
+  "id": "quebec",
+  "status": "active",
+  "lat": 46.81,
+  "lon": -71.21,
+  "countryCode": "CA",
+  "continent": "north-america",
+  "tags": [
+    "river",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "魁北克市",
+    "en": "Quebec City"
+  },
+  "wikipedia": {
+    "zh-Hans": "魁北克市",
+    "en": "Quebec City"
+  },
+  "facts": []
+}

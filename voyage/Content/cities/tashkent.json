@@ -1,0 +1,22 @@
+{
+  "id": "tashkent",
+  "status": "active",
+  "lat": 41.3,
+  "lon": 69.24,
+  "countryCode": "UZ",
+  "continent": "asia",
+  "tags": [
+    "capital",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "塔什干",
+    "en": "Tashkent"
+  },
+  "wikipedia": {
+    "zh-Hans": "塔什干",
+    "en": "Tashkent"
+  },
+  "facts": []
+}

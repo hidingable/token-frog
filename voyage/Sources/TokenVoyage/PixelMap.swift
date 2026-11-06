@@ -14,7 +14,7 @@ enum PixelMap {
         return (min(max(x, 0), WorldMapData.width - 1), min(max(y, 0), WorldMapData.height - 1))
     }
 
-    static func image(for state: JourneyState) -> CGImage {
+    static func image(for state: JourneyState, catalog: CityCatalog) -> CGImage {
         var pixels = base
         let width = WorldMapData.width
         let height = WorldMapData.height
@@ -37,11 +37,11 @@ enum PixelMap {
             }
         }
 
-        let stops = state.route.compactMap(City.find).map { project($0.coordinate) }
+        let stops = state.route.compactMap { catalog.find($0) }.map { project($0.coordinate) }
         for (from, to) in zip(stops, stops.dropFirst()) { line(from, to, Palette.amber) }
         let here = project(state.position)
-        let origin = project(state.current.coordinate)
-        let target = project(state.target.coordinate)
+        let origin = project(state.legFrom)
+        let target = project(state.legTo)
         line(here, target, Palette.paper, dotted: true)
         line(origin, here, Palette.amber)
         for stop in stops { plot(stop.x, stop.y, Palette.paper) }
@@ -54,13 +54,14 @@ enum PixelMap {
 struct PixelMapView: View {
     @Environment(\.l10n) private var l10n
     var state: JourneyState
+    var catalog: CityCatalog
     var scale: CGFloat
 
     var body: some View {
-        Image(decorative: PixelMap.image(for: state), scale: 1)
+        Image(decorative: PixelMap.image(for: state, catalog: catalog), scale: 1)
             .interpolation(.none)
             .resizable()
             .frame(width: CGFloat(WorldMapData.width) * scale, height: CGFloat(WorldMapData.height) * scale)
-            .accessibilityLabel(l10n("map.description", state.current.name, state.target.name))
+            .accessibilityLabel(l10n("map.description", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId))))
     }
 }

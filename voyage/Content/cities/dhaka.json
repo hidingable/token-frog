@@ -1,0 +1,23 @@
+{
+  "id": "dhaka",
+  "status": "active",
+  "lat": 23.81,
+  "lon": 90.41,
+  "countryCode": "BD",
+  "continent": "asia",
+  "tags": [
+    "river",
+    "capital",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "达卡",
+    "en": "Dhaka"
+  },
+  "wikipedia": {
+    "zh-Hans": "达卡",
+    "en": "Dhaka"
+  },
+  "facts": []
+}

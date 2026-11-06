@@ -1,0 +1,22 @@
+{
+  "id": "zurich",
+  "status": "active",
+  "lat": 47.38,
+  "lon": 8.54,
+  "countryCode": "CH",
+  "continent": "europe",
+  "tags": [
+    "lake",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "苏黎世",
+    "en": "Zurich"
+  },
+  "wikipedia": {
+    "zh-Hans": "苏黎世",
+    "en": "Zurich"
+  },
+  "facts": []
+}

@@ -1,0 +1,23 @@
+{
+  "id": "hongkong",
+  "status": "active",
+  "lat": 22.32,
+  "lon": 114.17,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tags": [
+    "coast",
+    "mountain",
+    "food"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "香港",
+    "en": "Hong Kong"
+  },
+  "wikipedia": {
+    "zh-Hans": "香港",
+    "en": "Hong Kong"
+  },
+  "facts": []
+}

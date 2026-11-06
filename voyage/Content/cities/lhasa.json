@@ -1,0 +1,22 @@
+{
+  "id": "lhasa",
+  "status": "active",
+  "lat": 29.65,
+  "lon": 91.14,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tags": [
+    "mountain",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "拉萨",
+    "en": "Lhasa"
+  },
+  "wikipedia": {
+    "zh-Hans": "拉萨",
+    "en": "Lhasa"
+  },
+  "facts": []
+}

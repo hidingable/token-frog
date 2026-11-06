@@ -1,0 +1,22 @@
+{
+  "id": "dakar",
+  "status": "active",
+  "lat": 14.72,
+  "lon": -17.47,
+  "countryCode": "SN",
+  "continent": "africa",
+  "tags": [
+    "coast",
+    "capital"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "达喀尔",
+    "en": "Dakar"
+  },
+  "wikipedia": {
+    "zh-Hans": "达喀尔",
+    "en": "Dakar"
+  },
+  "facts": []
+}

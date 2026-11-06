@@ -1,0 +1,22 @@
+{
+  "id": "amman",
+  "status": "active",
+  "lat": 31.95,
+  "lon": 35.93,
+  "countryCode": "JO",
+  "continent": "asia",
+  "tags": [
+    "capital",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "安曼",
+    "en": "Amman"
+  },
+  "wikipedia": {
+    "zh-Hans": "安曼",
+    "en": "Amman"
+  },
+  "facts": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "darwin",
+  "status": "active",
+  "lat": -12.46,
+  "lon": 130.84,
+  "countryCode": "AU",
+  "continent": "oceania",
+  "tags": [
+    "coast",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "达尔文",
+    "en": "Darwin"
+  },
+  "wikipedia": {
+    "zh-Hans": "达尔文市",
+    "en": "Darwin, Northern Territory"
+  },
+  "facts": []
+}

@@ -1,0 +1,23 @@
+{
+  "id": "queenstown",
+  "status": "active",
+  "lat": -45.03,
+  "lon": 168.66,
+  "countryCode": "NZ",
+  "continent": "oceania",
+  "tags": [
+    "mountain",
+    "lake",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "皇后镇",
+    "en": "Queenstown"
+  },
+  "wikipedia": {
+    "zh-Hans": "皇后镇",
+    "en": "Queenstown, New Zealand"
+  },
+  "facts": []
+}

@@ -1,0 +1,24 @@
+{
+  "id": "bangkok",
+  "status": "active",
+  "lat": 13.76,
+  "lon": 100.5,
+  "countryCode": "TH",
+  "continent": "asia",
+  "tags": [
+    "river",
+    "capital",
+    "food",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "曼谷",
+    "en": "Bangkok"
+  },
+  "wikipedia": {
+    "zh-Hans": "曼谷",
+    "en": "Bangkok"
+  },
+  "facts": []
+}

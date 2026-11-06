@@ -1,0 +1,22 @@
+{
+  "id": "manaus",
+  "status": "active",
+  "lat": -3.12,
+  "lon": -60.02,
+  "countryCode": "BR",
+  "continent": "south-america",
+  "tags": [
+    "river",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "马瑙斯",
+    "en": "Manaus"
+  },
+  "wikipedia": {
+    "zh-Hans": "马瑙斯",
+    "en": "Manaus"
+  },
+  "facts": []
+}

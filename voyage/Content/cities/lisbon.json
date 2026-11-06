@@ -1,0 +1,23 @@
+{
+  "id": "lisbon",
+  "status": "active",
+  "lat": 38.72,
+  "lon": -9.14,
+  "countryCode": "PT",
+  "continent": "europe",
+  "tags": [
+    "coast",
+    "capital",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "里斯本",
+    "en": "Lisbon"
+  },
+  "wikipedia": {
+    "zh-Hans": "里斯本",
+    "en": "Lisbon"
+  },
+  "facts": []
+}

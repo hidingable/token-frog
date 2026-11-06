@@ -1,0 +1,22 @@
+{
+  "id": "urumqi",
+  "status": "active",
+  "lat": 43.83,
+  "lon": 87.62,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tags": [
+    "mountain",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "乌鲁木齐",
+    "en": "Ürümqi"
+  },
+  "wikipedia": {
+    "zh-Hans": "乌鲁木齐",
+    "en": "Ürümqi"
+  },
+  "facts": []
+}

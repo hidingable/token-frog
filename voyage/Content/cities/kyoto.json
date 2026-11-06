@@ -1,0 +1,22 @@
+{
+  "id": "kyoto",
+  "status": "active",
+  "lat": 35.01,
+  "lon": 135.77,
+  "countryCode": "JP",
+  "continent": "asia",
+  "tags": [
+    "heritage",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "京都",
+    "en": "Kyoto"
+  },
+  "wikipedia": {
+    "zh-Hans": "京都市",
+    "en": "Kyoto"
+  },
+  "facts": []
+}

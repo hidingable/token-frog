@@ -312,7 +312,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func statusImage() -> NSImage {
-        let image = NSImage(cgImage: Sprites.image(model.state.pet, .rest), size: NSSize(width: 16, height: 17))
+        let image = NSImage(cgImage: Sprites.image(model.state?.pet ?? .pigeon, .rest), size: NSSize(width: 16, height: 17))
         return image
     }
 
@@ -326,7 +326,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             menu.addItem(makeItem(l10n("menu.floating"), #selector(toggleFloating), checked: floatingEnabled))
             let petMenu = NSMenu()
             for pet in PetKind.allCases {
-                let item = makeItem(pet.displayName, #selector(selectPet(_:)), checked: model.state.pet == pet)
+                let item = makeItem(pet.displayName, #selector(selectPet(_:)), checked: model.state?.pet == pet)
                 item.representedObject = pet.rawValue
                 petMenu.addItem(item)
             }

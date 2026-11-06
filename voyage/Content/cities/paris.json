@@ -1,0 +1,24 @@
+{
+  "id": "paris",
+  "status": "active",
+  "lat": 48.86,
+  "lon": 2.35,
+  "countryCode": "FR",
+  "continent": "europe",
+  "tags": [
+    "river",
+    "capital",
+    "food",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "巴黎",
+    "en": "Paris"
+  },
+  "wikipedia": {
+    "zh-Hans": "巴黎",
+    "en": "Paris"
+  },
+  "facts": []
+}

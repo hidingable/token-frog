@@ -40,6 +40,7 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources/tokscale" "$APP/Contents/Resources/Fonts"
 cp "$BIN" "$APP/Contents/MacOS/TokenVoyage"
 cp -R "$(dirname "$BIN")/TokenVoyage_TokenVoyage.bundle" "$APP/Contents/Resources/"
+cp -R "$ROOT/Content" "$APP/Contents/Resources/Content"
 cp "$VENDOR/tokscale/"* "$APP/Contents/Resources/tokscale/"
 cp "$VENDOR/fonts/"* "$APP/Contents/Resources/Fonts/"
 

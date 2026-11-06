@@ -1,0 +1,22 @@
+{
+  "id": "chengdu",
+  "status": "active",
+  "lat": 30.57,
+  "lon": 104.07,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tags": [
+    "food",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "成都",
+    "en": "Chengdu"
+  },
+  "wikipedia": {
+    "zh-Hans": "成都",
+    "en": "Chengdu"
+  },
+  "facts": []
+}

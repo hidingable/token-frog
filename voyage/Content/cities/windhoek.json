@@ -1,0 +1,22 @@
+{
+  "id": "windhoek",
+  "status": "active",
+  "lat": -22.56,
+  "lon": 17.08,
+  "countryCode": "NA",
+  "continent": "africa",
+  "tags": [
+    "capital",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "温得和克",
+    "en": "Windhoek"
+  },
+  "wikipedia": {
+    "zh-Hans": "温得和克",
+    "en": "Windhoek"
+  },
+  "facts": []
+}

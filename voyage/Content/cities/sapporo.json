@@ -1,0 +1,22 @@
+{
+  "id": "sapporo",
+  "status": "active",
+  "lat": 43.06,
+  "lon": 141.35,
+  "countryCode": "JP",
+  "continent": "asia",
+  "tags": [
+    "food",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "札幌",
+    "en": "Sapporo"
+  },
+  "wikipedia": {
+    "zh-Hans": "札幌市",
+    "en": "Sapporo"
+  },
+  "facts": []
+}

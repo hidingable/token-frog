@@ -1,0 +1,22 @@
+{
+  "id": "perth",
+  "status": "active",
+  "lat": -31.95,
+  "lon": 115.86,
+  "countryCode": "AU",
+  "continent": "oceania",
+  "tags": [
+    "coast",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "珀斯",
+    "en": "Perth"
+  },
+  "wikipedia": {
+    "zh-Hans": "珀斯",
+    "en": "Perth"
+  },
+  "facts": []
+}

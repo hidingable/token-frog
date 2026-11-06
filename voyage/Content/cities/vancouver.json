@@ -1,0 +1,23 @@
+{
+  "id": "vancouver",
+  "status": "active",
+  "lat": 49.28,
+  "lon": -123.12,
+  "countryCode": "CA",
+  "continent": "north-america",
+  "tags": [
+    "coast",
+    "mountain",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "温哥华",
+    "en": "Vancouver"
+  },
+  "wikipedia": {
+    "zh-Hans": "温哥华",
+    "en": "Vancouver"
+  },
+  "facts": []
+}

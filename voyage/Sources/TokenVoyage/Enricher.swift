@@ -15,6 +15,7 @@ enum Enricher {
     private static let userAgent = "TokenVoyage/0.1 (personal desktop app)"
 
     static func fetch(city: City, coordinate: Coordinate) async -> Enrichment {
+        guard !city.isPlaceholder else { return Enrichment() }
         async let weather = fetchWeather(coordinate)
         async let place = fetchPlace(city)
         let (weatherText, summary) = await (weather, place)
@@ -87,8 +88,9 @@ enum Enricher {
     }
 
     private static func fetchPlace(_ city: City) async -> PageSummary? {
-        for (host, title, language) in [("zh", city.wikiZh, "zh-cn"), ("en", city.wikiEn, "en")] {
-            guard let encoded = title.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed.subtracting(CharacterSet(charactersIn: "/"))),
+        for (host, title, language) in [("zh", city.wikipedia["zh-Hans"], "zh-cn"), ("en", city.wikipedia["en"], "en")] {
+            guard let title, !title.isEmpty,
+                  let encoded = title.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed.subtracting(CharacterSet(charactersIn: "/"))),
                   let url = URL(string: "https://\(host).wikipedia.org/api/rest_v1/page/summary/\(encoded)"),
                   let data = try? await request(url, language: language),
                   let summary = try? JSONDecoder().decode(PageSummary.self, from: data) else { continue }

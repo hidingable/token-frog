@@ -1,0 +1,23 @@
+{
+  "id": "chiangmai",
+  "status": "active",
+  "lat": 18.79,
+  "lon": 98.98,
+  "countryCode": "TH",
+  "continent": "asia",
+  "tags": [
+    "mountain",
+    "heritage",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "清迈",
+    "en": "Chiang Mai"
+  },
+  "wikipedia": {
+    "zh-Hans": "清迈",
+    "en": "Chiang Mai"
+  },
+  "facts": []
+}

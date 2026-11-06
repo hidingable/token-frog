@@ -1,0 +1,22 @@
+{
+  "id": "losangeles",
+  "status": "active",
+  "lat": 34.05,
+  "lon": -118.24,
+  "countryCode": "US",
+  "continent": "north-america",
+  "tags": [
+    "coast",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "洛杉矶",
+    "en": "Los Angeles"
+  },
+  "wikipedia": {
+    "zh-Hans": "洛杉矶",
+    "en": "Los Angeles"
+  },
+  "facts": []
+}

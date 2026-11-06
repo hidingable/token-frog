@@ -1,0 +1,24 @@
+{
+  "id": "havana",
+  "status": "active",
+  "lat": 23.11,
+  "lon": -82.37,
+  "countryCode": "CU",
+  "continent": "north-america",
+  "tags": [
+    "coast",
+    "island",
+    "capital",
+    "heritage"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "哈瓦那",
+    "en": "Havana"
+  },
+  "wikipedia": {
+    "zh-Hans": "哈瓦那",
+    "en": "Havana"
+  },
+  "facts": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "addisababa",
+  "status": "active",
+  "lat": 9.03,
+  "lon": 38.74,
+  "countryCode": "ET",
+  "continent": "africa",
+  "tags": [
+    "capital",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "亚的斯亚贝巴",
+    "en": "Addis Ababa"
+  },
+  "wikipedia": {
+    "zh-Hans": "亚的斯亚贝巴",
+    "en": "Addis Ababa"
+  },
+  "facts": []
+}

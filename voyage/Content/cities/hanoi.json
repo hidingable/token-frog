@@ -1,0 +1,24 @@
+{
+  "id": "hanoi",
+  "status": "active",
+  "lat": 21.03,
+  "lon": 105.85,
+  "countryCode": "VN",
+  "continent": "asia",
+  "tags": [
+    "capital",
+    "heritage",
+    "food",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "河内",
+    "en": "Hanoi"
+  },
+  "wikipedia": {
+    "zh-Hans": "河内",
+    "en": "Hanoi"
+  },
+  "facts": []
+}

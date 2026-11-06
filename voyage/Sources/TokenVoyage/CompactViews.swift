@@ -41,25 +41,27 @@ struct NotchCollapsedView: View {
     var metrics: NotchMetrics
 
     var body: some View {
-        HStack(spacing: 0) {
-            HStack(spacing: 6) {
-                SpriteView(pet: model.state.pet, scale: 1, moving: model.isMoving)
-                    .background(Theme.paper)
-                BlockProgress(progress: model.state.legProgress, blocks: 6, size: 5)
+        if let state = model.state, let catalog = model.catalog {
+            HStack(spacing: 0) {
+                HStack(spacing: 6) {
+                    SpriteView(pet: state.pet, scale: 1, moving: model.isMoving)
+                        .background(Theme.paper)
+                    BlockProgress(progress: state.legProgress, blocks: 6, size: 5)
+                }
+                .frame(width: metrics.shoulderWidth, alignment: .center)
+                Color.clear.frame(width: metrics.notchWidth)
+                HStack(spacing: 6) {
+                    Text(l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))))
+                        .font(Theme.pixel())
+                        .foregroundStyle(Theme.paper)
+                        .lineLimit(1)
+                    if model.unread > 0 { MailBadge(count: model.unread) }
+                }
+                .frame(width: metrics.shoulderWidth, alignment: .center)
             }
-            .frame(width: metrics.shoulderWidth, alignment: .center)
-            Color.clear.frame(width: metrics.notchWidth)
-            HStack(spacing: 6) {
-                Text(l10n("compact.destination", model.state.target.name))
-                    .font(Theme.pixel())
-                    .foregroundStyle(Theme.paper)
-                    .lineLimit(1)
-                if model.unread > 0 { MailBadge(count: model.unread) }
-            }
-            .frame(width: metrics.shoulderWidth, alignment: .center)
+            .frame(width: metrics.collapsedSize.width, height: metrics.collapsedSize.height)
+            .background(Color.black, in: SteppedBottom(step: 2))
         }
-        .frame(width: metrics.collapsedSize.width, height: metrics.collapsedSize.height)
-        .background(Color.black, in: SteppedBottom(step: 2))
     }
 }
 
@@ -69,56 +71,58 @@ struct NotchExpandedView: View {
     var metrics: NotchMetrics
 
     var body: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 0) {
-                Text(model.petName)
+        if let state = model.state, let catalog = model.catalog {
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
+                    Text(model.petName)
+                        .frame(width: metrics.shoulderWidth + (metrics.expandedSize.width - metrics.collapsedSize.width) / 2)
+                    Color.clear.frame(width: metrics.notchWidth)
+                    Group {
+                        if model.unread > 0 { MailBadge(count: model.unread) } else { Text(l10n("compact.open")) }
+                    }
                     .frame(width: metrics.shoulderWidth + (metrics.expandedSize.width - metrics.collapsedSize.width) / 2)
-                Color.clear.frame(width: metrics.notchWidth)
-                Group {
-                    if model.unread > 0 { MailBadge(count: model.unread) } else { Text(l10n("compact.open")) }
-                }
-                .frame(width: metrics.shoulderWidth + (metrics.expandedSize.width - metrics.collapsedSize.width) / 2)
-            }
-            .font(Theme.pixel())
-            .foregroundStyle(Theme.dusk)
-            .frame(height: metrics.collapsedSize.height)
-
-            HStack(alignment: .top, spacing: 12) {
-                PixelMapView(state: model.state, scale: 3).pixelBorder(Theme.blockOff)
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(Format.km(fuel: model.todayFuel))
-                        .font(Theme.pixel(24))
-                        .foregroundStyle(Theme.amber)
-                    Text(l10n("compact.fuel", l10n.tokens(model.todayFuel)))
-                    if let totals = model.todayTotals {
-                        Text(l10n("compact.total", Format.tokens(totals.total, language: l10n.language), Format.cost(totals.cost)))
-                            .foregroundStyle(Theme.dusk)
-                    }
-                    Text(l10n("journey.route", model.state.current.name, model.state.target.name))
-                    BlockProgress(progress: model.state.legProgress, blocks: 12, size: 6)
-                    Text(l10n("journey.remaining", Format.km(fuel: model.state.remainingFuel)))
-                        .foregroundStyle(Theme.dusk)
-                    if let tight = model.tightestQuota {
-                        Text(l10n("compact.quota", tight.provider, l10n.quotaMetric(tight.metric.label), Format.grouped(Int(tight.metric.remainingPercent.rounded()))))
-                            .foregroundStyle(QuotaTab.isLow(tight.metric) ? Theme.coral : Theme.dusk)
-                    } else {
-                        ForEach(model.todayVehicles.prefix(1), id: \.client) { share in
-                            Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
-                                .foregroundStyle(Theme.dusk)
-                        }
-                    }
-                    Spacer(minLength: 0)
                 }
                 .font(Theme.pixel())
-                .foregroundStyle(Theme.paper)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(Theme.dusk)
+                .frame(height: metrics.collapsedSize.height)
+
+                HStack(alignment: .top, spacing: 12) {
+                    PixelMapView(state: state, catalog: catalog, scale: 3).pixelBorder(Theme.blockOff)
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(Format.km(fuel: model.todayFuel))
+                            .font(Theme.pixel(24))
+                            .foregroundStyle(Theme.amber)
+                        Text(l10n("compact.fuel", l10n.tokens(model.todayFuel)))
+                        if let totals = model.todayTotals {
+                            Text(l10n("compact.total", Format.tokens(totals.total, language: l10n.language), Format.cost(totals.cost)))
+                                .foregroundStyle(Theme.dusk)
+                        }
+                        Text(l10n("journey.route", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId))))
+                        BlockProgress(progress: state.legProgress, blocks: 12, size: 6)
+                        Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel)))
+                            .foregroundStyle(Theme.dusk)
+                        if let tight = model.tightestQuota {
+                            Text(l10n("compact.quota", tight.provider, l10n.quotaMetric(tight.metric.label), Format.grouped(Int(tight.metric.remainingPercent.rounded()))))
+                                .foregroundStyle(QuotaTab.isLow(tight.metric) ? Theme.coral : Theme.dusk)
+                        } else {
+                            ForEach(model.todayVehicles.prefix(1), id: \.client) { share in
+                                Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
+                                    .foregroundStyle(Theme.dusk)
+                            }
+                        }
+                        Spacer(minLength: 0)
+                    }
+                    .font(Theme.pixel())
+                    .foregroundStyle(Theme.paper)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
+            .frame(width: metrics.expandedSize.width, height: metrics.expandedSize.height, alignment: .top)
+            .clipped()
+            .background(Color.black, in: SteppedBottom(step: 4))
         }
-        .frame(width: metrics.expandedSize.width, height: metrics.expandedSize.height, alignment: .top)
-        .clipped()
-        .background(Color.black, in: SteppedBottom(step: 4))
     }
 }
 
@@ -127,24 +131,26 @@ struct FloatingView: View {
     let model: AppModel
 
     var body: some View {
-        HStack(spacing: 6) {
-            SpriteView(pet: model.state.pet, scale: 2, moving: model.isMoving)
-                .background(Theme.paper)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(Format.km(fuel: model.todayFuel)).foregroundStyle(Theme.amber)
-                HStack(spacing: 4) {
-                    Text(l10n("compact.destination", model.state.target.name))
-                        .foregroundStyle(Theme.paper)
-                        .lineLimit(1)
-                    if model.unread > 0 { Rectangle().fill(Theme.red).frame(width: 6, height: 6) }
+        if let state = model.state, let catalog = model.catalog {
+            HStack(spacing: 6) {
+                SpriteView(pet: state.pet, scale: 2, moving: model.isMoving)
+                    .background(Theme.paper)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(Format.km(fuel: model.todayFuel)).foregroundStyle(Theme.amber)
+                    HStack(spacing: 4) {
+                        Text(l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))))
+                            .foregroundStyle(Theme.paper)
+                            .lineLimit(1)
+                        if model.unread > 0 { Rectangle().fill(Theme.red).frame(width: 6, height: 6) }
+                    }
                 }
+                .font(Theme.pixel())
+                Spacer(minLength: 0)
             }
-            .font(Theme.pixel())
-            Spacer(minLength: 0)
+            .padding(6)
+            .frame(width: FloatingController.size.width, height: FloatingController.size.height)
+            .background(Theme.ink)
+            .pixelBorder(Theme.dusk)
         }
-        .padding(6)
-        .frame(width: FloatingController.size.width, height: FloatingController.size.height)
-        .background(Theme.ink)
-        .pixelBorder(Theme.dusk)
     }
 }

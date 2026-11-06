@@ -6,7 +6,9 @@ import VoyageCore
 @MainActor
 @Observable
 final class AppModel {
-    private(set) var state: JourneyState
+    private(set) var state: JourneyState?
+    let catalog: CityCatalog?
+    private let contentFailed: Bool
     private(set) var now = Date()
     private(set) var lastScan: Date?
     private(set) var lastError: (any Error)?
@@ -34,7 +36,7 @@ final class AppModel {
     private let defaults: UserDefaults
     private let languageOverride: Language?
     var l10n: L10n { L10n(language: languageOverride ?? languagePreference.resolve(systemLanguages: Locale.preferredLanguages)) }
-    var petName: String { care?.petName ?? state.pet.displayName }
+    var petName: String { care?.petName ?? state?.pet.displayName ?? "" }
 
     private let dataDirectory: URL
     private let store: SaveStore
@@ -64,7 +66,7 @@ final class AppModel {
     /// Quotas hit provider APIs, so they refresh on a fixed clock and never because tokens were used.
     private static let quotaInterval: TimeInterval = 600
 
-    init(isSnapshot: Bool = false, languageOverride: Language? = nil, defaults: UserDefaults = .standard, directory: URL? = nil) {
+    init(isSnapshot: Bool = false, languageOverride: Language? = nil, defaults: UserDefaults = .standard, directory: URL? = nil, catalog: CityCatalog? = nil, contentDirectory: URL? = nil) {
         self.isSnapshot = isSnapshot
         self.languageOverride = languageOverride
         self.defaults = defaults
@@ -77,22 +79,32 @@ final class AppModel {
             dataDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
                 .appendingPathComponent("TokenVoyage")
         }
-        store = SaveStore(directory: dataDirectory)
+        let loadedCatalog = catalog ?? (try? CityCatalog.load(directory: contentDirectory ?? Bundle.main.resourceURL!.appendingPathComponent("Content")))
+        self.catalog = loadedCatalog
+        contentFailed = loadedCatalog.map { $0.active.count < 2 } ?? true
+        store = SaveStore(directory: dataDirectory, journeyMigrations: loadedCatalog.map { .journey(catalog: $0) } ?? SaveMigrations(currentVersion: JourneyState.currentVersion))
+        isLocked = true
+        guard !contentFailed, let loadedCatalog else {
+            recoveryIssues = [SaveRecoveryIssue(file: .journey, problem: .content)]
+            return
+        }
         store.load()
-        isLocked = store.isLocked
         if case .loaded(let saved) = store.journey {
             state = saved
-        } else {
-            state = Self.newJourney(in: store)
+        } else if !store.isLocked {
+            state = Self.newJourney(in: store, catalog: loadedCatalog)
         }
         refreshSaveStatus()
     }
 
-    var today: DayRecord { state.days[state.openDate] ?? DayRecord() }
+    var today: DayRecord { state.flatMap { $0.days[$0.openDate] } ?? DayRecord() }
     var todayFuel: Int { today.fuel }
-    var unread: Int { state.unreadCount(now: now) }
-    var letters: [Letter] { state.deliveredLetters(now: now) }
-    var canChangeStart: Bool { state.startDate == state.openDate }
+    var unread: Int { state?.unreadCount(now: now) ?? 0 }
+    var letters: [Letter] { state?.deliveredLetters(now: now) ?? [] }
+    var canChangeStart: Bool { !isLocked && state.map { $0.startDate == $0.openDate } == true }
+    var startCities: [City] {
+        (catalog?.active ?? []).sorted { l10n.cityName($0).compare(l10n.cityName($1), locale: l10n.locale) == .orderedAscending }
+    }
 
     var todayVehicles: [VehicleShare] {
         let usage = today.byClient
@@ -107,6 +119,7 @@ final class AppModel {
     }
 
     var recentDays: [(date: String, fuel: Int)] {
+        guard let state else { return [] }
         var keys = [state.openDate]
         let calendar = Calendar.current
         var cursor = DayKey.date(from: state.openDate) ?? now
@@ -173,7 +186,7 @@ final class AppModel {
     }
 
     func scan() async {
-        guard !isLocked, !isScanning else { return }
+        guard !isLocked, !isScanning, let state, let catalog else { return }
         let generation = backgroundGeneration
         isScanning = true
         defer { isScanning = false }
@@ -186,7 +199,7 @@ final class AppModel {
         }
         do {
             let details = try await UsageSource.fetch(since: since, until: todayKey)
-            guard !isLocked, generation == backgroundGeneration else { return }
+            guard !isLocked, generation == backgroundGeneration, var state = self.state else { return }
             let days = details.map(\.usage)
             let todayDetail = details.first { $0.date == todayKey }
             todayTotals = UsageLedger(days: todayDetail.map { [$0] } ?? []).totals
@@ -202,7 +215,8 @@ final class AppModel {
                 historyDate = todayKey
             }
             let before = state.totalFuel
-            state.sync(today: today, finalized: finalized)
+            state.sync(today: today, finalized: finalized, catalog: catalog)
+            self.state = state
             if state.totalFuel > before {
                 isMoving = true
                 lastMovement = date
@@ -292,27 +306,29 @@ final class AppModel {
     }
 
     func choose(_ cityId: String?) {
-        state.choose(next: cityId)
+        guard !isLocked else { return }
+        state?.choose(next: cityId)
         persist()
     }
 
     func markRead(_ letter: Letter) {
-        guard !letter.read else { return }
-        state.markRead(letter.id)
+        guard !isLocked, !letter.read else { return }
+        state?.markRead(letter.id)
         persist()
     }
 
     func setPet(_ pet: PetKind) {
-        state.pet = pet
+        guard !isLocked else { return }
+        state?.pet = pet
         persist()
     }
 
     /// Only available on the first day, when nothing has been settled and today can simply be replayed.
     func setStart(_ cityId: String) {
-        guard canChangeStart, cityId != state.route[0] else { return }
-        var replacement = JourneyState(seed: state.seed, startCityId: cityId, pet: state.pet, date: state.openDate)
-        replacement.sync(today: DayUsage(date: state.openDate, fuel: todayFuel, byClient: today.byClient))
-        state = replacement
+        guard canChangeStart, let state, let catalog, catalog.find(cityId)?.status == "active", cityId != state.route[0] else { return }
+        var replacement = JourneyState(seed: state.seed, startCityId: cityId, pet: state.pet, date: state.openDate, catalog: catalog)
+        replacement.sync(today: DayUsage(date: state.openDate, fuel: todayFuel, byClient: today.byClient), catalog: catalog)
+        self.state = replacement
         enrichAttempts = [:]
         persist()
         Task { await enrichLatest() }
@@ -324,27 +340,28 @@ final class AppModel {
 
     /// Only the newest letter goes to the network; a long catch-up does not send a burst of requests.
     func enrichLatest() async {
-        guard !isLocked, !isSnapshot, !isEnriching,
+        guard !isLocked, !isSnapshot, !isEnriching, let state, let catalog,
               let letter = state.letters.max(by: { $0.id < $1.id }), !letter.enrichmentDone else { return }
         let generation = backgroundGeneration
         let attempts = enrichAttempts[letter.id, default: 0]
-        guard attempts < 3, let city = City.find(letter.subjectCityId) else { return }
+        guard attempts < 3, let city = catalog.find(letter.subjectCityId) else { return }
         isEnriching = true
         defer { isEnriching = false }
         enrichAttempts[letter.id] = attempts + 1
 
-        let coordinate = letter.transitTargetId == nil ? City.named(letter.cityId).coordinate : state.position
+        let coordinate = letter.transitTargetId == nil ? catalog.city(letter.cityId).coordinate : state.position
         let result = await Enricher.fetch(city: city, coordinate: coordinate)
-        guard !isLocked, generation == backgroundGeneration else { return }
+        guard !isLocked, generation == backgroundGeneration, var updatedState = self.state else { return }
         let photoFile = result.photoData.flatMap { savePhoto($0, letterId: letter.id) }
-        guard let index = state.letters.firstIndex(where: { $0.id == letter.id }) else { return }
-        state.letters[index].weather = result.weather ?? state.letters[index].weather
-        state.letters[index].placeTitle = result.placeTitle ?? state.letters[index].placeTitle
-        state.letters[index].placeSummary = result.placeSummary ?? state.letters[index].placeSummary
-        state.letters[index].placeURL = result.placeURL ?? state.letters[index].placeURL
-        state.letters[index].photoFile = photoFile ?? state.letters[index].photoFile
-        let updated = state.letters[index]
-        state.letters[index].enrichmentDone = (updated.weather != nil && updated.placeSummary != nil) || attempts >= 2
+        guard let index = updatedState.letters.firstIndex(where: { $0.id == letter.id }) else { return }
+        updatedState.letters[index].weather = result.weather ?? updatedState.letters[index].weather
+        updatedState.letters[index].placeTitle = result.placeTitle ?? updatedState.letters[index].placeTitle
+        updatedState.letters[index].placeSummary = result.placeSummary ?? updatedState.letters[index].placeSummary
+        updatedState.letters[index].placeURL = result.placeURL ?? updatedState.letters[index].placeURL
+        updatedState.letters[index].photoFile = photoFile ?? updatedState.letters[index].photoFile
+        let updated = updatedState.letters[index]
+        updatedState.letters[index].enrichmentDone = (updated.weather != nil && updated.placeSummary != nil) || attempts >= 2
+        self.state = updatedState
         persist()
     }
 
@@ -362,7 +379,7 @@ final class AppModel {
     }
 
     private func persist() {
-        guard !isLocked else { return }
+        guard !isLocked, let state else { return }
         do {
             try store.save(state)
             if case .missing = store.care {
@@ -377,11 +394,13 @@ final class AppModel {
     }
 
     func retrySaves() {
+        guard !contentFailed else { return }
         store.load()
         resumeAfterRecovery()
     }
 
     func restoreSave(_ backup: SaveBackup) {
+        guard !contentFailed else { return }
         do {
             try store.restore(backup: backup)
             resumeAfterRecovery()
@@ -392,6 +411,7 @@ final class AppModel {
     }
 
     func restartSave(_ file: SaveFile) {
+        guard !contentFailed else { return }
         do {
             try store.restart(file)
             resumeAfterRecovery()
@@ -404,11 +424,11 @@ final class AppModel {
     private func resumeAfterRecovery() {
         recoveryError = nil
         refreshSaveStatus()
-        guard !isLocked else { return }
+        guard !isLocked, let catalog else { return }
         if case .loaded(let saved) = store.journey {
             state = saved
         } else {
-            state = Self.newJourney(in: store)
+            state = Self.newJourney(in: store, catalog: catalog)
         }
         enrichAttempts = [:]
         lastError = nil
@@ -416,7 +436,7 @@ final class AppModel {
         onLockChange?()
     }
 
-    private static func newJourney(in store: SaveStore) -> JourneyState {
+    private static func newJourney(in store: SaveStore, catalog: CityCatalog) -> JourneyState {
         let pet: PetKind
         if case .loaded(let care) = store.care {
             pet = care.species
@@ -425,11 +445,12 @@ final class AppModel {
         }
         return JourneyState(
             seed: UInt32.random(in: 0...UInt32.max), startCityId: "shanghai", pet: pet,
-            date: DayKey.string(from: Date())
+            date: DayKey.string(from: Date()), catalog: catalog
         )
     }
 
     private func refreshSaveStatus() {
+        guard !contentFailed else { return }
         if case .loaded(let saved) = store.care { care = saved } else { care = nil }
         let wasLocked = isLocked
         isLocked = store.isLocked

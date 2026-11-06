@@ -1,0 +1,24 @@
+{
+  "id": "mexicocity",
+  "status": "active",
+  "lat": 19.43,
+  "lon": -99.13,
+  "countryCode": "MX",
+  "continent": "north-america",
+  "tags": [
+    "capital",
+    "heritage",
+    "food",
+    "art"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "墨西哥城",
+    "en": "Mexico City"
+  },
+  "wikipedia": {
+    "zh-Hans": "墨西哥城",
+    "en": "Mexico City"
+  },
+  "facts": []
+}

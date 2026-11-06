@@ -1,0 +1,22 @@
+{
+  "id": "nairobi",
+  "status": "active",
+  "lat": -1.29,
+  "lon": 36.82,
+  "countryCode": "KE",
+  "continent": "africa",
+  "tags": [
+    "capital",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "内罗毕",
+    "en": "Nairobi"
+  },
+  "wikipedia": {
+    "zh-Hans": "内罗毕",
+    "en": "Nairobi"
+  },
+  "facts": []
+}

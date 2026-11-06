@@ -1,0 +1,22 @@
+{
+  "id": "montevideo",
+  "status": "active",
+  "lat": -34.9,
+  "lon": -56.16,
+  "countryCode": "UY",
+  "continent": "south-america",
+  "tags": [
+    "coast",
+    "capital"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "蒙得维的亚",
+    "en": "Montevideo"
+  },
+  "wikipedia": {
+    "zh-Hans": "蒙得维的亚",
+    "en": "Montevideo"
+  },
+  "facts": []
+}

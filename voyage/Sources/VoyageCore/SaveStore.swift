@@ -68,7 +68,7 @@ public final class SaveStore {
 
     public init(
         directory: URL, now: @escaping () -> Date = Date.init,
-        journeyMigrations: SaveMigrations = SaveMigrations(currentVersion: JourneyState.currentVersion),
+        journeyMigrations: SaveMigrations,
         careMigrations: SaveMigrations = SaveMigrations(currentVersion: CareState.currentVersion)
     ) {
         self.directory = directory

@@ -63,7 +63,7 @@ public struct DayRecord: Codable, Equatable, Sendable {
 }
 
 public struct Stamp: Codable, Equatable, Sendable {
-    public var country: String
+    public var countryCode: String
     public var cityId: String
     public var date: String
 }
@@ -78,13 +78,17 @@ public struct DestinationCard: Equatable, Sendable, Identifiable {
 }
 
 public struct JourneyState: Codable, Equatable, Sendable {
-    public static let currentVersion = 1
+    public static let currentVersion = 2
     public var version = currentVersion
     public var seed: UInt32
     public var pet: PetKind
     public var startDate: String
     public var currentCityId: String
     public var targetCityId: String
+    public var legCost: Int
+    public var legFrom: Coordinate
+    public var legTo: Coordinate
+    public var targetCountryCode: String?
     public var legFuel = 0
     public var nextChoiceId: String?
     public var route: [String]
@@ -94,8 +98,8 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public var letters: [Letter] = []
     public var totalFuel = 0
 
-    public init(seed: UInt32, startCityId: String, pet: PetKind = .pigeon, date: String, now: Date = Date()) {
-        let start = City.named(startCityId)
+    public init(seed: UInt32, startCityId: String, pet: PetKind = .pigeon, date: String, now: Date = Date(), catalog: CityCatalog) {
+        let start = catalog.city(startCityId)
         self.seed = seed
         self.pet = pet
         startDate = date
@@ -103,8 +107,11 @@ public struct JourneyState: Codable, Equatable, Sendable {
         currentCityId = start.id
         targetCityId = start.id
         route = [start.id]
-        stamps = [Stamp(country: start.country, cityId: start.id, date: date)]
-        targetCityId = autoPick(from: start)
+        stamps = start.isPlaceholder ? [] : [Stamp(countryCode: start.countryCode, cityId: start.id, date: date)]
+        legFrom = start.coordinate
+        legTo = start.coordinate
+        legCost = fuelPerKm
+        setTarget(autoPick(from: start.id, coordinate: start.coordinate, catalog: catalog), from: start.coordinate, catalog: catalog)
         letters = [
             Letter(
                 id: 0, kind: .departure, date: date, pet: pet, cityId: start.id, transitTargetId: nil, arrivals: [],
@@ -113,16 +120,12 @@ public struct JourneyState: Codable, Equatable, Sendable {
         ]
     }
 
-    public var current: City { City.named(currentCityId) }
-    public var target: City { City.named(targetCityId) }
-    public var legCost: Int { Self.cost(from: current, to: target) }
     public var legProgress: Double { Double(legFuel) / Double(legCost) }
     public var remainingFuel: Int { legCost - legFuel }
-    public var nextChoice: City? { nextChoiceId.flatMap(City.find) }
 
     public var position: Coordinate {
-        let from = current.coordinate
-        let to = target.coordinate
+        let from = legFrom
+        let to = legTo
         var dLon = to.lon - from.lon
         if dLon > 180 { dLon -= 360 }
         if dLon < -180 { dLon += 360 }
@@ -133,22 +136,26 @@ public struct JourneyState: Codable, Equatable, Sendable {
     }
 
     public static func cost(from: City, to: City) -> Int {
-        max(fuelPerKm, Int(from.coordinate.distanceKm(to: to.coordinate) * Double(fuelPerKm)))
+        Self.cost(from: from.coordinate, to: to.coordinate)
+    }
+
+    private static func cost(from: Coordinate, to: Coordinate) -> Int {
+        max(fuelPerKm, Int(from.distanceKm(to: to) * Double(fuelPerKm)))
     }
 
     public func fuel(on date: String) -> Int { days[date]?.fuel ?? 0 }
 
     /// Advances the journey. `finalized` must hold the final count of every day from `openDate` up to,
     /// but excluding, `today.date`; the caller skips this call when those counts could not be read.
-    public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], calendar: Calendar = .current) {
+    public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], calendar: Calendar = .current, catalog: CityCatalog) {
         guard today.date >= openDate else { return }
         let finals = Dictionary(finalized.map { ($0.date, $0) }, uniquingKeysWith: { _, latest in latest })
         while openDate < today.date {
-            apply(finals[openDate] ?? DayUsage(date: openDate))
+            apply(finals[openDate] ?? DayUsage(date: openDate), catalog: catalog)
             settle(openDate, calendar: calendar)
             openDate = DayKey.next(openDate, calendar: calendar)
         }
-        apply(today)
+        apply(today, catalog: catalog)
     }
 
     public mutating func choose(next cityId: String?) {
@@ -169,10 +176,11 @@ public struct JourneyState: Codable, Equatable, Sendable {
     }
 
     /// Offers up to three stops after the current target, each priced in tokens.
-    public func destinationCards() -> [DestinationCard] {
-        let from = target
-        let pool = candidatePool(excluding: [from.id, currentCityId])
-            .map { (city: $0, cost: Self.cost(from: from, to: $0)) }
+    public func destinationCards(catalog: CityCatalog) -> [DestinationCard] {
+        let from = catalog.city(targetCityId)
+        let coordinate = from.isPlaceholder ? legTo : from.coordinate
+        let pool = candidatePool(excluding: [from.id, currentCityId], catalog: catalog)
+            .map { (city: $0, cost: Self.cost(from: coordinate, to: $0.coordinate)) }
             .sorted { $0.cost < $1.cost }
         guard let nearest = pool.first else { return [] }
 
@@ -181,9 +189,9 @@ public struct JourneyState: Codable, Equatable, Sendable {
         if let reachable = pool.first(where: { $0.cost >= reach && $0.city.id != nearest.city.id }) {
             cards.append(DestinationCard(city: reachable.city, distanceFuel: reachable.cost, reason: .reachable))
         }
-        let stamped = Set(stamps.map(\.country))
+        let stamped = Set(stamps.map(\.countryCode))
         if let fresh = pool.first(where: { entry in
-            !stamped.contains(entry.city.country) && entry.city.country != from.country
+            !stamped.contains(entry.city.countryCode) && entry.city.countryCode != from.countryCode
                 && !cards.contains { $0.city.id == entry.city.id }
         }) {
             cards.append(DestinationCard(city: fresh.city, distanceFuel: fresh.cost, reason: .newCountry))
@@ -202,24 +210,24 @@ public struct JourneyState: Codable, Equatable, Sendable {
         return values.isEmpty ? 0 : values[values.count / 2]
     }
 
-    private func candidatePool(excluding excluded: Set<String>) -> [City] {
+    private func candidatePool(excluding excluded: Set<String>, catalog: CityCatalog) -> [City] {
         let visited = Set(route)
-        let unvisited = City.all.filter { !visited.contains($0.id) && !excluded.contains($0.id) }
-        return unvisited.isEmpty ? City.all.filter { !excluded.contains($0.id) } : unvisited
+        let unvisited = catalog.active.filter { !visited.contains($0.id) && !excluded.contains($0.id) }
+        return unvisited.isEmpty ? catalog.active.filter { !excluded.contains($0.id) } : unvisited
     }
 
-    private func autoPick(from city: City) -> String {
-        let pool = candidatePool(excluding: [city.id])
-            .sorted { Self.cost(from: city, to: $0) < Self.cost(from: city, to: $1) }
-        let stamped = Set(stamps.map(\.country))
+    private func autoPick(from cityId: String, coordinate: Coordinate, catalog: CityCatalog) -> String {
+        let pool = candidatePool(excluding: [cityId], catalog: catalog)
+            .sorted { Self.cost(from: coordinate, to: $0.coordinate) < Self.cost(from: coordinate, to: $1.coordinate) }
+        let stamped = Set(stamps.map(\.countryCode))
         let nearby = Array(pool.prefix(4))
-        let preferred = nearby.filter { !stamped.contains($0.country) }
+        let preferred = nearby.filter { !stamped.contains($0.countryCode) }
         let options = preferred.isEmpty ? nearby : preferred
-        guard !options.isEmpty else { preconditionFailure("City catalog has no other destination") }
+        // AppModel requires at least two active cities before starting or resuming a journey.
         return options[Int(mix(seed &+ UInt32(route.count)) % UInt32(options.count))].id
     }
 
-    private mutating func apply(_ usage: DayUsage) {
+    private mutating func apply(_ usage: DayUsage, catalog: CityCatalog) {
         var record = days[usage.date] ?? DayRecord()
         let delta = usage.fuel - record.fuel
         for (client, fuel) in usage.byClient {
@@ -229,11 +237,11 @@ public struct JourneyState: Codable, Equatable, Sendable {
         days[usage.date] = record
         if delta > 0 {
             totalFuel += delta
-            advance(delta, date: usage.date)
+            advance(delta, date: usage.date, catalog: catalog)
         }
     }
 
-    private mutating func advance(_ amount: Int, date: String) {
+    private mutating func advance(_ amount: Int, date: String, catalog: CityCatalog) {
         var remaining = amount
         while remaining > 0 {
             let needed = remainingFuel
@@ -242,25 +250,37 @@ public struct JourneyState: Codable, Equatable, Sendable {
                 return
             }
             remaining -= needed
-            arrive(date: date)
+            arrive(date: date, catalog: catalog)
         }
     }
 
-    private mutating func arrive(date: String) {
-        let arrived = target
-        currentCityId = arrived.id
-        route.append(arrived.id)
+    private mutating func setTarget(_ cityId: String, from coordinate: Coordinate, catalog: CityCatalog) {
+        let target = catalog.city(cityId)
+        targetCityId = cityId
+        legFrom = coordinate
+        legTo = target.coordinate
+        legCost = Self.cost(from: legFrom, to: legTo)
+        targetCountryCode = target.isPlaceholder ? nil : target.countryCode
+    }
+
+    private mutating func arrive(date: String, catalog: CityCatalog) {
+        let arrivedId = targetCityId
+        let arrivedCoordinate = legTo
+        currentCityId = arrivedId
+        route.append(arrivedId)
         legFuel = 0
-        days[date, default: DayRecord()].arrivals.append(arrived.id)
-        if !stamps.contains(where: { $0.country == arrived.country }) {
-            stamps.append(Stamp(country: arrived.country, cityId: arrived.id, date: date))
-            days[date, default: DayRecord()].newCountries.append(arrived.country)
+        days[date, default: DayRecord()].arrivals.append(arrivedId)
+        if let countryCode = targetCountryCode, !stamps.contains(where: { $0.countryCode == countryCode }) {
+            stamps.append(Stamp(countryCode: countryCode, cityId: arrivedId, date: date))
+            days[date, default: DayRecord()].newCountries.append(countryCode)
         }
-        if let choice = nextChoiceId, choice != arrived.id, City.find(choice) != nil {
-            targetCityId = choice
+        let next: String
+        if let choice = nextChoiceId, choice != arrivedId, catalog.find(choice)?.status == "active" {
+            next = choice
         } else {
-            targetCityId = autoPick(from: arrived)
+            next = autoPick(from: arrivedId, coordinate: arrivedCoordinate, catalog: catalog)
         }
+        setTarget(next, from: arrivedCoordinate, catalog: catalog)
         nextChoiceId = nil
     }
 
@@ -302,7 +322,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
 extension JourneyState {
     private enum CodingKeys: String, CodingKey {
         case version, seed, pet, startDate, currentCityId, targetCityId, legFuel, nextChoiceId
-        case route, stamps, openDate, days, letters, totalFuel
+        case route, stamps, openDate, days, letters, totalFuel, legCost, legFrom, legTo, targetCountryCode
     }
 
     public init(from decoder: Decoder) throws {
@@ -313,6 +333,13 @@ extension JourneyState {
         startDate = try values.decode(String.self, forKey: .startDate)
         currentCityId = try values.decode(String.self, forKey: .currentCityId)
         targetCityId = try values.decode(String.self, forKey: .targetCityId)
+        legCost = try values.decode(Int.self, forKey: .legCost)
+        guard legCost >= 1 else {
+            throw DecodingError.dataCorruptedError(forKey: .legCost, in: values, debugDescription: "Leg cost must be positive")
+        }
+        legFrom = try values.decode(Coordinate.self, forKey: .legFrom)
+        legTo = try values.decode(Coordinate.self, forKey: .legTo)
+        targetCountryCode = try values.decodeIfPresent(String.self, forKey: .targetCountryCode)
         legFuel = try values.decode(Int.self, forKey: .legFuel, default: 0)
         nextChoiceId = try values.decodeIfPresent(String.self, forKey: .nextChoiceId)
         route = try values.decode([String].self, forKey: .route)

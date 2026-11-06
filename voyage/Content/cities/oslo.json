@@ -1,0 +1,23 @@
+{
+  "id": "oslo",
+  "status": "active",
+  "lat": 59.91,
+  "lon": 10.75,
+  "countryCode": "NO",
+  "continent": "europe",
+  "tags": [
+    "coast",
+    "capital",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "奥斯陆",
+    "en": "Oslo"
+  },
+  "wikipedia": {
+    "zh-Hans": "奥斯陆",
+    "en": "Oslo"
+  },
+  "facts": []
+}

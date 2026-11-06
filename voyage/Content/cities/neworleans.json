@@ -1,0 +1,23 @@
+{
+  "id": "neworleans",
+  "status": "active",
+  "lat": 29.95,
+  "lon": -90.07,
+  "countryCode": "US",
+  "continent": "north-america",
+  "tags": [
+    "river",
+    "heritage",
+    "food"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "新奥尔良",
+    "en": "New Orleans"
+  },
+  "wikipedia": {
+    "zh-Hans": "新奥尔良",
+    "en": "New Orleans"
+  },
+  "facts": []
+}

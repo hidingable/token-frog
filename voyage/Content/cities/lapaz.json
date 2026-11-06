@@ -1,0 +1,22 @@
+{
+  "id": "lapaz",
+  "status": "active",
+  "lat": -16.49,
+  "lon": -68.12,
+  "countryCode": "BO",
+  "continent": "south-america",
+  "tags": [
+    "mountain",
+    "market"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "拉巴斯",
+    "en": "La Paz"
+  },
+  "wikipedia": {
+    "zh-Hans": "拉巴斯",
+    "en": "La Paz"
+  },
+  "facts": []
+}

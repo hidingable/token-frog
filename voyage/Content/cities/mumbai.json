@@ -1,0 +1,22 @@
+{
+  "id": "mumbai",
+  "status": "active",
+  "lat": 19.08,
+  "lon": 72.88,
+  "countryCode": "IN",
+  "continent": "asia",
+  "tags": [
+    "coast",
+    "food"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "孟买",
+    "en": "Mumbai"
+  },
+  "wikipedia": {
+    "zh-Hans": "孟买",
+    "en": "Mumbai"
+  },
+  "facts": []
+}

@@ -8,11 +8,6 @@
 
 | 位置 | 现状 | 要改成 |
 |---|---|---|
-| `AppModel.init` | 存档解码失败就新建并覆盖 | 保留原文件为备份并提示，见[存储和迁移](#存储和迁移) |
-| `JourneyState` | 合成 `Codable`，`version` 未使用 | 显式迁移；新字段不破坏旧存档 |
-| `City.swift` | 107 座城写在代码里，只有中文名和国家名 | 从内容包读取 |
-| `City.named` | 找不到就 `preconditionFailure` 崩溃 | 返回占位城市，继续运行 |
-| `Stamp.country`、`newCountries` | 存中文国家名 | 存 ISO 国家代码，迁移旧存档 |
 | `destinationCards`、`nextChoiceId`、`choose(next:)`、`DestinationCards` | 玩家选站 | 删除，改成随机抽站 |
 | `autoPick` | 只在最近 4 座里挑 | 按设计的分档和权重抽取 |
 | `setPet`、菜单“角色” | 随时换宠物 | 删除；宠物在孵化时确定 |
@@ -21,9 +16,6 @@
 | `MainView` | 五个平级标签：旅途、信箱、护照、看板、额度 | 邮局、旅途、信箱、收藏、数据，加二级导航 |
 | `LetterComposer` | 中文模板，每个角色 3 句 | 改为内容包和多语言正文 |
 | `Letter.weather`、`placeTitle` | 只存一种语言 | 见[信件生成](#信件生成) |
-| `Format`、`DashboardMetric`、`otherSeries` | 单位和名称写死中文 | 核心层存语义，显示层本地化 |
-| 界面文字 | 视图里写死中文 | 全部走本地化资源 |
-| 显示名 | `Token Voyage`，Bundle ID `local.tokenfrog.voyage` | 显示名改成 Voyage；数据目录和代码名字可以等正式名再改 |
 
 ### 开发顺序
 
@@ -121,6 +113,7 @@ tokscale graph / hourly → UsageDashboard（趋势、活跃、明细）→ 看�
 - **只增不减：** 当天统计值下降时不回退里程。
 - **精确增量：** 每次只推进"新值 − 已记录值"。
 - **跨天结算：** 先用前一天的最终值补差，再结算，已结算的日子不再改动。应用关闭多日后，逐日补算。
+- **航段快照：** 抽到下一站时把距离和两端坐标写进存档，内容包修改坐标或删除城市都不影响已保存的路线和进度。
 - **信件 enrich 失败不影响旅程：** 信件先由模板生成，网络内容是可选的补充。
 
 ## 养成引擎（M1 起）
@@ -145,6 +138,8 @@ tokscale graph / hourly → UsageDashboard（趋势、活跃、明细）→ 看�
 voyage/Content/
 ├── manifest.json        版本和兼容信息
 ├── tags.json            统一标签表
+├── countries.json       国家和地区名称，按 ISO 代码
+├── published-ids.txt    发布过的城市 ID
 ├── cities/              每城一个文件
 ├── stories/             情节，按城市或通用分类
 ├── items/               行囊、纪念品、菜单
@@ -299,7 +294,7 @@ M1 先做：
 - **解码失败：** 把旧文件移到 `backups/`，显示存档页面，让用户导入备份或重新开始，不静默覆盖。
 - **迁移：** 读取时先看 `version`，逐版本迁移；迁移前备份，写入用原子替换。
 - **新版本存档：** 遇到比当前应用更新的版本时拒绝写入，提示更新。
-- **第一个迁移：** `country` 中文名转 `countryCode`，去掉 `nextChoiceId`。中文名到代码的映射永久留在迁移代码里。
+- **第一个迁移：** `country` 中文名转 `countryCode`，并写入航段快照。中文名到代码的映射永久留在迁移代码里。`nextChoiceId` 随选站一起移除。
 - **M0 存档：** 有 `journey.json` 但没有 `care.json` 时自动生成：沿用现有宠物和默认名，不重新孵化，不补发陪伴日和旧信掉落。
 - **导出和导入：** 设置里可以把存档打包导出，导入前校验。
 

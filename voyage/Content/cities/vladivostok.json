@@ -1,0 +1,22 @@
+{
+  "id": "vladivostok",
+  "status": "active",
+  "lat": 43.12,
+  "lon": 131.89,
+  "countryCode": "RU",
+  "continent": "asia",
+  "tags": [
+    "coast",
+    "nature"
+  ],
+  "level": "basic",
+  "names": {
+    "zh-Hans": "海参崴",
+    "en": "Vladivostok"
+  },
+  "wikipedia": {
+    "zh-Hans": "海参崴",
+    "en": "Vladivostok"
+  },
+  "facts": []
+}
