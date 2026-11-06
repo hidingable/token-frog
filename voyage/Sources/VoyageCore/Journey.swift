@@ -78,7 +78,8 @@ public struct DestinationCard: Equatable, Sendable, Identifiable {
 }
 
 public struct JourneyState: Codable, Equatable, Sendable {
-    public var version = 1
+    public static let currentVersion = 1
+    public var version = currentVersion
     public var seed: UInt32
     public var pet: PetKind
     public var startDate: String
@@ -295,6 +296,82 @@ public struct JourneyState: Codable, Equatable, Sendable {
                 deliverAt: deliverAt
             )
         )
+    }
+}
+
+extension JourneyState {
+    private enum CodingKeys: String, CodingKey {
+        case version, seed, pet, startDate, currentCityId, targetCityId, legFuel, nextChoiceId
+        case route, stamps, openDate, days, letters, totalFuel
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        version = try values.decode(Int.self, forKey: .version)
+        seed = try values.decode(UInt32.self, forKey: .seed)
+        pet = try values.decode(PetKind.self, forKey: .pet)
+        startDate = try values.decode(String.self, forKey: .startDate)
+        currentCityId = try values.decode(String.self, forKey: .currentCityId)
+        targetCityId = try values.decode(String.self, forKey: .targetCityId)
+        legFuel = try values.decode(Int.self, forKey: .legFuel, default: 0)
+        nextChoiceId = try values.decodeIfPresent(String.self, forKey: .nextChoiceId)
+        route = try values.decode([String].self, forKey: .route)
+        stamps = try values.decode([Stamp].self, forKey: .stamps, default: [])
+        openDate = try values.decode(String.self, forKey: .openDate)
+        days = try values.decode([String: DayRecord].self, forKey: .days, default: [:])
+        letters = try values.decode([Letter].self, forKey: .letters, default: [])
+        totalFuel = try values.decode(Int.self, forKey: .totalFuel, default: 0)
+    }
+}
+
+extension Letter {
+    private enum CodingKeys: String, CodingKey {
+        case id, kind, date, pet, cityId, transitTargetId, arrivals, newCountries, fuel
+        case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, enrichmentDone
+        case weather, placeTitle, placeSummary, placeURL, photoFile
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        kind = try values.decode(Kind.self, forKey: .kind)
+        date = try values.decode(String.self, forKey: .date)
+        pet = try values.decode(PetKind.self, forKey: .pet)
+        cityId = try values.decode(String.self, forKey: .cityId)
+        transitTargetId = try values.decodeIfPresent(String.self, forKey: .transitTargetId)
+        arrivals = try values.decode([String].self, forKey: .arrivals)
+        newCountries = try values.decode([String].self, forKey: .newCountries)
+        fuel = try values.decode(Int.self, forKey: .fuel)
+        compareToMedianPercent = try values.decodeIfPresent(Int.self, forKey: .compareToMedianPercent)
+        vehicles = try values.decode([VehicleShare].self, forKey: .vehicles)
+        isDeepVisit = try values.decode(Bool.self, forKey: .isDeepVisit)
+        deliverAt = try values.decode(Date.self, forKey: .deliverAt)
+        read = try values.decode(Bool.self, forKey: .read, default: false)
+        enrichmentDone = try values.decode(Bool.self, forKey: .enrichmentDone, default: false)
+        weather = try values.decodeIfPresent(String.self, forKey: .weather)
+        placeTitle = try values.decodeIfPresent(String.self, forKey: .placeTitle)
+        placeSummary = try values.decodeIfPresent(String.self, forKey: .placeSummary)
+        placeURL = try values.decodeIfPresent(String.self, forKey: .placeURL)
+        photoFile = try values.decodeIfPresent(String.self, forKey: .photoFile)
+    }
+}
+
+extension DayRecord {
+    private enum CodingKeys: String, CodingKey { case fuel, byClient, arrivals, newCountries }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        fuel = try values.decode(Int.self, forKey: .fuel, default: 0)
+        byClient = try values.decode([String: Int].self, forKey: .byClient, default: [:])
+        arrivals = try values.decode([String].self, forKey: .arrivals, default: [])
+        newCountries = try values.decode([String].self, forKey: .newCountries, default: [])
+    }
+}
+
+private extension KeyedDecodingContainer {
+    /// Only absent fields use defaults; explicit nulls and wrong types remain decoding errors.
+    func decode<T: Decodable>(_ type: T.Type, forKey key: Key, default fallback: T) throws -> T {
+        contains(key) ? try decode(type, forKey: key) : fallback
     }
 }
 

@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "petName": "阿鸽",
+  "species": "pigeon",
+  "hatchedAt": "2026-11-06",
+  "companionDays": [
+    "2026-11-06"
+  ],
+  "habits": {
+    "talkative": 20,
+    "observant": 10
+  },
+  "identity": null,
+  "bag": {
+    "owned": [
+      "sketchbook",
+      "note-slip",
+      "raincoat"
+    ],
+    "todayItem": "sketchbook"
+  },
+  "souvenirs": [
+    {
+      "id": "jingdezhen.note",
+      "letterId": 3,
+      "shelved": true
+    }
+  ],
+  "menus": [
+    {
+      "id": "jingdezhen.cold-noodles",
+      "letterId": 3
+    }
+  ],
+  "trailClues": {
+    "jingdezhen": 2
+  },
+  "weekly": {
+    "weekStart": "2026-11-02",
+    "stamps": [
+      "2026-11-02"
+    ],
+    "boxes": []
+  },
+  "wish": null,
+  "pendingPromises": [
+    {
+      "replyId": "ask-next-time",
+      "letterId": 2,
+      "attempts": 0
+    }
+  ],
+  "memories": [
+    {
+      "kind": "reply",
+      "date": "2026-11-05",
+      "letterId": 2,
+      "replyId": "ask-next-time"
+    }
+  ],
+  "pity": 3,
+  "processedLetterIds": [
+    1,
+    2,
+    3
+  ]
+}

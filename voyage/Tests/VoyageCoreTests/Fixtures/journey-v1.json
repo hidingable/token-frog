@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "seed": 42,
+  "pet": "snail",
+  "startDate": "2026-11-01",
+  "currentCityId": "shanghai",
+  "targetCityId": "xian",
+  "legFuel": 123,
+  "nextChoiceId": "beijing",
+  "route": [
+    "shanghai"
+  ],
+  "stamps": [
+    {
+      "country": "中国",
+      "cityId": "shanghai",
+      "date": "2026-11-01"
+    }
+  ],
+  "openDate": "2026-11-02",
+  "days": {
+    "2026-11-01": {
+      "fuel": 123,
+      "byClient": {
+        "codex": 123
+      },
+      "arrivals": [],
+      "newCountries": []
+    }
+  },
+  "letters": [
+    {
+      "id": 0,
+      "kind": "departure",
+      "date": "2026-11-01",
+      "pet": "snail",
+      "cityId": "shanghai",
+      "arrivals": [],
+      "newCountries": [],
+      "fuel": 0,
+      "vehicles": [],
+      "isDeepVisit": false,
+      "deliverAt": 0,
+      "read": true,
+      "enrichmentDone": false
+    },
+    {
+      "id": 7,
+      "kind": "daily",
+      "date": "2026-11-01",
+      "pet": "snail",
+      "cityId": "shanghai",
+      "arrivals": [],
+      "newCountries": [],
+      "fuel": 123,
+      "vehicles": [],
+      "isDeepVisit": false,
+      "deliverAt": 0,
+      "read": false,
+      "enrichmentDone": false,
+      "transitTargetId": "xian"
+    }
+  ],
+  "totalFuel": 123
+}

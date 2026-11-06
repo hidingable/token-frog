@@ -225,7 +225,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         static let floating = "floatingEnabled"
     }
 
-    private let model = AppModel()
+    private lazy var model = AppModel(isSnapshot: ProcessInfo.processInfo.arguments.contains("--snapshot"))
     private var statusItem: NSStatusItem?
     private var mainWindow: NSWindow?
     private lazy var notch = NotchController(model: model) { [weak self] in self?.openMain() }
@@ -242,24 +242,45 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        Theme.registerFonts()
         let arguments = ProcessInfo.processInfo.arguments
-        if let index = arguments.firstIndex(of: "--snapshot"), arguments.count > index + 1 {
+        if let index = arguments.firstIndex(of: "--snapshot") {
+            // Keep this before the first access to the lazy model: no real save directory is touched.
+            guard let dataDirectory = ProcessInfo.processInfo.environment["TOKEN_VOYAGE_DATA_DIR"], !dataDirectory.isEmpty else {
+                FileHandle.standardError.write(Data("--snapshot 必须设置 TOKEN_VOYAGE_DATA_DIR。\n".utf8))
+                exit(EXIT_FAILURE)
+            }
+            guard arguments.count > index + 1 else {
+                FileHandle.standardError.write(Data("--snapshot 缺少截图输出目录。\n".utf8))
+                exit(EXIT_FAILURE)
+            }
+            Theme.registerFonts()
             let directory = URL(fileURLWithPath: arguments[index + 1])
             Task {
                 await model.scan()
-                await model.enrichLatest()
                 await model.loadDashboard()
-                await model.loadQuotas()
                 Snapshots.write(model: model, to: directory)
                 NSApp.terminate(nil)
             }
             return
         }
+        Theme.registerFonts()
+        model.onLockChange = { [weak self] in self?.updateSurfaces() }
         setUpStatusItem()
         model.start()
-        if notchEnabled { notch.show() }
-        if floatingEnabled { floating.show() }
+        updateSurfaces()
+    }
+
+    private func updateSurfaces() {
+        rebuildMenu()
+        statusItem?.button?.image = statusImage()
+        if model.isLocked {
+            notch.hide()
+            floating.hide()
+            openMain()
+        } else {
+            if notchEnabled { notch.show() }
+            if floatingEnabled { floating.show() }
+        }
     }
 
     private func setUpStatusItem() {
@@ -278,20 +299,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func rebuildMenu() {
         let menu = NSMenu()
         menu.addItem(makeItem("打开旅途", #selector(openMainAction)))
-        menu.addItem(makeItem("立即刷新", #selector(refreshAction)))
-        menu.addItem(.separator())
-        menu.addItem(makeItem("显示刘海", #selector(toggleNotch), checked: notchEnabled))
-        menu.addItem(makeItem("显示浮窗", #selector(toggleFloating), checked: floatingEnabled))
-        let petMenu = NSMenu()
-        for pet in PetKind.allCases {
-            let item = makeItem(pet.displayName, #selector(selectPet(_:)), checked: model.state.pet == pet)
-            item.representedObject = pet.rawValue
-            petMenu.addItem(item)
+        if !model.isLocked {
+            menu.addItem(makeItem("立即刷新", #selector(refreshAction)))
+            menu.addItem(.separator())
+            menu.addItem(makeItem("显示刘海", #selector(toggleNotch), checked: notchEnabled))
+            menu.addItem(makeItem("显示浮窗", #selector(toggleFloating), checked: floatingEnabled))
+            let petMenu = NSMenu()
+            for pet in PetKind.allCases {
+                let item = makeItem(pet.displayName, #selector(selectPet(_:)), checked: model.state.pet == pet)
+                item.representedObject = pet.rawValue
+                petMenu.addItem(item)
+            }
+            let petItem = NSMenuItem(title: "角色", action: nil, keyEquivalent: "")
+            petItem.submenu = petMenu
+            menu.addItem(petItem)
+            menu.addItem(.separator())
         }
-        let petItem = NSMenuItem(title: "角色", action: nil, keyEquivalent: "")
-        petItem.submenu = petMenu
-        menu.addItem(petItem)
-        menu.addItem(.separator())
         let quit = NSMenuItem(title: "退出", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         menu.addItem(quit)
         statusItem?.menu = menu
@@ -337,12 +360,41 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             window.isReleasedWhenClosed = false
             window.backgroundColor = NSColor(Theme.ink)
             window.minSize = NSSize(width: 760, height: 520)
-            window.contentView = NSHostingView(rootView: MainView(model: model))
+            window.contentView = NSHostingView(rootView: SaveAwareMainView(model: model, onImport: { [weak self] file in
+                self?.importBackup(for: file)
+            }))
             window.center()
             mainWindow = window
         }
         NSApp.activate()
         mainWindow?.makeKeyAndOrderFront(nil)
+    }
+
+    private func importBackup(for file: SaveFile) {
+        let panel = NSOpenPanel()
+        panel.title = "选择 \(file.rawValue) 的备份"
+        panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = false
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        model.restoreSave(SaveBackup(file: file, url: url))
+    }
+}
+
+private struct SaveAwareMainView: View {
+    let model: AppModel
+    let onImport: (SaveFile) -> Void
+
+    var body: some View {
+        if model.isLocked {
+            SaveRecoveryView(
+                issues: model.recoveryIssues, error: model.recoveryError,
+                onRestore: { model.restoreSave($0) }, onImport: onImport,
+                onRestart: { model.restartSave($0) }, onRetry: { model.retrySaves() },
+                onQuit: { NSApp.terminate(nil) }
+            )
+        } else {
+            MainView(model: model)
+        }
     }
 }
 
@@ -365,6 +417,17 @@ enum Snapshots {
         render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-collapsed", directory)
         render(NotchExpandedView(model: model, metrics: metrics), size: metrics.expandedSize, name: "notch-expanded", directory)
         render(FloatingView(model: model), size: FloatingController.size, name: "floating", directory)
+        // These examples are in memory only and never enter the SaveStore.
+        let quarantinedPath = "/示例/backups/journey.json.v1.2026-11-06.corrupted.json"
+        let exampleBackup = SaveBackup(file: .journey, url: URL(fileURLWithPath: "/示例/backups/journey.json.v1.2026-11-05.migration.json"))
+        render(SaveRecoveryView(
+            issues: [SaveRecoveryIssue(file: .journey, problem: .corrupted(backupPath: quarantinedPath), backups: [exampleBackup])],
+            onRestore: { _ in }, onImport: { _ in }, onRestart: { _ in }, onRetry: {}, onQuit: {}
+        ), size: CGSize(width: 760, height: 620), name: "save-recovery-corrupted", directory)
+        render(SaveRecoveryView(
+            issues: [SaveRecoveryIssue(file: .journey, problem: .tooNew(version: 2))],
+            onRestore: { _ in }, onImport: { _ in }, onRestart: { _ in }, onRetry: {}, onQuit: {}
+        ), size: CGSize(width: 760, height: 420), name: "save-recovery-too-new", directory)
     }
 
     private static func render<Content: View>(_ view: Content, size: CGSize, name: String, _ directory: URL) {

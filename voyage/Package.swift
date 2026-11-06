@@ -7,6 +7,6 @@ let package = Package(
     targets: [
         .target(name: "VoyageCore"),
         .executableTarget(name: "TokenVoyage", dependencies: ["VoyageCore"]),
-        .testTarget(name: "VoyageCoreTests", dependencies: ["VoyageCore"]),
+        .testTarget(name: "VoyageCoreTests", dependencies: ["VoyageCore"], resources: [.copy("Fixtures")]),
     ]
 )

@@ -19,10 +19,19 @@ final class AppModel {
     private(set) var quotas: [ProviderQuota] = []
     private(set) var quotasLoadedAt: Date?
     private(set) var quotaError: String?
+    private(set) var isLocked: Bool
+    private(set) var recoveryIssues: [SaveRecoveryIssue] = []
+    private(set) var recoveryError: String?
+    @ObservationIgnored var onLockChange: (() -> Void)?
 
     private let dataDirectory: URL
+    private let store: SaveStore
+    private let isSnapshot: Bool
     private var watcher: FileWatcher?
     private var timers: [Timer] = []
+    private var wakeObserver: NSObjectProtocol?
+    private var hasStarted = false
+    private var backgroundGeneration = 0
     private var isScanning = false
     private var scheduledScan: Task<Void, Never>?
     private var lastMovement: Date?
@@ -43,20 +52,23 @@ final class AppModel {
     /// Quotas hit provider APIs, so they refresh on a fixed clock and never because tokens were used.
     private static let quotaInterval: TimeInterval = 600
 
-    init() {
+    init(isSnapshot: Bool = false) {
+        self.isSnapshot = isSnapshot
         if let override = ProcessInfo.processInfo.environment["TOKEN_VOYAGE_DATA_DIR"] {
             dataDirectory = URL(fileURLWithPath: override)
         } else {
             dataDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
                 .appendingPathComponent("TokenVoyage")
         }
-        try? FileManager.default.createDirectory(at: dataDirectory, withIntermediateDirectories: true)
-        let file = dataDirectory.appendingPathComponent("journey.json")
-        if let data = try? Data(contentsOf: file), let saved = try? JSONDecoder().decode(JourneyState.self, from: data) {
+        store = SaveStore(directory: dataDirectory)
+        store.load()
+        isLocked = store.isLocked
+        if case .loaded(let saved) = store.journey {
             state = saved
         } else {
-            state = JourneyState(seed: UInt32.random(in: 0...UInt32.max), startCityId: "shanghai", date: DayKey.string(from: Date()))
+            state = Self.newJourney(in: store)
         }
+        refreshSaveStatus()
     }
 
     var today: DayRecord { state.days[state.openDate] ?? DayRecord() }
@@ -89,10 +101,15 @@ final class AppModel {
     }
 
     func start() {
+        guard !isLocked, !hasStarted, !isSnapshot else { return }
         persist()
-        let watcher = FileWatcher { [weak self] in self?.scheduleScan() }
-        watcher.start()
-        self.watcher = watcher
+        guard !isLocked else { return }
+        hasStarted = true
+        if watcher == nil {
+            let watcher = FileWatcher { [weak self] in self?.scheduleScan() }
+            watcher.start()
+            self.watcher = watcher
+        }
 
         timers = [
             Timer.scheduledTimer(withTimeInterval: Self.fallbackScanInterval, repeats: true) { [weak self] _ in
@@ -105,12 +122,14 @@ final class AppModel {
                 MainActor.assumeIsolated { self?.tick() }
             },
         ]
-        NSWorkspace.shared.notificationCenter.addObserver(
-            forName: NSWorkspace.didWakeNotification, object: nil, queue: .main
-        ) { [weak self] _ in
-            MainActor.assumeIsolated {
-                self?.scheduleScan()
-                self?.refreshQuotasInBackground()
+        if wakeObserver == nil {
+            wakeObserver = NSWorkspace.shared.notificationCenter.addObserver(
+                forName: NSWorkspace.didWakeNotification, object: nil, queue: .main
+            ) { [weak self] _ in
+                MainActor.assumeIsolated {
+                    self?.scheduleScan()
+                    self?.refreshQuotasInBackground()
+                }
             }
         }
         scheduleScan()
@@ -118,25 +137,27 @@ final class AppModel {
     }
 
     private func tick() {
+        guard !isLocked else { return }
         now = Date()
         if let lastMovement, now.timeIntervalSince(lastMovement) > 300 { isMoving = false }
     }
 
     /// Coalesces change events and keeps at least `minScanInterval` between scans.
     func scheduleScan(immediately: Bool = false) {
-        guard scheduledScan == nil else { return }
+        guard !isLocked, scheduledScan == nil else { return }
         let elapsed = lastScan.map { Date().timeIntervalSince($0) } ?? .infinity
         let wait = immediately ? 0 : max(0, Self.minScanInterval - elapsed)
         scheduledScan = Task { [weak self] in
             if wait > 0 { try? await Task.sleep(for: .seconds(wait)) }
-            guard let self else { return }
+            guard !Task.isCancelled, let self else { return }
             self.scheduledScan = nil
             await self.scan()
         }
     }
 
     func scan() async {
-        guard !isScanning else { return }
+        guard !isLocked, !isScanning else { return }
+        let generation = backgroundGeneration
         isScanning = true
         defer { isScanning = false }
         let date = Date()
@@ -148,6 +169,7 @@ final class AppModel {
         }
         do {
             let details = try await UsageSource.fetch(since: since, until: todayKey)
+            guard !isLocked, generation == backgroundGeneration else { return }
             let days = details.map(\.usage)
             let todayDetail = details.first { $0.date == todayKey }
             todayTotals = UsageLedger(days: todayDetail.map { [$0] } ?? []).totals
@@ -172,7 +194,7 @@ final class AppModel {
             lastScan = date
             now = date
             persist()
-            await enrichLatest()
+            if !isSnapshot { await enrichLatest() }
         } catch {
             lastScan = date
             lastError = String(describing: error)
@@ -186,6 +208,8 @@ final class AppModel {
 
     /// Reads the whole history only while the dashboard is showing, sharing the scan's serial slot.
     func loadDashboard() async {
+        guard !isLocked else { return }
+        let generation = backgroundGeneration
         let now = Date()
         let isStale = dashboardLoadedAt.map { now.timeIntervalSince($0) >= Self.dashboardMaxAge } ?? true
         let monthStale = monthHoursLoadedAt.map { now.timeIntervalSince($0) >= Self.monthHoursMaxAge } ?? true
@@ -194,8 +218,12 @@ final class AppModel {
         let until = DayKey.string(from: now)
         do {
             if isStale {
-                dashboardDays = try await UsageSource.fetch(since: nil, until: until)
-                todayHours = try await UsageSource.fetchHours(since: until, until: until)
+                let days = try await UsageSource.fetch(since: nil, until: until)
+                guard !isLocked, generation == backgroundGeneration else { isScanning = false; return }
+                dashboardDays = days
+                let hours = try await UsageSource.fetchHours(since: until, until: until)
+                guard !isLocked, generation == backgroundGeneration else { isScanning = false; return }
+                todayHours = hours
                 dashboardLoadedAt = now
             }
             lastError = nil
@@ -204,11 +232,14 @@ final class AppModel {
         }
         // Released between reads so a scan waiting on the graph can run before the slow hourly read.
         isScanning = false
-        guard monthStale, let start = Calendar.current.date(byAdding: .day, value: -29, to: now) else { return }
+        guard !isLocked, generation == backgroundGeneration, monthStale,
+              let start = Calendar.current.date(byAdding: .day, value: -29, to: now) else { return }
         isScanning = true
         defer { isScanning = false }
         do {
-            monthHours = try await UsageSource.fetchHours(since: DayKey.string(from: start), until: until)
+            let hours = try await UsageSource.fetchHours(since: DayKey.string(from: start), until: until)
+            guard !isLocked, generation == backgroundGeneration else { return }
+            monthHours = hours
             monthHoursLoadedAt = now
         } catch {
             lastError = String(describing: error)
@@ -220,17 +251,22 @@ final class AppModel {
     }
 
     private func refreshQuotasInBackground() {
+        guard !isLocked, !isSnapshot else { return }
         Task { await loadQuotas() }
     }
 
     /// Keeps the last good reading when a refresh fails, and says so.
     func loadQuotas(force: Bool = false) async {
+        guard !isLocked, !isSnapshot else { return }
+        let generation = backgroundGeneration
         if !force, let loaded = quotasLoadedAt, Date().timeIntervalSince(loaded) < Self.quotaInterval - 30 { return }
         guard !isLoadingQuotas else { return }
         isLoadingQuotas = true
         defer { isLoadingQuotas = false }
         do {
-            quotas = try await UsageSource.fetchQuotas()
+            let fetched = try await UsageSource.fetchQuotas()
+            guard !isLocked, generation == backgroundGeneration else { return }
+            quotas = fetched
             quotasLoadedAt = Date()
             quotaError = nil
         } catch {
@@ -271,7 +307,9 @@ final class AppModel {
 
     /// Only the newest letter goes to the network; a long catch-up does not send a burst of requests.
     func enrichLatest() async {
-        guard !isEnriching, let letter = state.letters.max(by: { $0.id < $1.id }), !letter.enrichmentDone else { return }
+        guard !isLocked, !isSnapshot, !isEnriching,
+              let letter = state.letters.max(by: { $0.id < $1.id }), !letter.enrichmentDone else { return }
+        let generation = backgroundGeneration
         let attempts = enrichAttempts[letter.id, default: 0]
         guard attempts < 3, let city = City.find(letter.subjectCityId) else { return }
         isEnriching = true
@@ -280,6 +318,7 @@ final class AppModel {
 
         let coordinate = letter.transitTargetId == nil ? City.named(letter.cityId).coordinate : state.position
         let result = await Enricher.fetch(city: city, coordinate: coordinate)
+        guard !isLocked, generation == backgroundGeneration else { return }
         let photoFile = result.photoData.flatMap { savePhoto($0, letterId: letter.id) }
         guard let index = state.letters.firstIndex(where: { $0.id == letter.id }) else { return }
         state.letters[index].weather = result.weather ?? state.letters[index].weather
@@ -293,7 +332,7 @@ final class AppModel {
     }
 
     private func savePhoto(_ data: Data, letterId: Int) -> String? {
-        guard let png = Enricher.pixelate(data) else { return nil }
+        guard !isLocked, let png = Enricher.pixelate(data) else { return nil }
         let directory = dataDirectory.appendingPathComponent("photos")
         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let name = "letter-\(letterId).png"
@@ -306,11 +345,99 @@ final class AppModel {
     }
 
     private func persist() {
+        guard !isLocked else { return }
         do {
-            let data = try JSONEncoder().encode(state)
-            try data.write(to: dataDirectory.appendingPathComponent("journey.json"), options: .atomic)
+            try store.save(state)
+            if case .missing = store.care { try store.save(CareState.legacy(from: state)) }
         } catch {
             lastError = "保存失败：\(error.localizedDescription)"
+            refreshSaveStatus()
         }
+    }
+
+    func retrySaves() {
+        store.load()
+        resumeAfterRecovery()
+    }
+
+    func restoreSave(_ backup: SaveBackup) {
+        do {
+            try store.restore(backup: backup)
+            resumeAfterRecovery()
+        } catch {
+            recoveryError = "恢复失败：\(error.localizedDescription)"
+            refreshSaveStatus()
+        }
+    }
+
+    func restartSave(_ file: SaveFile) {
+        do {
+            try store.restart(file)
+            resumeAfterRecovery()
+        } catch {
+            recoveryError = "重新开始失败：\(error.localizedDescription)"
+            refreshSaveStatus()
+        }
+    }
+
+    private func resumeAfterRecovery() {
+        recoveryError = nil
+        refreshSaveStatus()
+        guard !isLocked else { return }
+        if case .loaded(let saved) = store.journey {
+            state = saved
+        } else {
+            state = Self.newJourney(in: store)
+        }
+        enrichAttempts = [:]
+        lastError = nil
+        start()
+        onLockChange?()
+    }
+
+    private static func newJourney(in store: SaveStore) -> JourneyState {
+        let pet: PetKind
+        if case .loaded(let care) = store.care {
+            pet = care.species
+        } else {
+            pet = .pigeon
+        }
+        return JourneyState(
+            seed: UInt32.random(in: 0...UInt32.max), startCityId: "shanghai", pet: pet,
+            date: DayKey.string(from: Date())
+        )
+    }
+
+    private func refreshSaveStatus() {
+        let wasLocked = isLocked
+        isLocked = store.isLocked
+        if isLocked, !wasLocked { backgroundGeneration += 1 }
+        var issues: [SaveRecoveryIssue] = []
+        func appendIssue<State>(_ result: SaveLoadResult<State>, file: SaveFile) {
+            let problem: SaveRecoveryIssue.Problem
+            switch result {
+            case .missing, .loaded: return
+            case .corrupted(let backup): problem = .corrupted(backupPath: backup.path)
+            case .tooNew(let version): problem = .tooNew(version: version)
+            case .unreadable(let reason): problem = .unreadable(reason: reason)
+            }
+            var backups: [SaveBackup] = []
+            if case .corrupted = result {
+                do { backups = try store.restorableBackups(for: file) }
+                catch { recoveryError = "无法列出备份：\(error.localizedDescription)" }
+            }
+            issues.append(SaveRecoveryIssue(file: file, problem: problem, backups: backups))
+        }
+        appendIssue(store.journey, file: .journey)
+        appendIssue(store.care, file: .care)
+        recoveryIssues = issues
+        if isLocked {
+            timers.forEach { $0.invalidate() }
+            timers = []
+            scheduledScan?.cancel()
+            scheduledScan = nil
+            hasStarted = false
+        }
+        if wasLocked != isLocked, isLocked { onLockChange?() }
     }
 }
