@@ -23,7 +23,7 @@ import VoyageCore
 }
 
 @MainActor
-@Test func homeActionOpensTheLatestDeliveredUnreadLetter() throws {
+@Test func homeActionOpensTheEarliestDeliveredUnreadLetterInTheRitual() throws {
     let fixture = try NavigationFixture()
     defer { fixture.remove() }
     let model = fixture.model()
@@ -34,11 +34,11 @@ import VoyageCore
 
     model.activateHomeAction()
 
-    #expect(model.tab == .mail)
-    #expect(model.mailFilter == .all)
-    #expect(model.selectedLetterID == 7)
+    #expect(model.tab == .home)
+    #expect(model.ritualLetterID == 0)
+    #expect(model.ritualLetter?.read == true)
     #expect(!model.showingSettings)
-    #expect(model.unread == 3)
+    #expect(model.unread == 2)
 }
 
 @MainActor

@@ -31,6 +31,7 @@ final class AppModel {
     var collectionTab: CollectionTab = .passport
     var dataTab: DataTab = .dashboard
     var selectedLetterID: Int?
+    private(set) var ritualLetterID: Int?
     private(set) var deferredReplyLetterID: Int?
     var showingSettings = false
     @ObservationIgnored var onLockChange: (() -> Void)?
@@ -160,6 +161,7 @@ final class AppModel {
     var filteredLetters: [Letter] { letters.filter(mailFilter.includes) }
 
     func navigate(to tab: MainTab) {
+        ritualLetterID = nil
         self.tab = tab
         showingSettings = false
     }
@@ -167,13 +169,71 @@ final class AppModel {
     func openPostOffice() { navigate(to: .home) }
 
     func activateHomeAction() {
-        if let letter = letters.first(where: { !$0.read }) {
-            mailFilter = .all
-            selectedLetterID = letter.id
-            navigate(to: .mail)
+        if let letter = unreadInReadingOrder.first {
+            navigate(to: .home)
+            openRitualLetter(letter)
         } else {
             navigate(to: .journey)
         }
+    }
+
+    private var unreadInReadingOrder: [Letter] {
+        letters.filter { !$0.read }.sorted {
+            if $0.date != $1.date { return $0.date < $1.date }
+            if $0.deliverAt != $1.deliverAt { return $0.deliverAt < $1.deliverAt }
+            return $0.id < $1.id
+        }
+    }
+
+    var ritualLetter: Letter? { letters.first { $0.id == ritualLetterID } }
+    var ritualRemainingCount: Int { unreadInReadingOrder.count }
+
+    private func openRitualLetter(_ letter: Letter) {
+        ritualLetterID = letter.id
+        openLetter(letter)
+    }
+
+    func advanceRitual() {
+        guard ritualLetterID != nil, !isLocked else { return }
+        if let next = unreadInReadingOrder.first { openRitualLetter(next) }
+        else { openPostOffice() }
+    }
+
+    func collectAllRitualLetters() {
+        guard ritualLetterID != nil, !isLocked else { return }
+        for letter in unreadInReadingOrder { markRead(letter) }
+        openPostOffice()
+    }
+
+    @discardableResult
+    func setTodayItem(_ item: String?) -> Bool {
+        guard !isLocked, onboarding == nil, var care else { return false }
+        if let item, !care.bag.owned.contains(item) { return false }
+        care.bag.todayItem = item
+        self.care = care
+        persist()
+        return true
+    }
+
+    func carriedCount(_ item: String) -> Int {
+        state?.letters.filter { $0.carriedItem == item }.count ?? 0
+    }
+
+    @discardableResult
+    func setSouvenirShelved(_ id: String, shelved: Bool) -> Bool {
+        guard !isLocked, onboarding == nil, var care,
+              let index = care.souvenirs.firstIndex(where: { $0.id == id }) else { return false }
+        care.souvenirs[index].shelved = shelved
+        self.care = care
+        persist()
+        return true
+    }
+
+    @discardableResult
+    func openCollectionLetter(_ id: Int) -> Bool {
+        guard let letter = letters.first(where: { $0.id == id }) else { return false }
+        openFollowUp(letter)
+        return true
     }
 
     /// Snapshot variants exist only for the duration of a render, never in the save store.
@@ -184,6 +244,17 @@ final class AppModel {
         if var state {
             update(&state)
             self.state = state
+        }
+        render()
+    }
+
+    func withSnapshotCare(_ update: (inout CareState) -> Void, render: () -> Void) {
+        precondition(isSnapshot)
+        let original = care
+        defer { care = original }
+        if var care {
+            update(&care)
+            self.care = care
         }
         render()
     }

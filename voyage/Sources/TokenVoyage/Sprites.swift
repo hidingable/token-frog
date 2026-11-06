@@ -8,7 +8,7 @@ enum Sprites {
     private static let colors: [Character: UInt32] = [
         "k": Palette.ink, "w": Palette.paper, "g": Palette.dusk, "l": 0xC9C3DE, "r": Palette.red,
         "y": Palette.amber, "o": 0xC9852B, "b": Palette.sea, "c": Palette.mint, "n": 0x8A5A3C,
-        "d": 0x5E3B2A, "p": 0xEFA0A8,
+        "d": 0x5E3B2A, "p": 0xEFA0A8, "m": Palette.land,
     ]
 
     private static let art: [PetKind: [String]] = [
@@ -37,6 +37,82 @@ enum Sprites {
             ".kwwwwwwwwwwwwk.", ".kkkkkkkkkkkkkk.", "...kr......kr...", "...krr.....krr..",
         ],
     ]
+
+    /// Exact 12 px item art from the mockup. Catalog icons are checked against these keys.
+    private static let itemArt: [String: [String]] = [
+        "note": [
+            "............", ".kkkkkkkkkk.", ".kwwwwwwwwk.", ".kwyyyywwwk.",
+            ".kwwwwwwwwk.", ".kwyyywwwwk.", ".kwwwwwwwwk.", ".kwyyyyywwk.",
+            ".kwwwwwwowk.", ".kkkkkkkkkk.", "............", "............",
+        ],
+        "bowl": [
+            "............", "...y..y..y..", "....y..y....", "..kkkkkkkk..",
+            ".kwwwwwwwwk.", ".kooooooook.", ".kwwwwwwwwk.", "..kwwwwwwk..",
+            "...kwwwwk...", "....kkkk....", "............", "............",
+        ],
+        "tea": [
+            "............", "...kkkkkk...", "..kmmmmmmk..", "..kmwwwwmk..",
+            "..kmwmmwmk..", "..kmwwwwmk..", "..kmmmmmmk..", "..kmmmmmmk..",
+            "..kkkkkkkk..", "............", "............", "............",
+        ],
+        "anchor": [
+            ".....kk.....", "....kyyk....", "....kyyk....", ".....kk.....",
+            "...kkyykk...", ".....yy.....", ".....yy.....", ".k...yy...k.",
+            ".ky..yy..yk.", "..yy.yy.yy..", "...yyyyyy...", "............",
+        ],
+        "lamp": [
+            "............", "....kkkk....", "...kyyyyk...", "..kyyyyyyk..",
+            "..kyyyyyyk..", "...kkkkkk...", ".....kk.....", ".....kk.....",
+            ".....kk.....", "...kkkkkk...", "............", "............",
+        ],
+        "box": [
+            "............", ".....rr.....", "..kkkrrkkk..", ".kpppppppk..",
+            ".kkkkrrkkkk.", ".kwwwrrwwwk.", ".kwwwrrwwwk.", ".kwwwrrwwwk.",
+            ".kwwwrrwwwk.", ".kkkkkkkkkk.", "............", "............",
+        ],
+        "shard": [
+            "............", "....kkk.....", "...kwbbk....", "..kwwbwbk...",
+            "..kwbwwbk...", "...kbwbwk...", "....kbbk....", ".....kk.....",
+            "............", "............", "............", "............",
+        ],
+        "sketch": [
+            "............", ".kkkkkkkkkk.", ".kwwwwwwwwk.", ".kwbbwwwwwk.",
+            ".kwwbbwwwwk.", ".kwwwwbbwwk.", ".kwwwwwwbwk.", ".kwwwwwwwwk.",
+            ".kwwwwwwwwk.", ".kkkkkkkkkk.", "............", "............",
+        ],
+        "slip": [
+            "............", "............", "..kkkkkkkk..", "..kwwwwwwk..",
+            "..kwrrwwwk..", "..kwwwwwwk..", "..kwrrrrwk..", "..kwwwwwwk..",
+            "..kkkkkkkk..", "............", "............", "............",
+        ],
+        "coat": [
+            "............", "....kkkk....", "...kyyyyk...", "..kyyyyyyk..",
+            ".kyykyykyyk.", ".kkkyyyykkk.", "...kyyyyk...", "...kyyyyk...",
+            "...kyyyyk...", "...kkkkkk...", "............", "............",
+        ],
+        "camera": [
+            "............", "............", "...kkk......", ".kkkkkkkkkk.",
+            ".kddddddddk.", ".kddkkkkddk.", ".kddkbbkddk.", ".kddkbbkddk.",
+            ".kddkkkkddk.", ".kkkkkkkkkk.", "............", "............",
+        ],
+        "lunch": [
+            "............", "............", "..kkkkkkkk..", ".kllllllllk.",
+            ".kkkkkkkkkk.", ".kllllllllk.", ".kllllllllk.", ".kllllllllk.",
+            ".kkkkkkkkkk.", "............", "............", "............",
+        ],
+        "fan": [
+            "............", "............", "..kkkkkkkk..", ".krwrwrwrwk.",
+            ".kwrwrwrwrk.", "..krwrwrwk..", "...kwrwrk...", "....kkkk....",
+            ".....nn.....", ".....nn.....", "............", "............",
+        ],
+    ]
+
+    static var itemIconIDs: Set<String> { Set(itemArt.keys) }
+
+    static func item(_ icon: String) -> CGImage {
+        guard let rows = itemArt[icon] else { preconditionFailure("Missing item art for \(icon)") }
+        return PixelImage.make(width: 12, height: 12, pixels: rows.flatMap { $0.map { colors[$0] } })
+    }
 
     @MainActor private static var cache: [String: CGImage] = [:]
 

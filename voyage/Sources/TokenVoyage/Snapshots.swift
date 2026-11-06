@@ -61,13 +61,47 @@ enum Snapshots {
                 state.letters[index].storyVersion = nil
                 state.letters[index].replyOptions = []
                 state.letters[index].facts = []
+                state.letters[index].rewards = StoryRewards()
+                state.letters[index].carriedItem = nil
             })
             model.selectedLetterID = nil
         }
         model.collectionTab = .passport
         main(.collection, name: "collection-passport", size: CGSize(width: 760, height: 400))
-        model.collectionTab = .bag
-        main(.collection, name: "collection-bag", size: CGSize(width: 760, height: 400))
+        if let catalog = model.catalog {
+            let examples = collectionExamples(catalog: catalog, now: model.now, petName: model.petName)
+            model.withSnapshotCare({ $0 = examples.care }) {
+                for (selection, name) in [
+                    (CollectionTab.bag, "collection-bag"),
+                    (.souvenirs, "collection-souvenirs"),
+                    (.menus, "collection-menus"),
+                ] {
+                    model.collectionTab = selection
+                    main(.collection, name: name, size: CGSize(width: 760, height: 620), update: { $0 = examples.journey })
+                }
+                for (letterID, name) in [(3, "mail-brought"), (5, "mail-duplicate")] {
+                    model.selectedLetterID = letterID
+                    main(.mail, name: name, update: { $0 = examples.journey })
+                }
+            }
+            model.selectedLetterID = nil
+            for (name, multiple) in [("ritual", false), ("ritual-multi", true)] {
+                model.withSnapshotState({ state in
+                    state = examples.journey
+                    for index in state.letters.indices {
+                        let id = state.letters[index].id
+                        state.letters[index].read = id != 3 && !(multiple && id > 3)
+                    }
+                }) {
+                    model.withSnapshotCare({ $0 = examples.care }) {
+                        model.navigate(to: .home)
+                        model.activateHomeAction()
+                        render(MainView(model: model), size: CGSize(width: 760, height: 1240), name: name, directory, model: model)
+                        model.navigate(to: .home)
+                    }
+                }
+            }
+        }
         model.showingSettings = true
         render(MainView(model: model), size: CGSize(width: 760, height: 520), name: "main-settings", directory, model: model)
 
@@ -127,6 +161,47 @@ enum Snapshots {
             journey.letters[index].enrichmentDone = true
         }
         return journey
+    }
+
+    /// The collection and ritual fixtures share acquisitions and their original letters, entirely in memory.
+    static func collectionExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
+        let start = Calendar.current.date(byAdding: .day, value: -5, to: now)!
+        var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: start), now: start, catalog: catalog)
+        var care = CareState(petName: petName, species: .pigeon, hatchedAt: journey.startDate)
+        for offset in 1...5 {
+            let next = Calendar.current.date(byAdding: .day, value: offset, to: start)!
+            let day = journey.openDate
+            care.bag.todayItem = "sketchbook"
+            journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
+                DayUsage(date: day, fuel: fuelPerKm, byClient: ["codex": fuelPerKm]),
+            ], catalog: catalog)
+            CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
+        }
+
+        let rarities = ["common", "uncommon", "rare"]
+        let souvenirs = rarities.map { rarity in
+            catalog.items.all.first { $0.kind == "souvenir" && $0.cityId == nil && $0.rarity == rarity }!
+        }
+        for index in journey.letters.indices where journey.letters[index].kind == .daily {
+            let id = journey.letters[index].id
+            let item = souvenirs[min(id, 3) - 1]
+            var rewards = StoryRewards()
+            rewards.itemIds = [item.id]
+            rewards.dropRarity = item.rarity
+            if id > 3 { rewards.duplicateClueCityId = journey.letters[index].cityId }
+            journey.letters[index].rewards = rewards
+            journey.letters[index].read = false
+            journey.letters[index].deliverAt = min(journey.letters[index].deliverAt, now)
+            journey.letters[index].enrichmentDone = true
+        }
+        // Replaying saved story rewards gives each souvenir a real provenance without changing draw rules.
+        care = CareState(petName: petName, species: .pigeon, hatchedAt: journey.startDate)
+        CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
+        care.bag.todayItem = "sketchbook"
+        if let index = care.souvenirs.firstIndex(where: { $0.id == souvenirs[2].id }) {
+            care.souvenirs[index].shelved = true
+        }
+        return (journey, care)
     }
 
     private static func render<Content: View>(_ view: Content, size: CGSize, name: String, _ directory: URL, model: AppModel) {

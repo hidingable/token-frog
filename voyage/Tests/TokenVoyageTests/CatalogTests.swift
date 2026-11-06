@@ -35,6 +35,10 @@ private struct StringCatalog: Decodable {
         let chinese = try #require(entry.localizations["zh-Hans"], "Missing Chinese translation for \(key)").stringUnit.value
         #expect(!english.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, "Empty English translation for \(key)")
         #expect(!chinese.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, "Empty Chinese translation for \(key)")
+        if key.hasPrefix("item.") || key.hasPrefix("collection.") || key.hasPrefix("ritual.")
+            || ["letter.carriedItem", "letter.broughtItems", "letter.duplicateItem", "letter.menuCollected"].contains(key) {
+            #expect(!containsHan(english), "English item or ritual copy contains Han characters for \(key)")
+        }
         #expect(try placeholders(in: english) == placeholders(in: chinese), "Placeholder mismatch for \(key)")
         #expect(L10n(language: .en)(key) == english, "Compiled English translation is missing or stale for \(key)")
         #expect(L10n(language: .zhHans)(key) == chinese, "Compiled Chinese translation is missing or stale for \(key)")

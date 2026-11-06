@@ -29,6 +29,9 @@ struct L10n: Sendable {
             .first { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty } ?? self("country.unknown")
     }
 
+    func itemName(_ item: Item) -> String { LetterComposer.localized(item.names, l10n: self) ?? item.id }
+    func itemDescription(_ item: Item) -> String { LetterComposer.localized(item.descriptions, l10n: self) ?? "" }
+
     static func bundleLookup(_ language: Language, _ key: String) -> String? {
         guard let path = Bundle.module.path(forResource: language.rawValue, ofType: "lproj"),
               let bundle = Bundle(path: path) else { return nil }
@@ -41,7 +44,6 @@ struct L10n: Sendable {
     static let tabKeys: [MainTab: String] = [.home: "nav.postOffice", .journey: "nav.journey", .mail: "nav.mail", .collection: "nav.collection", .data: "nav.data"]
     static let mailFilterKeys: [MailFilter: String] = [.all: "mail.all", .travel: "mail.travel"]
     static let collectionTabKeys: [CollectionTab: String] = [.passport: "nav.passport", .bag: "collection.bag", .souvenirs: "collection.souvenirs", .menus: "collection.menus"]
-    static let collectionPlaceholderKeys: [CollectionTab: String] = [.bag: "collection.bagEmpty", .souvenirs: "collection.souvenirsEmpty", .menus: "collection.menusEmpty"]
     static let dataTabKeys: [DataTab: String] = [.dashboard: "nav.dashboard", .quota: "nav.quota"]
     static let periodKeys: [DashboardPeriod: String] = [.today: "period.today", .week: "period.week", .month: "period.month", .quarter: "period.quarter", .year: "period.year", .all: "period.all"]
     static let metricKeys: [DashboardMetric: String] = [.total: "metric.total", .fuel: "metric.fuel", .cost: "metric.cost", .messages: "metric.messages"]
@@ -51,9 +53,8 @@ struct L10n: Sendable {
     static let defaultPetNameKeys: [PetKind: String] = [.pigeon: "pet.pigeon.defaultName", .snail: "pet.snail.defaultName", .suitcase: "pet.suitcase.defaultName", .letter: "pet.letter.defaultName"]
     static let eggKeys: [PetKind: String] = [.pigeon: "onboarding.egg.spotted", .snail: "onboarding.egg.gold", .suitcase: "onboarding.egg.leather", .letter: "onboarding.egg.paper"]
     static let onboardingTitleKeys: [OnboardingFlow.Step: String] = [.eggs: "onboarding.eggs", .home: "onboarding.home", .hatch: "onboarding.hatch", .logbook: "onboarding.logbook", .depart: "onboarding.depart"]
-    static let initialItemKeys = ["sketchbook": "item.sketchbook", "note-slip": "item.note-slip", "raincoat": "item.raincoat"]
     static var dynamicKeys: [String] {
-        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(collectionPlaceholderKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + countKeys.values.flatMap { $0 } + LetterComposer.quirkKeys.values.flatMap { $0 } + Array(defaultPetNameKeys.values) + Array(eggKeys.values) + Array(onboardingTitleKeys.values) + Array(initialItemKeys.values) + Enricher.weatherKeys
+        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + countKeys.values.flatMap { $0 } + LetterComposer.quirkKeys.values.flatMap { $0 } + Array(defaultPetNameKeys.values) + Array(eggKeys.values) + Array(onboardingTitleKeys.values) + Enricher.weatherKeys
     }
 
     func defaultPetName(_ pet: PetKind) -> String { language == .zhHans ? pet.displayName : self(Self.defaultPetNameKeys[pet]!) }
@@ -66,7 +67,6 @@ struct L10n: Sendable {
     func tab(_ tab: MainTab) -> String { self(Self.tabKeys[tab]!) }
     func mailFilter(_ filter: MailFilter) -> String { self(Self.mailFilterKeys[filter]!) }
     func collectionTab(_ tab: CollectionTab) -> String { self(Self.collectionTabKeys[tab]!) }
-    func collectionPlaceholder(_ tab: CollectionTab) -> String { self(Self.collectionPlaceholderKeys[tab]!) }
     func dataTab(_ tab: DataTab) -> String { self(Self.dataTabKeys[tab]!) }
     func period(_ period: DashboardPeriod) -> String { self(Self.periodKeys[period]!) }
     func metric(_ metric: DashboardMetric) -> String { self(Self.metricKeys[metric]!) }

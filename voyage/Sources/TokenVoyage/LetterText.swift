@@ -93,6 +93,9 @@ enum LetterComposer {
         for country in letter.newCountries {
             lines.append(l10n("letter.newStamp", l10n.countryName(catalog.countryNames(country))))
         }
+        if let id = letter.carriedItem, let item = catalog.items.find(id) {
+            lines.append(l10n("letter.carriedItem", l10n.itemName(item)))
+        }
         if letter.arrivals.count > 1 {
             let passed = letter.arrivals.filter { $0 != letter.cityId }
                 .map { l10n.cityName(catalog.city($0)) }.joined(separator: l10n("letter.citySeparator"))

@@ -23,6 +23,8 @@ struct MainView: View {
             }
             if model.showingSettings {
                 ScrollView { SettingsTab(model: model).padding(12) }
+            } else if model.ritualLetter != nil {
+                RitualView(model: model)
             } else {
                 secondaryNavigation
                 content
@@ -102,13 +104,15 @@ struct MainView: View {
         case .mail: MailTab(model: model)
         case .collection:
             ScrollView {
-                if model.collectionTab == .passport {
-                    PassportTab(model: model).padding(12)
-                } else {
-                    Text(l10n.collectionPlaceholder(model.collectionTab))
-                        .font(Theme.pixel()).foregroundStyle(Theme.dusk)
-                        .frame(maxWidth: .infinity, alignment: .leading).padding(12)
+                Group {
+                    switch model.collectionTab {
+                    case .passport: PassportTab(model: model)
+                    case .bag: BagCollectionView(model: model)
+                    case .souvenirs: SouvenirsCollectionView(model: model)
+                    case .menus: MenusCollectionView(model: model)
+                    }
                 }
+                .padding(12)
             }
         case .data:
             ScrollView {
@@ -313,6 +317,10 @@ struct LetterView: View {
                 }
             }
 
+            if let brought = LetterComposer.brought(for: letter, care: model?.care, catalog: catalog, l10n: l10n) {
+                divider
+                BroughtItemsView(brought: brought)
+            }
             if !text.itinerary.isEmpty {
                 divider
                 if letter.kind != .logbook {

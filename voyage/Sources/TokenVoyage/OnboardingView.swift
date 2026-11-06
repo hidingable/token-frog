@@ -147,18 +147,10 @@ struct OnboardingView: View {
                 .fixedSize(horizontal: false, vertical: true)
             Text(l10n("onboarding.distance", Format.km(fuel: preview.legCost)))
                 .font(Theme.pixel()).foregroundStyle(Theme.amber)
-            hint(l10n("onboarding.bagHint"))
-            HStack(spacing: 12) {
-                ForEach(CareState.Bag().owned, id: \.self) { item in
-                    Button { flow.toggleItem(item) } label: {
-                        Text(l10n(L10n.initialItemKeys[item]!)).font(Theme.pixel())
-                            .padding(12)
-                            .foregroundStyle(flow.todayItem == item ? Theme.ink : Theme.paper)
-                            .background(flow.todayItem == item ? Theme.paper : Theme.inkRaised)
-                            .pixelBorder(Theme.dusk)
-                    }
-                    .buttonStyle(.plain)
-                }
+            hint(l10n("item.randomHint"))
+            BagItemPicker(items: flow.catalog.items.all.filter { CareState.Bag().owned.contains($0.id) }, selection: flow.todayItem) { selected in
+                if let selected { flow.toggleItem(selected) }
+                else if let current = flow.todayItem { flow.toggleItem(current) }
             }
         }
     }
