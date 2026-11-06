@@ -302,6 +302,29 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         let arguments = ProcessInfo.processInfo.arguments
+        if arguments.contains("--measure-dashboard") {
+            // Validate before accessing any model; the normal lazy model must never be created.
+            do {
+                let options = try DashboardMeasurementOptions.parse(
+                    arguments: arguments, dataDirectory: ProcessInfo.processInfo.environment["TOKEN_VOYAGE_DATA_DIR"]
+                )!
+                Theme.registerFonts()
+                let measurementModel = try DashboardMeasurement.makeModel(options: options)
+                Task {
+                    do {
+                        try await DashboardMeasurement.run(model: measurementModel)
+                        exit(EXIT_SUCCESS)
+                    } catch {
+                        FileHandle.standardError.write(Data("Dashboard measurement failed: \(error)\n".utf8))
+                        exit(EXIT_FAILURE)
+                    }
+                }
+            } catch {
+                FileHandle.standardError.write(Data("\(error)\n".utf8))
+                exit(EXIT_FAILURE)
+            }
+            return
+        }
         if let index = arguments.firstIndex(of: "--snapshot") {
             if let languageIndex = arguments.firstIndex(of: "--language") {
                 guard arguments.count > languageIndex + 1,

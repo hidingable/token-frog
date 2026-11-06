@@ -176,21 +176,71 @@ public enum TokscaleGraph {
 }
 
 public enum DayKey {
-    private static func formatter(_ calendar: Calendar) -> DateFormatter {
-        let formatter = DateFormatter()
-        formatter.calendar = calendar
-        formatter.timeZone = calendar.timeZone
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
-    }
-
     public static func string(from date: Date, calendar: Calendar = .current) -> String {
-        formatter(calendar).string(from: date)
+        let parts = calendar.dateComponents([.year, .month, .day], from: date)
+        let month: Int
+        if calendar.identifier == .hebrew {
+            // ICU numbers Hebrew months by their position in this year; Calendar.month always reserves Adar I.
+            let first = calendar.date(from: DateComponents(year: parts.year, month: 1, day: 1))!
+            month = calendar.dateComponents([.month], from: first, to: date).month! + 1
+        } else {
+            month = parts.month!
+        }
+        return padded(parts.year!, width: 4) + "-" + padded(month, width: 2) + "-" + padded(parts.day!, width: 2)
     }
 
     public static func date(from key: String, calendar: Calendar = .current) -> Date? {
-        formatter(calendar).date(from: key)
+        let bytes = Array(key.utf8)
+        guard bytes.count == 10, bytes[4] == 45, bytes[7] == 45 else { return nil }
+        var values = [0, 0, 0]
+        for index in bytes.indices where index != 4 && index != 7 {
+            let byte = bytes[index]
+            guard (48...57).contains(byte) else { return nil }
+            let component = index < 4 ? 0 : (index < 7 ? 1 : 2)
+            values[component] = values[component] * 10 + Int(byte - 48)
+        }
+        guard values[0] > 0, (1...13).contains(values[1]), (1...31).contains(values[2]) else { return nil }
+        let month: Int
+        if calendar.identifier == .hebrew {
+            guard let first = calendar.date(from: DateComponents(year: values[0], month: 1, day: 1)),
+                  let monthStart = calendar.date(byAdding: .month, value: values[1] - 1, to: first),
+                  calendar.component(.year, from: monthStart) == values[0] else { return nil }
+            month = calendar.component(.month, from: monthStart)
+        } else {
+            month = values[1]
+        }
+        guard let date = calendar.date(from: DateComponents(year: values[0], month: month, day: values[2])) else { return nil }
+        // Calendar normalizes impossible dates (and whole days skipped by a time zone).
+        let parts = calendar.dateComponents([.year, .month, .day], from: date)
+        guard parts.year == values[0], parts.month == month, parts.day == values[2] else { return nil }
+        return date
+    }
+
+    /// Consecutive local days, including 23/25-hour DST days and a date-line change that skips a whole day.
+    public static func ordinal(from date: Date, calendar: Calendar = .current) -> Int {
+        Int((calendar.startOfDay(for: date).timeIntervalSince(epoch(calendar)) / 86_400).rounded())
+    }
+
+    public static func ordinal(from key: String, calendar: Calendar = .current) -> Int? {
+        date(from: key, calendar: calendar).map { ordinal(from: $0, calendar: calendar) }
+    }
+
+    public static func date(forOrdinal ordinal: Int, calendar: Calendar = .current) -> Date {
+        // A noon probe stays inside the local day when its midnight shifts at a DST transition.
+        calendar.startOfDay(for: epoch(calendar).addingTimeInterval(Double(ordinal) * 86_400 + 43_200))
+    }
+
+    public static func string(forOrdinal ordinal: Int, calendar: Calendar = .current) -> String {
+        string(from: date(forOrdinal: ordinal, calendar: calendar), calendar: calendar)
+    }
+
+    private static func epoch(_ calendar: Calendar) -> Date {
+        calendar.startOfDay(for: Date(timeIntervalSinceReferenceDate: 0))
+    }
+
+    private static func padded(_ value: Int, width: Int) -> String {
+        let text = String(value)
+        return String(repeating: "0", count: max(0, width - text.count)) + text
     }
 
     public static func next(_ key: String, calendar: Calendar = .current) -> String {

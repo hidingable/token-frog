@@ -465,6 +465,14 @@ SwiftPM 无法构建 app extension。届时加一个最小 Xcode 工程，引用
 - **更新：** 应用更新优先用社区通用的 Sparkle，这是新依赖，要先讨论；内容包走自己的签名更新。
 - **隐私：** 不做遥测；指标只存本机。
 
+## 性能
+
+看板的计算结果在 `DashboardStore` 里后台算好并缓存，body 只读结果；`DayKey` 不用 `DateFormatter`。改动看板后用下面的命令复测，切换操作应在 100 ms 内：
+
+```bash
+TOKEN_VOYAGE_DATA_DIR=/tmp/voyage-measure build/TokenVoyage.app/Contents/MacOS/TokenVoyage --measure-dashboard
+```
+
 ## 验证
 
 ```bash

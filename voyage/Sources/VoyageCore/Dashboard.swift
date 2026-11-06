@@ -23,7 +23,7 @@ public enum DashboardMetric: String, CaseIterable, Identifiable, Sendable {
     }
 }
 
-public struct DashboardFilter: Equatable, Sendable {
+public struct DashboardFilter: Hashable, Sendable {
     public var client: String?
     public var model: String?
 
@@ -51,7 +51,7 @@ public struct TrendBucket: Equatable, Sendable, Identifiable {
         self.values = values
     }
 
-    public var total: Double { values.values.reduce(0, +) }
+    public var total: Double { values.keys.sorted().reduce(0) { $0 + values[$1]! } }
 }
 
 public struct HeatCell: Equatable, Sendable, Identifiable {
@@ -82,27 +82,40 @@ public struct UsageDashboard: Sendable {
     public let activeMs: Int?
     public let peak: (date: String, total: Int)?
 
-    private let days: [String: DayDetail]
+    private let days: [Int: DayDetail]
     private let calendar: Calendar
+    private let firstDay: Int
+    private let lastDay: Int
 
     /// `start` nil means from the first recorded day. Ranges of a week or more compare against the range before them.
     public init(days allDays: [DayDetail], start: String?, end: String, filter: DashboardFilter = DashboardFilter(), calendar: Calendar = .current) {
+        let measurementStart = DashboardMeasurementCounters.start()
+        defer { DashboardMeasurementCounters.record(.usageDashboardInit, since: measurementStart) }
         let cleaned = allDays.map { day in
             DayDetail(date: day.date, rows: day.rows.filter(filter.matches), activeMs: day.activeMs)
         }
         let first = start ?? allDays.map(\.date).filter { $0 <= end }.min() ?? end
         let inRange = cleaned.filter { $0.date >= first && $0.date <= end }
         let isActive: (DayDetail) -> Bool = { day in day.rows.contains { $0.tokens.total > 0 } }
-        let activeDates = Set(cleaned.filter(isActive).map(\.date))
+        let indexed = cleaned.compactMap { day in
+            DayKey.ordinal(from: day.date, calendar: calendar).map { ($0, day) }
+        }
+        let activeDates = Set(indexed.filter { isActive($0.1) }.map(\.0))
+        guard let firstDay = DayKey.ordinal(from: first, calendar: calendar),
+              let lastDay = DayKey.ordinal(from: end, calendar: calendar) else {
+            preconditionFailure("Invalid dashboard range")
+        }
 
         self.start = first
         self.end = end
         self.filter = filter
         self.calendar = calendar
-        self.days = Dictionary(cleaned.map { ($0.date, $0) }, uniquingKeysWith: { _, latest in latest })
+        self.days = Dictionary(indexed, uniquingKeysWith: { _, latest in latest })
+        self.firstDay = firstDay
+        self.lastDay = lastDay
         ledger = UsageLedger(days: inRange)
 
-        let count = Self.dayCount(from: first, to: end, calendar: calendar)
+        let count = max(0, lastDay - firstDay + 1)
         calendarDays = count
         activeDays = inRange.filter(isActive).count
         activeMs = filter.isEmpty ? inRange.reduce(0) { $0 + $1.activeMs } : nil
@@ -110,10 +123,8 @@ public struct UsageDashboard: Sendable {
             .map { (date: $0.date, total: $0.rows.reduce(UsageTotals()) { $0 + $1.tokens }.total) }
             .max { $0.total == $1.total ? $0.date > $1.date : $0.total < $1.total }
 
-        if start != nil, count >= 7,
-           let firstDate = DayKey.date(from: first, calendar: calendar),
-           let previousStart = calendar.date(byAdding: .day, value: -count, to: firstDate) {
-            let lower = DayKey.string(from: previousStart, calendar: calendar)
+        if start != nil, count >= 7 {
+            let lower = DayKey.string(forOrdinal: firstDay - count, calendar: calendar)
             previous = UsageLedger(days: cleaned.filter { $0.date >= lower && $0.date < first })
         } else {
             previous = nil
@@ -121,23 +132,19 @@ public struct UsageDashboard: Sendable {
 
         // A streak survives today having no use yet; it ends at the last gap.
         var streak = 0
-        var cursor = DayKey.date(from: end, calendar: calendar)
-        if let date = cursor, !activeDates.contains(DayKey.string(from: date, calendar: calendar)) {
-            cursor = calendar.date(byAdding: .day, value: -1, to: date)
-        }
-        while let date = cursor, activeDates.contains(DayKey.string(from: date, calendar: calendar)) {
+        var cursor = lastDay
+        if !activeDates.contains(cursor) { cursor -= 1 }
+        while activeDates.contains(cursor) {
             streak += 1
-            cursor = calendar.date(byAdding: .day, value: -1, to: date)
+            cursor -= 1
         }
         currentStreak = streak
 
         var longest = 0
         var running = 0
-        var key = first
-        for _ in 0..<count {
-            running = activeDates.contains(key) ? running + 1 : 0
+        for offset in 0..<count {
+            running = activeDates.contains(firstDay + offset) ? running + 1 : 0
             longest = max(longest, running)
-            key = DayKey.next(key, calendar: calendar)
         }
         longestStreak = longest
     }
@@ -155,22 +162,22 @@ public struct UsageDashboard: Sendable {
     public func trend(_ metric: DashboardMetric, series: [String]) -> [TrendBucket] {
         let weekly = calendarDays > 90
         var buckets: [TrendBucket] = []
-        var key = weekly ? monday(of: start) : start
-        while key <= end {
+        var key = weekly ? monday(of: firstDay) : firstDay
+        while key <= lastDay {
             let span = weekly ? 7 : 1
             var values: [String: Double] = [:]
             var day = key
             for _ in 0..<span {
-                if day >= start, day <= end {
+                if day >= firstDay, day <= lastDay {
                     for row in days[day]?.rows ?? [] {
                         let value = metric.value(row.tokens)
                         guard value > 0 else { continue }
                         values[series.contains(row.client) ? row.client : Self.otherSeries, default: 0] += value
                     }
                 }
-                day = DayKey.next(day, calendar: calendar)
+                day += 1
             }
-            buckets.append(TrendBucket(start: key, isWeek: weekly, values: values))
+            buckets.append(TrendBucket(start: DayKey.string(forOrdinal: key, calendar: calendar), isWeek: weekly, values: values))
             key = day
         }
         return buckets
@@ -178,15 +185,14 @@ public struct UsageDashboard: Sendable {
 
     /// The weeks up to `end`, starting on a Monday, for the activity grid.
     public func heatCells(metric: DashboardMetric, weeks: Int = 53) -> [HeatCell] {
-        guard let endDate = DayKey.date(from: monday(of: end), calendar: calendar),
-              let firstMonday = calendar.date(byAdding: .day, value: -7 * (weeks - 1), to: endDate) else { return [] }
+        let firstMonday = monday(of: lastDay) - 7 * (weeks - 1)
         var cells: [HeatCell] = []
-        var key = DayKey.string(from: firstMonday, calendar: calendar)
+        var key = firstMonday
         var index = 0
-        while key <= end {
+        while key <= lastDay {
             let value = (days[key]?.rows ?? []).reduce(0) { $0 + metric.value($1.tokens) }
-            cells.append(HeatCell(date: key, week: index / 7, weekday: index % 7, value: value, level: 0))
-            key = DayKey.next(key, calendar: calendar)
+            cells.append(HeatCell(date: DayKey.string(forOrdinal: key, calendar: calendar), week: index / 7, weekday: index % 7, value: value, level: 0))
+            key += 1
             index += 1
         }
         let sorted = cells.map(\.value).filter { $0 > 0 }.sorted()
@@ -203,24 +209,19 @@ public struct UsageDashboard: Sendable {
     /// Sums per weekday across the range, Monday first.
     public func weekdayProfile(_ metric: DashboardMetric) -> [Double] {
         var totals = [Double](repeating: 0, count: 7)
-        for (date, day) in days where date >= start && date <= end {
-            guard let parsed = DayKey.date(from: date, calendar: calendar) else { continue }
+        for date in days.keys.sorted() where date >= firstDay && date <= lastDay {
+            let day = days[date]!
+            let parsed = DayKey.date(forOrdinal: date, calendar: calendar)
             let index = (calendar.component(.weekday, from: parsed) + 5) % 7
             totals[index] += day.rows.reduce(0) { $0 + metric.value($1.tokens) }
         }
         return totals
     }
 
-    private func monday(of key: String) -> String {
-        guard let date = DayKey.date(from: key, calendar: calendar) else { preconditionFailure("Invalid day key \(key)") }
+    private func monday(of key: Int) -> Int {
+        let date = DayKey.date(forOrdinal: key, calendar: calendar)
         let back = (calendar.component(.weekday, from: date) + 5) % 7
-        guard let monday = calendar.date(byAdding: .day, value: -back, to: date) else { preconditionFailure("Invalid day key \(key)") }
-        return DayKey.string(from: monday, calendar: calendar)
-    }
-
-    private static func dayCount(from start: String, to end: String, calendar: Calendar) -> Int {
-        guard let first = DayKey.date(from: start, calendar: calendar), let last = DayKey.date(from: end, calendar: calendar) else { return 0 }
-        return max(0, (calendar.dateComponents([.day], from: first, to: last).day ?? 0) + 1)
+        return key - back
     }
 }
 
@@ -228,6 +229,12 @@ public struct HourUsage: Equatable, Sendable {
     public var date: String
     public var hour: Int
     public var tokens: UsageTotals
+
+    public init(date: String, hour: Int, tokens: UsageTotals) {
+        self.date = date
+        self.hour = hour
+        self.tokens = tokens
+    }
 
     /// Sums per hour of day across the range. tokscale reports hours across all tools, so this cannot be filtered per tool.
     public static func profile(_ hours: [HourUsage], start: String, end: String, metric: DashboardMetric) -> [Double] {

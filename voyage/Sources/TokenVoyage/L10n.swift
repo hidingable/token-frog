@@ -14,6 +14,8 @@ struct L10n: Sendable {
     }
 
     func callAsFunction(_ key: String, _ arguments: CVarArg...) -> String {
+        let measurementStart = DashboardMeasurementCounters.start()
+        defer { DashboardMeasurementCounters.record(.l10n, since: measurementStart) }
         let order = [language, .en, .zhHans]
         let template = order.lazy.compactMap { lookup($0, key) }.first { !$0.isEmpty } ?? key
         return arguments.isEmpty ? template : String(format: template, locale: locale, arguments: arguments)
@@ -108,31 +110,28 @@ struct L10n: Sendable {
 
     func day(_ key: String, full: Bool = false) -> String {
         guard let date = DayKey.date(from: key) else { return key }
-        let formatter = DateFormatter()
-        formatter.locale = locale
-        if full { formatter.dateStyle = .medium } else { formatter.setLocalizedDateFormatFromTemplate("MMMd") }
-        return formatter.string(from: date)
+        return L10nDateFormatters.shared.withFormatter(language: language, format: full ? .dayFull : .day) {
+            $0.string(from: date)
+        }
     }
     func time(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.locale = locale
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
+        L10nDateFormatters.shared.withFormatter(language: language, format: .time) { $0.string(from: date) }
     }
     func hour(_ hour: Int) -> String {
         time(Calendar.current.date(from: DateComponents(year: 2001, month: 1, day: 1, hour: hour))!)
     }
-    private var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.locale = locale
-        return formatter
-    }
     var weekdays: [String] {
-        let symbols = dateFormatter.veryShortStandaloneWeekdaySymbols!
-        return Array(symbols.dropFirst()) + [symbols[0]]
+        L10nDateFormatters.shared.withFormatter(language: language, format: .symbols) {
+            let symbols = $0.veryShortStandaloneWeekdaySymbols!
+            return Array(symbols.dropFirst()) + [symbols[0]]
+        }
     }
-    func weekday(_ mondayIndex: Int) -> String { dateFormatter.shortWeekdaySymbols[(mondayIndex + 1) % 7] }
-    func month(_ month: Int) -> String { dateFormatter.shortStandaloneMonthSymbols[month - 1] }
+    func weekday(_ mondayIndex: Int) -> String {
+        L10nDateFormatters.shared.withFormatter(language: language, format: .symbols) { $0.shortWeekdaySymbols[(mondayIndex + 1) % 7] }
+    }
+    func month(_ month: Int) -> String {
+        L10nDateFormatters.shared.withFormatter(language: language, format: .symbols) { $0.shortStandaloneMonthSymbols[month - 1] }
+    }
     func duration(_ ms: Int) -> String {
         let minutes = ms / 60_000
         return minutes < 60 ? self("format.durationMinutes", Format.grouped(minutes)) : self("format.durationHours", Format.grouped(minutes / 60))
@@ -166,6 +165,50 @@ struct L10n: Sendable {
             }
         }
         return error.localizedDescription
+    }
+}
+
+/// A formatter stays behind the lock for its entire use, including lazy ICU initialization.
+final class L10nDateFormatters: @unchecked Sendable {
+    enum Format: Hashable { case day, dayFull, time, symbols }
+    private struct Key: Hashable {
+        let language: String
+        let format: Format
+        let timeZone: TimeZone
+    }
+
+    static let shared = L10nDateFormatters()
+    private let lock = NSLock()
+    private var formatters: [Key: DateFormatter] = [:]
+
+    var count: Int {
+        lock.lock()
+        defer { lock.unlock() }
+        return formatters.count
+    }
+
+    func withFormatter<Value>(language: Language, format: Format, _ body: (DateFormatter) -> Value) -> Value {
+        let timeZone = TimeZone.current
+        let key = Key(language: language.rawValue, format: format, timeZone: timeZone)
+        lock.lock()
+        defer { lock.unlock() }
+        let formatter: DateFormatter
+        if let cached = formatters[key] {
+            formatter = cached
+        } else {
+            DashboardMeasurementCounters.record(.dateFormatter)
+            formatter = DateFormatter()
+            formatter.locale = Locale(identifier: language.rawValue)
+            formatter.timeZone = timeZone
+            switch format {
+            case .day: formatter.setLocalizedDateFormatFromTemplate("MMMd")
+            case .dayFull: formatter.dateStyle = .medium
+            case .time: formatter.timeStyle = .short
+            case .symbols: break
+            }
+            formatters[key] = formatter
+        }
+        return body(formatter)
     }
 }
 

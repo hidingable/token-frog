@@ -29,7 +29,9 @@ final class AppModel {
         if appearancePreference == .system { onAppearanceChange?() }
     }
     private let contentFailed: Bool
-    private(set) var now = Date()
+    private(set) var now = Date() {
+        didSet { dashboardStore.updateToday(DayKey.string(from: now)) }
+    }
     private(set) var lastScan: Date?
     private(set) var lastError: (any Error)?
     private var usageFailed = false
@@ -38,7 +40,10 @@ final class AppModel {
     private(set) var history: [String: Int] = [:]
     /// Display-only usage detail, kept apart from the journey.
     private(set) var todayTotals: UsageTotals?
-    private(set) var dashboardDays: [DayDetail]?
+    private(set) var dashboardDays: [DayDetail]? {
+        didSet { updateDashboardInput() }
+    }
+    let dashboardStore = DashboardStore()
     let quotaRuntime: QuotaRuntime
     var quotas: [QuotaReading] { QuotaSource.allCases.flatMap { quotaRuntime.account($0).displayedReadings } }
     var quotasLoadedAt: Date? { quotas.map(\.readAt).min() }
@@ -136,8 +141,12 @@ final class AppModel {
     private var historyDate: String?
     private var dashboardLoadedAt: Date?
     private var monthHoursLoadedAt: Date?
-    private var monthHours: [HourUsage] = []
-    private var todayHours: [HourUsage] = []
+    private var monthHours: [HourUsage] = [] {
+        didSet { updateDashboardInput() }
+    }
+    private var todayHours: [HourUsage] = [] {
+        didSet { updateDashboardInput() }
+    }
 
     private static let minScanInterval: TimeInterval = 60
     private static let fallbackScanInterval: TimeInterval = 300
@@ -204,6 +213,7 @@ final class AppModel {
         contentFailed = loadedThemes == nil || (loadedCatalog.map { $0.active.count < 2 } ?? true)
         store = SaveStore(directory: dataDirectory, pets: loadedCatalog?.pets, journeyMigrations: loadedCatalog.map { .journey(catalog: $0) } ?? SaveMigrations(currentVersion: JourneyState.currentVersion))
         isLocked = true
+        dashboardStore.updateToday(DayKey.string(from: self.now))
         guard !contentFailed, let loadedCatalog else {
             recoveryIssues = [SaveRecoveryIssue(file: .journey, problem: .content)]
             return
@@ -614,6 +624,10 @@ final class AppModel {
     var dashboardHours: [HourUsage] {
         let today = todayHours.first?.date
         return monthHours.filter { $0.date != today } + todayHours
+    }
+
+    private func updateDashboardInput() {
+        dashboardStore.update(days: dashboardDays, hours: dashboardHours)
     }
 
     /// Reads the whole history only while the dashboard is showing, sharing the scan's serial slot.

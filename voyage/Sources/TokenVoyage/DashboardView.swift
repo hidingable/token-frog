@@ -19,7 +19,7 @@ enum DashboardPeriod: String, CaseIterable, Identifiable, Sendable {
     }
 }
 
-struct DashboardSelection {
+struct DashboardSelection: Hashable, Sendable {
     var period: DashboardPeriod = .month
     /// Set by clicking a day in the trend or the grid; narrows everything to it.
     var day: String?
@@ -29,20 +29,31 @@ struct DashboardSelection {
     var showModels = false
 }
 
-struct DashboardTab: View {
+struct DashboardTab: View, Equatable {
+    nonisolated static func == (lhs: Self, rhs: Self) -> Bool { lhs.model === rhs.model && lhs.value == rhs.value }
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     @Binding var selection: DashboardSelection
+    private let value: DashboardSelection
+
+    init(model: AppModel, selection: Binding<DashboardSelection>) {
+        self.model = model
+        _selection = selection
+        value = selection.wrappedValue
+    }
 
     var body: some View {
+        let _ = DashboardMeasurementCounters.record(.body)
+        let store = model.dashboardStore
+        let refresh = DashboardRefresh(version: store.version, today: store.today, selection: selection, seriesLimit: theme.series.count)
         Group {
             if model.usageDisplayState == .noUsage {
                 Text(l10n("usage.noRecords")).font(Theme.pixel()).foregroundStyle(theme.textMuted)
                     .fixedSize(horizontal: false, vertical: true)
             }
-            if let days = model.dashboardDays {
-                content(days)
+            if let result = store.result {
+                content(result)
             } else if model.lastError == nil {
                 Text(l10n("dashboard.loading")).font(Theme.pixel()).foregroundStyle(theme.textMuted)
             }
@@ -50,32 +61,21 @@ struct DashboardTab: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         // lastScan is in the id so a load skipped because a scan held the slot retries after that scan.
         .task(id: String(describing: model.lastScan)) { await model.loadDashboard() }
+        .task(id: refresh) {
+            await store.select(store.request(selection: refresh.selection, seriesLimit: refresh.seriesLimit, calendar: refresh.calendar))
+        }
     }
 
-    private func range(today: String) -> (start: String?, end: String) {
-        if let day = selection.day { return (day, day) }
-        guard let lookback = selection.period.lookback else { return (nil, today) }
-        let calendar = Calendar.current
-        let date = DayKey.date(from: today).flatMap { calendar.date(byAdding: .day, value: -lookback, to: $0) }
-        return (date.map { DayKey.string(from: $0) } ?? today, today)
-    }
-
-    private func content(_ days: [DayDetail]) -> some View {
-        let today = DayKey.string(from: model.now)
-        let (start, end) = range(today: today)
-        let filter = DashboardFilter(client: selection.client, model: selection.model)
-        let board = UsageDashboard(days: days, start: start, end: end, filter: filter)
-        // The grid always shows the past year, whatever range is selected, and marks that range.
-        let yearBoard = UsageDashboard(days: days, start: nil, end: today, filter: filter)
-        let everything = UsageDashboard(days: days, start: nil, end: today)
-        let tools = Array(everything.ledger.byClient.prefix(theme.series.count).map(\.name))
+    private func content(_ result: DashboardPresentation) -> some View {
+        DashboardMeasurementCounters.record(.dashboardContent)
         return VStack(alignment: .leading, spacing: 12) {
             controls()
-            MetricsGrid(board: board)
-            TrendCard(board: board, hours: model.dashboardHours, tools: tools, selection: $selection)
-            ActivityCard(board: board, yearBoard: yearBoard, hours: model.dashboardHours, selection: $selection)
-            BreakdownRow(board: board, tools: tools, selection: $selection)
-            DetailTable(board: board, tools: tools, selection: $selection)
+            MetricsGrid(board: result.stats).equatable()
+            TrendCard(data: result.trend, metric: result.request.metric, tools: result.tools, selection: $selection).equatable()
+            ActivityCard(heat: result.heat, hours: result.hours, weekdays: result.weekdays, filtered: !result.request.filter.isEmpty,
+                         rangeStart: result.board.start, rangeEnd: result.board.end, metric: result.request.metric, selection: $selection).equatable()
+            BreakdownRow(ledger: result.board.ledger, tools: result.tools, client: selection.client, model: selection.model, selection: $selection).equatable()
+            DetailTable(ledger: result.board.ledger, showModels: selection.showModels, selection: $selection).equatable()
             Text(l10n("dashboard.source"))
                 .font(Theme.pixel())
                 .foregroundStyle(theme.textMuted)
@@ -111,6 +111,7 @@ struct Chip: View {
     var action: () -> Void
 
     var body: some View {
+        let _ = DashboardMeasurementCounters.record(.body)
         Button(action: action) {
             Text(title)
                 .font(Theme.pixel())
@@ -130,6 +131,7 @@ struct ClearChip: View {
     var action: () -> Void
 
     var body: some View {
+        let _ = DashboardMeasurementCounters.record(.body)
         Button(action: action) {
             Text(l10n("filter.chip", title))
                 .font(Theme.pixel())
@@ -151,6 +153,7 @@ private struct Card<Content: View, Accessory: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
+        let _ = DashboardMeasurementCounters.record(.body)
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 4) {
                 Text(title).foregroundStyle(theme.text)
@@ -171,13 +174,15 @@ private func toolColor(_ name: String, tools: [String], theme: AppTheme) -> Colo
     tools.firstIndex(of: name).map { theme.series[$0] } ?? theme.seriesOther
 }
 
-struct MetricsGrid: View {
+struct MetricsGrid: View, Equatable {
+    nonisolated static func == (lhs: Self, rhs: Self) -> Bool { lhs.board == rhs.board }
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
-    let board: UsageDashboard
+    let board: DashboardStats
 
     var body: some View {
-        let totals = board.ledger.totals
+        let _ = DashboardMeasurementCounters.record(.body)
+        let totals = board.totals
         Grid(horizontalSpacing: 4, verticalSpacing: 4) {
             GridRow {
                 tile(l10n("metric.total"), Format.tokens(totals.total, language: l10n.language), delta(.total))
@@ -220,73 +225,49 @@ struct MetricsGrid: View {
     }
 }
 
-struct TrendCard: View {
+struct TrendCard: View, Equatable {
+    nonisolated static func == (lhs: Self, rhs: Self) -> Bool { lhs.data == rhs.data && lhs.metric == rhs.metric && lhs.tools == rhs.tools }
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
-    let board: UsageDashboard
-    let hours: [HourUsage]
+    let data: DashboardTrend
+    let metric: DashboardMetric
     let tools: [String]
     @Binding var selection: DashboardSelection
     @State private var hovered: String?
-
-    private struct Mark: Identifiable {
-        var bucket: String
-        var series: String
-        var value: Double
-        var id: String { "\(bucket)-\(series)" }
-    }
+    private typealias Mark = DashboardTrend.Mark
 
     var body: some View {
-        let metric = selection.metric
-        let isSingleDay = board.calendarDays == 1
-        let filtered = !board.filter.isEmpty
-        let buckets: [TrendBucket] = isSingleDay ? hourBuckets(metric) : board.trend(metric, series: tools)
-        let order = tools + [UsageDashboard.otherSeries]
-        // Dictionary order would reshuffle the stack from bar to bar.
-        let marks = buckets.flatMap { bucket in
-            order.compactMap { name in bucket.values[name].map { Mark(bucket: bucket.start, series: name, value: $0) } }
-        }
-        let present = order.filter { name in marks.contains { $0.series == name } }
-        Card(title: isSingleDay ? l10n("trend.hourly") : (buckets.first?.isWeek == true ? l10n("trend.weekly") : l10n("trend.daily"))) {
+        let _ = DashboardMeasurementCounters.record(.body)
+        Card(title: data.isSingleDay ? l10n("trend.hourly") : (data.buckets.first?.isWeek == true ? l10n("trend.weekly") : l10n("trend.daily"))) {
             ForEach(DashboardMetric.allCases) { item in
                 Chip(title: l10n.metric(item), isOn: metric == item) { selection.metric = item }
             }
         } content: {
-            readout(buckets, metric: metric)
-            if isSingleDay && filtered {
+            readout(metric: metric)
+            if data.isSingleDay && data.filtered {
                 Text(l10n("trend.clearFilters")).foregroundStyle(theme.textMuted).frame(height: 180)
-            } else if isSingleDay && marks.isEmpty {
+            } else if data.isSingleDay && data.marks.isEmpty {
                 Text(l10n("trend.noHours")).foregroundStyle(theme.textMuted).frame(height: 180)
             } else {
-                chart(marks: marks, buckets: buckets, order: order, metric: metric, isSingleDay: isSingleDay)
+                chart(marks: data.marks, buckets: data.buckets, metric: metric, isSingleDay: data.isSingleDay)
                     .frame(height: 180)
                     .accessibilityLabel(l10n("trend.description", l10n.metric(metric)))
             }
-            if !isSingleDay {
-                legend(present, marks: marks, metric: metric)
-            }
+            if !data.isSingleDay { legend(metric: metric) }
         }
     }
 
-    private func hourBuckets(_ metric: DashboardMetric) -> [TrendBucket] {
-        let profile = board.filter.isEmpty ? HourUsage.profile(hours, start: board.start, end: board.end, metric: metric) : []
-        return profile.enumerated().map { hour, value in
-            TrendBucket(start: String(format: "%02d", hour), isWeek: false, values: value > 0 ? [UsageDashboard.otherSeries: value] : [:])
-        }
-    }
-
-    private func readout(_ buckets: [TrendBucket], metric: DashboardMetric) -> some View {
-        let isHours = board.calendarDays == 1
-        let bucket = hovered.flatMap { key in buckets.first { $0.start == key } }
-            ?? buckets.max { $0.total < $1.total }
+    private func readout(metric: DashboardMetric) -> some View {
+        let isHours = data.isSingleDay
+        let bucket = hovered.flatMap { data.readouts[$0] } ?? data.highest
         return HStack(spacing: 12) {
             if let bucket {
                 let label = isHours ? l10n.hour(Int(bucket.start)!) : (bucket.isWeek ? l10n("trend.weekOf", l10n.day(bucket.start)) : l10n.day(bucket.start))
                 Text(hovered == nil ? l10n("trend.highest", label) : label).foregroundStyle(theme.textMuted)
                 Text(metric.format(bucket.total, language: l10n.language)).foregroundStyle(theme.text)
-                ForEach(bucket.values.sorted { $0.value > $1.value }.prefix(4), id: \.key) { entry in
+                ForEach(bucket.series, id: \.name) { entry in
                     if !isHours {
-                        Text(l10n("chart.seriesValue", l10n.series(entry.key), metric.format(entry.value, language: l10n.language)))
+                        Text(l10n("chart.seriesValue", l10n.series(entry.name), metric.format(entry.value, language: l10n.language)))
                             .foregroundStyle(theme.textMuted)
                     }
                 }
@@ -296,11 +277,9 @@ struct TrendCard: View {
         .lineLimit(1)
     }
 
-    private func chart(marks: [Mark], buckets: [TrendBucket], order: [String], metric: DashboardMetric, isSingleDay: Bool) -> some View {
-        let keys = buckets.map(\.start)
-        let stride = max(1, keys.count / 8)
-        // Offset from the edges, where the first label would be clipped.
-        let labels = keys.enumerated().filter { $0.offset % stride == stride / 2 }.map(\.element)
+    private func chart(marks: [Mark], buckets: [TrendBucket], metric: DashboardMetric, isSingleDay: Bool) -> some View {
+        let keys = data.keys
+        let labels = data.labels
         return Chart(marks) { mark in
             BarMark(x: .value(l10n("chart.time"), mark.bucket), y: .value(l10n.metric(metric), mark.value), width: .ratio(0.7))
                 .foregroundStyle(isSingleDay ? theme.textMuted : toolColor(mark.series, tools: tools, theme: theme))
@@ -342,11 +321,12 @@ struct TrendCard: View {
         }
     }
 
-    private func legend(_ present: [String], marks: [Mark], metric: DashboardMetric) -> some View {
-        let total = max(marks.reduce(0) { $0 + $1.value }, 0.000_001)
+    private func legend(metric: DashboardMetric) -> some View {
+        let total = data.legendTotal
         return HStack(spacing: 12) {
-            ForEach(present, id: \.self) { name in
-                let value = marks.filter { $0.series == name }.reduce(0) { $0 + $1.value }
+            ForEach(data.legend, id: \.name) { entry in
+                let name = entry.name
+                let value = entry.value
                 HStack(spacing: 4) {
                     Rectangle().fill(toolColor(name, tools: tools, theme: theme)).frame(width: 8, height: 8)
                     Text(l10n.series(name)).foregroundStyle(theme.text)
@@ -359,77 +339,87 @@ struct TrendCard: View {
     }
 }
 
-struct ActivityCard: View {
+struct ActivityCard: View, Equatable {
+    nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.heat == rhs.heat && lhs.hours == rhs.hours && lhs.weekdays == rhs.weekdays && lhs.filtered == rhs.filtered
+            && lhs.rangeStart == rhs.rangeStart && lhs.rangeEnd == rhs.rangeEnd && lhs.metric == rhs.metric
+    }
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
-    let board: UsageDashboard
-    let yearBoard: UsageDashboard
-    let hours: [HourUsage]
+    let heat: DashboardHeat
+    let hours: [Double]
+    let weekdays: [Double]
+    let filtered: Bool
+    let rangeStart: String
+    let rangeEnd: String
+    let metric: DashboardMetric
     @Binding var selection: DashboardSelection
     @State private var hovered: HeatCell?
 
     var body: some View {
-        let metric = selection.metric
-        let cells = yearBoard.heatCells(metric: metric)
+        let _ = DashboardMeasurementCounters.record(.body)
         Card(title: l10n("dashboard.active")) {
             Text(readoutText(metric)).foregroundStyle(theme.textMuted).lineLimit(1)
         } content: {
-            HeatGrid(cells: cells, rangeStart: board.start, rangeEnd: board.end, hovered: $hovered) { selection.day = $0 }
-                .accessibilityLabel(l10n("activity.description", Format.grouped(cells.filter { $0.level > 0 }.count)))
+            HeatGrid(heat: heat, rangeStart: rangeStart, rangeEnd: rangeEnd, hovered: $hovered) { selection.day = $0 }
+                .equatable()
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(l10n("activity.description", Format.grouped(heat.activeCount)))
             HStack(alignment: .top, spacing: 16) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(board.filter.isEmpty ? l10n("activity.hours") : l10n("activity.filteredHours")).foregroundStyle(theme.textMuted)
-                    MiniBars(values: hourProfile(metric), labels: ["0", "6", "12", "18"], every: 6) { "\(l10n.hour($0)) \(metric.format($1, language: l10n.language))" }
+                    Text(!filtered ? l10n("activity.hours") : l10n("activity.filteredHours")).foregroundStyle(theme.textMuted)
+                    MiniBars(values: hours, labels: ["0", "6", "12", "18"], every: 6, metric: metric, language: l10n.language) { "\(l10n.hour($0)) \(metric.format($1, language: l10n.language))" }.equatable()
                 }
                 VStack(alignment: .leading, spacing: 4) {
                     Text(l10n("activity.weekday")).foregroundStyle(theme.textMuted)
-                    MiniBars(values: board.weekdayProfile(metric), labels: l10n.weekdays, every: 1) { index, value in
+                    MiniBars(values: weekdays, labels: l10n.weekdays, every: 1, metric: metric, language: l10n.language) { index, value in
                         "\(l10n.weekday(index)) \(metric.format(value, language: l10n.language))"
-                    }
+                    }.equatable()
                 }
                 .frame(minWidth: 200, maxWidth: .infinity)
             }
         }
     }
 
-    private func hourProfile(_ metric: DashboardMetric) -> [Double] {
-        board.filter.isEmpty ? HourUsage.profile(hours, start: board.start, end: board.end, metric: metric) : []
-    }
-
     private func readoutText(_ metric: DashboardMetric) -> String {
-        if let hovered { return "\(l10n.day(hovered.date, full: true)) · \(hovered.value > 0 ? metric.format(hovered.value, language: l10n.language) : l10n("activity.noUsage"))" }
+        if let hovered, let cell = heat.cells.first(where: { $0.date == hovered.date }) {
+            return "\(l10n.day(cell.date, full: true)) · \(cell.value > 0 ? metric.format(cell.value, language: l10n.language) : l10n("activity.noUsage"))"
+        }
         return l10n("activity.help")
     }
 }
 
 /// One Canvas instead of 371 hit-tested views, so hovering stays cheap.
-struct HeatGrid: View {
+struct HeatGrid: View, Equatable {
+    nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.heat == rhs.heat && lhs.rangeStart == rhs.rangeStart && lhs.rangeEnd == rhs.rangeEnd
+    }
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
-    let cells: [HeatCell]
+    let heat: DashboardHeat
     let rangeStart: String
     let rangeEnd: String
     @Binding var hovered: HeatCell?
     var onSelect: (String) -> Void
 
     private static let gap: CGFloat = 2
-    private static let rows: CGFloat = 7
 
     var body: some View {
+        let _ = DashboardMeasurementCounters.record(.body)
         GeometryReader { proxy in
-            let weeks = CGFloat((cells.map(\.week).max() ?? 0) + 1)
+            let weeks = CGFloat(heat.weeks)
             let size = max(4, ((proxy.size.width - 20) / weeks).rounded(.down) - Self.gap)
             let pitch = size + Self.gap
             ZStack(alignment: .topLeading) {
                 Canvas { context, _ in
-                    for cell in cells {
+                    for cell in heat.cells {
                         let rect = CGRect(x: 20 + CGFloat(cell.week) * pitch, y: 16 + CGFloat(cell.weekday) * pitch, width: size, height: size)
                         let inRange = cell.date >= rangeStart && cell.date <= rangeEnd
                         context.fill(Path(rect), with: .color(theme.heat[cell.level].opacity(inRange ? 1 : 0.4)))
                     }
                 }
-                ForEach(monthLabels(), id: \.week) { label in
-                    Text(label.text).foregroundStyle(theme.textMuted).offset(x: 20 + CGFloat(label.week) * pitch, y: -2)
+                ForEach(heat.months, id: \.week) { label in
+                    Text(l10n.month(label.month)).foregroundStyle(theme.textMuted).offset(x: 20 + CGFloat(label.week) * pitch, y: -2)
                 }
                 ForEach(Array([l10n.weekdays[0], l10n.weekdays[2], l10n.weekdays[4]].enumerated()), id: \.offset) { index, name in
                     Text(name).foregroundStyle(theme.textMuted).offset(x: 0, y: 16 + CGFloat(index * 2) * pitch - 2)
@@ -450,37 +440,26 @@ struct HeatGrid: View {
     }
 
     private func cell(at point: CGPoint, pitch: CGFloat) -> HeatCell? {
-        let week = Int((point.x - 20) / pitch)
-        let weekday = Int((point.y - 16) / pitch)
-        guard point.x >= 20, point.y >= 16 else { return nil }
-        return cells.first { $0.week == week && $0.weekday == weekday }
+        HeatGridGeometry.cell(at: point, pitch: pitch, cells: heat.cells)
     }
 
-    private func monthLabels() -> [(week: Int, text: String)] {
-        var labels: [(week: Int, text: String)] = []
-        var lastMonth = ""
-        for cell in cells where cell.weekday == 0 {
-            let month = String(cell.date.dropFirst(5).prefix(2))
-            if month != lastMonth {
-                if !lastMonth.isEmpty || cell.week == 0 { labels.append((cell.week, l10n.month(Int(month)!))) }
-                lastMonth = month
-            }
-        }
-        // The first label is usually a partial month and would collide with the next.
-        if labels.count > 1, labels[1].week - labels[0].week < 3 { labels.removeFirst() }
-        return labels
-    }
 }
 
-struct MiniBars: View {
+struct MiniBars: View, Equatable {
+    nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.values == rhs.values && lhs.labels == rhs.labels && lhs.every == rhs.every && lhs.metric == rhs.metric && lhs.language == rhs.language
+    }
     @Environment(\.theme) private var theme
     let values: [Double]
     let labels: [String]
     let every: Int
+    let metric: DashboardMetric
+    let language: Language
     var describe: (Int, Double) -> String
     @State private var hovered: Int?
 
     var body: some View {
+        let _ = DashboardMeasurementCounters.record(.body)
         let top = max(values.max() ?? 0, 0.000_001)
         if values.isEmpty {
             EmptyView()
@@ -514,24 +493,29 @@ struct MiniBars: View {
     }
 }
 
-struct BreakdownRow: View {
+struct BreakdownRow: View, Equatable {
+    nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.ledger == rhs.ledger && lhs.tools == rhs.tools && lhs.client == rhs.client && lhs.model == rhs.model
+    }
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
-    let board: UsageDashboard
+    let ledger: UsageLedger
     let tools: [String]
+    let client: String?
+    let model: String?
     @Binding var selection: DashboardSelection
 
     var body: some View {
-        let ledger = board.ledger
+        let _ = DashboardMeasurementCounters.record(.body)
         let totals = ledger.totals
         HStack(alignment: .top, spacing: 8) {
             Card(title: l10n("breakdown.tools")) { EmptyView() } content: {
-                ranked(ledger.byClient.prefix(6).map { ($0.name, Vehicle.toolName($0.name), $0.tokens.total, toolColor($0.name, tools: tools, theme: theme)) }, total: totals.total, isOn: { selection.client == $0 }) { name in
+                ranked(ledger.byClient.prefix(6).map { ($0.name, Vehicle.toolName($0.name), $0.tokens.total, toolColor($0.name, tools: tools, theme: theme)) }, total: totals.total, isOn: { client == $0 }) { name in
                     selection.client = selection.client == name ? nil : name
                 }
             }
             Card(title: l10n("breakdown.models")) { EmptyView() } content: {
-                ranked(ledger.byModel.prefix(6).map { ($0.name, l10n.modelName($0.name), $0.tokens.total, theme.textMuted) }, total: totals.total, isOn: { selection.model == $0 }) { name in
+                ranked(ledger.byModel.prefix(6).map { ($0.name, l10n.modelName($0.name), $0.tokens.total, theme.textMuted) }, total: totals.total, isOn: { model == $0 }) { name in
                     selection.model = selection.model == name ? nil : name
                 }
             }
@@ -581,21 +565,22 @@ struct BreakdownRow: View {
     }
 }
 
-struct DetailTable: View {
+struct DetailTable: View, Equatable {
+    nonisolated static func == (lhs: Self, rhs: Self) -> Bool { lhs.ledger == rhs.ledger && lhs.showModels == rhs.showModels }
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
-    let board: UsageDashboard
-    let tools: [String]
+    let ledger: UsageLedger
+    let showModels: Bool
     @Binding var selection: DashboardSelection
 
     var body: some View {
-        let showModels = selection.showModels
-        let entries = showModels ? board.ledger.byModel : board.ledger.byClient
+        let _ = DashboardMeasurementCounters.record(.body)
+        let entries = showModels ? ledger.byModel : ledger.byClient
         Card(title: l10n("dashboard.details")) {
             Chip(title: l10n("dashboard.tools"), isOn: !showModels) { selection.showModels = false }
             Chip(title: l10n("dashboard.models"), isOn: showModels) { selection.showModels = true }
         } content: {
-            VStack(alignment: .leading, spacing: 4) {
+            LazyVStack(alignment: .leading, spacing: 4) {
                 row(showModels ? l10n("dashboard.models") : l10n("dashboard.tools"), [l10n("metric.total"), l10n("usage.input"), l10n("usage.output"), l10n("table.cacheRead"), l10n("table.cacheWrite"), l10n("table.hit"), l10n("metric.cost"), l10n("metric.messages")], color: theme.textMuted)
                 Rectangle().fill(theme.controlOff).frame(height: 2)
                 if entries.isEmpty { Text(l10n("usage.empty")).foregroundStyle(theme.textMuted) }

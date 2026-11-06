@@ -7,8 +7,11 @@ struct MainView: View {
     @Environment(\.l10n) private var l10n
     let model: AppModel
     @State var dashboard = DashboardSelection()
+    /// The harness drives the same binding as the controls without replacing the hosting root.
+    var measuredDashboard: Binding<DashboardSelection>? = nil
 
     var body: some View {
+        let _ = DashboardMeasurementCounters.record(.body)
         VStack(spacing: 0) {
             navigation
             if let error = model.lastError {
@@ -128,7 +131,7 @@ struct MainView: View {
         case .data:
             ScrollView {
                 switch model.dataTab {
-                case .dashboard: DashboardTab(model: model, selection: $dashboard).padding(12)
+                case .dashboard: DashboardTab(model: model, selection: measuredDashboard ?? $dashboard).equatable().padding(12)
                 case .quota: QuotaTab(model: model).padding(12)
                 }
             }
