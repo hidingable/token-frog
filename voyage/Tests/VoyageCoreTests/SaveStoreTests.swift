@@ -14,7 +14,7 @@ private struct SaveSandbox {
 
     func cleanUp() { try? FileManager.default.removeItem(at: directory) }
 
-    func fixture(_ name: String = "journey-v4") throws -> Data {
+    func fixture(_ name: String = "journey-v5") throws -> Data {
         let url = try #require(Bundle.module.url(forResource: name, withExtension: "json", subdirectory: "Fixtures"))
         return try Data(contentsOf: url)
     }
@@ -29,15 +29,15 @@ private struct SaveSandbox {
 }
 
 @Suite struct SaveStoreTests {
-    @Test func frozenV4LoadsWithoutRewritingOrBackingUp() throws {
+    @Test func frozenV5LoadsWithoutRewritingOrBackingUp() throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
         let original = try box.fixture()
         try original.write(to: box.journeyURL)
         let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
-        guard case .loaded(let journey) = store.journey else { Issue.record("v4 must load"); return }
-        #expect(journey.version == 4)
+        guard case .loaded(let journey) = store.journey else { Issue.record("v5 must load"); return }
+        #expect(journey.version == 5)
         #expect(journey.seed == 42)
         #expect(journey.pet == .snail)
         #expect(journey.targetCityId == "xian")

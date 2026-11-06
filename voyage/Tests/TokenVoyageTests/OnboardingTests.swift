@@ -199,7 +199,7 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         #expect(try fixture.files() == ["care.json", "journey.json"])
         let journey = try JSONDecoder().decode(JourneyState.self, from: Data(contentsOf: fixture.journeyURL))
         let care = try JSONDecoder().decode(CareState.self, from: Data(contentsOf: fixture.careURL))
-        #expect(journey.version == 4 && journey.seed == 42 && journey.pet == .snail)
+        #expect(journey.version == 5 && journey.seed == 42 && journey.pet == .snail)
         #expect(journey.startDate == onboardingDate && journey.openDate == onboardingDate)
         #expect(journey.totalFuel == 0 && journey.legFuel == 0 && journey.days.isEmpty)
         #expect(journey.route == ["shanghai"] && journey.targetCityId == firstStation)

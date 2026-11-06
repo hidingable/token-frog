@@ -8,7 +8,7 @@
 
 | 位置 | 现状 | 要改成 |
 |---|---|---|
-| `LetterComposer` | 中文模板，每个角色 3 句 | 改为内容包和多语言正文 |
+| `LetterComposer` | M0 模板渲染旧信 | 新信用内容包的正文，旧信继续用模板 |
 | `Letter.weather`、`placeTitle` | 只存一种语言 | 见[信件生成](#信件生成) |
 
 ### 开发顺序
@@ -117,7 +117,7 @@ tokscale graph / hourly → UsageDashboard（趋势、活跃、明细）→ 看�
 - **用量无关：** 习惯、形态、掉落和故事选择的输入不含 token 数。测试固定：用量翻倍，结果不变。
 - **确定性：** 掉落和情节由 `seed`、信件序号、到达的城市、习惯、工具和保底计数决定，补算多日不会改变结果。实时天气不参与选择，雨中故事按城市资料里的雨季触发。
 - **幂等：** 按信件序号和日期记账，重复处理不会重复发放。
-- **兑现优先：** 有待兑现的回应时，下一封有资料的信优先选能兑现的情节。
+- **兑现时机：** 只由种子、信件序号和回应决定，不看到了哪座城。到期后才选能兑现的情节。
 - **下一站：** 由引擎按距离档、是否去过和心愿标签随机抽取，结果由种子决定，玩家不选。抽站基准不含到站当天，否则结果会随扫描时机变化。
 - **心愿解析：** 只在本机运行，优先 Foundation Models，不可用时按关键词匹配城市和物品标签；关联不到就随机。
 - **偏离事件：** 比较当天用量和近 14 天中位数；深夜事件用扫描时的增量时间戳，应用未运行时不补发。
@@ -178,20 +178,26 @@ voyage/Content/
   "version": 1,
   "cityId": "quanzhou",
   "factIds": ["mianxianhu"],
-  "requires": { "habit": "talkative", "item": null, "season": null },
-  "fulfills": ["ask-next-time"],
+  "kind": "arrival",
+  "tags": [],
+  "requires": { "habit": "talkative", "item": null, "season": null, "tool": null, "rainySeason": null },
+  "fulfills": ["generic.arrival.breakfast.ask"],
+  "fulfillsHabit": null,
+  "lead": null,
   "text": {
     "zh-Hans": "早餐摊的阿姨教我把油条留一半脆的。",
     "en": "The breakfast stall owner taught me to keep half the youtiao crisp."
   },
   "replies": [
-    { "id": "draw", "habit": "observant", "text": { "zh-Hans": "把你看见的画下来", "en": "Draw what you saw" } }
+    { "id": "quanzhou.breakfast.1.draw", "habit": "observant", "text": { "zh-Hans": "把你看见的画下来", "en": "Draw what you saw" } }
   ],
   "rewards": { "itemIds": ["quanzhou.youtiao-note"], "menuIds": ["quanzhou.mianxianhu"] }
 }
 ```
 
-正文可以带 `{pet}`、`{city}` 这类槽位，由程序填入；槽位不能拼接语法，比如英文复数要写成完整句子。
+`kind` 是 `arrival`、`transit` 或 `fulfill`。正文可以带 `{pet}`、`{city}`、`{target}`、`{reply}` 槽位，生成信时填好；槽位不能拼接语法，比如英文复数要写成完整句子。
+
+回应 ID 在整个内容包中全局唯一，`fulfills` 引用这一条具体回应。专属兑现延续原信里的事物，`lead` 用 `{reply}` 引用玩家的话；没有专属情节时才用 `fulfillsHabit` 习惯模板，模板须自成一体。`kind` 为 `fulfill` 且 `cityId` 为 `null` 时，正文和引句不能用 `{city}`，因为兑现当天可能仍在途中。
 
 ### 校验
 
@@ -264,7 +270,8 @@ voyage/Content/
 - **快照：** 正文和选项全部写进信，内容包修订不影响旧信。
 - **槽位：** 宠物名填入时不翻译。
 - **地点介绍：** 按当前语言请求；切换语言后再按需请求另一种语言，失败就不显示。
-- **选择情节的顺序：** 能兑现的回应 → 符合工具和季节 → 符合习惯 → 符合心愿标签 → 该城通用 → 无资料模板。同级用种子随机，并避开最近用过的。
+- **选择情节的顺序：** 到期的兑现 → 符合工具和季节 → 符合习惯 → 符合心愿标签 → 该城通用 → 无资料模板。同级用种子随机，并避开最近 10 封用过的。
+- **兑现选择：** 满足 `requires` 且 `fulfills` 包含当前回应的情节，不受 `kind` 限制；优先当前城市，其次 `cityId: null` 的专属情节，再用习惯模板。每封信最多兑现一个承诺；积压承诺排到队首后，才开始计算三封信的兑现窗口。
 
 ## 存储和迁移
 

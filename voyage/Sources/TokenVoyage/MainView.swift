@@ -247,6 +247,10 @@ struct LetterView: View {
 
     var body: some View {
         let text = LetterComposer.text(for: letter, l10n: l10n, petName: petName, catalog: catalog)
+        let place = letter.place[l10n.language.rawValue] ?? letter.place["en"] ?? letter.place["zh-Hans"]
+        let weather = letter.weatherCode.flatMap { code in
+            letter.temperatureC.map { "\($0)°C \(Enricher.weatherName(code))" }
+        }
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top) {
                 Text(text.title).font(Theme.pixel(24))
@@ -260,21 +264,21 @@ struct LetterView: View {
                     .aspectRatio(2, contentMode: .fit)
                     .frame(maxWidth: 480)
                     .pixelBorder()
-                    .accessibilityLabel(l10n("letter.photo", letter.placeTitle ?? l10n("letter.localPlace")))
+                    .accessibilityLabel(l10n("letter.photo", place?.title ?? l10n("letter.localPlace")))
             }
             Text(text.voice).font(.system(size: 14)).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
             Text(text.signature).font(Theme.pixel()).frame(maxWidth: .infinity, alignment: .trailing)
 
-            if letter.weather != nil || letter.placeSummary != nil {
+            if weather != nil || place != nil {
                 divider
                 Text(l10n("letter.sights")).font(Theme.pixel()).foregroundStyle(Theme.brown)
-                if let weather = letter.weather {
+                if let weather {
                     Text(l10n("letter.weatherSource", weather)).font(.system(size: 13))
                 }
-                if let summary = letter.placeSummary {
+                if let summary = place?.summary {
                     Text(summary).font(.system(size: 13)).lineSpacing(3).fixedSize(horizontal: false, vertical: true)
-                    if let page = letter.placeURL, let url = URL(string: page) {
-                        Link(l10n("letter.source", letter.placeTitle ?? ""), destination: url)
+                    if let page = place?.url, let url = URL(string: page) {
+                        Link(l10n("letter.source", place?.title ?? ""), destination: url)
                             .font(.system(size: 12))
                             .foregroundStyle(Theme.sea)
                     }

@@ -1,0 +1,2508 @@
+[
+  {
+    "id": "generic.arrival.paper-flag",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "到{city}了。我是{pet}，先把邮包安顿好，再向你报到。包口露出的纸角一直轻轻晃，像一面只有我看得见的小旗。我给它留了位置，明天看看它还指向哪里。",
+      "en": "Reporting from {city}: {pet} and the mailbag have both arrived. A corner of paper keeps waving out of the bag, apparently in charge of the welcome ceremony. I left it poking out. We will see where it points tomorrow."
+    },
+    "replies": [
+      {
+        "id": "generic.arrival.paper-flag.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问谁也刚到",
+          "en": "Say hello to another arrival"
+        }
+      },
+      {
+        "id": "generic.arrival.paper-flag.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看纸角指哪儿",
+          "en": "Keep an eye on that tiny flag"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.arrival.window-envelope",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "我在{city}写第一张便条，窗边的一小块亮光刚好落在空信封上。我挪一下信封，它也跟着换个位置，好像我们在互相让座。明天我要早点来，看看是谁先到。",
+      "en": "My first note from {city} comes with a small square of window light. It landed on an empty envelope, and every time I moved the envelope we seemed to be offering each other a seat. Tomorrow I will try getting here first."
+    },
+    "replies": [
+      {
+        "id": "generic.arrival.window-envelope.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向邻座打个招呼",
+          "en": "Greet whoever settles nearby"
+        }
+      },
+      {
+        "id": "generic.arrival.window-envelope.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看亮光怎么走",
+          "en": "Watch the patch of light wander"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.arrival.ribbon-knot",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "到了{city}，{pet}准备把邮包上的绳结理顺。结果旧结刚松开，旁边又多了一个新结，像是它请来的帮手。我先记住了绳头的位置，明天继续和它商量。",
+      "en": "{pet} has arrived in {city} and opened negotiations with a knot on the mailbag. Undoing one loop somehow introduced a second knot. I know where the loose end is, at least. Talks resume tomorrow."
+    },
+    "replies": [
+      {
+        "id": "generic.arrival.ribbon-knot.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人教个新绳结",
+          "en": "Ask someone for a knot trick"
+        }
+      },
+      {
+        "id": "generic.arrival.ribbon-knot.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "顺着绳头慢慢看",
+          "en": "Follow the loose end carefully"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.arrival.blank-line",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "给{city}的第一封报到信，我特意留了一行空白。本来想写句很像信使的话，最后只写了“到啦”，倒也正合适。那一行先留着，明天的小事也许会自己来填。",
+      "en": "I saved a line in my first dispatch from {city} for something impressively postal. All I came up with was “Made it!” That will do. The spare line can wait for whatever little thing happens tomorrow."
+    },
+    "replies": [
+      {
+        "id": "generic.arrival.blank-line.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "找人交换一句问候",
+          "en": "Trade a greeting with someone"
+        }
+      },
+      {
+        "id": "generic.arrival.blank-line.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意明天的小事",
+          "en": "See what finds that empty line"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.arrival.parcel-rustle",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "到{city}后，我听见邮包里沙沙响，以为有封信想抢先说话。打开一看，是两张空信纸在挤位置。我把它们分开一点，今晚应该都能舒舒服服。明天再听听还有没有动静。",
+      "en": "Something in the mailbag started rustling after we reached {city}. I thought a letter was eager to speak, but two blank sheets were simply jostling for space. They each have a little room now. I will listen for further complaints tomorrow."
+    },
+    "replies": [
+      {
+        "id": "generic.arrival.parcel-rustle.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问别人的邮包",
+          "en": "Compare mailbag stories"
+        }
+      },
+      {
+        "id": "generic.arrival.parcel-rustle.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听还有什么声音",
+          "en": "Listen for the next rustle"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.arrival.pencil-introduction",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "{pet}在{city}收到一句问候，还借到了一小截铅笔。我原本只想写个地址，写着写着，先给这截铅笔画了个小座位。还铅笔时要连座位一起还，明天看看对方怎么说。",
+      "en": "In {city}, someone said hello to {pet} and lent me a very short pencil. I meant to write an address, but drew a tiny chair for the pencil first. I will return the chair along with it tomorrow. That ought to be an interesting conversation."
+    },
+    "replies": [
+      {
+        "id": "generic.arrival.pencil-introduction.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问铅笔的故事",
+          "en": "Ask where the pencil has been"
+        }
+      },
+      {
+        "id": "generic.arrival.pencil-introduction.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看笔迹哪里不同",
+          "en": "Notice what the pencil leaves behind"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.arrival.folded-greeting",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "在{city}的第一晚，我把报平安的纸条折小，打开，又折小。折到第三次，纸条已经能自己站一会儿了。我请它替我守着邮包，明早看看这位小值班员有没有睡倒。",
+      "en": "On my first evening in {city}, I folded a little arrival note, unfolded it, then tried again. After the third attempt it could stand up on its own. It is on mailbag duty tonight. Tomorrow we will find out how long that shift lasted."
+    },
+    "replies": [
+      {
+        "id": "generic.arrival.folded-greeting.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "介绍一下小值班员",
+          "en": "Introduce the new bag attendant"
+        }
+      },
+      {
+        "id": "generic.arrival.folded-greeting.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪种折法最稳",
+          "en": "Find the steadiest fold"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.arrival.address-rehearsal",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "我到了{city}。写地址前，{pet}先小声念了一遍，邮包扣恰好咔哒一响，像是替我答了“收到”。我又念了一遍，这回它没回应。先让它歇着，明天换个更短的开场白。",
+      "en": "We are in {city}. Before writing the address, {pet} read it aloud to the mailbag. The clasp clicked at just the right moment: message received. It declined a second performance. Tomorrow I will try a shorter opening line."
+    },
+    "replies": [
+      {
+        "id": "generic.arrival.address-rehearsal.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "找人练一句开场白",
+          "en": "Try a greeting on someone new"
+        }
+      },
+      {
+        "id": "generic.arrival.address-rehearsal.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看包扣何时响",
+          "en": "Notice what makes the clasp click"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.arrival.ink-dot",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "从{city}寄来的第一张便条上，多了一颗小墨点。我绕着它画了一个圈，它就成了一个小小的收件处。现在还空着，明天也许可以往旁边添个邮包。",
+      "en": "The first note from {city} acquired an unexpected ink dot. I drew a circle around it and declared it a very small mail desk. It has no parcels yet. Perhaps I will draw its first delivery tomorrow."
+    },
+    "replies": [
+      {
+        "id": "generic.arrival.ink-dot.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问该画什么邮包",
+          "en": "Ask what the first parcel should be"
+        }
+      },
+      {
+        "id": "generic.arrival.ink-dot.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看墨点还能像啥",
+          "en": "Look for another shape in the dot"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.arrival.bag-seat",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "在{city}安顿下来，{pet}把邮包放在旁边，给它也留了一点看窗外的位置。它倒好，一坐下就往我这边歪。我换了个放法，总算并排坐稳了。明天出发前，再给它排一次座位。",
+      "en": "{pet} is settled in {city}, with a place by the window reserved for the mailbag. The bag immediately leaned into my spot. A little rearranging solved that. I expect another round of seat planning before we head out tomorrow."
+    },
+    "replies": [
+      {
+        "id": "generic.arrival.bag-seat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问大家怎么安顿",
+          "en": "Ask how other travelers settle in"
+        }
+      },
+      {
+        "id": "generic.arrival.bag-seat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看邮包为何歪",
+          "en": "Study the leaning mailbag"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.transit.moving-address",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "往{target}走的路上，{pet}想好了一句很短的报到话。走一阵添一个词，歇一会儿又删两个词，现在只剩下“我到”。剩下那个“啦”，留给真正到达的时候。明天先想好写在哪儿。",
+      "en": "On the way to {target}, {pet} has been editing a one-line arrival message. A word goes in, two come out, and now it simply says “I am”. The word “here” can wait until we get there. Tomorrow I will choose its place on the page."
+    },
+    "replies": [
+      {
+        "id": "generic.transit.moving-address.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问别人怎么报到",
+          "en": "Collect another arrival greeting"
+        }
+      },
+      {
+        "id": "generic.transit.moving-address.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意路上的小变化",
+          "en": "Watch for one small change"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.transit.loose-thread",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "离开{city}后，我发现邮包上有一截短线头，总比别处先碰到风。我给它起名叫“前哨”，它没反对。去{target}的路还在前面，明天再看看它先向哪边点头。",
+      "en": "After leaving {city}, I noticed a loose thread on the mailbag catches every breeze first. I have appointed it lookout. It raised no objection. We are still on our way to {target}; tomorrow I will check which way it nods."
+    },
+    "replies": [
+      {
+        "id": "generic.transit.loose-thread.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给路人介绍前哨",
+          "en": "Introduce the thread to a fellow traveler"
+        }
+      },
+      {
+        "id": "generic.transit.loose-thread.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看线头如何摆",
+          "en": "Track the little lookout in the breeze"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.transit.envelope-seat",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "去{target}的途中，我给空信封换了一个口袋。它原来总是探出一个角，这回安安静静，像终于挑中了座位。我暂时不打扰它，明天写信时再请它出来。",
+      "en": "Somewhere on the way to {target}, I moved an empty envelope to another pocket. It used to poke one corner out; now it seems perfectly content with its seat. I will leave it there until tomorrow, when it has a letter to carry."
+    },
+    "replies": [
+      {
+        "id": "generic.transit.envelope-seat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问有人要捎话吗",
+          "en": "Ask if anyone has a message to carry"
+        }
+      },
+      {
+        "id": "generic.transit.envelope-seat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪个口袋合适",
+          "en": "Inspect the new envelope seat"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.transit.pocket-sound",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "{pet}正在去{target}的路上。邮包里忽然传出轻轻的一声“嗒”，我停下，它也停下。原来是铅笔碰到了扣子。我把它们隔开，又留了一点空隙，明天听听会不会有新的合奏。",
+      "en": "{pet} is on the way to {target}, accompanied by a mysterious little tap. When I stopped, it stopped too. A pencil was knocking against a button in the bag. They have separate spaces now, though tomorrow may bring another duet."
+    },
+    "replies": [
+      {
+        "id": "generic.transit.pocket-sound.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和同行者聊聊声音",
+          "en": "Compare traveling soundtracks"
+        }
+      },
+      {
+        "id": "generic.transit.pocket-sound.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听声音的节奏",
+          "en": "Listen for the pattern in the tapping"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.transit.unfinished-postscript",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "从{city}往{target}去，我在信尾写了“还有一件小事”，却一时想不起是哪一件。邮包已经收好，就让这句先跟着走吧。明天如果遇上什么有趣的，它正好有地方落脚。",
+      "en": "Between {city} and {target}, I added “One more little thing” to the end of a letter, then forgot what the thing was. The bag is packed, so the sentence is coming along. Whatever happens tomorrow already has a place to land."
+    },
+    "replies": [
+      {
+        "id": "generic.transit.unfinished-postscript.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "找人聊一件小事",
+          "en": "Ask someone for a small story"
+        }
+      },
+      {
+        "id": "generic.transit.unfinished-postscript.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留心那件小事",
+          "en": "Keep watch for the missing postscript"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.paper-flag.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.paper-flag.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你上次说“{reply}”，我今天照着试了试。",
+      "en": "Your last note said, “{reply}”. I gave it a try today."
+    },
+    "text": {
+      "zh-Hans": "我朝一个刚放下行李的旅人招招手，问他是不是也刚到。他看见邮包上露着的纸角，便把自己的空便条折成一只小手，摆在旁边跟它打招呼。现在两张纸挤在包口，我得先替新来的那只手腾个位子。",
+      "en": "I waved to a traveler who had just set down a bag and asked if they had just arrived too. They spotted my little paper flag, folded a blank note into a hand, and stood it beside the flag for a greeting. There are two pieces of paper at the mouth of my bag now, and the newcomer needs a bit of room."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.paper-flag.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问小手怎么折",
+          "en": "Ask how to fold that little hand"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.paper-flag.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张纸怎么站稳",
+          "en": "See how the two papers balance"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.paper-flag.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.paper-flag.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我带着“{reply}”这句提醒，多留了一会儿。",
+      "en": "I kept your suggestion, “{reply}”, in mind and stayed a little longer."
+    },
+    "text": {
+      "zh-Hans": "我蹲下去顺着纸角的方向看，发现它的影子正落在邮包扣上。我把邮包转了一点，纸角朝窗边摆，影子却躲到了另一面。我在纸上记下两个方向，准备等下一阵风来对一对。",
+      "en": "I crouched down to follow the paper corner and found its shadow pointing straight at the mailbag clasp. When I turned the bag, the corner waved toward the window while its shadow slipped around the other side. I drew both directions on a scrap of paper, ready to check them against the next breeze."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.paper-flag.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人猜猜箭头指哪儿",
+          "en": "Ask someone to guess what the arrows point to"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.paper-flag.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "等下一阵风再比一比",
+          "en": "Compare the directions in the next breeze"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.window-envelope.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.window-envelope.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "读到你写的“{reply}”，我就有了下一步的主意。",
+      "en": "Your note, “{reply}”, gave me something to try next."
+    },
+    "text": {
+      "zh-Hans": "有人在旁边坐下，我就问了一声，也在写信吗。对方把一张空卡片推过来，刚好分到了信封旁边的一点亮光。我们各在纸上画了半扇窗，拼起来才发现，窗框一边高一边低。",
+      "en": "When someone settled beside me, I asked if they were writing a letter too. They slid over a blank card, catching a little of the light beside my envelope. We each drew half a window, then put the papers together and discovered that our windowsills were on different floors."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.window-envelope.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "商量怎么接上窗框",
+          "en": "Work out how to join the window frames"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.window-envelope.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看拼缝里的亮光",
+          "en": "Look at the light between the two papers"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.window-envelope.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.window-envelope.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你提议“{reply}”，这回有了新发现。",
+      "en": "You suggested, “{reply}”, and this time I found something new."
+    },
+    "text": {
+      "zh-Hans": "我把空信封放回窗边，在亮光的两个角上各画了一个小点。写完几行字再看，亮光已经越过了其中一个点，停在封口的折边上。我沿着新边缘轻轻描了一笔，信封背面多了一扇还没画完的窗。",
+      "en": "I put the empty envelope by the window and marked two corners of the patch of light. A few lines of writing later, the light had passed one mark and reached the folded flap. I traced its new edge, leaving the beginnings of a window on the back of the envelope."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.window-envelope.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人给小窗添点东西",
+          "en": "Ask someone what belongs in the little window"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.window-envelope.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再描一次亮光的边",
+          "en": "Trace the edge of the light again"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.ribbon-knot.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.ribbon-knot.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "“{reply}”，你这么一说，我就去试了。",
+      "en": "“{reply}”, you said. So I went and tried it."
+    },
+    "text": {
+      "zh-Hans": "我请一个正在系包带的人教我打结，对方让我先把绳子对折，再从圈里穿过去。这回一拉绳头，结就松开了，再拉另一边，又能收紧。我用一小段废绳练了两遍，第三遍却打出了一个跟示范不同的圈。",
+      "en": "I asked someone tying a bag strap for a knot lesson. They showed me how to double the cord and pass the end through the loop, making a knot I could loosen and tighten again. Two practice tries went well; on the third, I somehow made a loop that was nowhere in the lesson."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.ribbon-knot.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请老师看看新绳圈",
+          "en": "Ask the teacher about the unexpected loop"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.ribbon-knot.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "沿着新绳圈再看一遍",
+          "en": "Trace the unexpected loop"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.ribbon-knot.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.ribbon-knot.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "还记得你说的“{reply}”吗？今天有后续了。",
+      "en": "Remember your note, “{reply}”? There is a little more to that story now."
+    },
+    "text": {
+      "zh-Hans": "我捏住记好的绳头，一点点顺着它往里找，看到两个绳圈在同一处压住了彼此。先抬起上面那个圈，下面的旧结就慢慢松开了。绳子摊平后还留着一道小弯，我把它画在纸上，免得下次又在这里迷路。",
+      "en": "Holding the loose end, I followed it until I found two loops pinning each other down. Lifting the top loop let the old knot ease open underneath. The straightened cord still has a little bend, so I drew it on paper as a landmark for next time."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.ribbon-knot.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把解结的办法讲给人听",
+          "en": "Show someone how the knot came undone"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.ribbon-knot.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看小弯会不会变直",
+          "en": "Watch whether the little bend straightens"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.blank-line.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.blank-line.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你回信里的“{reply}”，我今天用上了。",
+      "en": "I put your suggestion, “{reply}”, to use today."
+    },
+    "text": {
+      "zh-Hans": "我向一个背着包的人说了句一路顺风，对方低头看看我的信纸，回了句信也顺风。我把两句问候一起写进那行空白，刚好挨得下。写到最后，才发现还可以给它们各画一只小邮包。",
+      "en": "I wished a passing traveler a good journey. They glanced at my letter and wished the letter a good journey too, so I put both greetings on the spare line. They fit neatly side by side, with just enough room underneath for two tiny mailbags."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.blank-line.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问还有什么顺风问候",
+          "en": "Ask for another way to wish someone well"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.blank-line.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "给两只邮包找不同",
+          "en": "Look for differences between the two drawn bags"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.blank-line.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.blank-line.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我又读了一遍“{reply}”，然后动手试了试。",
+      "en": "I read “{reply}” once more, then tried it for myself."
+    },
+    "text": {
+      "zh-Hans": "我写信时多留意了一会儿，一只小飞虫停在那行空白上，走了几步才飞走。我在它停过的地方画了两个小点，旁边添了两个字，借过。下回这行空白再来客人，总算有个座位可认。",
+      "en": "While I watched the spare line, a tiny insect landed on it, took a few steps, and flew away. I marked its two stopping places and added “Just passing through” beside them. The next visitor to that line will have somewhere to sit."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.blank-line.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把这位小客人讲给人听",
+          "en": "Tell someone about the tiny visitor"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.blank-line.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看下次会停在哪里",
+          "en": "Watch where the next visitor lands"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.parcel-rustle.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.parcel-rustle.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你写来“{reply}”，后来发生了这件小事。",
+      "en": "After your note said “{reply}”, this is what happened."
+    },
+    "text": {
+      "zh-Hans": "我问旁边的旅人，邮包里会不会也有沙沙声，对方打开包，先取出一张皱皱的包装纸。我们把它和我的两张信纸摆在一起，轮流抖了抖，听出了三种不同的响声。收包时，对方提议把它们叠起来再听一次。",
+      "en": "I asked a fellow traveler whether their bag rustled too, and they brought out a crumpled wrapper. We laid it beside my two blank sheets and shook each paper in turn, getting three different sounds. As we packed up, they suggested stacking all three for one last listen."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.parcel-rustle.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问三张纸像什么声音",
+          "en": "Ask what the three papers sound like together"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.parcel-rustle.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听叠起来哪里不同",
+          "en": "Listen for what changes when the papers overlap"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.parcel-rustle.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.parcel-rustle.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "按你那句“{reply}”试过之后，我有新消息了。",
+      "en": "I tried your suggestion, “{reply}”, and have a little news for you."
+    },
+    "text": {
+      "zh-Hans": "两张信纸已经不挤了，我提起邮包时却还是听见沙沙声。我把耳朵凑近，看到一张纸的边角正随着包带的动作擦过包缝。把纸转过半圈，沙沙声停了，安静里倒传来包扣轻轻的一声响。",
+      "en": "The two sheets had plenty of room, but the bag still rustled whenever I lifted it. I listened closely and saw one paper corner brushing a seam as the strap pulled tight. Turning the sheet halfway around stopped the rustle, and in the quiet I heard a small click from the clasp."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.parcel-rustle.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "找人听听这次的新声音",
+          "en": "Invite someone to listen to the new sound"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.parcel-rustle.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意包扣响前的动作",
+          "en": "Watch what happens just before the clasp clicks"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.pencil-introduction.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.pencil-introduction.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你上次说“{reply}”，我今天照着试了试。",
+      "en": "Your last note said, “{reply}”. I gave it a try today."
+    },
+    "text": {
+      "zh-Hans": "还那截铅笔时，我问它以前去过哪里。对方说它曾夹在一本旅行簿里，跟着走了很远，后来短得夹不住，才搬进衣袋。我把画着小座位的纸递过去，对方让铅笔坐了上去，又找出一截更短的，说它还没有椅子。",
+      "en": "When I returned the short pencil, I asked where it had been. Its owner said it had traveled tucked inside a notebook until it grew too short to stay put and moved to a pocket. I handed over its drawn chair; they seated the pencil on it, then produced an even shorter one that still needed a chair."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.pencil-introduction.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问小铅笔想坐哪儿",
+          "en": "Ask where the smaller pencil would like to sit"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.pencil-introduction.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两截铅笔的磨痕",
+          "en": "Compare the worn places on the two pencils"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.pencil-introduction.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.pencil-introduction.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我带着“{reply}”这句提醒，多留了一会儿。",
+      "en": "I kept your suggestion, “{reply}”, in mind and stayed a little longer."
+    },
+    "text": {
+      "zh-Hans": "我把铅笔写的地址和画的小座位并排看，椅腿的线比字细了不少。转过笔尖才看清，一边磨得平，一边还留着尖角。我用两边各画一条线，给那把小椅子添了一道窄窄的影子。",
+      "en": "I compared the address with the pencil’s little drawn chair and noticed that the chair legs had much finer lines. The pencil tip had a broad, worn side and one sharp corner. Trying each side gave me two different strokes and a narrow shadow to add beneath the chair."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.pencil-introduction.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给借铅笔的人看新影子",
+          "en": "Show the pencil’s owner the new shadow"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.pencil-introduction.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再试试转一点笔尖",
+          "en": "Try turning the pencil tip a little farther"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.folded-greeting.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.folded-greeting.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "读到你写的“{reply}”，我就有了下一步的主意。",
+      "en": "Your note, “{reply}”, gave me something to try next."
+    },
+    "text": {
+      "zh-Hans": "我把站着的小纸条介绍给一个歇脚的人，说它昨晚替我看邮包。对方认真点了点头，折了一顶小纸帽送给它，纸条一戴上就向前栽。我把帽檐折短一点，它终于重新站住，可帽子又滑到了背后。",
+      "en": "I introduced the standing note to someone taking a break and explained its overnight mailbag duties. They nodded solemnly and folded it a paper hat, which promptly tipped the note forward. Shortening the brim got it upright again, though the hat has now slipped around to the back."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.folded-greeting.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人再调一调纸帽",
+          "en": "Ask for help adjusting the paper hat"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.folded-greeting.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看帽子压住哪条折边",
+          "en": "Check which fold the hat rests on"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.folded-greeting.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.folded-greeting.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你提议“{reply}”，这回有了新发现。",
+      "en": "You suggested, “{reply}”, and this time I found something new."
+    },
+    "text": {
+      "zh-Hans": "我让小纸条试着站在几种不同的折法上，底边窄的那次，很快就歪了。把两侧向外多折一点，再把翘起的角压平，它连我轻轻吹气都撑住了。我把新折法画在纸背面，折起来却发现图也跟着站了起来。",
+      "en": "I tried a few folds for the little standing note; the narrow base tipped over almost at once. Wider sides and a flattened corner kept it steady even when I blew gently at it. I drew the new fold on the back, then found that folding the note made the drawing stand up too."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.folded-greeting.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把稳当的新折法教给人",
+          "en": "Teach someone the steadier fold"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.folded-greeting.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看背面的图朝哪儿",
+          "en": "See which way the drawing on the back faces"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.address-rehearsal.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.address-rehearsal.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "“{reply}”，你这么一说，我就去试了。",
+      "en": "“{reply}”, you said. So I went and tried it."
+    },
+    "text": {
+      "zh-Hans": "我对身边一个旅人试着说了声早呀，邮包扣恰好又咔哒了一下。对方先向我回早安，又低头向邮包说了一遍。我把信纸拿出来准备写地址，对方笑着问，这封信要不要也打个招呼。",
+      "en": "I tried a simple “Morning!” on a fellow traveler, just as the mailbag clasp clicked again. They greeted me, then bent down to greet the bag as well. When I took out my address paper, they asked whether the letter would like an introduction too."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.address-rehearsal.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问信该怎么打招呼",
+          "en": "Ask how a letter should introduce itself"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.address-rehearsal.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看这次谁先响",
+          "en": "Notice who makes the next sound"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.address-rehearsal.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.address-rehearsal.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "还记得你说的“{reply}”吗？今天有后续了。",
+      "en": "Remember your note, “{reply}”? There is a little more to that story now."
+    },
+    "text": {
+      "zh-Hans": "我一边轻轻提起邮包，一边盯着包扣，看到里面的信封边正好顶住了扣舌。信封挪开一点，包扣就安静合上了。我总算能把地址念完，不过念到最后一行，包底又轻轻响了一声。",
+      "en": "I lifted the bag slowly and watched an envelope edge nudge against the clasp. Moving the envelope aside let the clasp close quietly. I finally read the whole address aloud, though the last line got a soft tap from somewhere at the bottom of the bag."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.address-rehearsal.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人一起听包底的声音",
+          "en": "Ask someone to listen to the bottom of the bag"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.address-rehearsal.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看包底还有什么",
+          "en": "Take a look at what is in the bottom of the bag"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.ink-dot.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.ink-dot.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你回信里的“{reply}”，我今天用上了。",
+      "en": "I put your suggestion, “{reply}”, to use today."
+    },
+    "text": {
+      "zh-Hans": "我拿着画了小收件处的便条，问人第一个邮包该装什么。对方想了一会儿，说一颗豌豆也值得单独寄，我就画了一个圆鼓鼓的小包。包裹刚画完，对方又问，这么小的包该贴多大的邮票。",
+      "en": "I showed someone the tiny mail desk around my ink dot and asked what its first parcel should hold. They decided that a single pea deserved its own delivery, so I drew a round little package. Once it was finished, they wanted to know what size stamp a parcel that small would need."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.ink-dot.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "商量小邮票画什么",
+          "en": "Decide what should go on the tiny stamp"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.ink-dot.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比比邮票和豌豆的大小",
+          "en": "Compare the size of the stamp and the pea"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.ink-dot.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.ink-dot.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我又读了一遍“{reply}”，然后动手试了试。",
+      "en": "I read “{reply}” once more, then tried it for myself."
+    },
+    "text": {
+      "zh-Hans": "我把便条转过来细看，墨点有一头稍尖，另一头圆圆的，很像一只缩着头的小蜗牛。我给它添了两根触角，原来的圆圈刚好成了壳。收件处这下有了腿，得给它留一条能慢慢走出去的路。",
+      "en": "Turning the note around, I saw that the ink dot had one pointed end and one round end, rather like a tucked-up snail. Two feelers turned the dot into a snail, with my original circle for its shell. The mail desk can move now, so it will need a path out of the drawing."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.ink-dot.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问小蜗牛先送哪封信",
+          "en": "Ask which letter the little snail should carry first"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.ink-dot.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看小路该从哪边画",
+          "en": "Look for a way to draw the snail’s path"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.bag-seat.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.bag-seat.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你写来“{reply}”，后来发生了这件小事。",
+      "en": "After your note said “{reply}”, this is what happened."
+    },
+    "text": {
+      "zh-Hans": "我问一个刚坐下的旅人，平时怎么给行李找地方。对方把自己的包靠在卷起的外套上，又指了指我的包底。我把底下折进去的一角翻平，邮包终于坐稳，窗边还多出一点空位。对方替它留了个靠垫的位置，像在等它自己挑。",
+      "en": "I asked a traveler who had just sat down how they settled their luggage. They leaned their own bag against a rolled coat and pointed to the tucked-under corner of mine. Unfolding that corner steadied the mailbag and freed a little space by the window; my new neighbor promptly reserved that space for a cushion."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.bag-seat.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊邮包想要什么靠垫",
+          "en": "Discuss a cushion for the mailbag"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.bag-seat.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看包底是不是平了",
+          "en": "Check whether the bottom of the bag lies flat"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.arrival.bag-seat.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.arrival.bag-seat.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "按你那句“{reply}”试过之后，我有新消息了。",
+      "en": "I tried your suggestion, “{reply}”, and have a little news for you."
+    },
+    "text": {
+      "zh-Hans": "我翻过邮包看底下，才看见一条包带压在下面，垫高了一侧。抽出包带，邮包端端正正地坐住，空出的带子却绕到了我脚边。下一次排座位前，得先给这条带子也找个地方。",
+      "en": "Turning the bag over revealed a strap caught underneath, raising one side. I pulled it free and the bag sat perfectly straight, while the loose strap curled around my feet. Our next seating plan will need a place for the strap as well."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.arrival.bag-seat.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问别人怎么收包带",
+          "en": "Ask how someone else keeps a strap tidy"
+        }
+      },
+      {
+        "id": "generic.fulfill.arrival.bag-seat.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "顺着包带看看怎么放",
+          "en": "Follow the strap and find a place for it"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.transit.moving-address.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.transit.moving-address.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你上次说“{reply}”，我今天照着试了试。",
+      "en": "Your last note said, “{reply}”. I gave it a try today."
+    },
+    "text": {
+      "zh-Hans": "我问一位同行的旅人，到了以后通常会说什么。对方说自己总写可算见着你啦，说完还朝我的空信纸挥了挥手。我把这句话写在“我到”下面，两个“啦”暂时都先空着。等到了，我得先决定让哪一句先开口。",
+      "en": "I asked another traveler what they liked to say on arrival. “There you are!” they said, giving my unfinished letter a wave. I wrote their greeting beneath my own “I am”, leaving “here” for later as planned. When we arrive, I will have to decide which greeting gets to go first."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.transit.moving-address.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "再收集一句见面的问候",
+          "en": "Collect one more greeting for an arrival"
+        }
+      },
+      {
+        "id": "generic.fulfill.transit.moving-address.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两句该怎么排",
+          "en": "Look at how the two greetings fit on the page"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.transit.moving-address.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.transit.moving-address.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我带着“{reply}”这句提醒，多留了一会儿。",
+      "en": "I kept your suggestion, “{reply}”, in mind and stayed a little longer."
+    },
+    "text": {
+      "zh-Hans": "走着走着，我发现邮包的影子从身侧挪到了脚前。我把只写了“我到”的纸放在影子边，沿着边缘描了一小段，还给“啦”留了个空位。等影子再换一边，我想看看这个空位还够不够。",
+      "en": "As I walked, I noticed that the mailbag’s shadow had moved from beside me to in front. I laid my unfinished “I am” note at its edge and traced a little of the outline, leaving room for “here”. When the shadow shifts again, I want to see whether that space still fits."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.transit.moving-address.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请同行者看看这条线",
+          "en": "Show a fellow traveler the traced outline"
+        }
+      },
+      {
+        "id": "generic.fulfill.transit.moving-address.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意影子下一次怎么变",
+          "en": "Watch for the next change in the shadow"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.transit.loose-thread.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.transit.loose-thread.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "读到你写的“{reply}”，我就有了下一步的主意。",
+      "en": "Your note, “{reply}”, gave me something to try next."
+    },
+    "text": {
+      "zh-Hans": "我向一个同行者介绍邮包上的“前哨”，说它总能先碰到风。对方提起围巾的一角，给我看另一位也在忙着摆动的哨兵。我们把它们放在一块儿比了比，刚好一个朝左，一个朝右。",
+      "en": "I introduced the mailbag’s little thread lookout to a fellow traveler, explaining how it always found the breeze first. They held up a scarf tassel to introduce a lookout of their own. We compared the two, only to find one pointing left while the other pointed right."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.transit.loose-thread.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问两位前哨听谁的",
+          "en": "Ask which of the two lookouts to follow"
+        }
+      },
+      {
+        "id": "generic.fulfill.transit.loose-thread.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看下一阵风往哪儿吹",
+          "en": "Watch what the next breeze does"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.transit.loose-thread.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.transit.loose-thread.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你提议“{reply}”，这回有了新发现。",
+      "en": "You suggested, “{reply}”, and this time I found something new."
+    },
+    "text": {
+      "zh-Hans": "风从侧面来时，“前哨”贴着包缝往后躺，我一转身，它又竖了起来。我在纸上画了它的两种站姿，把邮包慢慢转了一圈。最后它朝我点了点头，像是轮到我交观察记录。",
+      "en": "A breeze from the side laid the little thread lookout along the seam, but turning around made it stand up again. I sketched both poses, then slowly turned the mailbag through a full circle. It finished with a nod toward me, as though it was my turn to give a report."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.transit.loose-thread.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把前哨的新站姿讲给人听",
+          "en": "Tell someone about the lookout’s two poses"
+        }
+      },
+      {
+        "id": "generic.fulfill.transit.loose-thread.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再比一比转身前后",
+          "en": "Compare the thread before and after a turn"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.transit.envelope-seat.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.transit.envelope-seat.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "“{reply}”，你这么一说，我就去试了。",
+      "en": "“{reply}”, you said. So I went and tried it."
+    },
+    "text": {
+      "zh-Hans": "我拿出那个安安静静的空信封，问身边的人有没有话要捎。有人想说那回我也笑了，话没讲完，自己先笑出声。我把这句写好，放进信封，给它重新让出平平整整的口袋。封口前，对方又凑过来，说还有半句话。",
+      "en": "I brought out the settled little envelope and asked whether anyone had a message to send. Someone began, “I laughed too, that time,” and started laughing again before they could finish. I wrote the message, slipped it into the envelope, and cleared a flat place in the pocket; just before I closed the flap, they leaned over with half a sentence more."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.transit.envelope-seat.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "听听剩下的半句话",
+          "en": "Hear the remaining half of the message"
+        }
+      },
+      {
+        "id": "generic.fulfill.transit.envelope-seat.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看信封装好后坐得稳吗",
+          "en": "Check how the filled envelope sits"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.transit.envelope-seat.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.transit.envelope-seat.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "还记得你说的“{reply}”吗？今天有后续了。",
+      "en": "Remember your note, “{reply}”? There is a little more to that story now."
+    },
+    "text": {
+      "zh-Hans": "我把两个口袋并排摸了一遍，原来旧口袋里面有一颗凸起的扣子，正好顶着信封角。新口袋的底边平平的，空信封放进去就不再翘头。我在一张废纸上画下两个口袋的样子，还空着一个位置，留给下一位乘客试坐。",
+      "en": "Feeling inside both pockets, I found a raised button in the old one, right where it had pushed up the envelope’s corner. The new pocket has a flat bottom, so the envelope stays tucked in. I drew both pocket shapes on scrap paper and left one place empty for the next passenger to try."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.transit.envelope-seat.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问别人会选哪个口袋",
+          "en": "Ask which pocket someone else would choose"
+        }
+      },
+      {
+        "id": "generic.fulfill.transit.envelope-seat.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看放进信纸后有什么变化",
+          "en": "Check what changes with a sheet of paper inside"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.transit.pocket-sound.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.transit.pocket-sound.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你回信里的“{reply}”，我今天用上了。",
+      "en": "I put your suggestion, “{reply}”, to use today."
+    },
+    "text": {
+      "zh-Hans": "我把邮包里的轻响学给同行者听，对方听了两遍，就轻轻哼了一段调子配它。我走几步，铅笔又碰上扣子，刚好赶上他停下来的那一拍。我们重来了一遍，这回包扣也咔哒一响，抢在了谁都没准备好的地方。",
+      "en": "I imitated the tapping in my bag for a fellow traveler, who answered with a softly hummed tune. A few steps later, the pencil found the button again and filled a pause in the humming. We tried once more, but this time the clasp clicked in a place neither of us had planned."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.transit.pocket-sound.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "商量下一拍怎么接",
+          "en": "Work out how the next beat should go"
+        }
+      },
+      {
+        "id": "generic.fulfill.transit.pocket-sound.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听谁总是先响",
+          "en": "Listen for which sound comes first"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.transit.pocket-sound.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.transit.pocket-sound.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我又读了一遍“{reply}”，然后动手试了试。",
+      "en": "I read “{reply}” once more, then tried it for myself."
+    },
+    "text": {
+      "zh-Hans": "我走三步，包里就嗒一下，步子一放慢，声音也跟着拖长。打开邮包，隔开的铅笔已经顺着包底滑回了扣子旁边。用折好的纸隔住以后，那一拍空了下来，我走路时却还在等它。",
+      "en": "Every third step brought a tap from the bag; slowing down stretched the gap between taps. I opened it and found that the pencil had slid back along the bottom to the button. A folded sheet kept them apart, but I kept waiting for that missing beat as I walked."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.transit.pocket-sound.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "找人哼一拍补上空缺",
+          "en": "Ask someone to hum the missing beat"
+        }
+      },
+      {
+        "id": "generic.fulfill.transit.pocket-sound.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听安静后还有什么声",
+          "en": "Listen for what remains in the quiet"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.transit.unfinished-postscript.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.transit.unfinished-postscript.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你写来“{reply}”，后来发生了这件小事。",
+      "en": "After your note said “{reply}”, this is what happened."
+    },
+    "text": {
+      "zh-Hans": "我问一个歇脚的人，今天有没有遇到什么小事。对方说自己找了一路的小纽扣，最后挂在袖口的线圈里。我把这件事补进“还有一件小事”后面，写完也忍不住检查了自己的袖口。袖口什么也没藏，倒是信纸背面还有一行没写完。",
+      "en": "I asked someone taking a break for one small story from their day. They had been searching for a lost button, only to find it caught in a loop on their cuff. I added that after “One more little thing” and checked my own cuffs; they were empty, though the back of my letter still had an unfinished line."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.transit.unfinished-postscript.talkative.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问找到纽扣后怎么说",
+          "en": "Ask what they said when they found the button"
+        }
+      },
+      {
+        "id": "generic.fulfill.transit.unfinished-postscript.talkative.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看没写完的那一行",
+          "en": "Take a closer look at the unfinished line"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.transit.unfinished-postscript.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "generic.transit.unfinished-postscript.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "按你那句“{reply}”试过之后，我有新消息了。",
+      "en": "I tried your suggestion, “{reply}”, and have a little news for you."
+    },
+    "text": {
+      "zh-Hans": "我把那封附言没写完的信摊开，想看看今天有什么值得补上。一片很小的叶子从包缝里滑出来，叶尖正好停在“小事”后头。我照它的样子描了个轮廓，叶柄还没画完，它就被风推着往前走了一点。",
+      "en": "I spread out the letter with its unfinished postscript and watched for something to add. A tiny leaf slipped from a seam in the bag and stopped with its tip just after “One more little thing”. I began tracing it, but a breeze moved it a little farther before I could finish the stem."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.transit.unfinished-postscript.observant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人猜猜这片叶子像什么",
+          "en": "Ask someone what the leaf looks like"
+        }
+      },
+      {
+        "id": "generic.fulfill.transit.unfinished-postscript.observant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看叶子下一次停在哪儿",
+          "en": "Watch where the leaf stops next"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.borrowed-opening",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": "talkative",
+    "lead": {
+      "zh-Hans": "读到你写的“{reply}”，我又想起了多聊两句的主意。",
+      "en": "Your note, “{reply}”, reminded me to make a little room for conversation."
+    },
+    "text": {
+      "zh-Hans": "我坐下时，旁边的人正对着一杯水吹气。我问是不是太烫，对方说在试着吹出圆圆的波纹，于是我们轮流试了一次。我的波纹撞上杯边散了，对方却把杯子推近，说这次换个角度。",
+      "en": "Someone beside me was blowing gently across a cup of water, so I asked if it was too hot. They were trying to make round ripples, and we took turns having a go. Mine broke against the side of the cup; they slid it closer and suggested trying from another angle."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.borrowed-opening.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问还有什么吹法",
+          "en": "Ask about another way to make ripples"
+        }
+      },
+      {
+        "id": "generic.fulfill.borrowed-opening.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看波纹在哪里散开",
+          "en": "Watch where the ripples break apart"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.parcel-conversation",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": "talkative",
+    "lead": {
+      "zh-Hans": "你上回说“{reply}”，今天我又主动开了口。",
+      "en": "I remembered your note, “{reply}”, when I started a conversation today."
+    },
+    "text": {
+      "zh-Hans": "我在一张长凳边问人能不能挪出一点位置。对方腾了地方，又问我的邮包里装不装得下一个笑话。我说得看笑话有多长，对方已经开始讲第一句。",
+      "en": "I asked someone on a bench whether there was room for one more. They moved over, then asked if my mailbag had space for a joke. I said it depended on the length of the joke, but they had already begun."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.parcel-conversation.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "听听笑话后面怎么讲",
+          "en": "Stay for the rest of the joke"
+        }
+      },
+      {
+        "id": "generic.fulfill.parcel-conversation.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意讲笑话时的小动作",
+          "en": "Notice the little gestures that go with the joke"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.pencil-return",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": "talkative",
+    "lead": {
+      "zh-Hans": "你的“{reply}”让我记着，遇见人时可以多问一句。",
+      "en": "Your words, “{reply}”, stayed with me as a reminder to ask another question."
+    },
+    "text": {
+      "zh-Hans": "等人开门时，旁边有个人在小声哼歌，唱到一半就停住了。我问后面怎么唱，对方说也忘了，便让我接一段。我接完，我们两个连原来的开头都找不着了，只好从我那一段重新唱起。",
+      "en": "While I waited for a door to open, someone nearby hummed half a tune and stopped. I asked what came next, but they had forgotten and invited me to try. By the time I finished, neither of us could remember the beginning, so we started again with my part."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.pencil-return.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问要不要给新歌起名",
+          "en": "Ask whether the new tune needs a name"
+        }
+      },
+      {
+        "id": "generic.fulfill.pencil-return.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听哪一段又唱变了",
+          "en": "Listen for the part that changes on the next try"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.name-for-the-wind",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": "talkative",
+    "lead": {
+      "zh-Hans": "我还记着那句“{reply}”，今天也留了点时间和人说话。",
+      "en": "I kept “{reply}” in mind and made time for a chat today."
+    },
+    "text": {
+      "zh-Hans": "歇脚时，我看见有人把一枚圆石头放在手心里转。我问它有没有名字，对方说刚捡到，还没来得及想。我们各取了一个名字，石头安安静静，暂时谁也没选。",
+      "en": "During a rest, I saw someone turning a round pebble in their palm. I asked whether it had a name; they had only just found it and had not chosen one yet. We offered a name each, but the pebble has stayed very quiet about its preference."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.name-for-the-wind.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "再商量一个石头名字",
+          "en": "Suggest another name for the pebble"
+        }
+      },
+      {
+        "id": "generic.fulfill.name-for-the-wind.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看石头哪一面最圆",
+          "en": "Look for the roundest side of the pebble"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.flag-shadow",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": "observant",
+    "lead": {
+      "zh-Hans": "想到你写的“{reply}”，我今天又多看了一眼。",
+      "en": "Your note, “{reply}”, came to mind when I paused for another look today."
+    },
+    "text": {
+      "zh-Hans": "我把一只空杯放在桌边，抬手时看见杯底有个弯弯的亮圈。把杯子转一转，亮圈就在桌面上分成两小段。我留了一张纸在旁边，想看看换个位置它还会怎么走。",
+      "en": "Setting an empty glass near the edge of a table, I noticed a curved ring of light beneath it. Turning the glass split the ring into two small arcs. I placed a sheet of paper nearby to see where the light would go when I moved the glass again."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.flag-shadow.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人看看亮圈像什么",
+          "en": "Ask someone what the ring of light looks like"
+        }
+      },
+      {
+        "id": "generic.fulfill.flag-shadow.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "换个位置再看看亮圈",
+          "en": "Move the glass and watch the light again"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.fold-memory",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": "observant",
+    "lead": {
+      "zh-Hans": "你说过“{reply}”，我渐渐会在小地方停一停了。",
+      "en": "Since your note said “{reply}”, I have been stopping a little longer over small details."
+    },
+    "text": {
+      "zh-Hans": "今天拿出一张新信纸，我发现一边的纸纹摸起来更粗。我把纸转到亮处，细细的纹路一直通到边角，只有一小处拐了弯。我在空白处画了个记号，下一张纸也想这样看一遍。",
+      "en": "A fresh sheet of writing paper felt rougher along one edge. Holding it to the light, I followed fine lines right to the corner, where one little patch bent another way. I marked the spot lightly and set aside another sheet to compare."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.fold-memory.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请人摸摸两边的纸纹",
+          "en": "Invite someone to feel both edges of the paper"
+        }
+      },
+      {
+        "id": "generic.fulfill.fold-memory.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比比下一张纸的纹路",
+          "en": "Compare the lines on another sheet"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.quiet-clasp",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": "observant",
+    "lead": {
+      "zh-Hans": "我收着你那句“{reply}”，今天又发现一件差点漏掉的小事。",
+      "en": "I have kept your note, “{reply}”, and noticed another little thing I nearly missed today."
+    },
+    "text": {
+      "zh-Hans": "我把邮包从一张垫纸上提起来，发现纸上留下一个浅浅的小圆印。包底粘着一粒圆石子，正好坐在那个圆印的位置。我取下石子放在印子旁边，才看清它一面平、一面鼓。翻过来放时，它晃了好一阵才停住。",
+      "en": "Lifting my mailbag from a sheet of packing paper revealed a faint round mark. A pebble stuck to the bottom of the bag lined up exactly with it. I set the pebble beside the mark and saw that one side was flat and the other rounded; turned over, it wobbled for quite a while before settling."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.quiet-clasp.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把小石子的发现讲给人听",
+          "en": "Tell someone about the pebble and its mark"
+        }
+      },
+      {
+        "id": "generic.fulfill.quiet-clasp.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看石子怎样才放得稳",
+          "en": "Find which way the pebble sits most steadily"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.fulfill.window-margin",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": "observant",
+    "lead": {
+      "zh-Hans": "你回信里的“{reply}”，让我记得给眼前的小东西多一点时间。",
+      "en": "Your reply, “{reply}”, reminds me to give small things a little more time."
+    },
+    "text": {
+      "zh-Hans": "写信写到一半，我停笔看了一眼窗沿，一滴水正挂在边上。它慢慢变长，落下以后，旁边又有一滴挪过来。我把没写完的半行留着，想等下一滴落下再写。",
+      "en": "Halfway through a letter, I stopped to look at a drop of water hanging from the windowsill. It grew longer, fell, and was followed by another drop edging into place. I left my half-finished line alone for a moment, waiting to see when this one would fall."
+    },
+    "replies": [
+      {
+        "id": "generic.fulfill.window-margin.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和人聊聊等水滴的小事",
+          "en": "Tell someone about waiting for the water drops"
+        }
+      },
+      {
+        "id": "generic.fulfill.window-margin.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意下一滴等了多久",
+          "en": "Notice how long the next drop takes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

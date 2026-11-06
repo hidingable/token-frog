@@ -84,6 +84,27 @@ public enum JourneyMigrations {
         return json
     }
 
+    static func migrateV4(_ original: [String: Any]) -> [String: Any] {
+        var json = original
+        if let letters = json["letters"] as? [[String: Any]] {
+            json["letters"] = letters.map { original in
+                var letter = original
+                letter.removeValue(forKey: "weather")
+                let title = letter.removeValue(forKey: "placeTitle") as? String
+                let summary = letter.removeValue(forKey: "placeSummary") as? String
+                let url = letter.removeValue(forKey: "placeURL") as? String
+                if let title {
+                    let language = title.range(of: #"\p{Han}"#, options: .regularExpression) == nil ? "en" : "zh-Hans"
+                    var place: [String: Any] = ["title": title, "summary": summary ?? ""]
+                    if let url { place["url"] = url }
+                    letter["place"] = [language: place]
+                }
+                return letter
+            }
+        }
+        return json
+    }
+
     static func migrateV1(_ original: [String: Any], catalog: CityCatalog) throws -> [String: Any] {
         var json = original
         if let stamps = json["stamps"] as? [[String: Any]] {
@@ -124,6 +145,7 @@ extension SaveMigrations {
             1: { try JourneyMigrations.migrateV1($0, catalog: catalog) },
             2: { JourneyMigrations.migrateV2($0) },
             3: { $0 },
+            4: { JourneyMigrations.migrateV4($0) },
         ])
     }
 }

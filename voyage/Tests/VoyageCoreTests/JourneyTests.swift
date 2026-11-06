@@ -46,7 +46,7 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
         now: Date(timeIntervalSince1970: 123), logbook: logbook, catalog: testCatalog
     )
     state.letters[0].read = false
-    state.letters[0].weather = "Clear"
+    state.letters[0].weatherCode = 0
     state.sync(today: usage("2026-11-01", 400_000_000), calendar: calendar, catalog: testCatalog)
     var expectedLetter = state.letters[0]
     expectedLetter.cityId = "xian"

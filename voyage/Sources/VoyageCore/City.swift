@@ -37,6 +37,7 @@ public struct City: Codable, Equatable, Sendable, Identifiable {
     public var names: [String: String]
     public var wikipedia: [String: String]
     public var facts: [Fact]
+    public var rainyMonths: [Int] = []
     public var coordinate: Coordinate { Coordinate(lat: lat, lon: lon) }
     public var isPlaceholder: Bool { status == "placeholder" }
 
@@ -45,23 +46,47 @@ public struct City: Codable, Equatable, Sendable, Identifiable {
     }
 }
 
+extension City {
+    private enum CodingKeys: String, CodingKey {
+        case id, status, lat, lon, countryCode, continent, tags, level, names, wikipedia, facts, rainyMonths
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(String.self, forKey: .id)
+        status = try values.decode(String.self, forKey: .status)
+        lat = try values.decode(Double.self, forKey: .lat)
+        lon = try values.decode(Double.self, forKey: .lon)
+        countryCode = try values.decode(String.self, forKey: .countryCode)
+        continent = try values.decode(String.self, forKey: .continent)
+        tags = try values.decode([String].self, forKey: .tags)
+        level = try values.decode(String.self, forKey: .level)
+        names = try values.decode([String: String].self, forKey: .names)
+        wikipedia = try values.decode([String: String].self, forKey: .wikipedia)
+        facts = try values.decode([Fact].self, forKey: .facts)
+        rainyMonths = values.contains(.rainyMonths) ? try values.decode([Int].self, forKey: .rainyMonths) : []
+    }
+}
+
 /// A validated content snapshot. Its order is independent of filesystem enumeration.
 public struct CityCatalog: Sendable {
     public let all: [City]
+    public let stories: StoryLibrary
     public var active: [City] { all.filter { $0.status == "active" } }
     private let byId: [String: City]
     private let countries: [String: [String: String]]
 
-    private init(cities: [City], countries: [String: [String: String]]) {
+    private init(cities: [City], countries: [String: [String: String]], stories: StoryLibrary) {
         all = cities.sorted { $0.id < $1.id }
         byId = Dictionary(uniqueKeysWithValues: all.map { ($0.id, $0) })
         self.countries = countries
+        self.stories = stories
     }
 
     public static func load(directory: URL) throws -> CityCatalog {
         let issues = ContentValidator.validate(directory: directory)
         guard issues.isEmpty else { throw ContentValidationError(issues: issues) }
-        return try CityCatalog(cities: ContentValidator.readCities(directory: directory).map(\.city), countries: ContentValidator.readCountries(directory: directory))
+        return try CityCatalog(cities: ContentValidator.readCities(directory: directory).map(\.city), countries: ContentValidator.readCountries(directory: directory), stories: StoryLibrary(stories: ContentValidator.readStories(directory: directory).flatMap(\.stories)))
     }
 
     public func find(_ id: String) -> City? { byId[id] }

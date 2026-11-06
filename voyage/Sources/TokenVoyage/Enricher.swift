@@ -3,10 +3,9 @@ import Foundation
 import VoyageCore
 
 struct Enrichment: Sendable {
-    var weather: String?
-    var placeTitle: String?
-    var placeSummary: String?
-    var placeURL: String?
+    var weatherCode: Int?
+    var temperatureC: Int?
+    var place: [String: Letter.Place] = [:]
     var photoData: Data?
 }
 
@@ -18,12 +17,12 @@ enum Enricher {
         guard !city.isPlaceholder else { return Enrichment() }
         async let weather = fetchWeather(coordinate)
         async let place = fetchPlace(city)
-        let (weatherText, summary) = await (weather, place)
-        var result = Enrichment(weather: weatherText)
-        if let summary {
-            result.placeTitle = summary.title
-            result.placeSummary = summary.extract.map { String($0.prefix(180)) }
-            result.placeURL = summary.content_urls?.desktop?.page
+        let (conditions, placeResult) = await (weather, place)
+        var result = Enrichment(weatherCode: conditions?.code, temperatureC: conditions?.temperature)
+        if let (language, summary) = placeResult {
+            if let extract = summary.extract {
+                result.place[language] = Letter.Place(title: summary.title, summary: String(extract.prefix(180)), url: summary.content_urls?.desktop?.page)
+            }
             if let source = summary.thumbnail?.source, let url = URL(string: source) {
                 result.photoData = try? await request(url)
             }
@@ -48,7 +47,7 @@ enum Enricher {
         let current: Current
     }
 
-    private static func fetchWeather(_ coordinate: Coordinate) async -> String? {
+    private static func fetchWeather(_ coordinate: Coordinate) async -> (code: Int, temperature: Int)? {
         var components = URLComponents(string: "https://api.open-meteo.com/v1/forecast")
         components?.queryItems = [
             URLQueryItem(name: "latitude", value: String(format: "%.2f", coordinate.lat)),
@@ -58,7 +57,7 @@ enum Enricher {
         guard let url = components?.url,
               let data = try? await request(url),
               let decoded = try? JSONDecoder().decode(WeatherResponse.self, from: data) else { return nil }
-        return "\(Int(decoded.current.temperature_2m.rounded()))°C \(weatherName(decoded.current.weather_code))"
+        return (decoded.current.weather_code, Int(decoded.current.temperature_2m.rounded()))
     }
 
     static func weatherName(_ code: Int) -> String {
@@ -87,14 +86,14 @@ enum Enricher {
         let content_urls: ContentURLs?
     }
 
-    private static func fetchPlace(_ city: City) async -> PageSummary? {
+    private static func fetchPlace(_ city: City) async -> (String, PageSummary)? {
         for (host, title, language) in [("zh", city.wikipedia["zh-Hans"], "zh-cn"), ("en", city.wikipedia["en"], "en")] {
             guard let title, !title.isEmpty,
                   let encoded = title.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed.subtracting(CharacterSet(charactersIn: "/"))),
                   let url = URL(string: "https://\(host).wikipedia.org/api/rest_v1/page/summary/\(encoded)"),
                   let data = try? await request(url, language: language),
                   let summary = try? JSONDecoder().decode(PageSummary.self, from: data) else { continue }
-            return summary
+            return (host == "zh" ? "zh-Hans" : "en", summary)
         }
         return nil
     }

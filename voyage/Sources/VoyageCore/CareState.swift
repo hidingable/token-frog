@@ -1,6 +1,6 @@
 import Foundation
 
-/// Persistence only. Care does not consume usage, settle letters, or alter the journey yet.
+/// Companion progress is independent of journey mileage and usage.
 public struct CareState: Codable, Equatable, Sendable {
     public static let currentVersion = 1
     public var version = currentVersion
@@ -74,7 +74,14 @@ public struct CareState: Codable, Equatable, Sendable {
     public struct Promise: Codable, Equatable, Sendable {
         public var replyId: String
         public var letterId: Int
+        /// Only letters processed while this promise is at the head of the queue count.
         public var attempts = 0
+
+        public init(replyId: String, letterId: Int, attempts: Int = 0) {
+            self.replyId = replyId
+            self.letterId = letterId
+            self.attempts = attempts
+        }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)

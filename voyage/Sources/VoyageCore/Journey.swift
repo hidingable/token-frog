@@ -44,10 +44,37 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var logbook: Logbook?
 
     public var enrichmentDone = false
-    public var weather: String?
-    public var placeTitle: String?
-    public var placeSummary: String?
-    public var placeURL: String?
+    public var storyId: String?
+    public var storyVersion: Int?
+    /// nil is a legacy/template letter; an empty dictionary is a newly settled, uncomposed letter.
+    public var texts: [String: String]? = [:]
+    public var leadTexts: [String: String] = [:]
+    public var replyOptions: [StoryReply] = []
+    public var selectedReplyId: String?
+    public var fulfilledReplyId: String?
+    public var facts: [FactSnapshot] = []
+    public var rewards = StoryRewards()
+    public var weatherCode: Int?
+    public var temperatureC: Int?
+    public var place: [String: Place] = [:]
+
+    public struct FactSnapshot: Codable, Equatable, Sendable {
+        public var id: String
+        public var names: [String: String]
+        public var sources: [String]
+    }
+
+    public struct Place: Codable, Equatable, Sendable {
+        public var title: String
+        public var summary: String
+        public var url: String?
+
+        public init(title: String, summary: String, url: String?) {
+            self.title = title
+            self.summary = summary
+            self.url = url
+        }
+    }
     public var photoFile: String?
 
     /// The city the place card and photo describe.
@@ -70,7 +97,7 @@ public struct Stamp: Codable, Equatable, Sendable {
 }
 
 public struct JourneyState: Codable, Equatable, Sendable {
-    public static let currentVersion = 4
+    public static let currentVersion = 5
     public var version = currentVersion
     public var seed: UInt32
     public var pet: PetKind
@@ -111,7 +138,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
             Letter(
                 id: 0, kind: .logbook, date: date, pet: pet, cityId: start.id, transitTargetId: nil, arrivals: [],
                 newCountries: [], fuel: 0, compareToMedianPercent: nil, vehicles: [], isDeepVisit: false, deliverAt: now,
-                read: true, logbook: logbook, enrichmentDone: true
+                read: true, logbook: logbook, enrichmentDone: true, texts: nil
             ),
         ]
     }
@@ -318,7 +345,8 @@ extension Letter {
     private enum CodingKeys: String, CodingKey {
         case id, kind, date, pet, cityId, transitTargetId, arrivals, newCountries, fuel
         case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
-        case weather, placeTitle, placeSummary, placeURL, photoFile
+        case storyId, storyVersion, texts, leadTexts, replyOptions, selectedReplyId, fulfilledReplyId
+        case facts, rewards, weatherCode, temperatureC, place, photoFile
     }
 
     public init(from decoder: Decoder) throws {
@@ -339,10 +367,18 @@ extension Letter {
         read = try values.decode(Bool.self, forKey: .read, default: false)
         logbook = try values.decodeIfPresent(Logbook.self, forKey: .logbook)
         enrichmentDone = try values.decode(Bool.self, forKey: .enrichmentDone, default: false)
-        weather = try values.decodeIfPresent(String.self, forKey: .weather)
-        placeTitle = try values.decodeIfPresent(String.self, forKey: .placeTitle)
-        placeSummary = try values.decodeIfPresent(String.self, forKey: .placeSummary)
-        placeURL = try values.decodeIfPresent(String.self, forKey: .placeURL)
+        storyId = try values.decodeIfPresent(String.self, forKey: .storyId)
+        storyVersion = try values.decodeIfPresent(Int.self, forKey: .storyVersion)
+        texts = try values.decodeIfPresent([String: String].self, forKey: .texts)
+        leadTexts = try values.decode([String: String].self, forKey: .leadTexts, default: [:])
+        replyOptions = try values.decode([StoryReply].self, forKey: .replyOptions, default: [])
+        selectedReplyId = try values.decodeIfPresent(String.self, forKey: .selectedReplyId)
+        fulfilledReplyId = try values.decodeIfPresent(String.self, forKey: .fulfilledReplyId)
+        facts = try values.decode([FactSnapshot].self, forKey: .facts, default: [])
+        rewards = try values.decode(StoryRewards.self, forKey: .rewards, default: StoryRewards())
+        weatherCode = try values.decodeIfPresent(Int.self, forKey: .weatherCode)
+        temperatureC = try values.decodeIfPresent(Int.self, forKey: .temperatureC)
+        place = try values.decode([String: Place].self, forKey: .place, default: [:])
         photoFile = try values.decodeIfPresent(String.self, forKey: .photoFile)
     }
 }

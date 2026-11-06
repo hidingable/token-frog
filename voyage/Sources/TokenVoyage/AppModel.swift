@@ -415,13 +415,12 @@ final class AppModel {
         guard !isLocked, generation == backgroundGeneration, var updatedState = self.state else { return }
         let photoFile = result.photoData.flatMap { savePhoto($0, letterId: letter.id) }
         guard let index = updatedState.letters.firstIndex(where: { $0.id == letter.id }) else { return }
-        updatedState.letters[index].weather = result.weather ?? updatedState.letters[index].weather
-        updatedState.letters[index].placeTitle = result.placeTitle ?? updatedState.letters[index].placeTitle
-        updatedState.letters[index].placeSummary = result.placeSummary ?? updatedState.letters[index].placeSummary
-        updatedState.letters[index].placeURL = result.placeURL ?? updatedState.letters[index].placeURL
+        updatedState.letters[index].weatherCode = result.weatherCode ?? updatedState.letters[index].weatherCode
+        updatedState.letters[index].temperatureC = result.temperatureC ?? updatedState.letters[index].temperatureC
+        updatedState.letters[index].place.merge(result.place) { _, new in new }
         updatedState.letters[index].photoFile = photoFile ?? updatedState.letters[index].photoFile
         let updated = updatedState.letters[index]
-        updatedState.letters[index].enrichmentDone = (updated.weather != nil && updated.placeSummary != nil) || attempts >= 2
+        updatedState.letters[index].enrichmentDone = (updated.weatherCode != nil && !updated.place.isEmpty) || attempts >= 2
         self.state = updatedState
         persist()
     }
