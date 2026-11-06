@@ -48,6 +48,10 @@ public enum ContentValidator {
         try itemFiles(directory: directory).map { ($0, try JSONDecoder().decode([Item].self, from: Data(contentsOf: $0))) }
     }
 
+    static func readBoxes(directory: URL) throws -> BoxContents {
+        try JSONDecoder().decode(BoxContents.self, from: Data(contentsOf: directory.appendingPathComponent("boxes.json")))
+    }
+
     // The data-i icon names from docs/mockup.html.
     static let itemIcons: Set<String> = ["note", "bowl", "tea", "anchor", "lamp", "box", "shard", "sketch", "slip", "coat", "camera", "lunch", "fan"]
 
@@ -144,6 +148,7 @@ public enum ContentValidator {
         for id in ids.subtracting(published).sorted() { report("published-ids.txt", "unpublished", "City is not registered: \(id)") }
         let itemValidation = validateItems(directory: directory, cities: cities)
         issues += itemValidation.issues
+        issues += validateBoxes(directory: directory, items: itemValidation.items)
         issues += validateStories(directory: directory, cities: cities, tags: tags, items: itemValidation.items)
         return issues
     }
@@ -165,6 +170,9 @@ public enum ContentValidator {
             for item in entries {
                 if item.id.isEmpty || items[item.id] != nil { report(path, "itemID", "Item IDs must be nonempty and unique: \(item.id)") }
                 items[item.id] = item
+                if let source = item.source, source != "box" || item.kind != "souvenir" || item.rarity != "common" {
+                    report(path, "itemSource", "Source may only be box, on a common souvenir")
+                }
                 if !["bag", "souvenir", "menu"].contains(item.kind) { report(path, "itemKind", "Invalid item kind") }
                 if let rarity = item.rarity, !["common", "uncommon", "rare"].contains(rarity) {
                     report(path, "itemRarity", "Invalid item rarity")
@@ -196,10 +204,29 @@ public enum ContentValidator {
                 report("items", "bagBaseline", "Missing bag item: \(bag.id)")
             }
         }
-        for rarity in ["common", "uncommon", "rare"] where !items.values.contains(where: { $0.kind == "souvenir" && $0.cityId == nil && $0.rarity == rarity }) {
+        for rarity in ["common", "uncommon", "rare"] where !items.values.contains(where: { $0.kind == "souvenir" && $0.source == nil && $0.cityId == nil && $0.rarity == rarity }) {
             report("items", "itemBaseline", "Missing generic \(rarity) souvenir")
         }
         return (items, issues)
+    }
+
+    private static func validateBoxes(directory: URL, items: [String: Item]) -> [ContentIssue] {
+        var issues: [ContentIssue] = []
+        func report(_ rule: String, _ message: String) {
+            issues.append(ContentIssue(file: "boxes.json", rule: rule, message: message))
+        }
+        do {
+            let boxes = try readBoxes(directory: directory)
+            let ids = boxes.souvenirIds + boxes.bagItemIds
+            if Set(ids).count != ids.count { report("boxDuplicate", "Box item IDs must not repeat") }
+            for id in boxes.souvenirIds where items[id]?.kind != "souvenir" || items[id]?.source != "box" {
+                report("boxSouvenir", "Box souvenirs must reference a souvenir with source box: \(id)")
+            }
+            for id in boxes.bagItemIds where items[id]?.kind != "bag" {
+                report("boxBag", "Box bag items must reference a bag: \(id)")
+            }
+        } catch { report("boxes", "Cannot read boxes: \(error)") }
+        return issues
     }
 
     private static func validateStories(directory: URL, cities: [String: City], tags: Set<String>, items: [String: Item]) -> [ContentIssue] {
@@ -241,6 +268,18 @@ public enum ContentValidator {
                 report(file, "storyMenuReward", "Menu rewards must reference menus: \(id)")
             }
             if !Set(story.fulfills).isSubset(of: replyIds) { report(file, "storyFulfills", "Unknown fulfilled reply ID") }
+            if let learned = story.learned {
+                if !["zh-Hans", "en"].allSatisfy({ learned[$0] != nil })
+                    || learned.values.contains(where: { $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }) {
+                    report(file, "storyLearnedTranslation", "Learned texts require nonempty zh-Hans and en")
+                }
+                if learned.values.contains(where: { $0.contains("{") || $0.contains("}") }) {
+                    report(file, "storyLearnedSlots", "Learned texts cannot contain slots")
+                }
+                if let chinese = learned["zh-Hans"], chinese.count > 16 {
+                    report(file, "storyLearnedLength", "Chinese learned text must be at most 16 characters")
+                }
+            }
             for reply in story.replies {
                 if reply.id.isEmpty || !seenReplyIds.insert(reply.id).inserted { report(file, "replyID", "Reply IDs must be nonempty and globally unique: \(reply.id)") }
                 if !habits.contains(reply.habit) { report(file, "storyHabit", "Invalid reply habit") }

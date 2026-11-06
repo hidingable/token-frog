@@ -49,6 +49,7 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     /// nil is a legacy/template letter; an empty dictionary is a newly settled, uncomposed letter.
     public var texts: [String: String]? = [:]
     public var leadTexts: [String: String] = [:]
+    public var learnedTexts: [String: String] = [:]
     public var replyOptions: [StoryReply] = []
     public var selectedReplyId: String?
     public var fulfilledReplyId: String?
@@ -348,7 +349,7 @@ extension Letter {
     private enum CodingKeys: String, CodingKey {
         case id, kind, date, pet, cityId, transitTargetId, arrivals, newCountries, fuel
         case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
-        case storyId, storyVersion, texts, leadTexts, replyOptions, selectedReplyId, fulfilledReplyId
+        case storyId, storyVersion, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
         case carriedItem, itemTriggered
         case facts, rewards, weatherCode, temperatureC, place, photoFile
     }
@@ -375,6 +376,7 @@ extension Letter {
         storyVersion = try values.decodeIfPresent(Int.self, forKey: .storyVersion)
         texts = try values.decodeIfPresent([String: String].self, forKey: .texts)
         leadTexts = try values.decode([String: String].self, forKey: .leadTexts, default: [:])
+        learnedTexts = try values.decode([String: String].self, forKey: .learnedTexts, default: [:])
         replyOptions = try values.decode([StoryReply].self, forKey: .replyOptions, default: [])
         selectedReplyId = try values.decodeIfPresent(String.self, forKey: .selectedReplyId)
         fulfilledReplyId = try values.decodeIfPresent(String.self, forKey: .fulfilledReplyId)

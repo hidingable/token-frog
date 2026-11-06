@@ -1,0 +1,24 @@
+{
+  "souvenirIds": [
+    "box.tea-paper",
+    "box.ribbon-loop",
+    "box.envelope-pocket",
+    "box.thread-star",
+    "box.queue-footsteps",
+    "box.thumbprint-sun",
+    "box.window-grid",
+    "box.wooden-moon",
+    "box.spool-stool",
+    "box.cuff-sail",
+    "box.reflection-sketch",
+    "box.saved-seat-tag",
+    "box.pencil-curl",
+    "box.bell-score",
+    "box.pocket-patch",
+    "box.folding-ladder"
+  ],
+  "bagItemIds": [
+    "old-camera",
+    "lunchbox"
+  ]
+}

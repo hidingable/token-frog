@@ -154,7 +154,9 @@ struct SouvenirsCollectionView: View {
                                 ItemHeading(display: ItemDisplay(selected, l10n: l10n, showCommon: true))
                                 Text(l10n.itemDescription(selected)).font(.system(size: 14)).lineSpacing(4)
                                     .fixedSize(horizontal: false, vertical: true)
-                                ItemOrigin(model: model, letterId: saved.letterId)
+                                if let letterId = saved.letterId {
+                                    ItemOrigin(model: model, letterId: letterId)
+                                }
                                 CollectionAction(title: saved.shelved ? l10n("collection.unshelve") : l10n("collection.shelve")) {
                                     model.setSouvenirShelved(saved.id, shelved: !saved.shelved)
                                 }

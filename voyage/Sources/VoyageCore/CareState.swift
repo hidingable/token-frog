@@ -20,6 +20,8 @@ public struct CareState: Codable, Equatable, Sendable {
     public var memories: [Memory] = []
     public var pity = 0
     public var processedLetterIds: [Int] = []
+    public var boxesOpened = 0
+    public var boxItemIndex = 0
 
     public struct Habits: Codable, Equatable, Sendable {
         public var talkative = 0
@@ -47,7 +49,8 @@ public struct CareState: Codable, Equatable, Sendable {
 
     public struct Souvenir: Codable, Equatable, Sendable {
         public var id: String
-        public var letterId: Int
+        public var letterId: Int?
+        public var boxId: String?
         public var shelved: Bool
     }
 
@@ -98,15 +101,11 @@ public struct CareState: Codable, Equatable, Sendable {
         public var replyId: String?
     }
 
-    public init(petName: String, species: PetKind, hatchedAt: String) {
+    public init(petName: String, species: PetKind, hatchedAt: String, calendar: Calendar = .current) {
         self.petName = petName
         self.species = species
         self.hatchedAt = hatchedAt
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.firstWeekday = 2
-        let date = DayKey.date(from: hatchedAt, calendar: calendar)
-        let monday = date.flatMap { calendar.dateInterval(of: .weekOfYear, for: $0)?.start }
-        weekly = Weekly(weekStart: monday.map { DayKey.string(from: $0, calendar: calendar) } ?? hatchedAt)
+        weekly = Weekly(weekStart: WeeklyEngine.weekStart(for: hatchedAt, calendar: calendar) ?? hatchedAt)
     }
 
     public static func legacy(from journey: JourneyState) -> CareState {
@@ -136,6 +135,11 @@ public struct CareState: Codable, Equatable, Sendable {
         memories = try values.decodeIfMissing([Memory].self, forKey: .memories, default: [])
         pity = try values.decodeIfMissing(Int.self, forKey: .pity, default: 0)
         processedLetterIds = try values.decodeIfMissing([Int].self, forKey: .processedLetterIds, default: [])
+        boxesOpened = try values.decodeIfMissing(Int.self, forKey: .boxesOpened, default: 0)
+        boxItemIndex = try values.decodeIfMissing(Int.self, forKey: .boxItemIndex, default: 0)
+        guard boxesOpened >= 0, boxItemIndex >= 0 else {
+            throw DecodingError.dataCorrupted(.init(codingPath: decoder.codingPath, debugDescription: "Box counters must be nonnegative"))
+        }
     }
 }
 

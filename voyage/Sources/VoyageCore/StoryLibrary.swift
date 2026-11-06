@@ -48,6 +48,7 @@ public struct Story: Codable, Equatable, Sendable, Identifiable {
     public var text: [String: String]
     public var replies: [StoryReply]
     public var rewards: StoryRewards
+    public var learned: [String: String]?
 }
 
 /// Loaded and validated with CityCatalog; sorted IDs make file order irrelevant to draws.

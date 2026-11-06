@@ -1,0 +1,274 @@
+[
+  {
+    "id": "box.tea-paper",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "tea",
+    "habit": null,
+    "names": {
+      "zh-Hans": "留香茶纸",
+      "en": "Scented Tea Paper"
+    },
+    "descriptions": {
+      "zh-Hans": "整理茶柜的人留下一张包过干茶的净纸，托邮局装进礼盒。展开时，一角还带着淡淡的香。",
+      "en": "Someone tidying a tea cupboard saved this clean sheet from a packet of dry tea for the gift box. One corner still carries a little scent."
+    }
+  },
+  {
+    "id": "box.ribbon-loop",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "box",
+    "habit": null,
+    "names": {
+      "zh-Hans": "回礼缎带圈",
+      "en": "A Ribbon Returned"
+    },
+    "descriptions": {
+      "zh-Hans": "一位收过礼盒的人把缎带寄了回来，请柜台替下一份礼物打个结。两端长短不齐，中间的圈倒很圆。",
+      "en": "A past gift-box recipient sent this ribbon back for the next present. Its ends are uneven, but the loop in the middle is wonderfully round."
+    }
+  },
+  {
+    "id": "box.envelope-pocket",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "信封角袋",
+      "en": "Envelope-Corner Pocket"
+    },
+    "descriptions": {
+      "zh-Hans": "装信的人剪下两只用剩的信封角，叠成一个小纸袋。袋口还留着半个没写完的字，里面刚好放下一句晚安。",
+      "en": "Someone packing letters joined two spare envelope corners into a little pocket. Half a handwritten word remains at the opening, with room inside for a good night."
+    }
+  },
+  {
+    "id": "box.thread-star",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "线头小星",
+      "en": "Thread-End Star"
+    },
+    "descriptions": {
+      "zh-Hans": "帮忙补邮包的人把余下的彩线缝在硬纸上，五条短线凑成一颗星。最后一针绕得有点远，像给星星留了条尾巴。",
+      "en": "After mending a mailbag, a helper stitched the leftover threads onto card. Five short lines make a star; the last stitch wanders off like a little tail."
+    }
+  },
+  {
+    "id": "box.queue-footsteps",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "排队脚印图",
+      "en": "Queue of Footprints"
+    },
+    "descriptions": {
+      "zh-Hans": "等柜台空下来时，有人在废纸上画了一排大小不一的脚印，临走留给了邮局。最小的那一双悄悄朝旁边转了弯。",
+      "en": "While waiting at the counter, someone drew footprints of every size on scrap paper and left it behind. The smallest pair quietly turns out of the queue."
+    }
+  },
+  {
+    "id": "box.thumbprint-sun",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "指印太阳",
+      "en": "Thumbprint Sun"
+    },
+    "descriptions": {
+      "zh-Hans": "整理印台时，一个沾了印泥的指头在余纸上按出了圆印。旁边的人添上几道光，再一起把它放进礼盒。",
+      "en": "A thumb smudged with stamp ink left a round print on spare paper. Someone nearby added rays, and together they tucked the little sun into a gift box."
+    }
+  },
+  {
+    "id": "box.window-grid",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "窗格小样",
+      "en": "Window-Grid Study"
+    },
+    "descriptions": {
+      "zh-Hans": "修窗的人在余木片上画了三种窗格，让大家挑喜欢的一种。没人舍得把另外两种擦掉，于是三扇小窗一起留下了。",
+      "en": "A window repairer drew three possible grids on a wood offcut. Nobody wanted to erase the two that were not chosen, so all three little windows stayed."
+    }
+  },
+  {
+    "id": "box.wooden-moon",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "shard",
+    "habit": null,
+    "names": {
+      "zh-Hans": "木扣小月亮",
+      "en": "Wooden Button Moon"
+    },
+    "descriptions": {
+      "zh-Hans": "补衣服的人送来一枚配不成对的木扣，背面用铅笔画着弯月。两只扣眼在月亮旁边，看起来像还没睡的小眼睛。",
+      "en": "A mender donated a wooden button without a match and drew a crescent on its back. Beside the moon, the two buttonholes look like eyes still awake."
+    }
+  },
+  {
+    "id": "box.spool-stool",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "box",
+    "habit": null,
+    "names": {
+      "zh-Hans": "线轴小凳",
+      "en": "Spool Stool"
+    },
+    "descriptions": {
+      "zh-Hans": "空线轴被磨平了毛边，盖上一小片软布，变成谁也坐不下的小凳。做它的人说，可以请最累的那颗扣子歇一会儿。",
+      "en": "An empty spool, its rough edges smoothed and its top covered with soft cloth, became a stool too small for anyone. Its maker suggested seating the most tired button there."
+    }
+  },
+  {
+    "id": "box.cuff-sail",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "coat",
+    "habit": null,
+    "names": {
+      "zh-Hans": "袖边小帆",
+      "en": "Cuff-Cloth Sail"
+    },
+    "descriptions": {
+      "zh-Hans": "裁短袖子剩下的布，被来帮忙的裁缝缝成一面小帆。边上还留着原来的缝线，像一条陪它走过旧衣服的路。",
+      "en": "A tailor helping at the post office made this tiny sail from a shortened sleeve. The old seam remains along one edge, a little road from its life as clothing."
+    }
+  },
+  {
+    "id": "box.reflection-sketch",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "倒影描图",
+      "en": "Reflection Tracing"
+    },
+    "descriptions": {
+      "zh-Hans": "擦桌子时，有人看见水盆里倒着一扇窗，便描在干净的包纸上。画完才发现窗是反的，就在背面写了“翻过来看”。",
+      "en": "Someone wiping a table traced the window reflected in a basin onto clean wrapping paper. Finding the drawing reversed, they wrote “look from the other side” on the back."
+    }
+  },
+  {
+    "id": "box.saved-seat-tag",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小盒座位牌",
+      "en": "A Seat for a Box"
+    },
+    "descriptions": {
+      "zh-Hans": "长凳上原本替一只空盒占着位子，纸牌写着“很快回来”。盒子被拿去装礼物以后，这张牌也跟着住进了礼盒。",
+      "en": "This “back soon” card once saved a bench seat for an empty box. When the box was put to work holding a present, its seat card came along."
+    }
+  },
+  {
+    "id": "box.pencil-curl",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "shard",
+    "habit": null,
+    "names": {
+      "zh-Hans": "卷卷木花",
+      "en": "Pencil-Shaving Flower"
+    },
+    "descriptions": {
+      "zh-Hans": "柜台削铅笔时留下了一圈完整的木屑，写地址的人把它粘在卡片上。卷边不肯压平，倒像一朵刚刚张开的花。",
+      "en": "A whole curl survived a pencil sharpening at the counter. Someone addressing a letter glued it to a card; its stubborn raised edges look like a flower just opening."
+    }
+  },
+  {
+    "id": "box.bell-score",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "三声铃谱",
+      "en": "Three-Bell Score"
+    },
+    "descriptions": {
+      "zh-Hans": "修柜台铃的人试了三次声音，旁边的孩子用高低不同的小点记下来。第三个点画得很大，说那一声最像有人到家。",
+      "en": "While a counter bell was being repaired, a child marked three test rings with dots at different heights. The largest dot was for the ring that sounded most like someone coming home."
+    }
+  },
+  {
+    "id": "box.pocket-patch",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "coat",
+    "habit": null,
+    "names": {
+      "zh-Hans": "藏话小口袋",
+      "en": "A Pocket for a Word"
+    },
+    "descriptions": {
+      "zh-Hans": "补衣服剩下的一小块布，被缝成了装不下手指的口袋。送来的人在里面放了一张写着“谢谢”的细纸，才让它进礼盒。",
+      "en": "A scrap left from mending became a pocket too small for a finger. Its maker slipped a narrow paper “thank you” inside before sending it to the gift box."
+    }
+  },
+  {
+    "id": "box.folding-ladder",
+    "kind": "souvenir",
+    "source": "box",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "fan",
+    "habit": null,
+    "names": {
+      "zh-Hans": "折纸小梯",
+      "en": "Folded Paper Ladder"
+    },
+    "descriptions": {
+      "zh-Hans": "装盒时剩下的长纸边，被两个人一来一回折成了小梯。拉开有好多级，收拢以后，最高一级又回到了最下面。",
+      "en": "Two helpers took turns folding a long strip left from wrapping into a little ladder. Stretched out it has many steps; folded shut, its highest step returns to the bottom."
+    }
+  }
+]

@@ -9,23 +9,31 @@ public struct Item: Codable, Equatable, Sendable, Identifiable {
     public var habit: String?
     public var names: [String: String]
     public var descriptions: [String: String]
+    public var source: String?
+}
+
+public struct BoxContents: Codable, Equatable, Sendable {
+    public var souvenirIds: [String]
+    public var bagItemIds: [String]
 }
 
 /// Loaded with the validated catalog. ID order, rather than file order, controls draws.
 public struct ItemLibrary: Sendable {
     public let all: [Item]
+    public let boxes: BoxContents
     private let byId: [String: Item]
 
-    init(items: [Item]) {
+    init(items: [Item], boxes: BoxContents = BoxContents(souvenirIds: [], bagItemIds: [])) {
         all = items.sorted { $0.id < $1.id }
         byId = Dictionary(uniqueKeysWithValues: all.map { ($0.id, $0) })
+        self.boxes = boxes
     }
 
     public func find(_ id: String) -> Item? { byId[id] }
 
     func drop(rewards: StoryRewards, letter: Letter, care: CareState, seed: UInt32) -> StoryRewards {
         let rarity = ItemDropRules.rarity(seed: seed, letterId: letter.id, pity: care.pity)
-        let souvenirs = all.filter { $0.kind == "souvenir" && $0.rarity == rarity }
+        let souvenirs = all.filter { $0.kind == "souvenir" && $0.source != "box" && $0.rarity == rarity }
         let authored = souvenirs.filter { rewards.itemIds.contains($0.id) }
         let local = souvenirs.filter { $0.cityId == letter.cityId }
         let generic = souvenirs.filter { $0.cityId == nil }

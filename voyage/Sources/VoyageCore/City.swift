@@ -92,7 +92,10 @@ public struct CityCatalog: Sendable {
             cities: ContentValidator.readCities(directory: directory).map(\.city),
             countries: ContentValidator.readCountries(directory: directory),
             stories: StoryLibrary(stories: ContentValidator.readStories(directory: directory).flatMap(\.stories)),
-            items: ItemLibrary(items: ContentValidator.readItems(directory: directory).flatMap(\.items))
+            items: ItemLibrary(
+                items: ContentValidator.readItems(directory: directory).flatMap(\.items),
+                boxes: ContentValidator.readBoxes(directory: directory)
+            )
         )
     }
 

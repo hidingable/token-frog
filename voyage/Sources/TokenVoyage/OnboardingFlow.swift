@@ -159,10 +159,9 @@ final class OnboardingFlow {
     func saves(now: Date) -> (journey: JourneyState, care: CareState)? {
         guard step == .depart, let species, nameProblem == nil else { return nil }
         let journey = JourneyState(seed: seed, startCityId: homeCityId, pet: species, date: date, now: now, logbook: logbook, catalog: catalog)
-        var care = CareState(petName: trimmedName, species: species, hatchedAt: date)
+        var care = CareState(petName: trimmedName, species: species, hatchedAt: date, calendar: calendar)
         care.bag.todayItem = todayItem
-        care.companionDays = [date]
-        care.weekly.stamps = [date]
+        CareEngine.markCompanion(date: date, care: &care, calendar: calendar)
         return (journey, care)
     }
 

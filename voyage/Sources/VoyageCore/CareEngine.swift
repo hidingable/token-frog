@@ -80,8 +80,14 @@ public enum CareEngine {
         return true
     }
 
-    public static func markCompanion(date: String, care: inout CareState) {
-        if !care.companionDays.contains(date) { care.companionDays.append(date) }
+    public struct Learned: Equatable, Sendable {
+        public var letterId: Int
+        public var learnedTexts: [String: String]
+    }
+
+    public static func recentLearned(journey: JourneyState, limit: Int) -> [Learned] {
+        journey.letters.filter { !$0.learnedTexts.isEmpty }.sorted { $0.id > $1.id }
+            .prefix(max(0, limit)).map { Learned(letterId: $0.id, learnedTexts: $0.learnedTexts) }
     }
 
     static func itemTrigger(seed: UInt32, letterId: Int) -> Bool {
@@ -199,6 +205,7 @@ public enum CareEngine {
         letter.storyVersion = story.version
         letter.texts = render(story.text)
         letter.leadTexts = story.lead.map(render) ?? [:]
+        letter.learnedTexts = story.learned ?? [:]
         letter.replyOptions = story.replies.map { option in
             var option = option
             option.text = render(option.text)

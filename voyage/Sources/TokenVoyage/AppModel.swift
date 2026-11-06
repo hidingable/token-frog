@@ -230,8 +230,8 @@ final class AppModel {
     }
 
     @discardableResult
-    func openCollectionLetter(_ id: Int) -> Bool {
-        guard let letter = letters.first(where: { $0.id == id }) else { return false }
+    func openCollectionLetter(_ id: Int?) -> Bool {
+        guard let id, let letter = letters.first(where: { $0.id == id }) else { return false }
         openFollowUp(letter)
         return true
     }

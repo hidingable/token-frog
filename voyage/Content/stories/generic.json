@@ -677,6 +677,10 @@
       "generic.arrival.paper-flag.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "招招手就多了一位新朋友",
+      "en": "A little wave can welcome a new friend."
+    },
     "lead": {
       "zh-Hans": "你上次说“{reply}”，我今天照着试了试。",
       "en": "Your last note said, “{reply}”. I gave it a try today."
@@ -726,6 +730,10 @@
       "generic.arrival.paper-flag.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "纸角和影子各有方向",
+      "en": "The paper corner and its shadow point different ways."
+    },
     "lead": {
       "zh-Hans": "我带着“{reply}”这句提醒，多留了一会儿。",
       "en": "I kept your suggestion, “{reply}”, in mind and stayed a little longer."
@@ -775,6 +783,10 @@
       "generic.arrival.window-envelope.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "一起画的窗不必一样高",
+      "en": "A shared window need not have matching halves."
+    },
     "lead": {
       "zh-Hans": "读到你写的“{reply}”，我就有了下一步的主意。",
       "en": "Your note, “{reply}”, gave me something to try next."
@@ -824,6 +836,10 @@
       "generic.arrival.window-envelope.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "亮光会悄悄换个位置",
+      "en": "A patch of light quietly changes places."
+    },
     "lead": {
       "zh-Hans": "你提议“{reply}”，这回有了新发现。",
       "en": "You suggested, “{reply}”, and this time I found something new."
@@ -873,6 +889,10 @@
       "generic.arrival.ribbon-knot.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "请人教一遍再自己试试",
+      "en": "Ask for a demonstration, then give it a try."
+    },
     "lead": {
       "zh-Hans": "“{reply}”，你这么一说，我就去试了。",
       "en": "“{reply}”, you said. So I went and tried it."
@@ -922,6 +942,10 @@
       "generic.arrival.ribbon-knot.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "顺着绳头能找到打结处",
+      "en": "Following the loose end reveals the knot."
+    },
     "lead": {
       "zh-Hans": "还记得你说的“{reply}”吗？今天有后续了。",
       "en": "Remember your note, “{reply}”? There is a little more to that story now."
@@ -971,6 +995,10 @@
       "generic.arrival.blank-line.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "问候也能互相搭个伴",
+      "en": "One greeting can find another for company."
+    },
     "lead": {
       "zh-Hans": "你回信里的“{reply}”，我今天用上了。",
       "en": "I put your suggestion, “{reply}”, to use today."
@@ -1020,6 +1048,10 @@
       "generic.arrival.blank-line.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "空白里也会有小来客",
+      "en": "Even an empty line can receive a tiny visitor."
+    },
     "lead": {
       "zh-Hans": "我又读了一遍“{reply}”，然后动手试了试。",
       "en": "I read “{reply}” once more, then tried it for myself."
@@ -1069,6 +1101,10 @@
       "generic.arrival.parcel-rustle.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "每张纸都有自己的声音",
+      "en": "Every sheet of paper has its own rustle."
+    },
     "lead": {
       "zh-Hans": "你写来“{reply}”，后来发生了这件小事。",
       "en": "After your note said “{reply}”, this is what happened."
@@ -1118,6 +1154,10 @@
       "generic.arrival.parcel-rustle.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "转个方向就听见新声音",
+      "en": "Turning something around can reveal another sound."
+    },
     "lead": {
       "zh-Hans": "按你那句“{reply}”试过之后，我有新消息了。",
       "en": "I tried your suggestion, “{reply}”, and have a little news for you."
@@ -1167,6 +1207,10 @@
       "generic.arrival.pencil-introduction.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "问一句就听到一段旅程",
+      "en": "One question can uncover a whole journey."
+    },
     "lead": {
       "zh-Hans": "你上次说“{reply}”，我今天照着试了试。",
       "en": "Your last note said, “{reply}”. I gave it a try today."
@@ -1216,6 +1260,10 @@
       "generic.arrival.pencil-introduction.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "笔尖换一面线条也不同",
+      "en": "Another side of the pencil makes another kind of line."
+    },
     "lead": {
       "zh-Hans": "我带着“{reply}”这句提醒，多留了一会儿。",
       "en": "I kept your suggestion, “{reply}”, in mind and stayed a little longer."
@@ -1265,6 +1313,10 @@
       "generic.arrival.folded-greeting.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "新朋友会帮纸条添帽子",
+      "en": "A new friend may make a hat for a little note."
+    },
     "lead": {
       "zh-Hans": "读到你写的“{reply}”，我就有了下一步的主意。",
       "en": "Your note, “{reply}”, gave me something to try next."
@@ -1314,6 +1366,10 @@
       "generic.arrival.folded-greeting.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "底边宽一点就站得稳",
+      "en": "A wider base helps a paper fold stand steady."
+    },
     "lead": {
       "zh-Hans": "你提议“{reply}”，这回有了新发现。",
       "en": "You suggested, “{reply}”, and this time I found something new."
@@ -1363,6 +1419,10 @@
       "generic.arrival.address-rehearsal.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "一句早安能接着一句",
+      "en": "One good morning can lead to another."
+    },
     "lead": {
       "zh-Hans": "“{reply}”，你这么一说，我就去试了。",
       "en": "“{reply}”, you said. So I went and tried it."
@@ -1412,6 +1472,10 @@
       "generic.arrival.address-rehearsal.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "挪开信封包扣就安静了",
+      "en": "Moving the envelope lets the clasp close quietly."
+    },
     "lead": {
       "zh-Hans": "还记得你说的“{reply}”吗？今天有后续了。",
       "en": "Remember your note, “{reply}”? There is a little more to that story now."
@@ -1461,6 +1525,10 @@
       "generic.arrival.ink-dot.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "小小的包也值得认真寄",
+      "en": "Even the smallest parcel deserves a proper delivery."
+    },
     "lead": {
       "zh-Hans": "你回信里的“{reply}”，我今天用上了。",
       "en": "I put your suggestion, “{reply}”, to use today."
@@ -1510,6 +1578,10 @@
       "generic.arrival.ink-dot.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "转个方向墨点像只蜗牛",
+      "en": "Turn an ink dot around and a snail may appear."
+    },
     "lead": {
       "zh-Hans": "我又读了一遍“{reply}”，然后动手试了试。",
       "en": "I read “{reply}” once more, then tried it for myself."
@@ -1559,6 +1631,10 @@
       "generic.arrival.bag-seat.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "开口问问就找到安顿办法",
+      "en": "Asking someone can help a bag settle in."
+    },
     "lead": {
       "zh-Hans": "你写来“{reply}”，后来发生了这件小事。",
       "en": "After your note said “{reply}”, this is what happened."
@@ -1608,6 +1684,10 @@
       "generic.arrival.bag-seat.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "先理顺包带再安排座位",
+      "en": "Settle the strap before seating the bag."
+    },
     "lead": {
       "zh-Hans": "按你那句“{reply}”试过之后，我有新消息了。",
       "en": "I tried your suggestion, “{reply}”, and have a little news for you."
@@ -1657,6 +1737,10 @@
       "generic.transit.moving-address.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "到站的问候能先向人借",
+      "en": "An arrival greeting can be borrowed along the way."
+    },
     "lead": {
       "zh-Hans": "你上次说“{reply}”，我今天照着试了试。",
       "en": "Your last note said, “{reply}”. I gave it a try today."
@@ -1706,6 +1790,10 @@
       "generic.transit.moving-address.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "走着走着影子会换边",
+      "en": "A shadow changes sides along the walk."
+    },
     "lead": {
       "zh-Hans": "我带着“{reply}”这句提醒，多留了一会儿。",
       "en": "I kept your suggestion, “{reply}”, in mind and stayed a little longer."
@@ -1755,6 +1843,10 @@
       "generic.transit.loose-thread.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "比一比才发现各有方向",
+      "en": "Comparing the two reveals their different directions."
+    },
     "lead": {
       "zh-Hans": "读到你写的“{reply}”，我就有了下一步的主意。",
       "en": "Your note, “{reply}”, gave me something to try next."
@@ -1804,6 +1896,10 @@
       "generic.transit.loose-thread.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "转过身就看见风的变化",
+      "en": "Turning around reveals what the breeze is doing."
+    },
     "lead": {
       "zh-Hans": "你提议“{reply}”，这回有了新发现。",
       "en": "You suggested, “{reply}”, and this time I found something new."
@@ -1853,6 +1949,10 @@
       "generic.transit.envelope-seat.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "多问一句就多半句故事",
+      "en": "One more question can bring another half of a story."
+    },
     "lead": {
       "zh-Hans": "“{reply}”，你这么一说，我就去试了。",
       "en": "“{reply}”, you said. So I went and tried it."
@@ -1902,6 +2002,10 @@
       "generic.transit.envelope-seat.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "口袋平整信封才坐得稳",
+      "en": "A flat pocket gives an envelope a steady seat."
+    },
     "lead": {
       "zh-Hans": "还记得你说的“{reply}”吗？今天有后续了。",
       "en": "Remember your note, “{reply}”? There is a little more to that story now."
@@ -1951,6 +2055,10 @@
       "generic.transit.pocket-sound.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "路上的轻响也能一起哼",
+      "en": "A little tapping on the road can become a shared tune."
+    },
     "lead": {
       "zh-Hans": "你回信里的“{reply}”，我今天用上了。",
       "en": "I put your suggestion, “{reply}”, to use today."
@@ -2000,6 +2108,10 @@
       "generic.transit.pocket-sound.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "步子慢下来响声也变慢",
+      "en": "Slower steps leave more space between the taps."
+    },
     "lead": {
       "zh-Hans": "我又读了一遍“{reply}”，然后动手试了试。",
       "en": "I read “{reply}” once more, then tried it for myself."
@@ -2049,6 +2161,10 @@
       "generic.transit.unfinished-postscript.talkative"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "别人的小事也值得捎回来",
+      "en": "Someone else’s small story is worth bringing home."
+    },
     "lead": {
       "zh-Hans": "你写来“{reply}”，后来发生了这件小事。",
       "en": "After your note said “{reply}”, this is what happened."
@@ -2098,6 +2214,10 @@
       "generic.transit.unfinished-postscript.observant"
     ],
     "fulfillsHabit": null,
+    "learned": {
+      "zh-Hans": "留心就能给空白添一笔",
+      "en": "Paying attention can give an empty line its next mark."
+    },
     "lead": {
       "zh-Hans": "按你那句“{reply}”试过之后，我有新消息了。",
       "en": "I tried your suggestion, “{reply}”, and have a little news for you."
@@ -2145,6 +2265,10 @@
     },
     "fulfills": [],
     "fulfillsHabit": "talkative",
+    "learned": {
+      "zh-Hans": "好奇地问一句就能一起试",
+      "en": "A curious question can lead to trying something together."
+    },
     "lead": {
       "zh-Hans": "读到你写的“{reply}”，我又想起了多聊两句的主意。",
       "en": "Your note, “{reply}”, reminded me to make a little room for conversation."
@@ -2192,6 +2316,10 @@
     },
     "fulfills": [],
     "fulfillsHabit": "talkative",
+    "learned": {
+      "zh-Hans": "先开口就能接住一个笑话",
+      "en": "Speaking first can be the beginning of a joke."
+    },
     "lead": {
       "zh-Hans": "你上回说“{reply}”，今天我又主动开了口。",
       "en": "I remembered your note, “{reply}”, when I started a conversation today."
@@ -2239,6 +2367,10 @@
     },
     "fulfills": [],
     "fulfillsHabit": "talkative",
+    "learned": {
+      "zh-Hans": "聊着聊着也能一起编下去",
+      "en": "A conversation can become something made up together."
+    },
     "lead": {
       "zh-Hans": "你的“{reply}”让我记着，遇见人时可以多问一句。",
       "en": "Your words, “{reply}”, stayed with me as a reminder to ask another question."
@@ -2286,6 +2418,10 @@
     },
     "fulfills": [],
     "fulfillsHabit": "talkative",
+    "learned": {
+      "zh-Hans": "多问一句就多一种想法",
+      "en": "One more question can make room for another idea."
+    },
     "lead": {
       "zh-Hans": "我还记着那句“{reply}”，今天也留了点时间和人说话。",
       "en": "I kept “{reply}” in mind and made time for a chat today."
@@ -2333,6 +2469,10 @@
     },
     "fulfills": [],
     "fulfillsHabit": "observant",
+    "learned": {
+      "zh-Hans": "换个角度会有新发现",
+      "en": "A different angle can reveal something new."
+    },
     "lead": {
       "zh-Hans": "想到你写的“{reply}”，我今天又多看了一眼。",
       "en": "Your note, “{reply}”, came to mind when I paused for another look today."
@@ -2380,6 +2520,10 @@
     },
     "fulfills": [],
     "fulfillsHabit": "observant",
+    "learned": {
+      "zh-Hans": "细看才发现细微的不同",
+      "en": "A closer look reveals small differences."
+    },
     "lead": {
       "zh-Hans": "你说过“{reply}”，我渐渐会在小地方停一停了。",
       "en": "Since your note said “{reply}”, I have been stopping a little longer over small details."
@@ -2427,6 +2571,10 @@
     },
     "fulfills": [],
     "fulfillsHabit": "observant",
+    "learned": {
+      "zh-Hans": "翻过来看看就明白一点",
+      "en": "Looking at the other side helps things make sense."
+    },
     "lead": {
       "zh-Hans": "我收着你那句“{reply}”，今天又发现一件差点漏掉的小事。",
       "en": "I have kept your note, “{reply}”, and noticed another little thing I nearly missed today."
@@ -2474,6 +2622,10 @@
     },
     "fulfills": [],
     "fulfillsHabit": "observant",
+    "learned": {
+      "zh-Hans": "停一会儿也能发现变化",
+      "en": "Pausing for a moment lets small changes appear."
+    },
     "lead": {
       "zh-Hans": "你回信里的“{reply}”，让我记得给眼前的小东西多一点时间。",
       "en": "Your reply, “{reply}”, reminds me to give small things a little more time."
