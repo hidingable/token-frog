@@ -277,7 +277,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     private func updateSurfaces() {
         statusItem?.button?.image = statusImage()
-        if model.isLocked {
+        if model.isLocked || model.onboarding != nil {
             notch.hide()
             floating.hide()
             openMain()
@@ -305,8 +305,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     func menuNeedsUpdate(_ menu: NSMenu) {
         menu.removeAllItems()
-        menu.addItem(makeItem(model.isLocked ? l10n("menu.open") : l10n("menu.openPostOffice"), #selector(openMainAction)))
-        if !model.isLocked {
+        menu.addItem(makeItem(model.isLocked || model.onboarding != nil ? l10n("menu.open") : l10n("menu.openPostOffice"), #selector(openMainAction)))
+        if !model.isLocked && model.onboarding == nil {
             var summary = l10n("menu.today", Format.km(fuel: model.todayFuel))
             if model.unread > 0 { summary += " · " + l10n("menu.newMail", Format.grouped(model.unread)) }
             addInformation(summary, to: menu)
@@ -393,6 +393,8 @@ private struct SaveAwareMainView: View {
                 onRestart: { model.restartSave($0) }, onRetry: { model.retrySaves() },
                 onQuit: { NSApp.terminate(nil) }
             )
+        } else if let flow = model.onboarding {
+            OnboardingView(flow: flow, onDepart: { model.completeOnboarding() })
         } else {
             MainView(model: model)
         }

@@ -48,8 +48,19 @@ struct L10n: Sendable {
     static let quotaKeys = ["Weekly": "quota.weekly", "Daily": "quota.daily", "Monthly": "quota.monthly", "Session": "quota.session", "Chat": "quota.chat", "Completions": "quota.completions", "Premium": "quota.premium"]
     static let languageKeys: [LanguagePreference: String] = [.system: "language.system", .zhHans: "language.zhHans", .en: "language.en"]
     static let countKeys = ["tokens": ["tokens.one", "tokens.other"], "days": ["days.one", "days.other"], "hours": ["hours.one", "hours.other"], "minutes": ["minutes.one", "minutes.other"]]
+    static let defaultPetNameKeys: [PetKind: String] = [.pigeon: "pet.pigeon.defaultName", .snail: "pet.snail.defaultName", .suitcase: "pet.suitcase.defaultName", .letter: "pet.letter.defaultName"]
+    static let eggKeys: [PetKind: String] = [.pigeon: "onboarding.egg.spotted", .snail: "onboarding.egg.gold", .suitcase: "onboarding.egg.leather", .letter: "onboarding.egg.paper"]
+    static let onboardingTitleKeys: [OnboardingFlow.Step: String] = [.eggs: "onboarding.eggs", .home: "onboarding.home", .hatch: "onboarding.hatch", .logbook: "onboarding.logbook", .depart: "onboarding.depart"]
+    static let initialItemKeys = ["sketchbook": "item.sketchbook", "note-slip": "item.note-slip", "raincoat": "item.raincoat"]
     static var dynamicKeys: [String] {
-        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(collectionPlaceholderKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + countKeys.values.flatMap { $0 } + LetterComposer.quirkKeys.values.flatMap { $0 }
+        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(collectionPlaceholderKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + countKeys.values.flatMap { $0 } + LetterComposer.quirkKeys.values.flatMap { $0 } + Array(defaultPetNameKeys.values) + Array(eggKeys.values) + Array(onboardingTitleKeys.values) + Array(initialItemKeys.values)
+    }
+
+    func defaultPetName(_ pet: PetKind) -> String { language == .zhHans ? pet.displayName : self(Self.defaultPetNameKeys[pet]!) }
+
+    @MainActor func onboardingTitle(_ flow: OnboardingFlow) -> String {
+        if flow.step == .logbook, flow.logbook == nil { return self("onboarding.welcome") }
+        return self(Self.onboardingTitleKeys[flow.step]!)
     }
 
     func tab(_ tab: MainTab) -> String { self(Self.tabKeys[tab]!) }

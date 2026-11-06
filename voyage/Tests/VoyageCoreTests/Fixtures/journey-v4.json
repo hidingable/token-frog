@@ -1,0 +1,82 @@
+{
+  "version": 4,
+  "seed": 42,
+  "pet": "snail",
+  "startDate": "2026-11-01",
+  "currentCityId": "shanghai",
+  "targetCityId": "xian",
+  "legFuel": 123,
+  "route": [
+    "shanghai"
+  ],
+  "stamps": [
+    {
+      "cityId": "shanghai",
+      "date": "2026-11-01",
+      "countryCode": "CN"
+    }
+  ],
+  "openDate": "2026-11-02",
+  "days": {
+    "2026-11-01": {
+      "fuel": 123,
+      "byClient": {
+        "codex": 123
+      },
+      "arrivals": [],
+      "newCountries": []
+    }
+  },
+  "letters": [
+    {
+      "id": 0,
+      "kind": "logbook",
+      "date": "2026-11-01",
+      "pet": "snail",
+      "cityId": "shanghai",
+      "arrivals": [],
+      "newCountries": [],
+      "fuel": 0,
+      "vehicles": [],
+      "isDeepVisit": false,
+      "deliverAt": 0,
+      "read": true,
+      "enrichmentDone": true,
+      "logbook": {
+        "workdayStartHour": 9,
+        "weekendActivePercent": 25,
+        "topClients": [
+          "codex",
+          "claude"
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "kind": "daily",
+      "date": "2026-11-01",
+      "pet": "snail",
+      "cityId": "shanghai",
+      "arrivals": [],
+      "newCountries": [],
+      "fuel": 123,
+      "vehicles": [],
+      "isDeepVisit": false,
+      "deliverAt": 0,
+      "read": false,
+      "enrichmentDone": false,
+      "transitTargetId": "xian"
+    }
+  ],
+  "totalFuel": 123,
+  "legCost": 12203490,
+  "legFrom": {
+    "lat": 31.23,
+    "lon": 121.47
+  },
+  "legTo": {
+    "lat": 34.34,
+    "lon": 108.94
+  },
+  "targetCountryCode": "CN"
+}

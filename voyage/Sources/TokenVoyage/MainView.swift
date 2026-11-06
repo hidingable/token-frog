@@ -159,18 +159,6 @@ struct JourneyTab: View {
                 }
                 .font(Theme.pixel())
 
-                if model.canChangeStart {
-                    HStack(spacing: 8) {
-                        Text(l10n("journey.start")).font(Theme.pixel()).foregroundStyle(Theme.dusk)
-                        Picker(l10n("journey.start"), selection: Binding(get: { state.route[0] }, set: { model.setStart($0) })) {
-                            ForEach(model.startCities) { Text(l10n("city.country", l10n.cityName($0), l10n.countryName(catalog.countryNames($0.countryCode)))).tag($0.id) }
-                        }
-                        .labelsHidden()
-                        .fixedSize()
-                        Text(l10n("journey.changeStart")).font(Theme.pixel()).foregroundStyle(Theme.dusk)
-                    }
-                }
-
                 RecentBars(days: model.recentDays)
             }
         }
@@ -293,9 +281,13 @@ struct LetterView: View {
                 }
             }
 
-            divider
-            Text(l10n("letter.itinerary")).font(Theme.pixel()).foregroundStyle(Theme.brown)
-            ForEach(text.itinerary, id: \.self) { Text($0).font(Theme.pixel()) }
+            if !text.itinerary.isEmpty {
+                divider
+                if letter.kind != .logbook {
+                    Text(l10n("letter.itinerary")).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                }
+                ForEach(text.itinerary, id: \.self) { Text($0).font(Theme.pixel()).fixedSize(horizontal: false, vertical: true) }
+            }
         }
         .foregroundStyle(Theme.ink)
         .padding(14)

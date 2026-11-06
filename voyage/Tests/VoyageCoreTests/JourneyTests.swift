@@ -29,11 +29,46 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     #expect(days == [DayUsage(date: "2026-11-05", fuel: 163, byClient: ["codex": 130, "claude": 33])])
 }
 
-@Test func startsWithDepartureLetterAndHomeStamp() {
+@Test func startsWithReadLogbookLetterAndHomeStamp() {
     let state = fresh()
-    #expect(state.letters.map(\.kind) == [.departure])
+    #expect(state.letters.map(\.kind) == [.logbook])
+    #expect(state.letters[0].logbook == nil)
+    #expect(state.letters[0].read && state.letters[0].enrichmentDone)
+    #expect(state.unreadCount(now: Date(timeIntervalSince1970: 0)) == 0)
     #expect(state.stamps.map(\.countryCode) == ["CN"])
     #expect(state.targetCityId != "shanghai")
+}
+
+@Test func changingHomeReplaysTodayAndOnlyChangesFirstLetterCity() throws {
+    let logbook = Logbook(workdayStartHour: 9, weekendActivePercent: 25, topClients: ["codex", "claude"])
+    var state = JourneyState(
+        seed: 42, startCityId: "shanghai", pet: .snail, date: "2026-11-01",
+        now: Date(timeIntervalSince1970: 123), logbook: logbook, catalog: testCatalog
+    )
+    state.letters[0].read = false
+    state.letters[0].weather = "Clear"
+    state.sync(today: usage("2026-11-01", 400_000_000), calendar: calendar, catalog: testCatalog)
+    var expectedLetter = state.letters[0]
+    expectedLetter.cityId = "xian"
+    var expected = JourneyState(seed: 42, startCityId: "xian", pet: .snail, date: "2026-11-01", catalog: testCatalog)
+    expected.sync(today: usage("2026-11-01", 400_000_000), calendar: calendar, catalog: testCatalog)
+    expected.letters = [expectedLetter]
+    state.setStart("xian", calendar: calendar, catalog: testCatalog)
+    #expect(state == expected)
+    #expect(state.letters[0].kind == .logbook && state.letters[0].logbook == logbook && !state.letters[0].read)
+    #expect(state.totalFuel == 400_000_000 && state.route.first == "xian")
+}
+
+@Test func changingHomeKeepsLegacyDepartureAndRejectsLaterDays() throws {
+    var state = fresh()
+    state.letters[0].kind = .departure
+    state.setStart("xian", calendar: calendar, catalog: testCatalog)
+    #expect(state.letters[0].kind == .departure)
+    #expect(state.letters[0].cityId == "xian")
+    state.sync(today: usage("2026-11-02", 10), finalized: [usage("2026-11-01", 100)], calendar: calendar, catalog: testCatalog)
+    let original = state
+    state.setStart("shanghai", calendar: calendar, catalog: testCatalog)
+    #expect(state == original)
 }
 
 @Test func creditsExactDeltasAndNeverGoesBackwards() {

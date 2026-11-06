@@ -123,6 +123,7 @@ extension SaveMigrations {
         SaveMigrations(currentVersion: JourneyState.currentVersion, steps: [
             1: { try JourneyMigrations.migrateV1($0, catalog: catalog) },
             2: { JourneyMigrations.migrateV2($0) },
+            3: { $0 },
         ])
     }
 }

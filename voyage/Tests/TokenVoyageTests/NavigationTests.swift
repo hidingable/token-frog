@@ -193,6 +193,9 @@ private struct NavigationFixture {
         let store = SaveStore(directory: directory, journeyMigrations: .journey(catalog: localizationCatalog))
         store.load()
         var state = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-01", now: Date(timeIntervalSince1970: 0), catalog: localizationCatalog)
+        // Keep coverage for existing saves with the old unread departure letter.
+        state.letters[0].kind = .departure
+        state.letters[0].read = false
         let departure = state.letters[0]
         func daily(id: Int, read: Bool = false, future: Bool = false) -> Letter {
             var letter = departure

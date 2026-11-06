@@ -10,6 +10,20 @@ enum Snapshots {
         let metrics = NotchMetrics(notchWidth: 180, barHeight: 37)
         let mainSize = CGSize(width: 760, height: 780)
 
+        if let catalog = model.catalog {
+            for (name, step, welcome) in [
+                ("onboarding-1-eggs", OnboardingFlow.Step.eggs, false),
+                ("onboarding-2-home", .home, false),
+                ("onboarding-3-hatch", .hatch, false),
+                ("onboarding-4-logbook", .logbook, false),
+                ("onboarding-4-welcome", .logbook, true),
+                ("onboarding-5-depart", .depart, false),
+            ] {
+                let flow = OnboardingFlow.snapshot(catalog: catalog, today: model.now, l10n: model.l10n, step: step, welcome: welcome)
+                render(OnboardingView(flow: flow, onDepart: {}), size: mainSize, name: name, directory, model: model)
+            }
+        }
+
         func main(_ tab: MainTab, name: String, size: CGSize = mainSize, dashboard: DashboardSelection = DashboardSelection(), update: (inout JourneyState) -> Void = { _ in }) {
             model.withSnapshotState(update) {
                 model.navigate(to: tab)

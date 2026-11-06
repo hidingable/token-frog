@@ -14,7 +14,7 @@ private struct SaveSandbox {
 
     func cleanUp() { try? FileManager.default.removeItem(at: directory) }
 
-    func fixture(_ name: String = "journey-v3") throws -> Data {
+    func fixture(_ name: String = "journey-v4") throws -> Data {
         let url = try #require(Bundle.module.url(forResource: name, withExtension: "json", subdirectory: "Fixtures"))
         return try Data(contentsOf: url)
     }
@@ -29,21 +29,23 @@ private struct SaveSandbox {
 }
 
 @Suite struct SaveStoreTests {
-    @Test func frozenV3LoadsWithoutRewritingOrBackingUp() throws {
+    @Test func frozenV4LoadsWithoutRewritingOrBackingUp() throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
         let original = try box.fixture()
         try original.write(to: box.journeyURL)
         let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
-        guard case .loaded(let journey) = store.journey else { Issue.record("v3 must load"); return }
-        #expect(journey.version == 3)
+        guard case .loaded(let journey) = store.journey else { Issue.record("v4 must load"); return }
+        #expect(journey.version == 4)
         #expect(journey.seed == 42)
         #expect(journey.pet == .snail)
         #expect(journey.targetCityId == "xian")
         #expect(journey.stamps.first?.countryCode == "CN")
         #expect(journey.days["2026-11-01"]?.byClient == ["codex": 123])
         #expect(journey.letters.map(\.id) == [0, 7])
+        #expect(journey.letters[0].kind == .logbook)
+        #expect(journey.letters[0].logbook == Logbook(workdayStartHour: 9, weekendActivePercent: 25, topClients: ["codex", "claude"]))
         #expect(journey.letters[1].transitTargetId == "xian")
         #expect(journey.letters[0].deliverAt == Date(timeIntervalSinceReferenceDate: 0))
         #expect(try Data(contentsOf: box.journeyURL) == original)

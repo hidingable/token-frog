@@ -173,6 +173,7 @@ func chineseCharacterVoicesPreserveAllTwelveOriginalLines(pet: PetKind, index: I
     let l10n = L10n(language: .zhHans)
     let state = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-01", catalog: localizationCatalog)
     var letter = try #require(state.letters.first)
+    letter.kind = .departure
     let departure = LetterComposer.text(for: letter, l10n: l10n, petName: "银杏", catalog: localizationCatalog)
     #expect(departure.title == "出发信 · 上海")
     #expect(departure.voice == "行李收好了，我从上海出发。你的每 1 万 token，都会变成我路上的 1 公里。到了地方就写信给你。")

@@ -14,6 +14,19 @@ enum PixelMap {
         return (min(max(x, 0), WorldMapData.width - 1), min(max(y, 0), WorldMapData.height - 1))
     }
 
+    static func homeImage(_ city: City) -> CGImage {
+        var pixels = base
+        let point = project(city.coordinate)
+        for dy in -1...1 {
+            for dx in -1...1 {
+                let x = min(max(point.x + dx, 0), WorldMapData.width - 1)
+                let y = min(max(point.y + dy, 0), WorldMapData.height - 1)
+                pixels[y * WorldMapData.width + x] = dx == 0 && dy == 0 ? Palette.ink : Palette.paper
+            }
+        }
+        return PixelImage.make(width: WorldMapData.width, height: WorldMapData.height, pixels: pixels)
+    }
+
     static func image(for state: JourneyState, catalog: CityCatalog) -> CGImage {
         var pixels = base
         let width = WorldMapData.width

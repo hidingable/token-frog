@@ -13,6 +13,11 @@ enum LetterComposer {
     static func text(for letter: Letter, l10n: L10n, petName: String, catalog: CityCatalog) -> LetterText {
         let city = catalog.city(letter.cityId)
         let signature = l10n("letter.signature", petName)
+        if letter.kind == .logbook {
+            let title = letter.logbook == nil ? l10n("letter.welcomeTitle") : l10n("letter.logbookTitle")
+            return LetterText(title: title, voice: logbookVoice(letter.logbook, l10n: l10n), signature: signature,
+                              itinerary: letter.logbook == nil ? [] : [l10n("letter.logbookSource")])
+        }
         if letter.kind == .departure {
             return LetterText(
                 title: l10n("letter.departureTitle", l10n.cityName(city)),
@@ -25,6 +30,22 @@ enum LetterComposer {
         let title = target.map { l10n("letter.transitTitle", letter.id, l10n.cityName($0)) }
             ?? l10n("letter.dailyTitle", letter.id, l10n.cityName(city))
         return LetterText(title: title, voice: voice(letter, city: city, target: target, l10n: l10n, catalog: catalog), signature: signature, itinerary: itinerary(letter, l10n: l10n))
+    }
+
+    static func logbookVoice(_ logbook: Logbook?, l10n: L10n) -> String {
+        guard let logbook else { return l10n("letter.welcomeBody") }
+        var parts = [l10n("letter.logbookOpening")]
+        if let hour = logbook.workdayStartHour { parts.append(l10n("letter.logbookWorkday", l10n.hour(hour))) }
+        if let quiet = logbook.isWeekendQuiet {
+            parts.append(quiet ? l10n("letter.logbookQuietWeekend") : l10n("letter.logbookBusyWeekend"))
+        }
+        if logbook.topClients.count >= 2 {
+            parts.append(l10n("letter.logbookTwoClients", Vehicle.toolName(logbook.topClients[0]), Vehicle.toolName(logbook.topClients[1])))
+        } else if let client = logbook.topClients.first {
+            parts.append(l10n("letter.logbookOneClient", Vehicle.toolName(client)))
+        }
+        parts.append(l10n("letter.logbookClosing"))
+        return parts.joined(separator: l10n.language == .zhHans ? "" : " ")
     }
 
     private static func voice(_ letter: Letter, city: City, target: City?, l10n: L10n, catalog: CityCatalog) -> String {

@@ -50,8 +50,9 @@ enum UsageSource {
         FileManager.default.temporaryDirectory.appendingPathComponent("token-voyage-\(UUID().uuidString).json")
     }
 
-    private static func run(_ arguments: [String], standardOutput: FileHandle = .nullDevice) async throws {
-        guard let binary = binaryURL(), FileManager.default.isExecutableFile(atPath: binary.path) else {
+    static func run(_ arguments: [String], standardOutput: FileHandle = .nullDevice, executable: URL? = nil) async throws {
+        try Task.checkCancellation()
+        guard let binary = executable ?? binaryURL(), FileManager.default.isExecutableFile(atPath: binary.path) else {
             throw UsageError.missingBinary
         }
         let process = Process()
@@ -60,19 +61,24 @@ enum UsageSource {
         process.standardOutput = standardOutput
         process.standardError = FileHandle.nullDevice
         process.qualityOfService = .utility
+        let box = ProcessBox(process)
 
-        let status: Int32 = try await withCheckedThrowingContinuation { continuation in
-            process.terminationHandler = { continuation.resume(returning: $0.terminationStatus) }
-            do {
-                try process.run()
-            } catch {
-                process.terminationHandler = nil
-                continuation.resume(throwing: error)
-                return
+        let status: Int32 = try await withTaskCancellationHandler {
+            try await withCheckedThrowingContinuation { continuation in
+                process.terminationHandler = { continuation.resume(returning: $0.terminationStatus) }
+                do {
+                    try box.start()
+                } catch {
+                    process.terminationHandler = nil
+                    continuation.resume(throwing: error)
+                    return
+                }
+                DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 120) { box.terminateIfRunning() }
             }
-            let box = ProcessBox(process)
-            DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 120) { box.terminateIfRunning() }
+        } onCancel: {
+            box.cancel()
         }
+        try Task.checkCancellation()
         if status == SIGTERM { throw UsageError.timedOut }
         guard status == 0 else { throw UsageError.failed(status) }
     }
@@ -80,8 +86,27 @@ enum UsageSource {
 
 private final class ProcessBox: @unchecked Sendable {
     private let process: Process
+    private let lock = NSLock()
+    private var cancelled = false
     init(_ process: Process) { self.process = process }
+
+    func start() throws {
+        lock.lock()
+        defer { lock.unlock() }
+        guard !cancelled else { throw CancellationError() }
+        try process.run()
+    }
+
+    func cancel() {
+        lock.lock()
+        defer { lock.unlock() }
+        cancelled = true
+        if process.isRunning { process.terminate() }
+    }
+
     func terminateIfRunning() {
+        lock.lock()
+        defer { lock.unlock() }
         if process.isRunning { process.terminate() }
     }
 }

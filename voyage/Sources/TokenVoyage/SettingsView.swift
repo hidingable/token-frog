@@ -32,6 +32,19 @@ struct SettingsTab: View {
                 Toggle(l10n("settings.floating"), isOn: $model.floatingEnabled)
             }
             .toggleStyle(PixelToggleStyle())
+            if model.canChangeStart, let state = model.state {
+                HStack(alignment: .top) {
+                    Text(l10n("settings.home"))
+                    Spacer()
+                    Picker(l10n("settings.home"), selection: Binding(get: { state.route[0] }, set: { model.setStart($0) })) {
+                        ForEach(model.startCities) { Text(l10n.cityName($0)).tag($0.id) }
+                    }
+                    .labelsHidden()
+                    .frame(maxWidth: 250)
+                }
+                Text(l10n("onboarding.homeHint")).foregroundStyle(Theme.dusk)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
         .font(Theme.pixel())
         .foregroundStyle(Theme.paper)

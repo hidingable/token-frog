@@ -25,6 +25,7 @@ final class AppModel {
     private(set) var recoveryIssues: [SaveRecoveryIssue] = []
     private(set) var recoveryError: AppError?
     private(set) var care: CareState?
+    private(set) var onboarding: OnboardingFlow?
     var tab: MainTab = .home
     var mailFilter: MailFilter = .all
     var collectionTab: CollectionTab = .passport
@@ -60,6 +61,12 @@ final class AppModel {
     private let dataDirectory: URL
     private let store: SaveStore
     private let isSnapshot: Bool
+    private let clock: () -> Date
+    private let onboardingSeed: UInt32
+    private let onboardingReader: OnboardingFlow.UsageReader
+    private let quotaReader: @Sendable () async throws -> [ProviderQuota]
+    /// Persistence tests can finish onboarding without installing OS observers or starting scans.
+    private let runtimeEnabled: Bool
     private var watcher: FileWatcher?
     private var timers: [Timer] = []
     private var wakeObserver: NSObjectProtocol?
@@ -85,8 +92,18 @@ final class AppModel {
     /// Quotas hit provider APIs, so they refresh on a fixed clock and never because tokens were used.
     private static let quotaInterval: TimeInterval = 600
 
-    init(isSnapshot: Bool = false, languageOverride: Language? = nil, defaults: UserDefaults = .standard, directory: URL? = nil, catalog: CityCatalog? = nil, contentDirectory: URL? = nil) {
+    init(isSnapshot: Bool = false, languageOverride: Language? = nil, defaults: UserDefaults = .standard, directory: URL? = nil, catalog: CityCatalog? = nil, contentDirectory: URL? = nil,
+         now: @escaping () -> Date = Date.init, onboardingSeed: UInt32 = UInt32.random(in: 0...UInt32.max),
+         onboardingReader: @escaping OnboardingFlow.UsageReader = OnboardingFlow.readLocalUsage,
+         quotaReader: @escaping @Sendable () async throws -> [ProviderQuota] = UsageSource.fetchQuotas,
+         runtimeEnabled: Bool = true) {
         self.isSnapshot = isSnapshot
+        clock = now
+        self.now = now()
+        self.onboardingSeed = onboardingSeed
+        self.onboardingReader = onboardingReader
+        self.quotaReader = quotaReader
+        self.runtimeEnabled = runtimeEnabled
         self.languageOverride = languageOverride
         self.defaults = defaults
         languagePreference = defaults.string(forKey: "language").flatMap(LanguagePreference.init(rawValue:)) ?? .system
@@ -113,7 +130,11 @@ final class AppModel {
         if case .loaded(let saved) = store.journey {
             state = saved
         } else if !store.isLocked {
-            state = Self.newJourney(in: store, catalog: loadedCatalog)
+            if case .missing = store.journey, case .missing = store.care {
+                onboarding = OnboardingFlow(catalog: loadedCatalog, seed: onboardingSeed, today: now(), readUsage: onboardingReader)
+            } else {
+                state = Self.newJourney(in: store, catalog: loadedCatalog, now: now())
+            }
         }
         refreshSaveStatus()
     }
@@ -153,7 +174,7 @@ final class AppModel {
         render()
     }
 
-    var canChangeStart: Bool { !isLocked && state.map { $0.startDate == $0.openDate } == true }
+    var canChangeStart: Bool { !isLocked && state.map { $0.startDate == DayKey.string(from: now) } == true }
     var startCities: [City] {
         (catalog?.active ?? []).sorted { l10n.cityName($0).compare(l10n.cityName($1), locale: l10n.locale) == .orderedAscending }
     }
@@ -183,8 +204,13 @@ final class AppModel {
     }
 
     func start() {
-        guard !isLocked, !hasStarted, !isSnapshot else { return }
-        persist()
+        guard !isLocked, !isSnapshot else { return }
+        if let onboarding {
+            onboarding.startReading()
+            return
+        }
+        guard !hasStarted, runtimeEnabled else { return }
+        if case .missing = store.journey { persist() }
         guard !isLocked else { return }
         hasStarted = true
         if watcher == nil {
@@ -220,13 +246,13 @@ final class AppModel {
 
     private func tick() {
         guard !isLocked else { return }
-        now = Date()
+        now = clock()
         if let lastMovement, now.timeIntervalSince(lastMovement) > 300 { isMoving = false }
     }
 
     /// Coalesces change events and keeps at least `minScanInterval` between scans.
     func scheduleScan(immediately: Bool = false) {
-        guard !isLocked, scheduledScan == nil else { return }
+        guard !isLocked, onboarding == nil, scheduledScan == nil else { return }
         let elapsed = lastScan.map { Date().timeIntervalSince($0) } ?? .infinity
         let wait = immediately ? 0 : max(0, Self.minScanInterval - elapsed)
         scheduledScan = Task { [weak self] in
@@ -238,7 +264,7 @@ final class AppModel {
     }
 
     func scan() async {
-        guard !isLocked, !isScanning, let state, let catalog else { return }
+        guard !isLocked, onboarding == nil, !isScanning, let state, let catalog else { return }
         let generation = backgroundGeneration
         isScanning = true
         defer { isScanning = false }
@@ -291,7 +317,7 @@ final class AppModel {
 
     /// Reads the whole history only while the dashboard is showing, sharing the scan's serial slot.
     func loadDashboard() async {
-        guard !isLocked else { return }
+        guard !isLocked, onboarding == nil else { return }
         let generation = backgroundGeneration
         let now = Date()
         let isStale = dashboardLoadedAt.map { now.timeIntervalSince($0) >= Self.dashboardMaxAge } ?? true
@@ -330,20 +356,20 @@ final class AppModel {
     }
 
     private func refreshQuotasInBackground() {
-        guard !isLocked, !isSnapshot else { return }
+        guard !isLocked, onboarding == nil, !isSnapshot else { return }
         Task { await loadQuotas() }
     }
 
     /// Keeps the last good reading when a refresh fails, and says so.
     func loadQuotas(force: Bool = false) async {
-        guard !isLocked, !isSnapshot else { return }
+        guard !isLocked, onboarding == nil, !isSnapshot else { return }
         let generation = backgroundGeneration
         if !force, let loaded = quotasLoadedAt, Date().timeIntervalSince(loaded) < Self.quotaInterval - 30 { return }
         guard !isLoadingQuotas else { return }
         isLoadingQuotas = true
         defer { isLoadingQuotas = false }
         do {
-            let fetched = try await UsageSource.fetchQuotas()
+            let fetched = try await quotaReader()
             guard !isLocked, generation == backgroundGeneration else { return }
             quotas = fetched
             quotasLoadedAt = Date()
@@ -361,9 +387,8 @@ final class AppModel {
 
     /// Only available on the first day, when nothing has been settled and today can simply be replayed.
     func setStart(_ cityId: String) {
-        guard canChangeStart, let state, let catalog, catalog.find(cityId)?.status == "active", cityId != state.route[0] else { return }
-        var replacement = JourneyState(seed: state.seed, startCityId: cityId, pet: state.pet, date: state.openDate, catalog: catalog)
-        replacement.sync(today: DayUsage(date: state.openDate, fuel: todayFuel, byClient: today.byClient), catalog: catalog)
+        guard canChangeStart, var replacement = state, let catalog, catalog.find(cityId)?.status == "active", cityId != replacement.route[0] else { return }
+        replacement.setStart(cityId, catalog: catalog)
         self.state = replacement
         enrichAttempts = [:]
         persist()
@@ -376,7 +401,7 @@ final class AppModel {
 
     /// Only the newest letter goes to the network; a long catch-up does not send a burst of requests.
     func enrichLatest() async {
-        guard !isLocked, !isSnapshot, !isEnriching, let state, let catalog,
+        guard !isLocked, onboarding == nil, !isSnapshot, !isEnriching, let state, let catalog,
               let letter = state.letters.max(by: { $0.id < $1.id }), !letter.enrichmentDone else { return }
         let generation = backgroundGeneration
         let attempts = enrichAttempts[letter.id, default: 0]
@@ -415,7 +440,7 @@ final class AppModel {
     }
 
     private func persist() {
-        guard !isLocked, !isSnapshot, let state else { return }
+        guard !isLocked, onboarding == nil, !isSnapshot, let state else { return }
         do {
             try store.save(state)
             if case .missing = store.care {
@@ -432,7 +457,30 @@ final class AppModel {
     func retrySaves() {
         guard !contentFailed else { return }
         store.load()
+        if onboarding?.step == .depart {
+            refreshSaveStatus()
+            completeOnboarding()
+            return
+        }
         resumeAfterRecovery()
+    }
+
+    func completeOnboarding() {
+        guard !isLocked, !isSnapshot, let saves = onboarding?.saves(now: clock()) else { return }
+        do {
+            try store.save(saves.journey)
+            try store.save(saves.care)
+            state = saves.journey
+            care = saves.care
+            onboarding = nil
+            lastError = nil
+            openPostOffice()
+            start()
+            onDisplayChange?()
+        } catch {
+            lastError = AppError.save(error)
+            refreshSaveStatus()
+        }
     }
 
     func restoreSave(_ backup: SaveBackup) {
@@ -463,8 +511,17 @@ final class AppModel {
         guard !isLocked, let catalog else { return }
         if case .loaded(let saved) = store.journey {
             state = saved
+            onboarding = nil
         } else {
-            state = Self.newJourney(in: store, catalog: catalog)
+            if case .missing = store.journey, case .missing = store.care {
+                state = nil
+                if onboarding == nil {
+                    onboarding = OnboardingFlow(catalog: catalog, seed: onboardingSeed, today: clock(), readUsage: onboardingReader)
+                }
+            } else {
+                onboarding = nil
+                state = Self.newJourney(in: store, catalog: catalog, now: clock())
+            }
         }
         enrichAttempts = [:]
         lastError = nil
@@ -472,7 +529,7 @@ final class AppModel {
         onLockChange?()
     }
 
-    private static func newJourney(in store: SaveStore, catalog: CityCatalog) -> JourneyState {
+    private static func newJourney(in store: SaveStore, catalog: CityCatalog, now: Date) -> JourneyState {
         let pet: PetKind
         if case .loaded(let care) = store.care {
             pet = care.species
@@ -481,7 +538,7 @@ final class AppModel {
         }
         return JourneyState(
             seed: UInt32.random(in: 0...UInt32.max), startCityId: "shanghai", pet: pet,
-            date: DayKey.string(from: Date()), catalog: catalog
+            date: DayKey.string(from: now), now: now, catalog: catalog
         )
     }
 

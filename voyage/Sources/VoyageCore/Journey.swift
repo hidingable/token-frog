@@ -24,7 +24,7 @@ public struct VehicleShare: Codable, Equatable, Sendable {
 }
 
 public struct Letter: Codable, Equatable, Sendable, Identifiable {
-    public enum Kind: String, Codable, Sendable { case departure, daily }
+    public enum Kind: String, Codable, Sendable { case departure, daily, logbook }
 
     public var id: Int
     public var kind: Kind
@@ -41,6 +41,7 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var isDeepVisit: Bool
     public var deliverAt: Date
     public var read = false
+    public var logbook: Logbook?
 
     public var enrichmentDone = false
     public var weather: String?
@@ -69,7 +70,7 @@ public struct Stamp: Codable, Equatable, Sendable {
 }
 
 public struct JourneyState: Codable, Equatable, Sendable {
-    public static let currentVersion = 3
+    public static let currentVersion = 4
     public var version = currentVersion
     public var seed: UInt32
     public var pet: PetKind
@@ -88,7 +89,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public var letters: [Letter] = []
     public var totalFuel = 0
 
-    public init(seed: UInt32, startCityId: String, pet: PetKind = .pigeon, date: String, now: Date = Date(), catalog: CityCatalog) {
+    public init(seed: UInt32, startCityId: String, pet: PetKind = .pigeon, date: String, now: Date = Date(), logbook: Logbook? = nil, catalog: CityCatalog) {
         let start = catalog.city(startCityId)
         self.seed = seed
         self.pet = pet
@@ -108,8 +109,9 @@ public struct JourneyState: Codable, Equatable, Sendable {
         setTarget(first, from: start.coordinate, catalog: catalog)
         letters = [
             Letter(
-                id: 0, kind: .departure, date: date, pet: pet, cityId: start.id, transitTargetId: nil, arrivals: [],
-                newCountries: [], fuel: 0, compareToMedianPercent: nil, vehicles: [], isDeepVisit: false, deliverAt: now
+                id: 0, kind: .logbook, date: date, pet: pet, cityId: start.id, transitTargetId: nil, arrivals: [],
+                newCountries: [], fuel: 0, compareToMedianPercent: nil, vehicles: [], isDeepVisit: false, deliverAt: now,
+                read: true, logbook: logbook, enrichmentDone: true
             ),
         ]
     }
@@ -138,6 +140,20 @@ public struct JourneyState: Codable, Equatable, Sendable {
     }
 
     public func fuel(on date: String) -> Int { days[date]?.fuel ?? 0 }
+
+    /// Replays the first day's credited usage from a new home while keeping its original letter.
+    public mutating func setStart(_ cityId: String, calendar: Calendar = .current, catalog: CityCatalog) {
+        guard startDate == openDate, catalog.find(cityId)?.status == "active", cityId != route.first else { return }
+        let firstLetter = letters.first { $0.id == 0 }
+        let record = days[openDate] ?? DayRecord()
+        var replacement = JourneyState(seed: seed, startCityId: cityId, pet: pet, date: startDate, catalog: catalog)
+        replacement.sync(today: DayUsage(date: openDate, fuel: record.fuel, byClient: record.byClient), calendar: calendar, catalog: catalog)
+        if var firstLetter {
+            firstLetter.cityId = cityId
+            replacement.letters = [firstLetter]
+        }
+        self = replacement
+    }
 
     /// Advances the journey. `finalized` must hold the final count of every day from `openDate` up to,
     /// but excluding, `today.date`; the caller skips this call when those counts could not be read.
@@ -301,7 +317,7 @@ extension JourneyState {
 extension Letter {
     private enum CodingKeys: String, CodingKey {
         case id, kind, date, pet, cityId, transitTargetId, arrivals, newCountries, fuel
-        case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, enrichmentDone
+        case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
         case weather, placeTitle, placeSummary, placeURL, photoFile
     }
 
@@ -321,6 +337,7 @@ extension Letter {
         isDeepVisit = try values.decode(Bool.self, forKey: .isDeepVisit)
         deliverAt = try values.decode(Date.self, forKey: .deliverAt)
         read = try values.decode(Bool.self, forKey: .read, default: false)
+        logbook = try values.decodeIfPresent(Logbook.self, forKey: .logbook)
         enrichmentDone = try values.decode(Bool.self, forKey: .enrichmentDone, default: false)
         weather = try values.decodeIfPresent(String.self, forKey: .weather)
         placeTitle = try values.decodeIfPresent(String.self, forKey: .placeTitle)

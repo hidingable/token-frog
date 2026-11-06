@@ -40,6 +40,29 @@ enum Sprites {
 
     @MainActor private static var cache: [String: CGImage] = [:]
 
+    /// eggA and the three exact recolorings from the first-launch mockup.
+    static let eggRows = [
+        "................", "................", "......kkkk......", ".....kwwwwk.....",
+        "....kwwwwwwk....", "....kwwlwwwk....", "...kwwllwwwwk...", "...kwwwwwwlwk...",
+        "...kwwwwwwwwk...", "...kwlwwwwwwk...", "...kwwwwwllwk...", "....kwwwwwwk....",
+        "....kwwwwwwk....", ".....kkkkkk.....", "................", "................",
+    ]
+
+    static func egg(_ pet: PetKind, cracked: Bool = false) -> CGImage {
+        let recolor: [Character: Character]
+        switch pet {
+        case .pigeon: recolor = [:]
+        case .snail: recolor = ["w": "y", "l": "o"]
+        case .suitcase: recolor = ["w": "n", "l": "d"]
+        case .letter: recolor = ["w": "w", "l": "r"]
+        }
+        var pixels: [UInt32?] = eggRows.flatMap { row in row.map { colors[recolor[$0] ?? $0] } }
+        if cracked {
+            for (x, y) in [(7, 4), (8, 5), (7, 6), (8, 7), (7, 8), (8, 9)] { pixels[y * 16 + x] = Palette.ink }
+        }
+        return PixelImage.make(width: 16, height: 16, pixels: pixels)
+    }
+
     /// Frames are 16x17: one spare row lets the body bob without clipping.
     @MainActor static func image(_ pet: PetKind, _ frame: Frame) -> CGImage {
         let key = "\(pet.rawValue)-\(frame)"
@@ -60,6 +83,31 @@ enum Sprites {
         let image = PixelImage.make(width: 16, height: 17, pixels: pixels)
         cache[key] = image
         return image
+    }
+}
+
+final class PixelArtNSView: NSView {
+    var image: CGImage? {
+        didSet { needsDisplay = true }
+    }
+
+    override func draw(_ dirtyRect: NSRect) {
+        guard let image, let context = NSGraphicsContext.current?.cgContext else { return }
+        context.interpolationQuality = .none
+        context.draw(image, in: bounds)
+    }
+}
+
+struct PixelArtView: NSViewRepresentable {
+    var image: CGImage
+    var scale: Int
+
+    func makeNSView(context: Context) -> PixelArtNSView { PixelArtNSView() }
+
+    func updateNSView(_ view: PixelArtNSView, context: Context) { view.image = image }
+
+    func sizeThatFits(_ proposal: ProposedViewSize, nsView: PixelArtNSView, context: Context) -> CGSize? {
+        CGSize(width: image.width * scale, height: image.height * scale)
     }
 }
 
