@@ -99,6 +99,8 @@ import VoyageCore
         finalized: [DayUsage(date: "2026-11-01", fuel: 8_880_000, byClient: ["codex": 8_880_000])],
         calendar: calendar, catalog: localizationCatalog
     )
+    var care = CareState(petName: "Ginkgo", species: .pigeon, hatchedAt: state.startDate)
+    CareEngine.process(journey: &state, care: &care, stories: localizationCatalog.stories, catalog: localizationCatalog)
     let letter = try #require(state.letters.last)
     let text = LetterComposer.text(for: letter, l10n: L10n(language: .zhHans), petName: "Ginkgo", catalog: localizationCatalog)
     #expect(text.itinerary.first == "888 万 token = 888 km")

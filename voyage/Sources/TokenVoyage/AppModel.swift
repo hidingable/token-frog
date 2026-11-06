@@ -31,6 +31,7 @@ final class AppModel {
     var collectionTab: CollectionTab = .passport
     var dataTab: DataTab = .dashboard
     var selectedLetterID: Int?
+    private(set) var deferredReplyLetterID: Int?
     var showingSettings = false
     @ObservationIgnored var onLockChange: (() -> Void)?
     @ObservationIgnored var onLanguageChange: (() -> Void)?
@@ -65,6 +66,8 @@ final class AppModel {
     private let onboardingSeed: UInt32
     private let onboardingReader: OnboardingFlow.UsageReader
     private let quotaReader: @Sendable () async throws -> [ProviderQuota]
+    private let usageReader: @Sendable (String?, String) async throws -> [DayDetail]
+    private let enrichmentReader: Enricher.Fetch
     /// Persistence tests can finish onboarding without installing OS observers or starting scans.
     private let runtimeEnabled: Bool
     private var watcher: FileWatcher?
@@ -76,7 +79,13 @@ final class AppModel {
     private var scheduledScan: Task<Void, Never>?
     private var lastMovement: Date?
     private var enrichAttempts: [Int: Int] = [:]
-    private var isEnriching = false
+    private struct PlaceKey: Hashable {
+        let letterId: Int
+        let language: Language
+    }
+    private var placeAttempts: [PlaceKey: Int] = [:]
+    private var enrichingPlaces: Set<PlaceKey> = []
+    private var enrichingLetters: Set<Int> = []
     private var historyDate: String?
     private var dashboardLoadedAt: Date?
     private var monthHoursLoadedAt: Date?
@@ -96,6 +105,8 @@ final class AppModel {
          now: @escaping () -> Date = Date.init, onboardingSeed: UInt32 = UInt32.random(in: 0...UInt32.max),
          onboardingReader: @escaping OnboardingFlow.UsageReader = OnboardingFlow.readLocalUsage,
          quotaReader: @escaping @Sendable () async throws -> [ProviderQuota] = UsageSource.fetchQuotas,
+         usageReader: @escaping @Sendable (String?, String) async throws -> [DayDetail] = UsageSource.fetch,
+         enrichmentReader: @escaping Enricher.Fetch = { await Enricher.fetch($0) },
          runtimeEnabled: Bool = true) {
         self.isSnapshot = isSnapshot
         clock = now
@@ -103,6 +114,8 @@ final class AppModel {
         self.onboardingSeed = onboardingSeed
         self.onboardingReader = onboardingReader
         self.quotaReader = quotaReader
+        self.usageReader = usageReader
+        self.enrichmentReader = enrichmentReader
         self.runtimeEnabled = runtimeEnabled
         self.languageOverride = languageOverride
         self.defaults = defaults
@@ -137,6 +150,7 @@ final class AppModel {
             }
         }
         refreshSaveStatus()
+        processLetters()
     }
 
     var today: DayRecord { state.flatMap { $0.days[$0.openDate] } ?? DayRecord() }
@@ -268,7 +282,7 @@ final class AppModel {
         let generation = backgroundGeneration
         isScanning = true
         defer { isScanning = false }
-        let date = Date()
+        let date = clock()
         let todayKey = DayKey.string(from: date)
         var since = min(state.openDate, todayKey)
         let needsHistory = historyDate != todayKey
@@ -276,7 +290,7 @@ final class AppModel {
             since = min(since, DayKey.string(from: start))
         }
         do {
-            let details = try await UsageSource.fetch(since: since, until: todayKey)
+            let details = try await usageReader(since, todayKey)
             guard !isLocked, generation == backgroundGeneration, var state = self.state else { return }
             let days = details.map(\.usage)
             let todayDetail = details.first { $0.date == todayKey }
@@ -295,6 +309,7 @@ final class AppModel {
             let before = state.totalFuel
             state.sync(today: today, finalized: finalized, catalog: catalog)
             self.state = state
+            processLetters(persistChanges: false)
             if state.totalFuel > before {
                 isMoving = true
                 lastMovement = date
@@ -380,9 +395,56 @@ final class AppModel {
     }
 
     func markRead(_ letter: Letter) {
-        guard !isLocked, !letter.read else { return }
+        guard !isLocked, onboarding == nil,
+              let saved = state?.letters.first(where: { $0.id == letter.id }), !saved.read else { return }
         state?.markRead(letter.id)
+        if var care {
+            CareEngine.markCompanion(date: DayKey.string(from: clock()), care: &care)
+            self.care = care
+        }
         persist()
+    }
+
+    func openLetter(_ letter: Letter) {
+        deferredReplyLetterID = nil
+        markRead(letter)
+    }
+
+    func deferReply(to letterId: Int) { deferredReplyLetterID = letterId }
+
+    @discardableResult
+    func reply(to letterId: Int, option replyId: String) -> Bool {
+        guard !isLocked, onboarding == nil, var state, var care,
+              state.letters.contains(where: { $0.id == letterId && $0.deliverAt <= clock() }),
+              CareEngine.reply(letterId: letterId, replyId: replyId, date: DayKey.string(from: clock()), journey: &state, care: &care)
+        else { return false }
+        self.state = state
+        self.care = care
+        persist()
+        return true
+    }
+
+    func followUp(for letter: Letter) -> Letter? {
+        guard let replyId = letter.selectedReplyId else { return nil }
+        return letters.filter { $0.id > letter.id && $0.fulfilledReplyId == replyId }.min { $0.id < $1.id }
+    }
+
+    func openFollowUp(_ letter: Letter) {
+        mailFilter = .all
+        selectedLetterID = letter.id
+        navigate(to: .mail)
+    }
+
+    /// Saved story snapshots are authoritative; replay repairs the care half of an interrupted write.
+    private func processLetters(persistChanges: Bool = true) {
+        guard !isLocked, onboarding == nil, var state, var care, let catalog else { return }
+        let previousState = state
+        let previousCare = care
+        CareEngine.process(journey: &state, care: &care, stories: catalog.stories, catalog: catalog, wishTags: [])
+        guard state != previousState || care != previousCare else { return }
+        self.state = state
+        self.care = care
+        if persistChanges { persist() }
     }
 
     /// Only available on the first day, when nothing has been settled and today can simply be replayed.
@@ -399,28 +461,66 @@ final class AppModel {
         letter.photoFile.map { dataDirectory.appendingPathComponent("photos").appendingPathComponent($0) }
     }
 
-    /// Only the newest letter goes to the network; a long catch-up does not send a burst of requests.
+    /// Scans proactively enrich only the newest letter, including its current-language place.
     func enrichLatest() async {
-        guard !isLocked, onboarding == nil, !isSnapshot, !isEnriching, let state, let catalog,
-              let letter = state.letters.max(by: { $0.id < $1.id }), !letter.enrichmentDone else { return }
-        let generation = backgroundGeneration
-        let attempts = enrichAttempts[letter.id, default: 0]
-        guard attempts < 3, let city = catalog.find(letter.subjectCityId) else { return }
-        isEnriching = true
-        defer { isEnriching = false }
-        enrichAttempts[letter.id] = attempts + 1
+        guard let letter = state?.letters.max(by: { $0.id < $1.id }) else { return }
+        await enrich(letterId: letter.id, weatherAndPhoto: true)
+    }
 
+    /// Opening older mail fetches only the missing introduction in the selected language.
+    func enrichPlace(letterId: Int) async {
+        guard letters.contains(where: { $0.id == letterId }) else { return }
+        await enrich(letterId: letterId, weatherAndPhoto: false)
+    }
+
+    private func enrich(letterId: Int, weatherAndPhoto: Bool) async {
+        guard !isLocked, onboarding == nil, !isSnapshot, let state, let catalog,
+              let letter = state.letters.first(where: { $0.id == letterId }),
+              let city = catalog.find(letter.subjectCityId), !city.isPlaceholder else { return }
+        let generation = backgroundGeneration
+        let language = l10n.language
+        let key = PlaceKey(letterId: letter.id, language: language)
+        let attempts = enrichAttempts[letter.id, default: 0]
+        let includeWeatherAndPhoto = weatherAndPhoto && !letter.enrichmentDone && attempts < 3
+            && !enrichingLetters.contains(letter.id)
+        let includePlace = letter.place[language.rawValue] == nil && city.wikipedia[language.rawValue]?.isEmpty == false
+            && placeAttempts[key, default: 0] < 3 && !enrichingPlaces.contains(key)
+        let includePhoto = includeWeatherAndPhoto && placeAttempts[key, default: 0] < 3
+            && !enrichingPlaces.contains(key)
+        guard includeWeatherAndPhoto || includePlace else { return }
+        // The summary request is shared with photo enrichment. Do not duplicate it while a place read is in flight.
+        guard !includeWeatherAndPhoto || !enrichingPlaces.contains(key) else { return }
+        if includeWeatherAndPhoto {
+            enrichAttempts[letter.id] = attempts + 1
+            enrichingLetters.insert(letter.id)
+        }
+        if includePlace || includePhoto {
+            placeAttempts[key, default: 0] += 1
+            enrichingPlaces.insert(key)
+        }
+        defer {
+            if includeWeatherAndPhoto { enrichingLetters.remove(letter.id) }
+            if includePlace || includePhoto { enrichingPlaces.remove(key) }
+        }
         let coordinate = letter.transitTargetId == nil ? catalog.city(letter.cityId).coordinate : state.position
-        let result = await Enricher.fetch(city: city, coordinate: coordinate)
-        guard !isLocked, generation == backgroundGeneration, var updatedState = self.state else { return }
-        let photoFile = result.photoData.flatMap { savePhoto($0, letterId: letter.id) }
-        guard let index = updatedState.letters.firstIndex(where: { $0.id == letter.id }) else { return }
-        updatedState.letters[index].weatherCode = result.weatherCode ?? updatedState.letters[index].weatherCode
-        updatedState.letters[index].temperatureC = result.temperatureC ?? updatedState.letters[index].temperatureC
-        updatedState.letters[index].place.merge(result.place) { _, new in new }
-        updatedState.letters[index].photoFile = photoFile ?? updatedState.letters[index].photoFile
-        let updated = updatedState.letters[index]
-        updatedState.letters[index].enrichmentDone = (updated.weatherCode != nil && !updated.place.isEmpty) || attempts >= 2
+        let result = await enrichmentReader(Enricher.Query(
+            city: city, coordinate: coordinate, language: language,
+            includeWeather: includeWeatherAndPhoto, includePhoto: includePhoto, includePlace: includePlace
+        ))
+        guard !isLocked, generation == backgroundGeneration, var updatedState = self.state,
+              let index = updatedState.letters.firstIndex(where: { $0.id == letter.id && $0.subjectCityId == letter.subjectCityId }) else { return }
+        if includeWeatherAndPhoto {
+            let photoFile = result.photoData.flatMap { savePhoto($0, letterId: letter.id) }
+            updatedState.letters[index].weatherCode = result.weatherCode ?? updatedState.letters[index].weatherCode
+            updatedState.letters[index].temperatureC = result.temperatureC ?? updatedState.letters[index].temperatureC
+            updatedState.letters[index].photoFile = photoFile ?? updatedState.letters[index].photoFile
+            let updated = updatedState.letters[index]
+            updatedState.letters[index].enrichmentDone = (updated.weatherCode != nil && updated.photoFile != nil) || attempts >= 2
+        }
+        if includePlace, let place = result.place[language.rawValue] {
+            updatedState.letters[index].place[language.rawValue] = place
+        }
+        guard updatedState != self.state else { return }
         self.state = updatedState
         persist()
     }
@@ -442,10 +542,9 @@ final class AppModel {
         guard !isLocked, onboarding == nil, !isSnapshot, let state else { return }
         do {
             try store.save(state)
-            if case .missing = store.care {
-                let care = CareState.legacy(from: state)
+            if let care {
+                if case .loaded(let saved) = store.care, saved == care { return }
                 try store.save(care)
-                self.care = care
             }
         } catch {
             lastError = AppError.save(error)
@@ -524,6 +623,7 @@ final class AppModel {
         }
         enrichAttempts = [:]
         lastError = nil
+        processLetters()
         start()
         onLockChange?()
     }

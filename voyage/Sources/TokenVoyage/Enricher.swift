@@ -13,24 +13,40 @@ struct Enrichment: Sendable {
 enum Enricher {
     private static let userAgent = "TokenVoyage/0.1 (personal desktop app)"
 
-    static func fetch(city: City, coordinate: Coordinate) async -> Enrichment {
-        guard !city.isPlaceholder else { return Enrichment() }
-        async let weather = fetchWeather(coordinate)
-        async let place = fetchPlace(city)
-        let (conditions, placeResult) = await (weather, place)
+    /// This input deliberately has no usage, project, or journey data.
+    struct Query: Sendable {
+        var city: City
+        var coordinate: Coordinate
+        var language: Language
+        var includeWeather: Bool
+        var includePhoto: Bool
+        var includePlace: Bool
+    }
+
+    typealias Fetch = @Sendable (Query) async -> Enrichment
+    typealias Request = @Sendable (URL, String?) async throws -> Data
+
+    static func fetch(_ query: Query, request: Request = networkRequest) async -> Enrichment {
+        guard !query.city.isPlaceholder else { return Enrichment() }
+        async let weather = query.includeWeather ? fetchWeather(query.coordinate, request: request) : nil
+        async let page = query.includePlace || query.includePhoto
+            ? fetchPlace(query.city, language: query.language, request: request) : nil
+        let (conditions, summary) = await (weather, page)
         var result = Enrichment(weatherCode: conditions?.code, temperatureC: conditions?.temperature)
-        if let (language, summary) = placeResult {
-            if let extract = summary.extract {
-                result.place[language] = Letter.Place(title: summary.title, summary: String(extract.prefix(180)), url: summary.content_urls?.desktop?.page)
+        if let summary {
+            if query.includePlace, let extract = summary.extract, !extract.isEmpty {
+                result.place[query.language.rawValue] = Letter.Place(
+                    title: summary.title, summary: String(extract.prefix(180)), url: summary.content_urls?.desktop?.page
+                )
             }
-            if let source = summary.thumbnail?.source, let url = URL(string: source) {
-                result.photoData = try? await request(url)
+            if query.includePhoto, let source = summary.thumbnail?.source, let url = URL(string: source) {
+                result.photoData = try? await request(url, nil)
             }
         }
         return result
     }
 
-    private static func request(_ url: URL, language: String? = nil) async throws -> Data {
+    private static func networkRequest(_ url: URL, language: String? = nil) async throws -> Data {
         var request = URLRequest(url: url, timeoutInterval: 20)
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
         if let language { request.setValue(language, forHTTPHeaderField: "Accept-Language") }
@@ -47,7 +63,7 @@ enum Enricher {
         let current: Current
     }
 
-    private static func fetchWeather(_ coordinate: Coordinate) async -> (code: Int, temperature: Int)? {
+    private static func fetchWeather(_ coordinate: Coordinate, request: Request) async -> (code: Int, temperature: Int)? {
         var components = URLComponents(string: "https://api.open-meteo.com/v1/forecast")
         components?.queryItems = [
             URLQueryItem(name: "latitude", value: String(format: "%.2f", coordinate.lat)),
@@ -55,23 +71,30 @@ enum Enricher {
             URLQueryItem(name: "current", value: "temperature_2m,weather_code"),
         ]
         guard let url = components?.url,
-              let data = try? await request(url),
+              let data = try? await request(url, nil),
               let decoded = try? JSONDecoder().decode(WeatherResponse.self, from: data) else { return nil }
         return (decoded.current.weather_code, Int(decoded.current.temperature_2m.rounded()))
     }
 
-    static func weatherName(_ code: Int) -> String {
+    static let weatherKeys = [
+        "weather.clear", "weather.partlyCloudy", "weather.overcast", "weather.fog", "weather.drizzle",
+        "weather.rain", "weather.snow", "weather.thunderstorm", "weather.unknown",
+    ]
+
+    static func weatherName(_ code: Int, l10n: L10n) -> String {
+        let index: Int
         switch code {
-        case 0: "晴"
-        case 1, 2: "少云"
-        case 3: "阴"
-        case 45, 48: "雾"
-        case 51...57: "毛毛雨"
-        case 61...67, 80...82: "雨"
-        case 71...77, 85, 86: "雪"
-        case 95...99: "雷雨"
-        default: "天气未知"
+        case 0: index = 0
+        case 1, 2: index = 1
+        case 3: index = 2
+        case 45, 48: index = 3
+        case 51...57: index = 4
+        case 61...67, 80...82: index = 5
+        case 71...77, 85, 86: index = 6
+        case 95...99: index = 7
+        default: index = 8
         }
+        return l10n(weatherKeys[index])
     }
 
     private struct PageSummary: Decodable {
@@ -86,16 +109,13 @@ enum Enricher {
         let content_urls: ContentURLs?
     }
 
-    private static func fetchPlace(_ city: City) async -> (String, PageSummary)? {
-        for (host, title, language) in [("zh", city.wikipedia["zh-Hans"], "zh-cn"), ("en", city.wikipedia["en"], "en")] {
-            guard let title, !title.isEmpty,
-                  let encoded = title.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed.subtracting(CharacterSet(charactersIn: "/"))),
-                  let url = URL(string: "https://\(host).wikipedia.org/api/rest_v1/page/summary/\(encoded)"),
-                  let data = try? await request(url, language: language),
-                  let summary = try? JSONDecoder().decode(PageSummary.self, from: data) else { continue }
-            return (host == "zh" ? "zh-Hans" : "en", summary)
-        }
-        return nil
+    private static func fetchPlace(_ city: City, language: Language, request: Request) async -> PageSummary? {
+        let host = language == .zhHans ? "zh" : "en"
+        guard let title = city.wikipedia[language.rawValue], !title.isEmpty,
+              let encoded = title.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed.subtracting(CharacterSet(charactersIn: "/"))),
+              let url = URL(string: "https://\(host).wikipedia.org/api/rest_v1/page/summary/\(encoded)"),
+              let data = try? await request(url, language == .zhHans ? "zh-cn" : "en") else { return nil }
+        return try? JSONDecoder().decode(PageSummary.self, from: data)
     }
 
     private static let photoPalette: [UInt32] = [

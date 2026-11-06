@@ -45,6 +45,25 @@ enum Snapshots {
         model.mailFilter = .all
         model.selectedLetterID = nil
         main(.mail, name: "main-mail")
+        if let catalog = model.catalog {
+            let examples = mailExamples(catalog: catalog, now: model.now, petName: model.petName)
+            model.selectedLetterID = 2
+            main(.mail, name: "mail-story", update: { $0 = examples })
+            model.selectedLetterID = 1
+            main(.mail, name: "mail-replied", update: { $0 = examples })
+            model.selectedLetterID = 3
+            main(.mail, name: "mail-legacy", update: { state in
+                state = examples
+                let index = state.letters.firstIndex { $0.id == 3 }!
+                state.letters[index].texts = nil
+                state.letters[index].leadTexts = [:]
+                state.letters[index].storyId = nil
+                state.letters[index].storyVersion = nil
+                state.letters[index].replyOptions = []
+                state.letters[index].facts = []
+            })
+            model.selectedLetterID = nil
+        }
         model.collectionTab = .passport
         main(.collection, name: "collection-passport", size: CGSize(width: 760, height: 400))
         model.collectionTab = .bag
@@ -84,6 +103,30 @@ enum Snapshots {
             issues: [SaveRecoveryIssue(file: .journey, problem: .tooNew(version: 2))],
             onRestore: { _ in }, onImport: { _ in }, onRestart: { _ in }, onRetry: {}, onQuit: {}
         ), size: CGSize(width: 760, height: 420), name: "save-recovery-too-new", directory, model: model)
+    }
+
+    /// The mail variants compose real content and a payoff entirely in memory.
+    static func mailExamples(catalog: CityCatalog, now: Date, petName: String) -> JourneyState {
+        let start = Calendar.current.date(byAdding: .day, value: -3, to: now)!
+        var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: start), now: start, catalog: catalog)
+        var care = CareState(petName: petName, species: .pigeon, hatchedAt: journey.startDate)
+        for offset in 1...3 {
+            let next = Calendar.current.date(byAdding: .day, value: offset, to: start)!
+            let day = journey.openDate
+            journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
+                DayUsage(date: day, fuel: 13_400_000, byClient: ["codex": 8_300_000, "claude": 5_100_000]),
+            ], catalog: catalog)
+            CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog, wishTags: [])
+            if offset == 1 {
+                let first = journey.letters.first { $0.id == 1 }!
+                CareEngine.reply(letterId: first.id, replyId: first.replyOptions[0].id, date: first.date, journey: &journey, care: &care)
+            }
+        }
+        for index in journey.letters.indices {
+            journey.letters[index].deliverAt = min(journey.letters[index].deliverAt, now)
+            journey.letters[index].enrichmentDone = true
+        }
+        return journey
     }
 
     private static func render<Content: View>(_ view: Content, size: CGSize, name: String, _ directory: URL, model: AppModel) {

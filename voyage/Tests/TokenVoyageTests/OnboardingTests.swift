@@ -67,7 +67,7 @@ private struct OnboardingFixture {
         AppModel(isSnapshot: isSnapshot, defaults: defaults, directory: directory, catalog: localizationCatalog,
                  now: { now }, onboardingSeed: 42,
                  onboardingReader: { since, until in try await reader.read(since: since, until: until) },
-                 quotaReader: { await quota.read() }, runtimeEnabled: false)
+                 quotaReader: { await quota.read() }, enrichmentReader: { _ in Enrichment() }, runtimeEnabled: false)
     }
 
     func prepare(journey: Bool, care: Bool) throws {

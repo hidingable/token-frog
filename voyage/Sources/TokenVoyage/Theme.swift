@@ -11,6 +11,7 @@ enum Palette {
     static let land: UInt32 = 0x3F7F5F
     static let mint: UInt32 = 0x7FD1C7
     static let dusk: UInt32 = 0x8E86B8
+    static let rose: UInt32 = 0xEFA0A8
 }
 
 enum Theme {
@@ -25,6 +26,9 @@ enum Theme {
     static let brown = Color(hex: 0x5E3B2A)
     static let blockOff = Color(hex: 0x3A3560)
     static let coral = Color(hex: 0xE8873A)
+    static let rose = Color(hex: Palette.rose)
+    /// Companion and habit text on the light letter paper.
+    static let paperRose = Color(hex: 0xA8434F)
     /// Chart-only colors, checked against the ink surface. Tools keep their color across every filter.
     static let series = [Color(hex: 0x3987E5), Color(hex: 0xD95926), Color(hex: 0x199E70), Color(hex: 0xC98500)]
     static let seriesOther = Color(hex: 0x6B678F)

@@ -224,11 +224,14 @@ struct MailTab: View {
 
                 ScrollView {
                     if let selected {
-                        LetterView(letter: selected, photoURL: model.photoURL(selected), petName: model.petName, catalog: catalog)
+                        LetterView(letter: selected, photoURL: model.photoURL(selected), petName: model.petName, catalog: catalog, model: model)
                             .padding(.horizontal, 12)
                             .padding(.bottom, 12)
-                            .onAppear { model.markRead(selected) }
-                            .onChange(of: selected.id) { model.markRead(selected) }
+                            .onAppear { model.openLetter(selected) }
+                            .onChange(of: selected.id) { model.openLetter(selected) }
+                            .task(id: "\(selected.id)-\(l10n.language.rawValue)") {
+                                await model.enrichPlace(letterId: selected.id)
+                            }
                     } else {
                         Text(l10n("mail.empty")).font(Theme.pixel()).foregroundStyle(Theme.dusk).padding()
                     }
@@ -244,18 +247,20 @@ struct LetterView: View {
     var photoURL: URL?
     var petName: String
     var catalog: CityCatalog
+    var model: AppModel? = nil
 
     var body: some View {
         let text = LetterComposer.text(for: letter, l10n: l10n, petName: petName, catalog: catalog)
-        let place = letter.place[l10n.language.rawValue] ?? letter.place["en"] ?? letter.place["zh-Hans"]
+        let place = LetterComposer.place(for: letter, l10n: l10n)
         let weather = letter.weatherCode.flatMap { code in
-            letter.temperatureC.map { "\($0)°C \(Enricher.weatherName(code))" }
+            letter.temperatureC.map { "\($0)°C \(Enricher.weatherName(code, l10n: l10n))" }
         }
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top) {
-                Text(text.title).font(Theme.pixel(24))
+                Text(text.title).font(Theme.pixel(24)).fixedSize(horizontal: false, vertical: true)
                 Spacer()
                 Text(l10n.day(letter.date, full: true)).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             if let photoURL, let image = NSImage(contentsOf: photoURL) {
                 Image(nsImage: image)
@@ -266,21 +271,44 @@ struct LetterView: View {
                     .pixelBorder()
                     .accessibilityLabel(l10n("letter.photo", place?.title ?? l10n("letter.localPlace")))
             }
+            if let lead = text.lead {
+                Text(lead).font(.system(size: 14, weight: .semibold)).foregroundStyle(Theme.paperRose)
+                    .lineSpacing(4).fixedSize(horizontal: false, vertical: true)
+            }
             Text(text.voice).font(.system(size: 14)).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
             Text(text.signature).font(Theme.pixel()).frame(maxWidth: .infinity, alignment: .trailing)
 
-            if weather != nil || place != nil {
+            if !letter.facts.isEmpty {
                 divider
                 Text(l10n("letter.sights")).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                ForEach(letter.facts, id: \.id) { fact in
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(LetterComposer.localized(fact.names, l10n: l10n) ?? "").font(Theme.pixel())
+                            .fixedSize(horizontal: false, vertical: true)
+                        ForEach(fact.sources, id: \.self) { source in
+                            if let url = URL(string: source) {
+                                Link(l10n("letter.source", url.host ?? source), destination: url)
+                                    .font(.system(size: 12)).foregroundStyle(Theme.sea)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                        }
+                    }
+                }
+            }
+
+            if weather != nil || place != nil {
+                divider
                 if let weather {
-                    Text(l10n("letter.weatherSource", weather)).font(.system(size: 13))
+                    Text(l10n("letter.weatherSource", weather)).font(.system(size: 13)).fixedSize(horizontal: false, vertical: true)
                 }
                 if let summary = place?.summary {
+                    Text(place?.title ?? "").font(Theme.pixel()).fixedSize(horizontal: false, vertical: true)
                     Text(summary).font(.system(size: 13)).lineSpacing(3).fixedSize(horizontal: false, vertical: true)
                     if let page = place?.url, let url = URL(string: page) {
                         Link(l10n("letter.source", place?.title ?? ""), destination: url)
                             .font(.system(size: 12))
                             .foregroundStyle(Theme.sea)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
             }
@@ -292,12 +320,54 @@ struct LetterView: View {
                 }
                 ForEach(text.itinerary, id: \.self) { Text($0).font(Theme.pixel()).fixedSize(horizontal: false, vertical: true) }
             }
+            if let model { response(model: model) }
         }
         .foregroundStyle(Theme.ink)
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Theme.paper)
         .pixelBorder(Theme.ink, width: 3)
+    }
+
+    @ViewBuilder private func response(model: AppModel) -> some View {
+        if let selected = letter.replyOptions.first(where: { $0.id == letter.selectedReplyId }) {
+            divider
+            Text(l10n("letter.yourReply", LetterComposer.localized(selected.text, l10n: l10n) ?? ""))
+                .font(.system(size: 14)).fixedSize(horizontal: false, vertical: true)
+            Text(l10n("letter.remembered")).font(Theme.pixel()).foregroundStyle(Theme.paperRose)
+            if let next = model.followUp(for: letter) {
+                Button { model.openFollowUp(next) } label: {
+                    Text(l10n("letter.followUp", next.id)).font(Theme.pixel()).foregroundStyle(Theme.paperRose)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .buttonStyle(.plain)
+            }
+        } else if !letter.replyOptions.isEmpty, letter.deliverAt <= model.now,
+                  model.deferredReplyLetterID != letter.id {
+            divider
+            Text(l10n("letter.reply")).font(Theme.pixel()).foregroundStyle(Theme.brown)
+            ForEach(letter.replyOptions, id: \.id) { option in
+                Button { model.reply(to: letter.id, option: option.id) } label: {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(LetterComposer.localized(option.text, l10n: l10n) ?? "")
+                            .font(.system(size: 14)).fixedSize(horizontal: false, vertical: true)
+                        Text(option.habit == "talkative" ? l10n("habit.talkative") : l10n("habit.observant"))
+                            .font(Theme.pixel()).foregroundStyle(Theme.paperRose)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading).padding(10)
+                    .pixelBorder(Theme.paperRose)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .disabled(model.isLocked)
+            }
+            Button { model.deferReply(to: letter.id) } label: {
+                Text(l10n("letter.replyLater")).font(Theme.pixel()).fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading).padding(10).pixelBorder()
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+        }
     }
 
     private var divider: some View {

@@ -4,12 +4,21 @@ import VoyageCore
 struct LetterText: Equatable, Sendable {
     var title: String
     var voice: String
+    var lead: String? = nil
     var signature: String
     var itinerary: [String]
 }
 
-/// M0 letters keep semantic data on disk and render in the current language on every read.
+/// Story snapshots and legacy semantic templates both render in the current language.
 enum LetterComposer {
+    static func localized(_ texts: [String: String], l10n: L10n) -> String? {
+        [l10n.language.rawValue, "en", "zh-Hans"].lazy.compactMap { texts[$0] }.first { !$0.isEmpty }
+    }
+
+    static func place(for letter: Letter, l10n: L10n) -> Letter.Place? {
+        letter.place[l10n.language.rawValue]
+    }
+
     static func text(for letter: Letter, l10n: L10n, petName: String, catalog: CityCatalog) -> LetterText {
         let city = catalog.city(letter.cityId)
         let signature = l10n("letter.signature", petName)
@@ -29,7 +38,13 @@ enum LetterComposer {
         let target = letter.transitTargetId.map { catalog.city($0) }
         let title = target.map { l10n("letter.transitTitle", letter.id, l10n.cityName($0)) }
             ?? l10n("letter.dailyTitle", letter.id, l10n.cityName(city))
-        return LetterText(title: title, voice: voice(letter, city: city, target: target, l10n: l10n, catalog: catalog), signature: signature, itinerary: itinerary(letter, l10n: l10n))
+        return LetterText(
+            title: title,
+            voice: letter.texts.map { localized($0, l10n: l10n) ?? "" }
+                ?? voice(letter, city: city, target: target, l10n: l10n, catalog: catalog),
+            lead: localized(letter.leadTexts, l10n: l10n),
+            signature: signature, itinerary: itinerary(letter, l10n: l10n, catalog: catalog)
+        )
     }
 
     static func logbookVoice(_ logbook: Logbook?, l10n: L10n) -> String {
@@ -65,7 +80,7 @@ enum LetterComposer {
         return parts.joined(separator: l10n.language == .zhHans ? "" : " ")
     }
 
-    private static func itinerary(_ letter: Letter, l10n: L10n) -> [String] {
+    private static func itinerary(_ letter: Letter, l10n: L10n, catalog: CityCatalog) -> [String] {
         var lines = [l10n("letter.fuel", l10n.tokens(letter.fuel), Format.km(fuel: letter.fuel))]
         if let percent = letter.compareToMedianPercent {
             if percent == 0 { lines.append(l10n("letter.usual")) }
@@ -74,6 +89,14 @@ enum LetterComposer {
         }
         if !letter.vehicles.isEmpty {
             lines.append(letter.vehicles.map { l10n("vehicle.share", l10n.vehicle($0.client), $0.percent) }.joined(separator: " · "))
+        }
+        for country in letter.newCountries {
+            lines.append(l10n("letter.newStamp", l10n.countryName(catalog.countryNames(country))))
+        }
+        if letter.arrivals.count > 1 {
+            let passed = letter.arrivals.filter { $0 != letter.cityId }
+                .map { l10n.cityName(catalog.city($0)) }.joined(separator: l10n("letter.citySeparator"))
+            if !passed.isEmpty { lines.append(l10n("letter.passed", passed)) }
         }
         return lines
     }
