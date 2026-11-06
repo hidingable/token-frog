@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 import VoyageCore
 
@@ -123,31 +124,78 @@ struct NotchExpandedView: View {
     }
 }
 
+enum FloatingLayout {
+    static let size = CGSize(width: 150, height: 48)
+    static let maximumReactionSize = CGSize(width: 300, height: 64)
+
+    static func reactionSize(text: String, maximum: CGSize = maximumReactionSize) -> CGSize {
+        let font = NSFont.systemFont(ofSize: 12)
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineSpacing = 2
+        let attributes: [NSAttributedString.Key: Any] = [.font: font, .paragraphStyle: paragraph]
+        // Sprite (32), gap (6), and the panel's horizontal padding (12).
+        let width = min(maximum.width, max(size.width, ceil((text as NSString).size(withAttributes: attributes).width) + 50))
+        let bounds = (text as NSString).boundingRect(with: CGSize(width: width - 50, height: .greatestFiniteMagnitude),
+                                                    options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes)
+        let twoLines = ceil((font.ascender - font.descender + font.leading) * 2 + 2)
+        let height = max(size.height, ceil(min(bounds.height, twoLines)) + 24)
+        return CGSize(width: width, height: min(maximum.height, height))
+    }
+
+    static func availableReactionSize(normal: CGRect, visible: CGRect) -> CGSize {
+        CGSize(width: min(maximumReactionSize.width, visible.maxX - normal.minX),
+               height: min(maximumReactionSize.height, normal.maxY - visible.minY))
+    }
+
+    static func reactionFrame(normal: CGRect, size: CGSize) -> CGRect {
+        CGRect(x: normal.minX, y: normal.maxY - size.height, width: size.width, height: size.height)
+    }
+
+    static func restoredFrame(normal: CGRect, speech: CGRect, current: CGRect, visible: CGRect) -> CGRect {
+        let x = normal.minX + current.minX - speech.minX
+        let y = normal.minY + current.maxY - speech.maxY
+        return CGRect(x: max(visible.minX, min(x, visible.maxX - size.width)),
+                      y: max(visible.minY, min(y, visible.maxY - size.height)), width: size.width, height: size.height)
+    }
+}
+
 struct FloatingView: View {
     @Environment(\.l10n) private var l10n
     let model: AppModel
+    var maximumReactionSize = FloatingLayout.maximumReactionSize
 
     var body: some View {
         if let state = model.state, let catalog = model.catalog {
             HStack(spacing: 6) {
                 SpriteView(pet: state.pet, scale: 2, moving: model.isMoving)
                     .background(Theme.paper)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(Format.km(fuel: model.todayFuel)).foregroundStyle(Theme.amber)
-                    HStack(spacing: 4) {
-                        Text(l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))))
-                            .foregroundStyle(Theme.paper)
-                            .lineLimit(1)
-                        if model.unread > 0 { Rectangle().fill(Theme.red).frame(width: 6, height: 6) }
+                    .offset(y: model.floatingJump ? -4 : 0)
+                if model.floatingReaction {
+                    Text(model.floatingWords).font(.system(size: 12)).lineSpacing(2)
+                        .lineLimit(2).padding(.vertical, surfaceSize.height > 48 ? 6 : 0)
+                        .foregroundStyle(Theme.paper).fixedSize(horizontal: false, vertical: true)
+                        .frame(width: surfaceSize.width - 50, alignment: .leading)
+                } else {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(Format.km(fuel: model.todayFuel)).foregroundStyle(Theme.amber)
+                        HStack(spacing: 4) {
+                            Text(l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))))
+                                .foregroundStyle(Theme.paper)
+                            if model.unread > 0 { Rectangle().fill(Theme.red).frame(width: 6, height: 6) }
+                        }
                     }
+                    .font(Theme.pixel())
+                    Spacer(minLength: 0)
                 }
-                .font(Theme.pixel())
-                Spacer(minLength: 0)
             }
             .padding(6)
-            .frame(width: FloatingController.size.width, height: FloatingController.size.height)
+            .frame(width: surfaceSize.width, height: surfaceSize.height, alignment: .leading)
             .background(Theme.ink)
             .pixelBorder(Theme.dusk)
         }
+    }
+
+    private var surfaceSize: CGSize {
+        model.floatingReaction ? FloatingLayout.reactionSize(text: model.floatingWords, maximum: maximumReactionSize) : FloatingLayout.size
     }
 }

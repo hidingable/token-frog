@@ -109,6 +109,9 @@ enum Sprites {
 
     static var itemIconIDs: Set<String> { Set(itemArt.keys) }
 
+    static func petPixels(_ pet: PetKind) -> [UInt32?] { art[pet]!.flatMap { $0.map { colors[$0] } } }
+    static func itemPixels(_ icon: String) -> [UInt32?] { itemArt[icon]!.flatMap { $0.map { colors[$0] } } }
+
     static func item(_ icon: String) -> CGImage {
         guard let rows = itemArt[icon] else { preconditionFailure("Missing item art for \(icon)") }
         return PixelImage.make(width: 12, height: 12, pixels: rows.flatMap { $0.map { colors[$0] } })

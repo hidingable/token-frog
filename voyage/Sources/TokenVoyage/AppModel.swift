@@ -27,6 +27,15 @@ final class AppModel {
     private(set) var care: CareState?
     private(set) var onboarding: OnboardingFlow?
     var tab: MainTab = .home
+    private(set) var homePage: HomePage = .room
+    private(set) var presentedBoxID: String?
+    private(set) var boxResult: BoxResult?
+    private(set) var mainWindowPresented = false
+    private(set) var floatingReaction = false
+    private(set) var floatingJump = false
+    private let floatingReactionDuration: Duration
+    private var reactionIndex = 0
+    private var reactionTask: Task<Void, Never>?
     var mailFilter: MailFilter = .all
     var collectionTab: CollectionTab = .passport
     var dataTab: DataTab = .dashboard
@@ -108,7 +117,7 @@ final class AppModel {
          quotaReader: @escaping @Sendable () async throws -> [ProviderQuota] = UsageSource.fetchQuotas,
          usageReader: @escaping @Sendable (String?, String) async throws -> [DayDetail] = UsageSource.fetch,
          enrichmentReader: @escaping Enricher.Fetch = { await Enricher.fetch($0) },
-         runtimeEnabled: Bool = true) {
+         runtimeEnabled: Bool = true, floatingReactionDuration: Duration = .seconds(3)) {
         self.isSnapshot = isSnapshot
         clock = now
         self.now = now()
@@ -118,6 +127,7 @@ final class AppModel {
         self.usageReader = usageReader
         self.enrichmentReader = enrichmentReader
         self.runtimeEnabled = runtimeEnabled
+        self.floatingReactionDuration = floatingReactionDuration
         self.languageOverride = languageOverride
         self.defaults = defaults
         languagePreference = defaults.string(forKey: "language").flatMap(LanguagePreference.init(rawValue:)) ?? .system
@@ -138,6 +148,13 @@ final class AppModel {
         isLocked = true
         guard !contentFailed, let loadedCatalog else {
             recoveryIssues = [SaveRecoveryIssue(file: .journey, problem: .content)]
+            return
+        }
+        if isSnapshot {
+            let examples = Snapshots.homeExamples(catalog: loadedCatalog, now: self.now, petName: l10n.defaultPetName(.pigeon))
+            state = examples.journey
+            care = examples.care
+            isLocked = false
             return
         }
         store.load()
@@ -162,8 +179,12 @@ final class AppModel {
 
     func navigate(to tab: MainTab) {
         ritualLetterID = nil
+        homePage = .room
+        presentedBoxID = nil
+        boxResult = nil
         self.tab = tab
         showingSettings = false
+        postOfficeDidDisplay()
     }
 
     func openPostOffice() { navigate(to: .home) }
@@ -222,11 +243,113 @@ final class AppModel {
     @discardableResult
     func setSouvenirShelved(_ id: String, shelved: Bool) -> Bool {
         guard !isLocked, onboarding == nil, var care,
-              let index = care.souvenirs.firstIndex(where: { $0.id == id }) else { return false }
-        care.souvenirs[index].shelved = shelved
+              care.souvenirs.contains(where: { $0.id == id }),
+              CareEngine.setShelved(id: id, shelved: shelved, care: &care) else { return false }
         self.care = care
         persist()
         return true
+    }
+
+    var petBubble: PetBubble? { care.flatMap { PetBubble.current(letters: letters, care: $0) } }
+
+    func activateBubble(_ bubble: PetBubble) {
+        switch bubble {
+        case .mail: activateHomeAction()
+        case .reply(let id): openCollectionLetter(id)
+        case .bag: openCollection(.bag)
+        }
+    }
+
+    func openCollection(_ collection: CollectionTab) {
+        collectionTab = collection
+        navigate(to: .collection)
+    }
+
+    func showProfile() {
+        navigate(to: .home)
+        homePage = .profile
+    }
+
+    /// Only main-window presentation events can enter the no-mail companion path.
+    func setMainWindowPresented(_ presented: Bool) {
+        mainWindowPresented = presented
+        if presented { postOfficeDidDisplay() }
+    }
+
+    func postOfficeDidDisplay(surface: CompanionSurface = .main) {
+        guard surface == .main, mainWindowPresented, !isSnapshot, !isLocked, onboarding == nil,
+              tab == .home, homePage == .room, !showingSettings, ritualLetterID == nil,
+              var care else { return }
+        now = clock()
+        guard unread == 0 else { return }
+        let previous = care
+        CareEngine.markCompanion(date: now, care: &care)
+        guard care != previous else { return }
+        self.care = care
+        persist()
+    }
+
+    var pendingBoxCount: Int { care?.weekly.boxes.count ?? 0 }
+    var boxStampCount: Int { presentedBoxID?.hasSuffix("#6") == true ? 6 : 4 }
+    var boxFinishTitle: String { l10n(pendingBoxCount > 0 ? "box.next" : "box.keep") }
+
+    func showBoxes() {
+        guard pendingBoxCount > 0 else { return }
+        navigate(to: .home)
+        homePage = .box
+        presentedBoxID = care?.weekly.boxes.first
+    }
+
+    @discardableResult
+    func openPresentedBox() -> BoxResult? {
+        guard !isLocked, onboarding == nil, boxResult == nil, let id = presentedBoxID,
+              let state, var care, let catalog,
+              let result = CareEngine.openBox(id: id, care: &care, library: catalog.items,
+                                             date: DayKey.string(from: clock()), journey: state) else { return nil }
+        self.care = care
+        boxResult = result
+        persist()
+        return result
+    }
+
+    func finishBox() {
+        guard boxResult != nil else { return }
+        if let next = care?.weekly.boxes.first {
+            presentedBoxID = next
+            boxResult = nil
+        } else {
+            openPostOffice()
+        }
+    }
+
+    var floatingWords: String {
+        if let state, let learned = CareEngine.recentLearned(journey: state, limit: 1).first,
+           let text = LetterComposer.localized(learned.learnedTexts, l10n: l10n) { return text }
+        return l10n(L10n.floatingKeys[reactionIndex % L10n.floatingKeys.count])
+    }
+
+    func reactToFloatingClick() {
+        reactionTask?.cancel()
+        reactionIndex += 1
+        floatingReaction = true
+        floatingJump = true
+        let start = ContinuousClock.now
+        let duration = floatingReactionDuration
+        reactionTask = Task { [weak self] in
+            try? await Task.sleep(until: start.advanced(by: min(.milliseconds(180), duration)), clock: .continuous)
+            guard !Task.isCancelled else { return }
+            self?.floatingJump = false
+            try? await Task.sleep(until: start.advanced(by: duration), clock: .continuous)
+            guard !Task.isCancelled else { return }
+            self?.floatingReaction = false
+        }
+    }
+
+    func endFloatingReaction() {
+        reactionTask?.cancel()
+        reactionTask = nil
+        floatingReaction = false
+        floatingJump = false
     }
 
     @discardableResult
@@ -337,7 +460,7 @@ final class AppModel {
 
     /// Coalesces change events and keeps at least `minScanInterval` between scans.
     func scheduleScan(immediately: Bool = false) {
-        guard !isLocked, onboarding == nil, scheduledScan == nil else { return }
+        guard !isSnapshot, !isLocked, onboarding == nil, scheduledScan == nil else { return }
         let elapsed = lastScan.map { Date().timeIntervalSince($0) } ?? .infinity
         let wait = immediately ? 0 : max(0, Self.minScanInterval - elapsed)
         scheduledScan = Task { [weak self] in
@@ -361,12 +484,14 @@ final class AppModel {
             since = min(since, DayKey.string(from: start))
         }
         do {
-            let details = try await usageReader(since, todayKey)
+            let details = try await usageReader(isSnapshot ? nil : since, todayKey)
             guard !isLocked, generation == backgroundGeneration, var state = self.state else { return }
             let days = details.map(\.usage)
             let todayDetail = details.first { $0.date == todayKey }
             todayTotals = UsageLedger(days: todayDetail.map { [$0] } ?? []).totals
-            if let todayDetail, var known = dashboardDays {
+            if isSnapshot {
+                dashboardDays = details
+            } else if let todayDetail, var known = dashboardDays {
                 known.removeAll { $0.date == todayKey }
                 known.append(todayDetail)
                 dashboardDays = known
@@ -403,7 +528,7 @@ final class AppModel {
 
     /// Reads the whole history only while the dashboard is showing, sharing the scan's serial slot.
     func loadDashboard() async {
-        guard !isLocked, onboarding == nil else { return }
+        guard !isSnapshot, !isLocked, onboarding == nil else { return }
         let generation = backgroundGeneration
         let now = Date()
         let isStale = dashboardLoadedAt.map { now.timeIntervalSince($0) >= Self.dashboardMaxAge } ?? true
@@ -469,7 +594,7 @@ final class AppModel {
         guard !isLocked, onboarding == nil,
               let saved = state?.letters.first(where: { $0.id == letter.id }), !saved.read else { return }
         state?.markRead(letter.id)
-        if var care {
+        if !isSnapshot, var care {
             CareEngine.markCompanion(date: DayKey.string(from: clock()), care: &care)
             self.care = care
         }

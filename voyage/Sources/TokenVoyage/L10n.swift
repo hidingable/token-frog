@@ -53,8 +53,15 @@ struct L10n: Sendable {
     static let defaultPetNameKeys: [PetKind: String] = [.pigeon: "pet.pigeon.defaultName", .snail: "pet.snail.defaultName", .suitcase: "pet.suitcase.defaultName", .letter: "pet.letter.defaultName"]
     static let eggKeys: [PetKind: String] = [.pigeon: "onboarding.egg.spotted", .snail: "onboarding.egg.gold", .suitcase: "onboarding.egg.leather", .letter: "onboarding.egg.paper"]
     static let onboardingTitleKeys: [OnboardingFlow.Step: String] = [.eggs: "onboarding.eggs", .home: "onboarding.home", .hatch: "onboarding.hatch", .logbook: "onboarding.logbook", .depart: "onboarding.depart"]
+    static let stageKeys: [Stage: String] = [.egg: "stage.egg", .hatchling: "stage.hatchling", .juvenile: "stage.juvenile", .teen: "stage.teen", .traveler: "stage.traveler", .veteran: "stage.veteran", .legend: "stage.legend"]
+    static let habitKeys: [Habit: String] = [.talkative: "habit.talkative", .observant: "habit.observant"]
+    static let habitDescriptionKeys: [Habit: [String]] = [
+        .talkative: ["habit.talkative.0", "habit.talkative.1", "habit.talkative.2", "habit.talkative.3"],
+        .observant: ["habit.observant.0", "habit.observant.1", "habit.observant.2", "habit.observant.3"],
+    ]
+    static let floatingKeys = ["floating.line.0", "floating.line.1", "floating.line.2"]
     static var dynamicKeys: [String] {
-        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + countKeys.values.flatMap { $0 } + LetterComposer.quirkKeys.values.flatMap { $0 } + Array(defaultPetNameKeys.values) + Array(eggKeys.values) + Array(onboardingTitleKeys.values) + Enricher.weatherKeys
+        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + countKeys.values.flatMap { $0 } + LetterComposer.quirkKeys.values.flatMap { $0 } + Array(defaultPetNameKeys.values) + Array(eggKeys.values) + Array(onboardingTitleKeys.values) + Enricher.weatherKeys + Array(stageKeys.values) + Array(habitKeys.values) + habitDescriptionKeys.values.flatMap { $0 } + floatingKeys + ["habit.both", "home.bubble.mail", "home.bubble.reply", "home.bubble.bag", "box.next", "box.keep", "box.open"]
     }
 
     func defaultPetName(_ pet: PetKind) -> String { language == .zhHans ? pet.displayName : self(Self.defaultPetNameKeys[pet]!) }

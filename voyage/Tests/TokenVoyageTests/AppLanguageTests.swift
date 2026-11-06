@@ -48,7 +48,7 @@ import VoyageCore
     let journey = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-01", catalog: localizationCatalog)
     try store.save(journey)
     try store.save(CareState(petName: "银杏 Ginkgo", species: .pigeon, hatchedAt: "2026-11-01"))
-    let model = AppModel(isSnapshot: true, defaults: defaults, directory: directory, catalog: localizationCatalog)
+    let model = AppModel( defaults: defaults, directory: directory, catalog: localizationCatalog)
     let letter = try #require(model.state?.letters.first)
     for preference in [LanguagePreference.zhHans, .en] {
         model.languagePreference = preference

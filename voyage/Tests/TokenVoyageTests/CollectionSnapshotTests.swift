@@ -80,7 +80,7 @@ private final class CollectionSnapshotDefaults: UserDefaults, @unchecked Sendabl
                 model.activateHomeAction()
                 #expect(model.ritualLetterID == 3)
                 #expect(model.unread == 0)
-                #expect(model.care?.companionDays.count == 1)
+                #expect(model.care?.companionDays.isEmpty == true)
                 model.advanceRitual()
                 #expect(model.ritualLetterID == nil)
                 #expect(model.tab == .home)

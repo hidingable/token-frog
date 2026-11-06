@@ -154,13 +154,19 @@ struct SouvenirsCollectionView: View {
                                 ItemHeading(display: ItemDisplay(selected, l10n: l10n, showCommon: true))
                                 Text(l10n.itemDescription(selected)).font(.system(size: 14)).lineSpacing(4)
                                     .fixedSize(horizontal: false, vertical: true)
-                                if let letterId = saved.letterId {
+                                if let origin = ItemCollection.boxOrigin(for: saved, l10n: l10n) {
+                                    Text(origin).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                                } else if let letterId = saved.letterId {
                                     ItemOrigin(model: model, letterId: letterId)
                                 }
                                 CollectionAction(title: saved.shelved ? l10n("collection.unshelve") : l10n("collection.shelve")) {
                                     model.setSouvenirShelved(saved.id, shelved: !saved.shelved)
                                 }
                                 .disabled(model.isLocked)
+                                if let message = ItemCollection.shelfFullMessage(for: saved, care: care, l10n: l10n) {
+                                    Text(message).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
                             }
                             .frame(maxWidth: .infinity)
                         }

@@ -483,10 +483,9 @@ private func substantialOnboardingHistory() -> [DayDetail] {
             #expect(flow.todayItem == nil)
         }
         let model = fixture.model(isSnapshot: true)
-        let flow = try #require(model.onboarding)
-        advanceToDeparture(flow)
+        let original = model.state
         model.completeOnboarding()
-        #expect(model.onboarding != nil && model.state == nil)
+        #expect(model.onboarding == nil && model.state == original)
         #expect(try fixture.files().isEmpty)
     }
 

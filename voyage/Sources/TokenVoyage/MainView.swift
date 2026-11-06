@@ -99,7 +99,12 @@ struct MainView: View {
 
     @ViewBuilder private var content: some View {
         switch model.tab {
-        case .home: ScrollView { HomeTab(model: model).padding(12) }
+        case .home:
+            switch model.homePage {
+            case .room: HomeTab(model: model)
+            case .profile: ScrollView { ProfileView(model: model).padding(12) }
+            case .box: BoxView(model: model)
+            }
         case .journey: ScrollView { JourneyTab(model: model).padding(12) }
         case .mail: MailTab(model: model)
         case .collection:

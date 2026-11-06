@@ -26,7 +26,7 @@ import VoyageCore
 @Test func homeActionOpensTheEarliestDeliveredUnreadLetterInTheRitual() throws {
     let fixture = try NavigationFixture()
     defer { fixture.remove() }
-    let model = fixture.model()
+    let model = fixture.model(isSnapshot: false)
     model.navigate(to: .collection)
     model.mailFilter = .travel
     model.selectedLetterID = 1
@@ -45,7 +45,7 @@ import VoyageCore
 @Test func homeActionWithoutDeliveredUnreadMailOpensTheJourney() throws {
     let fixture = try NavigationFixture(allDeliveredRead: true)
     defer { fixture.remove() }
-    let model = fixture.model()
+    let model = fixture.model(isSnapshot: false)
     model.navigate(to: .mail)
     model.showingSettings = true
 
@@ -60,7 +60,7 @@ import VoyageCore
 @Test func travelMailExcludesTheDepartureLetter() throws {
     let fixture = try NavigationFixture()
     defer { fixture.remove() }
-    let model = fixture.model()
+    let model = fixture.model(isSnapshot: false)
     let departure = try #require(model.letters.first { $0.kind == .departure })
     let daily = try #require(model.letters.first { $0.kind == .daily })
     #expect(MailFilter.all.includes(departure))
@@ -216,7 +216,7 @@ private struct NavigationFixture {
     }
 
     func model(isSnapshot: Bool = true, defaults: UserDefaults = NavigationDefaults()) -> AppModel {
-        AppModel(isSnapshot: isSnapshot, defaults: defaults, directory: directory, catalog: localizationCatalog)
+        AppModel(isSnapshot: isSnapshot, defaults: defaults, directory: directory, catalog: localizationCatalog, runtimeEnabled: false)
     }
 
     func remove() { try? FileManager.default.removeItem(at: directory) }

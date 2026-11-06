@@ -8,6 +8,8 @@ final class PanelHostView<Content: View>: NSView {
     private let hosting: NSHostingView<Content>
     var onHover: ((Bool) -> Void)?
     var onClick: (() -> Void)?
+    var onClickCount: ((Int, Bool) -> Void)?
+    var onPress: (() -> Void)?
     var draggable = false
     private var dragged = false
 
@@ -43,7 +45,7 @@ final class PanelHostView<Content: View>: NSView {
 
     override func mouseEntered(with event: NSEvent) { onHover?(true) }
     override func mouseExited(with event: NSEvent) { onHover?(false) }
-    override func mouseDown(with event: NSEvent) { dragged = false }
+    override func mouseDown(with event: NSEvent) { dragged = false; onPress?() }
 
     override func mouseDragged(with event: NSEvent) {
         guard draggable, !dragged else { return }
@@ -52,6 +54,7 @@ final class PanelHostView<Content: View>: NSView {
     }
 
     override func mouseUp(with event: NSEvent) {
+        onClickCount?(event.clickCount, dragged)
         if !dragged { onClick?() }
     }
 }
@@ -188,11 +191,24 @@ final class NotchController {
 
 @MainActor
 final class FloatingController {
-    static let size = CGSize(width: 150, height: 48)
+    static let size = FloatingLayout.size
+
+    private struct Root: View {
+        let model: AppModel
+        var maximumReactionSize = FloatingLayout.maximumReactionSize
+        var body: some View {
+            FloatingView(model: model, maximumReactionSize: maximumReactionSize).localized(using: model)
+        }
+    }
 
     private let model: AppModel
     private let onOpen: () -> Void
     private var panel: NSPanel?
+    private var host: PanelHostView<Root>?
+    private var clickTask: Task<Void, Never>?
+    private var reactionTask: Task<Void, Never>?
+    private var normalFrame: NSRect?
+    private var speechFrame: NSRect?
 
     init(model: AppModel, onOpen: @escaping () -> Void) {
         self.model = model
@@ -204,23 +220,76 @@ final class FloatingController {
         let visible = NSScreen.main?.visibleFrame ?? .zero
         let panel = makePanel(frame: NSRect(x: visible.maxX - Self.size.width - 24, y: visible.maxY - Self.size.height - 24, width: Self.size.width, height: Self.size.height))
         panel.level = .floating
-        let host = PanelHostView(rootView: FloatingView(model: model).localized(using: model))
+        let host = PanelHostView(rootView: Root(model: model))
         host.draggable = true
-        host.onClick = onOpen
+        host.onPress = { [weak self] in self?.clickTask?.cancel() }
+        host.onClickCount = { [weak self] count, dragged in self?.click(count: count, dragged: dragged) }
         panel.contentView = host
         panel.setFrameAutosaveName("TokenVoyageFloating")
+        panel.setContentSize(Self.size)
         panel.orderFrontRegardless()
         self.panel = panel
+        self.host = host
     }
 
     func hide() {
+        clickTask?.cancel()
+        reactionTask?.cancel()
+        restoreFrame()
+        model.endFloatingReaction()
         panel?.close()
         panel = nil
+        host = nil
+    }
+
+    private func click(count: Int, dragged: Bool) {
+        clickTask?.cancel()
+        switch FloatingClick.action(clickCount: count, dragged: dragged) {
+        case .none: break
+        case .openPostOffice: onOpen()
+        case .react:
+            clickTask = Task { [weak self] in
+                try? await Task.sleep(for: .seconds(NSEvent.doubleClickInterval))
+                guard !Task.isCancelled, let self, let panel else { return }
+                reactionTask?.cancel()
+                restoreFrame()
+                model.reactToFloatingClick()
+                let original = panel.frame
+                let visible = panel.screen?.visibleFrame ?? original
+                let maximum = FloatingLayout.availableReactionSize(normal: original, visible: visible)
+                let size = FloatingLayout.reactionSize(text: model.floatingWords, maximum: maximum)
+                let frame = FloatingLayout.reactionFrame(normal: original, size: size)
+                normalFrame = original
+                speechFrame = frame
+                panel.setFrameAutosaveName("")
+                host?.setRootView(Root(model: model, maximumReactionSize: maximum))
+                panel.setFrame(frame, display: true)
+                reactionTask = Task { [weak self, weak panel] in
+                    try? await Task.sleep(for: .seconds(3))
+                    guard !Task.isCancelled, let self, let panel, self.panel === panel else { return }
+                    self.restoreFrame()
+                    self.reactionTask = nil
+                }
+            }
+        }
+    }
+
+    private func restoreFrame() {
+        guard let panel, let normalFrame, let speechFrame else { return }
+        let visible = panel.screen?.visibleFrame ?? normalFrame
+        let frame = FloatingLayout.restoredFrame(normal: normalFrame, speech: speechFrame, current: panel.frame, visible: visible)
+        model.endFloatingReaction()
+        host?.setRootView(Root(model: model))
+        panel.setFrame(frame, display: true)
+        panel.saveFrame(usingName: "TokenVoyageFloating")
+        panel.setFrameAutosaveName("TokenVoyageFloating")
+        self.normalFrame = nil
+        self.speechFrame = nil
     }
 }
 
 @MainActor
-final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWindowDelegate {
     private lazy var model = AppModel(isSnapshot: ProcessInfo.processInfo.arguments.contains("--snapshot"), languageOverride: snapshotLanguage)
     private var snapshotLanguage: Language?
     private var l10n: L10n { model.l10n }
@@ -256,7 +325,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             let directory = URL(fileURLWithPath: arguments[index + 1])
             Task {
                 await model.scan()
-                await model.loadDashboard()
                 Snapshots.write(model: model, to: directory)
                 NSApp.terminate(nil)
             }
@@ -358,6 +426,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 backing: .buffered, defer: false
             )
             window.title = l10n("app.name")
+            window.delegate = self
             window.isReleasedWhenClosed = false
             window.backgroundColor = NSColor(Theme.ink)
             window.minSize = NSSize(width: 760, height: 520)
@@ -369,7 +438,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         NSApp.activate()
         mainWindow?.makeKeyAndOrderFront(nil)
+        model.setMainWindowPresented(true)
     }
+
+    func windowDidBecomeKey(_ notification: Notification) { model.setMainWindowPresented(true) }
+    func windowDidResignKey(_ notification: Notification) { model.setMainWindowPresented(false) }
+    func windowWillClose(_ notification: Notification) { model.setMainWindowPresented(false) }
+    func windowDidMiniaturize(_ notification: Notification) { model.setMainWindowPresented(false) }
+    func applicationDidHide(_ notification: Notification) { model.setMainWindowPresented(false) }
 
     private func importBackup(for file: SaveFile) {
         let panel = NSOpenPanel()
