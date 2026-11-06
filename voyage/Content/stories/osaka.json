@@ -1,0 +1,367 @@
+[
+  {
+    "id": "osaka.arrival.castle-meeting",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "osaka",
+    "factIds": [
+      "osaka-castle"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "约好碰面的地方，是一座装着故事的天守阁。",
+      "en": "Our meeting place had a whole museum inside."
+    },
+    "text": {
+      "zh-Hans": "到了大阪，我和一位路上认识的旅人约在大阪城天守阁外碰面。等人的时候，我读到它在 1931 年复建，从那时起便是博物馆。对方到了，我却还在低头看介绍。原来这回不是谁迟到，是我先被一段文字叫住了。我在便签上给今天的碰面画了两颗并排的小点。",
+      "en": "In Osaka, I arranged to meet a fellow traveler outside Osaka Castle Museum. While waiting, I learned that the present keep was rebuilt in 1931 and opened as a museum from the start. My companion arrived to find me still reading. Nobody was late; a paragraph had simply caught me first. Two dots on a note now mark our meeting."
+    },
+    "replies": [
+      {
+        "id": "osaka.arrival.castle-meeting.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问旅人刚才看到了什么",
+          "en": "Ask what caught the other traveler’s eye"
+        }
+      },
+      {
+        "id": "osaka.arrival.castle-meeting.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找介绍里的复建年份",
+          "en": "Find the reconstruction year on the sign"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "osaka.meeting-dots"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "osaka.arrival.aquarium-pause",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "osaka",
+    "factIds": [
+      "kaiyukan"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天，我的视线跟着一道鱼影慢了下来。",
+      "en": "A passing shadow slowed my afternoon."
+    },
+    "text": {
+      "zh-Hans": "在大阪海游馆，我停在“太平洋”水槽前看鲸鲨。它游过眼前时，我本来想记下轮廓，笔却一直没动。等回过神，纸上只有刚开始的一个点。我决定把这个点留下，旁边写“这里开始忘了写字”。明天翻到它，应该还会想起那一片蓝。",
+      "en": "At Kaiyukan in Osaka, I stopped by the Pacific Ocean tank to watch a whale shark. I meant to take a note as it passed, but my pencil stayed still. The page held just one starting dot. I kept it and wrote, “This is where I forgot to write.” Tomorrow that dot should still lead me back to the blue."
+    },
+    "replies": [
+      {
+        "id": "osaka.arrival.aquarium-pause.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给那一个点起个名字",
+          "en": "Give the single dot a name"
+        }
+      },
+      {
+        "id": "osaka.arrival.aquarium-pause.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再想想鱼影经过的方向",
+          "en": "Recall which way the shadow traveled"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "osaka.blue-pause"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "osaka.arrival.takoyaki-wait",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "osaka",
+    "factIds": [
+      "takoyaki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午后的第一口，先等了一小会儿。",
+      "en": "The first bite needed a small pause."
+    },
+    "text": {
+      "zh-Hans": "我在大阪买了一份章鱼烧，圆圆的面糊里裹着章鱼。刚拿到手时，我先等它凉一点，顺手写起小菜单。第一行是菜名，第二行却写成了“再等一下”。等到终于能慢慢吃，菜单已经替我把耐心记下来了。我把那行字圈起来，留着下次提醒自己。",
+      "en": "I bought takoyaki in Osaka, little batter balls with octopus inside. While they cooled a bit, I began a menu card. The first line held the name; the second somehow became “a moment longer.” By the time I took a careful bite, the card had recorded the whole wait. I circled that line for my future self."
+    },
+    "replies": [
+      {
+        "id": "osaka.arrival.takoyaki-wait.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给等候那一行添一句话",
+          "en": "Add a line to the little waiting note"
+        }
+      },
+      {
+        "id": "osaka.arrival.takoyaki-wait.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看圆球上有哪些颜色",
+          "en": "Notice the colors on the takoyaki"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "osaka.waiting-line"
+      ],
+      "menuIds": [
+        "osaka.menu-takoyaki"
+      ]
+    }
+  },
+  {
+    "id": "osaka.arrival.okonomiyaki-name",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "osaka",
+    "factIds": [
+      "okonomiyaki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的小菜单，先写名字再记味道。",
+      "en": "Today’s menu began with the name."
+    },
+    "text": {
+      "zh-Hans": "在大阪吃大阪烧，我先把名字写在便纸上。铁板上煎好的饼里有卷心菜，我这份还选了猪肉。吃过以后，我试着给菜单写一句自己的说明，想了半天，只写下“今天这一份，记得”。字很少，味道倒没有忘。下次读到它时，再看看能不能添上第二句。",
+      "en": "Before trying okonomiyaki in Osaka, I put its name on a card. My griddled cabbage pancake had pork in it. Afterwards I tried to describe it and managed only, “Remember this one.” A very short review, but the taste stayed with me. Perhaps a second sentence will arrive when I read the card again."
+    },
+    "replies": [
+      {
+        "id": "osaka.arrival.okonomiyaki-name.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和旅人交换一句味道印象",
+          "en": "Trade a one-line tasting note"
+        }
+      },
+      {
+        "id": "osaka.arrival.okonomiyaki-name.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "回想铁板边最先闻到的香气",
+          "en": "Recall the first aroma from the griddle"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "osaka.menu-okonomiyaki"
+      ]
+    }
+  },
+  {
+    "id": "osaka.arrival.two-menus-words",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "osaka",
+    "factIds": [
+      "takoyaki",
+      "okonomiyaki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张菜单之间，夹进了一场小讨论。",
+      "en": "Two menus started a small conversation."
+    },
+    "text": {
+      "zh-Hans": "今天在大阪，我先尝了章鱼烧，晚些时候又吃了大阪烧。歇脚时和一位旅人聊起这两样，我把各自的小菜单拿出来，约好每张只添一个词。我们想了很久，最后给第一张写“等”，第二张写“香”。两个词不算完整介绍，却很像我这一天的顺序。",
+      "en": "I tried takoyaki in Osaka, then okonomiyaki later in the day. During a rest, another traveler and I gave ourselves a tiny challenge: add just one word to each of my two menu cards. After much consideration we chose “wait” and “aroma.” Hardly a full review, but a surprisingly good account of my day."
+    },
+    "replies": [
+      {
+        "id": "osaka.arrival.two-menus-words.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "也选两个词写在卡片背面",
+          "en": "Choose two words for the backs of the cards"
+        }
+      },
+      {
+        "id": "osaka.arrival.two-menus-words.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪个词让你先想起味道",
+          "en": "Notice which word brings the taste back first"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "osaka.menu-takoyaki",
+        "osaka.menu-okonomiyaki"
+      ]
+    }
+  },
+  {
+    "id": "osaka.arrival.two-menus-memory",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "osaka",
+    "factIds": [
+      "takoyaki",
+      "okonomiyaki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "合上菜单之前，我又想起两种不同的等待。",
+      "en": "Before closing the menus, I remembered two pauses."
+    },
+    "text": {
+      "zh-Hans": "在大阪，我分开尝了章鱼烧和大阪烧，给它们各留一张菜单。一张记下小圆球凉一点再吃的等待，一张记下铁板旁等晚饭的香气。整理时我才发现，菜已经吃完了，等候的那一小段还留得很清楚。我在两张卡上各加了一个小钟，指针由我随手安排。",
+      "en": "After separate stops for takoyaki and okonomiyaki in Osaka, I made a card for each. One recalled the little balls cooling; the other recalled the smell beside the griddle before dinner. The food was gone, yet those brief waits remained vivid. Each card received a tiny clock, with hands set to a time of my own invention."
+    },
+    "replies": [
+      {
+        "id": "osaka.arrival.two-menus-memory.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问旅人记住的是哪一刻",
+          "en": "Ask which moment another traveler remembers"
+        }
+      },
+      {
+        "id": "osaka.arrival.two-menus-memory.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较两张卡上的小钟",
+          "en": "Compare the two tiny clocks"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "osaka.menu-takoyaki",
+        "osaka.menu-okonomiyaki"
+      ]
+    }
+  },
+  {
+    "id": "osaka.fulfill.blue-dot-return",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "osaka",
+    "factIds": [
+      "kaiyukan"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "osaka.arrival.aquarium-pause.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我又打开了那张蓝色记忆的便签。",
+      "en": "“{reply}” sent me back to my little blue memory."
+    },
+    "text": {
+      "zh-Hans": "我照着记忆，在海游馆那张只有一个点的便签旁添了一条弯线。它不是鲸鲨的准确路线，只是我终于肯落下的第二笔。我又折了一张小卡，把点和线藏在里面。卡片合上时安安静静，打开时，那一片蓝就有了一个小入口。",
+      "en": "I added a curved line beside the dot on my Kaiyukan note. It is no exact record of the whale shark’s route, just a second pencil stroke at last. I tucked the note into a card I folded myself. Closed, it is very quiet. Open, it gives that blue afternoon a little doorway."
+    },
+    "replies": [
+      {
+        "id": "osaka.fulfill.blue-dot-return.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给小卡写一个收件人",
+          "en": "Choose someone to address the card to"
+        }
+      },
+      {
+        "id": "osaka.fulfill.blue-dot-return.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "顺着弯线回想那片蓝",
+          "en": "Follow the curve back to the blue"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "osaka.blue-door-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

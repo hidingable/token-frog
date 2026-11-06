@@ -12,7 +12,7 @@
     "food",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "河内",
     "en": "Hanoi"
@@ -21,5 +21,69 @@
     "zh-Hans": "河内",
     "en": "Hanoi"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "hoan-kiem-lake",
+      "type": "place",
+      "names": {
+        "zh-Hans": "还剑湖",
+        "en": "Hoan Kiem Lake"
+      },
+      "summary": {
+        "zh-Hans": "还剑湖位于河内，湖北侧的小岛上有玉山祠，一座红色桥梁将小岛与湖岸连接。",
+        "en": "Hoan Kiem Lake is in Hanoi. Ngoc Son Temple stands on an island near its northern side, connected to the shore by a red bridge."
+      },
+      "sources": [
+        "https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/"
+      ]
+    },
+    {
+      "id": "temple-of-literature",
+      "type": "place",
+      "names": {
+        "zh-Hans": "河内文庙",
+        "en": "Temple of Literature"
+      },
+      "summary": {
+        "zh-Hans": "河内文庙始建于1070年，1076年设国子监。文庙的传统建筑与花园分布在五重庭院中。",
+        "en": "Founded in 1070, Hanoi’s Temple of Literature became home to the Imperial Academy in 1076. Its traditional buildings and gardens are arranged through five courtyards."
+      },
+      "sources": [
+        "https://vietnam.travel/things-to-do/hanoi-six-heritage-sites/",
+        "https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/"
+      ]
+    },
+    {
+      "id": "pho",
+      "type": "food",
+      "names": {
+        "zh-Hans": "越南河粉",
+        "en": "Pho"
+      },
+      "summary": {
+        "zh-Hans": "越南河粉以米制粉条配汤，可搭配牛肉或鸡肉及香草；河内是品尝河粉的城市之一。",
+        "en": "Pho brings rice noodles together with broth, beef or chicken, and herbs. Hanoi is one of the cities known for this noodle soup."
+      },
+      "sources": [
+        "https://vietnam.travel/things-to-do/cuisine-gateway-hanoi%E2%80%99s-culture/",
+        "https://vietnam.travel/things-to-do/21-must-try-vietnamese-dishes/"
+      ]
+    },
+    {
+      "id": "bun-cha",
+      "type": "food",
+      "names": {
+        "zh-Hans": "河内烤肉米线",
+        "en": "Bun Cha"
+      },
+      "summary": {
+        "zh-Hans": "河内烤肉米线将炭烤猪肉、米线、蘸汁和香草等蔬菜搭配食用。",
+        "en": "Hanoi’s bun cha pairs charcoal-grilled pork with rice vermicelli, dipping sauce, herbs and vegetables."
+      },
+      "sources": [
+        "https://vietnam.travel/things-to-do/cuisine-gateway-hanoi%E2%80%99s-culture/",
+        "https://vietnam.travel/things-to-do/famous-ha-noi-food-and-international-fine-dining/"
+      ]
+    }
+  ]
 }

@@ -1,0 +1,369 @@
+[
+  {
+    "id": "xian.arrival.look-again",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "xian",
+    "factIds": [
+      "xian-terracotta-army"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "在兵马俑展厅，我给“再看一眼”留了位置。",
+      "en": "At the Terracotta Army, I made room for a second look."
+    },
+    "text": {
+      "zh-Hans": "到了西安看兵马俑，我读到这些陶俑形态各异。原本想一口气记住许多细节，最后却给便签写成了“看过，又看过”。我便挑一处轮廓认真看了一会儿，出展厅才把记忆写下来。明天再读这行字，看看有没有想起第二眼才发现的东西。",
+      "en": "Seeing the Terracotta Army in Xi’an, I learned how varied the figures are. I meant to remember lots of details, but my first note merely said “looked, then looked again.” So I chose one outline and gave it a little time, saving my notes until I left the gallery. Tomorrow I will see whether that second look comes back when I read the line."
+    },
+    "replies": [
+      {
+        "id": "xian.arrival.look-again.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "跟同行人聊聊第二眼的发现",
+          "en": "Compare second impressions with a companion"
+        }
+      },
+      {
+        "id": "xian.arrival.look-again.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再看一次刚才留意的轮廓",
+          "en": "Return to the outline that caught your eye"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "xian.second-look-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "xian.arrival.wall-two-sides",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "xian",
+    "factIds": [
+      "xian-city-wall"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "西安城墙上，我把左右看成了两个小方向。",
+      "en": "On Xi’an’s wall, left and right became two little journeys."
+    },
+    "text": {
+      "zh-Hans": "沿西安的明代城墙走一段，一边是城内街景，另一边能望见护城河。我停下来换了个朝向，左右立刻交换了位置。便签上的箭头却还朝着刚才那边，像个没反应过来的小向导。我给它补了一句“转身以后再看”，明天再检查这位向导认不认路。",
+      "en": "A walk along Xi’an’s Ming-dynasty wall put city views on one side and the moat on the other. I turned around, and left and right promptly traded places. The arrow on my note was still pointing the old way, a guide a moment behind the journey. I added “check again after turning.” Tomorrow I will test this tiny guide’s sense of direction."
+    },
+    "replies": [
+      {
+        "id": "xian.arrival.wall-two-sides.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给小箭头讲清楚刚才的转身",
+          "en": "Explain the turn to the little arrow"
+        }
+      },
+      {
+        "id": "xian.arrival.wall-two-sides.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "换个朝向再看看两边",
+          "en": "Turn and compare the two sides again"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "xian.wall-turning-slip"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "xian.arrival.roujiamo-midword",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "xian",
+    "factIds": [
+      "xian-roujiamo"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "肉夹馍吃到一半，我才想起自己的半句话。",
+      "en": "Halfway through roujiamo, I remembered my half-finished sentence."
+    },
+    "text": {
+      "zh-Hans": "在西安尝腊汁肉夹馍，白吉馍和软嫩的肉馅让我把话说到一半就停了。吃完再看，菜单上只有“今天这份”，后面空着。我想了想，接上“已经吃完”。菜名也补好了，一张菜单总算有头有尾。明天再遇到好吃的，先把开头说完。",
+      "en": "The baiji flatbread and tender meat of my Xi’an roujiamo interrupted a sentence halfway through. After eating, I found only “Today’s serving…” on the menu card. I considered the evidence and added “…has been finished.” With the name filled in too, the menu finally had a beginning and an ending. Tomorrow I will try completing the opening before lunch takes over."
+    },
+    "replies": [
+      {
+        "id": "xian.arrival.roujiamo-midword.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把菜单上半句话接着讲完",
+          "en": "Finish the interrupted menu sentence"
+        }
+      },
+      {
+        "id": "xian.arrival.roujiamo-midword.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪两个词隔得最远",
+          "en": "Notice which words are farthest apart"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "xian.menu-roujiamo"
+      ]
+    }
+  },
+  {
+    "id": "xian.arrival.paomo-slow-spoon",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "xian",
+    "factIds": [
+      "xian-yangrou-paomo"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一碗羊肉泡馍，让小勺也有了自己的座位。",
+      "en": "A bowl of yangrou paomo gave my spoon a place to rest."
+    },
+    "text": {
+      "zh-Hans": "在西安吃羊肉泡馍，碎馍和羊肉汤盛在同一碗里。我原本想边吃边给菜单找个开场，后来决定先把这一口慢慢尝完。搁下勺子，桌上的便纸被我写上“午饭暂停处”。吃完才发现，这张便纸比我的菜单还早起好了名字。明天给菜单也找个不着急的开头。",
+      "en": "Pieces of flatbread and lamb soup shared my bowl of yangrou paomo in Xi’an. I tried composing the menu’s opening while eating, then decided one mouthful deserved my attention first. When I put down the spoon, I labeled a nearby slip “Lunch pause.” The slip had a name before the menu did. Tomorrow the menu can have an equally unhurried beginning."
+    },
+    "replies": [
+      {
+        "id": "xian.arrival.paomo-slow-spoon.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给菜单找个慢慢讲的开头",
+          "en": "Find an unhurried opening for the menu"
+        }
+      },
+      {
+        "id": "xian.arrival.paomo-slow-spoon.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意小勺每次停在哪里",
+          "en": "Notice where the spoon rests"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "xian.lunch-pause-slip"
+      ],
+      "menuIds": [
+        "xian.menu-yangrou-paomo"
+      ]
+    }
+  },
+  {
+    "id": "xian.arrival.which-lunch-first",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "xian",
+    "factIds": [
+      "xian-roujiamo",
+      "xian-yangrou-paomo"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我在西安的两顿饭，今天交换了出场顺序。",
+      "en": "My two Xi’an meals swapped their order in the telling."
+    },
+    "text": {
+      "zh-Hans": "分两顿尝了腊汁肉夹馍和羊肉泡馍，我带着两张菜单和旅人聊今天。刚讲完一遍，对方问，倒着讲会怎样？于是我从晚一点的那顿说起，午饭的停顿忽然像一个开场。我们各在便纸上写了一个起点，明天把两种讲法都读给邮包听，看它更想装哪一张。",
+      "en": "After separate meals of roujiamo and yangrou paomo, I told a traveler about my day with both menu cards beside me. “What if you told it backwards?” they asked. Starting with the later meal made a lunch pause sound like an opening. We each wrote down a starting point. Tomorrow the mailbag gets to hear both versions before choosing a favorite."
+    },
+    "replies": [
+      {
+        "id": "xian.arrival.which-lunch-first.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "试着从另一顿饭开始讲",
+          "en": "Begin the story with the other meal"
+        }
+      },
+      {
+        "id": "xian.arrival.which-lunch-first.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "对照两张便纸的起点",
+          "en": "Compare the two written starting points"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "xian.two-starts-note"
+      ],
+      "menuIds": [
+        "xian.menu-roujiamo",
+        "xian.menu-yangrou-paomo"
+      ]
+    }
+  },
+  {
+    "id": "xian.arrival.menu-aftertaste",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "xian",
+    "factIds": [
+      "xian-roujiamo",
+      "xian-yangrou-paomo"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张菜单收好前，我给各自留了一次回想。",
+      "en": "Before packing two menus, I gave each one a moment to return."
+    },
+    "text": {
+      "zh-Hans": "今天在西安，腊汁肉夹馍和羊肉泡馍分开尝过了。我没有马上把两张菜单叠好，先读一张，想想白吉馍和肉馅；再读另一张，想想碎馍和羊肉汤。读到后来，肚子没再催我，邮包却已经张着口等收拾。明天先替这个安静等着的家伙留个位置。",
+      "en": "Today in Xi’an I tried roujiamo and yangrou paomo at separate meals. Before stacking the menu cards, I read one and recalled flatbread with tender meat, then the other and recalled bread in lamb soup. My stomach had stopped making suggestions. The open mailbag, however, was still waiting to be packed. Tomorrow this patient companion deserves a place in the account."
+    },
+    "replies": [
+      {
+        "id": "xian.arrival.menu-aftertaste.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给安静等着的邮包留句话",
+          "en": "Leave a word for the waiting mailbag"
+        }
+      },
+      {
+        "id": "xian.arrival.menu-aftertaste.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪张菜单先被收好",
+          "en": "Notice which menu gets packed first"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "xian.menu-roujiamo",
+        "xian.menu-yangrou-paomo"
+      ]
+    }
+  },
+  {
+    "id": "xian.fulfill.outline-return",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "xian",
+    "factIds": [
+      "xian-terracotta-army"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "xian.arrival.look-again.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，那一眼终于有了自己的小记号。",
+      "en": "Your “{reply}” gave that second look a small mark of its own."
+    },
+    "text": {
+      "zh-Hans": "我又想起在西安看兵马俑时留意的轮廓，在原来“看过，又看过”的便签下面添了一道弯线。它不是陶俑的准确画像，只是提醒我当时曾停下来看。我给弯线旁边留了一个小点，算作下次回想的起点。明天打开邮包，看看那一眼会不会先跑出来。",
+      "en": "The outline I noticed at the Terracotta Army returned to mind. Beneath “looked, then looked again,” I added a curved line. It is no accurate drawing of a figure, just a reminder that I stopped and paid attention. A little dot beside it marks where to begin recalling the visit next time. Tomorrow I will see whether that second look is the first thing out of the mailbag."
+    },
+    "replies": [
+      {
+        "id": "xian.fulfill.outline-return.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把这次回想讲成一句话",
+          "en": "Put the recollection into a sentence"
+        }
+      },
+      {
+        "id": "xian.fulfill.outline-return.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看弯线旁边的小点",
+          "en": "Find the dot beside the curved line"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "xian.second-look-note"
+      ],
+      "menuIds": []
+    }
+  }
+]

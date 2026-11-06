@@ -1,0 +1,367 @@
+[
+  {
+    "id": "bangkok.arrival.river-direction",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "bangkok",
+    "factIds": [
+      "wat-arun"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "这次找路，我先让目光过河。",
+      "en": "This time my eyes crossed the river first."
+    },
+    "text": {
+      "zh-Hans": "在曼谷河边看见郑王庙的塔形时，我还拿着一张折反的路线纸。塔在湄南河另一边，纸上的箭头却朝着我的邮包。我先把纸转正，再安静看了一会儿水面。今天没有急着赶过去，明天翻到这一页，就先确认自己把哪边折到了里面。",
+      "en": "Wat Arun’s tall prang appeared across the Chao Phraya while my route paper pointed straight at my mailbag. I had folded it backwards. Once it was the right way up, I stayed by the river for a while. Tomorrow’s first navigation task is checking which side of the paper I have hidden."
+    },
+    "replies": [
+      {
+        "id": "bangkok.arrival.river-direction.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旅伴帮忙看一眼路线纸",
+          "en": "Ask a companion to check the route paper"
+        }
+      },
+      {
+        "id": "bangkok.arrival.river-direction.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看河岸与塔的方向",
+          "en": "Notice the tower’s position across the river"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "bangkok.river-direction"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "bangkok.arrival.waiting-in-shade",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "bangkok",
+    "factIds": [
+      "lumphini-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "等人的时候，树荫先来陪了一会儿。",
+      "en": "The shade arrived before my companion did."
+    },
+    "text": {
+      "zh-Hans": "我在伦披尼公园等旅伴，先听见脚步，再听见自己翻便纸的声音。园里的大树把这段等待变得很舒服。旅伴到了，我们反倒又聊了一会儿才起身。我给这段时间记了个名字：“已经到了，也可以再坐坐。”明天想把等人的声音补在旁边。",
+      "en": "Waiting for a companion in Lumphini Park, I heard footsteps and then my own paper turning. The big trees made waiting rather agreeable. When my companion arrived, we stayed to talk before setting off. I named the interval “Here already, still sitting.” Tomorrow it needs a note about its sounds."
+    },
+    "replies": [
+      {
+        "id": "bangkok.arrival.waiting-in-shade.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把等人的声音写下来",
+          "en": "Write down the sounds of waiting"
+        }
+      },
+      {
+        "id": "bangkok.arrival.waiting-in-shade.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看树荫移到了哪里",
+          "en": "Watch where the shade has moved"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "bangkok.shade-pause"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "bangkok.arrival.tamarind-note",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "bangkok",
+    "factIds": [
+      "pad-thai"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一口炒粉，让菜单多了个停顿。",
+      "en": "One mouthful added a pause to my menu."
+    },
+    "text": {
+      "zh-Hans": "在曼谷吃泰式炒河粉，我先记住了米粉，再留意到罗望子的酸味。我本来想给小菜单列一长串词，吃完只留下“再想一口”。不是还要点一份，是这一口值得慢慢回想。明天翻到卡片时，先别把最后那个字念成下一口。",
+      "en": "My Pad Thai in Bangkok left me thinking first of rice noodles, then of tamarind’s tartness. I planned a long list for the menu but kept only “Think about one more mouthful.” No extra order, just a taste worth revisiting. Tomorrow I should read that line carefully before reaching for a fork."
+    },
+    "replies": [
+      {
+        "id": "bangkok.arrival.tamarind-note.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和旅伴聊聊先记住的味道",
+          "en": "Compare the first flavour each of us remembers"
+        }
+      },
+      {
+        "id": "bangkok.arrival.tamarind-note.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看米粉和配料的样子",
+          "en": "Notice the noodles and their ingredients"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "bangkok.menu-pad-thai"
+      ]
+    }
+  },
+  {
+    "id": "bangkok.arrival.mango-fork-rest",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "bangkok",
+    "factIds": [
+      "mango-sticky-rice"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小叉子今天，也有歇脚的地方。",
+      "en": "Even the little fork found somewhere to rest."
+    },
+    "text": {
+      "zh-Hans": "吃芒果糯米饭时，我把芒果、糯米和椰奶的名字分别念了一遍，像在给菜单点名。吃到一半，小叉子被我放在盘边歇了一会儿。我用自己的便纸折了一个只给纸叉子坐的小座位，回去再画上叉子。明天看看它是不是还在等甜点。",
+      "en": "With mango sticky rice in Bangkok, I named the mango, sticky rice and coconut milk as though taking a menu roll call. Halfway through, my fork had a rest on the plate. Later I folded a seat from my own paper, strictly for a drawn fork. Tomorrow I will check whether it is still waiting for dessert."
+    },
+    "replies": [
+      {
+        "id": "bangkok.arrival.mango-fork-rest.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给纸叉子的座位取个名",
+          "en": "Name the paper fork’s seat"
+        }
+      },
+      {
+        "id": "bangkok.arrival.mango-fork-rest.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看芒果和糯米的颜色",
+          "en": "Compare the mango and sticky rice"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "bangkok.fork-seat"
+      ],
+      "menuIds": [
+        "bangkok.menu-mango-sticky-rice"
+      ]
+    }
+  },
+  {
+    "id": "bangkok.arrival.flavour-conversation",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "bangkok",
+    "factIds": [
+      "pad-thai",
+      "mango-sticky-rice"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两次吃饭，留下两种话头。",
+      "en": "Two food stops supplied two conversation starters."
+    },
+    "text": {
+      "zh-Hans": "在曼谷，我先后尝了泰式炒河粉和芒果糯米饭。给旅伴看两张菜单时，我们从米粉聊到糯米，又聊到旅行中最喜欢在哪里坐一会儿。结果卡片背面记下的都是歇脚地点，正面才是吃的。明天整理邮包，别把两面认反了。",
+      "en": "Separate stops for Pad Thai and mango sticky rice in Bangkok gave me two menus. Showing them to a companion took us from rice noodles to sticky rice, then to favourite places for a pause. The food stayed on the fronts; the backs filled with places to sit. Tomorrow I must keep track of which side I am reading."
+    },
+    "replies": [
+      {
+        "id": "bangkok.arrival.flavour-conversation.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "交换一个喜欢歇脚的地方",
+          "en": "Trade a favourite place for a pause"
+        }
+      },
+      {
+        "id": "bangkok.arrival.flavour-conversation.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看菜单正反面写了什么",
+          "en": "Compare the fronts and backs of the menus"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "bangkok.menu-pad-thai",
+        "bangkok.menu-mango-sticky-rice"
+      ]
+    }
+  },
+  {
+    "id": "bangkok.arrival.rice-two-ways",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "bangkok",
+    "factIds": [
+      "pad-thai",
+      "mango-sticky-rice"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "同一个“米”字，走了两条路。",
+      "en": "Rice took two routes into my notebook."
+    },
+    "text": {
+      "zh-Hans": "先后尝过泰式炒河粉和芒果糯米饭，我收好曼谷的两张菜单。一张记着长长的米粉，一张记着糯米；光念名字，舌头就像又换了一次节奏。我在卡片角上各点一个点，提醒自己这是两次不同的停留。明天慢慢翻，不把午饭和甜点翻成一页。",
+      "en": "Packing my Bangkok menus after separate tastes of Pad Thai and mango sticky rice, I noticed rice taking two forms: long noodles and sticky grains. Even saying the names changed the rhythm. A dot on each corner marks two different stops. Tomorrow I will turn the cards slowly and keep both moments."
+    },
+    "replies": [
+      {
+        "id": "bangkok.arrival.rice-two-ways.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把两个名字读给旅伴听",
+          "en": "Read both names to a companion"
+        }
+      },
+      {
+        "id": "bangkok.arrival.rice-two-ways.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较米粉和糯米的形态",
+          "en": "Compare noodles with sticky rice"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "bangkok.menu-pad-thai",
+        "bangkok.menu-mango-sticky-rice"
+      ]
+    }
+  },
+  {
+    "id": "bangkok.fulfill.waiting-sounds",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "bangkok",
+    "factIds": [
+      "lumphini-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "bangkok.arrival.waiting-in-shade.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把那段等待又听了一次。",
+      "en": "Your note, “{reply}”, let me listen to the wait again."
+    },
+    "text": {
+      "zh-Hans": "伦披尼公园那张便签上，我补了三样声音：脚步、翻纸，还有旅伴到来时我的一声“这里”。最后一声旁边空着，因为接下来我们都在坐着歇脚。我给纸对折，两个字刚好碰在一起。下次等人，可以先打开它，提醒自己不用连等待都走得很快。",
+      "en": "My Lumphini Park note now holds footsteps, turning paper and the “over here” I called when my companion arrived. A blank follows that last sound: we had settled down for a rest. Folding the note brought the two words together. On another wait I can open it and let the minutes stroll."
+    },
+    "replies": [
+      {
+        "id": "bangkok.fulfill.waiting-sounds.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给下次等待留一声招呼",
+          "en": "Save a greeting for the next wait"
+        }
+      },
+      {
+        "id": "bangkok.fulfill.waiting-sounds.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看最后一声后面的空白",
+          "en": "Notice the quiet after the last sound"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "bangkok.shared-wait"
+      ],
+      "menuIds": []
+    }
+  }
+]

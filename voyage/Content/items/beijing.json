@@ -1,0 +1,98 @@
+[
+  {
+    "id": "beijing.menu-roast-duck",
+    "kind": "menu",
+    "cityId": "beijing",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "北京烤鸭小菜单",
+      "en": "Peking Duck Menu Card"
+    },
+    "descriptions": {
+      "zh-Hans": "在北京尝过薄饼包烤鸭后写的菜单。菜名旁边还留着我先写下的“再来一口”。",
+      "en": "My card after trying Peking duck in a pancake in Beijing. “Another bite” still sits beside the dish’s name."
+    }
+  },
+  {
+    "id": "beijing.menu-zhajiangmian",
+    "kind": "menu",
+    "cityId": "beijing",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "炸酱面小菜单",
+      "en": "Zhajiang Noodle Menu Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我吃过北京炸酱面后留下的菜单，下面写着自己的小顺序：先拌面，再写信。",
+      "en": "A card from my bowl of Beijing zhajiang noodles, with a personal reminder: noodles first, letter second."
+    }
+  },
+  {
+    "id": "beijing.waiting-sound-note",
+    "kind": "souvenir",
+    "cityId": "beijing",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "故宫等人声音便签",
+      "en": "Forbidden City Waiting Sounds"
+    },
+    "descriptions": {
+      "zh-Hans": "我在北京故宫等一位旅人时记下的小声音。邮包拉链也在里面占了一行。",
+      "en": "Sounds from waiting for a traveler at Beijing’s Forbidden City. My mailbag zipper earned a line of its own."
+    }
+  },
+  {
+    "id": "beijing.noodles-sequence-slip",
+    "kind": "souvenir",
+    "cityId": "beijing",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "先拌面顺序条",
+      "en": "Noodles First Slip"
+    },
+    "descriptions": {
+      "zh-Hans": "在北京写炸酱面菜单时，我差点把吃饭和写信的顺序弄混。这是重新写清楚的一张。",
+      "en": "My corrected instructions from a zhajiang-noodle lunch in Beijing, after the pencil and the noodles nearly exchanged jobs."
+    }
+  },
+  {
+    "id": "beijing.lake-pause-note",
+    "kind": "souvenir",
+    "cityId": "beijing",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "颐和园湖面停顿",
+      "en": "A Summer Palace Pause"
+    },
+    "descriptions": {
+      "zh-Hans": "我在颐和园记山、水和亭台时留下的长停顿。中间只有一个陪我歇脚的小逗号。",
+      "en": "A pause between my words for the Summer Palace’s hills, water and pavilions, occupied by one resting comma."
+    }
+  },
+  {
+    "id": "beijing.menu-reading-pair",
+    "kind": "souvenir",
+    "cityId": "beijing",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两人菜单朗读次序条",
+      "en": "Two Menu Reading Orders"
+    },
+    "descriptions": {
+      "zh-Hans": "在北京，我和一位旅人给自己的两张小菜单各排了一次朗读顺序。留着换着读。",
+      "en": "A traveler and I each arranged a reading order for my two Beijing menu cards. Both versions came along."
+    }
+  }
+]

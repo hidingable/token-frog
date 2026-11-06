@@ -1,0 +1,367 @@
+[
+  {
+    "id": "seoul.arrival.palace-contours",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "seoul",
+    "factIds": [
+      "changdeokgung"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的路，让我的直线歇了一会儿。",
+      "en": "Today gave my straight lines a rest."
+    },
+    "text": {
+      "zh-Hans": "到了首尔，我去看昌德宫。这里的建筑和园林顺着自然地形安排，我也慢慢看着路的转折走。歇脚后整理自己的路线，才发现纸上的箭头一个接一个，像在互相让路。我没有把它们拉直，只在开头添了一颗小星，免得明天看不出自己从哪里开始。",
+      "en": "At Changdeokgung in Seoul, I noticed how buildings and gardens fit the land. I followed the turns at an easy pace. Later, my own route note filled with arrows, each seeming to make room for the next. I left them crooked and put a star at the start. Tomorrow I would at least know where my account began."
+    },
+    "replies": [
+      {
+        "id": "seoul.arrival.palace-contours.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这段散步取个名字",
+          "en": "Find a name for this little walk"
+        }
+      },
+      {
+        "id": "seoul.arrival.palace-contours.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "顺着箭头再看一遍路线",
+          "en": "Follow the arrows through the note again"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "seoul.turning-arrows"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "seoul.arrival.stream-companions",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "seoul",
+    "factIds": [
+      "cheonggyecheon"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两个人都没赶路，刚好能一起走一小段。",
+      "en": "Neither of us was in a hurry. That helped."
+    },
+    "text": {
+      "zh-Hans": "在首尔清溪川边，我和一位旅人同向走了一会儿。对方问我打算走到哪里，我看了看水面，只能回答“先到下一座桥”。我们都笑了，便先把下一座桥当成共同的小目标。到桥边分别时，我在便纸上画了两道短线，记下这一段刚好同路的散步。",
+      "en": "Beside Cheonggyecheon in Seoul, I fell into step with another traveler. Asked how far I was going, I looked at the water and said, “The next bridge, for now.” We both smiled and adopted it as our modest shared destination. At the bridge we parted. Two short lines on a note keep that brief stretch of company."
+    },
+    "replies": [
+      {
+        "id": "seoul.arrival.stream-companions.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊各自接下来的方向",
+          "en": "Talk about where each of you is headed"
+        }
+      },
+      {
+        "id": "seoul.arrival.stream-companions.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看桥下的水怎样经过",
+          "en": "Watch the water pass under the bridge"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "seoul.shared-stream-lines"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "seoul.arrival.tteokbokki-small-bite",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "seoul",
+    "factIds": [
+      "tteokbokki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的小菜单，留出了一口水的位置。",
+      "en": "Today’s menu has room for a sip of water."
+    },
+    "text": {
+      "zh-Hans": "我在首尔尝了辣炒年糕，条状年糕裹着辣椒酱。吃过一口，我先喝了点水，再把菜名补到菜单上。写味道的时候，那个“辣”字落笔格外有精神。我在旁边画了一只自己的水杯，它安安静静，倒是今天很可靠的同桌。",
+      "en": "In Seoul I tried tteokbokki, rice-cake sticks coated in chili sauce. After a bite I took a sip of water, then finished the name on my menu. The word “spicy” came out in particularly lively handwriting. I added my own water glass beside it: a quiet but very dependable lunch companion."
+    },
+    "replies": [
+      {
+        "id": "seoul.arrival.tteokbokki-small-bite.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给水杯写一句同桌评语",
+          "en": "Write a line about the reliable water glass"
+        }
+      },
+      {
+        "id": "seoul.arrival.tteokbokki-small-bite.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪一笔最有精神",
+          "en": "Find the liveliest pencil stroke"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "seoul.water-glass-note"
+      ],
+      "menuIds": [
+        "seoul.menu-tteokbokki"
+      ]
+    }
+  },
+  {
+    "id": "seoul.arrival.bindaetteok-first-sound",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "seoul",
+    "factIds": [
+      "bindaetteok"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "还没记下味道，先记住了一点声音。",
+      "en": "A small sound reached my notes before the flavor did."
+    },
+    "text": {
+      "zh-Hans": "在首尔广藏市场，我尝了一份绿豆煎饼。知道它以磨碎的绿豆来做，我在菜单上认真写下菜名。咬到自己这一份的边缘时，听见一点轻轻的脆响，就想在纸上给声音也留个位置。最后只写了一个小小的“咔”，像一句还没说完的话。",
+      "en": "At Gwangjang Market in Seoul, I tried a mung bean pancake and carefully wrote “bindaetteok” on my menu. The edge of my serving gave a small crunch. I wanted room for that sound as well as the name, so I added a tiny “crk.” It looks like a word caught halfway through speaking."
+    },
+    "replies": [
+      {
+        "id": "seoul.arrival.bindaetteok-first-sound.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "试着给声音添一个词",
+          "en": "Try adding a word for the sound"
+        }
+      },
+      {
+        "id": "seoul.arrival.bindaetteok-first-sound.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看菜单里最短的一行",
+          "en": "Find the shortest line on the menu"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "seoul.menu-bindaetteok"
+      ]
+    }
+  },
+  {
+    "id": "seoul.arrival.two-menus-names",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "seoul",
+    "factIds": [
+      "tteokbokki",
+      "bindaetteok"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两个菜名，我分两次才说顺。",
+      "en": "Two dish names took a little rehearsal."
+    },
+    "text": {
+      "zh-Hans": "今天在首尔，我先尝了辣炒年糕，后来又吃了绿豆煎饼。歇脚时，我把两张菜单摊给一位旅人看，试着把上面的名字慢慢念一遍。念得不够流利，就从头再来。对方也跟着练了一遍，我们的午后因此多了两句新话。我在卡片上各加一个小圆点，记下这次练习。",
+      "en": "After separate stops for tteokbokki and bindaetteok in Seoul, I showed my two menu cards to a fellow traveler. I tried saying each name slowly and started again where I stumbled. My companion joined the rehearsal. Our afternoon acquired two new things to say, and each card acquired a dot to remember the practice."
+    },
+    "replies": [
+      {
+        "id": "seoul.arrival.two-menus-names.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "再慢慢念一次菜名",
+          "en": "Say the dish names slowly once more"
+        }
+      },
+      {
+        "id": "seoul.arrival.two-menus-names.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找卡片上的练习记号",
+          "en": "Find the practice marks on the cards"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "seoul.menu-tteokbokki",
+        "seoul.menu-bindaetteok"
+      ]
+    }
+  },
+  {
+    "id": "seoul.arrival.two-menus-senses",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "seoul",
+    "factIds": [
+      "tteokbokki",
+      "bindaetteok"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张菜单，一张先想起味道，一张先想起声音。",
+      "en": "One menu recalled a flavor; the other, a sound."
+    },
+    "text": {
+      "zh-Hans": "我在首尔分开尝了辣炒年糕和绿豆煎饼。收好两张菜单时，年糕先让我想起辣味，煎饼先让我想起自己咬到边缘的那一点脆响。我在背面分别写“舌头记得”和“耳朵记得”。这不是食谱，只是今天的记法。要是明天两者换了班，我再给它们改一行。",
+      "en": "I tried tteokbokki and bindaetteok at separate stops in Seoul. Packing the menus, I recalled the chili first on one and the little crunch of my pancake’s edge on the other. I labeled the backs “taste remembers” and “ears remember.” Just today’s filing system. If the memories swap places tomorrow, I can change a line."
+    },
+    "replies": [
+      {
+        "id": "seoul.arrival.two-menus-senses.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和旅人交换一个味觉词",
+          "en": "Trade a word about flavor with a traveler"
+        }
+      },
+      {
+        "id": "seoul.arrival.two-menus-senses.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看自己先想起哪一种感觉",
+          "en": "Notice which sense returns first"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "seoul.menu-tteokbokki",
+        "seoul.menu-bindaetteok"
+      ]
+    }
+  },
+  {
+    "id": "seoul.fulfill.arrows-take-turns",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "seoul",
+    "factIds": [
+      "changdeokgung"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "seoul.arrival.palace-contours.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把那些转弯的箭头重新排好了。",
+      "en": "“{reply}” brought my turning arrows out again."
+    },
+    "text": {
+      "zh-Hans": "我又看了一遍在昌德宫散步后写的路线便签。那些箭头绕来绕去，我给每个转弯都留了一点空隙，又把纸折成一张能展开的小卡。它不是游览地图，只装着我那天慢慢走的记忆。合起来时，起点的小星恰好露在外面，像在等下一次出发。",
+      "en": "I reread my personal route note from Changdeokgung. I gave each turning arrow a little breathing room, then folded the sheet into a card that opens out. It is no visitor map, only a memory of my unhurried walk. Closed, it leaves the starting star visible, ready for another departure."
+    },
+    "replies": [
+      {
+        "id": "seoul.fulfill.arrows-take-turns.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给起点的小星留句话",
+          "en": "Leave a message for the starting star"
+        }
+      },
+      {
+        "id": "seoul.fulfill.arrows-take-turns.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "展开看看箭头先转向哪里",
+          "en": "Open the card and follow the first turn"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "seoul.unfolding-walk-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

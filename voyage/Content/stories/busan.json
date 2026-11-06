@@ -1,0 +1,367 @@
+[
+  {
+    "id": "busan.arrival.beach-waiting",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "busan",
+    "factIds": [
+      "gwangalli-beach"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "等人的时候，海面替我换了好几次背景。",
+      "en": "While I waited, the sea kept changing the backdrop."
+    },
+    "text": {
+      "zh-Hans": "到了釜山，我在广安里海边等一位同行的旅人，远处是广安大桥。对方来了，我们没有立刻走，先各说一件等候时看到的小事。我说海面亮了一小块，对方说刚才一路都在找我那只邮包。于是我在便签上画了邮包和一条浪，给这次碰面添了两个记号。",
+      "en": "At Gwangalli Beach in Busan, I waited for a fellow traveler with Gwangandaegyo Bridge in view. Once together, we each described a small thing from the wait. I had noticed a bright patch of water; my companion had spent the walk looking for my mailbag. A bag and a wave went onto my note, two signs for a successful meeting."
+    },
+    "replies": [
+      {
+        "id": "busan.arrival.beach-waiting.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "接着聊聊路上看到的小事",
+          "en": "Keep trading small things seen along the way"
+        }
+      },
+      {
+        "id": "busan.arrival.beach-waiting.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "记下海面亮起的那一小块",
+          "en": "Remember the bright patch on the water"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "busan.wave-meeting-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "busan.arrival.cliff-listening",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "busan",
+    "factIds": [
+      "taejongdae"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天，我站在能看海的地方，听了好一会儿。",
+      "en": "Today I gave the sea a long listening turn."
+    },
+    "text": {
+      "zh-Hans": "在釜山太宗台的观景处，我看着层层岩石旁的海浪。这里能见到海蚀崖等地貌，我没有急着把名词都记下来，先听了一会儿浪声。写便签时，每句话后面都不自觉空得很长。我决定保留这些空白，让纸上的海也有时间再响一次。",
+      "en": "At a lookout in Taejongdae, Busan, I watched waves beside the layered rocks and sea cliffs. Instead of trying to collect every geological term, I listened for a while. My notes came out with unusually long spaces after each sentence. I left them there, giving the sea on the page time for another turn."
+    },
+    "replies": [
+      {
+        "id": "busan.arrival.cliff-listening.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这段浪声取个短标题",
+          "en": "Choose a short title for the waves"
+        }
+      },
+      {
+        "id": "busan.arrival.cliff-listening.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听两阵浪之间的空隙",
+          "en": "Listen to the interval between waves"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "busan.wave-intervals"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "busan.arrival.milmyeon-pause",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "busan",
+    "factIds": [
+      "milmyeon"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一碗凉面，把午后的语速也放慢了。",
+      "en": "A cool bowl slowed my afternoon sentences."
+    },
+    "text": {
+      "zh-Hans": "我在釜山尝了小麦冷面，小麦面条浸在冷肉汤里。吃的时候没有急着写菜单，等放下筷子，才把那股凉意记在卡片上。想形容得准确一点，最后却只写下“慢慢吃完的一碗”。这句话留给我自己读，旁边再添一个小碗就够了。",
+      "en": "In Busan I tried milmyeon, wheat noodles in cold meat broth. I waited until the chopsticks were down before writing the menu card. Searching for a precise description of that cool bowl, I settled on “a bowl I took my time over.” A note for my own memory, with a small bowl beside it."
+    },
+    "replies": [
+      {
+        "id": "busan.arrival.milmyeon-pause.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "找一个词记下这股凉意",
+          "en": "Choose a word for that coolness"
+        }
+      },
+      {
+        "id": "busan.arrival.milmyeon-pause.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "回想碗里最先注意到的部分",
+          "en": "Recall what first caught your eye in the bowl"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "busan.menu-milmyeon"
+      ]
+    }
+  },
+  {
+    "id": "busan.arrival.gukbap-spoon",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "busan",
+    "factIds": [
+      "dwaeji-gukbap"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的小菜单，借了一把汤匙当标点。",
+      "en": "A spoon became today’s menu punctuation."
+    },
+    "text": {
+      "zh-Hans": "在釜山吃猪肉汤饭，猪肉、汤和米饭让这一顿很踏实。饭后写菜单，我把汤匙画在菜名后面，弯弯的柄看起来像一个问号。我本来想擦掉，后来决定留下：它问的也许只是“还记得这一碗吗”。把卡片夹进本子之前，我点了点头。",
+      "en": "Pork, broth and rice made a comfortable meal of dwaeji gukbap in Busan. Afterwards I drew a spoon after the dish name on my menu. Its curved handle looked like a question mark. I nearly erased it, then let it ask a simple question: “Remember this bowl?” I nodded before putting the card away."
+    },
+    "replies": [
+      {
+        "id": "busan.arrival.gukbap-spoon.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "替汤匙写一个小问题",
+          "en": "Write a small question for the spoon"
+        }
+      },
+      {
+        "id": "busan.arrival.gukbap-spoon.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看汤匙最像哪个标点",
+          "en": "Decide which punctuation mark the spoon resembles"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "busan.spoon-question"
+      ],
+      "menuIds": [
+        "busan.menu-dwaeji-gukbap"
+      ]
+    }
+  },
+  {
+    "id": "busan.arrival.two-menus-chat",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "busan",
+    "factIds": [
+      "milmyeon",
+      "dwaeji-gukbap"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "聊起今天，两张菜单替我接了两次话。",
+      "en": "Two menu cards helped me tell the day’s story."
+    },
+    "text": {
+      "zh-Hans": "今天在釜山，我午间尝了小麦冷面，另一顿吃了猪肉汤饭。遇到一位旅人问我过得怎样，我就拿出两张菜单：一张写“凉”，一张画了汤匙。对方说这封信开头像午饭，结尾像晚饭。我把两张卡排好，觉得中间还该夹一句“出去走了走”。",
+      "en": "Today in Busan, I had milmyeon at lunch and dwaeji gukbap at another meal. When a traveler asked about my day, I showed two cards: one said “cool,” the other carried a spoon. My account apparently began like lunch and ended like dinner. I put the cards in order and considered adding, “Went for a walk in between.”"
+    },
+    "replies": [
+      {
+        "id": "busan.arrival.two-menus-chat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把两顿饭之间的散步讲完",
+          "en": "Tell the walk between the meals"
+        }
+      },
+      {
+        "id": "busan.arrival.two-menus-chat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张卡各留下了什么",
+          "en": "Look at what each card kept"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "busan.menu-milmyeon",
+        "busan.menu-dwaeji-gukbap"
+      ]
+    }
+  },
+  {
+    "id": "busan.arrival.two-menus-temperature",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "busan",
+    "factIds": [
+      "milmyeon",
+      "dwaeji-gukbap"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "同一天里，我记住了一凉一暖。",
+      "en": "One day left me a cool memory and a warm one."
+    },
+    "text": {
+      "zh-Hans": "在釜山，我分两次尝了小麦冷面和猪肉汤饭，各写一张小菜单。收卡片时，它们摸起来都是纸的温度，想到的却一个凉、一个暖。我试着用手掌盖住标题，只看旁边留下的词和汤匙画。没有猜错，今天的两顿饭还认得回来。",
+      "en": "I tried milmyeon and dwaeji gukbap at separate meals in Busan and made a menu for each. Packed away, both cards felt like ordinary paper, yet one brought back coolness and the other warmth. I covered the titles with my palm and used the words and spoon drawing as clues. Both meals found their way back."
+    },
+    "replies": [
+      {
+        "id": "busan.arrival.two-menus-temperature.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旅人猜猜两张卡是哪道菜",
+          "en": "Invite a traveler to guess the two dishes"
+        }
+      },
+      {
+        "id": "busan.arrival.two-menus-temperature.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "遮住标题再看一次记号",
+          "en": "Cover the titles and study the clues again"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "busan.menu-milmyeon",
+        "busan.menu-dwaeji-gukbap"
+      ]
+    }
+  },
+  {
+    "id": "busan.fulfill.bright-water-card",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "busan",
+    "factIds": [
+      "gwangalli-beach"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "busan.arrival.beach-waiting.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把海边那一点亮光留进了信里。",
+      "en": "“{reply}” gave the bright patch of sea a place in my letter."
+    },
+    "text": {
+      "zh-Hans": "广安里海边等人时看到的亮光，我用淡淡一圈铅笔留在卡片上，又添了当时远远望见的桥。这里没有准确的距离，只记得人到齐以后，我们还舍不得立刻走。我把碰面的两个小记号折进卡片里面，等收信的人打开，才让邮包和那条浪一起露面。",
+      "en": "I kept the bright patch from my Gwangalli wait as a faint pencil ring and added the distant bridge. The distances are not exact; I mainly remember that even after meeting up, we lingered. I folded the two meeting signs inside the card. When someone opens it, the mailbag and the wave can appear together."
+    },
+    "replies": [
+      {
+        "id": "busan.fulfill.bright-water-card.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给卡片里的邮包写句问候",
+          "en": "Write a greeting for the mailbag inside"
+        }
+      },
+      {
+        "id": "busan.fulfill.bright-water-card.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找淡淡的亮光圆圈",
+          "en": "Find the faint ring of light"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "busan.bright-water-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

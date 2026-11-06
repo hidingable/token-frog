@@ -1,0 +1,367 @@
+[
+  {
+    "id": "hongkong.arrival.greeting-across-water",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hongkong",
+    "factIds": [
+      "star-ferry"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的招呼，要过一次海。",
+      "en": "Today’s greeting has a harbour to cross."
+    },
+    "text": {
+      "zh-Hans": "等天星小轮时，我和一位旅伴聊起信要怎样走到对岸。绿白色的船来了，我们的话还差一个结尾。我在自己的便签两边写下“这一边”和“那一边”，中间留给水面。明天再想想，两边该怎么互相打招呼。",
+      "en": "Waiting for the Star Ferry, a companion and I wondered how a letter might reach the other shore. The green-and-white boat arrived before our conversation found an ending. My note now says “this side” and “that side,” with water left between. Tomorrow the two sides need a greeting."
+    },
+    "replies": [
+      {
+        "id": "hongkong.arrival.greeting-across-water.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给两岸各留一句招呼",
+          "en": "Leave a greeting for each shore"
+        }
+      },
+      {
+        "id": "hongkong.arrival.greeting-across-water.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看绿白色的船驶向哪里",
+          "en": "Watch where the green-and-white boat goes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hongkong.two-shores"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "hongkong.arrival.harbour-layers",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hongkong",
+    "factIds": [
+      "the-peak"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "爬到山上，眼睛还想再走一段。",
+      "en": "At the top, my eyes wanted to keep walking."
+    },
+    "text": {
+      "zh-Hans": "在太平山顶看香港，楼群和维多利亚港一层一层展开。我沿着步行径慢慢走，试着只记一处轮廓；刚记住屋顶，目光又去了水面。最后在便纸上画了三条高低不同的线，当作今天眼睛走过的小路。明天照着线，再想一次风景。",
+      "en": "From The Peak, Hong Kong’s buildings and Victoria Harbour opened in layers. On the hillside walk I tried to remember just one outline, but my gaze kept leaving the roofs for the water. Three uneven lines on a slip now mark my eyes’ wandering route. Tomorrow I can follow them back."
+    },
+    "replies": [
+      {
+        "id": "hongkong.arrival.harbour-layers.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旅伴说说先看见哪一层",
+          "en": "Ask which layer a companion noticed first"
+        }
+      },
+      {
+        "id": "hongkong.arrival.harbour-layers.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "沿着天际线慢慢看",
+          "en": "Follow the skyline at an easy pace"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hongkong.harbour-lines"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "hongkong.arrival.custard-centre",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hongkong",
+    "factIds": [
+      "egg-tart"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午后的一个圆，先从中间记起。",
+      "en": "I remembered this afternoon’s circle from the middle out."
+    },
+    "text": {
+      "zh-Hans": "在香港吃过蛋挞，我给小菜单写了个暂定名字：“黄色在中间。”挞皮和蛋奶馅都已经吃完，名字却还没定下来。我把卡片转了两次，发现从哪边看，中间还是中间。明天请邮包评一评，这算不算一个够认真的菜名。",
+      "en": "After an egg tart in Hong Kong, I gave the menu a working title: “Yellow in the Middle.” The pastry and custard were gone before the title was settled. Turning the card twice changed nothing about the middle. Tomorrow I will ask the mailbag whether this counts as a sufficiently serious name."
+    },
+    "replies": [
+      {
+        "id": "hongkong.arrival.custard-centre.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "替这张菜单想个名字",
+          "en": "Suggest a title for this menu"
+        }
+      },
+      {
+        "id": "hongkong.arrival.custard-centre.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看黄色和挞皮的边界",
+          "en": "Notice where the custard meets the pastry"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "hongkong.menu-egg-tart"
+      ]
+    }
+  },
+  {
+    "id": "hongkong.arrival.waffle-count",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hongkong",
+    "factIds": [
+      "egg-waffle"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "鸡蛋仔还没数完，点心先吃完了一角。",
+      "en": "The counting lost a corner to snack time."
+    },
+    "text": {
+      "zh-Hans": "我拿到一份鸡蛋仔，本想数数那些连在一起的小鼓包。吃掉一角后，忽然不确定刚才从哪里开始。于是我给菜单写上“数到好吃为止”，另外用自己的便纸记下几排圆点。明天只数纸上的，应该不会再少一个角。",
+      "en": "I meant to count the connected puffs of my Hong Kong egg waffle. Then I ate a corner and lost my place. “Count until delicious” seemed a fair menu heading. I kept a few rows of dots on my own paper for another attempt tomorrow; those should be harder to nibble."
+    },
+    "replies": [
+      {
+        "id": "hongkong.arrival.waffle-count.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊数到哪里忘了",
+          "en": "Tell a companion where the count went astray"
+        }
+      },
+      {
+        "id": "hongkong.arrival.waffle-count.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看小鼓包怎样连在一起",
+          "en": "Trace how the little puffs join"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hongkong.waffle-dots"
+      ],
+      "menuIds": [
+        "hongkong.menu-egg-waffle"
+      ]
+    }
+  },
+  {
+    "id": "hongkong.arrival.snack-name-swap",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hongkong",
+    "factIds": [
+      "egg-tart",
+      "egg-waffle"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两样点心，交换了一下小名。",
+      "en": "Two snacks borrowed each other’s nicknames."
+    },
+    "text": {
+      "zh-Hans": "蛋挞和鸡蛋仔，我在香港分两次尝过。和旅伴聊到它们，我们给两张菜单各取了个小名：一张是“黄心”，一张是“连着的小圆”。我故意把卡片拿反，又赶紧换回来，免得明天的自己点错纸上的下午茶。两张都收进了同一层。",
+      "en": "After trying an egg tart and an egg waffle on separate breaks in Hong Kong, I compared menu nicknames with a companion: “yellow centre” and “joined-up rounds.” I held the cards the wrong way round, then rescued tomorrow’s imaginary tea order by swapping them back. They share one pocket now."
+    },
+    "replies": [
+      {
+        "id": "hongkong.arrival.snack-name-swap.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "再给两样点心想个小名",
+          "en": "Invent another nickname for each snack"
+        }
+      },
+      {
+        "id": "hongkong.arrival.snack-name-swap.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张菜单有没有放反",
+          "en": "Check that the cards are the right way round"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "hongkong.menu-egg-tart",
+        "hongkong.menu-egg-waffle"
+      ]
+    }
+  },
+  {
+    "id": "hongkong.arrival.one-round-many-rounds",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hongkong",
+    "factIds": [
+      "egg-tart",
+      "egg-waffle"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天收起来的，是两种圆。",
+      "en": "I packed away two different sorts of round."
+    },
+    "text": {
+      "zh-Hans": "在香港先后尝过蛋挞和鸡蛋仔，我把两张菜单放到膝上比较。一张记着中间的蛋奶馅，一张记着相连的小鼓包；闭上眼想一会儿，差别竟比睁眼时还清楚。我在背面各留了一个圈，明天看看自己能不能只凭名字认出来。",
+      "en": "With an egg tart and an egg waffle tried on separate Hong Kong stops, I compared their menu cards on my knees. One remembered a custard centre; the other, connected puffs. Closing my eyes made the difference surprisingly clear. A circle on each card is tomorrow’s little memory test."
+    },
+    "replies": [
+      {
+        "id": "hongkong.arrival.one-round-many-rounds.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旅伴猜猜两张卡的名字",
+          "en": "Invite a companion to guess the menu names"
+        }
+      },
+      {
+        "id": "hongkong.arrival.one-round-many-rounds.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较一个圆和一串圆",
+          "en": "Compare one round with a cluster of rounds"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "hongkong.menu-egg-tart",
+        "hongkong.menu-egg-waffle"
+      ]
+    }
+  },
+  {
+    "id": "hongkong.fulfill.two-shore-hello",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "hongkong",
+    "factIds": [
+      "star-ferry"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "hongkong.arrival.greeting-across-water.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，两边都等到回话了。",
+      "en": "Your suggestion, “{reply}”, gave both sides a reply."
+    },
+    "text": {
+      "zh-Hans": "天星小轮那张便签，我在“这一边”下面添了“出发啦”，在“那一边”下面写“慢慢来”。这两句只是我和旅伴给纸上两岸编的招呼。读到第二句时，我也跟着坐稳了些。把纸翻过去，背面还够留下一次过海的位置。",
+      "en": "On my Star Ferry note, “this side” now says “Off we go,” while “that side” answers “Take your time.” My companion and I made up the exchange for our paper shores. Reading the reply made me settle more comfortably too. There is room on the back for another crossing."
+    },
+    "replies": [
+      {
+        "id": "hongkong.fulfill.two-shore-hello.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给下一次过海留句话",
+          "en": "Leave a line for another crossing"
+        }
+      },
+      {
+        "id": "hongkong.fulfill.two-shore-hello.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两句招呼隔着多远",
+          "en": "Measure the space between the greetings"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hongkong.shared-crossing"
+      ],
+      "menuIds": []
+    }
+  }
+]

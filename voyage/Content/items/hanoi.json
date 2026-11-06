@@ -1,0 +1,98 @@
+[
+  {
+    "id": "hanoi.menu-pho",
+    "kind": "menu",
+    "cityId": "hanoi",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "河粉小菜单",
+      "en": "Pho Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在河内吃过牛肉河粉的菜单，开头像一封暖乎乎的信。",
+      "en": "My Hanoi beef pho menu, opening rather like a warm little letter."
+    }
+  },
+  {
+    "id": "hanoi.menu-bun-cha",
+    "kind": "menu",
+    "cityId": "hanoi",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "烤肉米线小菜单",
+      "en": "Bun Cha Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在河内尝过烤肉米线的记录，菜名上方留着“今天歇在这里”。",
+      "en": "A menu after bun cha in Hanoi, with “Resting here today” above the dish name."
+    }
+  },
+  {
+    "id": "hanoi.lake-meeting",
+    "kind": "souvenir",
+    "cityId": "hanoi",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "湖边见便签",
+      "en": "Meet by the Lake"
+    },
+    "descriptions": {
+      "zh-Hans": "在河内还剑湖边等旅伴的便签，空着的地方留给会合地点的小名。",
+      "en": "A note from waiting by Hoan Kiem Lake, Hanoi, with space for our meeting spot’s nickname."
+    }
+  },
+  {
+    "id": "hanoi.warm-opening",
+    "kind": "souvenir",
+    "cityId": "hanoi",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "今天的碗开头纸",
+      "en": "Today’s Bowl…"
+    },
+    "descriptions": {
+      "zh-Hans": "在河内吃牛肉河粉时想到的信开头，后半句还在慢慢来。",
+      "en": "A letter opening that arrived over beef pho in Hanoi. The rest is taking its time."
+    }
+  },
+  {
+    "id": "hanoi.courtyard-pauses",
+    "kind": "souvenir",
+    "cityId": "hanoi",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "三次停顿的记录",
+      "en": "A Record of Three Pauses"
+    },
+    "descriptions": {
+      "zh-Hans": "参观河内文庙后用自己的纸记下的三个短句，留着慢慢看的节奏。",
+      "en": "Three phrases on my own paper after visiting Hanoi’s Temple of Literature, keeping the pace of an unhurried look."
+    }
+  },
+  {
+    "id": "hanoi.shared-lake-name",
+    "kind": "souvenir",
+    "cityId": "hanoi",
+    "rarity": "rare",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "先到也不急的会面纸",
+      "en": "No Hurry for the Early One"
+    },
+    "descriptions": {
+      "zh-Hans": "我和旅伴给还剑湖边的会合地点起的小名，只在我们自己的便签上使用。",
+      "en": "A private nickname a companion and I gave our Hoan Kiem Lake meeting spot, saved on our own note."
+    }
+  }
+]

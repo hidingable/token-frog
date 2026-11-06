@@ -63,7 +63,7 @@
 
 - `hangzhou.west-lake`：UNESCO 世界遗产项目页明确包括西湖、三面群山、堤道及人工岛，页面登记年份为 2011；其 2011 年列入名录的新闻页交叉支持入遗年份。summary 仅保留这些信息，故事只围绕西湖边画堤道展开。来源：https://whc.unesco.org/en/list/1334/ ；https://whc.unesco.org/en/news/767 。两页同属 UNESCO，属于同一权威机构的交叉核对，并非两家独立来源。
 - `hangzhou.tea-museum-longjing`：中国茶叶博物馆官网“参观指南”说明博物馆以茶和茶文化为主题、龙井馆区位于翁家山、依山而建且茶园围绕；官网“基本介绍”再次确认馆名、地址和一馆两区。summary 不写预约方式、开放时间或每天固定举办的活动。来源：https://www.teamuseum.cn/mobile/basicIntroduction.htm ；https://www.teamuseum.cn/basicInfo/basicIntroduction.htm 。两页同属博物馆官网，并非独立来源。
-- `hangzhou.longjing-shrimp`：杭州市档案馆“龙井虾仁”写明为杭州地方菜，以龙井嫩芽与虾仁同烹，成菜虾仁玉白、芽叶碧绿；教育部网站的《杭州特色美食简介》PDF 搜索结果也明确茶与虾仁搭配及白绿颜色。summary、故事和菜单只取菜名、基本搭配和颜色，没有照搬传说或操作步骤。来源：https://www.hzarchives.org.cn/info/6896 ；https://www.moe.gov.cn/jyb_xwfb/xw_zt/moe_357/jyzt_2019n/2019_zt28/2019_zt28_ssfw/2019_zt28_sszn/201910/P020191014410281546053.pdf 。档案馆页已打开；教育部 PDF 为实际搜索命中，未依赖其历史解释。
+- `hangzhou.longjing-shrimp`：杭州市档案馆“龙井虾仁”写明为杭州地方菜，以龙井嫩芽与虾仁同烹，成菜虾仁玉白、芽叶碧绿。summary、故事和菜单只取菜名、基本搭配和颜色，没有照搬传说或操作步骤。来源：https://www.hzarchives.org.cn/info/6896 。档案馆页已打开；原教育部PDF已在第二批修订中移除，见文末记录。
 - `hangzhou.pianerchuan`：杭州市档案馆“杭州特色菜”明确片儿川中的笋片、肉片、雪菜和面条；杭州网 2024 年“乐味杭州”报道开头也直接列出这三种配料，并说明其为杭州代表性面食。summary 不涉及来源有争议的创始故事。来源：https://www.hzarchives.org.cn/info/6937 ；https://hznews.hangzhou.com.cn/wghz/content/2024-10/11/content_8798872.htm 。两页均已打开；杭州网是当地媒体报道，来源级别低于档案馆的一手机构资料，用于交叉支持当代菜名和基础配料。
 
 内容：4 条 arrival 分别写西湖画堤道、茶博参观后的杯子闲聊、龙井虾仁的纸上小座位、片儿川菜单的面条绕圈；1 条 fulfill 延续西湖草稿背面的线，与另一位旅人接成一张长笺。2 张菜单；common 为湖边草稿和茶叶座位涂鸦，uncommon 为游客合画的叶片问路纸，rare 为两张速写接成的原创长笺。
@@ -125,7 +125,7 @@
 
 - `jingdezhen.imperial-kiln-museum`：文化和旅游部专题转载《景德镇日报》2025 年实地参观报道，明确写传统窑炉启发的八个大小不一拱券；MoMA 对设计者朱锫的访谈搜索摘要交叉确认八座砖拱及传统窑炉形态；市政府陶阳里介绍列出御窑博物馆作为景区组成部分。内容使用建筑“御窑博物馆”，不把管理机构“御窑博物院”当成另一处景点。
   - https://zhuanti.mct.gov.cn/fxzgzm-mtbd_detail/9637.html （2025-05-21，已打开全文）
-  - https://production-gcp.moma.org/magazine/articles/626 （MoMA，2021-09-15，搜索结果展示设计师回答，打开页只抓到标题和作者区域；核心事实同时有上条全文直接支持）
+  - https://www.moma.org/magazine/articles/626 （MoMA，2021-09-15，搜索结果展示设计师回答，打开页只抓到标题和作者区域；核心事实同时有上条全文直接支持）
   - https://jdz.gov.cn/zjcd/mljdz/sj/t932856.shtml （2023-11-24，市政府景区组成介绍；不使用其旧世界遗产申报状态或景区级别）
   - 当前运营复核：https://www.jdz.gov.cn/zwgk/fdzdgknr/xzglyfw/jcgk/dzjczyzclsqk/t1090900.shtml （2026-05-19，景德镇文旅发布，记载博物馆活动和参观线路）；https://wgxl.jdz.gov.cn/zwzx/gzdt/t1081883.shtml （市文旅局，2026 年春节客流记录）。不写具体常态开放时段。
 - `jingdezhen.china-ceramics-museum`：市政府 2026 年页面确认陶瓷专题博物馆、前身景德镇陶瓷馆；另一市政府介绍明确馆藏多个历史时期和景德镇制瓷代表品种。只写藏品范围，不写馆藏数量、面积、地址或开馆时间，因为官方不同页面在这些细节上有差异。
@@ -224,3 +224,259 @@ CLANG_MODULE_CACHE_PATH="$PWD/.build/codex-cache/clang" SWIFTPM_MODULECACHE_OVER
 - `Tests/VoyageCoreTests/StoryContentTests.swift`
 - `Tests/VoyageCoreTests/WeeklyContentTests.swift`
 - `Tests/VoyageCoreTests/WorldCityTests.swift`
+
+
+## 第二批：台北、香港、曼谷、河内（2026-11-06）
+
+以下地址均在本次网页搜索结果实际出现，并按下述范围核实。客观事实与原创旅行经历分开：旅伴对话、等候、私人的地点小名、味觉回想和自制纸品延续第一批的虚构信使视角，不代表真实人物言论、馆方活动、官方商品或地方风俗。没有新增具名人物、秘方、固定用餐程序或宗教活动。
+
+### 台北 taipei
+
+- `taipei.taipei-101`：台北市观光传播局的语音导览明确高508米、2004年落成；同局《TAIPEI》信义区建筑专题明确位于信义区并交叉支持高度。只采用高度、落成年份和区位，不用“世界第一”、当前纪录、楼层营业安排或象征寓意。
+  - https://travel.taipei/en/media/audio-guide/details/62 （官方语音导览，搜索索引完整展示相关段落；直接打开被403限制）
+  - https://www.travel.taipei/file/34681/ （官方2023年建筑专题PDF，搜索索引展示508米及Xinyi District）
+- `taipei.beitou-museum`：市观光局英文景点页明确由公共温泉浴场改设，砖木外观和黑瓦屋顶。保留建筑材料与用途变化，不写殖民史、最大浴场、现行入馆换鞋或门票规则。
+  - https://www.travel.taipei/en/attraction/details/454/ （官方英文景点页，搜索索引展示全文主体；直接打开403）
+- `taipei.beef-noodles`：市观光局饮食攻略写明汤、牛肉、面条及清炖、红烧等变化。只写基本组合和汤头选择，不宣称台北发明、固定配方或必去餐馆。
+  - https://www.travel.taipei/zh-tw/must-visit/tasterguide （官方饮食攻略，本次搜索显示牛肉面完整段落；直接打开403）
+- `taipei.xiaolongbao`：同一官方饮食攻略写明有褶的面衣、肉馅、汤汁及台北餐饮场景。只写食物形态，不写起源归属、固定褶数、蘸料比例或食用教程。
+  - https://www.travel.taipei/zh-tw/must-visit/tasterguide （小笼包段落已在搜索结果读到）
+
+写作：仰看101时扶帽、北投馆砖木颜色、牛肉面第一口、小笼包稍凉时的停顿、问路与歇脚、两种习惯的双菜单回想；兑现“记下砖墙和木构的颜色”。7条arrival、1条fulfill、2菜单、4纪念品。放弃101的纪录和建筑寓意、北投的“最大”称号、小笼包起源及标准褶数。来源为市观光部门，但本次无法直接抓取网页，依据为实际搜索索引显示的正文，属于本组可复查性较弱的一处，不将其写成已直接打开全文。
+
+### 香港 hongkong
+
+- `hongkong.star-ferry`：香港旅游发展局专页明确绿白色船身、维多利亚港及尖沙咀／中环／湾仔码头。只用路线和配色，不写实时班次、航程分钟数、票价或乘客人数。
+  - https://www.discoverhongkong.com/eng/place-to-go/travel.guide-star-ferry-pier.html （已见官方正文）
+- `hongkong.the-peak`：旅发局山顶专页与环回步行径专页直接支持俯瞰城市天际线、维港及沿山步行径。只写景观与步行环境，不采用宣传性的“隐秘无游客”，也不写索道实时安排。
+  - https://www.discoverhongkong.com/eng/place-to-go/travel.guide-the-peak.html
+  - https://www.discoverhongkong.com/eng/place-to-go/travel.guide-peak-circle-walk.html
+- `hongkong.egg-tart`：旅发局街头小食页明确黄色蛋奶馅与shortcrust或flaky pastry两类挞皮。只写食物形态，删除页面的政治人物轶事，不写起源或特定店铺品质。
+  - https://www.discoverhongkong.com/eng/food-and-drink/must-try-street-food-in-hong-kong.html （已打开，蛋挞段落）
+- `hongkong.egg-waffle`：同页明确蛋形模具和原味等变化，配图显示一片相连的鼓包；故事数数是自己的经历，不是地方吃法。
+  - https://www.discoverhongkong.com/eng/food-and-drink/must-try-street-food-in-hong-kong.html （已打开，鸡蛋仔段落与配图说明）
+
+写作：天星小轮两岸招呼、山顶目光的层次、给蛋挞命名、数鸡蛋仔小鼓包、分别品尝后的菜单闲聊与形态回想；兑现两岸各一句私人招呼。6条arrival、1条fulfill、2菜单、4纪念品。未采用菠萝包，因为已核实的蛋挞和鸡蛋仔足以满足两食物要求；没有把具体餐馆工艺概括成全港通行配方。旅发局是官方旅游机构，文章带推广属性，只保留直接的食物和景观描述。
+
+### 曼谷 bangkok
+
+- `bangkok.wat-arun`：泰国国家旅游局景点页搜索正文明确郑王庙在湄南河吞武里一侧、与卧佛寺相对，并提到高塔；泰旅局日本官网《Walking Bangkok》2018版官方手册也明确河西岸可见高耸塔形。只写位置与外部轮廓，故事停留河边，不写触碰、攀爬或戏弄宗教设施。
+  - https://www.tourismthailand.org/Attraction/wat-arun-ratchawararam-ratchawaramahawihan （本次搜索显示完整景点介绍；直接打开只得到动态模板）
+  - https://www.thailandtravel.or.jp/common/pdf/Walking_BKK2018.pdf （日本官网官方旅游手册，搜索显示河西岸高塔的相关原文；旧手册仅用于稳定地理事实）
+- `bangkok.lumphini-park`：曼谷市政府Greener Bangkok公园专页已打开，列出散步、跑步及水上活动；泰旅局泰文景点页搜索正文明确大树和宽阔池塘。只写公共绿地、树木、水面和运动空间，不采用当前收费、开放时间、蜥蜴传说或固定音乐演出。
+  - https://greener.bangkok.go.th/en/park/suan-lumpini/ （已打开“Highlights and Activities”；页面后段含未完成的模板占位文字，本次未采用该段）
+  - https://thai.tourismthailand.org/Attraction/%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B8%A5%E0%B8%B8%E0%B8%A1%E0%B8%9E%E0%B8%B4%E0%B8%99%E0%B8%B5 （搜索可见泰文主体；直接打开为动态模板）
+- `bangkok.pad-thai`：泰旅局ASEAN Culinary Heritage Cities官方PDF的BANGKOK / DISHES TO TRY段落列出炒米粉、豆腐、蛋、花生、豆芽及罗望子等调味；泰旅局日本官网食物手册交叉支持米制炒粉。摘要写“可包括”，不把配料表当每店固定秘方。
+  - https://tourismproduct.tourismthailand.org/wp-content/uploads/2022/10/ASEAN-World-Class-Culinary-Heritage-Cities.pdf （实际搜索读到Bangkok菜品段落；直接打开无可读文本）
+  - https://www.thailandtravel.or.jp/common/pdf/Thai_Food_Catalog2019.pdf （官方食物手册，搜索可见Pad Thai米粉介绍）
+- `bangkok.mango-sticky-rice`：上述ASEAN官方PDF同一Bangkok段落明确成熟芒果、甜糯米与椰奶；泰旅局曼谷K. Panich餐饮条目交叉支持该食物在曼谷的实际餐饮场景。未使用条目的家族秘方或店龄，也未用商业推广页作主要依据。
+  - https://tourismproduct.tourismthailand.org/wp-content/uploads/2022/10/ASEAN-World-Class-Culinary-Heritage-Cities.pdf
+  - https://www.tourismthailand.org/Restaurant/k-panich （官方旅游站餐饮页，本次搜索读到正文）
+
+写作：河边翻正路线纸、公园等人听脚步、回想炒粉酸味、给画里的小叉子折座位、两种习惯分别回想两次食物体验；兑现公园等待的声音记录。6条arrival、1条fulfill、2菜单、4纪念品。未采用寺庙塔高数字、年代、瓷片来源、宗教传说、固定演出和餐馆秘方。主要来源均为政府或国家旅游局，但多个泰旅局动态页面及PDF只能通过搜索索引读到正文；官方日本手册较旧，只用于食物形态与地理，不据此写当前运营信息。Greener页面的占位段落未进入事实。
+
+### 河内 hanoi
+
+- `hanoi.hoan-kiem-lake`：越南国家旅游局11景点文章的Ngoc Son Temple段落明确祠位于还剑湖北侧小岛，红桥连接湖岸。只写地理和桥色，不写湖名传说、归还宝剑的人名、宗教功效或活动保证。
+  - https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/ （已打开全文）
+- `hanoi.temple-of-literature`：越南国家旅游局两篇文章交叉支持1070年文庙、1076年国子监及五重庭院。故事只在参观路径上安静观察，写自己的停顿，不触碰碑、祭坛或神像。
+  - https://vietnam.travel/things-to-do/hanoi-six-heritage-sites/ （已打开，文庙部分）
+  - https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/ （已打开，Temple of Literature部分）
+- `hanoi.pho`：国家旅游局美食文章写明米粉、汤、牛肉或鸡肉和香草，另一个菜品清单交叉支持河粉与牛肉及河内餐饮场景。故事中的一碗选牛肉，不推成所有河粉只用牛肉。
+  - https://vietnam.travel/things-to-do/cuisine-gateway-hanoi%E2%80%99s-culture/ （已打开63行相应正文；文中部分介绍转述媒体，食物基本组合在正文直接列明）
+  - https://vietnam.travel/things-to-do/21-must-try-vietnamese-dishes/ （实际搜索看到Pho及河内店址段落）
+- `hanoi.bun-cha`：同一国家旅游局美食文章直接列明炭烤猪肉、米线、蘸汁、生香草；另一官方美食文章还列出蔬菜。只写基本搭配，不采用名人用餐轶事、固定午餐时段或调味比例。
+  - https://vietnam.travel/things-to-do/cuisine-gateway-hanoi%E2%80%99s-culture/ （已打开64行相应正文）
+  - https://vietnam.travel/things-to-do/famous-ha-noi-food-and-international-fine-dining/ （实际搜索显示Bun cha正文）
+
+写作：湖边等旅伴、文庙庭院里的三次停顿、河粉与信开头、烤肉米线与歇脚留言、两种习惯的菜单谈话和味觉回想；兑现两人自己的会合地点小名。6条arrival、1条fulfill、2菜单、4纪念品。未写还剑湖传说（官方11景点页的传说人名存在疑点，故整段不采用）、摸石龟祈福、老街恰为36条、名人来访和宗教风俗。未采用另一官方历史概述把大学成立与1070年混写的表述，采用两篇一致区分1070／1076的文庙段落。官方旅游文章仍有二手与宣传文字；双语事实只保留正文可直接核对的基础描述。
+
+### 第一批两处来源修订
+
+- `jingdezhen.imperial-kiln-museum`：将旧生产域名换为正式MoMA地址 https://www.moma.org/magazine/articles/626 。本次先搜索到学术论文引用的同一www地址，再实际打开，确认文章标题、作者、2021-09-15日期及御窑博物馆简介。正文抓取仍有限，建筑八个拱券等核心事实继续由原有文旅部和景德镇市政府来源支持；没有修改既有故事与物品文字。
+- `hangzhou.longjing-shrimp`：移除失效的教育部PDF，只保留 https://www.hzarchives.org.cn/info/6896 。本次实际打开杭州市档案馆页，标题“龙井虾仁”，2008-02-21正文明确龙井嫩芽与虾仁、白虾仁与绿芽叶，足以支持现有summary。该事实仍有一个官方来源，未改既有情节和菜单，也未采用该文中的“据说”起源故事。
+
+
+## 第二批：北京、成都、西安、东京（核实日期 2026-11-06）
+
+核实方法：实际网页搜索后打开下列页面，并核对与正文有关的段落。以下 16 条 fact 均采用已看到的 HTTPS 地址。旅人的等待、谈话、便签、声音记录与手写菜单是宠物的虚构旅途见闻，不作为历史、配方或地方风俗陈述；没有为现实人物安排台词或故事。
+
+每城结构：2 place + 2 food；6 arrival（每条均有 factIds，talkative 专属 1，observant 专属 2）+ 1 本城精确回应 fulfill；2 menu；souvenir common 2、uncommon 1、rare 1；全部双语且每条 2 回应。两种习惯均有一次奖励两张菜单的 arrival，基础美食 arrival 另各奖励对应菜单。新增 fact ID 也带城市前缀，故事及回应 ID 使用城市点号前缀。
+
+### 北京
+
+| 事实 | 实际来源与所见依据 | 收窄、舍弃与质量限制 |
+| --- | --- | --- |
+| `beijing.beijing-palace-museum` | https://whc.unesco.org/en/list/439 ：UNESCO 条目说明北京故宫的园林、众多建筑及明清宫殿身份。 | 只写宫殿与园林，不写房间精确数量、首创或“最大”等比较，也不涉及宫廷政治。UNESCO 一手遗产说明，可信度高。 |
+| `beijing.beijing-summer-palace` | https://whc.unesco.org/en/list/880 ：UNESCO 说明山峦、开阔水面，与亭、殿、桥等人工景观结合。 | 各语种简介出现修复年份差异，摘要和故事不采用年份，只用一致的景观结构。UNESCO 一手遗产说明，可信度高。 |
+| `beijing.beijing-roast-duck` | https://english.beijing.gov.cn/beijinginfo/videos/202412/t20241227_3975743.html ：北京市国际门户网文字介绍明确提到 Peking duck wrapped in a pancake。 | 仅写薄饼包烤鸭，不补统一蘸酱、固定配菜、用餐顺序、鸭片数量或起源传说。政府原生视频介绍文字，一手但信息很简短；足以支持本条有限说法。 |
+| `beijing.beijing-zhajiangmian` | https://english.visitbeijing.com.cn/article/4Ij8fs8gdkc ：北京旅游网文章“Beijing Zhajiangmian”段说明熟面条与炸酱、菜码混合，可用黄瓜、豆芽等。页脚注明北京市文旅局宣传中心主办。 | 只取菜品构成，不采用同文的食疗说法、餐馆排名、米其林称号或营业资料；不规定全部菜码必须出现。官方文旅平台汇编，部分材料转自微信，属于本组相对一般的二手介绍。 |
+
+内容概述：在故宫等旅人并听脚步与拉链；颐和园的景物间留下停顿；烤鸭菜单先写“再来一口”；炸酱面先拌后写；两张菜单的朗读次序、动词小路；兑现把等人的声音记下。纪念品均为旅途中自己的便签与两人排出的菜单次序。
+
+### 成都
+
+| 事实 | 实际来源与所见依据 | 收窄、舍弃与质量限制 |
+| --- | --- | --- |
+| `chengdu.chengdu-panda-base` | https://www.panda.org.cn/cn/about/ ：基地官网“基地简介”及机构职责说明保护、繁育、研究、科普教育工作涉及大熊猫、小熊猫等。 | 不写数量、明星动物、必能看到的活动或互动，不将大熊猫和小熊猫混为一类动物。景区科研机构官网，一手可信度高。 |
+| `chengdu.chengdu-du-fu-cottage` | https://www.cddfct.cn/go-c11.htm ：博物馆当前官网“草堂简介”说明杜甫流寓成都故居、后世十四次大规模修葺扩建、现为博物馆；并记有园林。 | 明确为故居所在地及后世修葺，不把现有建筑说成唐代原件。不写诗作全文、创作场景或虚构诗句归属。官网变更通知也实际检索到，本条使用当前 .cn 正式网址，介绍页可打开。 |
+| `chengdu.chengdu-mapo-tofu` | https://lzhbwg.mofcom.gov.cn/edi_ecms_web_front/thb/detail/f7ab3a6e7ea0426d8fd104fc7c93df79 ：商务部老字号数字博物馆“陈麻婆”页列明豆腐、牛肉、豆瓣、花椒等用料及麻、辣、烫、嫩等特点。 | 菜品概述只写风味；涉及具体原料时限定“陈麻婆的做法”，不推广为所有店唯一配方。不采用菜名中涉及人物外貌的起源叙事、不编创始人对话。平台为政府主办，但内容为品牌介绍，具有宣传属性，故只采用可核实的基本构成。 |
+| `chengdu.chengdu-dandan-noodles` | https://lzhbwg.mofcom.gov.cn/edi_ecms_web_front/thb/detail/f6c270c212ad4cfc998168b223807727 ：商务部老字号数字博物馆“提督担担面”页“品牌介绍”说明手工面条煮熟，搭配肉臊、芽菜和辅料。 | 限定提督版本，不写统一酱料配比、不声称全部担担面相同；放弃互有不同的创始年代、创始地点与人名。政府主办平台上的品牌自述，非独立饮食研究。 |
+
+内容概述：熊猫基地先把两个动物名字分开做索引；杜甫草堂记一句明确属于自己的普通见闻；麻婆豆腐等稍凉时的点点节拍；担担面练菜名；两张菜单排出场次序、比较停顿；兑现整理名字索引。纪念品均为自己的索引、练读条、草堂见闻与谈话便纸。
+
+弃用来源/候选：金沙遗址博物馆官网能证实遗址与建馆年份，但同站有更新养护相关信息，本次不写必然能在当前开馆状态看到的展品，改用杜甫草堂。四川方志 PDF 可搜到担担面与麻婆豆腐的有关段落，但直接打开超时，未收入正式 sources。世运会美食旧页面在本次打开重定向到赛事总页，不能继续支持菜品，未收入 sources。人民公园候选只找到旁系官方页面与历史建筑 PDF，本次没有使用。
+
+### 西安
+
+| 事实 | 实际来源与所见依据 | 收窄、舍弃与质量限制 |
+| --- | --- | --- |
+| `xian.xian-terracotta-army` | https://whc.unesco.org/en/list/441 ：UNESCO 简介说明1974年发现、陶俑各不相同，伴有马、战车等。 | 不采用未完全出土的总数、各坑精确数量、人物身份猜测或“每张脸对应某真人”等说法。遗产一手说明可信度高。 |
+| `xian.xian-city-wall` | https://en.xa.gov.cn/MediaCenter/News/1691691491099529217.html ：西安市政府门户转载 China Daily 的“Must-see landmarks”城墙段，说明明代建筑，游览可见城市、护城河、城楼。 | 仅写明代与可观察景观，不声称所有方向都能看到相同景物、不写实时开放安排或准确周长。政府门户上的主流媒体二手旅游介绍。 |
+| `xian.xian-roujiamo` | https://en.xa.gov.cn/CultureTravel/Food&Retail/1691691509202145282.html ：“Marinated meat in baked bread (Lazhi Roujiamo)”说明白吉馍与软嫩多汁的肉搭配；实际打开从百分号编码 URL 跳到本表正式地址。 | 不指定此页未明确的猪肉部位、香料、炖煮时间，也不把其他肉夹馍版本混为一谈。政府门户转载 China Daily，美食基本构成可据此，非独立配方标准。 |
+| `xian.xian-yangrou-paomo` | https://en.xa.gov.cn/MediaCenter/News/1691691493733552130.html ：西安市门户文章明确将 yangrou paomo 释为 lamb soup with soaked pita bread。 | 仅写碎馍与羊肉汤，不补掰馍大小、工序或必须遵循的吃法；不使用新闻人物本人的故事或台词。政府门户旅游报道，二手说明，支持范围有限。 |
+
+内容概述：兵马俑第二眼与个人轮廓记号；城墙转身后重新看左右；肉夹馍打断一句话；泡馍与小勺歇脚；两顿饭倒序讲、菜单引起的回想；兑现第二眼便签。纪念品为个人观展、散步和吃饭留下的纸条。
+
+### 东京
+
+| 事实 | 实际来源与所见依据 | 收窄、舍弃与质量限制 |
+| --- | --- | --- |
+| `tokyo.tokyo-tower` | https://www.gotokyo.org/en/spot/4/ ：GO TOKYO 景点页明确1958年建成、高333米、主展望台150米。 | 不写全球最高、所有天气能见富士山或限量活动等变动信息。东京官方旅游平台，一手旅游介绍可信度高。 |
+| `tokyo.tokyo-ueno-park` | https://www.gotokyo.org/en/spot/482/index.html ：GO TOKYO 明确1873年设立、为日本首批公共公园之一，园中有博物馆与动物园。 | 不说唯一或绝对第一，不用实时票价、开闭时间、樱花株数或动物阵容。官方旅游平台，稳定概述可信度高。 |
+| `tokyo.tokyo-soba` | https://www.gotokyo.org/en/see-and-do/drinking-and-dining/tokyo-local-food/index.html ：“Soba”段说明江户时代中期18世纪已为受欢迎的快餐，并成为东京地方美食。 | 不写吸面声是必须遵守的礼仪、不写统一配料比例或全荞麦。不将旁观者的口味写成当地人的普遍喜好。官方旅游介绍，支持历史概述，非配方标准。 |
+| `tokyo.tokyo-monjayaki` | https://www.gotokyo.org/en/see-and-do/drinking-and-dining/tokyo-local-food/index.html ：“Monjayaki”段说明稀面糊、卷心菜等食材在热铁板烹制。 | 不采用店家总数；不同官方文字对名称来源叙事详略不同，本次完全舍弃儿童练字、纸张短缺等起源传说，只写基本烹制形态。官方旅游介绍，基础构成可信。 |
+
+内容概述：东京塔三个“三”变四拍并接上问候；上野公园停步听纸响；荞麦面先写菜名；文字烧记铁板声音；两张菜单的两句小戏与句末标点；兑现第四拍问候。纪念品为节拍、声音、散步休息与两句小戏的便签。
+
+### 子任务检查
+
+- 四城共 16 facts、24 arrival、4 fulfill、8 menu、16 souvenir；12 个内容 JSON 为本子任务唯一项目内容改动。
+- 运行 Python JSON/结构/语言/引用核对：全量现存故事及回应、物品 ID 唯一；本四城恰好 2 place + 2 food，6 arrival + 1 fulfill、双语和每条两回应、事实引用与奖励引用、精确回应兑现、两习惯双菜单入口、纪念品稀有度与图标均符合。
+- `git diff --check` 通过；全量 Swift 测试由主代理集成后执行。
+
+
+## 大阪、福冈、首尔、釜山核实记录（第二批）
+
+核实日期：2026-11-06。本节全部应用来源均为此次搜索实际出现、并已打开看到正文的 HTTPS 地址。旅人、对话、等待、味觉印象、便签与折卡为原创旅途，不对应真实人物、活动或官方商品；与事实有关的具体说法限于下列范围。每城 2 place + 2 food、6 arrival + 1 同城 fulfill、2 菜单、common 2 / uncommon 1 / rare 1 纪念品。所有 arrival 均引用事实；talkative 与 observant 各有一条双菜单故事，以适配现有习惯优先选择规则。没有改写既有情节或物品：这四城此前均没有 stories/items 文件。
+
+### 大阪 osaka
+
+- `osaka.osaka-castle`：城方主页明确天守阁于昭和六年（1931）依靠市民捐款复建，且复兴时即为博物馆；国土交通省大阪港旅游 PDF 同时明确复建年份、捐款、馆内博物馆用途。应用只写此窄范围，不扩写攻城、人物生平或年代争议。
+  - https://www.osakacastle.net/ （已打开，正文第 11 行）
+  - https://www.mlit.go.jp/kankocho/cruise/detail/029/documents/kanko.pdf （已打开，Osaka-Castle 部分）
+- `osaka.kaiyukan`：大阪观光局海游馆介绍明确环太平洋自然环境的展览安排，以及中央太平洋水槽的鲸鲨；日本政府《Highlighting Japan》2024 年 9 月刊对海游馆工作人员的采访提供直接交叉依据。正文写观看鲸鲨及停笔，只是虚构的一次游览，不把某一条动物的轨迹、昵称或行为当成永久事实。
+  - https://www.osaka-info.jp/en/spot/osaka-aquarium-kaiyukan/ （已打开，介绍正文）
+  - https://www.gov-online.go.jp/en/assets/hj_September_2024_p18-19.pdf （已打开，18–19 页，工作人员采访及太平洋水槽图注）
+- `osaka.takoyaki`：大阪观光局专页解释小麦面糊、高汤、章鱼和凹槽烤盘；国土交通省大阪港旅游 PDF 明确 wheat-flour batter、octopus balls 与 molded pan。只写基本形态及信使自己等食物凉一点的经历，不写地方吃法、发明者或年代。
+  - https://osaka-info.jp/en/gourmet/gastronomy-takoyaki/ （已打开，Takoyaki 正文）
+  - https://www.mlit.go.jp/kankocho/cruise/detail/029/documents/kanko.pdf （已打开，Konamon 部分）
+- `osaka.okonomiyaki`：大阪观光局专页明确面粉、高汤、卷心菜、可选配料，以及铁板上扁圆形煎制；国土交通省 PDF 交叉支持卷心菜、猪肉、海鲜等基本信息。不写起源传说、不推定每店配方一致。
+  - https://osaka-info.jp/en/gourmet/gastronomy-okonomiyaki/ （已打开，Okonomiyaki 正文）
+  - https://www.mlit.go.jp/kankocho/cruise/detail/029/documents/kanko.pdf （已打开，Konamon 部分）
+
+内容：天守阁外等人时读介绍、在海游馆忘记落笔、等章鱼烧凉一点、大阪烧的一句话味觉记录、与旅人选词比较两份菜单、回想两种用餐等待。fulfill 精确续接海游馆 observant 回应，将记忆点和弯线折入自制卡。物品为碰面两点便签、等候纸条、海游馆停笔便签、蓝色记忆折卡。
+
+未采用：大阪旅游站 https://osaka-info.jp/en/discover-kansai/osaka-castle/ 搜索结果把当前天守复建年写为 1928，与城方 1931 直接矛盾，因此未作应用来源。章鱼烧的创始人、1950 年代普及和大阪湾捕获量，虽旅游专页提及，也未写入资料。海游馆动物总数、鲸鲨数量和昵称、票价、喂食时间均未写入长期内容。
+
+来源质量：国土交通省 PDF 是公共旅游介绍，部分内容由大阪观光局或场馆提供，不当作与场馆完全独立的学术考证；海游馆政府刊物为有署名且访问场馆工作人员的报道。大阪观光局美食页有起源传说和宣传语，只采用简单食材与形态。
+
+### 福冈 fukuoka
+
+- `fukuoka.ohori-park`：福冈县观光联盟官方页明确池边约 2 km 步道、桥和池中岛；JNTO 官方页明确大池塘、三座岛及相连桥路。summary 不采用岛数，避免把不同页面的整体/单岛称呼混写。
+  - https://www.crossroadfukuoka.jp/en/spot/12492 （已打开，湖与步道介绍）
+  - https://www.japan.travel/en/spot/2260/ （已打开，A historic park 部分）
+- `fukuoka.fukuoka-tower`：塔方主页和福冈县官方旅游页均明确全长 234 m、最高展望室离地 123 m、福冈市区与博多湾的全景。故事中的找来时方向和共同画箭头是旅人自己的活动，不是场馆服务。
+  - https://www.fukuokatower.co.jp/ （已打开，234 m / 123 m 介绍）
+  - https://www.crossroadfukuoka.jp/en/spot/12343 （已打开，介绍首段）
+- `fukuoka.hakata-ramen`：福冈市官方旅游饮食页明确猪骨汤与细面条；同站 2026-10-13 拉面文章再次将经典博多拉面概括为 thin noodles + tonkotsu broth。只写这一组合，不把汤色、硬度选择或每店配料写死。
+  - https://gofukuoka.jp/f-food.html （已打开，Hakata Ramen 部分）
+  - https://www.gofukuoka.jp/en/articles/detail/dc4e4ec6-fe73-4303-af95-1359944fa63c （已打开，2026-10-13，导语）
+- `fukuoka.mizutaki`：福冈市旅游页明确鸡肉汤、鸡肉和蔬菜；县旅游页明确鸡肉蔬菜与 ponzu。summary 保留常见组成及“可搭配”，未声称全部食店遵守同一流程。
+  - https://gofukuoka.jp/f-food.html （已打开，Mizutaki 部分）
+  - https://www.crossroadfukuoka.jp/en/spot/12665 （已打开，介绍首句）
+
+内容：池边停步听远近脚步、福冈塔上交换来路方向、拉面来了先放笔、从鸡肉锅蒸汽想到挥手邮包、两顿饭串起一日行程、给两次好好吃饭留小句号。fulfill 续接池边 observant 回应，把听觉点记折成四页节拍纸。物品为脚步便签、蒸汽问候画、碰头箭头、四页节拍纸。
+
+未采用：拉面起源城市/发明者、面条硬度普遍偏好、屋台必然营业及与陌生人搭话习俗；水炊起源年代、医生学生传播故事、营养或胶原功效；大濠池形成史与雨季月份。塔方外的旅游线路页仍含旧价格与旧休馆日期，没有把这些内容写入应用。
+
+来源质量：拉面两页同属福冈市旅游站，不能算两个独立机构。美食介绍属官方公共旅游材料，低于专项工艺标准；本批只用于现有基本组成，不用于详细配方、起源或健康说明。塔高有塔方直接依据，公园可观察布局有县方和 JNTO 交叉支持。
+
+### 首尔 seoul
+
+- `seoul.changdeokgung`：UNESCO 直接说明 15 世纪宫殿及顺地形、与景观融合；韩国旅游发展局介绍也确认 1405 年和后园自然布局。只写世纪与空间关系，不写原构件是否完整，也不把现存建筑一概称为 15 世纪原物。
+  - https://whc.unesco.org/en/list/816 （已打开，Outstanding Universal Value）
+  - https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=94399 （已打开，宫殿及后园介绍）
+- `seoul.cheonggyecheon`：首尔市政府明确 2003–2005 修复工程及步道；首尔设施公团（运营机构）介绍明确 2005 完工和广通桥等跨河桥梁。应用只写 2005 年，不选择页面对具体竣工月份不同的表述。
+  - https://english.seoul.go.kr/service/amusement/stream/1-cheonggyecheon/ （已打开，Restoration Project 表格和 Trail）
+  - https://www.sisul.or.kr/global/main/en/sub/cheonggyecheon.jsp （已打开，设施管理介绍）
+- `seoul.tteokbokki`：首尔官方旅游页明确新堂洞专营年糕餐馆聚集；韩国旅游发展局食物页明确条状年糕、辣椒酱、蔬菜等。仅选择辣味版本，不声称所有年糕菜都辣，也不将尝辣与喝水写成当地风俗。
+  - https://english.visitseoul.net/area/Sindang-dong-Tteokbokki-Town/ENN032615 （已打开，餐馆聚集介绍）
+  - https://english.visitkorea.or.kr/svc/sp/food/ext/special_view.do?menuSn=913&page=1&sort=regDt&vcontsId=178955 （已打开，菜品说明）
+- `seoul.bindaetteok`：首尔官方旅游 Soonhee’s 介绍明确新磨绿豆糊；韩国旅游发展局对同一摊位的介绍明确位于广藏市场、磨豆混料后压平煎制及酥脆口感。应用不固定馅料；故事中的轻微脆响是信使自己这一份的体验。
+  - https://english.visitseoul.net/eat/Soonhees-Bindaetteok1_/14612 （已打开，正文及 2026-06-04 编辑日期）
+  - https://english.visitkorea.or.kr/svc/whereToGo/locIntrdn/rgnContentsView.do?vcontsId=194106 （已打开，明确市场位置、制法及口感）
+
+内容：昌德宫顺转折慢走、清溪川边与旅人同路到下一座桥、尝辣时的水杯同桌、绿豆煎饼入口的小声响、一起练习菜名、按味觉和听觉整理两张菜单。fulfill 精确续接昌德宫 observant 回应，将个人路线折为可展开的小卡。物品为转弯箭头、水杯纸条、同路短线、展开散步卡，均明确不是景点导航或官方地图。
+
+未采用：宫廷政治、战争与焚毁故事；昌德宫后园预约/开放规则、古树树龄；清溪川全流域长度/修复段长度、桥梁数量和精确完工月，避免量度口径和机构页面差异；年糕起源传奇、绿豆煎饼原产地历史、米酒饮用惯例。皇家遗产旧站 https://royal.cha.go.kr/ENG/contents/E102030000.do 打开失败（502），未作应用来源。首尔城市页与旅游发展局页都含不同年代的运营细节，未采用价格与短期活动。
+
+来源质量：UNESCO 和设施公团分别是遗产认定及设施管理的直接机构资料。两份绿豆煎饼来源来自不同公共旅游机构，却介绍同一店铺，因此只证明当地有售和基本制法，不据此概括全城每店用料。没有使用页面中嵌入的 Tripadvisor 用户评论。
+
+### 釜山 busan
+
+- `busan.gwangalli-beach`：釜山市政府明确 crescent-shaped、广安大桥视野；釜山旅游机构页明确海边散步休闲空间与大桥景观。故事中一次具体海面亮光和等人对话属于虚构游记，不是天气或灯光运行承诺。
+  - https://www.busan.go.kr/eng/beaches/1326145 （已打开，海滩介绍）
+  - https://www.visitbusan.net/index.do?lang_cd=en&menuCd=DOM_000000301001001000&uc_seq=377 （已打开，海滩和海滨街道介绍）
+- `busan.taejongdae`：釜山国家地质公园市政府页明确影岛、沉积岩及海浪侵蚀形成的海蚀崖/洞/平台；韩国旅游发展局交叉支持岩层被海侵蚀及岩岸形态。只写可验证的地貌，不写君王射箭、仙人等名称传说。
+  - https://www.busan.go.kr/geopark_en/taejongdae （已打开，Lake-born rocks confronting the sea / Introduce）
+  - https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=110962&menuSn=351 （已打开，由旧版 KTO 地址跳转到此实际地址）
+- `busan.milmyeon`：韩国旅游发展局对釜山莲山洞店的介绍明确小麦面条及釜山代表面食；韩国官方 Korea.net 的 Monthly KOREA 饮食文章明确面条搭冷肉汤及各店汤味不同。只用基本组成，不把一店配方作为全城标准。
+  - https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=74039 （已打开，Gaya Halmae Milmyeon）
+  - https://www.korea.net/NewsFocus/Culture/view?articleId=187658 （已打开，2020-07-15，转载 Monthly KOREA 2019-11，由 Kim Samuel 撰文）
+- `busan.dwaeji-gukbap`：韩国旅游发展局食物页明确猪肉片、米饭、猪骨汤及釜山地方菜；同机构专文菜单明确汤饭和饭汤分开两种供应方式。只写基本组成及可分盛，不保证所有店都提供相同服务。
+  - https://english.visitkorea.or.kr/svc/sp/food/ext/special_view.do?menuSn=913&page=1&sContsTtl=&sort=regDt&vcontsId=178139 （已打开，2023-10-19 食物说明）
+  - https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=221285 （已打开，Busan’s Representative Local Dish 及 rice/soup separately 菜单）
+
+内容：广安里海边等旅人、太宗台观景处听浪并留句间空隙、小麦冷面的一段慢吃、猪肉汤饭菜单上的问号汤匙、两顿饭串联散步、一凉一暖的味觉回想。fulfill 续接海边 observant 回应，把亮水与远桥折进自制卡。物品为海边碰面记号、问号汤匙、浪间便签、海光折卡。
+
+未采用：小麦冷面和猪肉汤饭的战争/流亡起源、争议历史和精确流派；太宗台名称传说、地质年代和可见对马岛的天气保证；广安大桥灯光时刻表、无人机秀、具体海滩开放安排。搜索到的 Miryang Dwaeji Gukbap https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=188723 实际在金海市，不用来证明釜山有售。部分 Visit Busan 食店页打开为 502，未进入应用来源；已换为可读的 KTO 与 Korea.net。
+
+来源质量：猪肉汤饭两页同属 KTO，非独立机构。Korea.net 的 Monthly KOREA 是署名公共文化杂志文章，有历史叙述而非配方标准；本批只采用冷汤、小麦面条、各店差异这些基本描述。地貌有市政府地质公园直接材料，海滩有市政府和当地旅游机构互证。没有使用攻略、百科、UGC 或商业餐饮评分作应用事实来源。
+
+### 四城内容自查
+
+四城 12 个 JSON 可解析；16 条事实全部双语，每条两个已实际看到正文的 HTTPS 来源；24 arrival 全部 factIds 非空，28 条故事均 lead/text/两个回应双语完整，所有新增 story/reply/item ID 使用城市前缀；8 菜单、16 纪念品，稀有度各城 2/1/1；fulfill 全部精确引用本城 arrival 的真实回应，且 lead 有双语 `{reply}`；talkative/observant 均有双菜单奖励故事。英文正文/lead/回应/物品无汉字，中文均含汉字，槽位一致。只编辑分配的四城 cities/stories/items 及本地工作笔记，未改 docs、代码、Tests、sources-review、既有情节/物品，未提交、未启动应用。完整 Swift 校验由主代理汇总后运行。
+
+## 第二批集成验证（2026-11-06）
+
+当前完整内容城市为第一批6城加本批12城，共18城；前文六城验证段保留为第一批记录。本批新增48条事实、73条arrival、12条同城fulfill、24张菜单、48件纪念品。台北为7条arrival，其余各6条；每城2个景点、2种美食、2菜单、common 2 / uncommon 1 / rare 1纪念品，双语完整且每条两个回应。城市原有元数据保持不变，没有改动既有故事和物品文字。
+
+| 城市 | 景点与美食 | 情节侧重 |
+| --- | --- | --- |
+| 北京 | 故宫、颐和园；烤鸭、炸酱面 | 等人听声音、园林停顿、先吃再写、菜单讲述次序 |
+| 成都 | 熊猫基地、杜甫草堂；麻婆豆腐、担担面 | 区分动物名字、自己的草堂见闻、等菜稍凉、练菜名 |
+| 西安 | 兵马俑、城墙；腊汁肉夹馍、羊肉泡馍 | 第二眼观察、转身辨方向、午饭打断一句话、倒序讲述 |
+| 东京 | 东京塔、上野公园；荞麦面、文字烧 | 三个三与第四拍、听便纸响、先写名字、铁板声音 |
+| 大阪 | 大阪城天守阁、海游馆；章鱼烧、大阪烧 | 等人读介绍、看鲸鲨忘落笔、等食物稍凉、味觉选词 |
+| 福冈 | 大濠公园、福冈塔；博多拉面、水炊锅 | 听脚步、交换来路方向、先放笔吃饭、蒸汽联想 |
+| 首尔 | 昌德宫、清溪川；辣炒年糕、绿豆煎饼 | 顺地形散步、同路到下一座桥、味觉与轻响、练名字 |
+| 釜山 | 广安里、太宗台；小麦冷面、猪肉汤饭 | 海边等人、听浪、冷暖回想、问号汤匙 |
+| 台北 | 台北101、北投温泉博物馆；牛肉面、小笼包 | 扶帽抬头、砖木颜色、问路歇脚、午饭稍凉的空当 |
+| 香港 | 天星小轮、太平山顶；蛋挞、鸡蛋仔 | 两岸私人招呼、目光层次、点心命名、小鼓包数数 |
+| 曼谷 | 郑王庙、伦披尼公园；泰式炒河粉、芒果糯米饭 | 河边辨方向、公园等人、尝酸味、小叉子的纸座位 |
+| 河内 | 还剑湖、文庙；河粉、烤肉米线 | 湖边会面、庭院停顿、暖碗开头、两人的地点小名 |
+
+既有CityBatchContentTests从6城扩为18城，保持原有断言严格度：full集合、每城事实数、arrival及习惯要求、精确回应兑现、真实到达的事实快照、菜单各收集一次、重放幂等、纪念品可达与稀有度一致，全部覆盖本批。ItemContentTests的菜单总数由12更新为36；没有改动生产代码。
+
+首轮全量执行发现台北一条新回应为13字，超过既有12字上限，以及菜单总数断言仍为12。已将该回应缩为11字，更新总数断言后重跑。未放宽回应长度和其他内容规则。
+
+最终在voyage/下运行：
+
+```bash
+CLANG_MODULE_CACHE_PATH="$PWD/.build/codex-cache/clang" SWIFTPM_MODULECACHE_OVERRIDE="$PWD/.build/codex-cache/swiftpm" swift test --disable-sandbox --scratch-path .build/codex
+```
+
+结果：退出码0；VoyageCoreTests 257 tests / 15 suites全部通过，TokenVoyageTests 168 tests / 6 suites全部通过，共425 tests。用量翻倍相关回放测试、原有兑现测试与18城精确兑现测试继续通过。最终日志`.build/step11-batch2-tests-final.log`；修改前基线`.build/step11-batch2-baseline.log`。警告逐行比较完全一致：4条既有SwiftPM用户缓存权限/只读数据库警告，没有新增警告。
+
+另外核对：全部新增JSON可解析；两种语言完整、中文含汉字、英文无汉字且槽位一致；全内容包story/reply/item ID无重复，事实ID跨城市也无重复；所有事实及应用来源均在本报告有对应依据；既有城市元数据、故事与物品保持原样；`git diff --check`通过。未运行build-app.sh、快照命令或应用，未修改docs或项目外文件，未提交。

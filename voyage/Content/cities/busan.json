@@ -10,7 +10,7 @@
     "coast",
     "food"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "釜山",
     "en": "Busan"
@@ -19,5 +19,70 @@
     "zh-Hans": "釜山",
     "en": "Busan"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "gwangalli-beach",
+      "type": "place",
+      "names": {
+        "zh-Hans": "广安里海水浴场",
+        "en": "Gwangalli Beach"
+      },
+      "summary": {
+        "zh-Hans": "广安里海滩呈月牙形，从海边能望见广安大桥，沿岸设有步行休闲空间。",
+        "en": "Gwangalli is a crescent-shaped beach with views of Gwangandaegyo Bridge and space for strolling along the seafront."
+      },
+      "sources": [
+        "https://www.busan.go.kr/eng/beaches/1326145",
+        "https://www.visitbusan.net/index.do?lang_cd=en&menuCd=DOM_000000301001001000&uc_seq=377"
+      ]
+    },
+    {
+      "id": "taejongdae",
+      "type": "place",
+      "names": {
+        "zh-Hans": "太宗台海岸",
+        "en": "Taejongdae Cliffed Coast"
+      },
+      "summary": {
+        "zh-Hans": "太宗台位于釜山影岛，海浪侵蚀沉积岩层，形成海蚀崖、海蚀洞和平台等地貌。",
+        "en": "At Taejongdae on Busan’s Yeongdo island, waves have eroded sedimentary rocks into sea cliffs, caves and wave-cut platforms."
+      },
+      "sources": [
+        "https://www.busan.go.kr/geopark_en/taejongdae",
+        "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=110962&menuSn=351"
+      ]
+    },
+    {
+      "id": "milmyeon",
+      "type": "food",
+      "names": {
+        "zh-Hans": "小麦冷面",
+        "en": "Milmyeon"
+      },
+      "summary": {
+        "zh-Hans": "小麦冷面是釜山的代表面食之一，以小麦面条搭配冷肉汤；各店的汤味和配料有所不同。",
+        "en": "Milmyeon is a Busan specialty of wheat noodles served in cold meat broth. Broth flavors and accompaniments vary between restaurants."
+      },
+      "sources": [
+        "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=74039",
+        "https://www.korea.net/NewsFocus/Culture/view?articleId=187658"
+      ]
+    },
+    {
+      "id": "dwaeji-gukbap",
+      "type": "food",
+      "names": {
+        "zh-Hans": "猪肉汤饭",
+        "en": "Dwaeji Gukbap"
+      },
+      "summary": {
+        "zh-Hans": "猪肉汤饭是釜山的地方菜，将猪肉片、米饭与猪肉汤组合在一起，米饭也可另外盛放。",
+        "en": "Dwaeji gukbap is a Busan specialty combining sliced pork, rice and pork broth. Some servings keep the rice in a separate bowl."
+      },
+      "sources": [
+        "https://english.visitkorea.or.kr/svc/sp/food/ext/special_view.do?menuSn=913&page=1&sContsTtl=&sort=regDt&vcontsId=178139",
+        "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=221285"
+      ]
+    }
+  ]
 }

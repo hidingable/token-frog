@@ -11,7 +11,7 @@
     "mountain",
     "food"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "香港",
     "en": "Hong Kong"
@@ -20,5 +20,67 @@
     "zh-Hans": "香港",
     "en": "Hong Kong"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "star-ferry",
+      "type": "place",
+      "names": {
+        "zh-Hans": "天星小轮",
+        "en": "Star Ferry"
+      },
+      "summary": {
+        "zh-Hans": "天星小轮穿行维多利亚港，连接尖沙咀与中环、湾仔的码头，船身采用绿白配色。",
+        "en": "The green-and-white Star Ferry crosses Victoria Harbour, linking Tsim Sha Tsui with piers in Central and Wan Chai."
+      },
+      "sources": [
+        "https://www.discoverhongkong.com/eng/place-to-go/travel.guide-star-ferry-pier.html"
+      ]
+    },
+    {
+      "id": "the-peak",
+      "type": "place",
+      "names": {
+        "zh-Hans": "太平山顶",
+        "en": "The Peak"
+      },
+      "summary": {
+        "zh-Hans": "太平山顶可俯瞰香港的城市天际线和维多利亚港；山顶环回步行径沿山而行。",
+        "en": "The Peak offers views over Hong Kong’s skyline and Victoria Harbour, with the Peak Circle Walk following the hillside."
+      },
+      "sources": [
+        "https://www.discoverhongkong.com/eng/place-to-go/travel.guide-the-peak.html",
+        "https://www.discoverhongkong.com/eng/place-to-go/travel.guide-peak-circle-walk.html"
+      ]
+    },
+    {
+      "id": "egg-tart",
+      "type": "food",
+      "names": {
+        "zh-Hans": "蛋挞",
+        "en": "Egg Tart"
+      },
+      "summary": {
+        "zh-Hans": "香港蛋挞以黄色蛋奶馅配挞皮，常见的挞皮有酥皮和牛油曲奇皮。",
+        "en": "Hong Kong egg tarts pair yellow egg custard with pastry, commonly either flaky or shortcrust."
+      },
+      "sources": [
+        "https://www.discoverhongkong.com/eng/food-and-drink/must-try-street-food-in-hong-kong.html"
+      ]
+    },
+    {
+      "id": "egg-waffle",
+      "type": "food",
+      "names": {
+        "zh-Hans": "鸡蛋仔",
+        "en": "Egg Waffle"
+      },
+      "summary": {
+        "zh-Hans": "鸡蛋仔用带有蛋形凹格的模具烘制，成品是一片相连的小鼓包，有原味等不同口味。",
+        "en": "Egg waffles are baked in moulds with egg-shaped pockets, making a connected sheet of little puffs. Plain and other flavours are available."
+      },
+      "sources": [
+        "https://www.discoverhongkong.com/eng/food-and-drink/must-try-street-food-in-hong-kong.html"
+      ]
+    }
+  ]
 }

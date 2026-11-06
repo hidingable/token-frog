@@ -3,13 +3,15 @@ import Testing
 @testable import VoyageCore
 
 let firstBatchCityIds = ["shanghai", "hangzhou", "suzhou", "quanzhou", "jingdezhen", "kyoto"]
+let secondBatchCityIds = ["beijing", "chengdu", "xian", "tokyo", "osaka", "fukuoka", "seoul", "busan", "taipei", "hongkong", "bangkok", "hanoi"]
+let fullContentCityIds = firstBatchCityIds + secondBatchCityIds
 
 @Suite struct CityBatchContentTests {
-    @Test func sixCitiesHaveSourcedFactsStoriesMenusAndLocalSouvenirs() throws {
+    @Test func fullCitiesHaveSourcedFactsStoriesMenusAndLocalSouvenirs() throws {
         #expect(ContentValidator.validate(directory: contentDirectory).isEmpty)
-        #expect(Set(testCatalog.all.filter { $0.level == "full" }.map(\.id)) == Set(firstBatchCityIds))
+        #expect(Set(testCatalog.all.filter { $0.level == "full" }.map(\.id)) == Set(fullContentCityIds))
         let report = try String(contentsOf: contentDirectory.appendingPathComponent("sources-review.md"), encoding: .utf8)
-        for id in firstBatchCityIds {
+        for id in fullContentCityIds {
             let city = try #require(testCatalog.find(id))
             #expect(city.level == "full")
             #expect(city.facts.filter { $0.type == "place" }.count == 2)
@@ -70,7 +72,7 @@ let firstBatchCityIds = ["shanghai", "hangzhou", "suzhou", "quanzhou", "jingdezh
         #expect(testCatalog.find("q4970")?.id == "hangzhou")
     }
 
-    @Test(arguments: firstBatchCityIds, ["new", "talkative", "observant"])
+    @Test(arguments: fullContentCityIds, ["new", "talkative", "observant"])
     func actualArrivalsSnapshotFactsAndCollectEachMenuOnce(cityId: String, habit: String) throws {
         var (journey, care) = engineState(seed: 42)
         care.bag.owned = []
@@ -104,7 +106,7 @@ let firstBatchCityIds = ["shanghai", "hangzhou", "suzhou", "quanzhou", "jingdezh
         #expect(try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(journey)) == journey)
     }
 
-    @Test(arguments: firstBatchCityIds)
+    @Test(arguments: fullContentCityIds)
     func realCityPromiseContinuesTheExactReplyOnTheNextLetter(cityId: String) throws {
         let payoff = try #require(testCatalog.stories.all.first { $0.cityId == cityId && $0.kind == "fulfill" })
         let replyId = try #require(payoff.fulfills.first)
@@ -127,7 +129,7 @@ let firstBatchCityIds = ["shanghai", "hangzhou", "suzhou", "quanzhou", "jingdezh
         }
     }
 
-    @Test(arguments: firstBatchCityIds)
+    @Test(arguments: fullContentCityIds)
     func localSouvenirsAreReachableAndAuthoredRewardsRespectRolledRarity(cityId: String) throws {
         let local = testCatalog.items.all.filter { $0.cityId == cityId && $0.kind == "souvenir" }
         let letter = engineLetter(1, arrivals: [cityId], cityId: cityId)

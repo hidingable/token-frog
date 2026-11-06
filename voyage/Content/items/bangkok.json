@@ -1,0 +1,98 @@
+[
+  {
+    "id": "bangkok.menu-pad-thai",
+    "kind": "menu",
+    "cityId": "bangkok",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "泰式炒河粉小菜单",
+      "en": "Pad Thai Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在曼谷吃过泰式炒河粉的记录，留着对米粉和罗望子味道的记忆。",
+      "en": "A Bangkok Pad Thai menu keeping a memory of rice noodles and tamarind."
+    }
+  },
+  {
+    "id": "bangkok.menu-mango-sticky-rice",
+    "kind": "menu",
+    "cityId": "bangkok",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "芒果糯米饭小菜单",
+      "en": "Mango Sticky Rice Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在曼谷给芒果、糯米和椰奶点过名后留下的菜单。",
+      "en": "The menu from taking roll call for mango, sticky rice and coconut milk in Bangkok."
+    }
+  },
+  {
+    "id": "bangkok.shade-pause",
+    "kind": "souvenir",
+    "cityId": "bangkok",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "已经到了也坐坐",
+      "en": "Here Already, Still Sitting"
+    },
+    "descriptions": {
+      "zh-Hans": "在曼谷伦披尼公园等旅伴时写的便签，等到人以后，又一起坐了一会儿。",
+      "en": "A note from waiting in Lumphini Park, Bangkok. Once my companion arrived, we sat a little longer."
+    }
+  },
+  {
+    "id": "bangkok.fork-seat",
+    "kind": "souvenir",
+    "cityId": "bangkok",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "纸叉子的小座位",
+      "en": "A Seat for a Paper Fork"
+    },
+    "descriptions": {
+      "zh-Hans": "尝过曼谷芒果糯米饭后，用自己的便纸给画里的叉子折的小座位。",
+      "en": "After mango sticky rice in Bangkok, I folded my own paper into a little seat for a drawn fork."
+    }
+  },
+  {
+    "id": "bangkok.river-direction",
+    "kind": "souvenir",
+    "cityId": "bangkok",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "翻正的河岸路线纸",
+      "en": "The River Route, Right Way Up"
+    },
+    "descriptions": {
+      "zh-Hans": "在曼谷河边看郑王庙时翻正的路线纸，箭头终于不再指着邮包。",
+      "en": "My route paper, unfolded correctly while viewing Wat Arun across the river in Bangkok. The arrow no longer points at my bag."
+    }
+  },
+  {
+    "id": "bangkok.shared-wait",
+    "kind": "souvenir",
+    "cityId": "bangkok",
+    "rarity": "rare",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "等到一声这里",
+      "en": "Waiting for “Over Here”"
+    },
+    "descriptions": {
+      "zh-Hans": "我和旅伴在伦披尼公园歇脚留下的声音便签，最后一声后面留着空白。",
+      "en": "A sound note from a rest with a companion in Lumphini Park. The last call is followed by quiet."
+    }
+  }
+]

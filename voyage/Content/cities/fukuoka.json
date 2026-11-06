@@ -10,7 +10,7 @@
     "coast",
     "food"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "福冈",
     "en": "Fukuoka"
@@ -19,5 +19,70 @@
     "zh-Hans": "福冈市",
     "en": "Fukuoka"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "ohori-park",
+      "type": "place",
+      "names": {
+        "zh-Hans": "大濠公园",
+        "en": "Ohori Park"
+      },
+      "summary": {
+        "zh-Hans": "大濠公园围绕一片大池塘展开，池中的小岛以桥相连，池边有约两公里的步道。",
+        "en": "Ohori Park surrounds a large pond, with bridges linking its islands. A path of about two kilometers follows the water."
+      },
+      "sources": [
+        "https://www.crossroadfukuoka.jp/en/spot/12492",
+        "https://www.japan.travel/en/spot/2260/"
+      ]
+    },
+    {
+      "id": "fukuoka-tower",
+      "type": "place",
+      "names": {
+        "zh-Hans": "福冈塔",
+        "en": "Fukuoka Tower"
+      },
+      "summary": {
+        "zh-Hans": "福冈塔全长 234 米，最高的展望室位于地面上方 123 米，可环视福冈市区与博多湾。",
+        "en": "Fukuoka Tower stands 234 meters tall. Its highest observation room, 123 meters above ground, offers panoramic views of the city and Hakata Bay."
+      },
+      "sources": [
+        "https://www.fukuokatower.co.jp/",
+        "https://www.crossroadfukuoka.jp/en/spot/12343"
+      ]
+    },
+    {
+      "id": "hakata-ramen",
+      "type": "food",
+      "names": {
+        "zh-Hans": "博多拉面",
+        "en": "Hakata Ramen"
+      },
+      "summary": {
+        "zh-Hans": "博多拉面是福冈的代表性面食，以细面条搭配猪骨汤为典型特征。",
+        "en": "Hakata ramen is a Fukuoka specialty typically pairing thin noodles with tonkotsu, a pork-bone broth."
+      },
+      "sources": [
+        "https://gofukuoka.jp/f-food.html",
+        "https://www.gofukuoka.jp/en/articles/detail/dc4e4ec6-fe73-4303-af95-1359944fa63c"
+      ]
+    },
+    {
+      "id": "mizutaki",
+      "type": "food",
+      "names": {
+        "zh-Hans": "水炊鸡肉锅",
+        "en": "Mizutaki"
+      },
+      "summary": {
+        "zh-Hans": "福冈的水炊锅以鸡肉汤为基础，加入鸡肉和蔬菜；可搭配柑橘醋汁食用。",
+        "en": "Fukuoka mizutaki is a hotpot of chicken and vegetables in chicken broth. Ponzu, a citrus-based sauce, can accompany it."
+      },
+      "sources": [
+        "https://gofukuoka.jp/f-food.html",
+        "https://www.crossroadfukuoka.jp/en/spot/12665"
+      ]
+    }
+  ]
 }

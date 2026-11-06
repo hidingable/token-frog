@@ -11,7 +11,7 @@
     "food",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "台北",
     "en": "Taipei"
@@ -20,5 +20,67 @@
     "zh-Hans": "台北",
     "en": "Taipei"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "taipei-101",
+      "type": "place",
+      "names": {
+        "zh-Hans": "台北101",
+        "en": "Taipei 101"
+      },
+      "summary": {
+        "zh-Hans": "台北101高508米，于2004年落成，是台北信义区的地标建筑。",
+        "en": "Completed in 2004, the 508-metre Taipei 101 is a landmark in Taipei’s Xinyi District."
+      },
+      "sources": [
+        "https://travel.taipei/en/media/audio-guide/details/62",
+        "https://www.travel.taipei/file/34681/"
+      ]
+    },
+    {
+      "id": "beitou-museum",
+      "type": "place",
+      "names": {
+        "zh-Hans": "北投温泉博物馆",
+        "en": "Beitou Hot Spring Museum"
+      },
+      "summary": {
+        "zh-Hans": "北投温泉博物馆由昔日的公共浴场改设，建筑可见砖、木构造与黑瓦屋顶。",
+        "en": "A former public bath now houses the Beitou Hot Spring Museum, with brick and timber façades beneath a black-tiled roof."
+      },
+      "sources": [
+        "https://www.travel.taipei/en/attraction/details/454/"
+      ]
+    },
+    {
+      "id": "beef-noodles",
+      "type": "food",
+      "names": {
+        "zh-Hans": "牛肉面",
+        "en": "Beef Noodle Soup"
+      },
+      "summary": {
+        "zh-Hans": "台北牛肉面以面条、牛肉和汤组合，常见清炖、红烧等不同汤头。",
+        "en": "Taipei’s beef noodle soups bring noodles, beef and broth together, with clear and braised broths among the available styles."
+      },
+      "sources": [
+        "https://www.travel.taipei/zh-tw/must-visit/tasterguide"
+      ]
+    },
+    {
+      "id": "xiaolongbao",
+      "type": "food",
+      "names": {
+        "zh-Hans": "小笼包",
+        "en": "Xiaolongbao"
+      },
+      "summary": {
+        "zh-Hans": "小笼包以有褶的面皮包住肉馅和汤汁，也是台北常见的面点。",
+        "en": "Xiaolongbao are pleated dumplings holding meat filling and broth, and are a familiar part of Taipei’s food scene."
+      },
+      "sources": [
+        "https://www.travel.taipei/zh-tw/must-visit/tasterguide"
+      ]
+    }
+  ]
 }

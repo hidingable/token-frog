@@ -1,0 +1,369 @@
+[
+  {
+    "id": "tokyo.arrival.three-threes",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "tokyo",
+    "factIds": [
+      "tokyo-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "东京塔的高度，被我念成了三个小节拍。",
+      "en": "Tokyo Tower’s height became three small beats."
+    },
+    "text": {
+      "zh-Hans": "东京塔高333米，我看完介绍，把三个“三”念得像三个轻轻的拍子。旁边一位旅人问我在数什么，我说在替今天找开场。对方替我打了第四拍，我这才想起，信还得往下写。我把四个小点记在纸上，明天看看最后那一拍该接哪句话。",
+      "en": "Tokyo Tower stands 333 meters tall. After reading the introduction, I said the three threes like a quiet little rhythm. A traveler asked what I was counting. “An opening for today,” I said. They supplied a fourth beat, reminding me that the letter still needed to continue. Four pencil dots came with me. Tomorrow I will find a sentence for that final beat."
+    },
+    "replies": [
+      {
+        "id": "tokyo.arrival.three-threes.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "替第四拍接上一句话",
+          "en": "Give the fourth beat a sentence"
+        }
+      },
+      {
+        "id": "tokyo.arrival.three-threes.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看四个小点的间隔",
+          "en": "Study the gaps between the four dots"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "tokyo.tower-four-beats"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "tokyo.arrival.park-listening-stop",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "tokyo",
+    "factIds": [
+      "tokyo-ueno-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "在上野公园，我先把散步的声音听完。",
+      "en": "At Ueno Park, I let the walk finish its sentence."
+    },
+    "text": {
+      "zh-Hans": "东京的上野公园里有博物馆和动物园，我今天先在园里走了一段。脚步停下以后，才听见衣袋里的便纸轻轻响了一下。我在纸上写“先歇会儿”，没有急着给下一站画箭头。明天再读这句话，希望邮包也记得，这一段路中间有个小小的休息站。",
+      "en": "Tokyo’s Ueno Park has museums and a zoo; today I began with a walk in the park itself. Only when I stopped did I hear a sheet of paper rustle in my pocket. I wrote “rest first” and postponed the arrow to my next stop. Tomorrow, when I read it again, I hope the mailbag remembers this little resting place along the route."
+    },
+    "replies": [
+      {
+        "id": "tokyo.arrival.park-listening-stop.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "邀请同行人也歇一会儿",
+          "en": "Invite a companion to pause too"
+        }
+      },
+      {
+        "id": "tokyo.arrival.park-listening-stop.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听停下脚步后的声音",
+          "en": "Listen after the footsteps stop"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "tokyo.ueno-rest-slip"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "tokyo.arrival.soba-name-first",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "tokyo",
+    "factIds": [
+      "tokyo-soba"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "荞麦面的菜单，这回先写好了菜名。",
+      "en": "This time, the soba menu got its name first."
+    },
+    "text": {
+      "zh-Hans": "在东京尝荞麦面，坐下时我先把菜名写在小菜单上，免得吃完只记得“好吃”。结果这一招很管用，吃完还留出了写一句感想的位置。我想了半天，还是写了“好吃”，只是这回字迹从容多了。明天要替这两个字找个合适的标点。",
+      "en": "Before my soba in Tokyo, I put the name on a small menu card so I would remember more than “delicious” afterwards. The plan worked: there was room for a proper impression. After careful consideration, I wrote “delicious,” only in much calmer handwriting. Tomorrow those two patient words deserve a suitable punctuation mark."
+    },
+    "replies": [
+      {
+        "id": "tokyo.arrival.soba-name-first.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给“好吃”试一种语气",
+          "en": "Try a voice for “delicious”"
+        }
+      },
+      {
+        "id": "tokyo.arrival.soba-name-first.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "选一个放在句末的标点",
+          "en": "Choose a punctuation mark for the end"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "tokyo.menu-soba"
+      ]
+    }
+  },
+  {
+    "id": "tokyo.arrival.griddle-syllable",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "tokyo",
+    "factIds": [
+      "tokyo-monjayaki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "文字烧还在铁板上，我先记住一个“滋”。",
+      "en": "While the monjayaki cooked, I saved one small sizzle."
+    },
+    "text": {
+      "zh-Hans": "在东京尝文字烧，看着较稀的面糊与卷心菜等食材在热铁板上烹制，我先听见了滋滋声。给菜单记声音时，只写了一个“滋”，又觉得太短，便在后面添了三个小点。吃完再看，像一句正在等下一口的话。明天把它读出来，试试信纸能不能也热闹一点。",
+      "en": "Watching my monjayaki’s runny batter, cabbage and other ingredients cook on a hot griddle in Tokyo, I noticed the sizzle before I found a sentence. My menu card received “szz” and three trailing dots. After the meal, they looked like a thought waiting for another mouthful. Tomorrow I will read them aloud and see whether paper can sound a little livelier too."
+    },
+    "replies": [
+      {
+        "id": "tokyo.arrival.griddle-syllable.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把这个小小的声音读出来",
+          "en": "Read the small sizzle aloud"
+        }
+      },
+      {
+        "id": "tokyo.arrival.griddle-syllable.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看三个小点停在什么位置",
+          "en": "Notice where the three dots trail off"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "tokyo.griddle-sound-slip"
+      ],
+      "menuIds": [
+        "tokyo.menu-monjayaki"
+      ]
+    }
+  },
+  {
+    "id": "tokyo.arrival.two-menu-voices",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "tokyo",
+    "factIds": [
+      "tokyo-soba",
+      "tokyo-monjayaki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "东京的两张菜单，今天轮流说了一句话。",
+      "en": "Two Tokyo menus took turns speaking today."
+    },
+    "text": {
+      "zh-Hans": "我在东京分两顿尝了荞麦面和文字烧，后来拿两张菜单给一位旅人看。一张写着“好吃”，另一张拖着一串小小的滋滋声。我们轮流念各自那一张，竟像在排一场只有两句台词的小戏。我把出场次序另记在便纸上，明天换个角色，看看哪句更像我的口气。",
+      "en": "After separate meals of soba and monjayaki in Tokyo, I showed a traveler the cards. One said “delicious”; the other trailed off in a small written sizzle. We each read a card, turning them into a play with only two lines. I saved the running order on another slip. Tomorrow we can swap parts and see which sounds more like me."
+    },
+    "replies": [
+      {
+        "id": "tokyo.arrival.two-menu-voices.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "替这场两句话的小戏起名",
+          "en": "Name our two-line play"
+        }
+      },
+      {
+        "id": "tokyo.arrival.two-menu-voices.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪张菜单先出场",
+          "en": "Check which menu enters first"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "tokyo.menu-two-line-play"
+      ],
+      "menuIds": [
+        "tokyo.menu-soba",
+        "tokyo.menu-monjayaki"
+      ]
+    }
+  },
+  {
+    "id": "tokyo.arrival.two-menu-pauses",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "tokyo",
+    "factIds": [
+      "tokyo-soba",
+      "tokyo-monjayaki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "句号和省略号，替两顿东京午饭守着尾巴。",
+      "en": "A full stop and trailing dots kept the ends of two Tokyo meals."
+    },
+    "text": {
+      "zh-Hans": "今天在东京先后尝过荞麦面和文字烧，收菜单时我留意到，自己给“好吃”挑了个句号，给滋滋声留了几个小点。同样吃完了，一张像坐稳了，另一张还想往下讲。我把两张都收进邮包，明天再打开，看看这些标点有没有交换座位。",
+      "en": "After trying soba and monjayaki at separate meals in Tokyo, I noticed the endings on my cards. “Delicious” had acquired a full stop; the sizzle still had its trailing dots. Both meals were finished, but only one sentence seemed ready to sit down. I packed the pair. Tomorrow I will see whether the punctuation has traded places overnight."
+    },
+    "replies": [
+      {
+        "id": "tokyo.arrival.two-menu-pauses.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给还没说完的菜单接一句",
+          "en": "Continue the unfinished menu sentence"
+        }
+      },
+      {
+        "id": "tokyo.arrival.two-menu-pauses.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较两张菜单的句末",
+          "en": "Compare the two endings"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "tokyo.menu-soba",
+        "tokyo.menu-monjayaki"
+      ]
+    }
+  },
+  {
+    "id": "tokyo.fulfill.fourth-beat-sentence",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "tokyo",
+    "factIds": [
+      "tokyo-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "tokyo.arrival.three-threes.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我给第四拍留了一句问候。",
+      "en": "Your “{reply}” found a greeting for the fourth beat."
+    },
+    "text": {
+      "zh-Hans": "记着东京塔三个“三”的那张便纸，第四个小点旁边现在写了“你好，我到东京了”。念起来，前三拍还在数数，最后一拍已经开始搭话。我把便纸夹进信里，让它先替我开场。明天要是又听见一个好节拍，再留给下一句慢慢用。",
+      "en": "The note with Tokyo Tower’s three threes now has “Hello, I made it to Tokyo” beside its fourth dot. Three beats count; the last begins a conversation. I tucked the slip into this letter to let it handle the opening. If tomorrow brings another useful rhythm, I will save that one for the next sentence."
+    },
+    "replies": [
+      {
+        "id": "tokyo.fulfill.fourth-beat-sentence.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把这句问候念给旅人听",
+          "en": "Read the greeting to a traveler"
+        }
+      },
+      {
+        "id": "tokyo.fulfill.fourth-beat-sentence.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看问候从哪个小点开始",
+          "en": "Find the dot where the greeting begins"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "tokyo.tower-four-beats"
+      ],
+      "menuIds": []
+    }
+  }
+]

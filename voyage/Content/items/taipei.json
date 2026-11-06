@@ -1,0 +1,98 @@
+[
+  {
+    "id": "taipei.menu-beef-noodles",
+    "kind": "menu",
+    "cityId": "taipei",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "牛肉面小菜单",
+      "en": "Beef Noodle Soup Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在台北吃过牛肉面后写的小菜单，第一行留给了先出发的汤匙。",
+      "en": "My menu after beef noodle soup in Taipei. The spoon gets the opening line."
+    }
+  },
+  {
+    "id": "taipei.menu-xiaolongbao",
+    "kind": "menu",
+    "cityId": "taipei",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小笼包小菜单",
+      "en": "Xiaolongbao Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "记着台北小笼包的一张菜单，名字旁的小点是等午饭稍凉的空当。",
+      "en": "A Taipei xiaolongbao menu, with a dot for the pause while lunch cooled."
+    }
+  },
+  {
+    "id": "taipei.hat-reminder",
+    "kind": "souvenir",
+    "cityId": "taipei",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "抬头扶帽便签",
+      "en": "Secure Hat, Then Look Up"
+    },
+    "descriptions": {
+      "zh-Hans": "看台北101时给自己的提醒，写完又忍不住抬了一次头。",
+      "en": "A personal reminder from looking up at Taipei 101. I immediately looked up again."
+    }
+  },
+  {
+    "id": "taipei.dumpling-pause",
+    "kind": "souvenir",
+    "cityId": "taipei",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "等午饭的小点",
+      "en": "A Dot for the Lunch Pause"
+    },
+    "descriptions": {
+      "zh-Hans": "在台北吃小笼包时留下的小纸条，一个点记住了一段安静的等待。",
+      "en": "A slip from xiaolongbao in Taipei. One dot keeps a quiet wait for lunch."
+    }
+  },
+  {
+    "id": "taipei.museum-light",
+    "kind": "souvenir",
+    "cityId": "taipei",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "砖木之间的色纸",
+      "en": "Light Between Brick and Timber"
+    },
+    "descriptions": {
+      "zh-Hans": "在北投温泉博物馆看建筑后做的颜色笔记，最浅的一格还留着光的位置。",
+      "en": "My colour notes after seeing the Beitou Hot Spring Museum. The palest square leaves room for light."
+    }
+  },
+  {
+    "id": "taipei.shared-directions",
+    "kind": "souvenir",
+    "cityId": "taipei",
+    "rarity": "rare",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "先歇脚的问路纸",
+      "en": "Directions with a Rest First"
+    },
+    "descriptions": {
+      "zh-Hans": "在台北问路时和旅伴写下的两个打算，“先坐一会儿”排在最上面。",
+      "en": "Two plans written with a traveler in Taipei. A short rest comes first."
+    }
+  }
+]

@@ -1,0 +1,369 @@
+[
+  {
+    "id": "chengdu.arrival.two-panda-names",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "chengdu",
+    "factIds": [
+      "chengdu-panda-base"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "在熊猫基地，我先学会把两个名字分开记。",
+      "en": "At the panda base, I began with two separate names."
+    },
+    "text": {
+      "zh-Hans": "到了成都熊猫基地，我在介绍里读到大熊猫和小熊猫。想给见闻做个索引，便把两个名字挤在同一行，结果自己的字先绊了一跤。我换了一张便签，给它们各留一行，下面只写“今天慢慢看”。明天再翻索引，希望不会先找到我那团打结的字。",
+      "en": "At Chengdu’s panda base, I read about giant pandas and red pandas. My first attempt at an index squeezed both names onto one line and tangled my own handwriting. A fresh slip gave them a line each, with “take your time today” underneath. Tomorrow I hope the index leads to my observations rather than that knot of letters."
+    },
+    "replies": [
+      {
+        "id": "chengdu.arrival.two-panda-names.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把两个名字清楚地念一遍",
+          "en": "Say both names clearly"
+        }
+      },
+      {
+        "id": "chengdu.arrival.two-panda-names.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "给两个名字各留一行",
+          "en": "Give each name its own line"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chengdu.panda-index-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "chengdu.arrival.cottage-own-sentence",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "chengdu",
+    "factIds": [
+      "chengdu-du-fu-cottage"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "杜甫草堂里，我先收好一句自己的话。",
+      "en": "At Du Fu Thatched Cottage, I saved a sentence of my own."
+    },
+    "text": {
+      "zh-Hans": "在成都的杜甫草堂，我读到这里是诗人流寓成都时的故居所在地，也经历过后来的修葺扩建。走过园林，想写一句见闻，想了半天，最后写下“我在这里停了一会儿”。这句是我自己的，朴素得像邮包底下的备用便纸。明天把停过的那一会儿讲给你听。",
+      "en": "At Du Fu Thatched Cottage, I learned that the site marks the poet’s Chengdu home and was rebuilt over later centuries. Walking through the garden, I searched for a sentence for my letter. Eventually: “I stopped here for a while.” Entirely my own, and as plain as spare paper at the bottom of a mailbag. Tomorrow I can tell you about that while."
+    },
+    "replies": [
+      {
+        "id": "chengdu.arrival.cottage-own-sentence.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这句自己的话配个开头",
+          "en": "Find an opening for my sentence"
+        }
+      },
+      {
+        "id": "chengdu.arrival.cottage-own-sentence.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看这句话停在哪里",
+          "en": "Notice where the sentence comes to rest"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chengdu.cottage-pause-slip"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "chengdu.arrival.tofu-cooling-time",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "chengdu",
+    "factIds": [
+      "chengdu-mapo-tofu"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "麻婆豆腐还烫着，我的菜单先慢慢写。",
+      "en": "The mapo tofu was hot; the menu could take its time."
+    },
+    "text": {
+      "zh-Hans": "在成都尝麻婆豆腐，麻、辣和嫩都记住了，烫则提醒我先歇一歇。我把勺子放下，给菜单写好菜名，再回来尝一口。等吃完，菜名下面多了几个小点，原来是我每次等一等就点一下笔。明天数数，看看菜单替我休息了几回。",
+      "en": "Trying mapo tofu in Chengdu gave me plenty to remember: a peppery tingle, heat and tender tofu. Its temperature suggested a pause, so I put down my spoon and started the menu card. By the end, several pencil dots had gathered beneath the name, one from each little wait. Tomorrow I will count how many rests this menu kept for me."
+    },
+    "replies": [
+      {
+        "id": "chengdu.arrival.tofu-cooling-time.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给菜单上的小点念个节拍",
+          "en": "Read the dots as a little rhythm"
+        }
+      },
+      {
+        "id": "chengdu.arrival.tofu-cooling-time.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "数数菜名下面的小点",
+          "en": "Count the dots below the name"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "chengdu.menu-mapo-tofu"
+      ]
+    }
+  },
+  {
+    "id": "chengdu.arrival.noodle-word-order",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "chengdu",
+    "factIds": [
+      "chengdu-dandan-noodles"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "担担面的名字，我一口气念顺了。",
+      "en": "I finally gave dandan noodles a smooth introduction."
+    },
+    "text": {
+      "zh-Hans": "今天在成都尝了担担面，面条配着肉臊和芽菜。我想在菜单背面记下名字，嘴里先练了一遍，竟把“担担面”接成了“担担面，慢慢念”。这句顺口的小提醒很合适，吃完也没有擦掉。明天把菜单翻过来，看看正面还是背面更会介绍这顿饭。",
+      "en": "Today’s dandan noodles in Chengdu came with a minced-meat topping and preserved mustard greens. Practicing the name for the back of my menu, I drifted into “dandan noodles, take your time.” A surprisingly useful introduction. I left it there after lunch. Tomorrow I will turn the card over and decide which side tells the meal better."
+    },
+    "replies": [
+      {
+        "id": "chengdu.arrival.noodle-word-order.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把菜名和小提醒连起来念",
+          "en": "Say the name with the little reminder"
+        }
+      },
+      {
+        "id": "chengdu.arrival.noodle-word-order.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看菜单正反面的次序",
+          "en": "Compare the two sides of the menu"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chengdu.noodle-name-slip"
+      ],
+      "menuIds": [
+        "chengdu.menu-dandan-noodles"
+      ]
+    }
+  },
+  {
+    "id": "chengdu.arrival.meal-name-rehearsal",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "chengdu",
+    "factIds": [
+      "chengdu-mapo-tofu",
+      "chengdu-dandan-noodles"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的小对话，从两道菜名走到了我的邮包。",
+      "en": "Two dish names started a conversation that reached my mailbag."
+    },
+    "text": {
+      "zh-Hans": "我在成都分两顿尝了麻婆豆腐和担担面，带着两张菜单歇脚。一位旅人问我今天记住了什么，我念了菜名，又念出自己写的“慢慢念”。我们笑着给菜单排了一次出场顺序，对方在便纸上画两个小方框，让我选先讲哪一顿。我把这张对话便纸也收好了，明天再试另一种顺序。",
+      "en": "After separate meals of mapo tofu and dandan noodles in Chengdu, I rested with both menu cards. A traveler asked what I had remembered. I offered the names, then accidentally included my “take your time” reminder. We laughed and planned a small menu recital. My companion drew two boxes for choosing the opening meal. I saved the conversation slip to try the other order tomorrow."
+    },
+    "replies": [
+      {
+        "id": "chengdu.arrival.meal-name-rehearsal.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "替这场菜单小介绍选开场",
+          "en": "Choose an opening for the menu recital"
+        }
+      },
+      {
+        "id": "chengdu.arrival.meal-name-rehearsal.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两个方框的勾记",
+          "en": "Inspect the marks in the two boxes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chengdu.meal-conversation-slip"
+      ],
+      "menuIds": [
+        "chengdu.menu-mapo-tofu",
+        "chengdu.menu-dandan-noodles"
+      ]
+    }
+  },
+  {
+    "id": "chengdu.arrival.meal-pause-marks",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "chengdu",
+    "factIds": [
+      "chengdu-mapo-tofu",
+      "chengdu-dandan-noodles"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我把两顿饭的停顿，记成了一串小点。",
+      "en": "I kept the pauses from two meals as a row of dots."
+    },
+    "text": {
+      "zh-Hans": "在成都，麻婆豆腐和担担面各占了今天的一顿。收起两张菜单前，我留意到一张有等菜凉一点的小点，另一张有练菜名的断句。我在背面给它们各留一行，原来吃饭和念名字，都有自己的停顿。明天再读，看看哪一行先让我想起味道。",
+      "en": "Mapo tofu and dandan noodles each had a meal of their own in Chengdu today. Before packing the menus, I noticed waiting-dots on one and pronunciation-pauses on the other. I copied each set onto its own line on the back. Meals and names both have their own timing. Tomorrow I will read the marks and see which brings the flavor back first."
+    },
+    "replies": [
+      {
+        "id": "chengdu.arrival.meal-pause-marks.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这些停顿试一个读法",
+          "en": "Try reading the pauses aloud"
+        }
+      },
+      {
+        "id": "chengdu.arrival.meal-pause-marks.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较两行停顿的位置",
+          "en": "Compare where the pauses fall"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "chengdu.menu-mapo-tofu",
+        "chengdu.menu-dandan-noodles"
+      ]
+    }
+  },
+  {
+    "id": "chengdu.fulfill.index-room",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "chengdu",
+    "factIds": [
+      "chengdu-panda-base"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "chengdu.arrival.two-panda-names.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我的熊猫索引终于不打结了。",
+      "en": "After your “{reply}”, my panda index finally untangled itself."
+    },
+    "text": {
+      "zh-Hans": "我给大熊猫和小熊猫的名字各留了一行，再把“今天慢慢看”挪到底下。成都熊猫基地的这张小索引终于好找了，只有我的邮包还没排到位置。我在背面给它留了个角，写着“便签住这里”。明天收东西的时候，索引也该能找到自己的家。",
+      "en": "Giant panda and red panda now have separate lines, with “take your time today” below them. My little Chengdu panda-base index is much easier to follow. The mailbag was the only thing without a place, so I gave it a corner on the back: “notes live here.” Tomorrow, when I pack, the index should be able to find its own home."
+    },
+    "replies": [
+      {
+        "id": "chengdu.fulfill.index-room.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "替便签的新位置报个名字",
+          "en": "Announce the note’s new address"
+        }
+      },
+      {
+        "id": "chengdu.fulfill.index-room.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看背面的角落够不够清楚",
+          "en": "Check that the corner label is clear"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chengdu.panda-index-note"
+      ],
+      "menuIds": []
+    }
+  }
+]

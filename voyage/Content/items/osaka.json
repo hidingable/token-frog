@@ -1,0 +1,98 @@
+[
+  {
+    "id": "osaka.menu-takoyaki",
+    "kind": "menu",
+    "cityId": "osaka",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "章鱼烧等候菜单",
+      "en": "Takoyaki Waiting Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在大阪尝章鱼烧时写的卡片，菜名下面多了一行“再等一下”。这回菜单连等候也一并记下了。",
+      "en": "My Osaka takoyaki card has “a moment longer” beneath the name. It remembers the pause before the first bite too."
+    }
+  },
+  {
+    "id": "osaka.menu-okonomiyaki",
+    "kind": "menu",
+    "cityId": "osaka",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "大阪烧一句话菜单",
+      "en": "One-Line Okonomiyaki Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在大阪吃过大阪烧后写的卡片，暂时只有“今天这一份，记得”。第二句还在路上。",
+      "en": "After okonomiyaki in Osaka, my review reached “Remember this one.” The next sentence is still traveling."
+    }
+  },
+  {
+    "id": "osaka.meeting-dots",
+    "kind": "souvenir",
+    "cityId": "osaka",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "天守阁碰面便签",
+      "en": "Castle Meeting Dots"
+    },
+    "descriptions": {
+      "zh-Hans": "在大阪城天守阁外和旅人碰面后留的两个小点。等人的一小段，刚好用来读介绍。",
+      "en": "Two dots for a meeting outside Osaka Castle Museum. The wait came with time for a little reading."
+    }
+  },
+  {
+    "id": "osaka.waiting-line",
+    "kind": "souvenir",
+    "cityId": "osaka",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "再等一下纸条",
+      "en": "A Moment Longer"
+    },
+    "descriptions": {
+      "zh-Hans": "我在大阪等章鱼烧凉一点时写的短句。把它圈起来，留给下次着急动筷子的自己。",
+      "en": "A circled line written while my takoyaki cooled in Osaka. A little reminder from one hungry moment to the next."
+    }
+  },
+  {
+    "id": "osaka.blue-pause",
+    "kind": "souvenir",
+    "cityId": "osaka",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "海游馆停笔便签",
+      "en": "Kaiyukan Pencil Pause"
+    },
+    "descriptions": {
+      "zh-Hans": "在大阪海游馆看鲸鲨时，原想写几笔，最后只留了一个点和一句“这里开始忘了写字”。",
+      "en": "A dot and “This is where I forgot to write,” saved from watching a whale shark at Kaiyukan in Osaka."
+    }
+  },
+  {
+    "id": "osaka.blue-door-card",
+    "kind": "souvenir",
+    "cityId": "osaka",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "蓝色记忆折卡",
+      "en": "A Doorway to Blue"
+    },
+    "descriptions": {
+      "zh-Hans": "把海游馆便签折进自制卡片，点旁添了一条弯线。打开时，可以再想起大阪那一片蓝。",
+      "en": "My Kaiyukan note tucked into a handmade card, a curved line added beside its dot. Open it for a little of that Osaka blue."
+    }
+  }
+]

@@ -1,0 +1,367 @@
+[
+  {
+    "id": "hanoi.arrival.meet-by-the-lake",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hanoi",
+    "factIds": [
+      "hoan-kiem-lake"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "约在湖边见，结果先见到了自己的倒影。",
+      "en": "Our lakeside meeting began with my own reflection."
+    },
+    "text": {
+      "zh-Hans": "在河内，我和旅伴约好到还剑湖边碰面。我先到了，看见通向湖岛的红桥，便把脚步放慢。旅伴来时，我正对着水里那团晃动的邮包发呆。我们说“湖边见”很好记，只差一个自己的小名。明天再给这个会合地点想想。",
+      "en": "I reached Hoan Kiem Lake before my companion and slowed down at the sight of the red bridge to the island. By the time we met, I was studying a wobbling mailbag in the water: mine, reflected. “Meet by the lake” is easy to remember. Tomorrow our meeting spot might acquire a nickname."
+    },
+    "replies": [
+      {
+        "id": "hanoi.arrival.meet-by-the-lake.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给会合地点起个小名",
+          "en": "Give our meeting spot a nickname"
+        }
+      },
+      {
+        "id": "hanoi.arrival.meet-by-the-lake.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看红桥和湖里的倒影",
+          "en": "Notice the red bridge and its reflection"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hanoi.lake-meeting"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "hanoi.arrival.courtyard-pauses",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hanoi",
+    "factIds": [
+      "temple-of-literature"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的路，走出了几处停顿。",
+      "en": "Today’s walk came with several pauses."
+    },
+    "text": {
+      "zh-Hans": "参观河内文庙时，我沿着庭院慢慢走，把说到一半的话先收在心里。这里有五重庭院，我的小记录却只记了三次停顿：看一看、再看一看、还想多看一会儿。离开后才在自己的纸上补好这三个词。明天看看它们能不能排成一句话。",
+      "en": "Walking through Hanoi’s Temple of Literature, I let an unfinished sentence wait while I looked around. The site has five courtyards; my private record kept just three pauses: look, look again, stay a little longer. I wrote them on my own paper after leaving. Tomorrow they might form a sentence."
+    },
+    "replies": [
+      {
+        "id": "hanoi.arrival.courtyard-pauses.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把三个词读给旅伴听",
+          "en": "Read the three phrases to a companion"
+        }
+      },
+      {
+        "id": "hanoi.arrival.courtyard-pauses.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "记住庭院里停下的片刻",
+          "en": "Keep the moments of pausing in the courtyards"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hanoi.courtyard-pauses"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "hanoi.arrival.warm-bowl",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hanoi",
+    "factIds": [
+      "pho"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "河粉还冒着热气，信可以稍等一下。",
+      "en": "The letter could wait for a warm bowl of pho."
+    },
+    "text": {
+      "zh-Hans": "我在河内点了一碗牛肉河粉，先把要写的第一句话放在心里。米粉和汤吃下去，那句话也变得暖乎乎的，开头竟是“今天的碗”。小菜单上我只写下碗里有什么，没有替它安排一长段故事。明天读到这里，再把剩下的话接上。",
+      "en": "Over beef pho in Hanoi, I kept the first line of this letter in mind. By the time the noodles and broth were gone, the line had warmed into “Today’s bowl…” My little menu simply lists what I ate. The rest of the sentence can keep tomorrow company."
+    },
+    "replies": [
+      {
+        "id": "hanoi.arrival.warm-bowl.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊第一句话从哪里开始",
+          "en": "Discuss where the first sentence should begin"
+        }
+      },
+      {
+        "id": "hanoi.arrival.warm-bowl.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看米粉在汤里的样子",
+          "en": "Notice the rice noodles in the broth"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hanoi.warm-opening"
+      ],
+      "menuIds": [
+        "hanoi.menu-pho"
+      ]
+    }
+  },
+  {
+    "id": "hanoi.arrival.grilled-pork-break",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hanoi",
+    "factIds": [
+      "bun-cha"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午饭摆好了，我的话还在找位置。",
+      "en": "Lunch was arranged before my thoughts were."
+    },
+    "text": {
+      "zh-Hans": "在河内尝烤肉米线，炭烤猪肉、米线和蔬菜一起到了面前。我先闻了闻，再把“今天歇在这里”写上小菜单。吃完才发现，这句更像给自己的留言。我没有擦掉，下面补上菜名。明天菜单和信纸碰面，看看谁会先认领它。",
+      "en": "Bun cha in Hanoi brought charcoal-grilled pork, rice vermicelli and vegetables to the table. After taking in the aroma, I wrote “Resting here today” on the menu. Only after eating did I realise it sounded like a note to myself. The dish name went underneath. Tomorrow the menu and letter can sort out ownership."
+    },
+    "replies": [
+      {
+        "id": "hanoi.arrival.grilled-pork-break.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这顿午饭留一句话",
+          "en": "Leave a line for this lunch"
+        }
+      },
+      {
+        "id": "hanoi.arrival.grilled-pork-break.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看米线和烤肉怎样摆放",
+          "en": "Notice the vermicelli beside the grilled pork"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "hanoi.menu-bun-cha"
+      ]
+    }
+  },
+  {
+    "id": "hanoi.arrival.two-menu-titles",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hanoi",
+    "factIds": [
+      "pho",
+      "bun-cha"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "菜名读完，我们还想再聊一会儿。",
+      "en": "The menu names ended before the conversation did."
+    },
+    "text": {
+      "zh-Hans": "在河内先后尝过河粉和烤肉米线，我把两张菜单读给旅伴听。对方说，一张像信的开头，另一张像歇脚的留言。我们于是给每张卡片背面都留了两行，等下一句话慢慢来。明天再打开时，希望我的字不要先把座位占完。",
+      "en": "After separate Hanoi meals of pho and bun cha, I read my menu cards to a companion. One sounded like a letter’s opening; the other, a note left during a rest. We left two lines on each back for whatever came next. Tomorrow I hope my handwriting has saved a seat for the thought."
+    },
+    "replies": [
+      {
+        "id": "hanoi.arrival.two-menu-titles.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和旅伴各接一句话",
+          "en": "Let each of us add a sentence"
+        }
+      },
+      {
+        "id": "hanoi.arrival.two-menu-titles.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看菜单背面留下的两行",
+          "en": "Look at the two waiting lines"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "hanoi.menu-pho",
+        "hanoi.menu-bun-cha"
+      ]
+    }
+  },
+  {
+    "id": "hanoi.arrival.noodle-memories",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "hanoi",
+    "factIds": [
+      "pho",
+      "bun-cha"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张菜单，不用翻开也能想起一点。",
+      "en": "The two menus brought something back before I opened them."
+    },
+    "text": {
+      "zh-Hans": "河粉的汤和烤肉米线的香气，是我在河内两次不同的午饭记忆。整理菜单时，我先闭眼回想，再核对写下的名字。一张让我想起捧碗的暖意，一张让我想起停下筷子写字的片刻。明天把它们换个顺序，看看记忆会不会跟着调座位。",
+      "en": "Pho broth and bun cha’s aroma belonged to two different Hanoi lunches. Packing their menus, I tried remembering before reading. One brought back warm hands around a bowl; the other, chopsticks set down while I wrote. Tomorrow I may reverse the cards and see whether the memories change seats."
+    },
+    "replies": [
+      {
+        "id": "hanoi.arrival.noodle-memories.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说两次午饭分别想起什么",
+          "en": "Share what comes back from each lunch"
+        }
+      },
+      {
+        "id": "hanoi.arrival.noodle-memories.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "对照回想和菜单上的名字",
+          "en": "Match the memory to the menu name"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "hanoi.menu-pho",
+        "hanoi.menu-bun-cha"
+      ]
+    }
+  },
+  {
+    "id": "hanoi.fulfill.meeting-place-name",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "hanoi",
+    "factIds": [
+      "hoan-kiem-lake"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "hanoi.arrival.meet-by-the-lake.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我们终于想到一个。",
+      "en": "Your note, “{reply}”, helped us find one."
+    },
+    "text": {
+      "zh-Hans": "还剑湖边那个会合地点，我和旅伴给它取名“先到也不急”。这只是我们俩便签上的叫法。我在名字旁边写上“有一只晃动的邮包”，免得以后忘了命名那天在看什么。便签折进信里，倒影没有跟来，那段等人的时间倒留住了。",
+      "en": "Our Hoan Kiem Lake meeting spot is now “No Hurry for the Early One,” a name just for our own notes. Beside it I wrote “one wobbling mailbag” to keep the reason for the name. The reflection stayed at the lake, but the folded slip managed to bring the waiting time along."
+    },
+    "replies": [
+      {
+        "id": "hanoi.fulfill.meeting-place-name.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给下一次会面留个招呼",
+          "en": "Leave a greeting for our next meeting"
+        }
+      },
+      {
+        "id": "hanoi.fulfill.meeting-place-name.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看小名旁边的提醒",
+          "en": "Read the reminder beside the nickname"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hanoi.shared-lake-name"
+      ],
+      "menuIds": []
+    }
+  }
+]

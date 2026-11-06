@@ -10,7 +10,7 @@
     "food",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "大阪",
     "en": "Osaka"
@@ -19,5 +19,70 @@
     "zh-Hans": "大阪市",
     "en": "Osaka"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "osaka-castle",
+      "type": "place",
+      "names": {
+        "zh-Hans": "大阪城天守阁",
+        "en": "Osaka Castle Museum"
+      },
+      "summary": {
+        "zh-Hans": "现在的大阪城天守阁于 1931 年依靠市民捐款复建，复建之初便作为博物馆使用。",
+        "en": "The present Osaka Castle keep was rebuilt in 1931 with donations from citizens. It has served as a museum since that reconstruction."
+      },
+      "sources": [
+        "https://www.osakacastle.net/",
+        "https://www.mlit.go.jp/kankocho/cruise/detail/029/documents/kanko.pdf"
+      ]
+    },
+    {
+      "id": "kaiyukan",
+      "type": "place",
+      "names": {
+        "zh-Hans": "大阪海游馆",
+        "en": "Osaka Aquarium Kaiyukan"
+      },
+      "summary": {
+        "zh-Hans": "海游馆以太平洋及其周边地区的自然环境组织展览，中央的“太平洋”水槽中有鲸鲨。",
+        "en": "Kaiyukan presents habitats from the Pacific Ocean and its surrounding regions. Whale sharks swim in its central Pacific Ocean tank."
+      },
+      "sources": [
+        "https://www.osaka-info.jp/en/spot/osaka-aquarium-kaiyukan/",
+        "https://www.gov-online.go.jp/en/assets/hj_September_2024_p18-19.pdf"
+      ]
+    },
+    {
+      "id": "takoyaki",
+      "type": "food",
+      "names": {
+        "zh-Hans": "章鱼烧",
+        "en": "Takoyaki"
+      },
+      "summary": {
+        "zh-Hans": "章鱼烧用小麦面糊包入章鱼，在带有圆形凹槽的烤盘中制成小球，是大阪常见的小吃。",
+        "en": "Takoyaki are small balls of wheat-flour batter containing octopus, cooked in a pan with rounded molds. They are a familiar Osaka snack."
+      },
+      "sources": [
+        "https://osaka-info.jp/en/gourmet/gastronomy-takoyaki/",
+        "https://www.mlit.go.jp/kankocho/cruise/detail/029/documents/kanko.pdf"
+      ]
+    },
+    {
+      "id": "okonomiyaki",
+      "type": "food",
+      "names": {
+        "zh-Hans": "大阪烧",
+        "en": "Osaka-style Okonomiyaki"
+      },
+      "summary": {
+        "zh-Hans": "大阪烧把小麦粉、高汤和卷心菜等食材做成面糊，在铁板上煎成扁圆形；配料可有猪肉或海鲜。",
+        "en": "Osaka-style okonomiyaki combines flour, dashi and cabbage in a batter cooked flat and round on a griddle. Pork or seafood can be among the additions."
+      },
+      "sources": [
+        "https://osaka-info.jp/en/gourmet/gastronomy-okonomiyaki/",
+        "https://www.mlit.go.jp/kankocho/cruise/detail/029/documents/kanko.pdf"
+      ]
+    }
+  ]
 }

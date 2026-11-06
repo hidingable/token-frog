@@ -1,0 +1,98 @@
+[
+  {
+    "id": "busan.menu-milmyeon",
+    "kind": "menu",
+    "cityId": "busan",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小麦冷面慢吃菜单",
+      "en": "Milmyeon, Taken Slowly"
+    },
+    "descriptions": {
+      "zh-Hans": "在釜山吃过小麦冷面后写的卡片。只有一句“慢慢吃完的一碗”，旁边留着小碗画。",
+      "en": "My card after milmyeon in Busan: “a bowl I took my time over,” with a small bowl drawn beside the words."
+    }
+  },
+  {
+    "id": "busan.menu-dwaeji-gukbap",
+    "kind": "menu",
+    "cityId": "busan",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "猪肉汤饭问号菜单",
+      "en": "Dwaeji Gukbap and a Question"
+    },
+    "descriptions": {
+      "zh-Hans": "在釜山吃猪肉汤饭后留下的菜单，弯弯的汤匙柄像在问“还记得这一碗吗”。",
+      "en": "A menu from dwaeji gukbap in Busan, with a spoon handle asking, “Remember this bowl?”"
+    }
+  },
+  {
+    "id": "busan.wave-meeting-note",
+    "kind": "souvenir",
+    "cityId": "busan",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "海边碰面记号",
+      "en": "Seaside Meeting Signs"
+    },
+    "descriptions": {
+      "zh-Hans": "在釜山广安里等到同行人后画的邮包和浪。两样小记号，收好一场顺利的碰面。",
+      "en": "A mailbag and wave drawn after meeting a companion at Gwangalli in Busan. Two signs for finding each other."
+    }
+  },
+  {
+    "id": "busan.spoon-question",
+    "kind": "souvenir",
+    "cityId": "busan",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "汤匙的小问题",
+      "en": "A Spoon’s Small Question"
+    },
+    "descriptions": {
+      "zh-Hans": "在釜山吃汤饭后画的汤匙，柄弯得像问号。我决定留下，让它问问今天的味道。",
+      "en": "A spoon from after a rice-soup meal in Busan. Its handle curved into a question mark, which I decided to keep."
+    }
+  },
+  {
+    "id": "busan.wave-intervals",
+    "kind": "souvenir",
+    "cityId": "busan",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "浪与浪之间的便签",
+      "en": "Room Between the Waves"
+    },
+    "descriptions": {
+      "zh-Hans": "在釜山太宗台听浪后写的几句话，每句后留着长长的空隙，像等着海再响一次。",
+      "en": "Notes from listening to waves at Taejongdae in Busan. Long spaces let each sentence wait for the sea’s next turn."
+    }
+  },
+  {
+    "id": "busan.bright-water-card",
+    "kind": "souvenir",
+    "cityId": "busan",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "一小圈海光折卡",
+      "en": "A Little Ring of Sea Light"
+    },
+    "descriptions": {
+      "zh-Hans": "把广安里等人时的亮光和远桥留进自制卡片。邮包和浪折在里面，打开才一起露面。",
+      "en": "My handmade card recalls light on Gwangalli’s water and the distant bridge. A mailbag and wave wait together inside."
+    }
+  }
+]

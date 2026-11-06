@@ -1,0 +1,367 @@
+[
+  {
+    "id": "fukuoka.arrival.pond-footsteps",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "fukuoka",
+    "factIds": [
+      "ohori-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的散步，有一小段是用耳朵记住的。",
+      "en": "Part of today’s walk belongs to my ears."
+    },
+    "text": {
+      "zh-Hans": "到了福冈，我沿大濠公园的池边慢慢走。池中的小岛由桥连起来，我走到一处停下，听脚步声从身边经过，又渐渐远去。便签上本来准备写路程，最后却记了几行轻重不同的点。两公里的步道我没有一口气走完，先把这一小段声音收好了。",
+      "en": "In Fukuoka, I walked beside Ohori Park’s pond and its bridge-linked islands. At one point I stopped and listened to footsteps approach, pass, and fade away. My distance note turned into several lines of heavy and light dots. I did not finish the whole two-kilometer path in one go. This small piece of it was enough to keep."
+    },
+    "replies": [
+      {
+        "id": "fukuoka.arrival.pond-footsteps.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问同行人听到了什么",
+          "en": "Ask what a walking companion heard"
+        }
+      },
+      {
+        "id": "fukuoka.arrival.pond-footsteps.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再听一会儿远近的脚步",
+          "en": "Listen longer to the passing footsteps"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "fukuoka.footstep-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "fukuoka.arrival.tower-directions",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "fukuoka",
+    "factIds": [
+      "fukuoka-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "到了高处，我们开始交换来时的方向。",
+      "en": "Up high, we compared the directions we had come from."
+    },
+    "text": {
+      "zh-Hans": "在福冈塔 123 米高的展望室里，我望见市区和博多湾。一位旅人指了指自己来时的方向，我也想找出刚才走过的那一小段路。找不准，便改为在纸上各画一个箭头。两个箭头碰了头，我们决定让它们在纸上先认识一下，人的旅程晚一点再接着讲。",
+      "en": "From Fukuoka Tower’s observation room, 123 meters above ground, I looked across the city and Hakata Bay. Another traveler pointed out the direction they had arrived from. I tried to find my own little route and could not quite place it, so we drew arrows instead. The arrows met on the page. We let them make introductions before continuing our travel stories."
+    },
+    "replies": [
+      {
+        "id": "fukuoka.arrival.tower-directions.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "接着讲讲来时的小插曲",
+          "en": "Share a small story from the way here"
+        }
+      },
+      {
+        "id": "fukuoka.arrival.tower-directions.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较海面和街道的方向",
+          "en": "Compare the directions of bay and streets"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "fukuoka.meeting-arrows"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "fukuoka.arrival.ramen-first-line",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "fukuoka",
+    "factIds": [
+      "hakata-ramen"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "菜单第一行，写得比面条还认真。",
+      "en": "My menu’s first line received very careful attention."
+    },
+    "text": {
+      "zh-Hans": "我在福冈吃了一碗博多拉面，细面条搭着猪骨汤。面端来时，我的小菜单还只写了半个标题，索性先放下笔，认真吃完。回来补字时，那个没写完的地方像给晚饭留的一个座位。我把标题接好，又在下面添了今天的日期。",
+      "en": "My bowl of Hakata ramen in Fukuoka paired thin noodles with pork-bone broth. It arrived while the menu title was still unfinished, so I put down my pencil and ate. Later, the gap in the title looked like a seat I had saved for dinner. I filled it in and added the date underneath."
+    },
+    "replies": [
+      {
+        "id": "fukuoka.arrival.ramen-first-line.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲第一口想到的词",
+          "en": "Share a word for the first bite"
+        }
+      },
+      {
+        "id": "fukuoka.arrival.ramen-first-line.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看标题在哪里停过笔",
+          "en": "Find where the unfinished title paused"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "fukuoka.menu-hakata-ramen"
+      ]
+    }
+  },
+  {
+    "id": "fukuoka.arrival.mizutaki-steam",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "fukuoka",
+    "factIds": [
+      "mizutaki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一小团蒸汽，先替晚饭打了招呼。",
+      "en": "A little steam introduced dinner."
+    },
+    "text": {
+      "zh-Hans": "今天在福冈吃水炊鸡肉锅，汤里有鸡肉和蔬菜。我先把菜单卡放远一点，再慢慢尝汤。桌边冒起的蒸汽让我想起一个正在挥手的小邮包，便在饭后给它画上两条胳膊。卡片上写了菜名，旁边的邮包看起来却像在请下一位入座。",
+      "en": "Today’s mizutaki in Fukuoka brought chicken and vegetables in broth. I moved my menu card out of the way and tasted the soup. Rising steam reminded me of a waving mailbag, so after dinner I drew one with two arms. The dish has its name on the card; the mailbag seems busy welcoming the next guest."
+    },
+    "replies": [
+      {
+        "id": "fukuoka.arrival.mizutaki-steam.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给挥手的邮包配一句话",
+          "en": "Write a greeting for the waving mailbag"
+        }
+      },
+      {
+        "id": "fukuoka.arrival.mizutaki-steam.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "想想蒸汽散开时的样子",
+          "en": "Recall how the steam drifted apart"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "fukuoka.steam-greeting"
+      ],
+      "menuIds": [
+        "fukuoka.menu-mizutaki"
+      ]
+    }
+  },
+  {
+    "id": "fukuoka.arrival.two-menus-story",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "fukuoka",
+    "factIds": [
+      "hakata-ramen",
+      "mizutaki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两顿饭讲起来，竟成了一张小小的行程表。",
+      "en": "Two meals turned into a tiny itinerary."
+    },
+    "text": {
+      "zh-Hans": "在福冈，我午间尝了博多拉面，晚些时候又吃了水炊鸡肉锅。和一位歇脚的旅人说起今天，我原想先讲去过哪里，拿出的却是两张菜单。于是我们从“面来的时候”聊到“汤端上以后”。临走前我在卡片背面各写一句路上的事，给两顿饭也留了前后文。",
+      "en": "In Fukuoka, lunch was Hakata ramen and a later meal was mizutaki. When a resting traveler asked about my day, I meant to describe the sights but produced two menu cards instead. We talked from “when the noodles arrived” to “after the soup came.” Before leaving, I added a line about the journey to each card. Dinner deserves a little context too."
+    },
+    "replies": [
+      {
+        "id": "fukuoka.arrival.two-menus-story.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "添一句两顿饭之间的见闻",
+          "en": "Add something seen between the meals"
+        }
+      },
+      {
+        "id": "fukuoka.arrival.two-menus-story.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看卡片上的日期排得怎样",
+          "en": "Check the dates on the two cards"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "fukuoka.menu-hakata-ramen",
+        "fukuoka.menu-mizutaki"
+      ]
+    }
+  },
+  {
+    "id": "fukuoka.arrival.two-menus-broths",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "fukuoka",
+    "factIds": [
+      "hakata-ramen",
+      "mizutaki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天我记下了两碗汤，也记下了两次放笔。",
+      "en": "Two broths came with two pauses for my pencil."
+    },
+    "text": {
+      "zh-Hans": "今天在福冈，我分两次尝了博多拉面和水炊鸡肉锅。整理两张菜单时，我试着回想自己吃到的味道，先写细面条，再写鸡肉和蔬菜。写着写着发现，最清楚的还是两次把笔放下、先好好吃饭的时刻。我给卡片各留一个小小的句号，像两次安稳的停顿。",
+      "en": "I tried Hakata ramen and mizutaki at separate meals in Fukuoka. Sorting the two menu cards, I noted thin noodles on one and chicken with vegetables on the other. Yet my clearest memory was putting down my pencil and enjoying each meal. I gave each card a small full stop, a mark for those comfortable pauses."
+    },
+    "replies": [
+      {
+        "id": "fukuoka.arrival.two-menus-broths.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "用一句话描述其中一顿",
+          "en": "Describe one of the meals in a sentence"
+        }
+      },
+      {
+        "id": "fukuoka.arrival.two-menus-broths.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较两个小句号的位置",
+          "en": "Compare the two little full stops"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "fukuoka.menu-hakata-ramen",
+        "fukuoka.menu-mizutaki"
+      ]
+    }
+  },
+  {
+    "id": "fukuoka.fulfill.footstep-rhythm",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "fukuoka",
+    "factIds": [
+      "ohori-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "fukuoka.arrival.pond-footsteps.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把池边的声音又想了一遍。",
+      "en": "“{reply}” brought back the sounds beside the pond."
+    },
+    "text": {
+      "zh-Hans": "大濠公园那段散步，我又在便签上补了几个点：有的挨得近，有的隔得远。这不是步道地图，只是我给记忆排的小节拍。我把纸折成四页，每翻一页，就用指尖轻轻点一下。走过的脚步已经远了，这一小段散步倒还能陪我翻几次。",
+      "en": "I added more dots to my memory of walking in Ohori Park: some close together, others far apart. They are no map, only a rhythm I made for remembering. I folded the sheet into four pages and tapped a fingertip with each turn. Those footsteps have gone, but this little walk is still good for a few more pages."
+    },
+    "replies": [
+      {
+        "id": "fukuoka.fulfill.footstep-rhythm.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这段节拍取个小标题",
+          "en": "Give the rhythm a small title"
+        }
+      },
+      {
+        "id": "fukuoka.fulfill.footstep-rhythm.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找点与点之间最长的空隙",
+          "en": "Find the longest space between dots"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "fukuoka.pond-rhythm-book"
+      ],
+      "menuIds": []
+    }
+  }
+]

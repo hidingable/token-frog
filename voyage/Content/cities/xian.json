@@ -10,7 +10,7 @@
     "heritage",
     "food"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "西安",
     "en": "Xi'an"
@@ -19,5 +19,66 @@
     "zh-Hans": "西安",
     "en": "Xi'an"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "xian-terracotta-army",
+      "type": "place",
+      "names": {
+        "zh-Hans": "秦始皇陵兵马俑",
+        "en": "Terracotta Army"
+      },
+      "summary": {
+        "zh-Hans": "秦始皇陵的兵马俑遗址于1974年被发现。陶俑形态各异，与陶马、战车等共同构成重要的考古遗存。",
+        "en": "Discovered in 1974, the Terracotta Army at the First Qin Emperor’s mausoleum includes individually varied figures, horses and chariots."
+      },
+      "sources": [
+        "https://whc.unesco.org/en/list/441"
+      ]
+    },
+    {
+      "id": "xian-city-wall",
+      "type": "place",
+      "names": {
+        "zh-Hans": "西安城墙",
+        "en": "Xi’an City Wall"
+      },
+      "summary": {
+        "zh-Hans": "西安现存城墙修建于明代。沿城墙游览，可以看到城内街景、护城河与城楼。",
+        "en": "Xi’an’s surviving city wall dates to the Ming dynasty. A walk along it offers views of the city, moat and watchtowers."
+      },
+      "sources": [
+        "https://en.xa.gov.cn/MediaCenter/News/1691691491099529217.html"
+      ]
+    },
+    {
+      "id": "xian-roujiamo",
+      "type": "food",
+      "names": {
+        "zh-Hans": "腊汁肉夹馍",
+        "en": "Lazhi Roujiamo"
+      },
+      "summary": {
+        "zh-Hans": "西安的腊汁肉夹馍将肉与白吉馍搭配在一起，饼香与软嫩的肉馅相互衬托。",
+        "en": "Xi’an’s lazhi roujiamo pairs tender meat with baiji flatbread."
+      },
+      "sources": [
+        "https://en.xa.gov.cn/CultureTravel/Food&Retail/1691691509202145282.html"
+      ]
+    },
+    {
+      "id": "xian-yangrou-paomo",
+      "type": "food",
+      "names": {
+        "zh-Hans": "羊肉泡馍",
+        "en": "Yangrou Paomo"
+      },
+      "summary": {
+        "zh-Hans": "羊肉泡馍将碎馍与羊肉汤结合，是西安的代表性美食之一。",
+        "en": "Yangrou paomo combines pieces of flatbread with lamb soup and is a specialty of Xi’an."
+      },
+      "sources": [
+        "https://en.xa.gov.cn/MediaCenter/News/1691691493733552130.html"
+      ]
+    }
+  ]
 }

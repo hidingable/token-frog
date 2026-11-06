@@ -1,0 +1,98 @@
+[
+  {
+    "id": "tokyo.menu-soba",
+    "kind": "menu",
+    "cityId": "tokyo",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "荞麦面小菜单",
+      "en": "Soba Menu Card"
+    },
+    "descriptions": {
+      "zh-Hans": "在东京尝荞麦面时留下的小菜单。这回先写了菜名，又从容地添上“好吃”。",
+      "en": "A card from trying soba in Tokyo. The name went down first, then a leisurely “delicious.”"
+    }
+  },
+  {
+    "id": "tokyo.menu-monjayaki",
+    "kind": "menu",
+    "cityId": "tokyo",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "文字烧小菜单",
+      "en": "Monjayaki Menu Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我在东京吃文字烧后留下的菜单，旁边记着铁板上小小的滋滋声。",
+      "en": "My Tokyo monjayaki card, with a small written sizzle from the hot griddle beside it."
+    }
+  },
+  {
+    "id": "tokyo.tower-four-beats",
+    "kind": "souvenir",
+    "cityId": "tokyo",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "东京塔四拍便签",
+      "en": "Four Beats at Tokyo Tower"
+    },
+    "descriptions": {
+      "zh-Hans": "东京塔的333米让我念了三拍，一位旅人帮忙添上第四拍。我把四个小点都留下了。",
+      "en": "Tokyo Tower’s 333 meters gave me three beats; a traveler supplied a fourth. I kept all four as pencil dots."
+    }
+  },
+  {
+    "id": "tokyo.griddle-sound-slip",
+    "kind": "souvenir",
+    "cityId": "tokyo",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "铁板小声音",
+      "en": "A Small Griddle Sound"
+    },
+    "descriptions": {
+      "zh-Hans": "我在东京尝文字烧时给自己记的声音，后面三个小点像还想接着说话。",
+      "en": "My own sound note from monjayaki in Tokyo, with three trailing dots that still seem to have something to add."
+    }
+  },
+  {
+    "id": "tokyo.ueno-rest-slip",
+    "kind": "souvenir",
+    "cityId": "tokyo",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "上野先歇会儿便条",
+      "en": "Rest First in Ueno"
+    },
+    "descriptions": {
+      "zh-Hans": "在东京上野公园散步时，我停下来给随身便纸写上“先歇会儿”。",
+      "en": "“Rest first,” written on my own slip during a pause in a walk through Tokyo’s Ueno Park."
+    }
+  },
+  {
+    "id": "tokyo.menu-two-line-play",
+    "kind": "souvenir",
+    "cityId": "tokyo",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两句话的菜单小戏",
+      "en": "A Two-Line Menu Play"
+    },
+    "descriptions": {
+      "zh-Hans": "在东京，我和一位旅人轮流念荞麦面与文字烧的小菜单。这张便纸记着我们的出场顺序。",
+      "en": "A traveler and I read my Tokyo soba and monjayaki menu cards in turn. This slip keeps the running order of our very short play."
+    }
+  }
+]

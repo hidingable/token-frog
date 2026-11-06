@@ -10,7 +10,7 @@
     "food",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "成都",
     "en": "Chengdu"
@@ -19,5 +19,66 @@
     "zh-Hans": "成都",
     "en": "Chengdu"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "chengdu-panda-base",
+      "type": "place",
+      "names": {
+        "zh-Hans": "成都大熊猫繁育研究基地",
+        "en": "Chengdu Research Base of Giant Panda Breeding"
+      },
+      "summary": {
+        "zh-Hans": "成都大熊猫繁育研究基地从事大熊猫、小熊猫等珍稀野生动物的保护、繁育与科普教育。",
+        "en": "Chengdu’s panda base works on the conservation and breeding of giant pandas, red pandas and other rare wildlife, alongside public education."
+      },
+      "sources": [
+        "https://www.panda.org.cn/cn/about/"
+      ]
+    },
+    {
+      "id": "chengdu-du-fu-cottage",
+      "type": "place",
+      "names": {
+        "zh-Hans": "杜甫草堂",
+        "en": "Du Fu Thatched Cottage"
+      },
+      "summary": {
+        "zh-Hans": "杜甫草堂是诗人杜甫流寓成都时的故居所在地，后经历代修葺扩建，如今为博物馆。",
+        "en": "Du Fu Thatched Cottage marks the poet’s former home in Chengdu. Rebuilt and expanded over the centuries, it is now a museum."
+      },
+      "sources": [
+        "https://www.cddfct.cn/go-c11.htm"
+      ]
+    },
+    {
+      "id": "chengdu-mapo-tofu",
+      "type": "food",
+      "names": {
+        "zh-Hans": "麻婆豆腐",
+        "en": "Mapo Tofu"
+      },
+      "summary": {
+        "zh-Hans": "麻婆豆腐以麻、辣、烫、嫩等风味与口感为特色。陈麻婆的做法使用豆腐、牛肉末、豆瓣、花椒等。",
+        "en": "Mapo tofu is known for its heat, Sichuan-pepper tingle and tender texture. Chen Mapo’s version uses tofu, minced beef, chili bean paste and Sichuan pepper."
+      },
+      "sources": [
+        "https://lzhbwg.mofcom.gov.cn/edi_ecms_web_front/thb/detail/f7ab3a6e7ea0426d8fd104fc7c93df79"
+      ]
+    },
+    {
+      "id": "chengdu-dandan-noodles",
+      "type": "food",
+      "names": {
+        "zh-Hans": "担担面",
+        "en": "Dandan Noodles"
+      },
+      "summary": {
+        "zh-Hans": "担担面是成都小吃。提督担担面以煮熟的手工面条搭配肉臊、芽菜和调味料。",
+        "en": "Dandan noodles are a Chengdu specialty. The Tidu version pairs cooked handmade noodles with a minced-meat topping, preserved mustard greens and seasonings."
+      },
+      "sources": [
+        "https://lzhbwg.mofcom.gov.cn/edi_ecms_web_front/thb/detail/f6c270c212ad4cfc998168b223807727"
+      ]
+    }
+  ]
 }

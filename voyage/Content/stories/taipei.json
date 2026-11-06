@@ -1,0 +1,418 @@
+[
+  {
+    "id": "taipei.arrival.looking-up",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "taipei",
+    "factIds": [
+      "taipei-101"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我找到地标时，帽檐先到了。",
+      "en": "My hat brim found the landmark first."
+    },
+    "text": {
+      "zh-Hans": "到了台北，我走到能看见101的地方，抬头时差点把帽子顶到邮包后面。这座508米高的楼不用踮脚也能认出来，我却还是踮了一下。歇脚时，我在便签写了“抬头前扶帽子”。明天看看自己能不能记得。",
+      "en": "I found a view of Taipei 101 and tipped my head back so far that my hat nearly joined the mailbag. The 508-metre landmark hardly needed help from my tiptoes, but I tried them anyway. My note for tomorrow says: secure hat before looking up."
+    },
+    "replies": [
+      {
+        "id": "taipei.arrival.looking-up.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问旅伴先在哪看见101",
+          "en": "Ask where a travel companion first spotted 101"
+        }
+      },
+      {
+        "id": "taipei.arrival.looking-up.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看自己的帽檐朝哪边",
+          "en": "Check which way my hat brim points"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "taipei.hat-reminder"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "taipei.arrival.brick-and-timber",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "taipei",
+    "factIds": [
+      "beitou-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的光，在砖和木头之间换了颜色。",
+      "en": "The light changed as it crossed brick and timber."
+    },
+    "text": {
+      "zh-Hans": "在北投温泉博物馆，我慢慢看这座由公共浴场改设的建筑。砖墙、木构和黑瓦，各自接住了一点光。我没急着记年代，先在自己的纸上试了几块深浅不同的颜色。最浅的一格留着，明天想起这里时再看看该用哪支笔。",
+      "en": "At the Beitou Hot Spring Museum, I took my time with the former public bath’s brick, timber and black roof tiles. Each held the light differently. I tried a few shades on my own paper and left the palest square empty. Tomorrow I will see which pencil brings the place back."
+    },
+    "replies": [
+      {
+        "id": "taipei.arrival.brick-and-timber.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这张色纸取个名字",
+          "en": "Find a name for this little colour study"
+        }
+      },
+      {
+        "id": "taipei.arrival.brick-and-timber.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "记下砖墙和木构的颜色",
+          "en": "Save the shades of brick and timber"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "taipei.museum-light"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "taipei.arrival.broth-first",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "taipei",
+    "factIds": [
+      "beef-noodles"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午饭还没写进信，汤匙已经先出发了。",
+      "en": "The spoon began lunch before my letter did."
+    },
+    "text": {
+      "zh-Hans": "今天在台北吃牛肉面，我先喝了一口汤，才想起给小菜单留个位置。面、牛肉和汤各有各的份量，旁边那把汤匙却抢了我最多注意。我把菜单写成“先让汤匙带路”，夹在空白信纸里。明天翻到它，大概还会想起这一口。",
+      "en": "Beef noodle soup in Taipei began with a spoonful of broth. Only then did I remember my little menu. Noodles, beef and soup all deserved a mention, yet the spoon kept getting the starring role. I tucked away a card headed “Let the spoon lead.” Tomorrow it can remind me of the first sip."
+    },
+    "replies": [
+      {
+        "id": "taipei.arrival.broth-first.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问旅伴会先记住哪一口",
+          "en": "Ask which mouthful a companion would remember"
+        }
+      },
+      {
+        "id": "taipei.arrival.broth-first.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看面条和汤的颜色",
+          "en": "Notice the noodles against the broth"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "taipei.menu-beef-noodles"
+      ]
+    }
+  },
+  {
+    "id": "taipei.arrival.dumpling-pause",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "taipei",
+    "factIds": [
+      "xiaolongbao"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一只小笼包，让我多坐了一会儿。",
+      "en": "One dumpling extended my lunch break."
+    },
+    "text": {
+      "zh-Hans": "小笼包到了面前，我先看见面皮上的褶，再想起里面还有汤汁。于是我把筷子搁了一下，先给菜单写好名字。吃过以后，那几道褶还在脑海里排着队。我在字旁点了一个小点，记下这段等午饭稍凉的空当。明天不把它当句号了。",
+      "en": "The pleats on my xiaolongbao caught my eye before I remembered the broth inside. I set down my chopsticks and named the menu while lunch cooled a little. After eating, I could still picture the folds. A small dot beside the name records that pleasant pause. Tomorrow I must remember it is not a full stop."
+    },
+    "replies": [
+      {
+        "id": "taipei.arrival.dumpling-pause.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给等午饭的空当起个名",
+          "en": "Name the little pause before lunch"
+        }
+      },
+      {
+        "id": "taipei.arrival.dumpling-pause.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看面皮的褶怎样收拢",
+          "en": "Follow where the pleats meet"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "taipei.dumpling-pause"
+      ],
+      "menuIds": [
+        "taipei.menu-xiaolongbao"
+      ]
+    }
+  },
+  {
+    "id": "taipei.arrival.asking-the-way",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "taipei",
+    "factIds": [
+      "taipei-101"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天问路，顺便问到一个好问题。",
+      "en": "Directions came with a question of their own."
+    },
+    "text": {
+      "zh-Hans": "我想再找个角度看台北101，绕了一小段才发现自己一直低头看路。问一位同行旅人时，对方先问我：“你是在找楼，还是找歇脚的地方？”想了想，两样都要。我们各在便签写下一句打算，我把“先坐一会儿”放在最上面。明天照这个顺序试试。",
+      "en": "Looking for another view of Taipei 101, I managed to spend most of my walk staring at the pavement. A fellow traveler asked whether I wanted the tower or somewhere to rest. Both, it turned out. We each wrote a plan on my note; “sit for a while” went first. Tomorrow I will test that order."
+    },
+    "replies": [
+      {
+        "id": "taipei.arrival.asking-the-way.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和旅伴交换一个小打算",
+          "en": "Swap one small plan with a companion"
+        }
+      },
+      {
+        "id": "taipei.arrival.asking-the-way.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看便签上哪一句排第一",
+          "en": "Check which plan comes first"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "taipei.shared-directions"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "taipei.arrival.menu-conversation",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "taipei",
+    "factIds": [
+      "beef-noodles",
+      "xiaolongbao"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张菜单，聊成了两次歇脚。",
+      "en": "Two menus turned into a conversation about taking a break."
+    },
+    "text": {
+      "zh-Hans": "在台北分两次吃过牛肉面和小笼包后，我把两张小菜单拿给旅伴看。原想比较名字，聊着聊着却都在说吃到一半停下来想事情的时刻。我在每张背面添了一个空框，给下次想到的话留座。明天先看哪一张，就让邮包决定。",
+      "en": "After separate meals of beef noodle soup and xiaolongbao in Taipei, I showed a companion both menu cards. We meant to compare names and ended up discussing the thoughts that arrive halfway through lunch. Each card now has an empty box for the next thought. Tomorrow the mailbag gets to choose which comes out first."
+    },
+    "replies": [
+      {
+        "id": "taipei.arrival.menu-conversation.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊午饭时想到的小事",
+          "en": "Share a thought that arrived over lunch"
+        }
+      },
+      {
+        "id": "taipei.arrival.menu-conversation.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张菜单留下的空框",
+          "en": "Look at the empty box on each card"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "taipei.menu-beef-noodles",
+        "taipei.menu-xiaolongbao"
+      ]
+    }
+  },
+  {
+    "id": "taipei.arrival.two-lunch-notes",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "taipei",
+    "factIds": [
+      "beef-noodles",
+      "xiaolongbao"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午饭的声音，也能夹进菜单。",
+      "en": "A menu can hold a memory of a sound."
+    },
+    "text": {
+      "zh-Hans": "牛肉面和小笼包，我在台北先后尝过了。收拾两张菜单时，我想起汤匙轻碰碗边的那一下，又想起放下筷子等小笼包稍凉的安静。我在两张纸上分别留了一个点、一小段空白。明天读给自己听，也许得先学会把空白读出来。",
+      "en": "My Taipei menu cards remember two separate meals: beef noodle soup and xiaolongbao. Packing them away brought back a spoon touching a bowl, then the quiet while I waited for a dumpling to cool. One card has a dot, the other a gap. Reading them aloud tomorrow may require a pronunciation for silence."
+    },
+    "replies": [
+      {
+        "id": "taipei.arrival.two-lunch-notes.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "试着念一念这两张菜单",
+          "en": "Try reading the two menu cards aloud"
+        }
+      },
+      {
+        "id": "taipei.arrival.two-lunch-notes.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看点和空白分别在哪里",
+          "en": "Find the dot and the quiet gap"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "taipei.menu-beef-noodles",
+        "taipei.menu-xiaolongbao"
+      ]
+    }
+  },
+  {
+    "id": "taipei.fulfill.saved-shades",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "taipei",
+    "factIds": [
+      "beitou-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "taipei.arrival.brick-and-timber.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，那一格空白有了着落。",
+      "en": "Your note, “{reply}”, helped with the empty square."
+    },
+    "text": {
+      "zh-Hans": "我又打开北投温泉博物馆那张色纸，给砖墙和木构各添了一句颜色笔记。最浅的一格还是没有涂满，只写了“光经过这里”。纸上已经没有浴场，也没有屋顶，倒保住了我慢慢看的那一小会儿。等信装好，再把这张纸放回去。",
+      "en": "I reopened my Beitou Hot Spring Museum colour study and added a note beside the brick and timber shades. The lightest square still has no colour, only “light passed here.” It holds no whole building, but it keeps the unhurried moment rather well. It can go back in the bag once this letter is ready."
+    },
+    "replies": [
+      {
+        "id": "taipei.fulfill.saved-shades.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这段慢慢看的时间留句话",
+          "en": "Leave a line for that unhurried moment"
+        }
+      },
+      {
+        "id": "taipei.fulfill.saved-shades.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看最浅的一格",
+          "en": "Look at the palest square"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "taipei.museum-light"
+      ],
+      "menuIds": []
+    }
+  }
+]

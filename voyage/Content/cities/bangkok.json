@@ -12,7 +12,7 @@
     "food",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "曼谷",
     "en": "Bangkok"
@@ -21,5 +21,70 @@
     "zh-Hans": "曼谷",
     "en": "Bangkok"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "wat-arun",
+      "type": "place",
+      "names": {
+        "zh-Hans": "郑王庙",
+        "en": "Wat Arun"
+      },
+      "summary": {
+        "zh-Hans": "郑王庙位于湄南河吞武里一侧，与卧佛寺隔河相望，河边可见其高耸的塔形建筑。",
+        "en": "Wat Arun stands on the Thon Buri side of the Chao Phraya River, opposite Wat Pho, with its tall prang visible by the water."
+      },
+      "sources": [
+        "https://www.tourismthailand.org/Attraction/wat-arun-ratchawararam-ratchawaramahawihan",
+        "https://www.thailandtravel.or.jp/common/pdf/Walking_BKK2018.pdf"
+      ]
+    },
+    {
+      "id": "lumphini-park",
+      "type": "place",
+      "names": {
+        "zh-Hans": "伦披尼公园",
+        "en": "Lumphini Park"
+      },
+      "summary": {
+        "zh-Hans": "伦披尼公园是曼谷的公共公园，园内有大树、宽阔水面和供散步、运动的空间。",
+        "en": "Lumphini Park is a public park in Bangkok with large trees, broad ponds and spaces for walking and exercise."
+      },
+      "sources": [
+        "https://greener.bangkok.go.th/en/park/suan-lumpini/",
+        "https://thai.tourismthailand.org/Attraction/%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B8%A5%E0%B8%B8%E0%B8%A1%E0%B8%9E%E0%B8%B4%E0%B8%99%E0%B8%B5"
+      ]
+    },
+    {
+      "id": "pad-thai",
+      "type": "food",
+      "names": {
+        "zh-Hans": "泰式炒河粉",
+        "en": "Pad Thai"
+      },
+      "summary": {
+        "zh-Hans": "泰式炒河粉以米粉炒制，配料可包括豆腐、鸡蛋、花生和豆芽，并用罗望子等调味。",
+        "en": "Pad Thai is a stir-fried rice noodle dish. Tofu, egg, peanuts and bean sprouts are among its ingredients, with tamarind used for seasoning."
+      },
+      "sources": [
+        "https://tourismproduct.tourismthailand.org/wp-content/uploads/2022/10/ASEAN-World-Class-Culinary-Heritage-Cities.pdf",
+        "https://www.thailandtravel.or.jp/common/pdf/Thai_Food_Catalog2019.pdf"
+      ]
+    },
+    {
+      "id": "mango-sticky-rice",
+      "type": "food",
+      "names": {
+        "zh-Hans": "芒果糯米饭",
+        "en": "Mango Sticky Rice"
+      },
+      "summary": {
+        "zh-Hans": "芒果糯米饭把成熟芒果与甜糯米饭配在一起，并搭配椰奶。",
+        "en": "Mango sticky rice serves ripe mango alongside sweet sticky rice with coconut milk."
+      },
+      "sources": [
+        "https://tourismproduct.tourismthailand.org/wp-content/uploads/2022/10/ASEAN-World-Class-Culinary-Heritage-Cities.pdf",
+        "https://www.tourismthailand.org/Restaurant/k-panich"
+      ]
+    }
+  ]
 }

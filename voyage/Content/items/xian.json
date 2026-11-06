@@ -1,0 +1,98 @@
+[
+  {
+    "id": "xian.menu-roujiamo",
+    "kind": "menu",
+    "cityId": "xian",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "腊汁肉夹馍小菜单",
+      "en": "Lazhi Roujiamo Menu Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我在西安吃过腊汁肉夹馍后写完的小菜单。那句“今天这份”，最后接上了“已经吃完”。",
+      "en": "My Xi’an roujiamo menu, completed after lunch. “Today’s serving…” eventually became “…has been finished.”"
+    }
+  },
+  {
+    "id": "xian.menu-yangrou-paomo",
+    "kind": "menu",
+    "cityId": "xian",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "羊肉泡馍小菜单",
+      "en": "Yangrou Paomo Menu Card"
+    },
+    "descriptions": {
+      "zh-Hans": "在西安尝碎馍与羊肉汤后留下的菜单，开头写得慢，午饭倒记得很清楚。",
+      "en": "A card from my Xi’an bowl of flatbread in lamb soup. The opening took a while; the meal was easier to remember."
+    }
+  },
+  {
+    "id": "xian.second-look-note",
+    "kind": "souvenir",
+    "cityId": "xian",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "兵马俑第二眼便签",
+      "en": "A Second Look at the Terracotta Army"
+    },
+    "descriptions": {
+      "zh-Hans": "我在西安看兵马俑时留下的个人见闻便签。上面写着“看过，又看过”，提醒自己曾多停了一会儿。",
+      "en": "My own Xi’an visiting note says “looked, then looked again,” a reminder of spending a little longer with the Terracotta Army."
+    }
+  },
+  {
+    "id": "xian.lunch-pause-slip",
+    "kind": "souvenir",
+    "cityId": "xian",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "午饭暂停处",
+      "en": "A Lunch Pause"
+    },
+    "descriptions": {
+      "zh-Hans": "在西安吃羊肉泡馍时，我给身边的便纸起了这个名字。小勺歇一歇，我也慢慢尝一口。",
+      "en": "Named beside my yangrou paomo in Xi’an, when the spoon rested and I gave a mouthful a little time."
+    }
+  },
+  {
+    "id": "xian.wall-turning-slip",
+    "kind": "souvenir",
+    "cityId": "xian",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "城墙转身小向导",
+      "en": "The Wall’s Turning Guide"
+    },
+    "descriptions": {
+      "zh-Hans": "我沿西安城墙散步时写的小箭头，旁边补着“转身以后再看”。它是我的方向提醒。",
+      "en": "An arrow from my walk along Xi’an’s wall, with my own reminder to check again after turning around."
+    }
+  },
+  {
+    "id": "xian.two-starts-note",
+    "kind": "souvenir",
+    "cityId": "xian",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两顿饭的两个开头",
+      "en": "Two Meals, Two Beginnings"
+    },
+    "descriptions": {
+      "zh-Hans": "在西安，我和一位旅人各写一个起点，试着把我的两顿饭换个顺序讲。",
+      "en": "A traveler and I wrote two possible beginnings for telling my Xi’an meals in a different order."
+    }
+  }
+]

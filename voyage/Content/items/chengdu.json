@@ -1,0 +1,98 @@
+[
+  {
+    "id": "chengdu.menu-mapo-tofu",
+    "kind": "menu",
+    "cityId": "chengdu",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "麻婆豆腐小菜单",
+      "en": "Mapo Tofu Menu Card"
+    },
+    "descriptions": {
+      "zh-Hans": "在成都尝麻婆豆腐后写的菜单。菜名下面的小点，记着我等它稍凉一点的停顿。",
+      "en": "A card from trying mapo tofu in Chengdu. Pencil dots mark my pauses while the hot tofu cooled a little."
+    }
+  },
+  {
+    "id": "chengdu.menu-dandan-noodles",
+    "kind": "menu",
+    "cityId": "chengdu",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "担担面小菜单",
+      "en": "Dandan Noodle Menu Card"
+    },
+    "descriptions": {
+      "zh-Hans": "在成都尝过担担面后记下的菜单。背面留着我练菜名时添的一句“慢慢念”。",
+      "en": "My Chengdu dandan-noodle card, with “take your time” on the back from practicing the name."
+    }
+  },
+  {
+    "id": "chengdu.panda-index-note",
+    "kind": "souvenir",
+    "cityId": "chengdu",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "熊猫名字索引",
+      "en": "Panda Name Index"
+    },
+    "descriptions": {
+      "zh-Hans": "在成都熊猫基地做的小索引，大熊猫和小熊猫各有一行，下面是我写的“今天慢慢看”。",
+      "en": "A little index from Chengdu’s panda base: separate lines for giant panda and red panda, followed by my own “take your time today.”"
+    }
+  },
+  {
+    "id": "chengdu.noodle-name-slip",
+    "kind": "souvenir",
+    "cityId": "chengdu",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "担担面练读条",
+      "en": "Dandan Name Rehearsal"
+    },
+    "descriptions": {
+      "zh-Hans": "我在成都记担担面菜名时写下的便条，读着读着，多出了一句自己的小提醒。",
+      "en": "A Chengdu note from practicing the name dandan noodles. A small reminder of my own slipped into the reading."
+    }
+  },
+  {
+    "id": "chengdu.cottage-pause-slip",
+    "kind": "souvenir",
+    "cityId": "chengdu",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "草堂停一会儿便纸",
+      "en": "A While at the Cottage"
+    },
+    "descriptions": {
+      "zh-Hans": "我在成都杜甫草堂写下“我在这里停了一会儿”。这是我的见闻，写在随身带的便纸上。",
+      "en": "“I stopped here for a while,” written on my own paper at Du Fu Thatched Cottage in Chengdu. A plain sentence from my visit."
+    }
+  },
+  {
+    "id": "chengdu.meal-conversation-slip",
+    "kind": "souvenir",
+    "cityId": "chengdu",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两道菜的出场便签",
+      "en": "Two Dishes, One Opening"
+    },
+    "descriptions": {
+      "zh-Hans": "在成都，一位旅人替我的两张菜单画了两个小方框，让我选先介绍哪一顿。",
+      "en": "In Chengdu, a traveler drew two boxes for my menu recital so I could choose which meal to introduce first."
+    }
+  }
+]

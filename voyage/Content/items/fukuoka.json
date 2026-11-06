@@ -1,0 +1,98 @@
+[
+  {
+    "id": "fukuoka.menu-hakata-ramen",
+    "kind": "menu",
+    "cityId": "fukuoka",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "博多拉面续写菜单",
+      "en": "Hakata Ramen, Title Resumed"
+    },
+    "descriptions": {
+      "zh-Hans": "在福冈吃面时停下笔，饭后才接着写完的菜单。标题里曾给晚饭留了一个空位。",
+      "en": "An unfinished title waited while I ate Hakata ramen in Fukuoka. This card has room for dinner first and writing afterwards."
+    }
+  },
+  {
+    "id": "fukuoka.menu-mizutaki",
+    "kind": "menu",
+    "cityId": "fukuoka",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "水炊锅招呼菜单",
+      "en": "Mizutaki Greeting Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "福冈水炊鸡肉锅的小菜单，旁边画着我从蒸汽想到的挥手邮包。那是我自己的联想。",
+      "en": "My Fukuoka mizutaki menu, with a waving mailbag imagined from rising steam. The greeting is my own addition."
+    }
+  },
+  {
+    "id": "fukuoka.footstep-note",
+    "kind": "souvenir",
+    "cityId": "fukuoka",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "池边脚步便签",
+      "en": "Footsteps Beside the Pond"
+    },
+    "descriptions": {
+      "zh-Hans": "在福冈大濠公园停步听声音后记下的点，有轻有重，只记录我那一小段散步。",
+      "en": "Light and heavy dots from a listening pause at Ohori Park in Fukuoka. They keep just one small stretch of my walk."
+    }
+  },
+  {
+    "id": "fukuoka.steam-greeting",
+    "kind": "souvenir",
+    "cityId": "fukuoka",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "蒸汽问候小稿",
+      "en": "A Greeting from Steam"
+    },
+    "descriptions": {
+      "zh-Hans": "在福冈吃水炊锅后画的小邮包，添了两条胳膊，像要请下一位客人入座。",
+      "en": "A mailbag sketch from after mizutaki in Fukuoka. With two arms added, it seems ready to welcome the next diner."
+    }
+  },
+  {
+    "id": "fukuoka.meeting-arrows",
+    "kind": "souvenir",
+    "cityId": "fukuoka",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "高处相遇的箭头",
+      "en": "Arrows Meeting Above the City"
+    },
+    "descriptions": {
+      "zh-Hans": "在福冈塔上，我和旅人各画了来时方向的箭头。纸上的箭头比我们的故事先碰了头。",
+      "en": "Two travelers drew their arrival directions at Fukuoka Tower. The arrows on our page met before our stories finished."
+    }
+  },
+  {
+    "id": "fukuoka.pond-rhythm-book",
+    "kind": "souvenir",
+    "cityId": "fukuoka",
+    "rarity": "rare",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "池边节拍四页纸",
+      "en": "Four Pages of Pondside Rhythm"
+    },
+    "descriptions": {
+      "zh-Hans": "把大濠公园散步便签折成四页，点之间留着远近不同的空隙。翻页时能再点一次自己的节拍。",
+      "en": "My Ohori Park note folded into four pages, its dots spaced like remembered footsteps. A little rhythm for turning pages."
+    }
+  }
+]

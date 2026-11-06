@@ -11,7 +11,7 @@
     "capital",
     "food"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "东京",
     "en": "Tokyo"
@@ -20,5 +20,66 @@
     "zh-Hans": "东京",
     "en": "Tokyo"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "tokyo-tower",
+      "type": "place",
+      "names": {
+        "zh-Hans": "东京塔",
+        "en": "Tokyo Tower"
+      },
+      "summary": {
+        "zh-Hans": "东京塔建于1958年，高333米。主展望台位于150米高处。",
+        "en": "Built in 1958, Tokyo Tower stands 333 meters tall, with its main observation deck at 150 meters."
+      },
+      "sources": [
+        "https://www.gotokyo.org/en/spot/4/"
+      ]
+    },
+    {
+      "id": "tokyo-ueno-park",
+      "type": "place",
+      "names": {
+        "zh-Hans": "上野恩赐公园",
+        "en": "Ueno Park"
+      },
+      "summary": {
+        "zh-Hans": "上野公园于1873年设立，是日本最早的一批公共公园之一。园内有多座博物馆和动物园。",
+        "en": "Established in 1873, Ueno Park was among Japan’s first public parks. Its grounds include several museums and a zoo."
+      },
+      "sources": [
+        "https://www.gotokyo.org/en/spot/482/index.html"
+      ]
+    },
+    {
+      "id": "tokyo-soba",
+      "type": "food",
+      "names": {
+        "zh-Hans": "荞麦面",
+        "en": "Soba"
+      },
+      "summary": {
+        "zh-Hans": "荞麦面在江户时代中期已是受欢迎的快餐，后来成为东京的地方美食之一。",
+        "en": "Soba was a popular quick meal by the middle of the Edo period and became a local specialty of Tokyo."
+      },
+      "sources": [
+        "https://www.gotokyo.org/en/see-and-do/drinking-and-dining/tokyo-local-food/index.html"
+      ]
+    },
+    {
+      "id": "tokyo-monjayaki",
+      "type": "food",
+      "names": {
+        "zh-Hans": "文字烧",
+        "en": "Monjayaki"
+      },
+      "summary": {
+        "zh-Hans": "文字烧将较稀的面粉糊与卷心菜等食材放在热铁板上烹制，是东京的地方美食之一。",
+        "en": "Monjayaki is a Tokyo specialty cooked on a hot griddle from a runny flour batter, cabbage and other ingredients."
+      },
+      "sources": [
+        "https://www.gotokyo.org/en/see-and-do/drinking-and-dining/tokyo-local-food/index.html"
+      ]
+    }
+  ]
 }

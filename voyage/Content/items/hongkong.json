@@ -1,0 +1,98 @@
+[
+  {
+    "id": "hongkong.menu-egg-tart",
+    "kind": "menu",
+    "cityId": "hongkong",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "蛋挞小菜单",
+      "en": "Egg Tart Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在香港吃过蛋挞后写的菜单，暂定名字叫“黄色在中间”。",
+      "en": "A Hong Kong egg tart menu with the working title “Yellow in the Middle.”"
+    }
+  },
+  {
+    "id": "hongkong.menu-egg-waffle",
+    "kind": "menu",
+    "cityId": "hongkong",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "鸡蛋仔小菜单",
+      "en": "Egg Waffle Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在香港尝过鸡蛋仔的记录，小鼓包还没数完，菜单已经有名字了。",
+      "en": "A menu from trying an egg waffle in Hong Kong. The title arrived before the puff count."
+    }
+  },
+  {
+    "id": "hongkong.two-shores",
+    "kind": "souvenir",
+    "cityId": "hongkong",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两岸招呼便签",
+      "en": "A Greeting Between Shores"
+    },
+    "descriptions": {
+      "zh-Hans": "等香港天星小轮时写的便签，“这一边”和“那一边”中间留着水面。",
+      "en": "My note from waiting for Hong Kong’s Star Ferry, with water between “this side” and “that side.”"
+    }
+  },
+  {
+    "id": "hongkong.waffle-dots",
+    "kind": "souvenir",
+    "cityId": "hongkong",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "数到好吃的圆点纸",
+      "en": "Count Until Delicious"
+    },
+    "descriptions": {
+      "zh-Hans": "在香港吃鸡蛋仔后画的几排点，是自己的数数练习，不是做点心的模具。",
+      "en": "Rows of dots after an egg waffle in Hong Kong. My counting exercise, rather than a baking mould."
+    }
+  },
+  {
+    "id": "hongkong.harbour-lines",
+    "kind": "souvenir",
+    "cityId": "hongkong",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "眼睛走过的三条线",
+      "en": "Three Wandering Lines"
+    },
+    "descriptions": {
+      "zh-Hans": "在太平山顶看天际线和海港后留下的线条，记着目光走过的小路。",
+      "en": "Three lines from looking over the skyline and harbour at The Peak, marking where my gaze wandered."
+    }
+  },
+  {
+    "id": "hongkong.shared-crossing",
+    "kind": "souvenir",
+    "cityId": "hongkong",
+    "rarity": "rare",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两个人的过海招呼",
+      "en": "Two Travelers’ Harbour Greetings"
+    },
+    "descriptions": {
+      "zh-Hans": "在香港和旅伴给纸上两岸编的招呼，一边出发，一边请对方慢慢来。",
+      "en": "An exchange invented with a traveler in Hong Kong: one paper shore sets off, the other says to take our time."
+    }
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "seoul.menu-tteokbokki",
+    "kind": "menu",
+    "cityId": "seoul",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "辣炒年糕小菜单",
+      "en": "Tteokbokki and a Sip"
+    },
+    "descriptions": {
+      "zh-Hans": "在首尔尝辣炒年糕后写的卡片，旁边画了我那只安静又可靠的水杯。",
+      "en": "A card from trying tteokbokki in Seoul, with my quiet, dependable water glass drawn alongside."
+    }
+  },
+  {
+    "id": "seoul.menu-bindaetteok",
+    "kind": "menu",
+    "cityId": "seoul",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "绿豆煎饼声音菜单",
+      "en": "Bindaetteok, with a Crunch"
+    },
+    "descriptions": {
+      "zh-Hans": "在首尔广藏市场尝绿豆煎饼后留的小菜单，一个“咔”替我记住自己那一口的声音。",
+      "en": "My menu from a mung bean pancake at Seoul’s Gwangjang Market. A tiny “crk” remembers the edge of my serving."
+    }
+  },
+  {
+    "id": "seoul.turning-arrows",
+    "kind": "souvenir",
+    "cityId": "seoul",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "转弯路线便签",
+      "en": "Turning-Arrow Note"
+    },
+    "descriptions": {
+      "zh-Hans": "在首尔昌德宫散步后记的个人路线，箭头没有拉直，起点添了一颗小星。",
+      "en": "My own route note after a walk at Changdeokgung in Seoul. The arrows keep their turns, with a star marking the start."
+    }
+  },
+  {
+    "id": "seoul.water-glass-note",
+    "kind": "souvenir",
+    "cityId": "seoul",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "安静同桌纸条",
+      "en": "A Quiet Lunch Companion"
+    },
+    "descriptions": {
+      "zh-Hans": "尝过首尔辣炒年糕后留下的水杯小画。那个“辣”字，写得比别的字更有精神。",
+      "en": "A water-glass doodle from tteokbokki in Seoul. The word “spicy” carries the liveliest handwriting on the sheet."
+    }
+  },
+  {
+    "id": "seoul.shared-stream-lines",
+    "kind": "souvenir",
+    "cityId": "seoul",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "同路到下一座桥",
+      "en": "Together Until the Next Bridge"
+    },
+    "descriptions": {
+      "zh-Hans": "在首尔清溪川边，我和旅人同走一小段后留下的两道短线。目的地只是下一座桥。",
+      "en": "Two short lines for a brief walk with another traveler beside Cheonggyecheon in Seoul. The next bridge was far enough."
+    }
+  },
+  {
+    "id": "seoul.unfolding-walk-card",
+    "kind": "souvenir",
+    "cityId": "seoul",
+    "rarity": "rare",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "能展开的散步卡",
+      "en": "An Unfolding Walk"
+    },
+    "descriptions": {
+      "zh-Hans": "由昌德宫散步便签折成的小卡，装着我自己的转弯记忆。合上后，起点的小星还在外面。",
+      "en": "A card folded from my Changdeokgung walking note. It holds my own remembered turns; the starting star stays outside."
+    }
+  }
+]

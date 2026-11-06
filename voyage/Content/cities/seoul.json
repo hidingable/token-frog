@@ -11,7 +11,7 @@
     "food",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "首尔",
     "en": "Seoul"
@@ -20,5 +20,70 @@
     "zh-Hans": "首尔",
     "en": "Seoul"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "changdeokgung",
+      "type": "place",
+      "names": {
+        "zh-Hans": "昌德宫",
+        "en": "Changdeokgung Palace"
+      },
+      "summary": {
+        "zh-Hans": "昌德宫始建于 15 世纪，宫殿与园林顺应自然地形布局，建筑和周围景观相互融合。",
+        "en": "First built in the 15th century, Changdeokgung arranges its palace buildings and gardens around the natural terrain, integrating architecture with the landscape."
+      },
+      "sources": [
+        "https://whc.unesco.org/en/list/816",
+        "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=94399"
+      ]
+    },
+    {
+      "id": "cheonggyecheon",
+      "type": "place",
+      "names": {
+        "zh-Hans": "清溪川",
+        "en": "Cheonggyecheon Stream"
+      },
+      "summary": {
+        "zh-Hans": "清溪川流经首尔市区，水边设有步行空间，并有广通桥等桥梁跨过水面；河道修复工程于 2005 年完成。",
+        "en": "Cheonggyecheon runs through Seoul with paths beside the water and crossings including Gwangtong Bridge. Its restoration project was completed in 2005."
+      },
+      "sources": [
+        "https://english.seoul.go.kr/service/amusement/stream/1-cheonggyecheon/",
+        "https://www.sisul.or.kr/global/main/en/sub/cheonggyecheon.jsp"
+      ]
+    },
+    {
+      "id": "tteokbokki",
+      "type": "food",
+      "names": {
+        "zh-Hans": "辣炒年糕",
+        "en": "Tteokbokki"
+      },
+      "summary": {
+        "zh-Hans": "辣炒年糕用条状年糕配辣椒酱和蔬菜等烹制。首尔新堂洞有多家专营年糕的餐馆。",
+        "en": "Tteokbokki cooks rice-cake sticks with red chili paste, vegetables and other additions. Seoul’s Sindang-dong neighborhood has a cluster of restaurants specializing in the dish."
+      },
+      "sources": [
+        "https://english.visitseoul.net/area/Sindang-dong-Tteokbokki-Town/ENN032615",
+        "https://english.visitkorea.or.kr/svc/sp/food/ext/special_view.do?menuSn=913&page=1&sort=regDt&vcontsId=178955"
+      ]
+    },
+    {
+      "id": "bindaetteok",
+      "type": "food",
+      "names": {
+        "zh-Hans": "绿豆煎饼",
+        "en": "Bindaetteok"
+      },
+      "summary": {
+        "zh-Hans": "绿豆煎饼以磨碎的绿豆为主要原料，在油锅中煎制。首尔广藏市场有售卖这种煎饼的店铺。",
+        "en": "Bindaetteok is a pan-fried pancake based on ground mung beans. Shops in Seoul’s Gwangjang Market serve it."
+      },
+      "sources": [
+        "https://english.visitseoul.net/eat/Soonhees-Bindaetteok1_/14612",
+        "https://english.visitkorea.or.kr/svc/whereToGo/locIntrdn/rgnContentsView.do?vcontsId=194106"
+      ]
+    }
+  ]
 }

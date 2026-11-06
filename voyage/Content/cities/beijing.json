@@ -10,7 +10,7 @@
     "capital",
     "heritage"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "北京",
     "en": "Beijing"
@@ -19,5 +19,66 @@
     "zh-Hans": "北京",
     "en": "Beijing"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "beijing-palace-museum",
+      "type": "place",
+      "names": {
+        "zh-Hans": "故宫",
+        "en": "The Forbidden City"
+      },
+      "summary": {
+        "zh-Hans": "北京故宫是明清两代的皇宫，保留着宫殿建筑与园林景观。",
+        "en": "Beijing’s Forbidden City preserves the palace buildings and gardens of the Ming and Qing imperial residence."
+      },
+      "sources": [
+        "https://whc.unesco.org/en/list/439"
+      ]
+    },
+    {
+      "id": "beijing-summer-palace",
+      "type": "place",
+      "names": {
+        "zh-Hans": "颐和园",
+        "en": "Summer Palace"
+      },
+      "summary": {
+        "zh-Hans": "颐和园将山峦、开阔湖面与亭台、殿堂、桥梁等园林建筑结合在一起。",
+        "en": "At the Summer Palace, hills and open water form a garden landscape with pavilions, halls and bridges."
+      },
+      "sources": [
+        "https://whc.unesco.org/en/list/880"
+      ]
+    },
+    {
+      "id": "beijing-roast-duck",
+      "type": "food",
+      "names": {
+        "zh-Hans": "北京烤鸭",
+        "en": "Peking Duck"
+      },
+      "summary": {
+        "zh-Hans": "北京烤鸭可以用薄饼包卷着吃。",
+        "en": "Peking duck can be eaten wrapped in a thin pancake."
+      },
+      "sources": [
+        "https://english.beijing.gov.cn/beijinginfo/videos/202412/t20241227_3975743.html"
+      ]
+    },
+    {
+      "id": "beijing-zhajiangmian",
+      "type": "food",
+      "names": {
+        "zh-Hans": "炸酱面",
+        "en": "Zhajiang Noodles"
+      },
+      "summary": {
+        "zh-Hans": "北京炸酱面将煮好的面条与炸酱、菜码拌在一起；菜码可以有黄瓜、豆芽等。",
+        "en": "Beijing zhajiang noodles are mixed with a cooked bean-paste sauce and vegetable accompaniments, which can include cucumber and bean sprouts."
+      },
+      "sources": [
+        "https://english.visitbeijing.com.cn/article/4Ij8fs8gdkc"
+      ]
+    }
+  ]
 }

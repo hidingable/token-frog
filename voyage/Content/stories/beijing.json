@@ -1,0 +1,369 @@
+[
+  {
+    "id": "beijing.arrival.waiting-sounds",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "beijing",
+    "factIds": [
+      "beijing-palace-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "故宫里的一小段等待，被我装进了信里。",
+      "en": "A short wait at the Forbidden City found its way into this letter."
+    },
+    "text": {
+      "zh-Hans": "在北京故宫看过殿宇和园林，我停下来等一位约好的旅人。每听见一阵脚步，我就抬一下头，结果先认出了自己的邮包拉链声。等对方来了，我说今天的路已经听过两遍：一遍走过，一遍等过。明天给这段等待留个名字。",
+      "en": "After visiting the palace buildings and gardens of Beijing’s Forbidden City, I waited for a traveler I had arranged to meet. Every set of footsteps made me look up. The first sound I recognized was actually my own mailbag zipper. When my friend arrived, I said I had heard the route twice: once while walking, once while waiting. Tomorrow this little wait needs a name."
+    },
+    "replies": [
+      {
+        "id": "beijing.arrival.waiting-sounds.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问旅人会给等待起什么名",
+          "en": "Ask the traveler for a name for the wait"
+        }
+      },
+      {
+        "id": "beijing.arrival.waiting-sounds.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把等人的声音记下来",
+          "en": "Keep a note of the sounds while waiting"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "beijing.waiting-sound-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "beijing.arrival.lake-pause",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "beijing",
+    "factIds": [
+      "beijing-summer-palace"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "在颐和园，我把一句话停在了湖面上。",
+      "en": "At the Summer Palace, a sentence paused over the water."
+    },
+    "text": {
+      "zh-Hans": "颐和园的山、水和亭台连在一起，我原本想给每一样写个词。写到湖面，却停了下来，坐着看了一会儿。回头读便签，山和亭台之间竟有一大段停顿。我没有填满它，只加了一个小逗号。明天看看，这个逗号是不是也想继续歇脚。",
+      "en": "The Summer Palace brought hills, water and pavilions into one view. I began a word for each, then reached the lake and simply sat for a while. My note now has a long pause between the hills and the buildings. I added one small comma and left it there. Tomorrow I will check whether the comma is still enjoying its rest."
+    },
+    "replies": [
+      {
+        "id": "beijing.arrival.lake-pause.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请同行人接着说下一句",
+          "en": "Invite a companion to finish the sentence"
+        }
+      },
+      {
+        "id": "beijing.arrival.lake-pause.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看停顿两边各有什么",
+          "en": "Notice what sits on either side of the pause"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "beijing.lake-pause-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "beijing.arrival.duck-first-bite",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "beijing",
+    "factIds": [
+      "beijing-roast-duck"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "烤鸭菜单上，第一行先写成了“再来一口”。",
+      "en": "The first line on my duck menu said, “Another bite.”"
+    },
+    "text": {
+      "zh-Hans": "在北京吃烤鸭，我尝了用薄饼包起来的一份。想写菜单的时候，脑袋还留在刚才那一口，笔下先跑出“再来一口”。我把菜名补在旁边，保留了原来那句。这样就算把菜单拿倒，至少还能读出我的心情。明天得把它放正再收进邮包。",
+      "en": "In Beijing I tried Peking duck wrapped in a thin pancake. When I reached for my menu card, my thoughts were still busy with lunch. “Another bite” appeared before the dish’s name did. I added the name beside it and kept both. Even upside down, this menu should convey my opinion. Tomorrow I will pack it the right way up."
+    },
+    "replies": [
+      {
+        "id": "beijing.arrival.duck-first-bite.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这行开场白找个听众",
+          "en": "Find someone to read the opening line"
+        }
+      },
+      {
+        "id": "beijing.arrival.duck-first-bite.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看菜名和那句话谁先入眼",
+          "en": "See which line catches your eye first"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "beijing.menu-roast-duck"
+      ]
+    }
+  },
+  {
+    "id": "beijing.arrival.noodles-before-writing",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "beijing",
+    "factIds": [
+      "beijing-zhajiangmian"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "面条先拌好了，句子稍后再拌。",
+      "en": "The noodles were mixed before the sentence was."
+    },
+    "text": {
+      "zh-Hans": "北京炸酱面的面条、炸酱和菜码到了眼前，我先放下笔，把这一碗拌好再吃。回来写菜单时，竟差点把顺序写成“拌信、吃笔”。我重新写了张便条：先拌面，再写信。旧的也留着，明天提醒自己别让铅笔抢了午饭的位置。",
+      "en": "With noodles, sauce and vegetable accompaniments in front of me, I put my pencil down and mixed my zhajiang noodles. Back at the menu card, I nearly wrote “mix the letter, eat the pencil.” A fresh slip now gives clearer instructions: noodles first, letter second. I kept the muddled version too. Tomorrow the pencil can have a quieter job."
+    },
+    "replies": [
+      {
+        "id": "beijing.arrival.noodles-before-writing.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "念一遍这张顺序便条",
+          "en": "Read the little sequence aloud"
+        }
+      },
+      {
+        "id": "beijing.arrival.noodles-before-writing.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找出旧便条里换错的位置",
+          "en": "Spot the swapped words on the old slip"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "beijing.noodles-sequence-slip"
+      ],
+      "menuIds": [
+        "beijing.menu-zhajiangmian"
+      ]
+    }
+  },
+  {
+    "id": "beijing.arrival.menu-readers",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "beijing",
+    "factIds": [
+      "beijing-roast-duck",
+      "beijing-zhajiangmian"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张北京菜单，今天有了自己的朗读会。",
+      "en": "Two Beijing menu cards held a tiny reading session."
+    },
+    "text": {
+      "zh-Hans": "今天分两顿尝了烤鸭和炸酱面，我把两张小菜单拿给一位旅人看。对方先读“再来一口”，再读“先拌面，再写信”，说像一封被午饭打断的信。我索性请对方替它们排个顺序，最后我们各写一张次序条。明天换着读，看看哪份更像我的一天。",
+      "en": "I tried Peking duck at one meal and zhajiang noodles at another, then showed a traveler both menu cards. “Another bite,” followed by “noodles first, letter second,” sounded to them like correspondence interrupted by lunch. We each wrote an order for reading the cards. Tomorrow I will try both arrangements and see which sounds more like my day."
+    },
+    "replies": [
+      {
+        "id": "beijing.arrival.menu-readers.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "替两张菜单再排一次顺序",
+          "en": "Suggest another order for the cards"
+        }
+      },
+      {
+        "id": "beijing.arrival.menu-readers.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张次序条有何不同",
+          "en": "Compare our two reading orders"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "beijing.menu-reading-pair"
+      ],
+      "menuIds": [
+        "beijing.menu-roast-duck",
+        "beijing.menu-zhajiangmian"
+      ]
+    }
+  },
+  {
+    "id": "beijing.arrival.menu-word-trail",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "beijing",
+    "factIds": [
+      "beijing-roast-duck",
+      "beijing-zhajiangmian"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "从“吃”走到“写”，今天只隔着两张菜单。",
+      "en": "Today the distance from eating to writing was two menu cards."
+    },
+    "text": {
+      "zh-Hans": "在北京，我先后尝了薄饼包着的烤鸭和拌好的炸酱面。两张菜单摆在桌上，我才发现自己写了好多动词：包、拌、吃、写。于是把这些字抄成一小条路，末尾添上“收好”。最后一个词倒提醒了我，两张菜单还摊着呢。明天再看看，路上有没有漏掉“歇歇”。",
+      "en": "After Peking duck in a pancake and a bowl of mixed zhajiang noodles, I laid out the two menu cards. They were full of busy little verbs: wrap, mix, eat, write. I copied the words into a trail and ended it with “pack.” A useful reminder, since both cards were still on the table. Tomorrow I will see where “rest” belongs along the way."
+    },
+    "replies": [
+      {
+        "id": "beijing.arrival.menu-word-trail.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这条词语小路加个路口",
+          "en": "Add a turning to the word trail"
+        }
+      },
+      {
+        "id": "beijing.arrival.menu-word-trail.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪个词走在最后",
+          "en": "Check which word brings up the rear"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "beijing.menu-roast-duck",
+        "beijing.menu-zhajiangmian"
+      ]
+    }
+  },
+  {
+    "id": "beijing.fulfill.waiting-has-a-name",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "beijing",
+    "factIds": [
+      "beijing-palace-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "beijing.arrival.waiting-sounds.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把那段等待重新听了一遍。",
+      "en": "Your “{reply}” sent me back to that little wait."
+    },
+    "text": {
+      "zh-Hans": "我把在故宫等人的声音记下了：脚步近一点，停一停，邮包拉链轻轻一响。读出来不像一段路线，倒像一句还没讲完的话。我给便签起名“快到了”，下面留着一行空白。下回等朋友时，就从那里接着记，看看结尾会不会是笑声。",
+      "en": "My Forbidden City waiting note now reads: footsteps nearer, a pause, the soft zip of a mailbag. Read aloud, it sounds less like directions than an unfinished sentence. I named the slip “Nearly here” and left a line below it. The next time I wait for a friend, I can continue there. Perhaps the ending will be a laugh."
+    },
+    "replies": [
+      {
+        "id": "beijing.fulfill.waiting-has-a-name.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "为这段声音念个开场",
+          "en": "Give the sounds a spoken introduction"
+        }
+      },
+      {
+        "id": "beijing.fulfill.waiting-has-a-name.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意最后那行空白",
+          "en": "Keep an eye on the final empty line"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "beijing.waiting-sound-note"
+      ],
+      "menuIds": []
+    }
+  }
+]
