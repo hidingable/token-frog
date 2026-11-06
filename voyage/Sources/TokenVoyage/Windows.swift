@@ -220,29 +220,14 @@ final class FloatingController {
 }
 
 @MainActor
-final class AppDelegate: NSObject, NSApplicationDelegate {
-    private enum Keys {
-        static let notch = "notchEnabled"
-        static let floating = "floatingEnabled"
-    }
-
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private lazy var model = AppModel(isSnapshot: ProcessInfo.processInfo.arguments.contains("--snapshot"), languageOverride: snapshotLanguage)
     private var snapshotLanguage: Language?
     private var l10n: L10n { model.l10n }
     private var statusItem: NSStatusItem?
     private var mainWindow: NSWindow?
-    private lazy var notch = NotchController(model: model) { [weak self] in self?.openMain() }
-    private lazy var floating = FloatingController(model: model) { [weak self] in self?.openMain() }
-
-    private var notchEnabled: Bool {
-        get { UserDefaults.standard.object(forKey: Keys.notch) as? Bool ?? true }
-        set { UserDefaults.standard.set(newValue, forKey: Keys.notch) }
-    }
-
-    private var floatingEnabled: Bool {
-        get { UserDefaults.standard.object(forKey: Keys.floating) as? Bool ?? true }
-        set { UserDefaults.standard.set(newValue, forKey: Keys.floating) }
-    }
+    private lazy var notch = NotchController(model: model) { [weak self] in self?.openPostOffice() }
+    private lazy var floating = FloatingController(model: model) { [weak self] in self?.openPostOffice() }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         let arguments = ProcessInfo.processInfo.arguments
@@ -279,9 +264,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
         Theme.registerFonts()
         model.onLockChange = { [weak self] in self?.updateSurfaces() }
+        model.onDisplayChange = { [weak self] in self?.updateSurfaces() }
         model.onLanguageChange = { [weak self] in
             guard let self else { return }
-            rebuildMenu()
             mainWindow?.title = l10n("app.name")
             statusItem?.button?.setAccessibilityLabel(l10n("app.name"))
         }
@@ -291,15 +276,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func updateSurfaces() {
-        rebuildMenu()
         statusItem?.button?.image = statusImage()
         if model.isLocked {
             notch.hide()
             floating.hide()
             openMain()
         } else {
-            if notchEnabled { notch.show() }
-            if floatingEnabled { floating.show() }
+            if model.notchEnabled { notch.show() } else { notch.hide() }
+            if model.floatingEnabled { floating.show() } else { floating.hide() }
         }
     }
 
@@ -307,8 +291,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         item.button?.image = statusImage()
         item.button?.setAccessibilityLabel(l10n("app.name"))
+        let menu = NSMenu()
+        menu.delegate = self
+        menu.autoenablesItems = false
+        item.menu = menu
         statusItem = item
-        rebuildMenu()
     }
 
     private func statusImage() -> NSImage {
@@ -316,38 +303,29 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return image
     }
 
-    private func rebuildMenu() {
-        let menu = NSMenu()
-        menu.addItem(makeItem(l10n("menu.open"), #selector(openMainAction)))
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        menu.removeAllItems()
+        menu.addItem(makeItem(model.isLocked ? l10n("menu.open") : l10n("menu.openPostOffice"), #selector(openMainAction)))
         if !model.isLocked {
+            var summary = l10n("menu.today", Format.km(fuel: model.todayFuel))
+            if model.unread > 0 { summary += " · " + l10n("menu.newMail", Format.grouped(model.unread)) }
+            addInformation(summary, to: menu)
+            if let error = model.lastError { addInformation(l10n("menu.usageFailed", l10n.error(error)), to: menu) }
+            menu.addItem(.separator())
             menu.addItem(makeItem(l10n("menu.refresh"), #selector(refreshAction)))
+            menu.addItem(makeItem(l10n("menu.notch"), #selector(toggleNotch), checked: model.notchEnabled))
+            menu.addItem(makeItem(l10n("menu.floating"), #selector(toggleFloating), checked: model.floatingEnabled))
             menu.addItem(.separator())
-            menu.addItem(makeItem(l10n("menu.notch"), #selector(toggleNotch), checked: notchEnabled))
-            menu.addItem(makeItem(l10n("menu.floating"), #selector(toggleFloating), checked: floatingEnabled))
-            let petMenu = NSMenu()
-            for pet in PetKind.allCases {
-                let item = makeItem(pet.displayName, #selector(selectPet(_:)), checked: model.state?.pet == pet)
-                item.representedObject = pet.rawValue
-                petMenu.addItem(item)
-            }
-            let petItem = NSMenuItem(title: l10n("menu.pet"), action: nil, keyEquivalent: "")
-            petItem.submenu = petMenu
-            menu.addItem(petItem)
-            menu.addItem(.separator())
+            menu.addItem(makeItem(l10n("menu.settings"), #selector(openSettings)))
         }
-        let languageMenu = NSMenu()
-        for preference in LanguagePreference.allCases {
-            let item = makeItem(l10n(L10n.languageKeys[preference]!), #selector(selectLanguage(_:)), checked: model.languagePreference == preference)
-            item.representedObject = preference.rawValue
-            languageMenu.addItem(item)
-        }
-        let languageItem = NSMenuItem(title: l10n("menu.language"), action: nil, keyEquivalent: "")
-        languageItem.submenu = languageMenu
-        menu.addItem(languageItem)
-        menu.addItem(.separator())
         let quit = NSMenuItem(title: l10n("action.quit"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         menu.addItem(quit)
-        statusItem?.menu = menu
+    }
+
+    private func addInformation(_ title: String, to menu: NSMenu) {
+        let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+        item.isEnabled = false
+        menu.addItem(item)
     }
 
     private func makeItem(_ title: String, _ action: Selector, checked: Bool = false) -> NSMenuItem {
@@ -357,31 +335,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return item
     }
 
-    @objc private func openMainAction() { openMain() }
+    @objc private func openMainAction() { openPostOffice() }
     @objc private func refreshAction() { model.scheduleScan(immediately: true) }
+    @objc private func toggleNotch() { model.notchEnabled.toggle() }
+    @objc private func toggleFloating() { model.floatingEnabled.toggle() }
 
-    @objc private func toggleNotch() {
-        notchEnabled.toggle()
-        if notchEnabled { notch.show() } else { notch.hide() }
-        rebuildMenu()
+    @objc private func openSettings() {
+        model.showingSettings = true
+        openMain()
     }
 
-    @objc private func toggleFloating() {
-        floatingEnabled.toggle()
-        if floatingEnabled { floating.show() } else { floating.hide() }
-        rebuildMenu()
-    }
-
-    @objc private func selectLanguage(_ sender: NSMenuItem) {
-        guard let raw = sender.representedObject as? String, let preference = LanguagePreference(rawValue: raw) else { return }
-        model.languagePreference = preference
-    }
-
-    @objc private func selectPet(_ sender: NSMenuItem) {
-        guard let raw = sender.representedObject as? String, let pet = PetKind(rawValue: raw) else { return }
-        model.setPet(pet)
-        statusItem?.button?.image = statusImage()
-        rebuildMenu()
+    private func openPostOffice() {
+        model.openPostOffice()
+        openMain()
     }
 
     private func openMain() {
@@ -430,52 +396,5 @@ private struct SaveAwareMainView: View {
         } else {
             MainView(model: model)
         }
-    }
-}
-
-/// Renders every surface to PNG for offline visual checks: `TokenVoyage --snapshot <dir>`.
-@MainActor
-enum Snapshots {
-    static func write(model: AppModel, to directory: URL) {
-        try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-        let metrics = NotchMetrics(notchWidth: 180, barHeight: 37)
-        render(MainView(model: model, tab: .journey), size: CGSize(width: 760, height: 780), name: "main-journey", directory, model: model)
-        render(MainView(model: model, tab: .mail), size: CGSize(width: 760, height: 780), name: "main-mail", directory, model: model)
-        render(MainView(model: model, tab: .passport), size: CGSize(width: 760, height: 400), name: "main-passport", directory, model: model)
-        render(MainView(model: model, tab: .dashboard, dashboard: DashboardSelection(period: .month)), size: CGSize(width: 940, height: 1240), name: "dashboard-month", directory, model: model)
-        render(MainView(model: model, tab: .dashboard, dashboard: DashboardSelection(period: .all, client: "codex")), size: CGSize(width: 940, height: 1240), name: "dashboard-all-codex", directory, model: model)
-        render(MainView(model: model, tab: .dashboard, dashboard: DashboardSelection(period: .today)), size: CGSize(width: 760, height: 1240), name: "dashboard-today-narrow", directory, model: model)
-        if let peak = model.dashboardDays.map({ UsageDashboard(days: $0, start: nil, end: DayKey.string(from: model.now)) })?.peak {
-            render(MainView(model: model, tab: .dashboard, dashboard: DashboardSelection(day: peak.date, metric: .fuel, showModels: true)), size: CGSize(width: 940, height: 1240), name: "dashboard-peak-day", directory, model: model)
-        }
-        render(MainView(model: model, tab: .quota), size: CGSize(width: 760, height: 420), name: "main-quota", directory, model: model)
-        render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-collapsed", directory, model: model)
-        render(NotchExpandedView(model: model, metrics: metrics), size: metrics.expandedSize, name: "notch-expanded", directory, model: model)
-        render(FloatingView(model: model), size: FloatingController.size, name: "floating", directory, model: model)
-        // These examples are in memory only and never enter the SaveStore.
-        let exampleDirectory = model.l10n("snapshot.exampleDirectory")
-        let quarantinedPath = "\(exampleDirectory)/backups/journey.json.v1.2026-11-06.corrupted.json"
-        let exampleBackup = SaveBackup(file: .journey, url: URL(fileURLWithPath: "\(exampleDirectory)/backups/journey.json.v1.2026-11-05.migration.json"))
-        render(SaveRecoveryView(
-            issues: [SaveRecoveryIssue(file: .journey, problem: .corrupted(backupPath: quarantinedPath), backups: [exampleBackup])],
-            onRestore: { _ in }, onImport: { _ in }, onRestart: { _ in }, onRetry: {}, onQuit: {}
-        ), size: CGSize(width: 760, height: 620), name: "save-recovery-corrupted", directory, model: model)
-        render(SaveRecoveryView(
-            issues: [SaveRecoveryIssue(file: .journey, problem: .tooNew(version: 2))],
-            onRestore: { _ in }, onImport: { _ in }, onRestart: { _ in }, onRetry: {}, onQuit: {}
-        ), size: CGSize(width: 760, height: 420), name: "save-recovery-too-new", directory, model: model)
-    }
-
-    private static func render<Content: View>(_ view: Content, size: CGSize, name: String, _ directory: URL, model: AppModel) {
-        let hosting = NSHostingView(rootView: view.localized(using: model))
-        hosting.frame = CGRect(origin: .zero, size: size)
-        let window = NSWindow(contentRect: hosting.frame, styleMask: [.borderless], backing: .buffered, defer: false)
-        window.backgroundColor = .darkGray
-        window.contentView = hosting
-        hosting.layoutSubtreeIfNeeded()
-        RunLoop.main.run(until: Date().addingTimeInterval(0.3))
-        guard let representation = hosting.bitmapImageRepForCachingDisplay(in: hosting.bounds) else { return }
-        hosting.cacheDisplay(in: hosting.bounds, to: representation)
-        try? representation.representation(using: .png, properties: [:])?.write(to: directory.appendingPathComponent("\(name).png"))
     }
 }

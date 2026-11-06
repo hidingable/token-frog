@@ -38,17 +38,25 @@ struct L10n: Sendable {
     }
 
     // Every key selected at runtime is explicit, so catalog tests can verify the whole table.
-    static let tabKeys: [MainTab: String] = [.journey: "nav.journey", .mail: "nav.mail", .passport: "nav.passport", .dashboard: "nav.dashboard", .quota: "nav.quota"]
+    static let tabKeys: [MainTab: String] = [.home: "nav.postOffice", .journey: "nav.journey", .mail: "nav.mail", .collection: "nav.collection", .data: "nav.data"]
+    static let mailFilterKeys: [MailFilter: String] = [.all: "mail.all", .travel: "mail.travel"]
+    static let collectionTabKeys: [CollectionTab: String] = [.passport: "nav.passport", .bag: "collection.bag", .souvenirs: "collection.souvenirs", .menus: "collection.menus"]
+    static let collectionPlaceholderKeys: [CollectionTab: String] = [.bag: "collection.bagEmpty", .souvenirs: "collection.souvenirsEmpty", .menus: "collection.menusEmpty"]
+    static let dataTabKeys: [DataTab: String] = [.dashboard: "nav.dashboard", .quota: "nav.quota"]
     static let periodKeys: [DashboardPeriod: String] = [.today: "period.today", .week: "period.week", .month: "period.month", .quarter: "period.quarter", .year: "period.year", .all: "period.all"]
     static let metricKeys: [DashboardMetric: String] = [.total: "metric.total", .fuel: "metric.fuel", .cost: "metric.cost", .messages: "metric.messages"]
     static let quotaKeys = ["Weekly": "quota.weekly", "Daily": "quota.daily", "Monthly": "quota.monthly", "Session": "quota.session", "Chat": "quota.chat", "Completions": "quota.completions", "Premium": "quota.premium"]
     static let languageKeys: [LanguagePreference: String] = [.system: "language.system", .zhHans: "language.zhHans", .en: "language.en"]
     static let countKeys = ["tokens": ["tokens.one", "tokens.other"], "days": ["days.one", "days.other"], "hours": ["hours.one", "hours.other"], "minutes": ["minutes.one", "minutes.other"]]
     static var dynamicKeys: [String] {
-        Array(tabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + countKeys.values.flatMap { $0 } + LetterComposer.quirkKeys.values.flatMap { $0 }
+        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(collectionPlaceholderKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + countKeys.values.flatMap { $0 } + LetterComposer.quirkKeys.values.flatMap { $0 }
     }
 
     func tab(_ tab: MainTab) -> String { self(Self.tabKeys[tab]!) }
+    func mailFilter(_ filter: MailFilter) -> String { self(Self.mailFilterKeys[filter]!) }
+    func collectionTab(_ tab: CollectionTab) -> String { self(Self.collectionTabKeys[tab]!) }
+    func collectionPlaceholder(_ tab: CollectionTab) -> String { self(Self.collectionPlaceholderKeys[tab]!) }
+    func dataTab(_ tab: DataTab) -> String { self(Self.dataTabKeys[tab]!) }
     func period(_ period: DashboardPeriod) -> String { self(Self.periodKeys[period]!) }
     func metric(_ metric: DashboardMetric) -> String { self(Self.metricKeys[metric]!) }
     func quotaMetric(_ label: String) -> String { Self.quotaKeys[label].map { self($0) } ?? label }

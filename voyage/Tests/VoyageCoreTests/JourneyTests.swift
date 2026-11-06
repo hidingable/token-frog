@@ -194,7 +194,7 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     #expect(try TokscaleGraph.parse(Data(json.utf8)).map(\.fuel) == [120, 43])
 }
 
-@Test func quotaReportDropsAccountDataAndFindsTheTightestUsedWindow() throws {
+@Test func quotaReportDropsAccountData() throws {
     let json = #"""
     [{"provider":"Codex","plan":"Pro","email":"someone@example.com","metrics":[
         {"label":"Weekly","used_percent":62.0,"remaining_percent":38.0,"remaining_label":null,"resets_at":"2026-11-09T02:47:37+00:00"}
@@ -209,10 +209,6 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     #expect(quotas[0].resetCredits == 2)
     #expect(quotas[2].metrics.isEmpty)
     #expect(!String(describing: quotas).contains("someone@example.com"))
-
-    #expect(QuotaReport.tightest(quotas, usedClients: ["codex"])?.metric.label == "Weekly")
-    #expect(QuotaReport.tightest(quotas, usedClients: ["codex", "copilot"])?.provider == "Copilot")
-    #expect(QuotaReport.tightest(quotas, usedClients: ["claude"]) == nil)
 }
 
 @Test func quotaResetDescriptionHandlesTimestampsAndPlainDates() {

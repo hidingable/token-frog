@@ -2,62 +2,122 @@ import AppKit
 import SwiftUI
 import VoyageCore
 
-enum MainTab: String, CaseIterable, Identifiable, Sendable {
-    case journey, mail, passport, dashboard, quota
-    var id: String { rawValue }
-}
-
 struct MainView: View {
     @Environment(\.l10n) private var l10n
     let model: AppModel
-    @State var tab: MainTab = .journey
     @State var dashboard = DashboardSelection()
 
     var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 4) {
-                ForEach(MainTab.allCases) { item in
-                    Button { tab = item } label: {
-                        HStack(spacing: 4) {
-                            Text(l10n.tab(item))
-                            if item == .mail, model.unread > 0 { Rectangle().fill(Theme.red).frame(width: 6, height: 6) }
-                        }
-                        .font(Theme.pixel())
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .foregroundStyle(tab == item ? Theme.ink : Theme.paper)
-                        .background(tab == item ? Theme.amber : Theme.inkRaised)
-                    }
-                    .buttonStyle(.plain)
+            navigation
+            if let error = model.lastError {
+                HStack(alignment: .top, spacing: 12) {
+                    Text(l10n.error(error)).fixedSize(horizontal: false, vertical: true)
+                    Spacer(minLength: 0)
+                    Chip(title: l10n("action.retry"), isOn: false) { model.scheduleScan(immediately: true) }
                 }
-                Spacer()
-                if let error = model.lastError {
-                    Text(l10n.error(error)).font(Theme.pixel()).foregroundStyle(Theme.red).lineLimit(1)
-                } else if let scan = model.lastScan {
-                    Text(l10n("status.updated", l10n.time(scan)))
-                        .font(Theme.pixel()).foregroundStyle(Theme.dusk)
-                }
-                Button {
-                    model.scheduleScan(immediately: true)
-                    if tab == .quota { Task { await model.loadQuotas(force: true) } }
-                } label: {
-                    Text(l10n("action.refresh")).font(Theme.pixel()).foregroundStyle(Theme.paper)
-                        .padding(.horizontal, 8).padding(.vertical, 6).background(Theme.inkRaised)
-                }
-                .buttonStyle(.plain)
+                .font(Theme.pixel())
+                .foregroundStyle(Theme.dusk)
+                .padding(.horizontal, 12)
+                .padding(.bottom, 8)
             }
-            .padding(12)
-
-            switch tab {
-            case .journey: ScrollView { JourneyTab(model: model).padding(12) }
-            case .mail: MailTab(model: model)
-            case .passport: ScrollView { PassportTab(model: model).padding(12) }
-            case .dashboard: ScrollView { DashboardTab(model: model, selection: $dashboard).padding(12) }
-            case .quota: ScrollView { QuotaTab(model: model).padding(12) }
+            if model.showingSettings {
+                ScrollView { SettingsTab(model: model).padding(12) }
+            } else {
+                secondaryNavigation
+                content
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Theme.ink)
         .preferredColorScheme(.dark)
+    }
+
+    private var navigation: some View {
+        HStack(spacing: 4) {
+            ForEach(MainTab.allCases) { item in
+                Button { model.navigate(to: item) } label: {
+                    HStack(spacing: 4) {
+                        Text(l10n.tab(item))
+                        if item == .mail, model.unread > 0 { Rectangle().fill(Theme.red).frame(width: 6, height: 6) }
+                    }
+                    .font(Theme.pixel())
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .foregroundStyle(!model.showingSettings && model.tab == item ? Theme.ink : Theme.paper)
+                    .background(!model.showingSettings && model.tab == item ? Theme.paper : Theme.inkRaised)
+                }
+                .buttonStyle(.plain)
+                .fixedSize()
+            }
+            Spacer(minLength: 8)
+            if let scan = model.lastScan {
+                Text(l10n("status.updated", l10n.time(scan)))
+                    .font(Theme.pixel()).foregroundStyle(Theme.dusk).fixedSize()
+            }
+            Button { model.showingSettings = true } label: {
+                Text(l10n("nav.settings"))
+                    .font(Theme.pixel())
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .foregroundStyle(model.showingSettings ? Theme.ink : Theme.paper)
+                    .background(model.showingSettings ? Theme.paper : Theme.inkRaised)
+            }
+            .buttonStyle(.plain)
+            .fixedSize()
+        }
+        .padding(12)
+    }
+
+    @ViewBuilder private var secondaryNavigation: some View {
+        if model.tab == .mail || model.tab == .collection || model.tab == .data {
+            HStack(spacing: 4) {
+                switch model.tab {
+                case .mail:
+                    ForEach(MailFilter.allCases) { item in
+                        Chip(title: l10n.mailFilter(item), isOn: model.mailFilter == item) { model.mailFilter = item }
+                    }
+                case .collection:
+                    ForEach(CollectionTab.allCases) { item in
+                        Chip(title: l10n.collectionTab(item), isOn: model.collectionTab == item) { model.collectionTab = item }
+                    }
+                case .data:
+                    ForEach(DataTab.allCases) { item in
+                        Chip(title: l10n.dataTab(item), isOn: model.dataTab == item) { model.dataTab = item }
+                    }
+                case .home, .journey: EmptyView()
+                }
+                Spacer(minLength: 0)
+            }
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(.horizontal, 12)
+            .padding(.bottom, 8)
+        }
+    }
+
+    @ViewBuilder private var content: some View {
+        switch model.tab {
+        case .home: ScrollView { HomeTab(model: model).padding(12) }
+        case .journey: ScrollView { JourneyTab(model: model).padding(12) }
+        case .mail: MailTab(model: model)
+        case .collection:
+            ScrollView {
+                if model.collectionTab == .passport {
+                    PassportTab(model: model).padding(12)
+                } else {
+                    Text(l10n.collectionPlaceholder(model.collectionTab))
+                        .font(Theme.pixel()).foregroundStyle(Theme.dusk)
+                        .frame(maxWidth: .infinity, alignment: .leading).padding(12)
+                }
+            }
+        case .data:
+            ScrollView {
+                switch model.dataTab {
+                case .dashboard: DashboardTab(model: model, selection: $dashboard).padding(12)
+                case .quota: QuotaTab(model: model).padding(12)
+                }
+            }
+        }
     }
 }
 
@@ -143,21 +203,21 @@ struct RecentBars: View {
 struct MailTab: View {
     @Environment(\.l10n) private var l10n
     let model: AppModel
-    @State private var selectedId: Int?
 
     var body: some View {
         if let catalog = model.catalog {
-            let letters = model.letters
-            let selected = letters.first { $0.id == selectedId } ?? letters.first
+            let letters = model.filteredLetters
+            let selected = letters.first { $0.id == model.selectedLetterID } ?? letters.first
             HStack(alignment: .top, spacing: 0) {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 4) {
                         ForEach(letters) { letter in
-                            Button { selectedId = letter.id } label: {
+                            Button { model.selectedLetterID = letter.id } label: {
                                 HStack(spacing: 6) {
                                     Rectangle().fill(letter.read ? Color.clear : Theme.red).frame(width: 6, height: 6)
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text(LetterComposer.text(for: letter, l10n: l10n, petName: model.petName, catalog: catalog).title).lineLimit(1)
+                                        Text(LetterComposer.text(for: letter, l10n: l10n, petName: model.petName, catalog: catalog).title)
+                                            .fixedSize(horizontal: false, vertical: true)
                                         Text(l10n.day(letter.date, full: true)).foregroundStyle(Theme.dusk)
                                     }
                                     Spacer(minLength: 0)
@@ -257,7 +317,7 @@ struct PassportTab: View {
         if let state = model.state, let catalog = model.catalog {
             let laps = Double(state.totalFuel) / Double(fuelPerKm) / 40_075
             VStack(alignment: .leading, spacing: 12) {
-                Text(l10n("passport.counts", Format.grouped(state.stamps.count), Format.grouped(Set(state.route).count))).font(Theme.pixel(24)).foregroundStyle(Theme.amber)
+                Text(l10n("passport.counts", Format.grouped(state.stamps.count), Format.grouped(Set(state.route).count))).font(Theme.pixel(24)).foregroundStyle(Theme.paper)
                 Text(l10n("passport.summary", Format.km(fuel: state.totalFuel), l10n.decimal(laps, places: 2), l10n.day(state.startDate, full: true)))
                     .font(Theme.pixel())
                     .foregroundStyle(Theme.dusk)
@@ -289,6 +349,11 @@ struct QuotaTab: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text(l10n("nav.quota")).foregroundStyle(Theme.paper)
+                Spacer()
+                Chip(title: l10n("action.refresh"), isOn: false) { Task { await model.loadQuotas(force: true) } }
+            }
             if let error = model.quotaError {
                 Text(l10n("quota.failed", l10n.error(error))).foregroundStyle(Theme.coral)
             }

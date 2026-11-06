@@ -56,15 +56,6 @@ public enum QuotaReport {
         }
     }
 
-    /// The tightest window among the tools used today. Quotas of tools you are not using stay out of the notch.
-    public static func tightest(_ quotas: [ProviderQuota], usedClients: some Collection<String>) -> (provider: String, metric: ProviderQuota.Metric)? {
-        let used = Set(usedClients.map { $0.lowercased() })
-        return quotas
-            .filter { used.contains($0.provider.lowercased()) }
-            .flatMap { quota in quota.metrics.map { (provider: quota.provider, metric: $0) } }
-            .min { $0.metric.remainingPercent < $1.metric.remainingPercent }
-    }
-
     /// `resets_at` is either a full timestamp or a plain date, depending on the provider.
     public static func resetDescription(_ value: String, now: Date, calendar: Calendar = .current) -> ResetDescription {
         let fractional = ISO8601DateFormatter()

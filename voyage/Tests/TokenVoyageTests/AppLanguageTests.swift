@@ -61,6 +61,7 @@ import VoyageCore
 /// Keeps every settings read and write in memory, including across parallel tests.
 private final class MemoryDefaults: UserDefaults, @unchecked Sendable {
     private var values: [String: Any] = [:]
+    override func object(forKey defaultName: String) -> Any? { values[defaultName] }
     override func string(forKey defaultName: String) -> String? { values[defaultName] as? String }
     override func set(_ value: Any?, forKey defaultName: String) { values[defaultName] = value }
 }
@@ -118,7 +119,6 @@ func invalidContentLocksBeforeAnySaveOrScan(mode: String) async throws {
     model.retrySaves()
     model.restartSave(.journey)
     model.restoreSave(SaveBackup(file: .journey, url: directory.appendingPathComponent("not-a-backup")))
-    model.setPet(.snail)
     model.setStart("beijing")
     #expect(model.isLocked && model.state == nil)
     #expect(model.lastScan == nil && model.lastError == nil)

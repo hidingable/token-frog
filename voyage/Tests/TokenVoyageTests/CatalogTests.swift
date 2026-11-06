@@ -66,25 +66,38 @@ private func placeholders(in value: String) throws -> [String: Int] {
 
 @Test func everyLiteralAndDynamicLocalizationKeyExistsInTheCatalog() throws {
     let catalog = try JSONDecoder().decode(StringCatalog.self, from: Data(contentsOf: LocalizationTestFiles.catalog))
-    let expression = try NSRegularExpression(pattern: #"\b(?:l10n|self)\s*\(\s*"([^"\\]*(?:\\.[^"\\]*)*)""#)
-    let files = try FileManager.default.contentsOfDirectory(at: LocalizationTestFiles.appSources, includingPropertiesForKeys: nil)
-        .filter { $0.pathExtension == "swift" }
-    #expect(!files.isEmpty)
-    var literalKeyCount = 0
-    for file in files {
-        let source = removingSwiftComments(try String(contentsOf: file, encoding: .utf8))
-        let string = source as NSString
-        for match in expression.matches(in: source, range: NSRange(location: 0, length: string.length)) {
-            let key = string.substring(with: match.range(at: 1))
-            #expect(catalog.strings[key] != nil, "\(file.lastPathComponent) references missing key \(key)")
-            literalKeyCount += 1
-        }
+    let references = try literalLocalizationReferences()
+    #expect(!references.isEmpty)
+    for reference in references {
+        #expect(catalog.strings[reference.key] != nil, "\(reference.file) references missing key \(reference.key)")
     }
-    #expect(literalKeyCount > 0)
     #expect(!L10n.dynamicKeys.isEmpty)
     for key in L10n.dynamicKeys {
         #expect(catalog.strings[key] != nil, "Dynamic localization key \(key) is missing")
     }
+}
+
+@Test func everyCatalogKeyIsUsedByALocalizationCallOrDynamicTable() throws {
+    let catalog = try JSONDecoder().decode(StringCatalog.self, from: Data(contentsOf: LocalizationTestFiles.catalog))
+    let used = Set(try literalLocalizationReferences().map(\.key)).union(L10n.dynamicKeys)
+    for key in catalog.strings.keys.sorted() {
+        #expect(used.contains(key), "Unused localization key \(key)")
+    }
+}
+
+private func literalLocalizationReferences() throws -> [(file: String, key: String)] {
+    let expression = try NSRegularExpression(pattern: #"\b(?:l10n|self)\s*\(\s*"([^"\\]*(?:\\.[^"\\]*)*)""#)
+    let files = try #require(FileManager.default.enumerator(at: LocalizationTestFiles.appSources, includingPropertiesForKeys: nil))
+    var references: [(file: String, key: String)] = []
+    for case let file as URL in files where file.pathExtension == "swift" {
+        let source = removingSwiftComments(try String(contentsOf: file, encoding: .utf8))
+        let string = source as NSString
+        for match in expression.matches(in: source, range: NSRange(location: 0, length: string.length)) {
+            let key = string.substring(with: match.range(at: 1))
+            references.append((file.lastPathComponent, key))
+        }
+    }
+    return references
 }
 
 @Test func swiftSourcesDoNotContainHardcodedChineseOutsideAllowedFiles() throws {

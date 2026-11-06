@@ -51,7 +51,9 @@ struct NotchCollapsedView: View {
                 .frame(width: metrics.shoulderWidth, alignment: .center)
                 Color.clear.frame(width: metrics.notchWidth)
                 HStack(spacing: 6) {
-                    Text(l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))))
+                    Text(NotchStatus.isNearArrival(remainingFuel: state.remainingFuel)
+                         ? l10n("journey.remaining", Format.km(fuel: state.remainingFuel))
+                         : l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))))
                         .font(Theme.pixel())
                         .foregroundStyle(Theme.paper)
                         .lineLimit(1)
@@ -101,14 +103,9 @@ struct NotchExpandedView: View {
                         BlockProgress(progress: state.legProgress, blocks: 12, size: 6)
                         Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel)))
                             .foregroundStyle(Theme.dusk)
-                        if let tight = model.tightestQuota {
-                            Text(l10n("compact.quota", tight.provider, l10n.quotaMetric(tight.metric.label), Format.grouped(Int(tight.metric.remainingPercent.rounded()))))
-                                .foregroundStyle(QuotaTab.isLow(tight.metric) ? Theme.coral : Theme.dusk)
-                        } else {
-                            ForEach(model.todayVehicles.prefix(1), id: \.client) { share in
-                                Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
-                                    .foregroundStyle(Theme.dusk)
-                            }
+                        ForEach(model.todayVehicles.prefix(1), id: \.client) { share in
+                            Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
+                                .foregroundStyle(Theme.dusk)
                         }
                         Spacer(minLength: 0)
                     }

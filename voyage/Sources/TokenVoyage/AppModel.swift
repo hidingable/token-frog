@@ -25,8 +25,27 @@ final class AppModel {
     private(set) var recoveryIssues: [SaveRecoveryIssue] = []
     private(set) var recoveryError: AppError?
     private(set) var care: CareState?
+    var tab: MainTab = .home
+    var mailFilter: MailFilter = .all
+    var collectionTab: CollectionTab = .passport
+    var dataTab: DataTab = .dashboard
+    var selectedLetterID: Int?
+    var showingSettings = false
     @ObservationIgnored var onLockChange: (() -> Void)?
     @ObservationIgnored var onLanguageChange: (() -> Void)?
+    @ObservationIgnored var onDisplayChange: (() -> Void)?
+    var notchEnabled: Bool {
+        didSet {
+            if !isSnapshot { defaults.set(notchEnabled, forKey: "notchEnabled") }
+            onDisplayChange?()
+        }
+    }
+    var floatingEnabled: Bool {
+        didSet {
+            if !isSnapshot { defaults.set(floatingEnabled, forKey: "floatingEnabled") }
+            onDisplayChange?()
+        }
+    }
     var languagePreference: LanguagePreference {
         didSet {
             if !isSnapshot { defaults.set(languagePreference.rawValue, forKey: "language") }
@@ -71,6 +90,8 @@ final class AppModel {
         self.languageOverride = languageOverride
         self.defaults = defaults
         languagePreference = defaults.string(forKey: "language").flatMap(LanguagePreference.init(rawValue:)) ?? .system
+        notchEnabled = defaults.object(forKey: "notchEnabled") as? Bool ?? true
+        floatingEnabled = defaults.object(forKey: "floatingEnabled") as? Bool ?? true
         if let directory {
             dataDirectory = directory
         } else if let override = ProcessInfo.processInfo.environment["TOKEN_VOYAGE_DATA_DIR"] {
@@ -101,6 +122,37 @@ final class AppModel {
     var todayFuel: Int { today.fuel }
     var unread: Int { state?.unreadCount(now: now) ?? 0 }
     var letters: [Letter] { state?.deliveredLetters(now: now) ?? [] }
+    var filteredLetters: [Letter] { letters.filter(mailFilter.includes) }
+
+    func navigate(to tab: MainTab) {
+        self.tab = tab
+        showingSettings = false
+    }
+
+    func openPostOffice() { navigate(to: .home) }
+
+    func activateHomeAction() {
+        if let letter = letters.first(where: { !$0.read }) {
+            mailFilter = .all
+            selectedLetterID = letter.id
+            navigate(to: .mail)
+        } else {
+            navigate(to: .journey)
+        }
+    }
+
+    /// Snapshot variants exist only for the duration of a render, never in the save store.
+    func withSnapshotState(_ update: (inout JourneyState) -> Void, render: () -> Void) {
+        precondition(isSnapshot)
+        let original = state
+        defer { state = original }
+        if var state {
+            update(&state)
+            self.state = state
+        }
+        render()
+    }
+
     var canChangeStart: Bool { !isLocked && state.map { $0.startDate == $0.openDate } == true }
     var startCities: [City] {
         (catalog?.active ?? []).sorted { l10n.cityName($0).compare(l10n.cityName($1), locale: l10n.locale) == .orderedAscending }
@@ -277,10 +329,6 @@ final class AppModel {
         }
     }
 
-    var tightestQuota: (provider: String, metric: ProviderQuota.Metric)? {
-        QuotaReport.tightest(quotas, usedClients: today.byClient.keys)
-    }
-
     private func refreshQuotasInBackground() {
         guard !isLocked, !isSnapshot else { return }
         Task { await loadQuotas() }
@@ -308,12 +356,6 @@ final class AppModel {
     func markRead(_ letter: Letter) {
         guard !isLocked, !letter.read else { return }
         state?.markRead(letter.id)
-        persist()
-    }
-
-    func setPet(_ pet: PetKind) {
-        guard !isLocked else { return }
-        state?.pet = pet
         persist()
     }
 
@@ -373,7 +415,7 @@ final class AppModel {
     }
 
     private func persist() {
-        guard !isLocked, let state else { return }
+        guard !isLocked, !isSnapshot, let state else { return }
         do {
             try store.save(state)
             if case .missing = store.care {

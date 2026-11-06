@@ -169,18 +169,21 @@ struct MetricsGrid: View {
 
     var body: some View {
         let totals = board.ledger.totals
-        let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 5)
-        LazyVGrid(columns: columns, spacing: 4) {
-            tile(l10n("metric.total"), Format.tokens(totals.total, language: l10n.language), delta(.total))
-            tile(l10n("dashboard.estimatedCost"), Format.cost(totals.cost), delta(.cost))
-            tile(l10n("dashboard.counted"), Format.km(fuel: totals.fuel), delta(.fuel), Theme.amber)
-            tile(l10n("dashboard.cacheHits"), Format.percent(totals.cacheHitPercent), nil)
-            tile(l10n("metric.messages"), Format.grouped(totals.messages), delta(.messages))
-            tile(l10n("dashboard.activeDays"), "\(board.activeDays) / \(board.calendarDays)", l10n("dashboard.activeRate", Format.grouped(Int((board.activeRate * 100).rounded()))))
-            tile(l10n("dashboard.streak"), l10n.days(board.currentStreak), l10n("dashboard.longest", l10n.language == .zhHans ? Format.grouped(board.longestStreak) : l10n.days(board.longestStreak)))
-            tile(l10n("dashboard.sessionTime"), board.activeMs.map(l10n.duration) ?? "-", board.activeMs == nil ? l10n("dashboard.filteredTime") : nil)
-            tile(l10n("dashboard.peakDay"), board.peak.map { Format.tokens($0.total, language: l10n.language) } ?? "-", board.peak.map { l10n.day($0.date) })
-            tile(l10n("dashboard.topModel"), board.topModel.map(l10n.modelName) ?? "-", nil, Theme.paper, small: true)
+        Grid(horizontalSpacing: 4, verticalSpacing: 4) {
+            GridRow {
+                tile(l10n("metric.total"), Format.tokens(totals.total, language: l10n.language), delta(.total))
+                tile(l10n("dashboard.estimatedCost"), Format.cost(totals.cost), delta(.cost))
+                tile(l10n("dashboard.counted"), Format.km(fuel: totals.fuel), delta(.fuel), Theme.amber)
+                tile(l10n("dashboard.cacheHits"), Format.percent(totals.cacheHitPercent), nil)
+                tile(l10n("metric.messages"), Format.grouped(totals.messages), delta(.messages))
+            }
+            GridRow {
+                tile(l10n("dashboard.activeDays"), "\(board.activeDays) / \(board.calendarDays)", l10n("dashboard.activeRate", Format.grouped(Int((board.activeRate * 100).rounded()))))
+                tile(l10n("dashboard.streak"), l10n.days(board.currentStreak), l10n("dashboard.longest", l10n.language == .zhHans ? Format.grouped(board.longestStreak) : l10n.days(board.longestStreak)))
+                tile(l10n("dashboard.sessionTime"), board.activeMs.map(l10n.duration) ?? "-", board.activeMs == nil ? l10n("dashboard.filteredTime") : nil)
+                tile(l10n("dashboard.peakDay"), board.peak.map { Format.tokens($0.total, language: l10n.language) } ?? "-", board.peak.map { l10n.day($0.date) })
+                tile(l10n("dashboard.topModel"), board.topModel.map(l10n.modelName) ?? "-", nil, Theme.paper, small: true)
+            }
         }
     }
 
@@ -202,7 +205,7 @@ struct MetricsGrid: View {
         }
         .font(Theme.pixel())
         .padding(8)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Theme.inkRaised)
         .accessibilityElement(children: .combine)
     }
