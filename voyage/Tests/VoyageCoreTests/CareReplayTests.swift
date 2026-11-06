@@ -12,6 +12,9 @@ private func replayCare(seed: UInt32, multiplier: Int, stories: StoryLibrary) ->
             today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount, byClient: ["codex": amount])],
             calendar: careCalendar, catalog: testCatalog
         )
+        // The same policy exercises explicit choices, random carry and invalid unowned choices.
+        care.bag.owned = ["sketchbook", "note-slip", "raincoat", "old-camera", "lunchbox"]
+        care.bag.todayItem = ["sketchbook", "note-slip", "raincoat", "old-camera", "lunchbox", nil, "unowned"][day % 7]
         if day % 6 != 5 { CareEngine.markCompanion(date: next, care: &care) }
         CareEngine.process(journey: &journey, care: &care, stories: stories, catalog: testCatalog)
         if let letter = journey.letters.last, letter.kind == .daily, letter.id % 4 == 1 {
@@ -24,7 +27,14 @@ private func replayCare(seed: UInt32, multiplier: Int, stories: StoryLibrary) ->
 }
 
 private func replayStories() -> StoryLibrary {
-    engineStories(testCatalog.all.map { city in
+    let itemStories = ["sketchbook", "note-slip", "old-camera", "lunchbox"].flatMap { item in
+        ["arrival", "transit"].map { kind in
+            var story = engineStory("item.\(item).\(kind)", kind: kind)
+            story.requires.item = item
+            return story
+        }
+    }
+    return engineStories(itemStories + testCatalog.all.map { city in
         var story = engineStory("\(city.id).fulfill", city: city.id)
         story.fulfills = ["ask-next-time", "look-closer"]
         // This also matches an ordinary selection tier: it must never accelerate the promise.
@@ -47,7 +57,10 @@ private func replayStories() -> StoryLibrary {
         #expect(care.companionDays == doubledCare.companionDays) // The days used for form progression.
         #expect(care.companionDays.count == 50)
         #expect(care.identity == doubledCare.identity)
-        #expect(care.pity == doubledCare.pity && care.pity == 0)
+        #expect(care.pity == doubledCare.pity)
+        #expect(normal.letters.map(\.rewards.dropRarity) == doubled.letters.map(\.rewards.dropRarity))
+        #expect(normal.letters.map(\.carriedItem) == doubled.letters.map(\.carriedItem))
+        #expect(normal.letters.map(\.itemTriggered) == doubled.letters.map(\.itemTriggered))
         #expect(care.memories == doubledCare.memories)
         #expect(care.pendingPromises == doubledCare.pendingPromises)
         #expect(normal.letters[2].fulfilledReplyId == "ask-next-time")
@@ -142,21 +155,26 @@ private func replayStories() -> StoryLibrary {
         #expect(first == second && firstCare == secondCare)
     }
 
-    @Test func realContentRendersEveryTemplateWithoutSlotsAndKeepsPetNameInBothLanguages() {
+    @Test func realContentRendersEveryTemplateWithoutSlotsAndKeepsPetNameInBothLanguages() throws {
+        let box = try ContentSandbox()
+        defer { box.cleanUp() }
+        try box.edit { $0["rainyMonths"] = [11] }
+        let catalog = try CityCatalog.load(directory: box.directory)
         for story in testCatalog.stories.all {
-            var (journey, care) = engineState()
+            var (journey, care) = engineState(seed: 1)
             care.petName = "Pip 小信使"
+            if let item = story.requires.item { care.bag.owned = [item]; care.bag.todayItem = item }
             if story.kind == "fulfill" {
                 let origin = story.fulfills.first.flatMap { replyId in
                     testCatalog.stories.all.first { $0.replies.contains { $0.id == replyId } }
                 } ?? engineStory("origin")
                 journey.letters.append(engineLetter(1, arrivals: origin.kind == "transit" ? [] : ["shanghai"]))
-                CareEngine.process(journey: &journey, care: &care, stories: .init(stories: [origin]), catalog: testCatalog)
+                CareEngine.process(journey: &journey, care: &care, stories: .init(stories: [origin]), catalog: catalog)
                 let replyId = story.fulfills.first ?? origin.replies.first { $0.habit == story.fulfillsHabit }!.id
                 CareEngine.reply(letterId: 1, replyId: replyId, date: "later", journey: &journey, care: &care)
             }
             journey.letters.append(engineLetter(story.kind == "fulfill" ? 2 : 1, arrivals: story.kind == "transit" ? [] : ["shanghai"]))
-            CareEngine.process(journey: &journey, care: &care, stories: .init(stories: [story]), catalog: testCatalog)
+            CareEngine.process(journey: &journey, care: &care, stories: .init(stories: [story]), catalog: catalog)
             let letter = journey.letters.last!
             #expect(letter.storyId == story.id)
             for (language, text) in letter.texts! {
@@ -170,19 +188,28 @@ private func replayStories() -> StoryLibrary {
     }
 
     @Test func realRepliesProduceTheirDedicatedBodiesAndThenUseHabitTemplates() throws {
+        let box = try ContentSandbox()
+        defer { box.cleanUp() }
+        try box.edit { $0["rainyMonths"] = [11] }
+        let catalog = try CityCatalog.load(directory: box.directory)
         let stories = testCatalog.stories
         for origin in stories.all where ["arrival", "transit"].contains(origin.kind) {
             for reply in origin.replies {
-                var (journey, care) = engineState()
+                var (journey, care) = engineState(seed: 1)
+                if let item = origin.requires.item { care.bag.owned = [item]; care.bag.todayItem = item }
                 journey.letters.append(engineLetter(1, arrivals: origin.kind == "transit" ? [] : ["shanghai"]))
-                CareEngine.process(journey: &journey, care: &care, stories: .init(stories: [origin]), catalog: testCatalog)
+                CareEngine.process(journey: &journey, care: &care, stories: .init(stories: [origin]), catalog: catalog)
                 #expect(CareEngine.reply(letterId: 1, replyId: reply.id, date: "later", journey: &journey, care: &care))
                 // A payoff must work even when the next letter is written on the road.
                 journey.letters.append(engineLetter(2, arrivals: []))
-                CareEngine.process(journey: &journey, care: &care, stories: stories, catalog: testCatalog)
+                CareEngine.process(journey: &journey, care: &care, stories: stories, catalog: catalog)
                 let letter = try #require(journey.letters.last)
                 let payoff = try #require(stories.all.first { $0.id == letter.storyId })
-                #expect(payoff.fulfills == [reply.id] && payoff.fulfillsHabit == nil)
+                if origin.requires.item == nil {
+                    #expect(payoff.fulfills == [reply.id] && payoff.fulfillsHabit == nil)
+                } else {
+                    #expect(payoff.fulfills.isEmpty && payoff.fulfillsHabit == reply.habit)
+                }
                 #expect(letter.fulfilledReplyId == reply.id)
                 for language in ["zh-Hans", "en"] {
                     let replyText = try #require(reply.text[language])
@@ -198,7 +225,7 @@ private func replayStories() -> StoryLibrary {
                     #expect(CareEngine.reply(letterId: 2, replyId: followUp.id, date: "later", journey: &continuedJourney, care: &continuedCare))
                     for id in 3...5 {
                         continuedJourney.letters.append(engineLetter(id, arrivals: []))
-                        CareEngine.process(journey: &continuedJourney, care: &continuedCare, stories: stories, catalog: testCatalog)
+                        CareEngine.process(journey: &continuedJourney, care: &continuedCare, stories: stories, catalog: catalog)
                         guard let next = continuedJourney.letters.last, next.fulfilledReplyId != nil else { continue }
                         let template = try #require(stories.all.first { $0.id == next.storyId })
                         #expect(next.fulfilledReplyId == followUp.id)
@@ -221,7 +248,7 @@ private func replayStories() -> StoryLibrary {
         try box.edit { $0["facts"] = [["id": "window", "type": "place", "names": ["zh-Hans": "窗", "en": "Window"], "sources": [source]]] }
         var story = engineStory("local.snapshot", city: "shanghai")
         story.factIds = ["window"]
-        story.rewards.itemIds = ["future-item"]
+        story.rewards.itemIds = [testCatalog.items.all.first { $0.kind == "souvenir" }!.id]
         let file = box.directory.appendingPathComponent("stories/local.json")
         try JSONEncoder().encode([story]).write(to: file)
         let catalog = try CityCatalog.load(directory: box.directory)
@@ -229,7 +256,7 @@ private func replayStories() -> StoryLibrary {
         journey.letters.append(engineLetter(1))
         CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
         let snapshot = journey.letters[1]
-        #expect(snapshot.storyVersion == 1 && snapshot.rewards == .init())
+        #expect(snapshot.storyVersion == 1 && snapshot.rewards.itemIds.count == 1 && snapshot.rewards.dropRarity != nil)
         #expect(snapshot.facts.first?.names == ["zh-Hans": "窗", "en": "Window"])
         #expect(snapshot.facts.first?.sources == [source])
         story.version = 2

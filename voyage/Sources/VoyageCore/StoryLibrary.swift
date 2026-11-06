@@ -9,7 +9,17 @@ public struct StoryReply: Codable, Equatable, Sendable {
 public struct StoryRewards: Codable, Equatable, Sendable {
     public var itemIds: [String] = []
     public var menuIds: [String] = []
+    public var dropRarity: String?
+    public var duplicateClueCityId: String?
     public init() {}
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        itemIds = try values.decode([String].self, forKey: .itemIds)
+        menuIds = try values.decode([String].self, forKey: .menuIds)
+        dropRarity = try values.decodeIfPresent(String.self, forKey: .dropRarity)
+        duplicateClueCityId = try values.decodeIfPresent(String.self, forKey: .duplicateClueCityId)
+    }
 }
 
 public struct Story: Codable, Equatable, Sendable, Identifiable {

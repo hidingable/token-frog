@@ -37,7 +37,7 @@ extension ContentSandbox {
 
     @Test func everyArrivalAndTransitReplyHasItsOwnGenericFulfillment() throws {
         let stories = testCatalog.stories.all
-        let replies = stories.filter { ["arrival", "transit"].contains($0.kind) }.flatMap(\.replies)
+        let replies = stories.filter { ["arrival", "transit"].contains($0.kind) && $0.requires.item == nil }.flatMap(\.replies)
         #expect(replies.count == 30)
         let allReplyIds = stories.flatMap { $0.replies.map(\.id) }
         #expect(Set(allReplyIds).count == allReplyIds.count)

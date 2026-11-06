@@ -1,0 +1,354 @@
+[
+  {
+    "id": "generic.folded-route",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小折路线图",
+      "en": "Pocket Route"
+    },
+    "descriptions": {
+      "zh-Hans": "路边摊主在废纸上画的路线，折起来正好塞进口袋。最深的一道折痕刚好穿过转弯处。",
+      "en": "A stallholder sketched the way on a scrap of paper. Its deepest fold lands right on the turning."
+    }
+  },
+  {
+    "id": "generic.paper-coaster",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "tea",
+    "habit": null,
+    "names": {
+      "zh-Hans": "杯底圆圈",
+      "en": "Cup Ring"
+    },
+    "descriptions": {
+      "zh-Hans": "垫过一杯热茶的小纸片，店主说可以带走。水印比杯子更早凉下来。",
+      "en": "The shopkeeper let this little paper coaster leave with me. A pale ring is all that remains of the warm cup."
+    }
+  },
+  {
+    "id": "generic.parcel-twine",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "box",
+    "habit": null,
+    "names": {
+      "zh-Hans": "打包细绳",
+      "en": "Parcel Twine"
+    },
+    "descriptions": {
+      "zh-Hans": "帮店主按住包纸时，他把剪下的细绳送给了我。绳头还卷着刚才那个结的形状。",
+      "en": "I held the wrapping steady; the shopkeeper gave me the spare twine. One end still remembers the knot."
+    }
+  },
+  {
+    "id": "generic.practice-postmark",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "试戳纸",
+      "en": "Practice Impression"
+    },
+    "descriptions": {
+      "zh-Hans": "柜台上试盖印章的小纸，收信的人说这一张不必扔。印圈缺了一小口，倒很像在笑。",
+      "en": "A practice stamp from the mail counter, rescued with permission. The gap in its circle looks rather cheerful."
+    }
+  },
+  {
+    "id": "generic.tilted-paper-boat",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "歪头纸船",
+      "en": "Lopsided Paper Boat"
+    },
+    "descriptions": {
+      "zh-Hans": "等候时，邻座把一张不用的纸折成了船送我。船头有点歪，平放着也像要出发。",
+      "en": "Someone waiting beside me folded this from spare paper. Its crooked bow gives it a sense of purpose, even on a shelf."
+    }
+  },
+  {
+    "id": "generic.rounded-shard",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "shard",
+    "habit": null,
+    "names": {
+      "zh-Hans": "磨圆陶片",
+      "en": "Rounded Pottery Chip"
+    },
+    "descriptions": {
+      "zh-Hans": "路边捡到的一小片旧陶，边角已经磨圆。翻过来，背面还有半道浅浅的手指纹。",
+      "en": "A worn pottery chip found beside the path. The smooth back still holds part of a faint fingerprint."
+    }
+  },
+  {
+    "id": "generic.half-window-sketch",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "半扇窗速写",
+      "en": "Half a Window"
+    },
+    "descriptions": {
+      "zh-Hans": "邻座用半截铅笔画的小窗，纸不够大，只装下了半扇。他把画送给我，说另外半扇留给下次。",
+      "en": "Someone sitting beside me drew half a window with a stub of pencil. The paper was too small for the rest, so he gave me this half and saved the other for another visit."
+    }
+  },
+  {
+    "id": "generic.empty-tea-paper",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "tea",
+    "habit": null,
+    "names": {
+      "zh-Hans": "空茶纸袋",
+      "en": "Empty Tea Packet"
+    },
+    "descriptions": {
+      "zh-Hans": "店主收好茶叶后，把干净的空纸袋递给了我。轻轻压平，还能闻到一点淡香。",
+      "en": "An empty paper packet from the tea counter. Flatten it gently and a little of the scent is still there."
+    }
+  },
+  {
+    "id": "generic.crinkled-wrapper",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "皱糖纸",
+      "en": "Crinkly Sweet Wrapper"
+    },
+    "descriptions": {
+      "zh-Hans": "同行的人分给我一颗糖，糖纸一路沙沙响。展平以后，中间留下了一颗小太阳似的折痕。",
+      "en": "A fellow traveler shared a sweet. The wrapper kept rustling afterward; opened flat, its creases make a tiny sun."
+    }
+  },
+  {
+    "id": "generic.waiting-paper-fan",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "fan",
+    "habit": null,
+    "names": {
+      "zh-Hans": "等候小纸扇",
+      "en": "Waiting Fan"
+    },
+    "descriptions": {
+      "zh-Hans": "等候时有人折了一把小纸扇送我，又慢慢教了一遍折法。最后一格是我们一起压平的。",
+      "en": "Someone folded me a little paper fan during a wait, then slowly showed me how. We pressed the final fold flat together."
+    }
+  },
+  {
+    "id": "generic.cloth-edge-bookmark",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "布边书签",
+      "en": "Cloth Bookmark"
+    },
+    "descriptions": {
+      "zh-Hans": "裁缝从布边剪下一小条，替我把散线收好。夹进书里，露出的部分刚好够抓住。",
+      "en": "A tailor tidied the loose threads on this narrow offcut. It makes a bookmark with just enough cloth left to hold."
+    }
+  },
+  {
+    "id": "generic.bowl-rim-drawing",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "碗沿花样",
+      "en": "Bowl-Rim Doodle"
+    },
+    "descriptions": {
+      "zh-Hans": "摊主在余纸上描下碗沿那圈歪歪的线，收碗时把纸送给了我。每一段都不一样，像一路走一路想出来的。",
+      "en": "The stallholder copied the wavy line around a bowl onto spare paper and gave me the drawing. No stretch quite repeats another."
+    }
+  },
+  {
+    "id": "generic.three-hand-route",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "三种笔迹的路条",
+      "en": "Three-Hand Route"
+    },
+    "descriptions": {
+      "zh-Hans": "同一张问路纸经过三个人的手，各添了一个小箭头。最后一个人还画了回头招手的自己。",
+      "en": "Three people added arrows to this one sheet of directions. The last drew a tiny self-portrait, waving me along."
+    }
+  },
+  {
+    "id": "generic.shared-sketch",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两个人的速写",
+      "en": "A Drawing for Two"
+    },
+    "descriptions": {
+      "zh-Hans": "我画完椅子，旁边的人替它添上了一位等车的客人，又把纸送给我留着。纸翻过来，还有我们各画的一只鞋。",
+      "en": "I drew a chair; someone beside me added a waiting passenger and let me keep the sheet. On the back we each drew a shoe."
+    }
+  },
+  {
+    "id": "generic.mended-paper-box",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "uncommon",
+    "icon": "box",
+    "habit": null,
+    "names": {
+      "zh-Hans": "补角小盒",
+      "en": "Mended Paper Box"
+    },
+    "descriptions": {
+      "zh-Hans": "店主本来要扔的小纸盒，被我们用两片余纸补好了角。他笑着说，这回总得找个人好好留着。",
+      "en": "Two scraps of paper saved this box from the bin. The shopkeeper decided that after so much repair work, it deserved a home."
+    }
+  },
+  {
+    "id": "generic.wait-a-little-note",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "uncommon",
+    "icon": "tea",
+    "habit": null,
+    "names": {
+      "zh-Hans": "再等一等便签",
+      "en": "A Little Longer"
+    },
+    "descriptions": {
+      "zh-Hans": "我总急着端杯子，店主便写了“再等一等”放在旁边。等到茶能喝了，他又在后面添了一个小勾。",
+      "en": "When I kept reaching for a hot cup, the shopkeeper wrote “a little longer.” The check mark came once it was ready to drink."
+    }
+  },
+  {
+    "id": "generic.two-colour-patch",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "uncommon",
+    "icon": "coat",
+    "habit": null,
+    "names": {
+      "zh-Hans": "拼色补丁",
+      "en": "Two-Colour Patch"
+    },
+    "descriptions": {
+      "zh-Hans": "看裁缝补衣服看了半天，他用两块余布拼出一枚小补丁送我。两边颜色不同，针脚却排得一样齐。",
+      "en": "After I watched a tailor at work, he joined two offcuts into a patch for me. Different colours, equally patient stitches."
+    }
+  },
+  {
+    "id": "generic.folded-lampshade",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "uncommon",
+    "icon": "lamp",
+    "habit": null,
+    "names": {
+      "zh-Hans": "折纸灯罩",
+      "en": "Folded Shade"
+    },
+    "descriptions": {
+      "zh-Hans": "修灯的人拿余纸示范了一遍折法，再把小灯罩递给我。里面没装灯，朝着亮处举起来也很好看。",
+      "en": "A lamp repairer demonstrated the folds with spare paper, then let me keep the little shade. It looks lovely held up to the light."
+    }
+  },
+  {
+    "id": "generic.rain-shelter-scroll",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "rare",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "雨停留言卷",
+      "en": "Until the Rain Stopped"
+    },
+    "descriptions": {
+      "zh-Hans": "一场长雨把五个陌生人留在同一处屋檐下，大家轮流在纸上添画，直到雨停。临走时他们把这卷没写名字的小故事交给了我。",
+      "en": "Five strangers, one shelter, and a long shower became a story drawn in turns. When the rain ended, they asked me to keep the little paper scroll."
+    }
+  },
+  {
+    "id": "generic.reunion-photo",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "rare",
+    "icon": "camera",
+    "habit": null,
+    "names": {
+      "zh-Hans": "重逢合影",
+      "en": "Reunion Photograph"
+    },
+    "descriptions": {
+      "zh-Hans": "两位走散多年的老友在我歇脚的长椅前认出了彼此，请路过的摄影师留了影。我替他们按平衣领，也分到了一张笑得有点模糊的照片。",
+      "en": "Two old friends recognized each other beside my resting bench and stopped a photographer. I straightened their collars and received a print, with the laughter slightly out of focus."
+    }
+  },
+  {
+    "id": "generic.first-light-shade",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "rare",
+    "icon": "lamp",
+    "habit": null,
+    "names": {
+      "zh-Hans": "天亮前的小灯罩",
+      "en": "Before-Daybreak Shade"
+    },
+    "descriptions": {
+      "zh-Hans": "陪修灯的老人扶了一夜的手电，直到第一拨行人经过，那盏旧灯才重新亮起来。他用修灯剩下的纸做了这个小灯罩，说我们也该留一盏。",
+      "en": "I held a torch for an elderly repairer until the old lamp finally lit, just before the first passersby arrived. This tiny shade was made from the leftover paper: a light for us to keep."
+    }
+  },
+  {
+    "id": "generic.repaired-farewell-fan",
+    "kind": "souvenir",
+    "cityId": null,
+    "rarity": "rare",
+    "icon": "fan",
+    "habit": null,
+    "names": {
+      "zh-Hans": "补好的告别扇",
+      "en": "Farewell Fan"
+    },
+    "descriptions": {
+      "zh-Hans": "送行的人群散去后，我和一位老人把被挤破的纸扇一点点补齐。最后一班车开走前，他把扇子留给我，自己拿着那张画满修补办法的纸上了车。",
+      "en": "After a crowded farewell, an older traveler and I patiently patched this torn fan. Before the last departure, he gave me the fan and took our sheet of repair sketches instead."
+    }
+  }
+]

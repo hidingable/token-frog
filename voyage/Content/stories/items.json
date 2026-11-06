@@ -1,0 +1,970 @@
+[
+  {
+    "id": "items.sketchbook.arrival.lower-view",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "sketchbook",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "到{city}后，我拿出速写本，想画门边的一把椅子。站着画，椅背挡住了后面的花盆；蹲低一点，花盆却从底下探了出来。我在纸角画了两张小图，原来挪动的是我，画面也会跟着换座位。",
+      "en": "In {city}, I opened the sketchbook to draw a chair by a doorway. Standing up, I lost the flowerpot behind its back. From lower down, the pot peeked underneath. Two little drawings now share the page. The chair stayed put; I was the one rearranging the view."
+    },
+    "replies": [
+      {
+        "id": "items.sketchbook.arrival.lower-view.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问谁常坐这把椅子",
+          "en": "Ask who usually sits there"
+        }
+      },
+      {
+        "id": "items.sketchbook.arrival.lower-view.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再换个高度看看",
+          "en": "Try one more viewing height"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.sketchbook.arrival.unfilled-doorway",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "sketchbook",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "在{city}歇脚时，我把速写本摊在膝上，画了一道敞开的门。门框很快画好了，门里却迟迟没落笔。后来有人端着一盆水走过，那块空白一下有了去处。我只添了几笔，反而舍不得把剩下的空白填满了。",
+      "en": "Resting in {city}, I sketched an open doorway. The frame was easy; the empty space inside kept me waiting. Then someone crossed it carrying a basin. A few lines were enough. After that, the rest of the blank paper seemed to have a job of its own."
+    },
+    "replies": [
+      {
+        "id": "items.sketchbook.arrival.unfilled-doorway.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问那盆水要送去哪儿",
+          "en": "Ask where the basin was going"
+        }
+      },
+      {
+        "id": "items.sketchbook.arrival.unfilled-doorway.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意门里下一次变化",
+          "en": "Watch the doorway change again"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.sketchbook.arrival.three-stool-sides",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "sketchbook",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "刚到{city}，一张小凳子让我绕了好几圈。速写本上的第一张图只看得见两条腿，第二张多出一条，第三张才终于凑齐。旁边的人看了笑，说凳子今天大概头一回这么忙。我把三张都留着，没让谁代替谁。",
+      "en": "A little stool in {city} had me walking circles with my sketchbook. In the first view it had two legs, in the next three, and only the third showed all of them. Someone nearby said the stool had never had such a busy day. I kept every version."
+    },
+    "replies": [
+      {
+        "id": "items.sketchbook.arrival.three-stool-sides.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旁边的人也选个角度",
+          "en": "Invite someone to choose a view"
+        }
+      },
+      {
+        "id": "items.sketchbook.arrival.three-stool-sides.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪条腿藏起来了",
+          "en": "Find the leg hiding from view"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.sketchbook.transit.moving-outline",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "sketchbook",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "去{target}的路上，我想在速写本里留一条远处的轮廓。走一段再抬头，轮廓就变了，只好另起一行。最后纸上排了几条不太一样的线，像几位不肯站齐的旅客。它们都没画错，只是各自赶上了不同的一眼。",
+      "en": "On the way to {target}, I tried saving the distant outline in my sketchbook. Each stretch of walking changed it, so I started another line. The page now holds several rather unruly travelers. None is wrong; each belongs to a different glance."
+    },
+    "replies": [
+      {
+        "id": "items.sketchbook.transit.moving-outline.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问同行的人看见了什么",
+          "en": "Compare the view with a fellow traveler"
+        }
+      },
+      {
+        "id": "items.sketchbook.transit.moving-outline.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找几条线共同的地方",
+          "en": "Look for what the outlines share"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.sketchbook.transit.resting-footprints",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "sketchbook",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "还在往{target}走。歇脚时，我发现自己的脚印刚好停在一条细缝前，就掏出速写本照着画。画到一半，旁边又添了一串更小的脚印，我的画忽然有了邻居。我没追上去，只在纸上替两串脚印留出各自的路。",
+      "en": "Still heading toward {target}. At a rest stop, my footprints ended beside a thin crack, so I began drawing them. A smaller set appeared nearby before I finished. My sketch had acquired a neighbor. I left enough paper for both trails to go their own way."
+    },
+    "replies": [
+      {
+        "id": "items.sketchbook.transit.resting-footprints.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和附近的人聊聊这条路",
+          "en": "Talk with someone nearby about the route"
+        }
+      },
+      {
+        "id": "items.sketchbook.transit.resting-footprints.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两串脚印有什么不同",
+          "en": "Compare the two sets of tracks"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.note-slip.arrival.a-place-to-write",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "note-slip",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "到了{city}，我拿着问路条，想问哪里能借个地方写信。话还没说全，摊主就把一把椅子往里挪了挪。我怕自己没说明白，又指指纸，他便在背面画了个坐下的小人。原来这次不用问到很远的地方。",
+      "en": "In {city}, I brought out the direction slip to ask for somewhere to write a letter. Before I finished, a stallholder shifted a chair inward. I pointed at the paper to make sure; he drew a little seated figure on the back. The answer was closer than I expected."
+    },
+    "replies": [
+      {
+        "id": "items.note-slip.arrival.a-place-to-write.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问摊主今天忙不忙",
+          "en": "Ask how the day has been at the stall"
+        }
+      },
+      {
+        "id": "items.note-slip.arrival.a-place-to-write.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看这把椅子旁边的事",
+          "en": "Notice what happens beside the chair"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.note-slip.arrival.how-to-finish",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "note-slip",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "在{city}看一位手艺人收拾绳头，我把“最后这一下怎么做”写在问路条上递过去。他没有马上回答，而是放慢动作，从头又做了一遍。我跟着比画，结没打好，问题倒问明白了。他说，知道自己卡在哪一步就很好。",
+      "en": "Watching a maker tidy a loose cord in {city}, I wrote “How do you finish that?” on my slip. He answered by doing it again, slowly. My attempt at the knot was hopeless, but at least I found the exact step I needed to ask about. He thought that was a useful start."
+    },
+    "replies": [
+      {
+        "id": "items.note-slip.arrival.how-to-finish.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请他讲讲最难的一步",
+          "en": "Ask which step takes the most practice"
+        }
+      },
+      {
+        "id": "items.note-slip.arrival.how-to-finish.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再看一遍绳头怎么走",
+          "en": "Follow the loose end through once more"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.note-slip.arrival.another-way-to-ask",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "note-slip",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "到{city}后，我照着问路条念了一句很长的问题，对方听到一半就笑了。我又拆成两句慢慢问，这回我们很快说到了一处。他在纸边圈了一个词，说从这里开始就够了。问路条短了一点，话却多聊了几句。",
+      "en": "In {city}, I read an impressively long question from the direction slip. The person listening started smiling halfway through. Two shorter questions worked much better. He circled one word as a good place to begin, and the conversation carried on well beyond the directions."
+    },
+    "replies": [
+      {
+        "id": "items.note-slip.arrival.another-way-to-ask.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请他教一句更顺口的问法",
+          "en": "Ask for an easier way to put it"
+        }
+      },
+      {
+        "id": "items.note-slip.arrival.another-way-to-ask.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看圈出的词放在哪里",
+          "en": "Notice where the circled word fits"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.note-slip.transit.which-question",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "note-slip",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "往{target}走的时候，我在问路条上写了“还有多久”。被我问到的人先问：是急着赶路，还是想找地方歇一歇？我想了一会儿，在原来的问题下面补了一个小凳子。对方指给我的方向，这才成了我真正想问的那一条。",
+      "en": "Heading toward {target}, I wrote “How much longer?” on my slip. The answer began with another question: was I in a hurry, or looking for a rest? I added a little stool beneath my words. That made it much easier for the person helping me to point out what I actually needed."
+    },
+    "replies": [
+      {
+        "id": "items.note-slip.transit.which-question.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问对方喜欢在哪儿歇脚",
+          "en": "Ask where they like to take a break"
+        }
+      },
+      {
+        "id": "items.note-slip.transit.which-question.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看自己什么时候会想停下",
+          "en": "Notice when you feel ready for a rest"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.note-slip.transit.start-with-here",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "note-slip",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "离{target}还有一段路，我把问路条翻来覆去，却不知道该从哪儿问起。路过的人让我先说说眼前有什么。我照着说了一遍，纸上的第一个箭头终于有地方落下了。原来问下一段路，也得先把脚下这一段讲清楚。",
+      "en": "With some way still to go before {target}, I kept turning my direction slip over, unsure where to begin. A passerby asked me to describe what was right in front of me. Once I did, our first arrow had somewhere to start. Explaining where I was made the next stretch much clearer."
+    },
+    "replies": [
+      {
+        "id": "items.note-slip.transit.start-with-here.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "再问问路上容易认的东西",
+          "en": "Ask for something easy to recognize ahead"
+        }
+      },
+      {
+        "id": "items.note-slip.transit.start-with-here.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把眼前的位置记清楚",
+          "en": "Take a good look at where you are"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.old-camera.arrival.room-for-a-chair",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "old-camera",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "到了{city}，我用老相机给一位愿意入镜的人拍照。他站好后，又把旁边的空椅子拉近了一点，说这也是他今天待过的位置。我往后退了一步，把椅子一起收进画面。照片里一个人和一把椅子，都没有显得多余。",
+      "en": "In {city}, someone agreed to a photograph with my old camera. Once in place, he pulled an empty chair closer: he had spent part of the day there too. I stepped back to fit it in. One person, one chair, and somehow both belonged in the picture."
+    },
+    "replies": [
+      {
+        "id": "items.old-camera.arrival.room-for-a-chair.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问他在椅子上想过什么",
+          "en": "Ask what he thought about while sitting there"
+        }
+      },
+      {
+        "id": "items.old-camera.arrival.room-for-a-chair.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看画面边上还留下了什么",
+          "en": "Look at what else made it into the frame"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.old-camera.arrival.window-reflection",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "old-camera",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "在{city}举起老相机时，我本来只想拍一扇窗。玻璃里却多了一只举着相机的小家伙，后面还有个人正挥手。我转过身，对方又挥了一下，像是替照片补上了声音。这张窗户照，倒先记住了两位路人。",
+      "en": "I raised the old camera toward a window in {city} and found a small photographer reflected in it. Someone behind me was waving too. When I turned, they waved again, adding a greeting to the silent picture. The window photograph ended up keeping track of two passersby."
+    },
+    "replies": [
+      {
+        "id": "items.old-camera.arrival.window-reflection.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "过去和挥手的人打个招呼",
+          "en": "Go and greet the person who waved"
+        }
+      },
+      {
+        "id": "items.old-camera.arrival.window-reflection.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看倒影里还有什么",
+          "en": "Explore the rest of the reflection"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.old-camera.arrival.patient-shadow",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "old-camera",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "到{city}后，我把老相机对准墙角一小块光。刚觉得位置合适，一片叶影就从旁边伸了进来。我等了等，它又缩回去，只好忍着笑继续等。最后拍下的那张，叶影只露出一点点，像刚好赶上报到。",
+      "en": "In {city}, I aimed the old camera at a patch of light on a wall. A leaf shadow wandered into the frame, then slipped away just as I was ready. I waited, trying not to laugh. In the photograph, only its tip appears, just in time to be counted present."
+    },
+    "replies": [
+      {
+        "id": "items.old-camera.arrival.patient-shadow.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旁边的人也等一等看",
+          "en": "Invite someone to watch with you"
+        }
+      },
+      {
+        "id": "items.old-camera.arrival.patient-shadow.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看影子下一次怎么动",
+          "en": "Watch the next movement of the shadow"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.old-camera.transit.two-speeds",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "old-camera",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "去{target}的路上，我边走边用老相机拍了一张，邮包带子抢在前面晃了一下。歇脚时又拍一张，带子终于安静了。两张并在一起，一张忙着出发，一张只想坐坐。我决定都留着，路上本来就有这两种时候。",
+      "en": "On the way to {target}, I took a picture while walking and the mailbag strap swung straight across it. At the next rest I tried again, with a much calmer strap. One picture is eager to get going; the other would rather sit awhile. They can both stay. The journey has room for both moods."
+    },
+    "replies": [
+      {
+        "id": "items.old-camera.transit.two-speeds.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问别人喜欢走还是歇",
+          "en": "Ask someone whether they prefer walking or resting"
+        }
+      },
+      {
+        "id": "items.old-camera.transit.two-speeds.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找两张照片相同的地方",
+          "en": "Find what stayed the same in both pictures"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.old-camera.transit.rest-stop-arrangement",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "old-camera",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "还没到{target}。歇脚时，我把水杯、邮包和老相机摆在一起，忽然很想给这次停留拍张照。可相机一拿起来，队伍就少了一位。我只好给空出来的位置留点地方；照片没拍到的那件东西，此刻正替大家记着呢。",
+      "en": "Not at {target} yet. During a rest, I lined up my cup, mailbag, and old camera for a picture of the stop. Picking up the camera left a gap in the little group. I kept the gap in the frame. The missing member was busy remembering everyone else."
+    },
+    "replies": [
+      {
+        "id": "items.old-camera.transit.rest-stop-arrangement.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问同行的人会带哪三样",
+          "en": "Ask a fellow traveler what three things they would bring"
+        }
+      },
+      {
+        "id": "items.old-camera.transit.rest-stop-arrangement.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看空位置也能说出什么",
+          "en": "See what the empty space adds to the picture"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.lunchbox.arrival.leave-one-corner",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "lunchbox",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "在{city}吃东西时，我把空饭盒递过去，问怎样拌才好。摊主先留出一小角没拌的，让我尝过再决定。我把两边各吃一口，才知道自己喜欢哪种。饭盒没有多装什么，却让我第一次把一个问题尝出了两个答案。",
+      "en": "At a food stall in {city}, I offered my empty lunchbox and asked how to mix the meal. The stallholder left a small corner unmixed so I could taste it first. A bite from each side helped me choose. The box held no extra food, but my one question had acquired two answers."
+    },
+    "replies": [
+      {
+        "id": "items.lunchbox.arrival.leave-one-corner.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问摊主自己喜欢怎么拌",
+          "en": "Ask how the stallholder likes to mix it"
+        }
+      },
+      {
+        "id": "items.lunchbox.arrival.leave-one-corner.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "慢慢比较两边的滋味",
+          "en": "Take time to compare the two tastes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.lunchbox.arrival.save-the-crunch",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "lunchbox",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "到了{city}，我拿饭盒去装午饭，顺口问一句：怎么吃到最后还香？摊主把一点脆的单独搁好，叫我别急着全放进去。我照着留到末尾，最后一口果然还会轻轻响。饭盒收起来时，我也把这句“先留一点”记住了。",
+      "en": "In {city}, I brought the lunchbox for a meal and asked how to keep the last bite interesting. The stallholder set the crunchy part aside and told me to save a little. The final mouthful still had something to say. When I packed the empty box, I kept that bit of advice too."
+    },
+    "replies": [
+      {
+        "id": "items.lunchbox.arrival.save-the-crunch.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "再问问还有什么可以晚点放",
+          "en": "Ask what else is worth adding later"
+        }
+      },
+      {
+        "id": "items.lunchbox.arrival.save-the-crunch.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听最后一口的声音",
+          "en": "Listen to the very last bite"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.lunchbox.arrival.find-the-open-end",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "lunchbox",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "在{city}买了份卷好的食物，我捧着饭盒，迟迟没找好下口的地方。摊主让我先转半圈，看清哪边收了口，再从另一边慢慢吃。我照做，饭盒只接住了一点碎屑。学会这种吃法以后，手也不用忙着到处帮忙了。",
+      "en": "In {city}, a rolled-up meal left me wondering where to begin, lunchbox at the ready. The stallholder showed me how to find the tucked-in end and start from the other side. Only a few crumbs reached the box. That small lesson gave my hands considerably less to do."
+    },
+    "replies": [
+      {
+        "id": "items.lunchbox.arrival.find-the-open-end.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请摊主再讲个吃饭的小窍门",
+          "en": "Ask for one more little eating tip"
+        }
+      },
+      {
+        "id": "items.lunchbox.arrival.find-the-open-end.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看食物是怎么收口的",
+          "en": "Look closely at the tucked-in end"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.lunchbox.transit.a-steady-place",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "lunchbox",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "往{target}走，停下来吃东西时，我的饭盒在膝上晃来晃去。旁边的人让我先找个稳当地方，说东西摆稳了，才有空慢慢尝。我挪了位置，原先忙着扶盒子的手终于能歇一下。这顿饭没换，吃起来却像重新开始了一回。",
+      "en": "Heading toward {target}, I stopped for food with the lunchbox wobbling on my knees. Someone nearby suggested finding a steady spot first: it is easier to taste a meal when you are not holding it together. I moved. Same food, much quieter hands, and a proper chance to begin again."
+    },
+    "replies": [
+      {
+        "id": "items.lunchbox.transit.a-steady-place.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问对方怎么挑歇脚的地方",
+          "en": "Ask how they choose a good place to stop"
+        }
+      },
+      {
+        "id": "items.lunchbox.transit.a-steady-place.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意坐稳以后尝到的味道",
+          "en": "Notice the flavors once you are settled"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.lunchbox.transit.one-small-mouthful",
+    "version": 1,
+    "kind": "transit",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "lunchbox",
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "去{target}的途中，有人看我对着热腾腾的饭盒吹气，教我先拨出一小口，别急着让整盒一起凉。我试了一下，终于不用一边吃一边缩脖子。等这一口吃完，下一口也正好。我给饭盒扣盖前，又向对方认真道了声谢。",
+      "en": "On the way to {target}, someone saw me blowing across my steaming lunchbox and suggested setting aside one small mouthful at a time. No need to cool the whole meal at once. It worked without the usual startled shuffle. By the time one bite was finished, the next was ready. I thanked my teacher before closing the lid."
+    },
+    "replies": [
+      {
+        "id": "items.lunchbox.transit.one-small-mouthful.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问对方还会哪些吃饭办法",
+          "en": "Ask what other mealtime tricks they know"
+        }
+      },
+      {
+        "id": "items.lunchbox.transit.one-small-mouthful.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看一小口多久刚刚好",
+          "en": "Notice when one small bite is ready"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.raincoat.arrival.hood-and-gutter",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "raincoat",
+      "season": null,
+      "tool": null,
+      "rainySeason": true
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "赶上{city}的雨季，今天的信写在雨声里。我穿好雨衣，沿屋檐走了一小段，帽沿的水一滴滴落下，旁边水槽却忙成了一整串。躲雨的人朝我招手，我过去和他们站了一会儿。雨衣滴在脚边的声音，也慢慢加入了大家。",
+      "en": "It is the rainy season in {city}, and rain supplied the sound for this letter. I put on the raincoat and walked beneath the eaves, single drops falling from my hood beside the busy gutter. People sheltering nearby waved me over. After a while, my coat was adding its own small rhythm to theirs."
+    },
+    "replies": [
+      {
+        "id": "items.raincoat.arrival.hood-and-gutter.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问大家等雨时聊什么",
+          "en": "Ask what people talk about while waiting out rain"
+        }
+      },
+      {
+        "id": "items.raincoat.arrival.hood-and-gutter.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听几处滴水的节奏",
+          "en": "Listen to the different dripping rhythms"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "items.raincoat.arrival.rainy-window",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": "raincoat",
+      "season": null,
+      "tool": null,
+      "rainySeason": true
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": null,
+    "text": {
+      "zh-Hans": "到了{city}，正值雨季。我穿着雨衣去走走，隔着一面起雾的玻璃，看见里面有人画了一个小圆。我在外面指了指，对方又给它添上两只耳朵，原来刚才还没画完。雨一直落，我们隔着窗，各自笑得很清楚。",
+      "en": "I reached {city} during the rainy season and went for a short walk in the raincoat. Through a misted window I saw someone draw a small circle. I pointed; they added two ears. The drawing had simply been unfinished. Rain kept falling between us, but the smiles came through clearly."
+    },
+    "replies": [
+      {
+        "id": "items.raincoat.arrival.rainy-window.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向窗里的人挥挥手",
+          "en": "Wave hello through the window"
+        }
+      },
+      {
+        "id": "items.raincoat.arrival.rainy-window.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看雾里的画怎么变化",
+          "en": "Watch the drawing change in the mist"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

@@ -135,7 +135,7 @@ voyage/Content/
 ├── published-ids.txt    发布过的城市 ID
 ├── cities/              每城一个文件
 ├── stories/             情节，按城市或通用分类
-├── items/               行囊、纪念品、菜单
+├── items/               行囊、纪念品、菜单（kind、rarity、habit、icon、各语言名称和说明）
 ├── friends.json         邮友
 └── boxes.json           礼盒清单
 ```

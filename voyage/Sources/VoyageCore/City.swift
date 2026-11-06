@@ -72,21 +72,28 @@ extension City {
 public struct CityCatalog: Sendable {
     public let all: [City]
     public let stories: StoryLibrary
+    public let items: ItemLibrary
     public var active: [City] { all.filter { $0.status == "active" } }
     private let byId: [String: City]
     private let countries: [String: [String: String]]
 
-    private init(cities: [City], countries: [String: [String: String]], stories: StoryLibrary) {
+    private init(cities: [City], countries: [String: [String: String]], stories: StoryLibrary, items: ItemLibrary) {
         all = cities.sorted { $0.id < $1.id }
         byId = Dictionary(uniqueKeysWithValues: all.map { ($0.id, $0) })
         self.countries = countries
         self.stories = stories
+        self.items = items
     }
 
     public static func load(directory: URL) throws -> CityCatalog {
         let issues = ContentValidator.validate(directory: directory)
         guard issues.isEmpty else { throw ContentValidationError(issues: issues) }
-        return try CityCatalog(cities: ContentValidator.readCities(directory: directory).map(\.city), countries: ContentValidator.readCountries(directory: directory), stories: StoryLibrary(stories: ContentValidator.readStories(directory: directory).flatMap(\.stories)))
+        return try CityCatalog(
+            cities: ContentValidator.readCities(directory: directory).map(\.city),
+            countries: ContentValidator.readCountries(directory: directory),
+            stories: StoryLibrary(stories: ContentValidator.readStories(directory: directory).flatMap(\.stories)),
+            items: ItemLibrary(items: ContentValidator.readItems(directory: directory).flatMap(\.items))
+        )
     }
 
     public func find(_ id: String) -> City? { byId[id] }

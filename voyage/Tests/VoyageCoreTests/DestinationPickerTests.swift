@@ -28,6 +28,7 @@ private struct PickerCatalogSandbox {
         self.directory = directory
         try FileManager.default.createDirectory(at: directory.appendingPathComponent("cities"), withIntermediateDirectories: true)
         try FileManager.default.copyItem(at: contentDirectory.appendingPathComponent("stories"), to: directory.appendingPathComponent("stories"))
+        try FileManager.default.copyItem(at: contentDirectory.appendingPathComponent("items"), to: directory.appendingPathComponent("items"))
         let encoder = JSONEncoder()
         let manifest: [String: Any] = ["formatVersion": 1, "packVersion": 1, "minAppVersion": "1.0.0"]
         try JSONSerialization.data(withJSONObject: manifest).write(to: directory.appendingPathComponent("manifest.json"))

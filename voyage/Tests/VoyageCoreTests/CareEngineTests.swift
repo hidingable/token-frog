@@ -51,7 +51,7 @@ func engineLetter(_ id: Int, arrivals: [String] = ["shanghai"], date: String = "
         care.habits.talkative = 10
         care.bag.todayItem = "sketchbook"
         var tool = engineStory("tool", city: "shanghai")
-        tool.requires = .init(habit: "talkative", item: "sketchbook", season: "autumn", tool: "codex", rainySeason: false)
+        tool.requires = .init(habit: "talkative", season: "autumn", tool: "codex", rainySeason: false)
         var habit = engineStory("habit", city: "shanghai")
         habit.requires.habit = "talkative"
         var wish = engineStory("wish", city: "shanghai")
@@ -66,7 +66,7 @@ func engineLetter(_ id: Int, arrivals: [String] = ["shanghai"], date: String = "
 
     @Test(arguments: ["habit", "item", "season", "tool", "rainySeason"])
     func everyRequirementMustMatch(requirement: String) {
-        var (journey, care) = engineState()
+        var (journey, care) = engineState(seed: 1)
         care.habits.talkative = 10
         care.bag.todayItem = "sketchbook"
         var story = engineStory("conditional", city: "shanghai")
@@ -107,7 +107,7 @@ func engineLetter(_ id: Int, arrivals: [String] = ["shanghai"], date: String = "
         journey.letters[1].vehicles.append(.init(client: "claude", percent: 25))
         CareEngine.process(journey: &journey, care: &care, stories: engineStories([story]), catalog: testCatalog)
         #expect(journey.letters[1].storyId == "generic.arrival")
-        #expect(care.habits == .init()) // Item-triggered +3 is not connected in this step.
+        #expect(care.habits == .init()) // The raincoat never changes habits.
     }
 
     @Test func longDayUsesTheLastArrivedCityWithStoriesAndOtherwiseTheLastArrival() {
@@ -171,7 +171,7 @@ func engineLetter(_ id: Int, arrivals: [String] = ["shanghai"], date: String = "
         local.fulfills = ["ask-next-time"]
         switch requirement {
         case "habit": local.requires.habit = "observant"
-        case "item": local.requires.item = "raincoat"
+        case "item": local.requires.item = "old-camera"
         case "season": local.requires.season = "spring"
         case "tool": local.requires.tool = "claude"
         case "rainySeason": local.requires.rainySeason = true

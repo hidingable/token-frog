@@ -52,6 +52,9 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var replyOptions: [StoryReply] = []
     public var selectedReplyId: String?
     public var fulfilledReplyId: String?
+    public var carriedItem: String?
+    /// Records the item habit bonus; fulfillment letters and items without a habit never grant it.
+    public var itemTriggered: Bool?
     public var facts: [FactSnapshot] = []
     public var rewards = StoryRewards()
     public var weatherCode: Int?
@@ -346,6 +349,7 @@ extension Letter {
         case id, kind, date, pet, cityId, transitTargetId, arrivals, newCountries, fuel
         case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
         case storyId, storyVersion, texts, leadTexts, replyOptions, selectedReplyId, fulfilledReplyId
+        case carriedItem, itemTriggered
         case facts, rewards, weatherCode, temperatureC, place, photoFile
     }
 
@@ -374,6 +378,8 @@ extension Letter {
         replyOptions = try values.decode([StoryReply].self, forKey: .replyOptions, default: [])
         selectedReplyId = try values.decodeIfPresent(String.self, forKey: .selectedReplyId)
         fulfilledReplyId = try values.decodeIfPresent(String.self, forKey: .fulfilledReplyId)
+        carriedItem = try values.decodeIfPresent(String.self, forKey: .carriedItem)
+        itemTriggered = try values.decodeIfPresent(Bool.self, forKey: .itemTriggered)
         facts = try values.decode([FactSnapshot].self, forKey: .facts, default: [])
         rewards = try values.decode(StoryRewards.self, forKey: .rewards, default: StoryRewards())
         weatherCode = try values.decodeIfPresent(Int.self, forKey: .weatherCode)

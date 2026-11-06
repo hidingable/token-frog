@@ -1,8 +1,20 @@
 struct SplitMix64 {
+    enum Salt: UInt64 {
+        case carriedItem = 0xB430_824D_F590_A167
+        case itemTrigger = 0x720E_C7E2_A965_153B
+        case dropRarity = 0xD510_B3C1_873A_E629
+        case dropItem = 0x3CF9_EA61_0B28_754D
+    }
+
     var state: UInt64
 
     init(seed: UInt32, stopCount: Int) {
         state = (UInt64(seed) << 32) | UInt64(UInt32(truncatingIfNeeded: stopCount))
+    }
+
+    init(seed: UInt32, stopCount: Int, salt: Salt) {
+        self.init(seed: seed, stopCount: stopCount)
+        state ^= salt.rawValue
     }
 
     mutating func next() -> UInt64 {

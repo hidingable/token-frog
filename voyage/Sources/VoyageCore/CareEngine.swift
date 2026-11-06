@@ -22,6 +22,8 @@ public enum CareEngine {
             } ?? false
 
             if letter.storyId == nil {
+                letter.carriedItem = carriedItem(bag: care.bag, seed: journey.seed, letterId: letter.id)
+                let trigger = itemTrigger(seed: journey.seed, letterId: letter.id)
                 if let cityId = letter.arrivals.last(where: { id in stories.all.contains { $0.cityId == id } })
                     ?? letter.arrivals.last {
                     letter.cityId = cityId
@@ -32,10 +34,12 @@ public enum CareEngine {
                 let recent = Set(journey.letters.filter { $0.id < letter.id }.sorted { $0.id < $1.id }.suffix(10).compactMap(\.storyId))
                 let story = choose(
                     letter: letter, care: care, stories: stories, catalog: catalog, wishTags: wishTags,
-                    dueReply: due ? reply : nil, recent: recent, seed: journey.seed
+                    dueReply: due ? reply : nil, itemTrigger: trigger, recent: recent, seed: journey.seed
                 )
                 snapshot(story, letter: &letter, petName: care.petName, reply: due ? reply : nil, catalog: catalog)
                 if due { letter.fulfilledReplyId = promise!.replyId }
+                letter.itemTriggered = trigger && !due && letter.carriedItem.flatMap { catalog.items.find($0)?.habit } != nil
+                letter.rewards = catalog.items.drop(rewards: story.rewards, letter: letter, care: care, seed: journey.seed)
                 journey.letters[index] = letter
             }
 
@@ -45,6 +49,15 @@ public enum CareEngine {
                 care.pendingPromises.removeFirst()
                 care.memories.append(.init(kind: "fulfilled", date: letter.date, letterId: letter.id, replyId: fulfilled))
             }
+            if letter.itemTriggered == true, let item = letter.carriedItem, let habit = catalog.items.find(item)?.habit {
+                if habit == "talkative" {
+                    care.habits.talkative = min(100, care.habits.talkative + 3)
+                } else {
+                    care.habits.observant = min(100, care.habits.observant + 3)
+                }
+            }
+            applyRewards(letter, care: &care)
+            care.bag.todayItem = nil
             care.processedLetterIds.append(letter.id)
         }
     }
@@ -71,6 +84,36 @@ public enum CareEngine {
         if !care.companionDays.contains(date) { care.companionDays.append(date) }
     }
 
+    static func itemTrigger(seed: UInt32, letterId: Int) -> Bool {
+        var random = SplitMix64(seed: seed, stopCount: letterId, salt: .itemTrigger)
+        return random.next() % 2 == 0
+    }
+
+    private static func carriedItem(bag: CareState.Bag, seed: UInt32, letterId: Int) -> String? {
+        if let chosen = bag.todayItem, bag.owned.contains(chosen) { return chosen }
+        let owned = bag.owned.sorted()
+        guard !owned.isEmpty else { return nil }
+        var random = SplitMix64(seed: seed, stopCount: letterId, salt: .carriedItem)
+        return owned[Int(random.next() % UInt64(owned.count))]
+    }
+
+    private static func applyRewards(_ letter: Letter, care: inout CareState) {
+        // No rarity stamp means this is an older story snapshot: never backfill its drop.
+        if let rarity = letter.rewards.dropRarity {
+            care.pity = rarity == "rare" ? 0 : care.pity + 1
+            if let city = letter.rewards.duplicateClueCityId {
+                care.trailClues[city, default: 0] += 1
+            } else {
+                for id in letter.rewards.itemIds where !care.souvenirs.contains(where: { $0.id == id }) {
+                    care.souvenirs.append(.init(id: id, letterId: letter.id, shelved: false))
+                }
+            }
+        }
+        for id in letter.rewards.menuIds where !care.menus.contains(where: { $0.id == id }) {
+            care.menus.append(.init(id: id, letterId: letter.id))
+        }
+    }
+
     private static func promiseDelay(_ promise: CareState.Promise, seed: UInt32, care: CareState) -> Int {
         if !care.memories.contains(where: { $0.kind == "fulfilled" }) { return 1 }
         var random = SplitMix64(seed: seed, stopCount: promise.letterId)
@@ -79,7 +122,7 @@ public enum CareEngine {
 
     private static func choose(
         letter: Letter, care: CareState, stories: StoryLibrary, catalog: CityCatalog, wishTags: Set<String>,
-        dueReply: StoryReply?, recent: Set<String>, seed: UInt32
+        dueReply: StoryReply?, itemTrigger: Bool, recent: Set<String>, seed: UInt32
     ) -> Story {
         let kind = letter.arrivals.isEmpty ? "transit" : "arrival"
         let city = catalog.city(letter.cityId)
@@ -96,7 +139,14 @@ public enum CareEngine {
             ]
         } else {
             // A city payoff must not fulfill early merely because it also matches a tool or wish.
-            let ordinary = eligible.filter { $0.kind == kind && $0.fulfills.isEmpty }
+            let matching = eligible.filter { $0.kind == kind && $0.fulfills.isEmpty }
+            if itemTrigger {
+                tiers += [
+                    matching.filter { $0.requires.item != nil && $0.cityId == city.id },
+                    matching.filter { $0.requires.item != nil && $0.cityId == nil },
+                ]
+            }
+            let ordinary = matching.filter { $0.requires.item == nil }
             tiers += [
                 ordinary.filter { $0.requires.tool != nil || $0.requires.season != nil || $0.requires.rainySeason != nil },
                 ordinary.filter { $0.requires.habit != nil },
@@ -117,7 +167,7 @@ public enum CareEngine {
             let value = habit == "talkative" ? care.habits.talkative : care.habits.observant
             if value < 10 { return false }
         }
-        if let item = requires.item, item != care.bag.todayItem { return false }
+        if let item = requires.item, item != letter.carriedItem { return false }
         if let tool = requires.tool, tool != letter.vehicles.first?.client { return false }
         let month = Int(letter.date.split(separator: "-")[1])!
         if let expected = requires.season {
@@ -158,7 +208,5 @@ public enum CareEngine {
             let fact = city.facts.first { $0.id == id }!
             return .init(id: fact.id, names: fact.names, sources: fact.sources)
         }
-        // Rewards are introduced in the next step; content cannot grant them yet.
-        letter.rewards = StoryRewards()
     }
 }

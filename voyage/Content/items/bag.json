@@ -1,0 +1,82 @@
+[
+  {
+    "id": "sketchbook",
+    "kind": "bag",
+    "cityId": null,
+    "rarity": null,
+    "icon": "sketch",
+    "habit": "observant",
+    "names": {
+      "zh-Hans": "速写本",
+      "en": "Sketchbook"
+    },
+    "descriptions": {
+      "zh-Hans": "带上它时，更容易停下来找角度，画一张可以带回家的画。",
+      "en": "A reason to stop, try another angle, and bring a little of the view home on paper."
+    }
+  },
+  {
+    "id": "note-slip",
+    "kind": "bag",
+    "cityId": null,
+    "rarity": null,
+    "icon": "slip",
+    "habit": "talkative",
+    "names": {
+      "zh-Hans": "问路条",
+      "en": "Direction Slip"
+    },
+    "descriptions": {
+      "zh-Hans": "把想问的话写在上面，找摊主或手艺人搭搭话，也许能问到一种做法或一个新说法。",
+      "en": "A few words on paper can start a chat with a stallholder or a maker. There may be a new way of doing or saying something to learn."
+    }
+  },
+  {
+    "id": "raincoat",
+    "kind": "bag",
+    "cityId": null,
+    "rarity": null,
+    "icon": "coat",
+    "habit": null,
+    "names": {
+      "zh-Hans": "雨衣",
+      "en": "Raincoat"
+    },
+    "descriptions": {
+      "zh-Hans": "碰上当地的雨季，可以穿着它去听雨、走一小段湿漉漉的路。",
+      "en": "For rainy-season outings: a short wet walk, with a hood to listen under."
+    }
+  },
+  {
+    "id": "old-camera",
+    "kind": "bag",
+    "cityId": null,
+    "rarity": null,
+    "icon": "camera",
+    "habit": "observant",
+    "names": {
+      "zh-Hans": "老相机",
+      "en": "Old Camera"
+    },
+    "descriptions": {
+      "zh-Hans": "从礼盒里得到的老相机。带上它，拍一张可以贴进记忆簿的照片。",
+      "en": "An old camera from a gift box, ready to catch a small moment for the memory book."
+    }
+  },
+  {
+    "id": "lunchbox",
+    "kind": "bag",
+    "cityId": null,
+    "rarity": null,
+    "icon": "lunch",
+    "habit": "talkative",
+    "names": {
+      "zh-Hans": "空饭盒",
+      "en": "Empty Lunchbox"
+    },
+    "descriptions": {
+      "zh-Hans": "从礼盒里得到的空饭盒。带去吃饭时问一问，把旅途中学来的吃法带回家。",
+      "en": "This gift-box lunchbox leaves room for a meal and a question about how to eat it. The answer can come home too."
+    }
+  }
+]
