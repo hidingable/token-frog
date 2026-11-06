@@ -1,0 +1,247 @@
+import Foundation
+
+/// 1 km of travel costs this many fuel tokens. Fixed on purpose so km and tokens stay interchangeable.
+public let fuelPerKm = 10_000
+
+public struct DayUsage: Equatable, Sendable {
+    public var date: String
+    public var fuel: Int
+    public var byClient: [String: Int]
+
+    public init(date: String, fuel: Int = 0, byClient: [String: Int] = [:]) {
+        self.date = date
+        self.fuel = fuel
+        self.byClient = byClient
+    }
+}
+
+/// One tokscale row: a tool and model on one day.
+public struct UsageRow: Equatable, Sendable {
+    public var client: String
+    public var model: String
+    public var tokens: UsageTotals
+
+    public init(client: String, model: String, tokens: UsageTotals) {
+        self.client = client
+        self.model = model
+        self.tokens = tokens
+    }
+}
+
+public struct UsageTotals: Equatable, Sendable {
+    public var input = 0
+    public var output = 0
+    public var cacheRead = 0
+    public var cacheWrite = 0
+    public var reasoning = 0
+    public var cost = 0.0
+    public var messages = 0
+
+    public init(input: Int = 0, output: Int = 0, cacheRead: Int = 0, cacheWrite: Int = 0, reasoning: Int = 0, cost: Double = 0, messages: Int = 0) {
+        self.input = input
+        self.output = output
+        self.cacheRead = cacheRead
+        self.cacheWrite = cacheWrite
+        self.reasoning = reasoning
+        self.cost = cost
+        self.messages = messages
+    }
+
+    /// Same definition as tokscale's own total, including cache reads and reasoning.
+    public var total: Int { input + output + cacheRead + cacheWrite + reasoning }
+    /// The part that becomes mileage.
+    public var fuel: Int { input + output + cacheWrite }
+    /// Share of prompt tokens served from cache, counting cache writes as misses like Token Monitor; nil without input.
+    public var cacheHitPercent: Double? {
+        let all = input + cacheRead + cacheWrite
+        return all > 0 ? Double(cacheRead) / Double(all) * 100 : nil
+    }
+
+    public static func + (lhs: UsageTotals, rhs: UsageTotals) -> UsageTotals {
+        UsageTotals(
+            input: lhs.input + rhs.input, output: lhs.output + rhs.output, cacheRead: lhs.cacheRead + rhs.cacheRead,
+            cacheWrite: lhs.cacheWrite + rhs.cacheWrite, reasoning: lhs.reasoning + rhs.reasoning,
+            cost: lhs.cost + rhs.cost, messages: lhs.messages + rhs.messages
+        )
+    }
+}
+
+public struct DayDetail: Equatable, Sendable {
+    public var date: String
+    public var rows: [UsageRow]
+    /// Session time summed across parallel sessions, so a day can exceed 24 hours. tokscale does not split it per tool.
+    public var activeMs: Int
+
+    public init(date: String, rows: [UsageRow], activeMs: Int = 0) {
+        self.date = date
+        self.rows = rows
+        self.activeMs = activeMs
+    }
+
+    public var usage: DayUsage {
+        var byClient: [String: Int] = [:]
+        for row in rows where row.tokens.fuel > 0 {
+            byClient[row.client, default: 0] += row.tokens.fuel
+        }
+        return DayUsage(date: date, fuel: byClient.values.reduce(0, +), byClient: byClient)
+    }
+}
+
+/// Display-only totals for a date range. Never feeds the journey.
+public struct UsageLedger: Equatable, Sendable {
+    public struct Entry: Equatable, Sendable, Identifiable {
+        public var name: String
+        public var tokens: UsageTotals
+        public var id: String { name }
+    }
+
+    public var totals = UsageTotals()
+    public var activeDays = 0
+    public var byClient: [Entry] = []
+    public var byModel: [Entry] = []
+
+    public init(days: [DayDetail]) {
+        var clients: [String: UsageTotals] = [:]
+        var models: [String: UsageTotals] = [:]
+        for day in days {
+            let rows = day.rows.filter { $0.tokens.total > 0 || $0.tokens.cost > 0 || $0.tokens.messages > 0 }
+            if !rows.isEmpty { activeDays += 1 }
+            for row in rows {
+                totals = totals + row.tokens
+                clients[row.client] = (clients[row.client] ?? UsageTotals()) + row.tokens
+                models[row.model] = (models[row.model] ?? UsageTotals()) + row.tokens
+            }
+        }
+        byClient = Self.ranked(clients)
+        byModel = Self.ranked(models)
+    }
+
+    private static func ranked(_ groups: [String: UsageTotals]) -> [Entry] {
+        groups.map { Entry(name: $0.key, tokens: $0.value) }.sorted {
+            $0.tokens.total == $1.tokens.total ? $0.name < $1.name : $0.tokens.total > $1.tokens.total
+        }
+    }
+}
+
+public enum TokscaleGraph {
+    private struct Graph: Decodable {
+        let contributions: [Contribution]
+    }
+
+    private struct Contribution: Decodable {
+        let date: String
+        let clients: [ClientRow]
+        let activeTimeMs: Int?
+    }
+
+    private struct ClientRow: Decodable {
+        let client: String
+        let modelId: String?
+        let tokens: Tokens
+        let cost: Double?
+        let messages: Int?
+    }
+
+    private struct Tokens: Decodable {
+        let input: Int?
+        let output: Int?
+        let cacheRead: Int?
+        let cacheWrite: Int?
+        let reasoning: Int?
+    }
+
+    public static func parseDetails(_ data: Data) throws -> [DayDetail] {
+        let graph = try JSONDecoder().decode(Graph.self, from: data)
+        return graph.contributions.map { day in
+            DayDetail(date: day.date, rows: day.clients.map { row in
+                UsageRow(
+                    client: row.client,
+                    model: row.modelId ?? "未知模型",
+                    tokens: UsageTotals(
+                        input: row.tokens.input ?? 0, output: row.tokens.output ?? 0, cacheRead: row.tokens.cacheRead ?? 0,
+                        cacheWrite: row.tokens.cacheWrite ?? 0, reasoning: row.tokens.reasoning ?? 0,
+                        cost: row.cost ?? 0, messages: row.messages ?? 0
+                    )
+                )
+            }, activeMs: day.activeTimeMs ?? 0)
+        }
+    }
+
+    /// Fuel is uncached input + output + cache writes. Cache reads and reasoning are deliberately excluded.
+    public static func parse(_ data: Data) throws -> [DayUsage] {
+        try parseDetails(data).map(\.usage)
+    }
+}
+
+public enum DayKey {
+    private static func formatter(_ calendar: Calendar) -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.calendar = calendar
+        formatter.timeZone = calendar.timeZone
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }
+
+    public static func string(from date: Date, calendar: Calendar = .current) -> String {
+        formatter(calendar).string(from: date)
+    }
+
+    public static func date(from key: String, calendar: Calendar = .current) -> Date? {
+        formatter(calendar).date(from: key)
+    }
+
+    public static func next(_ key: String, calendar: Calendar = .current) -> String {
+        guard let date = date(from: key, calendar: calendar),
+              let next = calendar.date(byAdding: .day, value: 1, to: date) else {
+            preconditionFailure("Invalid day key \(key)")
+        }
+        return string(from: next, calendar: calendar)
+    }
+}
+
+public enum Format {
+    public static func tokens(_ value: Int) -> String {
+        if value >= 100_000_000 { return String(format: "%.1f 亿", Double(value) / 100_000_000) }
+        if value >= 10_000 { return "\(grouped(Int((Double(value) / 10_000).rounded()))) 万" }
+        return grouped(value)
+    }
+
+    public static func km(fuel: Int) -> String {
+        "\(grouped(Int((Double(fuel) / Double(fuelPerKm)).rounded()))) km"
+    }
+
+    public static func cost(_ value: Double) -> String {
+        if value >= 1000 { return "$\(grouped(Int(value.rounded())))" }
+        return String(format: "$%.2f", value)
+    }
+
+    public static func percent(_ value: Double?) -> String {
+        value.map { String(format: "%.1f%%", $0) } ?? "-"
+    }
+
+    public static func grouped(_ value: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.locale = Locale(identifier: "en_US")
+        return formatter.string(from: NSNumber(value: value)) ?? String(value)
+    }
+}
+
+public enum Vehicle {
+    private static let names: [String: String] = [
+        "claude": "Claude", "codex": "Codex", "gemini": "Gemini", "cursor": "Cursor", "opencode": "OpenCode",
+        "copilot": "Copilot", "hermes": "Hermes", "kimi": "Kimi", "pi": "Pi", "qwen": "Qwen",
+        "antigravity": "Antigravity", "antigravity-extension": "Antigravity", "antigravity-cli": "Antigravity",
+        "workbuddy": "WorkBuddy", "codebuddy": "CodeBuddy", "openclaw": "OpenClaw", "droid": "Droid",
+        "goose": "Goose", "zed": "Zed", "cline": "Cline", "amp": "Amp",
+    ]
+
+    public static func toolName(_ client: String) -> String {
+        names[client] ?? client.capitalized
+    }
+
+    public static func name(_ client: String) -> String {
+        "\(toolName(client)) 号"
+    }
+}

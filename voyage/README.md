@@ -1,0 +1,41 @@
+# Voyage（占位名）
+
+独立的 macOS 原生养成游戏：所有 AI 工具的 token 用量变成小信使的旅行里程（1 万 token = 1 公里），它走遍世界并写信回来；而它的成长只取决于你的陪伴，不取决于用量。
+
+- 产品设计：[docs/design.md](docs/design.md)
+- 技术方案：[docs/technical.md](docs/technical.md)
+- 界面示意：[docs/mockup.html](docs/mockup.html)
+
+这是独立的 Swift 应用，不依赖 Token Monitor。
+
+## 构建和运行
+
+需要 macOS 14+、Apple Silicon、Xcode 和 npm。首次构建会把 tokscale 和像素字体下载到被忽略的 `.vendor/`。
+
+```bash
+scripts/build-app.sh
+open build/TokenVoyage.app
+```
+
+应用只出现在菜单栏，不占 Dock。刘海显示在带刘海的屏幕上，浮窗可以拖动，两者都能在菜单栏关闭。
+
+## 开发
+
+```bash
+swift test
+```
+
+不打开窗口、把所有界面渲染成 PNG（`TOKEN_VOYAGE_DATA_DIR` 让测试数据不进入真实旅程）：
+
+```bash
+TOKEN_VOYAGE_DATA_DIR=/tmp/voyage-data build/TokenVoyage.app/Contents/MacOS/TokenVoyage --snapshot /tmp/voyage-shots
+```
+
+世界地图由 `scripts/generate-worldmap.py` 从 world-atlas 的 `land-110m.json` 生成，平时不需要重跑。
+
+## 第三方内容
+
+- [tokscale](https://github.com/junhoyeo/tokscale)：MIT，构建时下载。
+- [Fusion Pixel](https://github.com/TakWolf/fusion-pixel-font)：OFL，构建时下载，授权文件随应用打包。
+- 地图数据：Natural Earth（公共领域），经 world-atlas 提供。
+- 信件里的地点内容和照片来自 Wikipedia，并附来源链接。
