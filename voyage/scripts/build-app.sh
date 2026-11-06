@@ -39,6 +39,7 @@ BIN="$(swift build -c release --arch arm64 --show-bin-path)/TokenVoyage"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources/tokscale" "$APP/Contents/Resources/Fonts"
 cp "$BIN" "$APP/Contents/MacOS/TokenVoyage"
+cp -R "$(dirname "$BIN")/TokenVoyage_TokenVoyage.bundle" "$APP/Contents/Resources/"
 cp "$VENDOR/tokscale/"* "$APP/Contents/Resources/tokscale/"
 cp "$VENDOR/fonts/"* "$APP/Contents/Resources/Fonts/"
 
@@ -47,8 +48,10 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>CFBundleName</key><string>Token Voyage</string>
-  <key>CFBundleDisplayName</key><string>Token Voyage</string>
+  <key>CFBundleName</key><string>Voyage</string>
+  <key>CFBundleDisplayName</key><string>Voyage</string>
+  <key>CFBundleDevelopmentRegion</key><string>en</string>
+  <key>CFBundleLocalizations</key><array><string>en</string><string>zh-Hans</string></array>
   <key>CFBundleIdentifier</key><string>local.tokenfrog.voyage</string>
   <key>CFBundleExecutable</key><string>TokenVoyage</string>
   <key>CFBundlePackageType</key><string>APPL</string>

@@ -44,31 +44,20 @@ public struct SaveBackup: Equatable, Sendable, Identifiable {
     }
 }
 
-public enum SaveStoreError: Error, Equatable, LocalizedError {
+public enum SaveStoreError: Error, Equatable {
     case locked
     case invalidVersion
     case tooNew(Int)
     case missingMigration(Int)
     case invalidJSON
     case restartNotAllowed
-
-    public var errorDescription: String? {
-        switch self {
-        case .locked: "存档已锁定，请先恢复存档。"
-        case .invalidVersion: "存档缺少有效的版本号。"
-        case .tooNew(let version): "存档版本为 \(version)，请更新应用。"
-        case .missingMigration(let version): "缺少版本 \(version) 到 \(version + 1) 的迁移。"
-        case .invalidJSON: "存档必须是 JSON 对象。"
-        case .restartNotAllowed: "只有损坏的存档可以重新开始。"
-        }
-    }
 }
 
 /// Owns both save files. No caller can save one while the other needs recovery.
 public final class SaveStore {
     public let directory: URL
-    public private(set) var journey: SaveLoadResult<JourneyState> = .unreadable(reason: "尚未加载存档。")
-    public private(set) var care: SaveLoadResult<CareState> = .unreadable(reason: "尚未加载存档。")
+    public private(set) var journey: SaveLoadResult<JourneyState> = .unreadable(reason: "Save store has not been loaded.")
+    public private(set) var care: SaveLoadResult<CareState> = .unreadable(reason: "Save store has not been loaded.")
     public var isLocked: Bool { !journey.allowsSaving || !care.allowsSaving }
 
     private let now: () -> Date

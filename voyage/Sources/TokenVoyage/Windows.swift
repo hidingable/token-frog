@@ -106,6 +106,7 @@ final class NotchController {
                 }
                 Spacer(minLength: 0)
             }
+            .localized(using: model)
         }
     }
 
@@ -203,7 +204,7 @@ final class FloatingController {
         let visible = NSScreen.main?.visibleFrame ?? .zero
         let panel = makePanel(frame: NSRect(x: visible.maxX - Self.size.width - 24, y: visible.maxY - Self.size.height - 24, width: Self.size.width, height: Self.size.height))
         panel.level = .floating
-        let host = PanelHostView(rootView: FloatingView(model: model))
+        let host = PanelHostView(rootView: FloatingView(model: model).localized(using: model))
         host.draggable = true
         host.onClick = onOpen
         panel.contentView = host
@@ -225,7 +226,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         static let floating = "floatingEnabled"
     }
 
-    private lazy var model = AppModel(isSnapshot: ProcessInfo.processInfo.arguments.contains("--snapshot"))
+    private lazy var model = AppModel(isSnapshot: ProcessInfo.processInfo.arguments.contains("--snapshot"), languageOverride: snapshotLanguage)
+    private var snapshotLanguage: Language?
+    private var l10n: L10n { model.l10n }
     private var statusItem: NSStatusItem?
     private var mainWindow: NSWindow?
     private lazy var notch = NotchController(model: model) { [weak self] in self?.openMain() }
@@ -244,13 +247,24 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         let arguments = ProcessInfo.processInfo.arguments
         if let index = arguments.firstIndex(of: "--snapshot") {
+            if let languageIndex = arguments.firstIndex(of: "--language") {
+                guard arguments.count > languageIndex + 1,
+                      let language = Language(rawValue: arguments[languageIndex + 1]) else {
+                    let l10n = L10n(language: Language.resolve(systemLanguages: Locale.preferredLanguages))
+                    FileHandle.standardError.write(Data(l10n("snapshot.invalidLanguage").utf8))
+                    exit(EXIT_FAILURE)
+                }
+                snapshotLanguage = language
+            }
+            let preference = UserDefaults.standard.string(forKey: "language").flatMap(LanguagePreference.init(rawValue:)) ?? .system
+            let l10n = L10n(language: snapshotLanguage ?? preference.resolve(systemLanguages: Locale.preferredLanguages))
             // Keep this before the first access to the lazy model: no real save directory is touched.
             guard let dataDirectory = ProcessInfo.processInfo.environment["TOKEN_VOYAGE_DATA_DIR"], !dataDirectory.isEmpty else {
-                FileHandle.standardError.write(Data("--snapshot 必须设置 TOKEN_VOYAGE_DATA_DIR。\n".utf8))
+                FileHandle.standardError.write(Data(l10n("snapshot.missingDataDirectory").utf8))
                 exit(EXIT_FAILURE)
             }
-            guard arguments.count > index + 1 else {
-                FileHandle.standardError.write(Data("--snapshot 缺少截图输出目录。\n".utf8))
+            guard arguments.count > index + 1, !arguments[index + 1].hasPrefix("--") else {
+                FileHandle.standardError.write(Data(l10n("snapshot.missingOutput").utf8))
                 exit(EXIT_FAILURE)
             }
             Theme.registerFonts()
@@ -265,6 +279,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
         Theme.registerFonts()
         model.onLockChange = { [weak self] in self?.updateSurfaces() }
+        model.onLanguageChange = { [weak self] in
+            guard let self else { return }
+            rebuildMenu()
+            mainWindow?.title = l10n("app.name")
+            statusItem?.button?.setAccessibilityLabel(l10n("app.name"))
+        }
         setUpStatusItem()
         model.start()
         updateSurfaces()
@@ -286,7 +306,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func setUpStatusItem() {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         item.button?.image = statusImage()
-        item.button?.setAccessibilityLabel("Token Voyage")
+        item.button?.setAccessibilityLabel(l10n("app.name"))
         statusItem = item
         rebuildMenu()
     }
@@ -298,24 +318,34 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func rebuildMenu() {
         let menu = NSMenu()
-        menu.addItem(makeItem("打开旅途", #selector(openMainAction)))
+        menu.addItem(makeItem(l10n("menu.open"), #selector(openMainAction)))
         if !model.isLocked {
-            menu.addItem(makeItem("立即刷新", #selector(refreshAction)))
+            menu.addItem(makeItem(l10n("menu.refresh"), #selector(refreshAction)))
             menu.addItem(.separator())
-            menu.addItem(makeItem("显示刘海", #selector(toggleNotch), checked: notchEnabled))
-            menu.addItem(makeItem("显示浮窗", #selector(toggleFloating), checked: floatingEnabled))
+            menu.addItem(makeItem(l10n("menu.notch"), #selector(toggleNotch), checked: notchEnabled))
+            menu.addItem(makeItem(l10n("menu.floating"), #selector(toggleFloating), checked: floatingEnabled))
             let petMenu = NSMenu()
             for pet in PetKind.allCases {
                 let item = makeItem(pet.displayName, #selector(selectPet(_:)), checked: model.state.pet == pet)
                 item.representedObject = pet.rawValue
                 petMenu.addItem(item)
             }
-            let petItem = NSMenuItem(title: "角色", action: nil, keyEquivalent: "")
+            let petItem = NSMenuItem(title: l10n("menu.pet"), action: nil, keyEquivalent: "")
             petItem.submenu = petMenu
             menu.addItem(petItem)
             menu.addItem(.separator())
         }
-        let quit = NSMenuItem(title: "退出", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        let languageMenu = NSMenu()
+        for preference in LanguagePreference.allCases {
+            let item = makeItem(l10n(L10n.languageKeys[preference]!), #selector(selectLanguage(_:)), checked: model.languagePreference == preference)
+            item.representedObject = preference.rawValue
+            languageMenu.addItem(item)
+        }
+        let languageItem = NSMenuItem(title: l10n("menu.language"), action: nil, keyEquivalent: "")
+        languageItem.submenu = languageMenu
+        menu.addItem(languageItem)
+        menu.addItem(.separator())
+        let quit = NSMenuItem(title: l10n("action.quit"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         menu.addItem(quit)
         statusItem?.menu = menu
     }
@@ -342,6 +372,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         rebuildMenu()
     }
 
+    @objc private func selectLanguage(_ sender: NSMenuItem) {
+        guard let raw = sender.representedObject as? String, let preference = LanguagePreference(rawValue: raw) else { return }
+        model.languagePreference = preference
+    }
+
     @objc private func selectPet(_ sender: NSMenuItem) {
         guard let raw = sender.representedObject as? String, let pet = PetKind(rawValue: raw) else { return }
         model.setPet(pet)
@@ -356,13 +391,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 styleMask: [.titled, .closable, .miniaturizable, .resizable],
                 backing: .buffered, defer: false
             )
-            window.title = "Token Voyage"
+            window.title = l10n("app.name")
             window.isReleasedWhenClosed = false
             window.backgroundColor = NSColor(Theme.ink)
             window.minSize = NSSize(width: 760, height: 520)
             window.contentView = NSHostingView(rootView: SaveAwareMainView(model: model, onImport: { [weak self] file in
                 self?.importBackup(for: file)
-            }))
+            }).localized(using: model))
             window.center()
             mainWindow = window
         }
@@ -372,7 +407,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func importBackup(for file: SaveFile) {
         let panel = NSOpenPanel()
-        panel.title = "选择 \(file.rawValue) 的备份"
+        panel.title = l10n("backup.choose", file.rawValue)
         panel.canChooseDirectories = false
         panel.allowsMultipleSelection = false
         guard panel.runModal() == .OK, let url = panel.url else { return }
@@ -404,34 +439,35 @@ enum Snapshots {
     static func write(model: AppModel, to directory: URL) {
         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let metrics = NotchMetrics(notchWidth: 180, barHeight: 37)
-        render(MainView(model: model, tab: .journey), size: CGSize(width: 760, height: 780), name: "main-journey", directory)
-        render(MainView(model: model, tab: .mail), size: CGSize(width: 760, height: 780), name: "main-mail", directory)
-        render(MainView(model: model, tab: .passport), size: CGSize(width: 760, height: 400), name: "main-passport", directory)
-        render(MainView(model: model, tab: .dashboard, dashboard: DashboardSelection(period: .month)), size: CGSize(width: 940, height: 1240), name: "dashboard-month", directory)
-        render(MainView(model: model, tab: .dashboard, dashboard: DashboardSelection(period: .all, client: "codex")), size: CGSize(width: 940, height: 1240), name: "dashboard-all-codex", directory)
-        render(MainView(model: model, tab: .dashboard, dashboard: DashboardSelection(period: .today)), size: CGSize(width: 760, height: 1240), name: "dashboard-today-narrow", directory)
+        render(MainView(model: model, tab: .journey), size: CGSize(width: 760, height: 780), name: "main-journey", directory, model: model)
+        render(MainView(model: model, tab: .mail), size: CGSize(width: 760, height: 780), name: "main-mail", directory, model: model)
+        render(MainView(model: model, tab: .passport), size: CGSize(width: 760, height: 400), name: "main-passport", directory, model: model)
+        render(MainView(model: model, tab: .dashboard, dashboard: DashboardSelection(period: .month)), size: CGSize(width: 940, height: 1240), name: "dashboard-month", directory, model: model)
+        render(MainView(model: model, tab: .dashboard, dashboard: DashboardSelection(period: .all, client: "codex")), size: CGSize(width: 940, height: 1240), name: "dashboard-all-codex", directory, model: model)
+        render(MainView(model: model, tab: .dashboard, dashboard: DashboardSelection(period: .today)), size: CGSize(width: 760, height: 1240), name: "dashboard-today-narrow", directory, model: model)
         if let peak = model.dashboardDays.map({ UsageDashboard(days: $0, start: nil, end: DayKey.string(from: model.now)) })?.peak {
-            render(MainView(model: model, tab: .dashboard, dashboard: DashboardSelection(day: peak.date, metric: .fuel, showModels: true)), size: CGSize(width: 940, height: 1240), name: "dashboard-peak-day", directory)
+            render(MainView(model: model, tab: .dashboard, dashboard: DashboardSelection(day: peak.date, metric: .fuel, showModels: true)), size: CGSize(width: 940, height: 1240), name: "dashboard-peak-day", directory, model: model)
         }
-        render(MainView(model: model, tab: .quota), size: CGSize(width: 760, height: 420), name: "main-quota", directory)
-        render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-collapsed", directory)
-        render(NotchExpandedView(model: model, metrics: metrics), size: metrics.expandedSize, name: "notch-expanded", directory)
-        render(FloatingView(model: model), size: FloatingController.size, name: "floating", directory)
+        render(MainView(model: model, tab: .quota), size: CGSize(width: 760, height: 420), name: "main-quota", directory, model: model)
+        render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-collapsed", directory, model: model)
+        render(NotchExpandedView(model: model, metrics: metrics), size: metrics.expandedSize, name: "notch-expanded", directory, model: model)
+        render(FloatingView(model: model), size: FloatingController.size, name: "floating", directory, model: model)
         // These examples are in memory only and never enter the SaveStore.
-        let quarantinedPath = "/示例/backups/journey.json.v1.2026-11-06.corrupted.json"
-        let exampleBackup = SaveBackup(file: .journey, url: URL(fileURLWithPath: "/示例/backups/journey.json.v1.2026-11-05.migration.json"))
+        let exampleDirectory = model.l10n("snapshot.exampleDirectory")
+        let quarantinedPath = "\(exampleDirectory)/backups/journey.json.v1.2026-11-06.corrupted.json"
+        let exampleBackup = SaveBackup(file: .journey, url: URL(fileURLWithPath: "\(exampleDirectory)/backups/journey.json.v1.2026-11-05.migration.json"))
         render(SaveRecoveryView(
             issues: [SaveRecoveryIssue(file: .journey, problem: .corrupted(backupPath: quarantinedPath), backups: [exampleBackup])],
             onRestore: { _ in }, onImport: { _ in }, onRestart: { _ in }, onRetry: {}, onQuit: {}
-        ), size: CGSize(width: 760, height: 620), name: "save-recovery-corrupted", directory)
+        ), size: CGSize(width: 760, height: 620), name: "save-recovery-corrupted", directory, model: model)
         render(SaveRecoveryView(
             issues: [SaveRecoveryIssue(file: .journey, problem: .tooNew(version: 2))],
             onRestore: { _ in }, onImport: { _ in }, onRestart: { _ in }, onRetry: {}, onQuit: {}
-        ), size: CGSize(width: 760, height: 420), name: "save-recovery-too-new", directory)
+        ), size: CGSize(width: 760, height: 420), name: "save-recovery-too-new", directory, model: model)
     }
 
-    private static func render<Content: View>(_ view: Content, size: CGSize, name: String, _ directory: URL) {
-        let hosting = NSHostingView(rootView: view)
+    private static func render<Content: View>(_ view: Content, size: CGSize, name: String, _ directory: URL, model: AppModel) {
+        let hosting = NSHostingView(rootView: view.localized(using: model))
         hosting.frame = CGRect(origin: .zero, size: size)
         let window = NSWindow(contentRect: hosting.frame, styleMask: [.borderless], backing: .buffered, defer: false)
         window.backgroundColor = .darkGray

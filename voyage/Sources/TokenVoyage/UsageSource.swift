@@ -1,18 +1,10 @@
 import Foundation
 import VoyageCore
 
-enum UsageError: Error, CustomStringConvertible {
+enum UsageError: Error {
     case missingBinary
     case failed(Int32)
     case timedOut
-
-    var description: String {
-        switch self {
-        case .missingBinary: "找不到 tokscale"
-        case .failed(let status): "tokscale 退出码 \(status)"
-        case .timedOut: "tokscale 超时"
-        }
-    }
 }
 
 /// Runs `tokscale graph` for a date range. Offline and low priority; the caller keeps scans serial.

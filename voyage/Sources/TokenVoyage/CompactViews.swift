@@ -24,9 +24,10 @@ struct SteppedBottom: Shape {
 }
 
 struct MailBadge: View {
+    @Environment(\.l10n) private var l10n
     var count: Int
     var body: some View {
-        Text("信 \(count)")
+        Text(l10n("compact.mail", Format.grouped(count)))
             .font(Theme.pixel())
             .foregroundStyle(Theme.ink)
             .padding(.horizontal, 4)
@@ -35,6 +36,7 @@ struct MailBadge: View {
 }
 
 struct NotchCollapsedView: View {
+    @Environment(\.l10n) private var l10n
     let model: AppModel
     var metrics: NotchMetrics
 
@@ -48,7 +50,7 @@ struct NotchCollapsedView: View {
             .frame(width: metrics.shoulderWidth, alignment: .center)
             Color.clear.frame(width: metrics.notchWidth)
             HStack(spacing: 6) {
-                Text("→ \(model.state.target.name)")
+                Text(l10n("compact.destination", model.state.target.name))
                     .font(Theme.pixel())
                     .foregroundStyle(Theme.paper)
                     .lineLimit(1)
@@ -62,17 +64,18 @@ struct NotchCollapsedView: View {
 }
 
 struct NotchExpandedView: View {
+    @Environment(\.l10n) private var l10n
     let model: AppModel
     var metrics: NotchMetrics
 
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                Text(model.state.pet.displayName)
+                Text(model.petName)
                     .frame(width: metrics.shoulderWidth + (metrics.expandedSize.width - metrics.collapsedSize.width) / 2)
                 Color.clear.frame(width: metrics.notchWidth)
                 Group {
-                    if model.unread > 0 { MailBadge(count: model.unread) } else { Text("点击打开") }
+                    if model.unread > 0 { MailBadge(count: model.unread) } else { Text(l10n("compact.open")) }
                 }
                 .frame(width: metrics.shoulderWidth + (metrics.expandedSize.width - metrics.collapsedSize.width) / 2)
             }
@@ -86,21 +89,21 @@ struct NotchExpandedView: View {
                     Text(Format.km(fuel: model.todayFuel))
                         .font(Theme.pixel(24))
                         .foregroundStyle(Theme.amber)
-                    Text("计入里程 \(Format.tokens(model.todayFuel)) token")
+                    Text(l10n("compact.fuel", l10n.tokens(model.todayFuel)))
                     if let totals = model.todayTotals {
-                        Text("总量 \(Format.tokens(totals.total)) · \(Format.cost(totals.cost))")
+                        Text(l10n("compact.total", Format.tokens(totals.total, language: l10n.language), Format.cost(totals.cost)))
                             .foregroundStyle(Theme.dusk)
                     }
-                    Text("\(model.state.current.name) → \(model.state.target.name)")
+                    Text(l10n("journey.route", model.state.current.name, model.state.target.name))
                     BlockProgress(progress: model.state.legProgress, blocks: 12, size: 6)
-                    Text("还差 \(Format.km(fuel: model.state.remainingFuel))")
+                    Text(l10n("journey.remaining", Format.km(fuel: model.state.remainingFuel)))
                         .foregroundStyle(Theme.dusk)
                     if let tight = model.tightestQuota {
-                        Text("\(tight.provider) \(QuotaReport.metricName(tight.metric.label))额度剩 \(Int(tight.metric.remainingPercent.rounded()))%")
+                        Text(l10n("compact.quota", tight.provider, l10n.quotaMetric(tight.metric.label), Format.grouped(Int(tight.metric.remainingPercent.rounded()))))
                             .foregroundStyle(QuotaTab.isLow(tight.metric) ? Theme.coral : Theme.dusk)
                     } else {
                         ForEach(model.todayVehicles.prefix(1), id: \.client) { share in
-                            Text("\(Vehicle.name(share.client)) \(share.percent)%")
+                            Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
                                 .foregroundStyle(Theme.dusk)
                         }
                     }
@@ -120,6 +123,7 @@ struct NotchExpandedView: View {
 }
 
 struct FloatingView: View {
+    @Environment(\.l10n) private var l10n
     let model: AppModel
 
     var body: some View {
@@ -129,7 +133,7 @@ struct FloatingView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(Format.km(fuel: model.todayFuel)).foregroundStyle(Theme.amber)
                 HStack(spacing: 4) {
-                    Text("→ \(model.state.target.name)")
+                    Text(l10n("compact.destination", model.state.target.name))
                         .foregroundStyle(Theme.paper)
                         .lineLimit(1)
                     if model.unread > 0 { Rectangle().fill(Theme.red).frame(width: 6, height: 6) }

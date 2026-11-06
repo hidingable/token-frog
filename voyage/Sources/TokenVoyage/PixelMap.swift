@@ -52,6 +52,7 @@ enum PixelMap {
 }
 
 struct PixelMapView: View {
+    @Environment(\.l10n) private var l10n
     var state: JourneyState
     var scale: CGFloat
 
@@ -60,6 +61,6 @@ struct PixelMapView: View {
             .interpolation(.none)
             .resizable()
             .frame(width: CGFloat(WorldMapData.width) * scale, height: CGFloat(WorldMapData.height) * scale)
-            .accessibilityLabel("世界地图，宠物正从\(state.current.name)前往\(state.target.name)")
+            .accessibilityLabel(l10n("map.description", state.current.name, state.target.name))
     }
 }

@@ -2,12 +2,13 @@ import AppKit
 import SwiftUI
 import VoyageCore
 
-enum MainTab: String, CaseIterable, Identifiable {
-    case journey = "旅途", mail = "信箱", passport = "护照", dashboard = "看板", quota = "额度"
+enum MainTab: String, CaseIterable, Identifiable, Sendable {
+    case journey, mail, passport, dashboard, quota
     var id: String { rawValue }
 }
 
 struct MainView: View {
+    @Environment(\.l10n) private var l10n
     let model: AppModel
     @State var tab: MainTab = .journey
     @State var dashboard = DashboardSelection()
@@ -18,7 +19,7 @@ struct MainView: View {
                 ForEach(MainTab.allCases) { item in
                     Button { tab = item } label: {
                         HStack(spacing: 4) {
-                            Text(item.rawValue)
+                            Text(l10n.tab(item))
                             if item == .mail, model.unread > 0 { Rectangle().fill(Theme.red).frame(width: 6, height: 6) }
                         }
                         .font(Theme.pixel())
@@ -31,16 +32,16 @@ struct MainView: View {
                 }
                 Spacer()
                 if let error = model.lastError {
-                    Text(error).font(Theme.pixel()).foregroundStyle(Theme.red).lineLimit(1)
+                    Text(l10n.error(error)).font(Theme.pixel()).foregroundStyle(Theme.red).lineLimit(1)
                 } else if let scan = model.lastScan {
-                    Text("更新于 \(scan.formatted(date: .omitted, time: .shortened))")
+                    Text(l10n("status.updated", l10n.time(scan)))
                         .font(Theme.pixel()).foregroundStyle(Theme.dusk)
                 }
                 Button {
                     model.scheduleScan(immediately: true)
                     if tab == .quota { Task { await model.loadQuotas(force: true) } }
                 } label: {
-                    Text("刷新").font(Theme.pixel()).foregroundStyle(Theme.paper)
+                    Text(l10n("action.refresh")).font(Theme.pixel()).foregroundStyle(Theme.paper)
                         .padding(.horizontal, 8).padding(.vertical, 6).background(Theme.inkRaised)
                 }
                 .buttonStyle(.plain)
@@ -61,6 +62,7 @@ struct MainView: View {
 }
 
 struct JourneyTab: View {
+    @Environment(\.l10n) private var l10n
     let model: AppModel
 
     var body: some View {
@@ -73,14 +75,14 @@ struct JourneyTab: View {
                     .pixelBorder(Theme.dusk)
                 VStack(alignment: .leading, spacing: 4) {
                     Text(Format.km(fuel: model.todayFuel)).font(Theme.pixel(24)).foregroundStyle(Theme.amber)
-                    Text("今天计入里程 \(Format.tokens(model.todayFuel)) token").font(Theme.pixel()).foregroundStyle(Theme.paper)
-                    Text("累计 \(Format.km(fuel: state.totalFuel)) · 1 万 token = 1 km")
+                    Text(l10n("journey.todayFuel", l10n.tokens(model.todayFuel))).font(Theme.pixel()).foregroundStyle(Theme.paper)
+                    Text(l10n("journey.total", Format.km(fuel: state.totalFuel)))
                         .font(Theme.pixel()).foregroundStyle(Theme.dusk)
                 }
                 Spacer()
                 VStack(alignment: .trailing, spacing: 4) {
                     ForEach(model.todayVehicles, id: \.client) { share in
-                        Text("\(Vehicle.name(share.client)) \(share.percent)%")
+                        Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
                     }
                 }
                 .font(Theme.pixel())
@@ -90,22 +92,22 @@ struct JourneyTab: View {
             PixelMapView(state: state, scale: 6).pixelBorder(Theme.dusk).frame(maxWidth: .infinity)
 
             HStack(spacing: 12) {
-                Text("\(state.current.name) → \(state.target.name)").foregroundStyle(Theme.paper)
+                Text(l10n("journey.route", state.current.name, state.target.name)).foregroundStyle(Theme.paper)
                 BlockProgress(progress: state.legProgress, blocks: 20, size: 8)
                 Spacer()
-                Text("还差 \(Format.km(fuel: state.remainingFuel))").foregroundStyle(Theme.dusk)
+                Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel))).foregroundStyle(Theme.dusk)
             }
             .font(Theme.pixel())
 
             if model.canChangeStart {
                 HStack(spacing: 8) {
-                    Text("起点").font(Theme.pixel()).foregroundStyle(Theme.dusk)
-                    Picker("起点", selection: Binding(get: { state.route[0] }, set: { model.setStart($0) })) {
-                        ForEach(City.all) { Text("\($0.name)（\($0.country)）").tag($0.id) }
+                    Text(l10n("journey.start")).font(Theme.pixel()).foregroundStyle(Theme.dusk)
+                    Picker(l10n("journey.start"), selection: Binding(get: { state.route[0] }, set: { model.setStart($0) })) {
+                        ForEach(City.all) { Text(l10n("city.country", $0.name, $0.country)).tag($0.id) }
                     }
                     .labelsHidden()
-                    .frame(width: 220)
-                    Text("今天内可以更改").font(Theme.pixel()).foregroundStyle(Theme.dusk)
+                    .fixedSize()
+                    Text(l10n("journey.changeStart")).font(Theme.pixel()).foregroundStyle(Theme.dusk)
                 }
             }
 
@@ -116,6 +118,7 @@ struct JourneyTab: View {
 }
 
 struct RecentBars: View {
+    @Environment(\.l10n) private var l10n
     var days: [(date: String, fuel: Int)]
 
     var body: some View {
@@ -127,7 +130,7 @@ struct RecentBars: View {
                     Rectangle()
                         .fill(day.date == days.last?.date ? Theme.amber : Theme.dusk)
                         .frame(height: max(2, (CGFloat(day.fuel) / CGFloat(top) * 48).rounded()))
-                    Text(String(day.date.suffix(5))).foregroundStyle(Theme.dusk)
+                    Text(l10n.day(day.date)).foregroundStyle(Theme.dusk)
                 }
                 .frame(maxWidth: .infinity)
             }
@@ -138,11 +141,12 @@ struct RecentBars: View {
 }
 
 struct DestinationCards: View {
+    @Environment(\.l10n) private var l10n
     let model: AppModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("到\(model.state.target.name)之后去哪？不选就交给\(model.state.pet.displayName)决定")
+            Text(l10n("destination.prompt", model.state.target.name, model.petName))
                 .font(Theme.pixel())
                 .foregroundStyle(Theme.paper)
             HStack(alignment: .top, spacing: 8) {
@@ -154,8 +158,8 @@ struct DestinationCards: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(card.city.name).font(Theme.pixel(24))
                             Text(card.city.country)
-                            Text("约 \(Format.km(fuel: card.distanceFuel))").foregroundStyle(Theme.sea)
-                            Text("约 \(Format.tokens(card.distanceFuel)) token")
+                            Text(l10n("destination.distance", Format.km(fuel: card.distanceFuel))).foregroundStyle(Theme.sea)
+                            Text(l10n("destination.tokens", l10n.tokens(card.distanceFuel)))
                             Text(reasonText(card.reason)).foregroundStyle(Theme.brown)
                         }
                         .font(Theme.pixel())
@@ -173,14 +177,15 @@ struct DestinationCards: View {
 
     private func reasonText(_ reason: DestinationCard.Reason) -> String {
         switch reason {
-        case .nearest: "轻松到"
-        case .reachable: "够得着"
-        case .newCountry: "新地方：可盖新章"
+        case .nearest: l10n("destination.nearest")
+        case .reachable: l10n("destination.reachable")
+        case .newCountry: l10n("destination.newCountry")
         }
     }
 }
 
 struct MailTab: View {
+    @Environment(\.l10n) private var l10n
     let model: AppModel
     @State private var selectedId: Int?
 
@@ -195,8 +200,8 @@ struct MailTab: View {
                             HStack(spacing: 6) {
                                 Rectangle().fill(letter.read ? Color.clear : Theme.red).frame(width: 6, height: 6)
                                 VStack(alignment: .leading, spacing: 2) {
-                                    Text(LetterComposer.text(for: letter).title).lineLimit(1)
-                                    Text(letter.date).foregroundStyle(Theme.dusk)
+                                    Text(LetterComposer.text(for: letter, l10n: l10n, petName: model.petName).title).lineLimit(1)
+                                    Text(l10n.day(letter.date, full: true)).foregroundStyle(Theme.dusk)
                                 }
                                 Spacer(minLength: 0)
                             }
@@ -210,17 +215,17 @@ struct MailTab: View {
                 }
                 .padding(.horizontal, 8)
             }
-            .frame(width: 190)
+            .frame(minWidth: 160, idealWidth: 190, maxWidth: 240)
 
             ScrollView {
                 if let selected {
-                    LetterView(letter: selected, photoURL: model.photoURL(selected))
+                    LetterView(letter: selected, photoURL: model.photoURL(selected), petName: model.petName)
                         .padding(.horizontal, 12)
                         .padding(.bottom, 12)
                         .onAppear { model.markRead(selected) }
                         .onChange(of: selected.id) { model.markRead(selected) }
                 } else {
-                    Text("第一封信还在路上").font(Theme.pixel()).foregroundStyle(Theme.dusk).padding()
+                    Text(l10n("mail.empty")).font(Theme.pixel()).foregroundStyle(Theme.dusk).padding()
                 }
             }
         }
@@ -228,38 +233,41 @@ struct MailTab: View {
 }
 
 struct LetterView: View {
+    @Environment(\.l10n) private var l10n
     var letter: Letter
     var photoURL: URL?
+    var petName: String
 
     var body: some View {
-        let text = LetterComposer.text(for: letter)
+        let text = LetterComposer.text(for: letter, l10n: l10n, petName: petName)
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top) {
                 Text(text.title).font(Theme.pixel(24))
                 Spacer()
-                Text(letter.date).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                Text(l10n.day(letter.date, full: true)).font(Theme.pixel()).foregroundStyle(Theme.brown)
             }
             if let photoURL, let image = NSImage(contentsOf: photoURL) {
                 Image(nsImage: image)
                     .interpolation(.none)
                     .resizable()
-                    .frame(width: 480, height: 240)
+                    .aspectRatio(2, contentMode: .fit)
+                    .frame(maxWidth: 480)
                     .pixelBorder()
-                    .accessibilityLabel("\(letter.placeTitle ?? "当地")的像素风照片")
+                    .accessibilityLabel(l10n("letter.photo", letter.placeTitle ?? l10n("letter.localPlace")))
             }
             Text(text.voice).font(.system(size: 14)).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
             Text(text.signature).font(Theme.pixel()).frame(maxWidth: .infinity, alignment: .trailing)
 
             if letter.weather != nil || letter.placeSummary != nil {
                 divider
-                Text("今日见闻").font(Theme.pixel()).foregroundStyle(Theme.brown)
+                Text(l10n("letter.sights")).font(Theme.pixel()).foregroundStyle(Theme.brown)
                 if let weather = letter.weather {
-                    Text("\(weather) · Open-Meteo").font(.system(size: 13))
+                    Text(l10n("letter.weatherSource", weather)).font(.system(size: 13))
                 }
                 if let summary = letter.placeSummary {
                     Text(summary).font(.system(size: 13)).lineSpacing(3).fixedSize(horizontal: false, vertical: true)
                     if let page = letter.placeURL, let url = URL(string: page) {
-                        Link("来源：Wikipedia · \(letter.placeTitle ?? "")", destination: url)
+                        Link(l10n("letter.source", letter.placeTitle ?? ""), destination: url)
                             .font(.system(size: 12))
                             .foregroundStyle(Theme.sea)
                     }
@@ -267,7 +275,7 @@ struct LetterView: View {
             }
 
             divider
-            Text("行程单").font(Theme.pixel()).foregroundStyle(Theme.brown)
+            Text(l10n("letter.itinerary")).font(Theme.pixel()).foregroundStyle(Theme.brown)
             ForEach(text.itinerary, id: \.self) { Text($0).font(Theme.pixel()) }
         }
         .foregroundStyle(Theme.ink)
@@ -283,14 +291,15 @@ struct LetterView: View {
 }
 
 struct PassportTab: View {
+    @Environment(\.l10n) private var l10n
     let model: AppModel
 
     var body: some View {
         let state = model.state
         let laps = Double(state.totalFuel) / Double(fuelPerKm) / 40_075
         VStack(alignment: .leading, spacing: 12) {
-            Text("\(state.stamps.count) 个国家和地区 · \(Set(state.route).count) 座城市").font(Theme.pixel(24)).foregroundStyle(Theme.amber)
-            Text("累计 \(Format.km(fuel: state.totalFuel)) · 绕地球 \(String(format: "%.2f", laps)) 圈 · 从 \(state.startDate) 出发")
+            Text(l10n("passport.counts", Format.grouped(state.stamps.count), Format.grouped(Set(state.route).count))).font(Theme.pixel(24)).foregroundStyle(Theme.amber)
+            Text(l10n("passport.summary", Format.km(fuel: state.totalFuel), l10n.decimal(laps, places: 2), l10n.day(state.startDate, full: true)))
                 .font(Theme.pixel())
                 .foregroundStyle(Theme.dusk)
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 4), spacing: 8) {
@@ -298,7 +307,7 @@ struct PassportTab: View {
                     VStack(spacing: 4) {
                         Text(stamp.country).font(Theme.pixel())
                         Text(City.find(stamp.cityId)?.name ?? "").font(Theme.pixel()).foregroundStyle(Theme.brown)
-                        Text(String(stamp.date.suffix(5))).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                        Text(l10n.day(stamp.date)).font(Theme.pixel()).foregroundStyle(Theme.brown)
                     }
                     .foregroundStyle(Theme.ink)
                     .frame(maxWidth: .infinity)
@@ -313,6 +322,7 @@ struct PassportTab: View {
 }
 
 struct QuotaTab: View {
+    @Environment(\.l10n) private var l10n
     let model: AppModel
 
     static func isLow(_ metric: ProviderQuota.Metric) -> Bool { metric.remainingPercent < 20 }
@@ -320,10 +330,10 @@ struct QuotaTab: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             if let error = model.quotaError {
-                Text("额度读取失败：\(error)").foregroundStyle(Theme.coral)
+                Text(l10n("quota.failed", l10n.error(error))).foregroundStyle(Theme.coral)
             }
             if model.quotas.isEmpty, model.quotaError == nil {
-                Text(model.quotasLoadedAt == nil ? "正在读取额度……" : "tokscale 没有读到任何工具的额度")
+                Text(model.quotasLoadedAt == nil ? l10n("quota.loading") : l10n("quota.empty"))
                     .foregroundStyle(Theme.dusk)
             }
             ForEach(model.quotas) { quota in
@@ -333,21 +343,21 @@ struct QuotaTab: View {
                         if let plan = quota.plan { Text(plan).foregroundStyle(Theme.dusk) }
                         Spacer()
                         if quota.resetCredits > 0 {
-                            Text("重置券 \(quota.resetCredits) 张").foregroundStyle(Theme.dusk)
+                            Text(l10n("quota.resetCredits", Format.grouped(quota.resetCredits))).foregroundStyle(Theme.dusk)
                         }
                     }
                     ForEach(quota.metrics) { metric in
                         metricRow(metric)
                     }
                     if quota.metrics.isEmpty {
-                        Text("没有额度窗口").foregroundStyle(Theme.dusk)
+                        Text(l10n("quota.noWindows")).foregroundStyle(Theme.dusk)
                     }
                 }
                 .padding(8)
                 .background(Theme.inkRaised)
             }
             if let loaded = model.quotasLoadedAt {
-                Text("读取于 \(loaded.formatted(date: .omitted, time: .shortened)) · 每 10 分钟刷新 · 只显示 tokscale 能读到的工具")
+                Text(l10n("quota.updated", l10n.time(loaded)))
                     .foregroundStyle(Theme.dusk)
             }
         }
@@ -359,7 +369,7 @@ struct QuotaTab: View {
     private func metricRow(_ metric: ProviderQuota.Metric) -> some View {
         let low = Self.isLow(metric)
         return HStack(spacing: 8) {
-            Text(QuotaReport.metricName(metric.label)).foregroundStyle(Theme.paper).frame(width: 72, alignment: .leading)
+            Text(l10n.quotaMetric(metric.label)).foregroundStyle(Theme.paper).fixedSize(horizontal: false, vertical: true)
             GeometryReader { proxy in
                 ZStack(alignment: .leading) {
                     Rectangle().fill(Theme.blockOff)
@@ -368,13 +378,13 @@ struct QuotaTab: View {
                 }
             }
             .frame(height: 8)
-            Text("剩 \(Int(metric.remainingPercent.rounded()))%")
+            Text(l10n("quota.remaining", Format.grouped(Int(metric.remainingPercent.rounded()))))
                 .foregroundStyle(low ? Theme.coral : Theme.paper)
-                .frame(width: 56, alignment: .trailing)
-            Text(metric.remainingLabel ?? "").foregroundStyle(Theme.dusk).frame(width: 96, alignment: .trailing)
-            Text(metric.resetsAt.map { QuotaReport.resetDescription($0, now: model.now) } ?? "")
+                .fixedSize(horizontal: false, vertical: true)
+            Text(metric.remainingLabel ?? "").foregroundStyle(Theme.dusk).fixedSize(horizontal: false, vertical: true)
+            Text(metric.resetsAt.map { l10n.reset(QuotaReport.resetDescription($0, now: model.now)) } ?? "")
                 .foregroundStyle(Theme.dusk)
-                .frame(width: 140, alignment: .trailing)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }

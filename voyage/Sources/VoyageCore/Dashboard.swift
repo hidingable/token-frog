@@ -1,7 +1,7 @@
 import Foundation
 
 public enum DashboardMetric: String, CaseIterable, Identifiable, Sendable {
-    case total = "总量", fuel = "里程", cost = "费用", messages = "消息"
+    case total, fuel, cost, messages
     public var id: String { rawValue }
 
     public func value(_ tokens: UsageTotals) -> Double {
@@ -13,9 +13,9 @@ public enum DashboardMetric: String, CaseIterable, Identifiable, Sendable {
         }
     }
 
-    public func format(_ value: Double) -> String {
+    public func format(_ value: Double, language: Language) -> String {
         switch self {
-        case .total: Format.tokens(Int(value.rounded()))
+        case .total: Format.tokens(Int(value.rounded()), language: language)
         case .fuel: Format.km(fuel: Int(value.rounded()))
         case .cost: Format.cost(value)
         case .messages: Format.grouped(Int(value.rounded()))
@@ -67,7 +67,7 @@ public struct HeatCell: Equatable, Sendable, Identifiable {
 
 /// Derives everything the dashboard shows from daily detail. Display-only: nothing here reaches the journey.
 public struct UsageDashboard: Sendable {
-    public static let otherSeries = "其他"
+    public static let otherSeries = "\u{0}voyage.other"
 
     public let start: String
     public let end: String
@@ -151,7 +151,7 @@ public struct UsageDashboard: Sendable {
         return before > 0 ? (metric.value(ledger.totals) / before - 1) * 100 : nil
     }
 
-    /// Daily up to 90 days, then Monday-based weeks. Clients outside `series` fold into "其他".
+    /// Daily up to 90 days, then Monday-based weeks. Clients outside `series` fold into `otherSeries`.
     public func trend(_ metric: DashboardMetric, series: [String]) -> [TrendBucket] {
         let weekly = calendarDays > 90
         var buckets: [TrendBucket] = []

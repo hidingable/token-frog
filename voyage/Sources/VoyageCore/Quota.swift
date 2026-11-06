@@ -18,6 +18,15 @@ public struct ProviderQuota: Equatable, Sendable, Identifiable {
 }
 
 public enum QuotaReport {
+    public enum ResetDescription: Equatable, Sendable {
+        case soon
+        case minutes(Int)
+        case hours(Int)
+        case daysHours(Int, Int)
+        case date(String)
+        case raw(String)
+    }
+
     private struct Row: Decodable {
         struct RowMetric: Decodable {
             let label: String
@@ -56,24 +65,17 @@ public enum QuotaReport {
             .min { $0.metric.remainingPercent < $1.metric.remainingPercent }
     }
 
-    public static func metricName(_ label: String) -> String {
-        [
-            "Weekly": "每周", "Daily": "每日", "Monthly": "每月", "Session": "当前会话",
-            "Chat": "聊天", "Completions": "补全", "Premium": "高级请求",
-        ][label] ?? label
-    }
-
     /// `resets_at` is either a full timestamp or a plain date, depending on the provider.
-    public static func resetDescription(_ value: String, now: Date, calendar: Calendar = .current) -> String {
+    public static func resetDescription(_ value: String, now: Date, calendar: Calendar = .current) -> ResetDescription {
         let fractional = ISO8601DateFormatter()
         fractional.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         if let date = ISO8601DateFormatter().date(from: value) ?? fractional.date(from: value) {
             let minutes = Int(date.timeIntervalSince(now) / 60)
-            if minutes <= 0 { return "即将重置" }
-            if minutes < 60 { return "\(minutes) 分钟后重置" }
-            if minutes < 1440 { return "\(minutes / 60) 小时后重置" }
-            return "\(minutes / 1440) 天 \(minutes % 1440 / 60) 小时后重置"
+            if minutes <= 0 { return .soon }
+            if minutes < 60 { return .minutes(minutes) }
+            if minutes < 1440 { return .hours(minutes / 60) }
+            return .daysHours(minutes / 1440, minutes % 1440 / 60)
         }
-        return DayKey.date(from: value, calendar: calendar) == nil ? value : "\(value) 重置"
+        return DayKey.date(from: value, calendar: calendar) == nil ? .raw(value) : .date(value)
     }
 }

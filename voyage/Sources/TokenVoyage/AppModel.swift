@@ -9,7 +9,7 @@ final class AppModel {
     private(set) var state: JourneyState
     private(set) var now = Date()
     private(set) var lastScan: Date?
-    private(set) var lastError: String?
+    private(set) var lastError: (any Error)?
     private(set) var isMoving = false
     /// Display-only daily fuel for the trend bars. Days before the journey started never add mileage.
     private(set) var history: [String: Int] = [:]
@@ -18,11 +18,23 @@ final class AppModel {
     private(set) var dashboardDays: [DayDetail]?
     private(set) var quotas: [ProviderQuota] = []
     private(set) var quotasLoadedAt: Date?
-    private(set) var quotaError: String?
+    private(set) var quotaError: (any Error)?
     private(set) var isLocked: Bool
     private(set) var recoveryIssues: [SaveRecoveryIssue] = []
-    private(set) var recoveryError: String?
+    private(set) var recoveryError: AppError?
+    private(set) var care: CareState?
     @ObservationIgnored var onLockChange: (() -> Void)?
+    @ObservationIgnored var onLanguageChange: (() -> Void)?
+    var languagePreference: LanguagePreference {
+        didSet {
+            if !isSnapshot { defaults.set(languagePreference.rawValue, forKey: "language") }
+            onLanguageChange?()
+        }
+    }
+    private let defaults: UserDefaults
+    private let languageOverride: Language?
+    var l10n: L10n { L10n(language: languageOverride ?? languagePreference.resolve(systemLanguages: Locale.preferredLanguages)) }
+    var petName: String { care?.petName ?? state.pet.displayName }
 
     private let dataDirectory: URL
     private let store: SaveStore
@@ -52,9 +64,14 @@ final class AppModel {
     /// Quotas hit provider APIs, so they refresh on a fixed clock and never because tokens were used.
     private static let quotaInterval: TimeInterval = 600
 
-    init(isSnapshot: Bool = false) {
+    init(isSnapshot: Bool = false, languageOverride: Language? = nil, defaults: UserDefaults = .standard, directory: URL? = nil) {
         self.isSnapshot = isSnapshot
-        if let override = ProcessInfo.processInfo.environment["TOKEN_VOYAGE_DATA_DIR"] {
+        self.languageOverride = languageOverride
+        self.defaults = defaults
+        languagePreference = defaults.string(forKey: "language").flatMap(LanguagePreference.init(rawValue:)) ?? .system
+        if let directory {
+            dataDirectory = directory
+        } else if let override = ProcessInfo.processInfo.environment["TOKEN_VOYAGE_DATA_DIR"] {
             dataDirectory = URL(fileURLWithPath: override)
         } else {
             dataDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
@@ -197,7 +214,7 @@ final class AppModel {
             if !isSnapshot { await enrichLatest() }
         } catch {
             lastScan = date
-            lastError = String(describing: error)
+            lastError = error
         }
     }
 
@@ -228,7 +245,7 @@ final class AppModel {
             }
             lastError = nil
         } catch {
-            lastError = String(describing: error)
+            lastError = error
         }
         // Released between reads so a scan waiting on the graph can run before the slow hourly read.
         isScanning = false
@@ -242,7 +259,7 @@ final class AppModel {
             monthHours = hours
             monthHoursLoadedAt = now
         } catch {
-            lastError = String(describing: error)
+            lastError = error
         }
     }
 
@@ -270,7 +287,7 @@ final class AppModel {
             quotasLoadedAt = Date()
             quotaError = nil
         } catch {
-            quotaError = String(describing: error)
+            quotaError = error
         }
     }
 
@@ -348,9 +365,13 @@ final class AppModel {
         guard !isLocked else { return }
         do {
             try store.save(state)
-            if case .missing = store.care { try store.save(CareState.legacy(from: state)) }
+            if case .missing = store.care {
+                let care = CareState.legacy(from: state)
+                try store.save(care)
+                self.care = care
+            }
         } catch {
-            lastError = "保存失败：\(error.localizedDescription)"
+            lastError = AppError.save(error)
             refreshSaveStatus()
         }
     }
@@ -365,7 +386,7 @@ final class AppModel {
             try store.restore(backup: backup)
             resumeAfterRecovery()
         } catch {
-            recoveryError = "恢复失败：\(error.localizedDescription)"
+            recoveryError = .restore(error)
             refreshSaveStatus()
         }
     }
@@ -375,7 +396,7 @@ final class AppModel {
             try store.restart(file)
             resumeAfterRecovery()
         } catch {
-            recoveryError = "重新开始失败：\(error.localizedDescription)"
+            recoveryError = .restart(error)
             refreshSaveStatus()
         }
     }
@@ -409,6 +430,7 @@ final class AppModel {
     }
 
     private func refreshSaveStatus() {
+        if case .loaded(let saved) = store.care { care = saved } else { care = nil }
         let wasLocked = isLocked
         isLocked = store.isLocked
         if isLocked, !wasLocked { backgroundGeneration += 1 }
@@ -424,7 +446,7 @@ final class AppModel {
             var backups: [SaveBackup] = []
             if case .corrupted = result {
                 do { backups = try store.restorableBackups(for: file) }
-                catch { recoveryError = "无法列出备份：\(error.localizedDescription)" }
+                catch { recoveryError = .backups(error) }
             }
             issues.append(SaveRecoveryIssue(file: file, problem: problem, backups: backups))
         }

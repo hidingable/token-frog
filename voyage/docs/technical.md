@@ -96,7 +96,8 @@ voyage/
 ├── Content/                 城市、情节、物品等内容数据（M1 起）
 ├── Sources/VoyageCore/      纯逻辑：引擎、内容解析、信件、解析，全部可测
 ├── Sources/TokenVoyage/     应用：AppKit 窗口、SwiftUI 界面、采集、网络
-├── Tests/VoyageCoreTests/   单元测试
+├── Tests/VoyageCoreTests/   核心逻辑测试
+├── Tests/TokenVoyageTests/  本地化和信件文字测试
 ├── scripts/                 打包脚本、地图生成脚本
 └── docs/
 ```
@@ -237,8 +238,8 @@ voyage/Content/
 
 ## 多语言实现（M1 起）
 
-- **界面：** 用 String Catalog（`Localizable.xcstrings`）。SwiftPM 里加 `defaultLocalization` 并声明资源，`build-app.sh` 要把资源 bundle 复制进 `.app`，这一点开工时先验证。
-- **语言设置：** `system`、`zh-Hans`、`en`，存在设置里。手动切换时界面和信件都要刷新，不要求重启；如果 SwiftUI 环境切换不够，再评估提示重启。
+- **界面：** 用 String Catalog（`Localizable.xcstrings`），key 是语义化的（如 `nav.journey`）。所有文字都经过 `L10n`，不用 `LocalizedStringKey` 隐式查找，这样菜单和错误提示走同一条路径。`build-app.sh` 把资源 bundle 复制到 `Contents/Resources/`。
+- **语言设置：** `system`、`zh-Hans`、`en`，存在 UserDefaults 的 `language` 键。切换时界面和信件立刻刷新，不用重启。
 - **核心层：** `VoyageCore` 不返回显示文字，只返回语义和数字。显示层负责翻译。
 - **格式：** `Format.tokens` 按语言输出万亿或 K、M、B；日期用系统格式器。
 - **快照：** `--snapshot` 支持 `--language en`，每种语言生成一套截图。

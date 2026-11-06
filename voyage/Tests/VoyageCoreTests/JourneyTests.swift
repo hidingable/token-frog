@@ -152,10 +152,10 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
 }
 
 @Test func kilometresAndTokensRoundTheSameWay() {
-    #expect(Format.tokens(8_997_637) == "900 万")
+    #expect(Format.tokens(8_997_637, language: .zhHans) == "900 万")
     #expect(Format.km(fuel: 8_997_637) == "900 km")
     #expect(Format.km(fuel: 13_400_000) == "1,340 km")
-    #expect(Format.tokens(400_000_000) == "4.0 亿")
+    #expect(Format.tokens(400_000_000, language: .zhHans) == "4.0 亿")
 }
 
 @Test func worldMapMatchesDeclaredSize() {
@@ -165,14 +165,6 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
 
 @Test func cityIdsAreUnique() {
     #expect(Set(City.all.map(\.id)).count == City.all.count)
-}
-
-@Test func lettersUseVoiceAndItinerary() {
-    var state = fresh()
-    state.sync(today: usage("2026-11-02", 0), finalized: [usage("2026-11-01", 8_880_000)], calendar: calendar)
-    let text = LetterComposer.text(for: state.letters.last!)
-    #expect(text.itinerary.first == "888 万 token = 888 km")
-    #expect(!text.voice.isEmpty)
 }
 
 @Test func ledgerGroupsAllTokenKindsWithoutChangingFuel() throws {
@@ -223,13 +215,14 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     #expect(QuotaReport.tightest(quotas, usedClients: ["claude"]) == nil)
 }
 
-@Test func quotaResetTextHandlesTimestampsAndPlainDates() {
+@Test func quotaResetDescriptionHandlesTimestampsAndPlainDates() {
     let now = ISO8601DateFormatter().date(from: "2026-11-06T02:47:37+00:00")!
-    #expect(QuotaReport.resetDescription("2026-11-09T04:47:37+00:00", now: now) == "3 天 2 小时后重置")
-    #expect(QuotaReport.resetDescription("2026-11-06T03:17:37.500Z", now: now) == "30 分钟后重置")
-    #expect(QuotaReport.resetDescription("2026-11-06T02:00:00+00:00", now: now) == "即将重置")
-    #expect(QuotaReport.resetDescription("2026-12-01", now: now, calendar: calendar) == "2026-12-01 重置")
-    #expect(QuotaReport.resetDescription("soon", now: now) == "soon")
+    #expect(QuotaReport.resetDescription("2026-11-09T04:47:37+00:00", now: now) == .daysHours(3, 2))
+    #expect(QuotaReport.resetDescription("2026-11-06T03:17:37.500Z", now: now) == .minutes(30))
+    #expect(QuotaReport.resetDescription("2026-11-06T04:47:37+00:00", now: now) == .hours(2))
+    #expect(QuotaReport.resetDescription("2026-11-06T02:00:00+00:00", now: now) == .soon)
+    #expect(QuotaReport.resetDescription("2026-12-01", now: now, calendar: calendar) == .date("2026-12-01"))
+    #expect(QuotaReport.resetDescription("soon", now: now) == .raw("soon"))
 }
 
 private func detail(_ date: String, client: String = "codex", model: String = "gpt", input: Int = 100, cacheRead: Int = 900, activeMs: Int = 3_600_000) -> DayDetail {
@@ -285,7 +278,7 @@ private func detail(_ date: String, client: String = "codex", model: String = "g
     let short = UsageDashboard(days: days, start: "2026-11-02", end: "2026-11-04", calendar: calendar)
     let trend = short.trend(.total, series: ["codex"])
     #expect(trend.map(\.start) == ["2026-11-02", "2026-11-03", "2026-11-04"])
-    #expect(trend[0].values == ["codex": 10, "其他": 5])
+    #expect(trend[0].values == ["codex": 10, UsageDashboard.otherSeries: 5])
     #expect(trend[1].values.isEmpty)
     #expect(!trend[0].isWeek)
 

@@ -124,6 +124,8 @@ public struct UsageLedger: Equatable, Sendable {
 }
 
 public enum TokscaleGraph {
+    public static let unknownModel = "\u{0}voyage.unknownModel"
+
     private struct Graph: Decodable {
         let contributions: [Contribution]
     }
@@ -156,7 +158,7 @@ public enum TokscaleGraph {
             DayDetail(date: day.date, rows: day.clients.map { row in
                 UsageRow(
                     client: row.client,
-                    model: row.modelId ?? "未知模型",
+                    model: row.modelId ?? unknownModel,
                     tokens: UsageTotals(
                         input: row.tokens.input ?? 0, output: row.tokens.output ?? 0, cacheRead: row.tokens.cacheRead ?? 0,
                         cacheWrite: row.tokens.cacheWrite ?? 0, reasoning: row.tokens.reasoning ?? 0,
@@ -201,9 +203,16 @@ public enum DayKey {
 }
 
 public enum Format {
-    public static func tokens(_ value: Int) -> String {
-        if value >= 100_000_000 { return String(format: "%.1f 亿", Double(value) / 100_000_000) }
-        if value >= 10_000 { return "\(grouped(Int((Double(value) / 10_000).rounded()))) 万" }
+    public static func tokens(_ value: Int, language: Language) -> String {
+        switch language {
+        case .zhHans:
+            if value >= 100_000_000 { return String(format: "%.1f \u{4EBF}", Double(value) / 100_000_000) }
+            if value >= 10_000 { return "\(grouped(Int((Double(value) / 10_000).rounded()))) \u{4E07}" }
+        case .en:
+            if value >= 1_000_000_000 { return String(format: "%.1fB", Double(value) / 1_000_000_000) }
+            if value >= 1_000_000 { return String(format: "%.1fM", Double(value) / 1_000_000) }
+            if value >= 10_000 { return "\(Int((Double(value) / 1_000).rounded()))K" }
+        }
         return grouped(value)
     }
 
@@ -239,9 +248,5 @@ public enum Vehicle {
 
     public static func toolName(_ client: String) -> String {
         names[client] ?? client.capitalized
-    }
-
-    public static func name(_ client: String) -> String {
-        "\(toolName(client)) 号"
     }
 }
