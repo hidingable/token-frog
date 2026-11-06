@@ -38,9 +38,9 @@ final class AppModel {
     /// Display-only usage detail, kept apart from the journey.
     private(set) var todayTotals: UsageTotals?
     private(set) var dashboardDays: [DayDetail]?
-    private(set) var quotas: [ProviderQuota] = []
-    private(set) var quotasLoadedAt: Date?
-    private(set) var quotaError: (any Error)?
+    let quotaRuntime: QuotaRuntime
+    var quotas: [QuotaReading] { QuotaSource.allCases.flatMap { quotaRuntime.account($0).displayedReadings } }
+    var quotasLoadedAt: Date? { quotas.map(\.readAt).min() }
     private(set) var isLocked: Bool
     private(set) var recoveryIssues: [SaveRecoveryIssue] = []
     private(set) var recoveryError: AppError?
@@ -63,6 +63,7 @@ final class AppModel {
     private(set) var ritualLetterID: Int?
     private(set) var deferredReplyLetterID: Int?
     var showingSettings = false
+    var showingAccounts = false
     @ObservationIgnored var onLockChange: (() -> Void)?
     @ObservationIgnored var onLanguageChange: (() -> Void)?
     @ObservationIgnored var onDisplayChange: (() -> Void)?
@@ -95,12 +96,12 @@ final class AppModel {
     private let clock: () -> Date
     private let onboardingSeed: UInt32
     private let onboardingReader: OnboardingFlow.UsageReader
-    private let quotaReader: @Sendable () async throws -> [ProviderQuota]
     private let usageReader: @Sendable (String?, String) async throws -> [DayDetail]
     private let hoursReader: @Sendable (String, String) async throws -> [HourUsage]
     private let enrichmentReader: Enricher.Fetch
     /// Persistence tests can finish onboarding without installing OS observers or starting scans.
     private let runtimeEnabled: Bool
+    private let watcherRoots: @Sendable () -> [String]
     private var watcher: FileWatcher?
     private var timers: [Timer] = []
     private var wakeObserver: NSObjectProtocol?
@@ -122,34 +123,38 @@ final class AppModel {
     private var monthHoursLoadedAt: Date?
     private var monthHours: [HourUsage] = []
     private var todayHours: [HourUsage] = []
-    private var isLoadingQuotas = false
 
     private static let minScanInterval: TimeInterval = 60
     private static let fallbackScanInterval: TimeInterval = 300
     private static let dashboardMaxAge: TimeInterval = 300
     /// A 30-day hourly read costs about a minute of CPU; a single day costs seconds.
     private static let monthHoursMaxAge: TimeInterval = 3600
-    /// Quotas hit provider APIs, so they refresh on a fixed clock and never because tokens were used.
-    private static let quotaInterval: TimeInterval = 600
 
     init(isSnapshot: Bool = false, languageOverride: Language? = nil, appearanceOverride: ThemeScheme? = nil, systemScheme: ThemeScheme? = nil, defaults: UserDefaults = .standard, directory: URL? = nil, catalog: CityCatalog? = nil, contentDirectory: URL? = nil, themes: ThemeCatalog? = nil,
          now: @escaping () -> Date = Date.init, onboardingSeed: UInt32 = UInt32.random(in: 0...UInt32.max),
          onboardingReader: @escaping OnboardingFlow.UsageReader = OnboardingFlow.readLocalUsage,
          quotaReader: @escaping @Sendable () async throws -> [ProviderQuota] = UsageSource.fetchQuotas,
+         credentialReader: @escaping LocalCredentials.Reader = { try await LocalCredentials().read($0) },
+         quotaTransport: any QuotaTransport = ProviderQuotaTransport(),
+         quotaNow: @escaping @Sendable () -> Date = Date.init,
+         quotaTimeout: Duration = .seconds(20),
          usageReader: @escaping @Sendable (String?, String) async throws -> [DayDetail] = UsageSource.fetch,
          hoursReader: @escaping @Sendable (String, String) async throws -> [HourUsage] = UsageSource.fetchHours,
          enrichmentReader: @escaping Enricher.Fetch = { await Enricher.fetch($0) },
-         runtimeEnabled: Bool = true, floatingReactionDuration: Duration = .seconds(3)) {
+         runtimeEnabled: Bool = true, watcherRoots: @escaping @Sendable () -> [String] = FileWatcher.existingRoots,
+         floatingReactionDuration: Duration = .seconds(3)) {
         self.isSnapshot = isSnapshot
         clock = now
         self.now = now()
         self.onboardingSeed = onboardingSeed
         self.onboardingReader = onboardingReader
-        self.quotaReader = quotaReader
+        quotaRuntime = QuotaRuntime(defaults: defaults, disabled: isSnapshot, credentials: credentialReader,
+                                    transport: quotaTransport, otherReader: quotaReader, now: quotaNow, timeout: quotaTimeout)
         self.usageReader = usageReader
         self.hoursReader = hoursReader
         self.enrichmentReader = enrichmentReader
         self.runtimeEnabled = runtimeEnabled
+        self.watcherRoots = watcherRoots
         self.floatingReactionDuration = floatingReactionDuration
         self.languageOverride = languageOverride
         self.defaults = defaults
@@ -215,6 +220,7 @@ final class AppModel {
         boxResult = nil
         self.tab = tab
         showingSettings = false
+        showingAccounts = false
         postOfficeDidDisplay()
     }
 
@@ -453,7 +459,7 @@ final class AppModel {
         guard !isLocked else { return }
         hasStarted = true
         if watcher == nil {
-            let watcher = FileWatcher { [weak self] in self?.scheduleScan() }
+            let watcher = FileWatcher(roots: watcherRoots()) { [weak self] in self?.scheduleScan() }
             watcher.start()
             self.watcher = watcher
         }
@@ -462,8 +468,8 @@ final class AppModel {
             Timer.scheduledTimer(withTimeInterval: Self.fallbackScanInterval, repeats: true) { [weak self] _ in
                 MainActor.assumeIsolated { self?.scheduleScan() }
             },
-            Timer.scheduledTimer(withTimeInterval: Self.quotaInterval, repeats: true) { [weak self] _ in
-                MainActor.assumeIsolated { self?.refreshQuotasInBackground() }
+            Timer.scheduledTimer(withTimeInterval: QuotaRuntime.interval, repeats: true) { [weak self] _ in
+                MainActor.assumeIsolated { self?.quotaTimerFired() }
             },
             Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] _ in
                 MainActor.assumeIsolated { self?.tick() }
@@ -475,12 +481,12 @@ final class AppModel {
             ) { [weak self] _ in
                 MainActor.assumeIsolated {
                     self?.scheduleScan()
-                    self?.refreshQuotasInBackground()
+                    self?.quotaDidWake()
                 }
             }
         }
         scheduleScan()
-        refreshQuotasInBackground()
+        quotaRuntime.trigger()
     }
 
     private func tick() {
@@ -597,28 +603,21 @@ final class AppModel {
         }
     }
 
-    private func refreshQuotasInBackground() {
+    func quotaTimerFired() {
         guard !isLocked, onboarding == nil, !isSnapshot else { return }
-        Task { await loadQuotas() }
+        quotaRuntime.trigger()
     }
 
-    /// Keeps the last good reading when a refresh fails, and says so.
+    func quotaDidWake() { quotaTimerFired() }
+
+    func linkQuota(_ source: QuotaSource) async {
+        guard !isLocked, onboarding == nil, !isSnapshot else { return }
+        await quotaRuntime.link(source)
+    }
+
     func loadQuotas(force: Bool = false) async {
         guard !isLocked, onboarding == nil, !isSnapshot else { return }
-        let generation = backgroundGeneration
-        if !force, let loaded = quotasLoadedAt, Date().timeIntervalSince(loaded) < Self.quotaInterval - 30 { return }
-        guard !isLoadingQuotas else { return }
-        isLoadingQuotas = true
-        defer { isLoadingQuotas = false }
-        do {
-            let fetched = try await quotaReader()
-            guard !isLocked, generation == backgroundGeneration else { return }
-            quotas = fetched
-            quotasLoadedAt = Date()
-            quotaError = nil
-        } catch {
-            quotaError = error
-        }
+        await quotaRuntime.refresh()
     }
 
     func markRead(_ letter: Letter) {
@@ -895,6 +894,7 @@ final class AppModel {
         appendIssue(store.care, file: .care)
         recoveryIssues = issues
         if isLocked {
+            quotaRuntime.stop()
             timers.forEach { $0.invalidate() }
             timers = []
             scheduledScan?.cancel()

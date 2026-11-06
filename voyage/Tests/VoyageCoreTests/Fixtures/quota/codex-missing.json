@@ -1,0 +1,5 @@
+{
+  "rate_limit": {
+    "primary_window": { "reset_at": 1800000000, "limit_window_seconds": 18000 }
+  }
+}

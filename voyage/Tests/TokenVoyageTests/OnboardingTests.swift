@@ -491,8 +491,8 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         model.completeOnboarding()
         await model.loadQuotas(force: true)
         let quotaCalls = await quota.calls
-        #expect(quotaCalls == 1)
-        #expect(model.quotasLoadedAt != nil)
+        #expect(quotaCalls == 0)
+        #expect(model.quotasLoadedAt == nil)
     }
 
     @Test func itemSelectionCanBeClearedAndSnapshotsNeverWrite() throws {

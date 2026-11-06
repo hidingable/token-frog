@@ -22,7 +22,9 @@ struct MainView: View {
                 .padding(.horizontal, 12)
                 .padding(.bottom, 8)
             }
-            if model.showingSettings {
+            if model.showingAccounts {
+                ScrollView { AccountsView(model: model).padding(12) }
+            } else if model.showingSettings {
                 ScrollView { SettingsTab(model: model).padding(12) }
             } else if model.ritualLetter != nil {
                 RitualView(model: model)
@@ -57,7 +59,7 @@ struct MainView: View {
                 Text(l10n("status.updated", l10n.time(scan)))
                     .font(Theme.pixel()).foregroundStyle(theme.textMuted).fixedSize()
             }
-            Button { model.showingSettings = true } label: {
+            Button { model.showingAccounts = false; model.showingSettings = true } label: {
                 Text(l10n("nav.settings"))
                     .font(Theme.pixel())
                     .padding(.horizontal, 10)
@@ -443,49 +445,52 @@ struct QuotaTab: View {
             HStack {
                 Text(l10n("nav.quota")).foregroundStyle(theme.text)
                 Spacer()
+                Chip(title: l10n("accounts.title"), isOn: false) { model.showingAccounts = true }
                 Chip(title: l10n("action.refresh"), isOn: false) { Task { await model.loadQuotas(force: true) } }
             }
-            if let error = model.quotaError {
-                Text(l10n("quota.failed", l10n.error(error))).foregroundStyle(theme.quotaLowText)
-            }
-            if model.quotas.isEmpty, model.quotaError == nil {
-                Text(model.quotasLoadedAt == nil ? l10n("quota.loading") : l10n("quota.empty"))
+            if !model.quotaRuntime.hasLinkedAccounts {
+                Text(l10n("quota.empty"))
                     .foregroundStyle(theme.textMuted)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-            ForEach(model.quotas) { quota in
-                VStack(alignment: .leading, spacing: 6) {
+            ForEach(QuotaSource.allCases) { source in
+                let account = model.quotaRuntime.account(source)
+                VStack(alignment: .leading, spacing: 10) {
                     HStack {
-                        Text(quota.provider).foregroundStyle(theme.text)
-                        if let plan = quota.plan { Text(plan).foregroundStyle(theme.textMuted) }
+                        Text(source.name(l10n)).foregroundStyle(theme.text)
                         Spacer()
-                        if quota.resetCredits > 0 {
-                            Text(l10n("quota.resetCredits", Format.grouped(quota.resetCredits))).foregroundStyle(theme.textMuted)
-                        }
+                        if account.isRefreshing { Text(l10n("quota.loading")).foregroundStyle(theme.textMuted) }
                     }
-                    ForEach(quota.metrics) { metric in
-                        metricRow(metric)
+                    Text(l10n.quotaStatus(account.status, source: source)).foregroundStyle(theme.textMuted)
+                        .fixedSize(horizontal: false, vertical: true)
+                    ForEach(Array(account.displayedReadings.enumerated()), id: \.offset) { _, reading in
+                        if source == .otherTools { Text(Vehicle.toolName(reading.providerID)).foregroundStyle(theme.text) }
+                        ForEach(Array(reading.windows.enumerated()), id: \.offset) { _, window in metricRow(window) }
+                        Text(l10n("quota.updated", l10n.quotaTimestamp(reading.readAt))).foregroundStyle(theme.textMuted)
                     }
-                    if quota.metrics.isEmpty {
+                    if account.linked, account.displayedReadings.isEmpty {
                         Text(l10n("quota.noWindows")).foregroundStyle(theme.textMuted)
                     }
+                    if case .stale = account.status, case .unavailable(let reason) = account.failure {
+                        Text(l10n.quotaReason(reason)).foregroundStyle(theme.textMuted)
+                    }
+                    if case .stale = account.status, case .rateLimited(let until) = account.failure {
+                        Text(l10n.quotaStatus(.rateLimited(until: until), source: source)).foregroundStyle(theme.textMuted)
+                    }
                 }
-                .padding(8)
+                .padding(12)
                 .background(theme.surfaceRaised)
-            }
-            if let loaded = model.quotasLoadedAt {
-                Text(l10n("quota.updated", l10n.time(loaded)))
-                    .foregroundStyle(theme.textMuted)
+                .pixelBorder(theme.border)
             }
         }
         .font(Theme.pixel())
         .frame(maxWidth: .infinity, alignment: .leading)
-        .task { await model.loadQuotas() }
     }
 
-    private func metricRow(_ metric: ProviderQuota.Metric) -> some View {
-        let low = Self.isLow(metric)
+    private func metricRow(_ metric: QuotaWindow) -> some View {
+        let low = metric.remainingPercent < 20
         return HStack(spacing: 8) {
-            Text(l10n.quotaMetric(metric.label)).foregroundStyle(theme.text).fixedSize(horizontal: false, vertical: true)
+            Text(l10n.quotaWindow(metric.kind)).foregroundStyle(theme.text).fixedSize(horizontal: false, vertical: true)
             GeometryReader { proxy in
                 ZStack(alignment: .leading) {
                     Rectangle().fill(theme.controlOff)
@@ -497,8 +502,7 @@ struct QuotaTab: View {
             Text(l10n("quota.remaining", Format.grouped(Int(metric.remainingPercent.rounded()))))
                 .foregroundStyle(low ? theme.quotaLowText : theme.text)
                 .fixedSize(horizontal: false, vertical: true)
-            Text(metric.remainingLabel ?? "").foregroundStyle(theme.textMuted).fixedSize(horizontal: false, vertical: true)
-            Text(metric.resetsAt.map { l10n.reset(QuotaReport.resetDescription($0, now: model.now)) } ?? "")
+            Text(metric.resetsAt.map { l10n.reset(QuotaReport.resetDescription(ISO8601DateFormatter().string(from: $0), now: model.now)) } ?? l10n("quota.resetUnknown"))
                 .foregroundStyle(theme.textMuted)
                 .fixedSize(horizontal: false, vertical: true)
         }

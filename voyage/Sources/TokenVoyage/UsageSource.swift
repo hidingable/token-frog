@@ -37,13 +37,11 @@ enum UsageSource {
 
     /// Unlike usage scans this reaches the providers, using the credentials tokscale finds on this Mac.
     static func fetchQuotas() async throws -> [ProviderQuota] {
-        let output = temporaryFile()
-        defer { try? FileManager.default.removeItem(at: output) }
-        FileManager.default.createFile(atPath: output.path, contents: nil)
-        let handle = try FileHandle(forWritingTo: output)
-        defer { try? handle.close() }
-        try await run(["usage", "--json"], standardOutput: handle)
-        return try QuotaReport.parse(Data(contentsOf: output))
+        guard let binary = binaryURL(), FileManager.default.isExecutableFile(atPath: binary.path) else {
+            throw UsageError.missingBinary
+        }
+        let data = try await MemoryCommand.run(executable: binary, arguments: ["usage", "--json"], timeout: 15)
+        return try QuotaReport.parse(data)
     }
 
     private static func temporaryFile() -> URL {
@@ -114,9 +112,11 @@ private final class ProcessBox: @unchecked Sendable {
 /// Watches tool session folders so scans only run when something actually changed.
 final class FileWatcher: @unchecked Sendable {
     private var stream: FSEventStreamRef?
+    private let roots: [String]?
     private let onChange: @MainActor @Sendable () -> Void
 
-    init(onChange: @escaping @MainActor @Sendable () -> Void) {
+    init(roots: [String]? = nil, onChange: @escaping @MainActor @Sendable () -> Void) {
+        self.roots = roots
         self.onChange = onChange
     }
 
@@ -131,7 +131,7 @@ final class FileWatcher: @unchecked Sendable {
     }
 
     func start() {
-        let roots = Self.existingRoots()
+        let roots = roots ?? Self.existingRoots()
         guard !roots.isEmpty else { return }
         var context = FSEventStreamContext(
             version: 0, info: Unmanaged.passUnretained(self).toOpaque(), retain: nil, release: nil, copyDescription: nil

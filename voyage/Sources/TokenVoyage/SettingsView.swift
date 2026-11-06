@@ -9,6 +9,11 @@ struct SettingsTab: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
+            HStack {
+                Text(l10n("accounts.title"))
+                Spacer()
+                Chip(title: l10n("accounts.manage"), isOn: false) { model.showingAccounts = true }
+            }
             VStack(alignment: .leading, spacing: 12) {
                 Text(l10n("settings.language")).foregroundStyle(theme.textMuted)
                 HStack {

@@ -1,6 +1,482 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "accounts.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关联账号"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Linked accounts"
+          }
+        }
+      }
+    },
+    "accounts.manage": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "管理"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manage"
+          }
+        }
+      }
+    },
+    "accounts.otherTools": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "其他工具（通过 tokscale）"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Other tools (via tokscale)"
+          }
+        }
+      }
+    },
+    "accounts.privacy": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "默认不读取任何其他应用的登录信息。请逐个选择要关联的来源，随时可以断开。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No other app’s login is read by default. Choose each source to link; disconnect at any time."
+          }
+        }
+      }
+    },
+    "accounts.linked": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已关联"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Linked"
+          }
+        }
+      }
+    },
+    "accounts.notLinked": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未关联"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not linked"
+          }
+        }
+      }
+    },
+    "accounts.link": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关联"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link"
+          }
+        }
+      }
+    },
+    "accounts.disconnect": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "断开"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disconnect"
+          }
+        }
+      }
+    },
+    "accounts.localConsent": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "点“关联”后，会读取 %@ 在本机的登录信息，仅用于向它的服务商读取额度，用完不保存。只读，不会替你刷新令牌。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link reads %@’s local login only to request quota from its provider, then discards it. Read only; tokens are never refreshed for you."
+          }
+        }
+      }
+    },
+    "accounts.keychainConsent": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude 会优先读取钥匙串，系统可能弹窗确认（最多等待 10 秒），其次读取本机凭据文件。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude checks Keychain first; macOS may ask for permission (up to 10 seconds), then the local credentials file is tried."
+          }
+        }
+      }
+    },
+    "accounts.tokscaleConsent": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "点“关联”后，tokscale usage 会读取本机所有受支持工具的登录信息并请求服务商。此来源统一授权；列表会排除 Codex 和 Claude。Voyage 不保存凭据，也不会替你刷新令牌。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link authorizes tokscale usage to read local logins for all supported tools and contact their providers. This source uses one shared consent; Codex and Claude are excluded from its displayed results. Voyage does not save credentials or refresh tokens for you."
+          }
+        }
+      }
+    },
+    "action.close": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close"
+          }
+        }
+      }
+    },
+    "quota.notLinked": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关联后才会读取额度。请打开“关联账号”。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota is read only after linking. Open Linked accounts to continue."
+          }
+        }
+      }
+    },
+    "quota.ok": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正常"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Up to date"
+          }
+        }
+      }
+    },
+    "quota.stale": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这是旧数值，最后成功读取于 %@。恢复后会自动重试，也可手动刷新。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Showing an older reading from %@. Automatic retries are scheduled; you can also refresh manually."
+          }
+        }
+      }
+    },
+    "quota.expired": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登录已过期，请在 %@ 里重新登录，再刷新额度。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Login expired. Sign in again in %@, then refresh quota."
+          }
+        }
+      }
+    },
+    "quota.rateLimited": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请求过于频繁，将退避重试。请稍后再试。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Too many requests. A retry is scheduled; please wait."
+          }
+        }
+      }
+    },
+    "quota.rateLimitedUntil": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请求过于频繁，%@ 后可重试。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Too many requests. Retry after %@."
+          }
+        }
+      }
+    },
+    "quota.missingLogin": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到可用的本机登录。请先在对应工具里登录，再关联。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No usable local login found. Sign in in the tool first, then link again."
+          }
+        }
+      }
+    },
+    "quota.invalidResponse": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "服务商返回的额度格式无法识别。请稍后刷新。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The provider’s quota format was not recognized. Try refreshing later."
+          }
+        }
+      }
+    },
+    "quota.network": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法连接服务商。请检查网络，稍后重试。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not connect to the provider. Check your connection and try again later."
+          }
+        }
+      }
+    },
+    "quota.timedOut": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "读取超时。请稍后刷新；其他工具不受影响。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The read timed out. Try again later; other tools are unaffected."
+          }
+        }
+      }
+    },
+    "quota.service": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "服务商暂时不可用。将自动退避重试。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The provider is temporarily unavailable. A retry is scheduled."
+          }
+        }
+      }
+    },
+    "quota.localSource": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tokscale 未返回可用的其他工具额度。请在对应工具登录，并检查 tokscale 是否可用。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tokscale returned no usable quota for other tools. Sign in in the tool and check that tokscale is available."
+          }
+        }
+      }
+    },
+    "quota.weeklySonnet": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonnet 每周"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonnet weekly"
+          }
+        }
+      }
+    },
+    "quota.weeklyOpus": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opus 每周"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opus weekly"
+          }
+        }
+      }
+    },
+    "quota.otherWindow": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "额度窗口"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota window"
+          }
+        }
+      }
+    },
+    "quota.resetUnknown": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重置时间未知"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reset time unavailable"
+          }
+        }
+      }
+    },
     "city.noMatches": {
       "extractionState": "manual",
       "localizations": {
@@ -2138,13 +2614,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "tokscale 没有读到任何工具的额度"
+            "value": "尚未关联账号。关联后才会读取所选来源的额度；未读到的额度不会显示为零。"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "tokscale found no quota data"
+            "value": "No accounts linked. Link a source to read its quota. Unknown quota is never shown as zero."
           }
         }
       }
@@ -2251,23 +2727,6 @@
         }
       }
     },
-    "quota.resetCredits": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "重置券 %@ 张"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reset credits: %@"
-          }
-        }
-      }
-    },
     "quota.session": {
       "extractionState": "manual",
       "localizations": {
@@ -2291,13 +2750,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "读取于 %@ · 每 10 分钟刷新 · 只显示 tokscale 能读到的工具"
+            "value": "读取于 %@ · 每 10 分钟刷新 · 只提示，不影响旅程"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Read %@ · Refreshes every 10 minutes · Shows tools supported by tokscale"
+            "value": "Read %@ · Refreshes every 10 minutes · Does not affect your journey"
           }
         }
       }

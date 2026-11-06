@@ -154,7 +154,11 @@ enum Snapshots {
         let peak = model.dashboardDays.map { UsageDashboard(days: $0, start: nil, end: DayKey.string(from: model.now)) }?.peak
         main(.data, name: "dashboard-peak-day", size: dashboardSize, dashboard: DashboardSelection(day: peak?.date ?? DayKey.string(from: model.now), metric: .fuel, showModels: true))
         model.dataTab = .quota
-        main(.data, name: "data-quota", size: CGSize(width: 760, height: 420))
+        main(.data, name: "quota-empty", size: CGSize(width: 760, height: 720))
+        model.quotaRuntime.withSnapshotAccounts(quotaExamples(now: model.now)) {
+            main(.data, name: "quota-linked", size: CGSize(width: 760, height: 780))
+            render(AccountsView(model: model).padding(12), size: CGSize(width: 760, height: 850), name: "accounts", directory, model: model)
+        }
 
         render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-collapsed", directory, model: model)
         model.withSnapshotState({ state in
@@ -181,6 +185,23 @@ enum Snapshots {
             issues: [SaveRecoveryIssue(file: .journey, problem: .tooNew(version: 2))],
             onRestore: { _ in }, onImport: { _ in }, onRestart: { _ in }, onRetry: {}, onQuit: {}
         ), size: CGSize(width: 760, height: 420), name: "save-recovery-too-new", directory, model: model)
+    }
+
+    static func quotaExamples(now: Date) -> [QuotaSource: QuotaAccountState] {
+        let old = now.addingTimeInterval(-3600)
+        let low = QuotaReading(providerID: "codex", windows: [
+            QuotaWindow(kind: .session, remainingPercent: 12, resetsAt: now.addingTimeInterval(7200)),
+            QuotaWindow(kind: .weekly, remainingPercent: 55, resetsAt: now.addingTimeInterval(259200)),
+        ], readAt: now)
+        let stale = QuotaReading(providerID: "claude", windows: [
+            QuotaWindow(kind: .session, remainingPercent: 38, resetsAt: now.addingTimeInterval(3600)),
+            QuotaWindow(kind: .weekly, remainingPercent: 72, resetsAt: now.addingTimeInterval(432000)),
+        ], readAt: old)
+        return [
+            .codex: QuotaAccountState(linked: true, status: .ok, readings: [low]),
+            .claude: QuotaAccountState(linked: true, status: .stale(lastGoodAt: old), readings: [stale], failure: .unavailable(.network)),
+            .otherTools: QuotaAccountState(linked: true, status: .expired),
+        ]
     }
 
     static func homeExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {

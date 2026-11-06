@@ -1,0 +1,9 @@
+{
+  "account_id": "fake-codex-account",
+  "email": "fake-person@example.invalid",
+  "plan_type": "fake-plan",
+  "rate_limit": {
+    "primary_window": { "used_percent": 25, "reset_at": 1800000000, "limit_window_seconds": 18000 },
+    "secondary_window": { "used_percent": 85.5, "reset_at": 1800604800, "limit_window_seconds": 604800 }
+  }
+}

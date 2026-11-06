@@ -1,0 +1,8 @@
+{
+  "email": "fake-person@example.invalid",
+  "account": { "email": "another-fake@example.invalid", "id": "fake-claude-account" },
+  "five_hour": { "utilization": 35, "resets_at": "2026-11-06T02:00:00Z" },
+  "seven_day": { "utilization": 93.25, "resets_at": "2026-11-13T02:00:00Z" },
+  "seven_day_sonnet": { "utilization": 20, "resets_at": "2026-11-13T02:00:00Z" },
+  "seven_day_opus": { "utilization": 5, "resets_at": "2026-11-13T02:00:00Z" }
+}
