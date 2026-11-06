@@ -355,6 +355,25 @@ private func mailUsage(_ day: String) -> DayDetail {
         #expect(LetterComposer.place(for: saved, l10n: model.l10n) == saved.place["zh-Hans"])
     }
 
+    @Test func openingABaseCityLetterRequestsItsWikidataPlace() async throws {
+        let probe = MailEnrichmentProbe(succeeds: true)
+        let fixture = try MailFixture(days: 1, enrichment: probe) { journey, _ in
+            journey.letters[1].cityId = "q68695"
+            journey.letters[1].arrivals = ["q68695"]
+            journey.letters[1].transitTargetId = nil
+            journey.letters[1].enrichmentDone = true
+        }
+        defer { fixture.remove() }
+        let model = fixture.model()
+        await model.enrichPlace(letterId: 1)
+        let query = try #require(await probe.queries.first)
+        #expect(query.city.id == "q68695")
+        #expect(query.city.wikipedia.isEmpty)
+        #expect(query.city.wikidata == "q68695")
+        #expect(query.includePlace && !query.includeWeather && !query.includePhoto)
+        #expect(model.state?.letters[1].place["en"] != nil)
+    }
+
     @Test func concurrentOpeningReadsAreDeduplicated() async throws {
         let probe = MailEnrichmentProbe(succeeds: true, delay: true)
         let fixture = try MailFixture(days: 1, enrichment: probe)

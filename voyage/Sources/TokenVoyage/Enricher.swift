@@ -9,9 +9,10 @@ struct Enrichment: Sendable {
     var photoData: Data?
 }
 
-/// Fetches the sourced parts of a letter. Requests carry only a place name or coordinate, never usage.
+/// Fetches the sourced parts of a letter. Requests carry only a place identifier or coordinate, never usage.
 enum Enricher {
     private static let userAgent = "TokenVoyage/0.1 (personal desktop app)"
+    private static let placeCache = PlaceCache()
 
     /// This input deliberately has no usage, project, or journey data.
     struct Query: Sendable {
@@ -26,11 +27,28 @@ enum Enricher {
     typealias Fetch = @Sendable (Query) async -> Enrichment
     typealias Request = @Sendable (URL, String?) async throws -> Data
 
-    static func fetch(_ query: Query, request: Request = networkRequest) async -> Enrichment {
+    /// A run-local cache, injectable so isolated requests and tests never share results.
+    actor PlaceCache {
+        private struct Key: Hashable {
+            let cityID: String
+            let language: Language
+        }
+        private var values: [Key: CachedPlace] = [:]
+
+        fileprivate func value(cityID: String, language: Language) -> CachedPlace? {
+            values[Key(cityID: cityID, language: language)]
+        }
+
+        fileprivate func store(_ value: CachedPlace, cityID: String, language: Language) {
+            values[Key(cityID: cityID, language: language)] = value
+        }
+    }
+
+    static func fetch(_ query: Query, request: Request = networkRequest, cache: PlaceCache = placeCache) async -> Enrichment {
         guard !query.city.isPlaceholder else { return Enrichment() }
         async let weather = query.includeWeather ? fetchWeather(query.coordinate, request: request) : nil
         async let page = query.includePlace || query.includePhoto
-            ? fetchPlace(query.city, language: query.language, request: request) : nil
+            ? fetchPlace(query.city, language: query.language, request: request, cache: cache) : nil
         let (conditions, summary) = await (weather, page)
         var result = Enrichment(weatherCode: conditions?.code, temperatureC: conditions?.temperature)
         if let summary {
@@ -97,10 +115,10 @@ enum Enricher {
         return l10n(weatherKeys[index])
     }
 
-    private struct PageSummary: Decodable {
-        struct Thumbnail: Decodable { let source: String }
-        struct ContentURLs: Decodable {
-            struct Desktop: Decodable { let page: String }
+    fileprivate struct PageSummary: Decodable, Sendable {
+        struct Thumbnail: Decodable, Sendable { let source: String }
+        struct ContentURLs: Decodable, Sendable {
+            struct Desktop: Decodable, Sendable { let page: String }
             let desktop: Desktop?
         }
         let title: String
@@ -109,13 +127,63 @@ enum Enricher {
         let content_urls: ContentURLs?
     }
 
-    private static func fetchPlace(_ city: City, language: Language, request: Request) async -> PageSummary? {
+    fileprivate enum CachedPlace: Sendable {
+        case missing
+        case title(String)
+        case summary(PageSummary)
+    }
+
+    private struct WikidataResponse: Decodable {
+        struct Entity: Decodable {
+            struct Sitelink: Decodable { let title: String }
+            let sitelinks: [String: Sitelink]?
+        }
+        let entities: [String: Entity]
+    }
+
+    private static func fetchPlace(_ city: City, language: Language, request: Request, cache: PlaceCache) async -> PageSummary? {
         let host = language == .zhHans ? "zh" : "en"
-        guard let title = city.wikipedia[language.rawValue], !title.isEmpty,
-              let encoded = title.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed.subtracting(CharacterSet(charactersIn: "/"))),
+        let title: String
+        switch await cache.value(cityID: city.id, language: language) {
+        case .summary(let summary): return summary
+        case .missing: return nil
+        case .title(let cachedTitle): title = cachedTitle
+        case nil:
+            if let localTitle = city.wikipedia[language.rawValue], !localTitle.isEmpty {
+                title = localTitle
+            } else {
+                guard let wikidata = city.wikidata else { return nil }
+                var components = URLComponents(string: "https://www.wikidata.org/w/api.php")
+                components?.queryItems = [
+                    URLQueryItem(name: "action", value: "wbgetentities"),
+                    URLQueryItem(name: "ids", value: wikidata.uppercased()),
+                    URLQueryItem(name: "props", value: "sitelinks"),
+                    URLQueryItem(name: "sitefilter", value: "zhwiki|enwiki"),
+                    URLQueryItem(name: "format", value: "json"),
+                ]
+                guard let url = components?.url else { return nil }
+                do {
+                    let data = try await request(url, nil)
+                    let response = try JSONDecoder().decode(WikidataResponse.self, from: data)
+                    guard let resolved = response.entities[wikidata.uppercased()]?.sitelinks?["\(host)wiki"]?.title,
+                          !resolved.isEmpty else {
+                        await cache.store(.missing, cityID: city.id, language: language)
+                        return nil
+                    }
+                    title = resolved
+                    // Keep a resolved title if the subsequent summary request temporarily fails.
+                    await cache.store(.title(title), cityID: city.id, language: language)
+                } catch {
+                    return nil
+                }
+            }
+        }
+        guard let encoded = title.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed.subtracting(CharacterSet(charactersIn: "/"))),
               let url = URL(string: "https://\(host).wikipedia.org/api/rest_v1/page/summary/\(encoded)"),
-              let data = try? await request(url, language == .zhHans ? "zh-cn" : "en") else { return nil }
-        return try? JSONDecoder().decode(PageSummary.self, from: data)
+              let data = try? await request(url, language == .zhHans ? "zh-cn" : "en"),
+              let summary = try? JSONDecoder().decode(PageSummary.self, from: data) else { return nil }
+        await cache.store(.summary(summary), cityID: city.id, language: language)
+        return summary
     }
 
     /// Downsamples to 96x48, then maps to a 16 colour palette with light ordered dithering.

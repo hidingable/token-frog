@@ -73,7 +73,7 @@ extension ContentSandbox {
             }
         }
         #expect(ContentValidator.validate(directory: box.directory).contains { $0.rule == "replyID" })
-        #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+        #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
     }
 
     @Test(arguments: ["text", "lead"], ["zh-Hans", "en"])
@@ -87,7 +87,7 @@ extension ContentSandbox {
             stories[index][field] = texts
         }
         #expect(ContentValidator.validate(directory: box.directory).contains { $0.rule == "storyCitySlot" })
-        #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+        #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
     }
 
     @Test func citySpecificFulfillmentsCanStillUseTheCitySlot() throws {
@@ -127,7 +127,7 @@ extension ContentSandbox {
         }
         let expected = ["requiredHabit", "fulfilledHabit", "replyHabit"].contains(rule) ? "storyHabit" : rule
         #expect(ContentValidator.validate(directory: box.directory).contains { $0.rule == expected })
-        #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+        #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
     }
 
     @Test(arguments: ["text", "lead", "reply"], ["missing-zh", "blank-zh", "missing-en", "blank-en"])
@@ -202,7 +202,7 @@ extension ContentSandbox {
         default: try box.editStories { $0[0]["requires"] = ["rainySeason": "sometimes"] }
         }
         #expect(!ContentValidator.validate(directory: box.directory).isEmpty)
-        #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+        #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
     }
 
     @Test(arguments: [0, 13])

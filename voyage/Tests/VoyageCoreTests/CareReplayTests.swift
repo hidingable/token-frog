@@ -26,7 +26,9 @@ private func replayCare(seed: UInt32, multiplier: Int, stories: StoryLibrary) ->
     return (journey, care)
 }
 
-private func replayStories() -> StoryLibrary {
+// This immutable fixture contains one story per catalog city. Build it once rather than
+// regenerating thousands of identical stories for every letter in the replay checks.
+private let cachedReplayStories: StoryLibrary = {
     let itemStories = ["sketchbook", "note-slip", "old-camera", "lunchbox"].flatMap { item in
         ["arrival", "transit"].map { kind in
             var story = engineStory("item.\(item).\(kind)", kind: kind)
@@ -42,7 +44,9 @@ private func replayStories() -> StoryLibrary {
         story.lead = ["zh-Hans": "你说“{reply}”，我记着呢。", "en": "I kept your note: {reply}."]
         return story
     })
-}
+}()
+
+private func replayStories() -> StoryLibrary { cachedReplayStories }
 
 @Suite struct CareReplayTests {
     @Test(arguments: Array(UInt32(0)..<32))

@@ -6,20 +6,51 @@ import VoyageCore
 private actor EnrichmentRequestProbe {
     private(set) var calls: [(URL, String?)] = []
     let fail: Bool
-    init(fail: Bool = false) { self.fail = fail }
+    let sitelinks: [String: String]
+    private var remainingWikidataFailures: Int
+    private var remainingSummaryFailures: Int
+    init(fail: Bool = false, sitelinks: [String: String] = ["zhwiki": "泉州市", "enwiki": "Quanzhou"],
+         wikidataFailures: Int = 0, summaryFailures: Int = 0) {
+        self.fail = fail
+        self.sitelinks = sitelinks
+        remainingWikidataFailures = wikidataFailures
+        remainingSummaryFailures = summaryFailures
+    }
     func request(_ url: URL, language: String?) throws -> Data {
         calls.append((url, language))
         if fail { throw URLError(.notConnectedToInternet) }
         if url.host == "api.open-meteo.com" {
             return Data(#"{"current":{"temperature_2m":14.4,"weather_code":61}}"#.utf8)
         }
+        if url.host == "www.wikidata.org" {
+            if remainingWikidataFailures > 0 {
+                remainingWikidataFailures -= 1
+                throw URLError(.notConnectedToInternet)
+            }
+            let id = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.first { $0.name == "ids" }?.value ?? ""
+            return try JSONSerialization.data(withJSONObject: [
+                "entities": [id: ["sitelinks": sitelinks.mapValues { ["title": $0] }]],
+            ])
+        }
+        if remainingSummaryFailures > 0 {
+            remainingSummaryFailures -= 1
+            throw URLError(.notConnectedToInternet)
+        }
         let summary: [String: Any] = [
-            "title": language == "zh-cn" ? "上海" : "Shanghai",
+            "title": url.lastPathComponent,
             "extract": language == "zh-cn" ? "上海的地点介绍。" : "A place introduction to Shanghai.",
             "content_urls": ["desktop": ["page": "https://\(url.host!)/wiki/Shanghai"]],
         ]
         return try JSONSerialization.data(withJSONObject: summary)
     }
+}
+
+private func wikidataQuery(language: Language) -> Enricher.Query {
+    var query = enrichmentQuery(language: language)
+    query.city.id = "q68695"
+    query.city.wikidata = "q68695"
+    query.city.wikipedia = [:]
+    return query
 }
 
 private func enrichmentQuery(language: Language, weather: Bool = false) -> Enricher.Query {
@@ -41,8 +72,9 @@ private func enrichmentQuery(language: Language, weather: Bool = false) -> Enric
 @Test(arguments: Language.allCases)
 func wikipediaUsesOnlyTheSelectedLanguageTitleAndSource(language: Language) async throws {
     let probe = EnrichmentRequestProbe()
-    let query = enrichmentQuery(language: language)
-    let result = await Enricher.fetch(query, request: { try await probe.request($0, language: $1) })
+    var query = enrichmentQuery(language: language)
+    query.city.wikidata = "q8686"
+    let result = await Enricher.fetch(query, request: { try await probe.request($0, language: $1) }, cache: Enricher.PlaceCache())
     let calls = await probe.calls
     #expect(calls.count == 1)
     let call = try #require(calls.first)
@@ -59,26 +91,92 @@ func wikipediaUsesOnlyTheSelectedLanguageTitleAndSource(language: Language) asyn
 @Test(arguments: Language.allCases)
 func wikipediaFailureDoesNotTryAnotherLanguage(language: Language) async {
     let probe = EnrichmentRequestProbe(fail: true)
-    let result = await Enricher.fetch(enrichmentQuery(language: language), request: { try await probe.request($0, language: $1) })
+    let result = await Enricher.fetch(enrichmentQuery(language: language), request: { try await probe.request($0, language: $1) }, cache: Enricher.PlaceCache())
     #expect(result.place.isEmpty)
     #expect(await probe.calls.count == 1)
 }
 
 @Test(arguments: Language.allCases)
-func missingWikipediaTitleDoesNotRequestAnotherLanguage(language: Language) async {
+func missingWikipediaTitleAndWikidataDoesNotRequestAnotherLanguage(language: Language) async {
     let probe = EnrichmentRequestProbe()
     var query = enrichmentQuery(language: language)
     query.city.wikipedia[language.rawValue] = nil
-    let result = await Enricher.fetch(query, request: { try await probe.request($0, language: $1) })
+    query.city.wikidata = nil
+    let result = await Enricher.fetch(query, request: { try await probe.request($0, language: $1) }, cache: Enricher.PlaceCache())
     #expect(result.place.isEmpty)
     #expect(await probe.calls.isEmpty)
+}
+
+@Test(arguments: Language.allCases)
+func wikidataRequestsOnlyTheEntityAndResolvesTheSelectedLanguage(language: Language) async throws {
+    let probe = EnrichmentRequestProbe()
+    let query = wikidataQuery(language: language)
+    let cache = Enricher.PlaceCache()
+    let request: Enricher.Request = { try await probe.request($0, language: $1) }
+    let result = await Enricher.fetch(query, request: request, cache: cache)
+    let repeated = await Enricher.fetch(query, request: request, cache: cache)
+    let calls = await probe.calls
+    #expect(calls.count == 2)
+    let entityCall = try #require(calls.first)
+    #expect(entityCall.0.host == "www.wikidata.org" && entityCall.0.path == "/w/api.php")
+    let params = Dictionary(uniqueKeysWithValues: try #require(URLComponents(url: entityCall.0, resolvingAgainstBaseURL: false)?.queryItems)
+        .map { ($0.name, $0.value ?? "") })
+    #expect(params == ["action": "wbgetentities", "ids": "Q68695", "props": "sitelinks", "sitefilter": "zhwiki|enwiki", "format": "json"])
+    #expect(entityCall.1 == nil)
+    let summaryCall = calls[1]
+    #expect(summaryCall.0.host == (language == .zhHans ? "zh.wikipedia.org" : "en.wikipedia.org"))
+    #expect(summaryCall.0.lastPathComponent == (language == .zhHans ? "泉州市" : "Quanzhou"))
+    #expect(summaryCall.1 == (language == .zhHans ? "zh-cn" : "en"))
+    #expect(result.place[language.rawValue]?.title == summaryCall.0.lastPathComponent)
+    #expect(repeated.place[language.rawValue] == result.place[language.rawValue])
+}
+
+@Test(arguments: Language.allCases)
+func missingSelectedWikidataSitelinkIsCachedWithoutLanguageFallback(language: Language) async {
+    let otherSite = language == .zhHans ? "enwiki" : "zhwiki"
+    let probe = EnrichmentRequestProbe(sitelinks: [otherSite: "Another language"])
+    let query = wikidataQuery(language: language)
+    let cache = Enricher.PlaceCache()
+    let request: Enricher.Request = { try await probe.request($0, language: $1) }
+    let result = await Enricher.fetch(query, request: request, cache: cache)
+    let repeated = await Enricher.fetch(query, request: request, cache: cache)
+    #expect(result.place.isEmpty && repeated.place.isEmpty)
+    #expect(await probe.calls.count == 1)
+}
+
+@Test func wikidataAndSummaryFailuresCanRetryWithoutCachingTheFailure() async {
+    let probe = EnrichmentRequestProbe(wikidataFailures: 1, summaryFailures: 1)
+    let query = wikidataQuery(language: .en)
+    let cache = Enricher.PlaceCache()
+    let request: Enricher.Request = { try await probe.request($0, language: $1) }
+    let first = await Enricher.fetch(query, request: request, cache: cache)
+    let second = await Enricher.fetch(query, request: request, cache: cache)
+    let third = await Enricher.fetch(query, request: request, cache: cache)
+    #expect(first.place.isEmpty && second.place.isEmpty)
+    #expect(third.place["en"]?.title == "Quanzhou")
+    let calls = await probe.calls
+    #expect(calls.map { $0.0.host } == ["www.wikidata.org", "www.wikidata.org", "en.wikipedia.org", "en.wikipedia.org"])
+}
+
+@Test func placeCacheSeparatesCitiesAndLanguages() async {
+    let probe = EnrichmentRequestProbe()
+    let cache = Enricher.PlaceCache()
+    let request: Enricher.Request = { try await probe.request($0, language: $1) }
+    for language in Language.allCases {
+        var query = wikidataQuery(language: language)
+        _ = await Enricher.fetch(query, request: request, cache: cache)
+        query.city.id = "q1733"
+        query.city.wikidata = "q1733"
+        _ = await Enricher.fetch(query, request: request, cache: cache)
+    }
+    #expect(await probe.calls.count == 8)
 }
 
 @Test func weatherRequestsContainOnlyCoordinatesAndTheRequestedWeatherFields() async throws {
     let probe = EnrichmentRequestProbe()
     var query = enrichmentQuery(language: .en, weather: true)
     query.includePlace = false
-    let result = await Enricher.fetch(query, request: { try await probe.request($0, language: $1) })
+    let result = await Enricher.fetch(query, request: { try await probe.request($0, language: $1) }, cache: Enricher.PlaceCache())
     #expect(result.weatherCode == 61 && result.temperatureC == 14 && result.place.isEmpty)
     let call = try #require(await probe.calls.first)
     let components = try #require(URLComponents(url: call.0, resolvingAgainstBaseURL: false))
@@ -92,7 +190,7 @@ func missingWikipediaTitleDoesNotRequestAnotherLanguage(language: Language) asyn
     var query = enrichmentQuery(language: .en, weather: true)
     query.city = localizationCatalog.city("removed-city")
     query.includePhoto = true
-    let result = await Enricher.fetch(query, request: { try await probe.request($0, language: $1) })
+    let result = await Enricher.fetch(query, request: { try await probe.request($0, language: $1) }, cache: Enricher.PlaceCache())
     #expect(result.place.isEmpty && result.weatherCode == nil && result.photoData == nil)
     #expect(await probe.calls.isEmpty)
 }

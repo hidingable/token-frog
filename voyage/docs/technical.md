@@ -133,7 +133,8 @@ voyage/Content/
 ├── tags.json            统一标签表
 ├── countries.json       国家和地区名称，按 ISO 代码
 ├── published-ids.txt    发布过的城市 ID
-├── cities/              每城一个文件
+├── world/cities.tsv      全球城市基础数据，由 scripts/generate-world-cities.swift 生成
+├── cities/              有资料的城市，每城一个文件，按 id 或 wikidata 覆盖基础数据
 ├── stories/             情节，按城市或通用分类
 ├── items/               行囊、纪念品、菜单（kind、rarity、habit、icon、各语言名称和说明）
 ├── themes/              界面主题，加一套只加一个文件
@@ -144,6 +145,8 @@ voyage/Content/
 随应用打包时放进资源；在线内容包结构相同。
 
 ### 城市格式
+
+基础数据只有 ID、坐标、国家、大洲、知名度档位和中英文名，ID 是小写的 Wikidata 编号。启动时只解析，完整校验在测试里跑。存档里的基础 ID 在有了单独文件后仍能通过 `wikidata` 找到。下面是单独文件的格式：
 
 ```json
 {

@@ -415,7 +415,7 @@ final class AppModel {
 
     var canChangeStart: Bool { !isLocked && state.map { $0.startDate == DayKey.string(from: now) } == true }
     var startCities: [City] {
-        (catalog?.active ?? []).sorted { l10n.cityName($0).compare(l10n.cityName($1), locale: l10n.locale) == .orderedAscending }
+        catalog?.cities(language: l10n.language) ?? []
     }
 
     var todayVehicles: [VehicleShare] {
@@ -710,7 +710,8 @@ final class AppModel {
         let attempts = enrichAttempts[letter.id, default: 0]
         let includeWeatherAndPhoto = weatherAndPhoto && !letter.enrichmentDone && attempts < 3
             && !enrichingLetters.contains(letter.id)
-        let includePlace = letter.place[language.rawValue] == nil && city.wikipedia[language.rawValue]?.isEmpty == false
+        let includePlace = letter.place[language.rawValue] == nil
+            && (city.wikipedia[language.rawValue]?.isEmpty == false || city.wikidata != nil)
             && placeAttempts[key, default: 0] < 3 && !enrichingPlaces.contains(key)
         let includePhoto = includeWeatherAndPhoto && placeAttempts[key, default: 0] < 3
             && !enrichingPlaces.contains(key)

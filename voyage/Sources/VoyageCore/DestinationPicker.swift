@@ -10,6 +10,7 @@ public enum DestinationPicker {
         let newCountryMultiplier = 2
         let wishMultiplier = 3
         let contentMultiplier = 2
+        let tierMultipliers = [8, 4, 2, 1]
     }
 
     static let configuration = Configuration()
@@ -29,8 +30,12 @@ public enum DestinationPicker {
     }
 
     static func cityWeight(_ city: City, route: [String], stampedCountries: Set<String>, wishTags: Set<String>) -> Int {
-        var weight = configuration.baseCityWeight
-        if !route.contains(city.id) { weight *= configuration.unvisitedMultiplier }
+        cityWeight(city, visited: Set(route), stampedCountries: stampedCountries, wishTags: wishTags)
+    }
+
+    private static func cityWeight(_ city: City, visited: Set<String>, stampedCountries: Set<String>, wishTags: Set<String>) -> Int {
+        var weight = configuration.baseCityWeight * configuration.tierMultipliers[city.tier - 1]
+        if !visited.contains(city.id) { weight *= configuration.unvisitedMultiplier }
         if !stampedCountries.contains(city.countryCode) { weight *= configuration.newCountryMultiplier }
         if !wishTags.isDisjoint(with: city.tags) { weight *= configuration.wishMultiplier }
         if city.level != "basic" { weight *= configuration.contentMultiplier }
@@ -38,9 +43,10 @@ public enum DestinationPicker {
     }
 
     static func candidates(currentCityId: String, route: [String], catalog: CityCatalog) -> [City] {
-        let active = catalog.active.filter { $0.id != currentCityId }.sorted { $0.id < $1.id }
-        let previousStops = route.last == currentCityId ? route.dropLast() : route[...]
-        let recent = Set(previousStops.suffix(configuration.excludedStops))
+        let current = catalog.city(currentCityId).id
+        let active = catalog.active.filter { $0.id != current }
+        let previousStops = route.last.map({ catalog.city($0).id }) == current ? route.dropLast() : route[...]
+        let recent = Set(previousStops.suffix(configuration.excludedStops).map { catalog.city($0).id })
         let candidates = active.filter { !recent.contains($0.id) }
         return candidates.isEmpty ? active : candidates
     }
@@ -50,6 +56,7 @@ public enum DestinationPicker {
         medianFuel: Int, wishTags: Set<String> = [], catalog: CityCatalog, seed: UInt32
     ) -> String {
         var bands = Array(repeating: [City](), count: Band.allCases.count)
+        let route = route.map { catalog.city($0).id }
         for city in candidates(currentCityId: currentCityId, route: route, catalog: catalog) {
             let band = band(distanceFuel: JourneyState.cost(from: coordinate, to: city.coordinate), medianFuel: medianFuel)
             bands[band.rawValue].append(city)
@@ -63,6 +70,7 @@ public enum DestinationPicker {
         from coordinate: Coordinate, currentCityId: String, route: [String], stampedCountries: Set<String>,
         wishTags: Set<String> = [], catalog: CityCatalog, seed: UInt32
     ) -> String {
+        let route = route.map { catalog.city($0).id }
         let cities = candidates(currentCityId: currentCityId, route: route, catalog: catalog)
         let withContent = cities.filter { $0.level != "basic" }
         let near = withContent.filter {
@@ -84,7 +92,8 @@ public enum DestinationPicker {
     private static func drawCity(
         _ cities: [City], route: [String], stampedCountries: Set<String>, wishTags: Set<String>, random: inout SplitMix64
     ) -> String {
-        let weights = cities.map { cityWeight($0, route: route, stampedCountries: stampedCountries, wishTags: wishTags) }
+        let visited = Set(route)
+        let weights = cities.map { cityWeight($0, visited: visited, stampedCountries: stampedCountries, wishTags: wishTags) }
         return cities[draw(weights: weights, random: &random)].id
     }
 

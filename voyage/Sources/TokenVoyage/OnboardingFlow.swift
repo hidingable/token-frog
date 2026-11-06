@@ -98,12 +98,7 @@ final class OnboardingFlow {
     }
 
     func cities(l10n: L10n) -> [City] {
-        let query = search.trimmingCharacters(in: .whitespacesAndNewlines)
-        return catalog.active.filter { city in
-            query.isEmpty || ["zh-Hans", "en"].contains { language in
-                city.names[language]?.range(of: query, options: .caseInsensitive) != nil
-            }
-        }.sorted { l10n.cityName($0).compare(l10n.cityName($1), locale: l10n.locale) == .orderedAscending }
+        catalog.cities(matching: search, language: l10n.language)
     }
 
     var trimmedName: String { petName.trimmingCharacters(in: .whitespacesAndNewlines) }

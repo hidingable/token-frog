@@ -285,8 +285,12 @@ enum Snapshots {
         let window = NSWindow(contentRect: hosting.frame, styleMask: [.borderless], backing: .buffered, defer: false)
         window.applyTheme(model.theme)
         window.contentView = hosting
+        // Lazy stacks need a visible viewport before AppKit caches their display.
+        window.orderFront(nil)
+        defer { window.orderOut(nil) }
         hosting.layoutSubtreeIfNeeded()
         RunLoop.main.run(until: Date().addingTimeInterval(0.3))
+        hosting.layoutSubtreeIfNeeded()
         guard let representation = hosting.bitmapImageRepForCachingDisplay(in: hosting.bounds) else { return }
         hosting.cacheDisplay(in: hosting.bounds, to: representation)
         try? representation.representation(using: .png, properties: [:])?.write(to: directory.appendingPathComponent("\(name).png"))

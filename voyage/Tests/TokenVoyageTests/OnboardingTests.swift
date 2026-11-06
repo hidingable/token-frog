@@ -14,20 +14,29 @@ private actor OnboardingReadProbe {
     let hours: [HourUsage]
     let failure: Bool
     let delay: Duration?
+    let waitForRelease: Bool
+    private var releaseRead: CheckedContinuation<Void, Never>?
 
-    init(days: [DayDetail] = [], hours: [HourUsage] = [], failure: Bool = false, delay: Duration? = nil) {
+    init(days: [DayDetail] = [], hours: [HourUsage] = [], failure: Bool = false, delay: Duration? = nil, waitForRelease: Bool = false) {
         self.days = days
         self.hours = hours
         self.failure = failure
         self.delay = delay
+        self.waitForRelease = waitForRelease
     }
 
     func read(since: String, until: String) async throws -> (days: [DayDetail], hours: [HourUsage]) {
         calls += 1
         ranges.append((since, until))
+        if waitForRelease { await withCheckedContinuation { releaseRead = $0 } }
         if let delay { try await Task.sleep(for: delay) }
         if failure { throw OnboardingReadError.unavailable }
         return (days, hours)
+    }
+
+    func release() {
+        releaseRead?.resume()
+        releaseRead = nil
     }
 }
 
@@ -271,6 +280,22 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         }
     }
 
+    @Test(arguments: Language.allCases)
+    func homeWithoutSearchImmediatelyIncludesEveryActiveCityInCurrentLanguageOrder(language: Language) throws {
+        let flow = OnboardingFlow.snapshot(catalog: localizationCatalog, today: onboardingToday,
+                                           l10n: L10n(language: language), step: .home, welcome: false)
+        let l10n = L10n(language: language)
+        #expect(flow.search.isEmpty)
+        let cities = flow.cities(l10n: l10n)
+        let first = try #require(cities.first)
+        #expect(Set(cities.map(\.id)) == Set(localizationCatalog.active.map(\.id)))
+        #expect(cities.allSatisfy {
+            l10n.cityName(first).compare(l10n.cityName($0), locale: l10n.locale) != .orderedDescending
+        })
+        flow.search = "  \n"
+        #expect(flow.cities(l10n: l10n) == cities)
+    }
+
     @Test func homeSearchMatchesBothLanguagesWithoutCaseAndExcludesRetiredCities() throws {
         let fixture = try OnboardingFixture()
         defer { fixture.remove() }
@@ -320,7 +345,7 @@ private func substantialOnboardingHistory() -> [DayDetail] {
     }
 
     @Test func continuingWhileReadingPermanentlyChoosesWelcome() async throws {
-        let probe = OnboardingReadProbe(days: substantialOnboardingHistory(), delay: .seconds(2))
+        let probe = OnboardingReadProbe(days: substantialOnboardingHistory(), waitForRelease: true)
         let flow = OnboardingFlow(catalog: localizationCatalog, seed: 42, today: onboardingToday,
                                   readUsage: { since, until in try await probe.read(since: since, until: until) })
         flow.startReading()
@@ -334,6 +359,7 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         #expect(flow.step == .logbook && flow.isReading && flow.canContinue)
         flow.advance(l10n: L10n(language: .en))
         #expect(flow.step == .depart && !flow.isReading && flow.logbook == nil)
+        await probe.release()
         await Task.yield()
         #expect(flow.logbook == nil)
         let calls = await probe.calls

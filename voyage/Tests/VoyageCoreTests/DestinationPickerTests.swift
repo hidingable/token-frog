@@ -140,11 +140,11 @@ private func pick(_ catalog: CityCatalog, seed: UInt32, currentCityId: String = 
                 city, route: unvisited ? [] : ["city"], stampedCountries: newCountry ? [] : ["CN"],
                 wishTags: wish ? ["coast", "food"] : ["art"]
             )
-            let expected = (unvisited ? 3 : 1) * (newCountry ? 2 : 1) * (wish ? 3 : 1) * (content ? 2 : 1)
+            let expected = 4 * (unvisited ? 3 : 1) * (newCountry ? 2 : 1) * (wish ? 3 : 1) * (content ? 2 : 1)
             #expect(weight == expected)
-            if mask == 15 { #expect(weight == 36) }
+            if mask == 15 { #expect(weight == 144) }
         }
-        #expect(DestinationPicker.cityWeight(pickerCity("full", km: 100, level: "full"), route: ["full"], stampedCountries: ["CN"], wishTags: []) == 2)
+        #expect(DestinationPicker.cityWeight(pickerCity("full", km: 100, level: "full"), route: ["full"], stampedCountries: ["CN"], wishTags: []) == 8)
     }
 
     @Test func fiveThousandSeedsFollowTheDistanceBandDistribution() throws {
@@ -196,10 +196,9 @@ private func pick(_ catalog: CityCatalog, seed: UInt32, currentCityId: String = 
         #expect(JourneyState(seed: 7, startCityId: "home", date: "2026-01-01", catalog: box.catalog).targetCityId == "a")
     }
 
-    @Test func isolatedHonoluluStillGetsTheNearestFirstStop() throws {
+    @Test func honoluluGetsTheNearestFirstStopInTheExpandedCatalog() throws {
         let home = testCatalog.city("honolulu")
         let candidates = testCatalog.active.filter { $0.id != home.id }
-        #expect(candidates.allSatisfy { JourneyState.cost(from: home, to: $0) > 300 * fuelPerKm })
         let nearest = try #require(candidates.min {
             let left = JourneyState.cost(from: home, to: $0)
             let right = JourneyState.cost(from: home, to: $1)
@@ -207,7 +206,7 @@ private func pick(_ catalog: CityCatalog, seed: UInt32, currentCityId: String = 
         })
         let state = JourneyState(seed: 7, startCityId: home.id, date: "2026-01-01", catalog: testCatalog)
         #expect(state.targetCityId == nearest.id)
-        #expect(state.legCost > 300 * fuelPerKm)
+        #expect(state.legCost == JourneyState.cost(from: home, to: nearest))
     }
 }
 
@@ -359,7 +358,7 @@ private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multipl
             if !strict.isEmpty { #expect(!recent.contains(state.targetCityId)) }
             date = DayKey.next(date, calendar: pickerCalendar)
         }
-        #expect(state.route.count > catalog.active.count)
+        #expect(state.route.count > 100)
         #expect(Set(state.route).count < state.route.count)
         #expect(!state.route.contains("tokyo"))
     }

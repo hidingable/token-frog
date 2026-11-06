@@ -5,6 +5,7 @@ struct SettingsTab: View {
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     @Bindable var model: AppModel
+    @State private var homeSearch = ""
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -48,15 +49,12 @@ struct SettingsTab: View {
                 Toggle(l10n("settings.floating"), isOn: $model.floatingEnabled)
             }
             .toggleStyle(PixelToggleStyle())
-            if model.canChangeStart, let state = model.state {
-                HStack(alignment: .top) {
+            if model.canChangeStart, let state = model.state, let catalog = model.catalog {
+                VStack(alignment: .leading, spacing: 12) {
                     Text(l10n("settings.home"))
-                    Spacer()
-                    Picker(l10n("settings.home"), selection: Binding(get: { state.route[0] }, set: { model.setStart($0) })) {
-                        ForEach(model.startCities) { Text(l10n.cityName($0)).tag($0.id) }
-                    }
-                    .labelsHidden()
-                    .frame(maxWidth: 250)
+                    CitySearchList(catalog: catalog,
+                                   selection: Binding(get: { state.route[0] }, set: { model.setStart($0) }), search: $homeSearch)
+                        .frame(height: 300)
                 }
                 Text(l10n("onboarding.homeHint")).foregroundStyle(theme.textMuted)
                     .fixedSize(horizontal: false, vertical: true)

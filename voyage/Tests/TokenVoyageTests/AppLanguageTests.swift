@@ -94,9 +94,11 @@ func invalidContentLocksBeforeAnySaveOrScan(mode: String) async throws {
         if mode == "corrupt" {
             try Data("broken content".utf8).write(to: content.appendingPathComponent("manifest.json"))
         } else {
-            for city in localizationCatalog.all where mode == "empty" || city.id != "shanghai" {
-                let file = content.appendingPathComponent("cities/\(city.id).json")
+            try FileManager.default.removeItem(at: content.appendingPathComponent("world"))
+            let files = try FileManager.default.contentsOfDirectory(at: content.appendingPathComponent("cities"), includingPropertiesForKeys: nil)
+            for file in files {
                 var json = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: file)) as? [String: Any])
+                if mode == "oneActive" && json["id"] as? String == "shanghai" { continue }
                 json["status"] = "retired"
                 try JSONSerialization.data(withJSONObject: json).write(to: file)
             }
@@ -148,8 +150,9 @@ func invalidContentLocksBeforeAnySaveOrScan(mode: String) async throws {
     let model = AppModel(isSnapshot: true, defaults: MemoryDefaults(), directory: directory, catalog: localizationCatalog, themes: testThemes)
     for preference in [LanguagePreference.zhHans, .en] {
         model.languagePreference = preference
-        let expected = localizationCatalog.active.sorted { model.l10n.cityName($0).compare(model.l10n.cityName($1), locale: model.l10n.locale) == .orderedAscending }
+        let l10n = model.l10n
+        let expected = localizationCatalog.active.sorted { l10n.cityName($0).compare(l10n.cityName($1), locale: l10n.locale) == .orderedAscending }
         #expect(model.startCities.map(\.id) == expected.map(\.id))
     }
-    #expect(model.startCities.count == 107)
+    #expect(model.startCities.count == localizationCatalog.active.count)
 }

@@ -6,6 +6,12 @@ let contentDirectory = URL(fileURLWithPath: #filePath)
     .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("Content")
 let testCatalog = try! CityCatalog.load(directory: contentDirectory)
 
+// Runtime loading parses only. Tests explicitly request the full content gate.
+func validateContent(directory: URL) throws {
+    let issues = ContentValidator.validate(directory: directory)
+    if !issues.isEmpty { throw ContentValidationError(issues: issues) }
+}
+
 struct ContentSandbox {
     let directory: URL
     init() throws {
@@ -15,12 +21,25 @@ struct ContentSandbox {
     func cleanUp() { try? FileManager.default.removeItem(at: directory) }
     func edit(_ path: String = "cities/shanghai.json", _ body: (inout [String: Any]) -> Void) throws {
         let file = directory.appendingPathComponent(path)
+        if path.hasPrefix("cities/"), !FileManager.default.fileExists(atPath: file.path) {
+            let id = file.deletingPathExtension().lastPathComponent
+            let city = try #require(CityContent.readBase(directory: directory).first { $0.id == id })
+            try JSONEncoder().encode(city).write(to: file)
+        }
         var json = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: file)) as? [String: Any])
         body(&json)
         try JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted, .sortedKeys]).write(to: file)
     }
     func remove(_ id: String) throws {
-        try FileManager.default.removeItem(at: directory.appendingPathComponent("cities/\(id).json"))
+        let detail = directory.appendingPathComponent("cities/\(id).json")
+        if FileManager.default.fileExists(atPath: detail.path) {
+            try FileManager.default.removeItem(at: detail)
+        } else {
+            let base = directory.appendingPathComponent("world/cities.tsv")
+            let rows = try String(contentsOf: base, encoding: .utf8).split(separator: "\n")
+                .filter { !$0.hasPrefix(id + "\t") }
+            try (rows.joined(separator: "\n") + "\n").write(to: base, atomically: true, encoding: .utf8)
+        }
         let file = directory.appendingPathComponent("published-ids.txt")
         let ids = try String(contentsOf: file, encoding: .utf8).split(separator: "\n").filter { $0 != id }
         try (ids.joined(separator: "\n") + "\n").write(to: file, atomically: true, encoding: .utf8)
@@ -29,17 +48,21 @@ struct ContentSandbox {
 
 @Test func repositoryContentIsCompleteAndSorted() throws {
     #expect(ContentValidator.validate(directory: contentDirectory).isEmpty)
-    #expect(testCatalog.active.count == 107)
+    #expect((6500...7400).contains(testCatalog.active.count))
     #expect(testCatalog.all.map(\.id) == testCatalog.all.map(\.id).sorted())
     #expect(testCatalog.all.allSatisfy { $0.status == "active" && $0.level == "basic" && $0.facts.isEmpty })
-    #expect(testCatalog.all.allSatisfy { !$0.tags.isEmpty && !$0.isPlaceholder })
+    #expect(testCatalog.all.allSatisfy { !$0.isPlaceholder })
     let tags = try JSONDecoder().decode([String].self, from: Data(contentsOf: contentDirectory.appendingPathComponent("tags.json")))
     #expect(Set(tags) == Set(["coast", "island", "mountain", "river", "lake", "desert", "capital", "heritage", "food", "art", "market", "nature"]))
     for file in try ContentValidator.cityFiles(directory: contentDirectory) {
         #expect(try Data(contentsOf: file).last == 10)
     }
     let published = try String(contentsOf: contentDirectory.appendingPathComponent("published-ids.txt"), encoding: .utf8)
-    #expect(published == testCatalog.all.map(\.id).joined(separator: "\n") + "\n")
+    let registered = published.split(separator: "\n").map(String.init)
+    #expect(registered == registered.sorted())
+    #expect(Set(registered).count == registered.count)
+    #expect(registered.allSatisfy { testCatalog.find($0) != nil })
+    #expect(Set(testCatalog.all.map(\.id)).isSubset(of: Set(registered)))
 }
 
 @Test func cityTagsCoverKnownGeographyAndEveryDeclaredTag() throws {
@@ -52,7 +75,7 @@ struct ContentSandbox {
 }
 
 @Test func everyCityHasTwoToFourDistinctTags() {
-    for city in testCatalog.all {
+    for city in try! ContentValidator.readCities(directory: contentDirectory).map(\.city) {
         #expect((2...4).contains(city.tags.count), "\(city.id) must have two to four tags")
         #expect(Set(city.tags).count == city.tags.count, "\(city.id) has duplicate tags")
     }
@@ -88,7 +111,7 @@ func broadTravelTagsStaySelective(tag: String, maximum: Int) {
     #expect(testCatalog.all.allSatisfy { countries[$0.countryCode] != nil })
     #expect(testCatalog.countryNames("invalid") == nil)
     #expect(testCatalog.countryNames("ZZ") == nil)
-    #expect(testCatalog.countryNames("AD") == nil)
+    #expect(testCatalog.countryNames("AD")?["en"] == "Andorra")
 }
 
 private struct M0City: Decodable {
@@ -105,7 +128,7 @@ private struct M0City: Decodable {
     let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().appendingPathComponent("Fixtures/cities-m0.json")
     let old = try JSONDecoder().decode([M0City].self, from: Data(contentsOf: file))
     #expect(old.count == 107)
-    #expect(Set(old.map(\.id)) == Set(testCatalog.all.map(\.id)))
+    #expect(Set(old.map(\.id)).isSubset(of: Set(testCatalog.all.map(\.id))))
     for entry in old {
         let city = try #require(testCatalog.find(entry.id))
         #expect(city.lat == entry.lat && city.lon == entry.lon)
@@ -154,6 +177,7 @@ func removedCitiesLoadAndReachTheirSavedTarget(endpoint: String) throws {
     try FileManager.default.copyItem(at: source, to: box.directory.appendingPathComponent("cities/test-harbor.json"))
     try box.edit("cities/test-harbor.json") {
         $0["id"] = "test-harbor"
+        $0.removeValue(forKey: "wikidata")
         $0["lat"] = state.legTo.lat + 0.0001
         $0["lon"] = state.legTo.lon
         $0["names"] = ["zh-Hans": "测试港", "en": "Test Harbor"]
@@ -164,7 +188,7 @@ func removedCitiesLoadAndReachTheirSavedTarget(endpoint: String) throws {
     #expect(ContentValidator.validate(directory: box.directory).isEmpty)
     let catalog = try CityCatalog.load(directory: box.directory)
     #expect(catalog.find("test-harbor") != nil)
-    #expect(catalog.active.count == 108)
+    #expect(catalog.active.count == testCatalog.active.count + 1)
     let picks = (0..<200).map { seed in
         DestinationPicker.pick(
             from: state.legTo, currentCityId: state.targetCityId, route: state.route + [state.targetCityId],
@@ -248,7 +272,7 @@ func validatorReportsEachCityRule(rule: String) throws {
     }
     let expected = ["latitude": "coordinate", "longitude": "coordinate", "emptyTags": "cityTags"][rule] ?? rule
     #expect(ContentValidator.validate(directory: box.directory).contains { $0.rule == expected })
-    #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+    #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
 }
 
 @Test(arguments: ["file:///tmp/source", "http://en.wikipedia.org/wiki/River", "https://localhost/source", "https://example.org/verified-source", "https://example.com/source", "https://sub.example.org/source", "https://127.0.0.1/source", "https://[::1]/source"])
@@ -280,15 +304,16 @@ func validatorReportsMissingOrUnreadableContent(path: String) throws {
     defer { box.cleanUp() }
     try FileManager.default.removeItem(at: box.directory.appendingPathComponent(path))
     #expect(!ContentValidator.validate(directory: box.directory).isEmpty)
-    #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+    #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
 }
 
 @Test func validatorRejectsCityCountryWithoutContentNames() throws {
     let box = try ContentSandbox()
     defer { box.cleanUp() }
+    try box.edit("countries.json") { $0.removeValue(forKey: "AD") }
     try box.edit { $0["countryCode"] = "AD" }
     #expect(ContentValidator.validate(directory: box.directory).contains { $0.file == "cities/shanghai.json" && $0.rule == "countryCode" })
-    #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+    #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
 }
 
 @Test(arguments: ["zh-Hans", "en"], ["missing", "blank"])
@@ -301,7 +326,7 @@ func validatorRequiresBilingualCountryNames(language: String, mode: String) thro
         json["CN"] = names
     }
     #expect(ContentValidator.validate(directory: box.directory).contains { $0.file == "countries.json" && $0.rule == "countryNames" })
-    #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+    #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
 }
 
 @Test(arguments: ["invalid", "CHN", "cn"])
@@ -310,7 +335,7 @@ func validatorRejectsNonISOKeysInCountryNames(code: String) throws {
     defer { box.cleanUp() }
     try box.edit("countries.json") { $0[code] = ["zh-Hans": "测试", "en": "Test"] }
     #expect(ContentValidator.validate(directory: box.directory).contains { $0.file == "countries.json" && $0.rule == "countryCode" })
-    #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+    #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
 }
 
 @Test(arguments: ["directory", "malformed"])
@@ -325,5 +350,5 @@ func validatorRejectsUnreadableCountryContent(mode: String) throws {
         try Data("{".utf8).write(to: file)
     }
     #expect(ContentValidator.validate(directory: box.directory).contains { $0.file == "countries.json" && $0.rule == "countries" })
-    #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+    #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
 }

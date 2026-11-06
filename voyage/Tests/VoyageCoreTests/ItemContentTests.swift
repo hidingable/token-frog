@@ -74,7 +74,7 @@ extension ContentSandbox {
             }
         }
         #expect(ContentValidator.validate(directory: box.directory).contains { $0.rule == "itemID" })
-        #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+        #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
     }
 
     @Test(arguments: ["kind", "rarity", "souvenir-rarity", "bag-rarity", "menu-rarity", "habit", "souvenir-habit", "menu-habit", "icon", "city"])
@@ -204,6 +204,6 @@ extension ContentSandbox {
         }
         let rule = failure == "missing" ? "items" : "itemJSON"
         #expect(ContentValidator.validate(directory: box.directory).contains { $0.rule == rule })
-        #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+        #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
     }
 }

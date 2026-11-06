@@ -33,6 +33,8 @@ TOKEN_VOYAGE_DATA_DIR=/tmp/voyage-data build/TokenVoyage.app/Contents/MacOS/Toke
 
 世界地图由 `scripts/generate-worldmap.py` 从 world-atlas 的 `land-110m.json` 生成，平时不需要重跑。
 
+重新生成城市数据：将 Natural Earth 的 `ne_10m_populated_places.dbf` 放入被忽略的 `.vendor/natural-earth/`，在项目目录运行 `swift scripts/generate-world-cities.swift`。
+
 ### 加一个角色
 
 在 `Content/pets/` 新建 `<id>.json`，可复制现有角色文件；令 `id` 等于文件名，使用唯一的 `order`（首次打开按它排序，首个角色也是默认角色）。填写中英文默认名、蛋名和至少三条短句，默认名不超过 12 个字符；身体使用 16×16 像素，行内字符与 `egg.recolor` 都引用 `Content/sprites/palette.json`。`accessories` 保持空数组，留作以后身体与配饰的组合层；当前不会绘制配饰。无需登记角色或修改代码，运行 `swift test` 验证内容和存档兼容性。
@@ -42,4 +44,5 @@ TOKEN_VOYAGE_DATA_DIR=/tmp/voyage-data build/TokenVoyage.app/Contents/MacOS/Toke
 - [tokscale](https://github.com/junhoyeo/tokscale)：MIT，构建时下载。
 - [Fusion Pixel](https://github.com/TakWolf/fusion-pixel-font)：OFL，构建时下载，授权文件随应用打包。
 - 地图数据：Natural Earth（公共领域），经 world-atlas 提供。
+- 全球城市基础数据：[Natural Earth 1:10m Populated Places](https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/)（公共领域）；中文名通过 Foundation 的 Hant-Hans 转换为简体，国家和地区名称由 Foundation Locale 补全。
 - 信件里的地点内容和照片来自 Wikipedia，并附来源链接。

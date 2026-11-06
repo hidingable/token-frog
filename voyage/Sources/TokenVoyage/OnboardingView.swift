@@ -15,19 +15,26 @@ struct OnboardingView: View {
                     Text(l10n.onboardingTitle(flow)).foregroundStyle(theme.text)
                 }
                 .font(Theme.pixel(24))
-                ScrollView {
-                    Group {
-                        switch flow.step {
-                        case .eggs: eggs
-                        case .home: home(availableWidth: proxy.size.width - 60)
-                        case .hatch: hatch
-                        case .logbook: logbook
-                        case .depart: departure
+                Group {
+                    if flow.step == .home {
+                        home(availableWidth: proxy.size.width - 60)
+                    } else {
+                        ScrollView {
+                            Group {
+                                switch flow.step {
+                                case .eggs: eggs
+                                case .home: EmptyView()
+                                case .hatch: hatch
+                                case .logbook: logbook
+                                case .depart: departure
+                                }
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(2)
                         }
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(2)
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 Button {
                     if flow.step == .depart { onDepart() } else { flow.advance(l10n: l10n) }
                 } label: {
@@ -77,33 +84,23 @@ struct OnboardingView: View {
 
     private func home(availableWidth: CGFloat) -> some View {
         VStack(alignment: .leading, spacing: 16) {
-            TextField(l10n("onboarding.search"), text: $flow.search)
-                .textFieldStyle(.plain).padding(10).background(theme.surfaceRaised).pixelBorder(theme.border)
             HStack(alignment: .top, spacing: 18) {
-                ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 4) {
-                        ForEach(flow.cities(l10n: l10n)) { city in
-                            Button { flow.homeCityId = city.id } label: {
-                                Text(l10n.cityName(city)).font(Theme.pixel())
-                                    .padding(10).frame(maxWidth: .infinity, alignment: .leading)
-                                    .foregroundStyle(flow.homeCityId == city.id ? theme.selectedText : theme.text)
-                                    .background(flow.homeCityId == city.id ? theme.selectedFill : theme.surfaceRaised)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                }
-                .frame(width: 210, height: 250)
+                CitySearchList(catalog: flow.catalog, selection: $flow.homeCityId, search: $flow.search)
+                    .frame(width: 240)
                 VStack(alignment: .leading, spacing: 12) {
                     let city = flow.catalog.city(flow.homeCityId)
+                    let map = PixelMap.homeImage(city, theme: theme)
+                    let scale = RoomLayout.scale(availableWidth: availableWidth - 240 - 18, pixelWidth: map.width)
                     Text(l10n.cityName(city)).font(Theme.pixel(24))
-                    PixelMapView(image: PixelMap.homeImage(city, theme: theme),
-                                 availableWidth: availableWidth - 210 - 18, borderColor: theme.border)
+                    PixelMapView(image: map, availableWidth: CGFloat(map.width * scale), borderColor: theme.border)
                         .accessibilityLabel(l10n("onboarding.homeMap", l10n.cityName(city)))
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
+            .frame(maxHeight: .infinity, alignment: .top)
             hint(l10n("onboarding.homeHint"))
         }
+        .padding(2)
         .foregroundStyle(theme.text)
     }
 

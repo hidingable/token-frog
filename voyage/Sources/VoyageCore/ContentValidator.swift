@@ -17,6 +17,10 @@ public enum ContentValidator {
         let minAppVersion: String
     }
 
+    static func parseManifest(directory: URL) throws {
+        _ = try JSONDecoder().decode(Manifest.self, from: Data(contentsOf: directory.appendingPathComponent("manifest.json")))
+    }
+
     static func cityFiles(directory: URL) throws -> [URL] {
         try FileManager.default.contentsOfDirectory(at: directory.appendingPathComponent("cities"), includingPropertiesForKeys: nil)
             .filter { $0.pathExtension == "json" }.sorted { $0.lastPathComponent < $1.lastPathComponent }
@@ -107,15 +111,32 @@ public enum ContentValidator {
         var ids: Set<String> = []
         var cities: [String: City] = [:]
         let continents: Set<String> = ["asia", "europe", "africa", "north-america", "south-america", "oceania"]
+        var entries: [(path: String, city: City, detail: Bool)] = []
+        do {
+            entries += try CityContent.readBase(directory: directory).map { ("world/cities.tsv", $0, false) }
+        } catch { report("world/cities.tsv", "cityTSV", "Cannot read base cities: \(error)") }
         for file in files {
-            let path = "cities/\(file.lastPathComponent)"
-            let city: City
-            do { city = try decoder.decode(City.self, from: Data(contentsOf: file)) }
-            catch { report(path, "cityJSON", "Cannot decode city: \(error)"); continue }
-            if city.id.isEmpty || file.deletingPathExtension().lastPathComponent != city.id {
+            do { entries.append(("cities/\(file.lastPathComponent)", try decoder.decode(City.self, from: Data(contentsOf: file)), true)) }
+            catch { report("cities/\(file.lastPathComponent)", "cityJSON", "Cannot decode city: \(error)") }
+        }
+        var baseIDs: Set<String> = []
+        var detailIDs: Set<String> = []
+        var detailWikis: Set<String> = []
+        for (path, city, detail) in entries {
+            if city.id.isEmpty || (detail && path != "cities/\(city.id).json") {
                 report(path, "filename", "Filename must equal the city ID")
             }
-            if !ids.insert(city.id).inserted { report(path, "uniqueID", "Duplicate city ID") }
+            let unique = detail ? detailIDs.insert(city.id).inserted : baseIDs.insert(city.id).inserted
+            if !unique { report(path, "uniqueID", "Duplicate city ID") }
+            if let wiki = city.wikidata {
+                if wiki.range(of: #"^q[1-9][0-9]*$"#, options: .regularExpression) == nil {
+                    report(path, "wikidata", "Invalid Wikidata ID")
+                }
+                if detail && !detailWikis.insert(wiki).inserted { report(path, "uniqueID", "Duplicate Wikidata identity") }
+            }
+            if !detail && city.id != city.wikidata { report(path, "wikidata", "Base ID must equal Wikidata ID") }
+            if !(1...4).contains(city.tier) { report(path, "tier", "Tier must be in 1...4") }
+            ids.insert(city.id)
             cities[city.id] = city
             if !city.rainyMonths.allSatisfy({ (1...12).contains($0) }) {
                 report(path, "rainyMonths", "Rainy months must be in 1...12")
@@ -131,9 +152,12 @@ public enum ContentValidator {
             } else if countries[city.countryCode] == nil {
                 report(path, "countryCode", "Country code is missing from countries.json: \(city.countryCode)")
             }
-            if city.tags.isEmpty || !Set(city.tags).isSubset(of: tags) { report(path, "cityTags", "Missing or unknown city tags") }
+            if ((detail || city.level != "basic") && city.tags.isEmpty) || !Set(city.tags).isSubset(of: tags) { report(path, "cityTags", "Missing or unknown city tags") }
             if !complete(city.names) { report(path, "names", "City names require zh-Hans and en") }
-            if !complete(city.wikipedia) { report(path, "wikipedia", "Wikipedia titles require zh-Hans and en") }
+            if city.names["zh-Hans"]?.range(of: #"\p{Han}"#, options: .regularExpression) == nil {
+                report(path, "names", "Chinese names require a Han character")
+            }
+            if (detail || city.level != "basic") && !complete(city.wikipedia) { report(path, "wikipedia", "Wikipedia titles require zh-Hans and en") }
             var facts: Set<String> = []
             for fact in city.facts {
                 if fact.id.isEmpty || !facts.insert(fact.id).inserted { report(path, "factID", "Fact IDs must be nonempty and unique within a city") }

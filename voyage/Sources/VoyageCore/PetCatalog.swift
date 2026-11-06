@@ -70,6 +70,11 @@ public final class PetCatalog: Sendable {
         return try PetCatalog(directory: directory)
     }
 
+    /// Bundled content is validated before release, not again during app startup.
+    static func parse(directory: URL) throws -> PetCatalog {
+        try PetCatalog(directory: directory)
+    }
+
     static func readPets(directory: URL) throws -> [(file: URL, pet: PetDefinition)] {
         try FileManager.default.contentsOfDirectory(at: directory.appendingPathComponent("pets"), includingPropertiesForKeys: nil)
             .filter { $0.pathExtension == "json" }.sorted { $0.lastPathComponent < $1.lastPathComponent }

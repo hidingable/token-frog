@@ -58,7 +58,7 @@ private extension ContentSandbox {
             try FileManager.default.removeItem(at: entry.file)
         }
         #expect(ContentValidator.validate(directory: box.directory).contains { $0.rule == "petCount" })
-        #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+        #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
     }
 
     @Test(arguments: ["empty", "duplicate"])
@@ -228,7 +228,7 @@ private extension ContentSandbox {
             rule = name == "palette" ? "spritePalette" : name == "eggs" ? "spriteEggs" : "spriteIcons"
         }
         #expect(ContentValidator.validate(directory: box.directory).contains { $0.rule == rule })
-        #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+        #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
         #expect(throws: ContentValidationError.self) { try PetCatalog.load(directory: box.directory) }
     }
 }

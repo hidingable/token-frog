@@ -38,7 +38,7 @@ import Testing
         }
         let rule = failure.hasPrefix("duplicate") ? "boxDuplicate" : failure.hasSuffix("bag") || failure == "wrong-bag-kind" ? "boxBag" : "boxSouvenir"
         #expect(ContentValidator.validate(directory: box.directory).contains { $0.file == "boxes.json" && $0.rule == rule })
-        #expect(throws: ContentValidationError.self) { try CityCatalog.load(directory: box.directory) }
+        #expect(throws: ContentValidationError.self) { try validateContent(directory: box.directory) }
     }
 
     @Test(arguments: ["missing", "malformed", "missing-souvenir-list", "missing-bag-list"])

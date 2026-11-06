@@ -26,6 +26,10 @@ private func rgb(_ image: CGImage, x: Int, y: Int) throws -> UInt32 {
     #expect(PixelMap.homeImage(localizationCatalog.city("beijing"), theme: night) !== home)
 
     var state = JourneyState(seed: 7, startCityId: city.id, date: "2026-11-01", catalog: localizationCatalog)
+    // A nearby first stop may stay inside one map pixel. Use a fixed, visible leg.
+    state.targetCityId = "tokyo"
+    state.legTo = localizationCatalog.city("tokyo").coordinate
+    state.legCost = JourneyState.cost(from: city, to: localizationCatalog.city("tokyo"))
     let route = PixelMap.image(for: state, catalog: localizationCatalog, theme: night)
     let lightRoute = PixelMap.image(for: state, catalog: localizationCatalog, theme: day)
     #expect(route === PixelMap.image(for: state, catalog: localizationCatalog, theme: night))
