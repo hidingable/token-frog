@@ -10,7 +10,7 @@
     "food",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "纽约",
     "en": "New York City"
@@ -19,5 +19,68 @@
     "zh-Hans": "纽约市",
     "en": "New York City"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "newyork-brooklyn-bridge",
+      "type": "place",
+      "names": {
+        "zh-Hans": "布鲁克林大桥",
+        "en": "Brooklyn Bridge"
+      },
+      "summary": {
+        "zh-Hans": "布鲁克林大桥于1883年落成，跨越东河，连接曼哈顿与布鲁克林。桥上设有供行人通行的步道。",
+        "en": "Completed in 1883, the Brooklyn Bridge spans the East River between Manhattan and Brooklyn. A pedestrian walkway allows visitors to cross on foot."
+      },
+      "sources": [
+        "https://www.nyc.gov/html/dot/html/infrastructure/brooklyn-bridge.shtml",
+        "https://brooklynbridgepark.org/places-to-see/brooklyn-bridge/"
+      ]
+    },
+    {
+      "id": "newyork-bow-bridge",
+      "type": "place",
+      "names": {
+        "zh-Hans": "中央公园弓桥",
+        "en": "Bow Bridge, Central Park"
+      },
+      "summary": {
+        "zh-Hans": "弓桥是中央公园的一座铸铁桥，建于19世纪60年代初，横跨园中的湖，连接漫步区与贝塞斯达台地、樱桃山一带。",
+        "en": "Bow Bridge is a cast-iron bridge built in the early 1860s in Central Park. It crosses the Lake, connecting the Ramble with the Bethesda Terrace and Cherry Hill area."
+      },
+      "sources": [
+        "https://www.centralparknyc.org/restoration/restoration-of-central-parks-cast-iron-bridges"
+      ]
+    },
+    {
+      "id": "newyork-bagel",
+      "type": "food",
+      "names": {
+        "zh-Hans": "纽约贝果",
+        "en": "New York Bagel"
+      },
+      "summary": {
+        "zh-Hans": "纽约的贝果可搭配奶油奶酪等抹酱。当地贝果店H&H说明，自家的面团先经水煮，再在门店烘烤。",
+        "en": "New York bagels can be served with cream cheese and other spreads. Local maker H&H describes kettle-boiling its dough before baking the bagels at its shops."
+      },
+      "sources": [
+        "https://www.hhbagels.com/about/",
+        "https://www.hhbagels.com/"
+      ]
+    },
+    {
+      "id": "newyork-pizza-slice",
+      "type": "food",
+      "names": {
+        "zh-Hans": "纽约切片披萨",
+        "en": "New York Pizza Slice"
+      },
+      "summary": {
+        "zh-Hans": "披萨可以按片购买，是纽约街头能尝到的食物。格林威治村的Joe’s Pizza供应经典纽约切片披萨。",
+        "en": "Pizza sold by the slice is part of New York street food. Joe’s Pizza in Greenwich Village serves the classic New York slice."
+      },
+      "sources": [
+        "https://www.joespizzanyc.com/"
+      ]
+    }
+  ]
 }

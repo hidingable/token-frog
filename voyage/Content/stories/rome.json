@@ -1,0 +1,367 @@
+[
+  {
+    "id": "rome.arrival.arches-and-buckle",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "rome",
+    "factIds": [
+      "rome-colosseum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "数到一半，邮包扣替我接了一声。",
+      "en": "My mailbag buckle joined the count."
+    },
+    "text": {
+      "zh-Hans": "到了罗马，我站在斗兽场外，顺着一层层拱门慢慢看。介绍上说，外面有四层，下面三层都是成排的拱门。我正数到一半，邮包扣碰出一声轻响，忽然忘了刚才数到哪儿。便签上先记下“从这里再看一次”，倒也不用急着补齐。",
+      "en": "Outside the Colosseum in Rome, I followed the arches along the lower three of its four exterior levels. Halfway through counting, my mailbag buckle clicked and my number vanished. My note now says, “Have another look from here.” A perfectly useful instruction, even without a total."
+    },
+    "replies": [
+      {
+        "id": "rome.arrival.arches-and-buckle.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请同行人选一排看看",
+          "en": "Ask a companion to choose a row"
+        }
+      },
+      {
+        "id": "rome.arrival.arches-and-buckle.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "记住刚才停下的位置",
+          "en": "Remember where the counting stopped"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "rome.arch-restart-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "rome.arrival.oculus-pause",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "rome",
+    "factIds": [
+      "rome-pantheon"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天有一小段时间，我只顾着抬头。",
+      "en": "For a little while, looking up was enough."
+    },
+    "text": {
+      "zh-Hans": "在万神殿里，我安静地望着穹顶。凹格一圈圈向上，中央的圆形天窗露出天空。我本来想立刻写点什么，手却一直停在合起的本子上。走到外面才写下第一句：今天的信，可以先留一个停顿。接下来的话，等我想好再添。",
+      "en": "Inside the Pantheon, I quietly traced the shrinking rings of panels up to the round opening and the sky beyond it. My notebook stayed closed in my hands. Outside, the first sentence finally arrived: this letter may begin with a pause. The next sentence can take its time."
+    },
+    "replies": [
+      {
+        "id": "rome.arrival.oculus-pause.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说出来后的第一句话",
+          "en": "Share the first words that came outside"
+        }
+      },
+      {
+        "id": "rome.arrival.oculus-pause.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "记住抬头后的停顿",
+          "en": "Remember the pause after looking up"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "rome.oculus-pause-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "rome.arrival.carbonara-first-forkful",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "rome",
+    "factIds": [
+      "rome-carbonara"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "菜单还没写完，叉子先出发了。",
+      "en": "My fork left before the menu was ready."
+    },
+    "text": {
+      "zh-Hans": "午饭是卡尔博纳拉意面。鸡蛋和奶酪裹着面条，旁边有猪颊肉，黑胡椒是些小小的深色点。我想先在菜单上把名字写整齐，闻到香味，又把笔放下了。吃完才补了一行“叉子走在前面”。这次菜单的开头，留给午饭自己。",
+      "en": "Lunch was carbonara: pasta coated with egg and cheese, guanciale alongside, and small dark specks of pepper. I meant to finish the name on my sketch menu first. The smell changed the plan. After eating, I added, “The fork went ahead.” Lunch got the opening line today."
+    },
+    "replies": [
+      {
+        "id": "rome.arrival.carbonara-first-forkful.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊第一口想起什么",
+          "en": "Tell someone what the first bite recalled"
+        }
+      },
+      {
+        "id": "rome.arrival.carbonara-first-forkful.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看胡椒点落在哪里",
+          "en": "Notice where the pepper specks landed"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "rome.menu-carbonara"
+      ]
+    }
+  },
+  {
+    "id": "rome.arrival.suppli-short-thread",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "rome",
+    "factIds": [
+      "rome-suppli"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "这份点心，让我的句子多了一条细线。",
+      "en": "A small snack supplied a connecting line."
+    },
+    "text": {
+      "zh-Hans": "我尝了一份苏普利炸饭团。薄脆外皮里面是调味米饭，分开时，中间的马苏里拉奶酪牵出一条细丝。我等它落回去，再吃下一口。小菜单上只画了两半和一条线，看起来像两个词还没舍得说再见。明天翻出来，得认认哪个词是“午饭”。",
+      "en": "My supplì had seasoned rice inside its crisp coating. A thread of mozzarella briefly connected the two halves. I waited for it to settle before the next bite. On my little menu, two halves and one line look like words reluctant to part. Tomorrow I will decide which one says “lunch.”"
+    },
+    "replies": [
+      {
+        "id": "rome.arrival.suppli-short-thread.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给两半各起个小名",
+          "en": "Give each half a small nickname"
+        }
+      },
+      {
+        "id": "rome.arrival.suppli-short-thread.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看那条细线的弯度",
+          "en": "Follow the curve of the little thread"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "rome.suppli-thread-note"
+      ],
+      "menuIds": [
+        "rome.menu-suppli"
+      ]
+    }
+  },
+  {
+    "id": "rome.arrival.two-menus-words",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "rome",
+    "factIds": [
+      "rome-carbonara",
+      "rome-suppli"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两顿饭聊起来，只用了两个词。",
+      "en": "Two meals found a two-word conversation."
+    },
+    "text": {
+      "zh-Hans": "在罗马，我先吃了卡尔博纳拉意面，后来又尝了苏普利。歇脚时，一位旅人问我这两张小菜单差在哪儿。我想了想，说一张“裹着”，一张“藏着”：蛋和奶酪裹着面条，奶酪藏在饭团里。对方指了指我的邮包，说信也藏在里面。我赶紧补上：这份可不能吃。",
+      "en": "After carbonara and, later, a supplì in Rome, a fellow traveler asked about my two little menus. I offered “coated” and “tucked inside”: sauce around pasta, mozzarella inside rice. They pointed out that my letters were tucked inside the mailbag too. I added an essential note: the bag is off the menu."
+    },
+    "replies": [
+      {
+        "id": "rome.arrival.two-menus-words.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "再给菜单找两个词",
+          "en": "Try two more words for the menus"
+        }
+      },
+      {
+        "id": "rome.arrival.two-menus-words.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪样藏在里面",
+          "en": "Notice what is tucked inside"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "rome.menu-carbonara",
+        "rome.menu-suppli"
+      ]
+    }
+  },
+  {
+    "id": "rome.arrival.two-menus-textures",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "rome",
+    "factIds": [
+      "rome-carbonara",
+      "rome-suppli"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的午饭回忆，一边柔和，一边轻脆。",
+      "en": "Today's food memories arrived in two textures."
+    },
+    "text": {
+      "zh-Hans": "卡尔博纳拉意面的酱汁贴着面条，苏普利外面的薄脆则在第一口轻轻响了一下。我把在罗马吃过的这两样分别记成小菜单，旁边不排高低，只写自己先注意到的东西。收纸时，铅笔横在两张之间，像还没决定要去哪边歇脚。那就让它先躺一会儿。",
+      "en": "The carbonara sauce clung to the pasta; the coating on my supplì gave a small crunch. I made separate menus for the two things I tried in Rome, recording the detail I noticed first in each. My pencil settled between the sheets, apparently undecided about where to rest. It can stay there a while."
+    },
+    "replies": [
+      {
+        "id": "rome.arrival.two-menus-textures.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说先记住哪一口",
+          "en": "Share which bite stayed with you first"
+        }
+      },
+      {
+        "id": "rome.arrival.two-menus-textures.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把两种口感分开记",
+          "en": "Give each texture its own note"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "rome.menu-carbonara",
+        "rome.menu-suppli"
+      ]
+    }
+  },
+  {
+    "id": "rome.fulfill.pause-fold",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "rome",
+    "factIds": [
+      "rome-pantheon"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "rome.arrival.oculus-pause.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把那段停顿留了下来。",
+      "en": "“{reply},” you suggested. I saved that quiet moment."
+    },
+    "text": {
+      "zh-Hans": "我又打开在万神殿外写的本子。那句“先留一个停顿”下面，今天只添了三个小点，再空出一行。合起来时，折页把那行空白藏在里面；展开，才看得见。它不是穹顶的图，只是我记住抬头那一刻的小办法。等下次写信，就从空白后面接着说。",
+      "en": "I reopened the notebook I had used outside the Pantheon. Beneath the line about a pause, I added three dots and left a blank line. Folded inward, the blank disappears; open the card and it returns. It is no drawing of the dome, just a way of keeping that moment of looking up. My next letter can continue after the space."
+    },
+    "replies": [
+      {
+        "id": "rome.fulfill.pause-fold.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给空白后面接句话",
+          "en": "Add a sentence after the space"
+        }
+      },
+      {
+        "id": "rome.fulfill.pause-fold.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "展开看看那一行空白",
+          "en": "Open the card to find the blank line"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "rome.quiet-fold-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

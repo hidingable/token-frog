@@ -480,3 +480,274 @@ CLANG_MODULE_CACHE_PATH="$PWD/.build/codex-cache/clang" SWIFTPM_MODULECACHE_OVER
 结果：退出码0；VoyageCoreTests 257 tests / 15 suites全部通过，TokenVoyageTests 168 tests / 6 suites全部通过，共425 tests。用量翻倍相关回放测试、原有兑现测试与18城精确兑现测试继续通过。最终日志`.build/step11-batch2-tests-final.log`；修改前基线`.build/step11-batch2-baseline.log`。警告逐行比较完全一致：4条既有SwiftPM用户缓存权限/只读数据库警告，没有新增警告。
 
 另外核对：全部新增JSON可解析；两种语言完整、中文含汉字、英文无汉字且槽位一致；全内容包story/reply/item ID无重复，事实ID跨城市也无重复；所有事实及应用来源均在本报告有对应依据；既有城市元数据、故事与物品保持原样；`git diff --check`通过。未运行build-app.sh、快照命令或应用，未修改docs或项目外文件，未提交。
+
+## 第三批：新加坡、伊斯坦布尔、开罗、清迈（2026-11-06）
+
+本节来源均为此次网页搜索实际返回、且已打开的 HTTPS 地址；鱼尾狮页面使用打开后实际跳转的正式地址。城市既有坐标、名称、分类与发布 ID 保持不变。旅途中无姓名的同行人、对话和个人味觉/声音观察沿用第一批的原创虚构叙事边界，不将他们写成真实历史人物、地方代表或风俗证人。纪念品是信使自己制作的纸品，不是官方商品或文物；地图式箭头仅记录个人经历，不承担导航。每城 2 place + 2 food、6 arrival + 1 同城 fulfill、2 菜单、common 2 / uncommon 1 / rare 1 纪念品。没有加入气候月份、收费、营业安排或食店的实时承诺。
+
+### 新加坡 singapore
+
+| fact | 实际来源与支持范围 | 取舍与可信度 |
+| --- | --- | --- |
+| `singapore.singapore-merlion` | https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/marina-bay/merlion-park/ ：新加坡旅游局正文 Half Lion, Half Fish / Story Behind the Statue 明确狮头鱼身、喷水及公园面向滨海湾。 | 旅游局直接介绍，基本可观察造型可信；不用建造人物、雕像重量、搬迁年份、渔村起源象征或传说。旧版 see-do 地址打开后跳到本地址。 |
+| `singapore.singapore-botanic-gardens` | https://whc.unesco.org/en/list/1483 ：UNESCO 简介与 Outstanding Universal Value 明确1859年创建、市中心位置、研究/保护/教育功能。 | 一手遗产资料；不写殖民政治或橡胶传播人物故事，不写植物数量、落叶种类与实时展览。叶影是一次虚构旅途中的观察，不是特定物种资料。 |
+| `singapore.singapore-chicken-rice` | https://www.visitsingapore.com/content/dam/desktop/global/about-singapore/traveller-information/q2-singapore-insider-2019-en.pdf ：旅游局 Singapore Insider 2019年第2季第14页，Hainanese Chicken Rice 段明确蒸/烤鸡、鸡汤米饭、辣椒等酱料。 | 官方公共旅游材料，但年代较旧，只用稳定食物组成；不采用该页商家、门店地址和电话，也不采用起源迁徙叙述、统一配方或酱料比例。 |
+| `singapore.singapore-kaya-toast` | https://www.visitsingapore.com/content/dam/desktop/global/about-singapore/traveller-information/q2-singapore-insider-2019-en.pdf ：同页 Kaya Toast 段明确烤吐司配椰子和鸡蛋做的酱、早餐属性。 | 与鸡饭同一机构同一册，非独立互证；不扩写此段未明确的配料、黄油、炭烤工艺或点餐风俗。脆响只写信使这一份的体验。 |
+
+内容：鱼尾狮旁从两侧碰头、植物园看叶影停笔、勺子打断鸡饭记述、吐司第一口轻响、两顿饭的词语与停顿；fulfill 将第一条 talkative 回应的“两种招呼接起来”兑现为“这边见，慢慢走”的个人折卡。物品为碰头便签、早餐轻响纸、叶影停步记和两声招呼卡。
+
+未采用：鱼尾狮起源传说、建造者与政治人物；植物园具体物种、树龄与落叶采集；吐司全民必点、特定饮品组合和当年推荐食店。来源质量一般之处主要是2019年美食手册，已避开其时效内容和营销概括。
+
+### 伊斯坦布尔 istanbul
+
+| fact | 实际来源与支持范围 | 取舍与可信度 |
+| --- | --- | --- |
+| `istanbul.istanbul-galata-tower` | https://galatakulesi.gov.tr/tarihce ：土耳其文化旅游部加拉塔塔官方历史页明确1348年今日塔的基础、1509年地震后修建及后续改建。 | 场馆/主管部门一手材料；不称今天所有构件都是1348年原物，不写该页的政治叙述、飞行人物或传说。 |
+| `istanbul.istanbul-basilica-cistern` | https://www.ktb.gov.tr/EN-113825/yerebatan-palace-cistern.html ：文化旅游部 Yerebatan Palace (Cistern) 正文明示地下蓄水建筑及336根柱子。 | 官方页，但对建造年代、柱高与另一些官方资料的口径有差异；本次只采用各页一致的蓄水用途和柱数，不用建造者、年代、间距或高度。 |
+| `istanbul.istanbul-simit` | https://goturkiye.com/branding/press-releases/iconic-street-food-from-istanbul ：官方推广机构 TGA / GoTürkiye 的 From Breakfast to Dinner 段明确环形面包、芝麻表面和伊斯坦布尔街头供应。 | 官方旅游宣传，基本食物形态可用；不用“最受欢迎”、统一尺寸、价格、船上或街头具体售卖保证，不写喂鸟行为。 |
+| `istanbul.istanbul-balik-ekmek` | https://goturkiye.com/branding/press-releases/iconic-street-food-from-istanbul ：Fresh from the sea 段明确 grilled fish、onions、greens、bread roll 及 Karaköy / Eminönü 水岸区域。 | 两种食物共用同一官方新闻稿，不是独立互证；不写健康、营养、实惠等宣传结论，不固定鱼种、份量或配方。菜名的两个词作为名称本身使用，不虚构发音或地方用语。 |
+
+内容：去加拉塔塔碰头时拐早了、地下水宫安静观察柱列重叠、面包圈打断路线讨论、鱼三明治先拿稳再写菜名、两张菜单的散步词语与停笔；fulfill 精确续接转弯方向回应，将自己的绕路与重逢记为口袋卡。四件纪念品为绕路箭头、拿稳午饭便签、柱间观察和重逢折卡。
+
+未采用：加拉塔塔飞行传说和政治人物；地下水宫的建造年代、柱高及柱距（官方页面口径不一致），Medusa传说、灯光效果及演出承诺；simit 喂海鸥的宣传习惯、鱼三明治鱼种和海产捕捞保证。市图书馆 https://ataturkkitapligi.ibb.gov.tr/en/Kitaplik/Muzelerimiz/Yerebatan-Cistern-Museum/11 搜索可见336柱，但打开超时，没有列为应用来源。也不使用搜索出现的非官方售票站 basilicacisternmuseum.org。
+
+### 开罗 cairo
+
+| fact | 实际来源与支持范围 | 取舍与可信度 |
+| --- | --- | --- |
+| `cairo.cairo-egyptian-museum` | https://egymonuments.gov.eg/museums/egyptian-museum ：埃及旅游与文物部正文明确1902年开馆、开罗市中心、从前王朝至希腊罗马时期的文物，以及首饰藏品。 | 主管部门直接资料，稳定建馆史可信；不采用“最大”“最古老”等比较，避开可能迁馆的具名明星展品、实时藏量与票价。情节只说一件未命名首饰，未触碰展品。 |
+| `cairo.cairo-al-azhar-park` | https://prod.the.akdn/en/resources-media/whats-new/events/inauguration-cairos-al-azhar-park ：阿迦汗发展网络项目揭幕记录，2005-03-25；明确开罗公园从填土/废料堆积场地改成休闲空间。 | 项目建设参与机构的当年一手记录，适合证明揭幕年与改造用途；不拿当时人口、周边居民数、绿地比例、预期社会经济效应当作现状。 |
+| `cairo.cairo-koshari` | https://www.experienceegypt.eg/files/Nile%20Valley-Eng.pdf ：埃及官方旅游资料第17页 Egyptian Cuisine，列出 macaroni/spaghetti、rice、lentils、chickpeas、garlic and tomato sauce、fried onions。 | 官方旅游概述，可支持基本组成；不作为工艺标准，不写统一数量、发明来源、主食地位或营养结论。 |
+| `cairo.cairo-ful-medames` | https://www.experienceegypt.eg/files/Nile%20Valley-Eng.pdf ：同页明确 Foul Medames 为豆类传统菜、可配煮鸡蛋。 | 同册而非独立互证。该段未明确豆种，本批只写“豆类”，不用凭印象补充蚕豆、比例、炖煮时长和固定早餐习俗。信使尝到的一份配蛋，不表示每家均相同。 |
+
+内容：埃及博物馆前后两次看首饰、爱资哈尔公园把等人接成散步、库沙里食材清单被勺子打断、炖豆菜单记录放勺轻响、两张菜单各用“今天”开头和停勺记号；fulfill 回应“记下最想再看的一件”，以两次站定的距离作个人记忆折卡。物品为再看一眼便签、等人散步记、两顿饭开头纸和两次停步卡。
+
+未采用：埃及博物馆当前具名重器、总藏量、大埃及博物馆混写和任何搬迁推断；库沙里起源/全国统一做法；炖豆豆种和历史食谱。公园运营网站 https://azharpark.com/ 打开500，政府介绍 https://sis.gov.eg/en/egypt/tourism/recreational-tourism/al-azhar-park/ 与开罗门户 https://cairo.gov.eg/en/tourism/tourism-destinations/entertainment/gardens/ 打开超时，均未进入应用来源，改用已打开的项目建设方原始揭幕记录。AKDN记录较旧且来自项目参与者，只支持当年揭幕和绿地用途；美食册是公共旅游资料，可信度低于专项食品工艺标准。
+
+### 清迈 chiangmai
+
+| fact | 实际来源与支持范围 | 取舍与可信度 |
+| --- | --- | --- |
+| `chiangmai.chiangmai-doi-suthep` | https://www.thailandtravel.or.jp/wat-phra-that-doi-suthep/ ：泰国政府观光厅日本站明确清迈西面的山上寺院、金色佛塔及露台可望市区。 | 官方公共旅游介绍，位置与可观察景观可用；不用灵验、生肖、宗教仪式、神话、阶梯数和绝对海拔。故事只安静看塔、到观景露台停步，未在宗教设施上游戏或留记号。 |
+| `chiangmai.chiangmai-rajapruek` | https://rprp2025.royalparkrajapruek.org/en/WhatWeDo/TheRoyalParkRajapruek ：花园所属高地研究与发展研究院 HRDI 的 What We Do 页明确2006年园艺博览会渊源、植物收藏、主题花园、园艺学习及保护功能。 | 运营公共机构一手介绍；不写具体国家展园数量、花期、当日活动和政治纪念人物。 |
+| `chiangmai.chiangmai-khao-soi` | https://www.thailandtravel.or.jp/about/thaicuisine/khao-soi/ ：泰国政府观光厅明确清迈风味咖喱面、椰奶汤、鸡蛋面和店间调味/肉类差异。 | 官方食物介绍；只用基本组合和明确差异，不把全泰北版本一概写成椰奶汤，不写起源民族/传播史和统一辣度。 |
+| `chiangmai.chiangmai-sai-ua` | https://www.thailandtravel.or.jp/common/pdf/ChiangMai2023.pdf ：观光厅清迈2023手册 Northern Thai Cuisine / サイウア段，搜索可见香茅等香草和香料的地方香肠（整册已打开，网页抽取对该段日文检索不完整）。https://guide.michelin.com/th/en/article/dining-out/5-thai-cities-5-iconic-street-food-dishes-worth-traveling-for ：已打开 Chiang Mai 段明确炭烤香肠、香草和咖喱香料，交叉支持基本构成和烤制。 | TAT手册支持香草/香茅，米其林为商业餐饮编辑二手介绍，是本四城应用来源中相对一般的一处。仅采用香肠、香草/香料、烤制这几个窄事实；不固定猪肉比例、不把推荐搭配写成风俗，不采用最佳店铺、排队时长和评分宣传。 |
+
+内容：素贴寺露台安静看远近、皇家花园先看眼前再选方向、咖喱面先尝再写、香草肠让一句话多停一次、两种菜单的一句话小游戏和私人标点；fulfill 精确承接“记住远近的两层颜色”，用“先看这里/再看远处”折卡收下个人眺望顺序。纪念品为露台停步便签、香味逗号、花园双箭头和远近翻面卡。
+
+未采用：素贴寺建造人物、白象传说、灵验或生肖说法、礼仪教程、具体阶梯数（各旅游页有差异）；山地民族性格刻板描写；咖喱面起源、宗教或民族传播史；香肠固定肉种和完整配方；花园王室纪念政治叙述、实时花种数量和展园承诺。2023手册已有年代，仅用基本食物形态；日文PDF抽取不完整处已明确，并补已可读的米其林正文，未假装获得完整配方标准。
+
+## 西安三条失效来源替换（2026-11-06）
+
+本节更新第二批西安来源表的当前有效依据。旧表保留为当时核实记录，其中三个 `en.xa.gov.cn` 地址不再作为应用来源。此次仅修改 `Content/cities/xian.json` 的 `sources` 数组，既有事实名称、摘要、城市元数据、情节与物品文字均不改。
+
+- `xian.xian-city-wall`：换为 https://qjxq.xa.gov.cn/zjqj/gyqj/tsqj/5df21c5565cbd81235fc1efa.html 。已打开正文；曲江新区管委会介绍明确明洪武年间扩建、门楼/角楼、城外护城河以及街墙园河等景观，支持现有摘要的明代及可见城楼/河与城市景观。不使用此旧文缺失数字的尺寸、宣传性世界之最或当时开放进度。
+- `xian.xian-roujiamo`：换为 https://lzhbwg.mofcom.gov.cn/edi_ecms_web_front/thb/detail/f1b29e1774c04ec690cdab178e18f8ba 。已打开文化传承与制作工艺正文；商务部老字号数字博物馆“樊记”说明白吉馍夹腊汁肉、软烂肉质与烤馍麦香，支持现有摘要。它属于品牌资料，带营销语言；只采用基本组合和现有简短口感，不采用起源人物、年代、独门香料或健康储存宣称。
+- `xian.xian-yangrou-paomo`：换为 https://sxwjw.shaanxi.gov.cn/hdjl/dczj/202412/P020241223635101402485.pdf 和 https://lzhbwg.mofcom.gov.cn/edi_ecms_web_front/thb/detail/eb84796a9f21424b954a50e5096b052a 。两者均打开；陕西省卫健委《食品安全地方标准 牛羊肉泡馍 编制说明》1.1开头直接定义肉汤、熟肉与掰碎饦饦馍的组合；老字号“老刘家”制作工艺段交叉说明“肉汤煮馍碎”。前者是征求意见阶段的编制说明，不称为已生效法规；后者为品牌材料，不作为全城统一配方。未采用两页的起源传说、历史人物台词、工序比例或营养宣称。
+- `xian.xian-terracotta-army`：原有 https://whc.unesco.org/en/list/441 保持不变。西安4条事实均仍至少有1条来源，应用城市文件中不再含 `en.xa.gov.cn`。
+
+## 罗马、巴黎、里斯本、巴塞罗那核实记录（第三批）
+
+核实日期：2026-11-06。下列应用来源均通过本次网页搜索找到并实际打开看到正文，采用最终实际访问的 HTTPS 地址。旅人、对话、一次游览中的观察、食物口感、便签与折卡均为原创旅途，不能作为真实人物、当地风俗、场馆服务或官方商品的事实依据。每城 2 place + 2 food、6 arrival + 1 同城 fulfill、2 菜单、common 2 / uncommon 1 / rare 1 纪念品。两种习惯各有一条同时奖励两张菜单的 arrival，满足现有习惯优先选择下的菜单可达性。
+
+### 罗马 rome
+
+- `rome.rome-colosseum`：考古公园（场馆直属官方机构）正文明确公元 1 世纪、弗拉维圆形剧场名称；罗马市官方旅游网站明确外部四层、其中三层为成排拱门。应用只写世纪和立面分层；不写游戏、暴力、宗教政治历史或观众数字。
+  - https://colosseo.it/en/area/colosseo/ （已打开，The Colosseum 正文）
+  - https://turismoroma.it/en/node/1155 （已打开，正文 260–261 行，四层建筑及三层拱门）
+- `rome.rome-pantheon`：罗马市旅游网站意大利语正文明确穹顶内的五圈凹格向上缩小、中央圆形天窗让自然光照入。只写可见建筑布局，不选取页面之间略有差异的穹顶直径或精确建成年代。故事安静观看，出场后才写便签，不在宗教空间内吃东西、喧闹或做玩笑举动。
+  - https://www.turismoroma.it/it/luoghi/pantheon （已打开，259 行，cassettoni / oculo / luce naturale）
+- `rome.rome-carbonara`：罗马市旅游网站给出传统配料 pasta / guanciale / Roman pecorino / eggs / pepper，并说明离火后用面条余热拌蛋。summary 只概括蛋、猪颊肉、奶酪、胡椒及包裹面条的酱汁，不写统一比例，也不把所有店的版本定为同一种。
+  - https://www.turismoroma.it/en/page/tradititional-carbonara （已打开，Ingredients 及其后制法段）
+- `rome.rome-suppli`：罗马市旅游街头食物正文明确调味米饭、马苏里拉、油炸薄脆面包屑外皮及融化奶酪的细丝；同站意大利语 Food & Wine 页交叉支持米饭、奶酪、油炸与拉丝。故事只写自己这一份，不把拉丝写成必须表演的礼仪。
+  - https://www.turismoroma.it/en/page/street-food-rome-itinerary-among-best-recipes （已打开，250–254 行）
+  - https://www.turismoroma.it/it/lo-street-food （已打开，249 行）
+
+内容概述：斗兽场外被邮包扣打断的拱门计数；万神殿安静抬头后的停顿；叉子先于写菜单出发；饭团奶酪细线；旅人用“裹着/藏着”聊两顿饭；分别回想柔和与轻脆。fulfill 精确续接万神殿 observant 回应，把停顿放入自制折卡。物品为拱门重看便签、午饭细线便纸、抬头停顿便签、藏着空白的折卡。
+
+未采用：carbonara 页面明确起源不确定，故全部舍弃烧炭工、军人早餐等起源叙事；supplì 名称来源、电话线名称典故、与西西里饭团的优劣比较不入内容；斗兽场海战、野兽、精确容量及“世界最大”等叙事不入内容；万神殿夏至光斑、雨是否进入等专题不写。搜索出现的 https://colosseo-roma.it/en/explore/coliseum/architecture/ 是商业访客站，不是考古公园官方域名，未作应用来源。
+
+来源质量：supplì 英文页虽在市政府旅游站，末尾注明由 As far as you can 撰写，属于客座旅游编辑内容，低于场馆/食品标准原始材料；因此仅取基本构成，并以同站非客座意大利语饮食页交叉核对。这两页来自同一官方平台，不能当成两家独立机构。Carbonara 和万神殿目前各一个可读官方来源，覆盖应用所写窄范围。
+
+### 巴黎 paris
+
+- `paris.paris-eiffel-tower`：塔方官网明确铁塔为 1889 年巴黎世界博览会建造，博览会覆盖战神广场等空间；应用取 1889 年与博览会关系，不写精确活动起止日或攀爬阶梯数。
+  - https://www.toureiffel.paris/en/the-monument/universal-exhibition （已打开，27–35 行）
+- `paris.paris-louvre-pyramid`：卢浮宫官网明确拿破仑庭院、贝聿铭设计、地下中央接待厅与三翼馆连接及 1989 年；馆方新闻页交叉确认年份、设计者与金字塔地下接待功能。只写年份，不写同站资料间出现的 29/30 日差异。
+  - https://musee.louvre.fr/en/explore/the-palace/a-pyramid-for-a-symbol （已打开，25–39 行）
+  - https://presse.louvre.fr/the-pyramid-project/?lang=en （已打开，39、42、48 行）
+- `paris.paris-baguette`：法国文化部的非遗调查 PDF 明确面粉、水、盐、酵母和/或老面，外壳酥脆、内部柔软且有不均匀气孔；巴黎旅游局正文交叉支持巴黎有售、外壳与面包心的形态、轻轻裂开的声音。只写食物形态，不把面包种类一概套入法律上的 tradition 分类。
+  - https://www.culture.gouv.fr/Media/Thematiques/Patrimoine-culturel-immateriel/Files/Fiches-inventaire-du-PCI/Les-savoir-faire-artisanaux-et-la-culture-de-la-baguette-de-pain#page=1 （已打开 PDF，137 行）
+  - https://parisjetaime.com/eng/article/the-parisian-baguette-queen-of-french-bread-a566 （已打开，552、563 行）
+- `paris.paris-paris-brest`：巴黎旅游局甜点专文和 FAQ 明确环形 choux pastry、praline cream，具体介绍 Yann Couvreur 的榛子版本。应用只写环形泡芙与坚果果仁糖奶油，保留“巴黎糕点店有榛子版本”的限定，不泛化某店配方为全城唯一标准。
+  - https://parisjetaime.com/eng/article/where-to-sample-24-must-try-sweet-specialities-in-paris-a1624 （已打开，595–598、705–719 行）
+
+内容概述：铁塔很醒目但“塔那边见”不够具体；卢浮宫玻璃内外叠影；法棍掰开的一声轻响；环形泡芙的第一口箭头；与旅人用菜单当提示卡；两顿饭的两个开头。fulfill 精确续接铁塔 talkative 回应，和旅人写成两行碰面约定。物品为铁塔碰面便签、第一口小箭头、玻璃两层便签、两行碰面折卡。
+
+未采用：马卡龙原本在候选中，但搜索可读的制造商页面主要是季节限量口味，选择改用旅游局正文支持更完整的 Paris-Brest；洋葱汤未找到合适的可读官方基础构成页面，没有勉强写入。UNESCO 法棍页 https://ich.unesco.org/fr/RL/les-savoir-faire-artisanaux-et-la-culture-de-la-baguette-de-pain-01883?RL=01883 打开为人机验证，未作应用来源，改用可读的法国文化部原始调查 PDF。法棍拿破仑/维也纳起源说、1919 夜间劳动法因果、Paris-Brest 发明者及自行车赛起源均不写。卢浮宫金字塔争议、当前安保、票价与施工计划均不写。
+
+来源质量：文化部 PDF 为非遗调查原始材料，支持基础食物形态。巴黎旅游局饮食介绍具有营销与编辑属性，FAQ 关于起源使用“is said”，且法棍文章先承认起源未定又作确定因果叙述；因此舍弃相关历史解释，只用直接的形态/配料说明。Paris-Brest 目前一篇官方旅游来源，不把它当成烘焙标准。
+
+### 里斯本 lisbon
+
+- `lisbon.lisbon-commerce-square`：里斯本旅游局明确 Praça do Comércio / Terreiro do Paço 双名和凯旋门；葡萄牙国家旅游局路线正文明确广场面向特茹河河口，并经凯旋门进入 Rua Augusta。只写这组稳定空间关系。
+  - https://www.visitlisboa.com/pt-pt/locais/praca-do-comercio-terreiro-do-paco （已打开，75–76 行）
+  - https://www.visitportugal.com/pt-pt/NR/exeres/094DD140-DC60-493B-95F5-F45B24C6B3C1 （已打开，35–37 行）
+- `lisbon.lisbon-oceanarium`：海洋馆场馆官网两个页面明确 One Planet, One Ocean 常设展、中央水族箱、四种栖息地。只写主题和展示结构；故事里的游动与玻璃倒影为一次虚构观察，不承诺特定动物数量和轨迹。
+  - https://oceanario.pt/en/exhibitions/ （已打开，100–116 行）
+  - https://oceanario.pt/en/exhibitions/aquarium/ （已打开，93–114 行）
+- `lisbon.lisbon-pastel-de-nata`：葡萄牙旅游局食谱由里斯本旅游酒店学校提供，明确酥皮、牛奶、蛋、糖及烘烤上色；里斯本旅游局说明本城咖啡馆/糕点店及肉桂粉。应用不写配方比例或强制搭配，撒肉桂是信使给自己这一份的选择。
+  - https://www.visitportugal.com/pt-pt/content/receitas-tradicionais-portuguesas-past%C3%A9is-de-nata （已打开，37–71 行及食谱署名）
+  - https://www.visitlisboa.com/pt-pt/p/lisbon-flavours/especialidades/pastel-de-nata （已打开，68–71 行）
+- `lisbon.lisbon-bacalhau-a-bras`：里斯本旅游局鳕鱼路线明确鳕鱼拆碎、细炸薯条、洋葱和炒蛋，黑橄榄与欧芹点缀；国家旅游局饮食页交叉支持 à Brás 的薯条与蛋。应用只写组成，不写首创者和“必须这样吃”。
+  - https://www.visitlisboa.com/pt-pt/lisbon-stories/13-rota-do-bacalhau （已打开，129–133 行）
+  - https://www.visitportugal.com/pt-pt/content/menu-%C3%A0-portuguesa-peixe-coentros-e-fantasia （已打开，49 行）
+
+内容概述：商业广场转身后“那一边”不再清楚；海洋馆玻璃里等信的邮包倒影；蛋挞酥屑像逗号；慢读鳕鱼菜名时叉子等候；菜单串起旅途与歇脚；回想两次吃饭的小停顿。fulfill 精确续接广场 observant 回应，把河与拱门留在折卡两头。物品为河与拱门便签、酥皮逗号便纸、等信邮包倒影画、广场两头折卡。
+
+未采用：1755 地震中的人物/损害、广场王权政治与贸易殖民史不入故事；鳕鱼航海/战时/政权背景和“365 种做法”不写；蛋挞修道院洗衣蛋清来源、秘密配方和品牌源头不写；不把 pastel de nata 的 natas 字面推为每份一定含奶油。海洋馆动物数量、临时展、折扣、开闭时间不入长期内容。
+
+来源质量：国家旅游局鳕鱼总览是较早的旅游文章，仍留有旧餐馆价格和名单，未采用其中实时信息；只用基本组成，并由当前可读的里斯本路线交叉核对。该路线的历史部分包含未经此处继续核对的宏大叙事，全部舍弃。海洋馆两个来源同属场馆，并非独立机构。蛋挞原始食谱署名较明确，但仍只当作一种有依据的传统范例，不声称全城店铺同配方。
+
+### 巴塞罗那 barcelona
+
+- `barcelona.barcelona-park-guell`：公园场馆官网说明自然广场蜿蜒长椅与 trencadís 修复；加泰罗尼亚政府 Visitmuseum 的原材料介绍明确长椅兼栏护及马赛克材料。只写可观察形态，未把长椅的全部设计/装饰贡献简单归于单一人物。
+  - https://parkguell.barcelona/en/renovation-works-status/03-medallions-trencadis （已打开，39 行）
+  - https://visitmuseum.gencat.cat/en/museum/museu-del-cau-ferrat/tour/ambit-2-levolucio-del-trencadis-a-lobra-de-gaudi-pas-a-pas-obra-a-obra/object/el-park-guell-1900-1914-el-banc-ondulat-el-mirador-de-colors-sobre-barcelona-1909-1914 （已打开，58–62 行，2026-10-30 更新）
+- `barcelona.barcelona-palau-music`：音乐宫场馆官网自助参观介绍明确音乐厅的太阳天窗、自然光、舞台上方的管风琴及花朵等自然装饰。只写场馆布局，故事设为参观，不虚构某场演出或曲目。
+  - https://www.palaumusica.cat/en/self-guided-tour_1663243 （已打开，193–203 行）
+- `barcelona.barcelona-tomato-bread`：巴塞罗那旅游局法语食谱页明确面包切片、熟番茄擦面包、加油盐、可烤面包和火腿奶酪等搭配；市政府 Meet Barcelona 正文交叉支持番茄擦面包、橄榄油及本城有售。summary 保留可选说法，不强制蒜或某种面包。
+  - https://fr.visitbarcelona.com/wv3/fr/page/1786/pa-amb-tomaquet.html （已打开，151–158 行）
+  - https://www.meet.barcelona/en/visit-and-love-it/food-and-drink/catalan-cooking （已打开，38、48–50 行）
+- `barcelona.barcelona-crema-catalana`：巴塞罗那旅游局可读英文食谱页明确牛奶、蛋黄、糖、淀粉、肉桂、柠檬皮及冷却后焦糖壳，同时明确可以不加糖壳；市政府正文交叉支持这道甜点为本城加泰罗尼亚菜系内容。只写组成和可选糖壳，故事指自己点的有糖壳一份。
+  - https://fr.visitbarcelona.com/wv3/en/page/1778/crema-catalana.html （已打开，150–160 行）
+  - https://www.meet.barcelona/en/visit-and-love-it/food-and-drink/catalan-cooking （已打开，41 行）
+
+内容概述：蜿蜒长椅的一处歇脚；音乐宫参观中抬头借光；慢读番茄面包的菜名；小勺敲开自己那份糖壳；旅人轮流选菜单的开头；一张留颜色一张留声音。fulfill 精确续接音乐宫 observant 回应，把那束光折进信。物品为长椅歇脚便签、小勺子音符便纸、抬头借光便签、天窗一眼折页。
+
+未采用：桂尔公园住宅项目成败、人物历史和碎片全部来自废料的笼统说法不写；音乐宫具体演出、曲目和临时开放规则不写；番茄面包起源、劳动者故事或“当地人都这样吃”不写；焦糖奶冻起源传说、宗教节庆与“欧洲最古老”说法不写。旅游局旧西语地址 https://barcelonaturisme.com/wv3/est/page/1778/crema-catalana.html 打开失败（500），英文 www 旧页另有跳转到菜系总览，故应用使用本次可直接读到食谱的 fr.visitbarcelona.com 实际地址，没有靠改语言路径猜一个新地址。
+
+来源质量：食谱旧页面可读，但网址有旧站迁移风险，记录的是本次实读地址；用市政府站交叉确认两道菜在本城的关联。该市政府站不能单独证明奶冻详细配方，细配料仅由已读旅游局食谱支持。音乐宫目前一个场馆直接来源，覆盖所写的建筑细节。没有采用商业导览、百科、用户评论或食店评分作为事实来源。
+
+### 四城内容自查
+
+四城 12 个 JSON 已解析并自查：原有城市元数据逐字段与 HEAD 比较相同，仅 level / facts 改动；各 4 facts（2 place + 2 food）、6 arrival + 1 fulfill、2 menu、common 2 / uncommon 1 / rare 1 souvenir。每条故事两回应、中文回应均不超过 12 字，所有新增文本双语完整、英文无汉字、中文含汉字且槽位一致。全部事实引用、奖励引用、精确回应兑现及两习惯双菜单入口有效。本次自查时全量故事/回应/物品 ID 无重复；新增 ID 以城市为前缀。`git diff --check` 对负责的 12 个内容文件通过。
+
+仅编辑四城 cities/stories/items 及本地 .build 工作笔记。没有改已有故事/物品、Content/sources-review.md、docs、代码、Tests 或项目外文件，未提交、未启动应用。全量 Swift 校验由主代理集成后运行。
+
+## 伦敦、纽约、墨西哥城、马拉喀什核实记录（第三批）
+
+核实日期：2026-11-06。下列应用来源全部经此次网页搜索发现，且已实际打开看见正文；只使用实际看到的完整 HTTPS 地址。菜单、便签、折卡、谈话、等待、脚步与味觉印象为原创旅途描写，未把这些个人经历或自制物品作为当地历史、民俗、设施服务或官方商品。各城保留原有元数据，仅将 level 改为 full 并补充 facts；此前四城均无 stories/items 文件，未改写旧情节和旧物品。
+
+每城 2 place + 2 food、6 arrival + 1 同城 fulfill、2 张菜单、common 2 / uncommon 1 / rare 1 纪念品。每条 arrival 引用实际事实；talkative 和 observant 各有一条双菜单奖励，以覆盖当前习惯优先的选择规则。新增事实 ID 亦带城市前缀，故事/回应/物品 ID 全带城市前缀。所有故事有双语 lead/text 和恰好两个回应，中文回应不超过 12 字。
+
+### 伦敦 london
+
+- `london.london-tower-bridge`：塔桥运营方 Explore inside 的 Walkways 部分明确高层步道连接南北塔、可俯瞰伦敦与泰晤士河；History of the Walkways 明确开启桥面时行人可走高层步道；Glass Floors 部分明确可见河上船只。只写两塔、步道、河景与开启桥面这一范围，不写当天必定升桥或开放时刻。
+  - https://www.towerbridge.org.uk/explore-inside （已打开，Walkways / History of the Walkways / Glass Floors，正文约 79–123 行）
+- `london.london-kew-gardens`：UNESCO 直接说明 1759 年创建，馆藏包括活体植物、保存植物及文献，Outstanding Universal Value 明确 Palm House 与 Temperate House 两座铁框玻璃温室。故事不使用未经辨认的具体植物名、产地、药效或花期。
+  - https://whc.unesco.org/en/list/1084 （已打开，简介及 Outstanding Universal Value，约 5、47–50 行）
+- `london.london-fish-and-chips`：Visit London 官方游客指南的 Fish and chips 段说明裹面糊炸鱼、薯条，及传统炸鱼店和餐馆的供应。应用只写这一基本形态，不把啤酒、豌豆泥、酱汁或某一种鱼定为每店固定配方。
+  - https://www.visitlondon.com/blog/british-food-to-try-in-london （已打开，Fish and chips 约 93–95 行及 FAQ 177 行）
+- `london.london-afternoon-tea`：Visit London 专页导语明确茶、配奶油和果酱的司康、手指三明治、小蛋糕；列举不同场所的选择，支持内容随店而异。
+  - https://www.visitlondon.com/things-to-do/food-and-drink/afternoon-tea （已打开，约 69–83 行及各店介绍）
+
+内容：塔桥高处与旅人交换来路和下一站、邱园先记住叶形再想植物名字、炸鱼午饭的第一声脆响、拿起司康时的话语停顿、为两张菜单比较声音与回忆。fulfill 精确续接塔桥 observant 回应“找找河上的小船”，把看船和水纹的回忆留在自制折卡。纪念品为塔桥来去箭头、午后逗号纸条、邱园名字便签、塔桥远近折卡。
+
+未采用：炸鱼薯条的发明者、起源人群与“全城最有名”排行；下午茶起源人物、奶油与果酱先后规范、必须遵循的礼仪；塔桥升桥频率、时间、票价、准确步道高度与玻璃承重；邱园精确藏品数量、当季开放安排和植物生长保证。
+
+来源质量：塔桥是 City Bridge Foundation 管理，网页页脚明确其唯一受托人为 City of London Corporation；UNESCO 直接对应遗产认定。Visit London 为 London & Partners 的官方游客指南，页面也明确有佣金链接与推广内容；本批只采用简单食物组成，不用其商业排行或消费建议。
+
+### 纽约 newyork
+
+- `newyork.newyork-brooklyn-bridge`：NYC DOT 管理方基础设施页明确 1883 年完工、跨东河连接曼哈顿与布鲁克林、行人步道；Brooklyn Bridge Park 管理机构页作交叉支持。DOT 地址是从公园页实际链接点开得到，非猜测路径。
+  - https://www.nyc.gov/html/dot/html/infrastructure/brooklyn-bridge.shtml （已打开，About the Bridge / History，约 12、22 行）
+  - https://brooklynbridgepark.org/places-to-see/brooklyn-bridge/ （已打开，约 347–349 行）
+- `newyork.newyork-bow-bridge`：Central Park Conservancy 是管理中央公园的非营利组织，其铸铁桥修复说明明确弓桥建于 1860 年代初、跨越 the Lake，连接 Ramble 与 Bethesda Terrace / Cherry Hill 一带。只写材质、年代范围与位置关系，不写原构件完整保存、唯一/最古老等说法。
+  - https://www.centralparknyc.org/restoration/restoration-of-central-parks-cast-iron-bridges （已打开，History，约 203–208 行）
+- `newyork.newyork-bagel`：H&H 自家 About 明确面团 kettle-boiled 后在门店烘烤；主页列出 cream cheese 与 spreads。summary 明确把水煮再烤归于 H&H 的自述，不推定全城贝果店工艺完全相同，也不采用纽约水质导致口感的说法。
+  - https://www.hhbagels.com/about/ （已打开，约 33–40、57–64 行）
+  - https://www.hhbagels.com/ （已打开，Flavored Cream Cheese / Classic Bagels & Spreads Box，约 75–101 行）
+- `newyork.newyork-pizza-slice`：Joe’s 自家主页明确位于 Greenwich Village、供应 classic New York slice / New York street slice。应用只写该店供应按片卖的纽约披萨，未从一个店铺扩写全城配方或声称最佳。
+  - https://www.joespizzanyc.com/ （已打开，主页可读简介第 5–6 行）
+
+内容：在布鲁克林大桥聊天并在不挡路处歇脚、中央公园弓桥走过后回望倒影、贝果早餐先吃再找形容、披萨午饭把谈话分成小段、以两张菜单讲清晨与午后的路线。fulfill 精确续接大桥 observant 回应“听听桥上的脚步”，以长短线保留一次个人聆听。物品为东河过桥便签、午饭对话纸条、弓桥回望便签、过桥脚步记忆卡。
+
+未采用：纽约水质决定贝果口感、所有贝果必用相同工艺、移民与起源争论、固定披萨厚度/馅料/价格及“正确吃法”；Joe’s 主页仍有“超过47年”和店主“75岁”的旧文案，没有采用年龄、营业年数、门店数、开店史。最初打开 NYC DOT 2024 灯光新闻稿 https://www.nyc.gov/html/dot/html/pr2024/brooklyn-bridge-glow-up.shtml 时发现其正文把桥写成 UNESCO World Heritage site，应用不采用此错误说法，也未将该新闻稿列为应用来源，已换为桥梁基础设施页。大桥车道数、客流、修复结束时间等动态信息均未写入。
+
+来源质量一般处：纽约两个食物的制作/供应依据来自商家第一方网站，能直接证明自家做法和供应，不能当作独立饮食史或全城统一工艺。内容已主动缩窄并显式点名 H&H / Joe’s，未使用其夸赞、明星评价、健康营养与历史营销说法。NYC Tourism 相关检索未取得更合适的可读原文，未编造官方来源。景点分别有市政府与直接管理机构依据。
+
+### 墨西哥城 mexicocity
+
+- `mexicocity.mexicocity-bellas-artes`：INBAL 91 周年新闻明确 1934 年 9 月 29 日开放、白色大理石外立面、外部 Art Nouveau 与内部 Art Déco。应用只用年代和材料/风格，不写涉及政治的建造史、人物与艺术争论。
+  - https://inba.gob.mx/prensa/22803/efiartes2023 （已打开，约 30–33 行）
+- `mexicocity.mexicocity-chapultepec`：市环境部门 SEDEMA 的城市森林记录引用 2023 年法令，明确目前四区与城市森林类别；市官方旅游页四区说明和博物馆信息支持绿地与文化场馆并存。旅游页还保留约 686 公顷的旧数字，SEDEMA 当前数字为 866.37 公顷，因此应用不写面积，采用一致且当前有效的“四区”。
+  - https://www.proyectos.sedema.cdmx.gob.mx/datos/naturaleza-detalle/Bosque%20de%20Chapultepec （已打开，2023-08-31 法令第 14 行）
+  - https://mexicocity.cdmx.gob.mx/locations/chapultepec-park/ （由已搜索地址 ?lang=es 打开后实际跳转到此地址，已看正文约 67–73 行）
+- `mexicocity.mexicocity-tacos-de-canasta`：市官方旅游 Street Food 介绍明确 tacos de canasta、通常早晨准备供之后售卖，常见土豆、香肠、猪皮与炒豆泥馅。没有写所有馅一起混入、统一酱汁或固定售卖工具。
+  - https://mexicocity.cdmx.gob.mx/e/food-basics/street-food/?lang=en （已打开，Tacos de Canasta 约 80–82 行）
+- `mexicocity.mexicocity-tamales`：墨西哥文化部 SIC 明确玉米面团、不同馅料、叶子包裹、苞叶/芭蕉叶及通常蒸制；市旅游页明确首都街头售卖和两种常见叶子。summary 用“常以”保留其他制法存在，不把全国各地不同版本混成固定配方。
+  - https://sic.gob.mx/ficha.php?table=gastronomia&table_id=91 （已打开，约 279–286 行）
+  - https://mexicocity.cdmx.gob.mx/e/food-basics/street-food/?lang=en （已打开，Tamales 约 87–90 行）
+
+内容：美术宫进门前后分记建筑风格、查普尔特佩克入口碰头时先听招呼再看挥手、土豆馅篮子塔可把念菜名的句子打断、打开苞叶塔马尔的小次序、两张菜单连接名字与个人用餐记忆。fulfill 精确续接美术宫 observant 回应“记下进门前后的颜色”，用双面便签记录个人印象，不给整座建筑的配色下结论。物品为美术宫双面便签、午饭打开顺序条、先听见的招呼、美术宫门里门外卡。
+
+未采用：原考虑 tacos al pastor 的具体猪肉/腌料/烤架事实，但墨西哥驻尼加拉瓜使馆页 https://embamex.sre.gob.mx/nicaragua/index.php/comunicadosnic/263-gastronomica2025 打开到防爬验证页，市旅游街头食物 PDF https://www.turismo.cdmx.gob.mx/storage/app/media/inf_2024/GUIA%20COMIDA%20CALLEJERA.pdf 打开超时。未把搜索摘要当作已读正文，换成已有完整可读依据的篮子塔可。美术宫官方稿的政治与建造中断叙述、森林公园面积旧值与世界最大排行、食物起源人物/族群故事、餐饮卫生建议和固定营业时段均不写入。
+
+来源质量：INBAL 和文化部 SIC 是相关文化机构的直接资料；SEDEMA 为环境主管部门直接法令记录。城市旅游页带推广与泛化文字，有旧面积和广泛饮食建议；只使用清楚的四区、街头供应和食物基本组成，不采用食安说法与历史营销。关于塔马尔两来源跨部门但均为政府文化/旅游介绍，未将其当作每家店配方标准。
+
+### 马拉喀什 marrakesh
+
+- `marrakesh.marrakesh-majorelle-garden`：花园同属机构的 YSL Marrakech 博物馆介绍明确园内 cactus / palms / bamboo 与 Majorelle blue；Marrakech-Safi Regional Tourism Council 官方页交叉支持蓝色与植物种类。应用不写确切植物数、创建年口径和暂时开放安排。
+  - https://www.museeyslmarrakech.com/en/fondation-jardin-majorelle/le-jardin-majorelle/ （已打开，约 49–52 行）
+  - https://visitmarrakech.com/en/listing/jardin-majorelle/ （已打开，约 73–75 行；209 行明确由 CRT 管理）
+- `marrakesh.marrakesh-bahia-palace`：文化部官方票务平台的 Description 明确连续庭院、花园、厅室，以及 zellij、雕绘木作、stucco、stained glass。只写建筑和装饰，不写人物家世、争议历史、精确房间数，也不保证每一庭院始终开放。
+  - https://e-services.minculture.gov.ma/en/tickets/palais-bahia/ （已打开，Description 约 53–56 行）
+- `marrakesh.marrakesh-couscous`：国家食品安全机构 ONSSA 发布的英文法规 PDF 第 2 页 Article 3 明确单称 couscous 的硬粒小麦粗粒，并保留其他谷物/豆类版本；国家旅游局说明搭肉、鱼、鸡肉或蔬菜，以及常配蔬菜汤汁；马拉喀什地区旅游理事会页把 couscous 明确列入本地饮食。
+  - https://www.onssa.gov.ma/wp-content/uploads/2025/01/DEC.2-22-136.ENG_.pdf （已打开，第 2 页 Article 3，正文 27–37 行）
+  - https://www.visitmorocco.com/en/travel-info/food-drinks （已打开，Couscous 约 440–445 行）
+  - https://visitmarrakech.com/en/a-vivre-absolument/gastronomie/ （已打开，Gastronomy in Marrakech 第 64 行）
+- `marrakesh.marrakesh-tagine`：国家旅游局明确多种食材版本，包括鱼、鸡、肉、蔬菜及有时加入坚果、李子、杏，配香料烹制；地区理事会页确认 tagine 为当地菜肴。未把 plums/apricots 擅自写成全部为果干，未写每种食材都同锅或固定比例。
+  - https://www.visitmorocco.com/en/travel-info/food-drinks （已打开，Tajine 约 425–431 行）
+  - https://visitmarrakech.com/en/a-vivre-absolument/gastronomie/ （已打开，Gastronomy in Marrakech 第 64 行）
+
+内容：花园里先收笔看蓝绿、巴伊亚宫庭院间停话听声音、库斯库斯让数颗粒的念头被香味打断、蔬菜塔吉锅菜让形容停了一口、两菜单对照自己的味觉小记。fulfill 精确续接花园 observant 回应“再看一会儿蓝与绿”，用自制两色卡保留慢慢看的回忆。物品为花园双色便签、味道在路上纸条、庭院间的小停顿、花园蓝绿记忆卡。
+
+未采用：UNESCO 非遗 couscous 页面 https://ich.unesco.org/en/RL/knowledge-know-how-and-practices-pertaining-to-the-production-and-consumption-of-couscous-01602 虽有搜索摘要，实际打开为验证码，未作为应用来源；改用可读的 ONSSA 原始 PDF 与官方文旅页。未写 couscous 为某个国家独占、固定星期五食俗、宗教餐饮习惯；未写 tagine 锅盖形状、必须慢炖若干小时、固定香料与果干；不写宫殿人物传说、异域猎奇或当地人笑话。花园主站 https://www.jardinmajorelle.com/en/thegarden/ 打开可读但当前抓取正文主要为营业及机构信息，没有把它当作植物/蓝色事实的依据；同属机构的博物馆页提供清楚正文。多个相似花园/宫殿购票域名不是直接管理机构，未采用。
+
+来源质量：宫殿为文化部直接介绍，花园为直属机构及地区旅游理事会。食品基本原料有 ONSSA 直接法规文本，但它是商品命名标准，不是对全部地方配方的调查，summary 因此使用“可用”并保留其他版本。国家和地方文旅页为推广材料，本批只采用清楚的基本食材、搭配和本地供应，避开排名、健康功效与历史断言。
+
+### 四城静态自查
+
+12 个内容 JSON 可解析。16 条事实均有双语 summary 和至少一个上述已打开来源；24 arrival 均有 factIds，28 条故事均 lead/text/两个回应双语完整；8 张菜单与 16 件纪念品，稀有度各城 2/1/1；每城 talkative / observant 均有双菜单可收故事；4 个 fulfill 精确指向同城 arrival 的真实 observant 回应，lead 双语均含 `{reply}`。英文无汉字，中文含汉字，两语言槽位一致，中文回应长度均不超过 12 字，所有奖励及事实引用可解析，图标采用现有值。未运行 Swift 全量测试、未修改测试或代码、未启动应用、未执行 build-app 或 snapshot、未提交。主代理合并 sources-review 并运行全量验收。
+
+## 第三批集成验证（2026-11-06）
+
+本批12城全部提升为 `full`，完整内容城市由18城增为30城。共新增48条事实、72条arrival、12条同城fulfill、24张菜单与48件纪念品；每城恰好2 place + 2 food、6 arrival + 1 fulfill、2菜单和common 2 / uncommon 1 / rare 1纪念品。全部故事、lead、回应、事实名称/summary与物品双语完整，中文回应沿用不超过12字的既有要求。没有修改旧情节或旧物品文字；西安只替换三条失效事实的来源数组，其他事实字段、情节和物品均保持原样。
+
+| 城市 | 景点与美食 | 故事与兑现侧重 |
+| --- | --- | --- |
+| 新加坡 | 鱼尾狮公园、植物园；海南鸡饭、咖椰吐司 | 两侧碰头、叶影停步、午饭与脆响；把两个招呼接成折卡 |
+| 伊斯坦布尔 | 加拉塔塔、地下水宫；simit、烤鱼三明治 | 提前转弯、柱列重叠、吃好再写；绕路后重逢的个人方向卡 |
+| 罗马 | 斗兽场、万神殿；卡尔博纳拉、苏普利 | 计数被邮包扣打断、安静抬头、饭团细线；把停顿藏入折卡 |
+| 巴黎 | 铁塔、卢浮宫金字塔；法棍、Paris-Brest | 碰头说清位置、玻璃叠影、脆响与第一口；兑现两行碰面约定 |
+| 里斯本 | 商业广场、海洋馆；葡式蛋挞、布拉斯式鳕鱼 | 河和拱门辨方向、邮包倒影、菜名与叉子；折起个人广场回忆 |
+| 巴塞罗那 | 桂尔公园、音乐宫；番茄面包、焦糖奶冻 | 长椅歇脚、天窗自然光、颜色与声音；把参观的一眼折进信 |
+| 伦敦 | 塔桥、邱园；炸鱼薯条、下午茶 | 交换来路、认叶形、脆响与茶间停顿；循着小船看河面水纹 |
+| 纽约 | 布鲁克林大桥、弓桥；贝果、切片披萨 | 过桥脚步、回望倒影、分段谈话；用长短线兑现聆听 |
+| 墨西哥城 | 美术宫、查普尔特佩克；篮子塔可、塔马尔 | 门里门外、先听招呼再看挥手、打开午饭；双面卡兑现颜色观察 |
+| 开罗 | 埃及博物馆、爱资哈尔公园；库沙里、ful medames | 第二眼看首饰、等人成散步、停勺与菜单开头；收下两次站定距离 |
+| 马拉喀什 | 马若雷勒花园、巴伊亚宫；库斯库斯、塔吉锅菜 | 蓝绿慢看、庭院听声音、吃饭打断形容；两色卡兑现再次观察 |
+| 清迈 | 素贴寺、拉查帕皇家花园；khao soi、sai ua | 安静眺望、花园先看眼前、味觉停顿；远近翻面卡兑现眺望记忆 |
+
+测试改动只扩展既有数量/范围：`CityBatchContentTests` 的城市集合加入第三批12城，使原有内容数、事实引用、两种习惯、到达快照、菜单去重/重放、精确兑现和纪念品稀有度测试覆盖全部30城；`ItemContentTests` 的菜单总数由36改为60。没有修改生产代码，没有放宽原断言。
+
+在 voyage/ 下完整执行用户指定命令：
+
+```bash
+CLANG_MODULE_CACHE_PATH="$PWD/.build/codex-cache/clang" SWIFTPM_MODULECACHE_OVERRIDE="$PWD/.build/codex-cache/swiftpm" swift test --disable-sandbox --scratch-path .build/codex
+```
+
+结果：退出码0；VoyageCoreTests 257 tests / 15 suites 通过，TokenVoyageTests 168 tests / 6 suites 通过，共425 tests。30城精确回应兑现、90组真实到达与菜单各收集一次、30城纪念品可达性与稀有度、用量翻倍回放与既有兑现测试全部通过。最终测试日志 `.build/step11-batch3-tests-final.log`，修改前基线 `.build/step11-batch3-baseline.log`。两份日志的警告逐行完全一致，仍为4条既有SwiftPM用户缓存不可写/只读数据库警告，没有新增警告。
+
+额外静态核对记录 `.build/step11-batch3-audit.log`：所有新增JSON可解析；每条事实及应用来源在报告中有据可查；全内容包fact/story/reply/item ID跨类型也无冲突；双语、槽位、回应长度、同城引用、奖励种类与图标有效；原有城市元数据、旧情节与物品文字保持不变，西安只改sources；既有复核报告原文保留，仅追加本批记录；`git diff --check`通过。没有改docs、没有手工写项目外文件、没有提交、没有启动应用或运行build-app.sh / snapshot。

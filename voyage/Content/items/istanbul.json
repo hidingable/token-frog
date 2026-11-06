@@ -1,0 +1,98 @@
+[
+  {
+    "id": "istanbul.menu-simit",
+    "kind": "menu",
+    "cityId": "istanbul",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "芝麻面包圈小菜单",
+      "en": "Simit Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在伊斯坦布尔尝过simit后写的菜单，面包圈旁边还有我说到一半的路线。",
+      "en": "My simit menu from Istanbul, with a route discussion interrupted by the first bite."
+    }
+  },
+  {
+    "id": "istanbul.menu-balik-ekmek",
+    "kind": "menu",
+    "cityId": "istanbul",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "烤鱼三明治小菜单",
+      "en": "Balık Ekmek Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在伊斯坦布尔吃过烤鱼三明治后留下的菜单，菜名下有一句给自己的提醒：先拿稳。",
+      "en": "A menu after balık ekmek in Istanbul. Under its name, my practical reminder reads, “Hold lunch first.”"
+    }
+  },
+  {
+    "id": "istanbul.detour-arrow",
+    "kind": "souvenir",
+    "cityId": "istanbul",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "碰头弯箭头",
+      "en": "Meeting Detour Arrow"
+    },
+    "descriptions": {
+      "zh-Hans": "在伊斯坦布尔去加拉塔塔碰头时拐早了，我在便纸上留下自己的弯箭头，不是导航。",
+      "en": "My own curved arrow from turning too early on the way to a Galata Tower meeting in Istanbul. No navigational ambitions."
+    }
+  },
+  {
+    "id": "istanbul.lunch-hand-note",
+    "kind": "souvenir",
+    "cityId": "istanbul",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "午饭拿稳便签",
+      "en": "Lunch Comes First Note"
+    },
+    "descriptions": {
+      "zh-Hans": "在伊斯坦布尔吃烤鱼三明治时，我发现纸占着双手，便给自己写了这张小提醒。",
+      "en": "A small personal reminder after paper occupied both hands during a fish-sandwich lunch in Istanbul."
+    }
+  },
+  {
+    "id": "istanbul.column-interval-note",
+    "kind": "souvenir",
+    "cityId": "istanbul",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "柱间停步记",
+      "en": "A Pause Between Columns"
+    },
+    "descriptions": {
+      "zh-Hans": "从伊斯坦布尔地下水宫出来后写的观察：自己挪了几步，柱子的重叠就变了。",
+      "en": "A note made outside Istanbul’s Basilica Cistern: a few steps changed how the columns overlapped."
+    }
+  },
+  {
+    "id": "istanbul.reunion-route-card",
+    "kind": "souvenir",
+    "cityId": "istanbul",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "绕路重逢折卡",
+      "en": "Detour and Reunion Card"
+    },
+    "descriptions": {
+      "zh-Hans": "在伊斯坦布尔，我把加拉塔塔旁终于碰头的记忆折进口袋卡。弯箭头记得我的路，也记得那次笑声。",
+      "en": "My Istanbul pocket card keeps a wrong turn and a successful Galata Tower meeting, with a curved arrow and a remembered laugh."
+    }
+  }
+]

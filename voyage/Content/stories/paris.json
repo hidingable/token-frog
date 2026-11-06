@@ -1,0 +1,367 @@
+[
+  {
+    "id": "paris.arrival.tower-meeting",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "paris",
+    "factIds": [
+      "paris-eiffel-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "铁塔很好认，碰面的说法还要再商量。",
+      "en": "The tower was easy to find. Our meeting point needed work."
+    },
+    "text": {
+      "zh-Hans": "到了巴黎，我和一位旅人约好看埃菲尔铁塔。它为1889年的世界博览会而建，我在远处已经认出了它，便觉得“塔那边见”说得很清楚。走近才发现，我们各自站在了不同的地方。我把便签翻过来，补上碰头的小位置。铁塔负责醒目，便签负责具体。",
+      "en": "A fellow traveler and I planned to see the Eiffel Tower, built for the 1889 World's Fair. I spotted it from afar and thought “near the tower” was excellent meeting guidance. We still found different places to stand. My note acquired a more exact meeting spot. The tower supplied the landmark; the note handled the details."
+    },
+    "replies": [
+      {
+        "id": "paris.arrival.tower-meeting.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和旅人商量碰头说法",
+          "en": "Agree on a clearer meeting description"
+        }
+      },
+      {
+        "id": "paris.arrival.tower-meeting.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看远处怎样认出塔",
+          "en": "Notice how the tower stands out"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "paris.meeting-place-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "paris.arrival.pyramid-reflections",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "paris",
+    "factIds": [
+      "paris-louvre-pyramid"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一块玻璃，让我多看见了一层庭院。",
+      "en": "The courtyard acquired another layer in the glass."
+    },
+    "text": {
+      "zh-Hans": "在卢浮宫的拿破仑庭院，我停下来望着贝聿铭设计的玻璃金字塔。玻璃后面和玻璃上的影子叠在一起，我一会儿追着边线看，一会儿又看回周围的建筑。便签上只留了一个三角和一个小方框，提醒自己：刚才那一眼，别急着选只看哪一层。",
+      "en": "In the Louvre's Cour Napoléon, I paused by I. M. Pei's glass Pyramid. What lay beyond the glass mingled with reflections on its surface. I followed an edge, then looked back at the surrounding buildings. A triangle and a small square on my note will remind me to let both views stay for a moment."
+    },
+    "replies": [
+      {
+        "id": "paris.arrival.pyramid-reflections.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说先看到了哪一层",
+          "en": "Tell someone which layer caught your eye"
+        }
+      },
+      {
+        "id": "paris.arrival.pyramid-reflections.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "沿着玻璃边线再看",
+          "en": "Follow another edge across the glass"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "paris.pyramid-layer-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "paris.arrival.baguette-listening",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "paris",
+    "factIds": [
+      "paris-baguette"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的小菜单，先记下了一声轻响。",
+      "en": "Today's little menu began with a sound."
+    },
+    "text": {
+      "zh-Hans": "我在巴黎买了一份法棍面包。掰开时，外壳轻轻响了一下，里面露出软软的、带着气孔的面包心。我低头看了一会儿，才想起手上这份是午饭，不是要交的观察作业。小菜单上画了断面，旁边写“一声轻响，然后开吃”。这回标点也很香。",
+      "en": "I bought some baguette in Paris. The crust made a little crack as I broke it, revealing soft bread and uneven pockets inside. I studied it until I remembered lunch was waiting in my hands. The menu sketch has a cross-section and one instruction: “A small crunch, then eat.” An unusually fragrant piece of punctuation."
+    },
+    "replies": [
+      {
+        "id": "paris.arrival.baguette-listening.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊刚才听见的声音",
+          "en": "Describe the little sound to someone"
+        }
+      },
+      {
+        "id": "paris.arrival.baguette-listening.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看面包心里的气孔",
+          "en": "Notice the pockets inside the bread"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "paris.menu-baguette"
+      ]
+    }
+  },
+  {
+    "id": "paris.arrival.paris-brest-start",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "paris",
+    "factIds": [
+      "paris-paris-brest"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "圆圆的甜点没有起点，第一口有。",
+      "en": "The pastry had no beginning. My first bite did."
+    },
+    "text": {
+      "zh-Hans": "下午，我尝了一份巴黎布雷斯特泡芙。环形泡芙夹着果仁糖奶油，我拿着小叉子，先在圆圈边上犹豫了一小下。从哪儿吃都可以，偏偏想给这一口选个开头。吃完后，我在小菜单上画了个短箭头，写“从这里”。那是我下午的起点，不是甜点的规定。",
+      "en": "In the afternoon I tried a Paris-Brest, a ring of choux pastry with praline cream. My fork hovered while I chose a beginning on a shape that had none. Afterwards, a short arrow on my menu marked the first bite: “Start here.” It records my afternoon, not a rule for pastry."
+    },
+    "replies": [
+      {
+        "id": "paris.arrival.paris-brest-start.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给下午的第一口起名",
+          "en": "Name the afternoon's first bite"
+        }
+      },
+      {
+        "id": "paris.arrival.paris-brest-start.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看箭头从哪里开始",
+          "en": "Find where the little arrow begins"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "paris.first-bite-arrow"
+      ],
+      "menuIds": [
+        "paris.menu-paris-brest"
+      ]
+    }
+  },
+  {
+    "id": "paris.arrival.two-menus-names",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "paris",
+    "factIds": [
+      "paris-baguette",
+      "paris-paris-brest"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张菜单，刚好轮流当了一回提示卡。",
+      "en": "Two menus took turns being cue cards."
+    },
+    "text": {
+      "zh-Hans": "吃过法棍和巴黎布雷斯特泡芙，我把两张菜单带到歇脚的桌上。一位旅人想听我讲今天吃了什么，我先把菜名慢慢念了一遍，讲到一半，自己又指错了纸。我们把两张换回去，决定一人拿一张提示。这回故事总算没有让面包冒充甜点了。",
+      "en": "After baguette and a Paris-Brest, I showed my two menus to a fellow traveler. I read the names slowly before describing the day, then promptly pointed to the wrong sheet. We put them back and each held a cue card. The bread no longer had to play the pastry in my account of Paris."
+    },
+    "replies": [
+      {
+        "id": "paris.arrival.two-menus-names.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "轮流讲讲两张菜单",
+          "en": "Take turns introducing the menus"
+        }
+      },
+      {
+        "id": "paris.arrival.two-menus-names.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看名字和画对上没",
+          "en": "Match each name with its sketch"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "paris.menu-baguette",
+        "paris.menu-paris-brest"
+      ]
+    }
+  },
+  {
+    "id": "paris.arrival.two-menus-openings",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "paris",
+    "factIds": [
+      "paris-baguette",
+      "paris-paris-brest"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一份从掰开开始，一份从选一边开始。",
+      "en": "One began with a break; the other, a choice of edge."
+    },
+    "text": {
+      "zh-Hans": "晚上整理巴黎的小菜单，法棍那张让我想起掰开外壳的一声轻响，巴黎布雷斯特那张则留着第一口的箭头。食物都吃好了，两个开头还在纸上。我把它们放在同一页，没有再加结尾。明天翻到这里，说不定会先想起那支犹豫的小叉子。",
+      "en": "Sorting my Paris menus that evening, the baguette sketch brought back its small crack of crust; the Paris-Brest kept its first-bite arrow. Both foods were long eaten, but their beginnings remained. I placed the menus together without adding an ending. Tomorrow I may remember the hesitant little fork first."
+    },
+    "replies": [
+      {
+        "id": "paris.arrival.two-menus-openings.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说哪一个开头更清楚",
+          "en": "Share which beginning feels clearer"
+        }
+      },
+      {
+        "id": "paris.arrival.two-menus-openings.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把两个开头放一起看",
+          "en": "Look at the two beginnings together"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "paris.menu-baguette",
+        "paris.menu-paris-brest"
+      ]
+    }
+  },
+  {
+    "id": "paris.fulfill.meeting-two-lines",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "paris",
+    "factIds": [
+      "paris-eiffel-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "paris.arrival.tower-meeting.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我们重新写了碰面的便签。",
+      "en": "We took your suggestion, “{reply}”, back to our meeting note."
+    },
+    "text": {
+      "zh-Hans": "我和旅人把“塔那边见”换成了两行：先写我们一起认得的位置，再写到了就挥一下手。为了别把挥手也忘掉，我在下面添了一个背邮包的小身影。两行字折在卡里，展开就是我们的碰面办法。下回再见，铁塔不用替我们猜谁站在哪儿了。",
+      "en": "The traveler and I replaced “near the tower” with two lines: a spot we both recognized, then a wave on arrival. I added a tiny figure with a mailbag so the waving would not be forgotten too. Folded together, the lines make our own meeting card. Next time the Eiffel Tower can leave the introductions to us."
+    },
+    "replies": [
+      {
+        "id": "paris.fulfill.meeting-two-lines.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给挥手的小身影留话",
+          "en": "Leave the little waving figure a message"
+        }
+      },
+      {
+        "id": "paris.fulfill.meeting-two-lines.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "展开看看那两行字",
+          "en": "Unfold the card and read the two lines"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "paris.two-line-meeting-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

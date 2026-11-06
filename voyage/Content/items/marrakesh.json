@@ -1,0 +1,98 @@
+[
+  {
+    "id": "marrakesh.menu-couscous",
+    "kind": "menu",
+    "cityId": "marrakesh",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "库斯库斯手绘菜单",
+      "en": "Couscous Sketch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在马拉喀什吃配蔬菜的库斯库斯后画的菜单。勺子旁的小点，记着一次被午饭打断的数数。",
+      "en": "Drawn after couscous with vegetables in Marrakesh. Dots beside the spoon recall a counting project interrupted by lunch."
+    }
+  },
+  {
+    "id": "marrakesh.menu-tagine",
+    "kind": "menu",
+    "cityId": "marrakesh",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "塔吉锅菜手绘菜单",
+      "en": "Tagine Sketch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "马拉喀什蔬菜塔吉锅菜的小菜单。旁边那句没说完的形容，最后等来了一个笑脸。",
+      "en": "A menu from my vegetable tagine in Marrakesh. The unfinished description eventually acquired a small smile."
+    }
+  },
+  {
+    "id": "marrakesh.two-color-note",
+    "kind": "souvenir",
+    "cityId": "marrakesh",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "花园双色便签",
+      "en": "Two Colors from the Garden"
+    },
+    "descriptions": {
+      "zh-Hans": "我在马拉喀什马若雷勒花园后留下的便签。先记住蓝与绿，再慢慢想今天看过的植物。",
+      "en": "My note after Jardin Majorelle in Marrakesh. Blue and green came back first; the plants followed in their own time."
+    }
+  },
+  {
+    "id": "marrakesh.unfinished-sentence",
+    "kind": "souvenir",
+    "cityId": "marrakesh",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "味道在路上纸条",
+      "en": "A Sentence Still on Its Way"
+    },
+    "descriptions": {
+      "zh-Hans": "在马拉喀什尝塔吉锅菜时写的纸条。味道已经记住，句子还等着我吃完那一口。",
+      "en": "A note from tasting tagine in Marrakesh. The flavor was safely remembered while the sentence waited for one more bite."
+    }
+  },
+  {
+    "id": "marrakesh.courtyard-pause-note",
+    "kind": "souvenir",
+    "cityId": "marrakesh",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "庭院间的小停顿",
+      "en": "A Pause Between Courtyards"
+    },
+    "descriptions": {
+      "zh-Hans": "我在马拉喀什巴伊亚宫和旅人歇脚后写的便签。句子间的空当，记着那一次安静听声音。",
+      "en": "My note after a pause with a traveler at Bahia Palace in Marrakesh. Space between the sentences remembers a little time spent listening."
+    }
+  },
+  {
+    "id": "marrakesh.garden-color-card",
+    "kind": "souvenir",
+    "cityId": "marrakesh",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "花园蓝绿记忆卡",
+      "en": "Blue and Green, Kept Together"
+    },
+    "descriptions": {
+      "zh-Hans": "我自己做的马拉喀什花园记忆卡。两小块颜色回想马若雷勒花园里那次慢慢看的时间，不是园方的色票。",
+      "en": "My handmade Marrakesh memory card. Two patches recall time spent looking at Jardin Majorelle, rather than serving as official color samples."
+    }
+  }
+]

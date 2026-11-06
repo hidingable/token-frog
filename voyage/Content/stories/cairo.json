@@ -1,0 +1,367 @@
+[
+  {
+    "id": "cairo.arrival.museum-second-look",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "cairo",
+    "factIds": [
+      "cairo-egyptian-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "走出展厅，眼前还留着一件小东西。",
+      "en": "One small object stayed with me after the gallery."
+    },
+    "text": {
+      "zh-Hans": "在开罗埃及博物馆，我看过一件首饰，又退开一点看了一回。出馆后读到这座馆1902年开馆，忽然觉得自己的停步很短，却也记住了什么。我在便纸上写“还想再看”，下面暂时空着。明天要挑出那个最先浮上来的细节。",
+      "en": "At Cairo’s Egyptian Museum, I looked at a piece of jewellery, stepped back, and looked again. Outside, reading that the museum opened in 1902 made my own brief pause feel very small, though it had left something with me. My slip says, “Would like another look.” Tomorrow I will see which detail returns first."
+    },
+    "replies": [
+      {
+        "id": "cairo.arrival.museum-second-look.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲自己为何停步",
+          "en": "Explain what made me pause"
+        }
+      },
+      {
+        "id": "cairo.arrival.museum-second-look.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "记下最想再看的一件",
+          "en": "Note what I would revisit"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "cairo.second-look-slip"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "cairo.arrival.park-wait",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "cairo",
+    "factIds": [
+      "cairo-al-azhar-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "等人的时候，散步已经开始了。",
+      "en": "Our walk began while I was still waiting."
+    },
+    "text": {
+      "zh-Hans": "在开罗爱资哈尔公园等旅人，我先沿园路走了一小段。公园2005年揭幕，如今是能来休闲的绿地。对方到时问我等久没有，我说刚好走到一句话的结尾。于是我们从“这一段接着走”说起，把碰头变成了一次不赶路的散步。",
+      "en": "While waiting for a traveler at Cairo’s Al-Azhar Park, I took a short walk. The park was inaugurated in 2005 as a green place for recreation. When my companion arrived, I had just reached the end of a thought. “Shall we continue this bit?” was enough to turn waiting into a walk together."
+    },
+    "replies": [
+      {
+        "id": "cairo.arrival.park-wait.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给同路这段起个小名",
+          "en": "Name our stretch of the walk"
+        }
+      },
+      {
+        "id": "cairo.arrival.park-wait.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看刚才停步的地方",
+          "en": "Notice where I stopped"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "cairo.waiting-walk-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "cairo.arrival.koshari-mouthful",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "cairo",
+    "factIds": [
+      "cairo-koshari"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一勺库沙里，让清单停了下来。",
+      "en": "A spoonful interrupted the inventory."
+    },
+    "text": {
+      "zh-Hans": "在开罗尝库沙里，我看见米饭、意面和豆类聚在同一碗里，上面还有酱汁和炸洋葱。刚想给小菜单一项项列清楚，先吃了一勺，接着又吃一勺。最后清单只写到一半。我在旁边补了句“先吃饭”，等碗放下了再把菜名写全。",
+      "en": "Trying koshari in Cairo, I spotted rice, pasta and beans under sauce and fried onions. I began an orderly inventory for my menu, then took a spoonful. And another. The list stopped halfway. “Lunch first” became a useful margin note; the complete dish name could wait until I put down the bowl."
+    },
+    "replies": [
+      {
+        "id": "cairo.arrival.koshari-mouthful.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给午饭讲一句介绍",
+          "en": "Introduce lunch in one sentence"
+        }
+      },
+      {
+        "id": "cairo.arrival.koshari-mouthful.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看这一勺里的不同形状",
+          "en": "Notice the shapes on the spoon"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "cairo.menu-koshari"
+      ]
+    }
+  },
+  {
+    "id": "cairo.arrival.beans-quiet",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "cairo",
+    "factIds": [
+      "cairo-ful-medames"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天这顿饭，句子慢慢才排好。",
+      "en": "The words for this meal arrived slowly."
+    },
+    "text": {
+      "zh-Hans": "我在开罗尝了一份ful medames炖豆，旁边配了煮鸡蛋。先吃几口，再想用什么词写菜单，脑袋里却一直是勺子放回碟边的轻响。我把菜名和那声轻响分两行记下，算是给这一顿留了个小座位，等以后翻到再慢慢想。",
+      "en": "My ful medames in Cairo came with a boiled egg. After a few bites, I tried finding words for the menu, but kept remembering the small sound of my spoon touching the dish. The name and the sound went on separate lines. This meal now has a place in the notebook; the adjectives can arrive later."
+    },
+    "replies": [
+      {
+        "id": "cairo.arrival.beans-quiet.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这份菜单挑个词",
+          "en": "Choose a word for the menu"
+        }
+      },
+      {
+        "id": "cairo.arrival.beans-quiet.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听放下勺子的小响声",
+          "en": "Listen as the spoon settles"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "cairo.menu-ful-medames"
+      ]
+    }
+  },
+  {
+    "id": "cairo.arrival.meals-one-word",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "cairo",
+    "factIds": [
+      "cairo-koshari",
+      "cairo-ful-medames"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我们给两顿饭，各留了一个开头。",
+      "en": "We gave each meal a way to begin."
+    },
+    "text": {
+      "zh-Hans": "今天在开罗尝过库沙里和ful medames，歇脚时我拿出两张菜单，和旅人商量怎样向朋友讲起。我从米饭与意面的那一碗开始，对方想先听炖豆。我干脆在两张背面各写一个“今天”，这样不管先抽到哪张，都可以接着讲下去。",
+      "en": "After trying koshari and ful medames in Cairo, I brought out both menus during a rest. A traveler and I considered how I might tell a friend about lunch. I began with the rice-and-pasta bowl; my companion wanted to hear about the beans first. Writing “Today…” on both backs settled it. Either card could start the conversation."
+    },
+    "replies": [
+      {
+        "id": "cairo.arrival.meals-one-word.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "挑一张接着讲午饭",
+          "en": "Choose a card and tell its story"
+        }
+      },
+      {
+        "id": "cairo.arrival.meals-one-word.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张相同的开头",
+          "en": "Compare the matching openings"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "cairo.meal-opening-pair"
+      ],
+      "menuIds": [
+        "cairo.menu-koshari",
+        "cairo.menu-ful-medames"
+      ]
+    }
+  },
+  {
+    "id": "cairo.arrival.meals-spoon-rest",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "cairo",
+    "factIds": [
+      "cairo-koshari",
+      "cairo-ful-medames"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两顿饭都收好了，勺子只在纸上歇着。",
+      "en": "Both meals were filed; the paper spoon could rest."
+    },
+    "text": {
+      "zh-Hans": "在开罗吃过库沙里和ful medames后，我给两张小菜单各添一个放下勺子的记号。一张记着不同食材聚在一起，一张记着我吃饭时的一声轻响。合起本子，两个记号都落在页边，像等着下次开饭。我把本子收好，自己倒先去散步了。",
+      "en": "After koshari and ful medames in Cairo, I added a resting-spoon mark to each menu. One card kept an assortment of ingredients, the other a small sound from my meal. Closing the notebook left both marks at the edge, apparently waiting for lunch. I went for a walk while they waited."
+    },
+    "replies": [
+      {
+        "id": "cairo.arrival.meals-spoon-rest.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说哪顿饭先浮上来",
+          "en": "Say which meal returns first"
+        }
+      },
+      {
+        "id": "cairo.arrival.meals-spoon-rest.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较两个停勺记号",
+          "en": "Compare the resting-spoon marks"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "cairo.menu-koshari",
+        "cairo.menu-ful-medames"
+      ]
+    }
+  },
+  {
+    "id": "cairo.fulfill.jewellery-memory",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "cairo",
+    "factIds": [
+      "cairo-egyptian-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "cairo.arrival.museum-second-look.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我先写下了那次停步。",
+      "en": "Your note, “{reply}”, brought back my pause in the gallery."
+    },
+    "text": {
+      "zh-Hans": "开罗埃及博物馆里让我回头看的那件首饰，今天先被我记成了两句话：我凑近看过，也退开看过。写完才发现，我记得最清楚的是自己两次站定的距离。我把它们折在卡片两面。物件留在馆里，这点看东西的记忆随我走。",
+      "en": "The jewellery that drew a second look at Cairo’s Egyptian Museum now has two sentences: I looked from nearby, then from farther away. What returned most clearly was the space between those two pauses. I folded the sentences onto opposite sides of a card. The object stays in the museum; this little memory travels with me."
+    },
+    "replies": [
+      {
+        "id": "cairo.fulfill.jewellery-memory.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给两次停步留句话",
+          "en": "Leave a line for the two pauses"
+        }
+      },
+      {
+        "id": "cairo.fulfill.jewellery-memory.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较记忆里的两个距离",
+          "en": "Compare the remembered distances"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "cairo.two-distances-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

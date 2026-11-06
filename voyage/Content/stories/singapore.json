@@ -1,0 +1,367 @@
+[
+  {
+    "id": "singapore.arrival.bay-greetings",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "singapore",
+    "factIds": [
+      "singapore-merlion"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我在鱼尾狮旁边，收到了两个方向的招呼。",
+      "en": "Two greetings met beside the Merlion."
+    },
+    "text": {
+      "zh-Hans": "在新加坡鱼尾狮公园，我和一位旅人约在能看见狮头鱼身的雕像旁碰头。我先朝水声那边挥手，对方却从另一侧走来。我们各说了一声“在这里”，最后笑着站到了同一边。我把这两声记在小纸上，明天想把它们接成一句。",
+      "en": "At Merlion Park in Singapore, a fellow traveler and I had agreed to meet by the lion-headed, fish-bodied statue. I waved toward the splashing water; my companion arrived from the other side. Two calls of “over here” eventually brought us together. I saved both greetings on a slip. Tomorrow they might make one sentence."
+    },
+    "replies": [
+      {
+        "id": "singapore.arrival.bay-greetings.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把两种招呼接起来",
+          "en": "Join the two greetings"
+        }
+      },
+      {
+        "id": "singapore.arrival.bay-greetings.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "记住碰头时的方向",
+          "en": "Remember our meeting directions"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "singapore.bay-greeting"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "singapore.arrival.garden-pause",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "singapore",
+    "factIds": [
+      "singapore-botanic-gardens"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "植物园里，我暂时把句号放进了口袋。",
+      "en": "My full stop stayed in my pocket at the gardens."
+    },
+    "text": {
+      "zh-Hans": "逛新加坡植物园时，我读到它从1859年走到今天，仍在做植物研究与保护。后来我沿园路慢走，看一片叶影从鞋尖挪开。原本想立刻记下一句话，笔却一直没落下。回去才写了“刚才多站了一会儿”，还特意给它留了个安静的句号。",
+      "en": "At Singapore Botanic Gardens, I read about its beginnings in 1859 and its continuing work in plant research and conservation. Farther along, I stopped as a leaf shadow moved away from my shoes. The pencil waited too. Back at my lodging, the note simply said, “Stayed a little longer.” One quiet full stop seemed enough."
+    },
+    "replies": [
+      {
+        "id": "singapore.arrival.garden-pause.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲那一小段停步",
+          "en": "Tell someone about the pause"
+        }
+      },
+      {
+        "id": "singapore.arrival.garden-pause.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看影子离鞋多远",
+          "en": "Notice the shadow beside my shoes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "singapore.leaf-shadow-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "singapore.arrival.rice-first",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "singapore",
+    "factIds": [
+      "singapore-chicken-rice"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "鸡饭来了，我的半句话先歇一歇。",
+      "en": "Chicken rice arrived halfway through my sentence."
+    },
+    "text": {
+      "zh-Hans": "在新加坡吃海南鸡饭，我选了蒸鸡，先尝了带鸡汤香味的米饭。原本要在便纸上写“今天先去”，写到这里，勺子就接了班。吃完再看，半句话像在等我交代午饭。我把鸡饭补在后面，这张小菜单便有了一个有点饿的开头。",
+      "en": "For chicken rice in Singapore, I chose steamed chicken and started with the stock-flavoured rice. My note had reached “Today I first went…” when the spoon took over. After lunch, the unfinished sentence was still waiting. Adding the dish’s name gave my little menu a rather hungry opening."
+    },
+    "replies": [
+      {
+        "id": "singapore.arrival.rice-first.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给半句话补个结尾",
+          "en": "Finish the interrupted sentence"
+        }
+      },
+      {
+        "id": "singapore.arrival.rice-first.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较米饭和鸡肉的香味",
+          "en": "Compare the rice and chicken"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "singapore.menu-chicken-rice"
+      ]
+    }
+  },
+  {
+    "id": "singapore.arrival.toast-listening",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "singapore",
+    "factIds": [
+      "singapore-kaya-toast"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "早餐有一声轻轻的脆响。",
+      "en": "Breakfast offered one small crunch."
+    },
+    "text": {
+      "zh-Hans": "我在新加坡尝了咖椰吐司，烤面包夹着椰子和鸡蛋做的酱。咬下这一份时，轻轻脆了一声；等我想听第二声，已经又吃了一口。我给小菜单写了菜名，再画一个很短的声音记号。它不像乐谱，不过我知道这段早餐从哪里开始。",
+      "en": "My kaya toast in Singapore had coconut-and-egg jam between toasted slices. One bite made a small crunch. By the time I thought of listening again, another bite had disappeared. The menu now has the dish’s name and one tiny sound mark. It will never pass as sheet music, but I know where breakfast began."
+    },
+    "replies": [
+      {
+        "id": "singapore.arrival.toast-listening.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说早餐的第一口",
+          "en": "Describe the first bite"
+        }
+      },
+      {
+        "id": "singapore.arrival.toast-listening.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意下一口的轻响",
+          "en": "Listen to the next bite"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "singapore.breakfast-pause"
+      ],
+      "menuIds": [
+        "singapore.menu-kaya-toast"
+      ]
+    }
+  },
+  {
+    "id": "singapore.arrival.meals-in-words",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "singapore",
+    "factIds": [
+      "singapore-chicken-rice",
+      "singapore-kaya-toast"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两顿饭，够我们各讲一句。",
+      "en": "Two meals gave us a sentence each."
+    },
+    "text": {
+      "zh-Hans": "今天在新加坡，我吃过海南鸡饭，也尝过咖椰吐司。歇脚时和旅人聊起哪一口最先想起来，我说米饭，对方问那声脆响算不算。我把两张小菜单都摊开，给其中一张补了个小耳朵。这是我们给午饭和早餐起的私人记号。",
+      "en": "Today in Singapore I tried chicken rice and kaya toast. During a rest, a traveler asked which bite came back first. I chose the rice; then we wondered whether a remembered crunch counted as a bite. I spread out both menu cards and added a small ear to one. Our breakfast-and-lunch shorthand was taking shape."
+    },
+    "replies": [
+      {
+        "id": "singapore.arrival.meals-in-words.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "各给一顿饭起个小名",
+          "en": "Make up a nickname for each meal"
+        }
+      },
+      {
+        "id": "singapore.arrival.meals-in-words.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找菜单上的小耳朵",
+          "en": "Find the ear on the menu"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "singapore.menu-chicken-rice",
+        "singapore.menu-kaya-toast"
+      ]
+    }
+  },
+  {
+    "id": "singapore.arrival.meals-in-pauses",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "singapore",
+    "factIds": [
+      "singapore-chicken-rice",
+      "singapore-kaya-toast"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的两张菜单，一张有停顿，一张有声音。",
+      "en": "One menu kept a pause; the other kept a sound."
+    },
+    "text": {
+      "zh-Hans": "在新加坡吃过海南鸡饭和咖椰吐司，我把两张菜单并排收进本子。鸡饭那页记着勺子接替铅笔的空当，吐司那页留着我听见的一声脆响。翻页时，两张都安安静静。我在页角添了两个点，算是只给自己看的开饭铃。",
+      "en": "After chicken rice and kaya toast in Singapore, I placed their menu cards side by side. One kept the moment a spoon replaced my pencil; the other kept a crunch. Neither made a sound when I turned the page. Two dots in the corner can be my private dinner bell."
+    },
+    "replies": [
+      {
+        "id": "singapore.arrival.meals-in-pauses.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把两顿饭连成一句",
+          "en": "Link the meals in one sentence"
+        }
+      },
+      {
+        "id": "singapore.arrival.meals-in-pauses.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较两页留下的停顿",
+          "en": "Compare the pauses on the pages"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "singapore.menu-chicken-rice",
+        "singapore.menu-kaya-toast"
+      ]
+    }
+  },
+  {
+    "id": "singapore.fulfill.joined-greetings",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "singapore",
+    "factIds": [
+      "singapore-merlion"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "singapore.arrival.bay-greetings.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，那两声招呼今天挨在一起了。",
+      "en": "Your note, “{reply}”, brought the two greetings together."
+    },
+    "text": {
+      "zh-Hans": "鱼尾狮旁那张碰头便签，我在背面写了“这边见，慢慢走”。前半句是找到彼此，后半句留给一起出发。我把纸对折，摊开时两句话正好隔着折痕相望。下次等人，就把这张自己的招呼卡带上。",
+      "en": "On the back of my Merlion meeting note, I wrote, “Meet here. Take your time.” The first part found my companion; the second let us set off together. Folding the slip put a greeting on either side of the crease. It is ready for another meeting, whenever that comes."
+    },
+    "replies": [
+      {
+        "id": "singapore.fulfill.joined-greetings.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给下次碰头留个招呼",
+          "en": "Leave a greeting for next time"
+        }
+      },
+      {
+        "id": "singapore.fulfill.joined-greetings.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两句之间的折痕",
+          "en": "Look between the greetings"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "singapore.two-voice-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

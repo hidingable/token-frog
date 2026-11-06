@@ -12,7 +12,7 @@
     "food",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "墨西哥城",
     "en": "Mexico City"
@@ -21,5 +21,68 @@
     "zh-Hans": "墨西哥城",
     "en": "Mexico City"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "mexicocity-bellas-artes",
+      "type": "place",
+      "names": {
+        "zh-Hans": "美术宫",
+        "en": "Palacio de Bellas Artes"
+      },
+      "summary": {
+        "zh-Hans": "墨西哥城美术宫于1934年开放，外立面使用白色大理石。建筑外部的新艺术风格与内部的装饰艺术风格相互映照。",
+        "en": "Mexico City’s Palacio de Bellas Artes opened in 1934 and has a white-marble facade. Its Art Nouveau exterior contrasts with an Art Deco interior."
+      },
+      "sources": [
+        "https://inba.gob.mx/prensa/22803/efiartes2023"
+      ]
+    },
+    {
+      "id": "mexicocity-chapultepec",
+      "type": "place",
+      "names": {
+        "zh-Hans": "查普尔特佩克森林公园",
+        "en": "Bosque de Chapultepec"
+      },
+      "summary": {
+        "zh-Hans": "查普尔特佩克是墨西哥城的城市森林，分为四个区域。这里把绿地与文化场馆汇集在同一片城市空间。",
+        "en": "Chapultepec is an urban forest in Mexico City divided into four sections. It brings green spaces and cultural venues together within the city."
+      },
+      "sources": [
+        "https://www.proyectos.sedema.cdmx.gob.mx/datos/naturaleza-detalle/Bosque%20de%20Chapultepec",
+        "https://mexicocity.cdmx.gob.mx/locations/chapultepec-park/"
+      ]
+    },
+    {
+      "id": "mexicocity-tacos-de-canasta",
+      "type": "food",
+      "names": {
+        "zh-Hans": "篮子塔可",
+        "en": "Tacos de Canasta"
+      },
+      "summary": {
+        "zh-Hans": "篮子塔可是墨西哥城街头常见的塔可。常见馅料包括土豆、香肠、猪皮和炒豆泥，通常提前做好后带去售卖。",
+        "en": "Tacos de canasta are a Mexico City street food, usually prepared before being taken out to sell. Fillings can include potatoes, sausage, pork rind and refried beans."
+      },
+      "sources": [
+        "https://mexicocity.cdmx.gob.mx/e/food-basics/street-food/?lang=en"
+      ]
+    },
+    {
+      "id": "mexicocity-tamales",
+      "type": "food",
+      "names": {
+        "zh-Hans": "塔马尔",
+        "en": "Tamales"
+      },
+      "summary": {
+        "zh-Hans": "塔马尔以玉米面团为基础，可加入不同馅料，用玉米苞叶或芭蕉叶等包裹，常以蒸汽蒸熟。墨西哥城街头可见售卖塔马尔的摊点。",
+        "en": "Tamales use corn dough with varied fillings, wrapped in leaves such as corn husks or banana leaves and commonly steamed. They are sold by street vendors in Mexico City."
+      },
+      "sources": [
+        "https://sic.gob.mx/ficha.php?table=gastronomia&table_id=91",
+        "https://mexicocity.cdmx.gob.mx/e/food-basics/street-food/?lang=en"
+      ]
+    }
+  ]
 }

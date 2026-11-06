@@ -1,0 +1,98 @@
+[
+  {
+    "id": "rome.menu-carbonara",
+    "kind": "menu",
+    "cityId": "rome",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "卡尔博纳拉意面小菜单",
+      "en": "Carbonara Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在罗马吃过意面后补画的菜单。面条旁边点了黑胡椒，背面写着“叉子走在前面”。",
+      "en": "My menu after carbonara in Rome, with pepper dots beside the pasta. The back records that the fork went ahead."
+    }
+  },
+  {
+    "id": "rome.menu-suppli",
+    "kind": "menu",
+    "cityId": "rome",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "苏普利小菜单",
+      "en": "Supplì Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在罗马尝过炸饭团后画的两半点心，中间连着一条细细的奶酪线。",
+      "en": "Two halves of a supplì I tried in Rome, joined on my menu by one fine line of mozzarella."
+    }
+  },
+  {
+    "id": "rome.arch-restart-note",
+    "kind": "souvenir",
+    "cityId": "rome",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "拱门重看便签",
+      "en": "Start Here Again"
+    },
+    "descriptions": {
+      "zh-Hans": "在罗马斗兽场外数拱门时，邮包扣响了一声。我忘了数目，便在自己纸上记下重新看的位置。",
+      "en": "My mailbag buckle interrupted an arch count outside Rome's Colosseum. This personal note marks where to look again."
+    }
+  },
+  {
+    "id": "rome.suppli-thread-note",
+    "kind": "souvenir",
+    "cityId": "rome",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "午饭细线便纸",
+      "en": "A Thread from Lunch"
+    },
+    "descriptions": {
+      "zh-Hans": "尝过罗马的苏普利后，我把两半点心之间的奶酪细线画在纸上。带走的是画，点心已经吃好了。",
+      "en": "A line I drew after mozzarella stretched between the halves of my supplì in Rome. The drawing traveled; the snack was eaten."
+    }
+  },
+  {
+    "id": "rome.oculus-pause-note",
+    "kind": "souvenir",
+    "cityId": "rome",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "抬头停顿便签",
+      "en": "The Looking-Up Pause"
+    },
+    "descriptions": {
+      "zh-Hans": "参观罗马万神殿后，我在外面写的第一句话。纸上记的是自己望向天窗后的一小段停顿。",
+      "en": "The first sentence I wrote outside the Pantheon in Rome, keeping a small pause after looking toward the oculus."
+    }
+  },
+  {
+    "id": "rome.quiet-fold-card",
+    "kind": "souvenir",
+    "cityId": "rome",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "藏着空白的折卡",
+      "en": "A Fold Holding Quiet"
+    },
+    "descriptions": {
+      "zh-Hans": "我为罗马万神殿那次抬头做的折卡。三个点下面留着一行空白，展开才看得见，不是建筑图。",
+      "en": "My homemade card for a moment under the Pantheon's dome in Rome. A blank line hides beneath three dots until unfolded; it is no architectural plan."
+    }
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "london.menu-fish-and-chips",
+    "kind": "menu",
+    "cityId": "london",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "炸鱼薯条手绘菜单",
+      "en": "Fish and Chips Sketch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在伦敦吃炸鱼薯条后留下的小菜单。盘子旁边的锯齿，是我记第一口脆响的办法。",
+      "en": "My London fish-and-chips menu. The little zigzag beside the plate recalls the first crisp bite."
+    }
+  },
+  {
+    "id": "london.menu-afternoon-tea",
+    "kind": "menu",
+    "cityId": "london",
+    "rarity": null,
+    "icon": "tea",
+    "habit": null,
+    "names": {
+      "zh-Hans": "下午茶手绘菜单",
+      "en": "Afternoon Tea Sketch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "伦敦下午茶的回想：司康、三明治、小蛋糕和茶。旁边的小逗号，是我讲故事时停下来吃东西的空当。",
+      "en": "Scones, sandwiches, little cakes and tea from a London afternoon. The comma marks where my story paused for a bite."
+    }
+  },
+  {
+    "id": "london.direction-arrows",
+    "kind": "souvenir",
+    "cityId": "london",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "塔桥来去箭头",
+      "en": "Tower Bridge Direction Note"
+    },
+    "descriptions": {
+      "zh-Hans": "在伦敦塔桥和旅人交换方向时，我画的两个箭头。一个记来路，一个等午饭后再决定。",
+      "en": "Two arrows from a conversation on Tower Bridge in London: one for the way here, one awaiting a decision after lunch."
+    }
+  },
+  {
+    "id": "london.afternoon-comma",
+    "kind": "souvenir",
+    "cityId": "london",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "午后逗号纸条",
+      "en": "An Afternoon Comma"
+    },
+    "descriptions": {
+      "zh-Hans": "伦敦下午茶时自己写的小纸条。一个逗号，替端起司康的那次停顿占了座。",
+      "en": "A note I made over afternoon tea in London. One comma keeps a place for the pause when I picked up a scone."
+    }
+  },
+  {
+    "id": "london.plant-name-note",
+    "kind": "souvenir",
+    "cityId": "london",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "邱园名字便签",
+      "en": "A Name Waiting at Kew"
+    },
+    "descriptions": {
+      "zh-Hans": "我在伦敦邱园给自己留的便签。名字还有一半没想起来，“今天见过”四个字已经写好了。",
+      "en": "My note from Kew in London. Half the plant name is still missing, but “met today” is safely written down."
+    }
+  },
+  {
+    "id": "london.near-and-far-card",
+    "kind": "souvenir",
+    "cityId": "london",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "塔桥远近折卡",
+      "en": "From Bridge to River"
+    },
+    "descriptions": {
+      "zh-Hans": "我在伦敦把塔桥上的路和河上的小船记成一张折卡。打开它，能跟着那天的目光走一小段。",
+      "en": "My handmade London card pairs the path on Tower Bridge with a boat below. Unfold it to follow the small journey my eyes made."
+    }
+  }
+]

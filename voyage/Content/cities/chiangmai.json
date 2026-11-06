@@ -11,7 +11,7 @@
     "heritage",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "清迈",
     "en": "Chiang Mai"
@@ -20,5 +20,67 @@
     "zh-Hans": "清迈",
     "en": "Chiang Mai"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "chiangmai-doi-suthep",
+      "type": "place",
+      "names": {
+        "zh-Hans": "素贴寺",
+        "en": "Wat Phra That Doi Suthep"
+      },
+      "summary": {
+        "zh-Hans": "素贴寺位于清迈西侧的素贴山上，有金色佛塔，从露台可以眺望市区。",
+        "en": "Wat Phra That Doi Suthep stands on the mountain west of Chiang Mai, with a golden stupa and a terrace overlooking the city."
+      },
+      "sources": [
+        "https://www.thailandtravel.or.jp/wat-phra-that-doi-suthep/"
+      ]
+    },
+    {
+      "id": "chiangmai-rajapruek",
+      "type": "place",
+      "names": {
+        "zh-Hans": "拉查帕皇家花园",
+        "en": "Royal Park Rajapruek"
+      },
+      "summary": {
+        "zh-Hans": "拉查帕皇家花园承接2006年国际园艺博览会的成果，设有植物与主题花园，兼具园艺学习和植物保护功能。",
+        "en": "Royal Park Rajapruek grew out of the 2006 international horticultural exposition. Its plant collections and thematic gardens support horticultural learning and conservation."
+      },
+      "sources": [
+        "https://rprp2025.royalparkrajapruek.org/en/WhatWeDo/TheRoyalParkRajapruek"
+      ]
+    },
+    {
+      "id": "chiangmai-khao-soi",
+      "type": "food",
+      "names": {
+        "zh-Hans": "泰北咖喱面",
+        "en": "Khao Soi"
+      },
+      "summary": {
+        "zh-Hans": "清迈常见的khao soi将鸡蛋面与椰奶咖喱汤搭配，汤味和肉类配料会随店家而变化。",
+        "en": "Khao soi in Chiang Mai combines egg noodles with a coconut curry broth. The seasoning and choice of meat vary between shops."
+      },
+      "sources": [
+        "https://www.thailandtravel.or.jp/about/thaicuisine/khao-soi/"
+      ]
+    },
+    {
+      "id": "chiangmai-sai-ua",
+      "type": "food",
+      "names": {
+        "zh-Hans": "泰北香草肠",
+        "en": "Sai Ua Herb Sausage"
+      },
+      "summary": {
+        "zh-Hans": "Sai ua是清迈的地方香肠，加入香茅等香草和香料，可烤制后食用。",
+        "en": "Sai ua is a Chiang Mai sausage flavoured with herbs such as lemongrass and with spices, and can be served grilled."
+      },
+      "sources": [
+        "https://www.thailandtravel.or.jp/common/pdf/ChiangMai2023.pdf",
+        "https://guide.michelin.com/th/en/article/dining-out/5-thai-cities-5-iconic-street-food-dishes-worth-traveling-for"
+      ]
+    }
+  ]
 }

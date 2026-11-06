@@ -1,0 +1,98 @@
+[
+  {
+    "id": "chiangmai.menu-khao-soi",
+    "kind": "menu",
+    "cityId": "chiangmai",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "泰北咖喱面小菜单",
+      "en": "Khao Soi Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在清迈尝过khao soi后写的菜单，先记了菜名，等汤面吃好才补上结尾。",
+      "en": "My khao soi menu from Chiang Mai. The name came first; the ending waited until after the soup and noodles."
+    }
+  },
+  {
+    "id": "chiangmai.menu-sai-ua",
+    "kind": "menu",
+    "cityId": "chiangmai",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "泰北香草肠小菜单",
+      "en": "Sai Ua Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在清迈尝过sai ua后留下的小菜单，菜名旁的逗号记着自己吃饭时的一次停顿。",
+      "en": "A menu after sai ua in Chiang Mai, with a comma for a pause I took over lunch."
+    }
+  },
+  {
+    "id": "chiangmai.terrace-pause-note",
+    "kind": "souvenir",
+    "cityId": "chiangmai",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "露台远近便签",
+      "en": "Terrace Near-and-Far Note"
+    },
+    "descriptions": {
+      "zh-Hans": "在素贴寺露台眺望清迈，我先看近处再看远处，把自己的停步顺序记在这张纸上。",
+      "en": "My personal sequence from a Doi Suthep terrace view over Chiang Mai: nearby first, farther away next."
+    }
+  },
+  {
+    "id": "chiangmai.aroma-comma",
+    "kind": "souvenir",
+    "cityId": "chiangmai",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "香味逗号纸",
+      "en": "A Comma for an Aroma"
+    },
+    "descriptions": {
+      "zh-Hans": "在清迈尝泰北香草肠时，我放慢了正要说的话，自己的菜单上便多了一小个逗号。",
+      "en": "A small comma from slowing a sentence over herb sausage in Chiang Mai."
+    }
+  },
+  {
+    "id": "chiangmai.two-garden-arrows",
+    "kind": "souvenir",
+    "cityId": "chiangmai",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "花园双箭头记",
+      "en": "Two Garden Arrows"
+    },
+    "descriptions": {
+      "zh-Hans": "在清迈拉查帕皇家花园，我和旅人各指一个方向，却都决定先看看眼前。这是我们自己的路记。",
+      "en": "Two personal arrows from Royal Park Rajapruek in Chiang Mai. We pointed different ways, then both paused right where we were."
+    }
+  },
+  {
+    "id": "chiangmai.near-far-card",
+    "kind": "souvenir",
+    "cityId": "chiangmai",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "远近翻面卡",
+      "en": "Near and Far Turning Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我把在素贴寺眺望清迈的记忆折在两面：先看这里，再看远处。小卡只记录自己的观察顺序。",
+      "en": "My Doi Suthep view over Chiang Mai, folded into “Start here” and “Then look farther.” A homemade memory, one side at a time."
+    }
+  }
+]

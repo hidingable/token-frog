@@ -1,0 +1,98 @@
+[
+  {
+    "id": "singapore.menu-chicken-rice",
+    "kind": "menu",
+    "cityId": "singapore",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "海南鸡饭小菜单",
+      "en": "Chicken Rice Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在新加坡尝过海南鸡饭后写的小菜单。开头只写了半句，后半句等我吃好才回来。",
+      "en": "A menu from my chicken rice lunch in Singapore. The sentence paused for a spoonful and resumed after the meal."
+    }
+  },
+  {
+    "id": "singapore.menu-kaya-toast",
+    "kind": "menu",
+    "cityId": "singapore",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "咖椰吐司小菜单",
+      "en": "Kaya Toast Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我尝过新加坡咖椰吐司后留的菜单，短短一道记号，记的是自己咬下那口的轻响。",
+      "en": "A menu after kaya toast in Singapore, with a tiny mark for the crunch I heard."
+    }
+  },
+  {
+    "id": "singapore.bay-greeting",
+    "kind": "souvenir",
+    "cityId": "singapore",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "湾边碰头便签",
+      "en": "Bay Meeting Slip"
+    },
+    "descriptions": {
+      "zh-Hans": "在新加坡鱼尾狮旁碰头，我和旅人从两边各说了一声“在这里”。两声都留在这张自己的便签上。",
+      "en": "Two calls of “over here” from a meeting by Singapore’s Merlion, saved on my own slip."
+    }
+  },
+  {
+    "id": "singapore.breakfast-pause",
+    "kind": "souvenir",
+    "cityId": "singapore",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "早餐轻响纸条",
+      "en": "Breakfast Sound Note"
+    },
+    "descriptions": {
+      "zh-Hans": "在新加坡吃咖椰吐司时，我给自己听见的脆响留了一个小记号。这张纸不会真的响。",
+      "en": "My mark for a crunch of kaya toast in Singapore. The paper itself is pleasantly quiet."
+    }
+  },
+  {
+    "id": "singapore.leaf-shadow-note",
+    "kind": "souvenir",
+    "cityId": "singapore",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "叶影停步记",
+      "en": "Leaf Shadow Pause"
+    },
+    "descriptions": {
+      "zh-Hans": "在新加坡植物园慢走时，我看叶影从鞋尖挪开，回去才写下“多站了一会儿”。",
+      "en": "A note written after a pause at Singapore Botanic Gardens, watching a leaf shadow move away from my shoes."
+    }
+  },
+  {
+    "id": "singapore.two-voice-card",
+    "kind": "souvenir",
+    "cityId": "singapore",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两声招呼折卡",
+      "en": "Two Greetings Folded Together"
+    },
+    "descriptions": {
+      "zh-Hans": "从新加坡鱼尾狮旁的碰头记忆折成的小卡，一边写“这边见”，一边写“慢慢走”，是我自己的招呼。",
+      "en": "A homemade card from my Merlion meeting in Singapore: “Meet here” on one side and “Take your time” on the other."
+    }
+  }
+]

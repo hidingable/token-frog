@@ -4,7 +4,8 @@ import Testing
 
 let firstBatchCityIds = ["shanghai", "hangzhou", "suzhou", "quanzhou", "jingdezhen", "kyoto"]
 let secondBatchCityIds = ["beijing", "chengdu", "xian", "tokyo", "osaka", "fukuoka", "seoul", "busan", "taipei", "hongkong", "bangkok", "hanoi"]
-let fullContentCityIds = firstBatchCityIds + secondBatchCityIds
+let thirdBatchCityIds = ["singapore", "istanbul", "rome", "paris", "lisbon", "barcelona", "london", "newyork", "mexicocity", "cairo", "marrakesh", "chiangmai"]
+let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCityIds
 
 @Suite struct CityBatchContentTests {
     @Test func fullCitiesHaveSourcedFactsStoriesMenusAndLocalSouvenirs() throws {

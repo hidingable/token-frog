@@ -11,7 +11,7 @@
     "capital",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "伦敦",
     "en": "London"
@@ -20,5 +20,66 @@
     "zh-Hans": "伦敦",
     "en": "London"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "london-tower-bridge",
+      "type": "place",
+      "names": {
+        "zh-Hans": "伦敦塔桥",
+        "en": "Tower Bridge"
+      },
+      "summary": {
+        "zh-Hans": "伦敦塔桥的高层步道连接南北两座桥塔，可以从高处眺望泰晤士河和伦敦。桥面中段可开启，让船只通过。",
+        "en": "Tower Bridge has high-level walkways linking its north and south towers, with views over the Thames and London. Its central road sections can rise to let vessels pass."
+      },
+      "sources": [
+        "https://www.towerbridge.org.uk/explore-inside"
+      ]
+    },
+    {
+      "id": "london-kew-gardens",
+      "type": "place",
+      "names": {
+        "zh-Hans": "邱园",
+        "en": "Royal Botanic Gardens, Kew"
+      },
+      "summary": {
+        "zh-Hans": "邱园始建于1759年，收藏活体植物、植物标本和文献。园内的棕榈温室与温带温室是其历史景观的一部分。",
+        "en": "Founded in 1759, Kew holds collections of living plants, preserved specimens and documents. The Palm House and Temperate House form part of its historic garden landscape."
+      },
+      "sources": [
+        "https://whc.unesco.org/en/list/1084"
+      ]
+    },
+    {
+      "id": "london-fish-and-chips",
+      "type": "food",
+      "names": {
+        "zh-Hans": "炸鱼薯条",
+        "en": "Fish and Chips"
+      },
+      "summary": {
+        "zh-Hans": "炸鱼薯条把裹面糊炸制的鱼与薯条搭配。在伦敦的传统炸鱼店和餐馆都能尝到这道菜。",
+        "en": "Fish and chips pairs battered, fried fish with chips. London serves it in traditional fish-and-chip shops as well as restaurants."
+      },
+      "sources": [
+        "https://www.visitlondon.com/blog/british-food-to-try-in-london"
+      ]
+    },
+    {
+      "id": "london-afternoon-tea",
+      "type": "food",
+      "names": {
+        "zh-Hans": "英式下午茶",
+        "en": "Afternoon Tea"
+      },
+      "summary": {
+        "zh-Hans": "伦敦的传统下午茶常把茶、手指三明治、小蛋糕，以及配奶油和果酱的司康一起供应。各店的内容可以不同。",
+        "en": "A traditional London afternoon tea can bring together tea, finger sandwiches, small cakes and scones with cream and jam. The selection varies by venue."
+      },
+      "sources": [
+        "https://www.visitlondon.com/things-to-do/food-and-drink/afternoon-tea"
+      ]
+    }
+  ]
 }

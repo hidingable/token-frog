@@ -1,0 +1,367 @@
+[
+  {
+    "id": "newyork.arrival.bridge-footsteps",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "newyork",
+    "factIds": [
+      "newyork-brooklyn-bridge"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "过桥时，我先把脚步借给了纽约。",
+      "en": "My footsteps had a little time in New York today."
+    },
+    "text": {
+      "zh-Hans": "沿着布鲁克林大桥的行人步道走，东河在下面，曼哈顿和布鲁克林在桥的两端。我和一位同路旅人聊起今天走过多少路，结果谁都只记得午饭吃了什么。聊完在宽敞处歇一歇，我在便签上写了“过河”，旁边留了一行，想再听听来来去去的脚步。",
+      "en": "Walking the Brooklyn Bridge promenade, I had the East River below and Manhattan and Brooklyn at opposite ends. Another traveler and I tried to compare how far we had walked. Neither of us remembered anything more precise than lunch. Resting out of the way afterwards, I wrote “across the river” and left a line for the passing footsteps."
+    },
+    "replies": [
+      {
+        "id": "newyork.arrival.bridge-footsteps.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说今天从哪里走来",
+          "en": "Tell someone where you walked from"
+        }
+      },
+      {
+        "id": "newyork.arrival.bridge-footsteps.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听桥上的脚步",
+          "en": "Listen to the footsteps on the bridge"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "newyork.crossing-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "newyork.arrival.another-bridge",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "newyork",
+    "factIds": [
+      "newyork-bow-bridge"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "中央公园里，我又认得一座桥了。",
+      "en": "I made the acquaintance of another bridge in Central Park."
+    },
+    "text": {
+      "zh-Hans": "在纽约中央公园，我走到横跨湖面的弓桥边。它是铸铁桥，和今天脑海里那座布鲁克林大桥很不一样。我先看桥，再看水里的样子，回头时还想再看一眼。于是便签上多了一句“走过以后也可以回头看”，这是给自己的散步提醒。",
+      "en": "In Central Park, I came to Bow Bridge over the Lake. This cast-iron bridge felt quite different from the Brooklyn Bridge still in my thoughts. I looked at it, then at its reflection, then wanted another look after walking on. My note now says, “A walk may include looking back.” It is a reminder for my own wandering."
+    },
+    "replies": [
+      {
+        "id": "newyork.arrival.another-bridge.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊今天遇到的两座桥",
+          "en": "Talk about the two bridges you met"
+        }
+      },
+      {
+        "id": "newyork.arrival.another-bridge.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "回头再看桥与倒影",
+          "en": "Look back at the bridge and reflection"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "newyork.looking-back-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "newyork.arrival.bagel-break",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "newyork",
+    "factIds": [
+      "newyork-bagel"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "贝果来了，早上的话可以慢慢说。",
+      "en": "The bagel arrived, and the morning could take its time."
+    },
+    "text": {
+      "zh-Hans": "在纽约吃了H&H的贝果，选的是奶油奶酪抹酱。店里介绍自家贝果先水煮、再烘烤；我认真看过介绍，也认真吃了早餐。本来要在菜单旁写一个很长的形容，吃完却只留下“还想再咬一口”。这句话短，记起味道倒很快。",
+      "en": "My New York breakfast was an H&H bagel with cream cheese. I read the shop’s account of kettle-boiling the dough before baking, then gave breakfast my full attention. A grand description was planned for the menu. What survived was “another bite, please.” Short words, with a very quick route back to the taste."
+    },
+    "replies": [
+      {
+        "id": "newyork.arrival.bagel-break.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把第一口的感觉说出来",
+          "en": "Describe the feeling of the first bite"
+        }
+      },
+      {
+        "id": "newyork.arrival.bagel-break.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看菜单留下了哪句话",
+          "en": "See which sentence stayed on the menu"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "newyork.menu-bagel"
+      ]
+    }
+  },
+  {
+    "id": "newyork.arrival.slice-before-sentence",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "newyork",
+    "factIds": [
+      "newyork-pizza-slice"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午饭按片来，句子也分成了小段。",
+      "en": "Lunch came by the slice; my sentences followed suit."
+    },
+    "text": {
+      "zh-Hans": "我在纽约格林威治村的Joe’s买了一片披萨。原先想一边吃一边向同行旅人讲过桥的事，第一口之后，讲述就变成一小段一小段。对方也拿着午饭，我们用点头把没说完的话接上。后来画菜单，我添了两个小对话框，中间留着好好吃饭的空当。",
+      "en": "I bought a slice at Joe’s in Greenwich Village. I meant to tell a companion about crossing the bridge while we ate, but after the first bite my account arrived in short installments. We nodded to keep the story going between mouthfuls. Two small speech bubbles on my menu leave room for lunch in between."
+    },
+    "replies": [
+      {
+        "id": "newyork.arrival.slice-before-sentence.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把过桥的故事接着说完",
+          "en": "Finish the story of crossing the bridge"
+        }
+      },
+      {
+        "id": "newyork.arrival.slice-before-sentence.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两段话之间的空当",
+          "en": "Notice the space between the speech bubbles"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "newyork.lunch-speech-note"
+      ],
+      "menuIds": [
+        "newyork.menu-pizza-slice"
+      ]
+    }
+  },
+  {
+    "id": "newyork.arrival.morning-and-midday",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "newyork",
+    "factIds": [
+      "newyork-bagel",
+      "newyork-pizza-slice"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张菜单，把我今天的路串起来了。",
+      "en": "Two menus helped me tell the route of my day."
+    },
+    "text": {
+      "zh-Hans": "聊起纽约这一天，我把贝果和切片披萨的菜单摆了出来。早上在H&H吃贝果，后来在Joe’s买披萨；两顿饭之间走过的路，倒得想一会儿才说得清。旅人问我哪一张该先讲，我让贝果先开口。毕竟它陪我醒得比较早。",
+      "en": "Telling a traveler about my New York day, I set out the bagel and pizza-slice menus. H&H at breakfast, Joe’s later on; the walking between them took rather more thought to explain. Which card should speak first? I gave the bagel the opening line. It had been awake with me earlier."
+    },
+    "replies": [
+      {
+        "id": "newyork.arrival.morning-and-midday.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "让披萨也讲一段午后的路",
+          "en": "Give the pizza an afternoon story too"
+        }
+      },
+      {
+        "id": "newyork.arrival.morning-and-midday.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张菜单排的先后",
+          "en": "Look at the order of the two menus"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "newyork.menu-bagel",
+        "newyork.menu-pizza-slice"
+      ]
+    }
+  },
+  {
+    "id": "newyork.arrival.two-short-lines",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "newyork",
+    "factIds": [
+      "newyork-bagel",
+      "newyork-pizza-slice"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的好胃口，留在两行短句里。",
+      "en": "Two short lines kept today’s appetite safe."
+    },
+    "text": {
+      "zh-Hans": "整理纽约的菜单时，贝果那张写着“还想再咬一口”，切片披萨那张留着两个小对话框。一个让我记起早餐，一个让我记起午饭时没说完的话。我把两张并排放好，先看字，再看自己停笔的地方。原来今天吃得很认真，话也没有丢。",
+      "en": "The New York bagel menu says “another bite, please.” The pizza menu has two little speech bubbles. Breakfast returns with one card, and an unfinished lunchtime story with the other. I laid them side by side and looked at where the writing stopped. The food had my attention; the conversation was still there too."
+    },
+    "replies": [
+      {
+        "id": "newyork.arrival.two-short-lines.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲哪句话让你想起味道",
+          "en": "Tell which line brings back the taste"
+        }
+      },
+      {
+        "id": "newyork.arrival.two-short-lines.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找两张菜单的停笔处",
+          "en": "Find where the writing pauses on each menu"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "newyork.menu-bagel",
+        "newyork.menu-pizza-slice"
+      ]
+    }
+  },
+  {
+    "id": "newyork.fulfill.steps-and-spaces",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "newyork",
+    "factIds": [
+      "newyork-brooklyn-bridge"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "newyork.arrival.bridge-footsteps.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把耳朵也带上了桥。",
+      "en": "You suggested “{reply},” so my ears joined the walk."
+    },
+    "text": {
+      "zh-Hans": "在布鲁克林大桥步道旁歇脚时，我认真听了一会儿。有一串脚步近了，又远了，接着是另一串；我不数人，只在便纸上记下自己听见的快慢。最后把长短不一的小线排成一张卡。纽约那一小段过桥的时间，现在翻开卡还能想起来。",
+      "en": "Resting to one side of the Brooklyn Bridge walkway, I listened for a while. Footsteps approached, receded, and gave way to another set. I marked their changing pace rather than counting people. The short and long lines became a little card, keeping one small stretch of my New York crossing within reach."
+    },
+    "replies": [
+      {
+        "id": "newyork.fulfill.steps-and-spaces.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这段脚步配一句话",
+          "en": "Add a sentence to the footsteps"
+        }
+      },
+      {
+        "id": "newyork.fulfill.steps-and-spaces.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看长短线之间的间隔",
+          "en": "Study the spaces between the lines"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "newyork.crossing-rhythm-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

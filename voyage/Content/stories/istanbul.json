@@ -1,0 +1,367 @@
+[
+  {
+    "id": "istanbul.arrival.tower-turn",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "istanbul",
+    "factIds": [
+      "istanbul-galata-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "绕过一个街角，碰头的地方又出现了。",
+      "en": "Our meeting place reappeared around a corner."
+    },
+    "text": {
+      "zh-Hans": "在伊斯坦布尔，我把加拉塔塔约成了碰头地点，自己却提前拐了弯。绕回来见到旅人，才一起读起塔的介绍：现今塔的基础可追溯到1348年。我没把走错的那段擦掉，在便纸上留了一个弯箭头。明天想想，怎么用一句话记住这次转弯。",
+      "en": "In Istanbul, I chose Galata Tower for a meeting and promptly turned a corner too early. Back with my companion, I read about the tower’s foundations in 1348. The wrong turn stayed on my slip as a curved arrow. Tomorrow I will try putting that little detour into words."
+    },
+    "replies": [
+      {
+        "id": "istanbul.arrival.tower-turn.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这次绕路起个名",
+          "en": "Name the little detour"
+        }
+      },
+      {
+        "id": "istanbul.arrival.tower-turn.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "记住转弯后的方向",
+          "en": "Remember the turn back"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "istanbul.detour-arrow"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "istanbul.arrival.column-intervals",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "istanbul",
+    "factIds": [
+      "istanbul-basilica-cistern"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "在地下水宫，我的脚步也留出了间隔。",
+      "en": "My footsteps left a little space at the cistern."
+    },
+    "text": {
+      "zh-Hans": "在伊斯坦布尔地下水宫，我看着一排排柱子向远处延伸，介绍上说这里有336根。我没忙着逐根数，只沿参观通道慢慢走。停下时，前后的柱子换了重叠的样子。我把这个发现记在出来后的便签上：有些变化，只需要往旁边挪一点。",
+      "en": "Inside Istanbul’s Basilica Cistern, rows of columns ran into the distance; the introduction gave their number as 336. I left the counting alone and followed the visitor walkway. When I stopped, the columns overlapped differently. Outside, I noted that this particular change had required only a few small steps."
+    },
+    "replies": [
+      {
+        "id": "istanbul.arrival.column-intervals.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊哪一排先入眼",
+          "en": "Say which row caught my eye"
+        }
+      },
+      {
+        "id": "istanbul.arrival.column-intervals.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看柱子怎样重叠",
+          "en": "Notice the overlapping columns"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "istanbul.column-interval-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "istanbul.arrival.simit-sentence",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "istanbul",
+    "factIds": [
+      "istanbul-simit"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "面包圈没缺口，我的话先停了一下。",
+      "en": "The bread was a complete ring; my sentence was not."
+    },
+    "text": {
+      "zh-Hans": "我在伊斯坦布尔尝了一只覆着芝麻的simit。原本正和旅人说下一段路，咬下第一口，句子便停在半空。吃过再接上，对方说自己的路线也还没想好。于是我们坐着把点心吃完，给小菜单写了名字，再讨论往哪边走。",
+      "en": "A sesame-covered simit in Istanbul interrupted my route discussion with a fellow traveler. After the first bite, my sentence simply waited. My companion had not decided where to go either, so we finished the bread before returning to that question. The little menu received its name in the meantime."
+    },
+    "replies": [
+      {
+        "id": "istanbul.arrival.simit-sentence.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "吃完再聊下一段路",
+          "en": "Resume the route after the snack"
+        }
+      },
+      {
+        "id": "istanbul.arrival.simit-sentence.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看面包圈上的芝麻",
+          "en": "Look at the sesame coating"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "istanbul.menu-simit"
+      ]
+    }
+  },
+  {
+    "id": "istanbul.arrival.fish-bread-name",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "istanbul",
+    "factIds": [
+      "istanbul-balik-ekmek"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的小菜单，名字先排好了队。",
+      "en": "The words lined up before lunch was over."
+    },
+    "text": {
+      "zh-Hans": "在伊斯坦布尔尝烤鱼三明治时，我把balık ekmek这个菜名抄在自己的菜单上。面包里有烤鱼、洋葱和蔬菜；我原想把午饭分成几个词记住，最后却只补了“先好好拿稳”。这是给自己的提醒，免得下一口到了，纸还占着两只手。",
+      "en": "While trying balık ekmek in Istanbul, I copied its name onto my own menu. Grilled fish, onions and greens filled the bread. My plan to describe lunch in several neat words ended with “hold it properly first.” That instruction was entirely for me: the paper had been occupying both hands."
+    },
+    "replies": [
+      {
+        "id": "istanbul.arrival.fish-bread-name.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说菜名里的两个词",
+          "en": "Talk about the two-word name"
+        }
+      },
+      {
+        "id": "istanbul.arrival.fish-bread-name.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看午饭该怎么拿稳",
+          "en": "Find a comfortable grip"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "istanbul.lunch-hand-note"
+      ],
+      "menuIds": [
+        "istanbul.menu-balik-ekmek"
+      ]
+    }
+  },
+  {
+    "id": "istanbul.arrival.two-snack-chat",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "istanbul",
+    "factIds": [
+      "istanbul-simit",
+      "istanbul-balik-ekmek"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张菜单，让闲聊多走了一站。",
+      "en": "Two menus extended our conversation."
+    },
+    "text": {
+      "zh-Hans": "今天在伊斯坦布尔，我先尝过simit，后来吃了烤鱼三明治。和旅人歇脚时，我把两张小菜单摊开，请对方挑一个最像散步的词。我选“绕圈”，对方选“停下”。我们把它们接成“绕一圈，停一下”，只是给自己这一天取的小名。",
+      "en": "Today’s Istanbul meals were simit and, later, a fish sandwich. Over the two little menus, a traveler and I tried choosing words that suited our walk. I offered “circle”; my companion chose “pause.” Together they made a title for our own day: “One circle, one pause.”"
+    },
+    "replies": [
+      {
+        "id": "istanbul.arrival.two-snack-chat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给这一天再添个词",
+          "en": "Add a word to our day’s title"
+        }
+      },
+      {
+        "id": "istanbul.arrival.two-snack-chat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较两张菜单的形状",
+          "en": "Compare the menu drawings"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "istanbul.menu-simit",
+        "istanbul.menu-balik-ekmek"
+      ]
+    }
+  },
+  {
+    "id": "istanbul.arrival.two-snack-rest",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "istanbul",
+    "factIds": [
+      "istanbul-simit",
+      "istanbul-balik-ekmek"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "菜单收好，午饭的空当还记得。",
+      "en": "The menus kept two small breaks."
+    },
+    "text": {
+      "zh-Hans": "在伊斯坦布尔，我吃过芝麻面包圈，也尝过烤鱼三明治。整理菜单时才发觉，两次都先想记几笔，后来都先把食物拿稳了。纸上一个环，一块长面包，旁边各留一小段空白。我把那两处叫作自己的吃饭时间，翻页时也不急着填上。",
+      "en": "After simit and balık ekmek in Istanbul, I sorted their menu cards. Both times I had reached for a pencil before finding a better grip on lunch. A ring and a bread roll now each have a small blank beside them. Those gaps can keep my two meal breaks. There is no hurry to fill them."
+    },
+    "replies": [
+      {
+        "id": "istanbul.arrival.two-snack-rest.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲两次停笔的缘由",
+          "en": "Tell the story of the two pauses"
+        }
+      },
+      {
+        "id": "istanbul.arrival.two-snack-rest.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看图旁的两处空白",
+          "en": "Notice the gaps beside lunch"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "istanbul.menu-simit",
+        "istanbul.menu-balik-ekmek"
+      ]
+    }
+  },
+  {
+    "id": "istanbul.fulfill.detour-told",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "istanbul",
+    "factIds": [
+      "istanbul-galata-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "istanbul.arrival.tower-turn.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，那个弯箭头有了后半句。",
+      "en": "Your suggestion, “{reply}”, gave the arrow a second half."
+    },
+    "text": {
+      "zh-Hans": "加拉塔塔旁碰头时留下的弯箭头，我今天补上了“拐早了，也会绕回来”。这句话只认得我自己的那段路，不能拿来给别人导航。我又添上碰头后一起读介绍的小记号，把纸折成口袋卡。下次想起那次绕路，就先想起终于见面的笑声。",
+      "en": "My Galata Tower detour arrow now says, “Turned early. Found my way back.” It remembers my particular walk; it would make a very poor map for anyone else. I added a mark for reading the introduction together and folded the note into a pocket card. The meeting now comes to mind before the wrong turn."
+    },
+    "replies": [
+      {
+        "id": "istanbul.fulfill.detour-told.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲终于碰头的那一刻",
+          "en": "Tell someone about the reunion"
+        }
+      },
+      {
+        "id": "istanbul.fulfill.detour-told.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "沿着自己的弯箭头看",
+          "en": "Follow my remembered arrow"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "istanbul.reunion-route-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

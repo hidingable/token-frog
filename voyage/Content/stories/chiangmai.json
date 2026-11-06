@@ -1,0 +1,367 @@
+[
+  {
+    "id": "chiangmai.arrival.terrace-colours",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "chiangmai",
+    "factIds": [
+      "chiangmai-doi-suthep"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "在山上的露台，我慢慢分清远近。",
+      "en": "From the mountain terrace, near and far took their places."
+    },
+    "text": {
+      "zh-Hans": "来到清迈，我在素贴寺安静看过金色佛塔，又到能眺望市区的露台停了一会儿。先看近处，再把目光往远处放，景色就像有了前后两页。我没急着写，只记住自己眼里两层颜色。明天想把这次远近分明的停步带进信里。",
+      "en": "In Chiang Mai, I quietly viewed the golden stupa at Wat Phra That Doi Suthep, then paused on the terrace overlooking the city. Looking nearby before looking farther away gave the view two separate pages. I left the pencil alone and remembered two layers of colour. Tomorrow I will try carrying that pause into a letter."
+    },
+    "replies": [
+      {
+        "id": "chiangmai.arrival.terrace-colours.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说先看见哪一层",
+          "en": "Tell which layer I noticed first"
+        }
+      },
+      {
+        "id": "chiangmai.arrival.terrace-colours.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "记住远近的两层颜色",
+          "en": "Keep the near and distant colours"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chiangmai.terrace-pause-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "chiangmai.arrival.garden-right-way",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "chiangmai",
+    "factIds": [
+      "chiangmai-rajapruek"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "花园里的这一段路，两个人都想慢走。",
+      "en": "We both wanted the slower part of the walk."
+    },
+    "text": {
+      "zh-Hans": "在清迈拉查帕皇家花园，我读到这里延续了2006年园艺博览会的成果。和旅人走到一段园路时，我们各指一个方向，随后又一起收回手：先看看眼前这边也好。我在便纸上留了两个短箭头，旁边写“还没出发”，这张路记倒很诚实。",
+      "en": "At Chiang Mai’s Royal Park Rajapruek, I read about its roots in the 2006 horticultural exposition. On a garden path, a traveler and I pointed in different directions, then both lowered our hands. There was plenty to notice right here first. My slip has two little arrows and the candid caption, “Haven’t set off yet.”"
+    },
+    "replies": [
+      {
+        "id": "chiangmai.arrival.garden-right-way.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "商量先走哪一小段",
+          "en": "Choose our first short stretch"
+        }
+      },
+      {
+        "id": "chiangmai.arrival.garden-right-way.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看眼前这段园路",
+          "en": "Notice the path right here"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chiangmai.two-garden-arrows"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "chiangmai.arrival.noodles-first-taste",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "chiangmai",
+    "factIds": [
+      "chiangmai-khao-soi"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "汤里的香味，比菜名先到了。",
+      "en": "The aroma arrived before I finished the name."
+    },
+    "text": {
+      "zh-Hans": "我在清迈点了khao soi，鸡蛋面浸在椰奶咖喱汤里。先尝一小口，再把这个菜名写到菜单上，笔尖还没走完，自己又想起刚才那口汤。我把菜单收远一点，好让面碗靠近。等吃好了，再给今天这顿写个不着急的结尾。",
+      "en": "My khao soi in Chiang Mai paired egg noodles with coconut curry broth. After a small taste, I began writing its name on the menu, then thought immediately of the soup again. Moving the card farther away made room for the bowl. Once lunch was finished, its written ending could take its time."
+    },
+    "replies": [
+      {
+        "id": "chiangmai.arrival.noodles-first-taste.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给第一口挑一个词",
+          "en": "Find a word for the first taste"
+        }
+      },
+      {
+        "id": "chiangmai.arrival.noodles-first-taste.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意汤与面在同一勺",
+          "en": "Notice noodles and broth together"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "chiangmai.menu-khao-soi"
+      ]
+    }
+  },
+  {
+    "id": "chiangmai.arrival.sausage-small-bites",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "chiangmai",
+    "factIds": [
+      "chiangmai-sai-ua"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "香草肠让我的一句话多停了一次。",
+      "en": "The herb sausage gave my sentence an extra pause."
+    },
+    "text": {
+      "zh-Hans": "在清迈尝烤过的sai ua，香草和香料的味道让我把准备说的话放慢了一点。我没有急着猜每一种香味，只给小菜单写上菜名，再慢慢吃自己的这一份。话终于说完时，便纸上多了一个小逗号，像替午饭占好了休息的位置。",
+      "en": "Trying grilled sai ua in Chiang Mai, I paused over the herbs and spices before finishing a sentence. There was no need to identify every aroma. I wrote the dish’s name on my menu and took my time with the serving. By the end, the card had acquired a comma, a small resting place for lunch."
+    },
+    "replies": [
+      {
+        "id": "chiangmai.arrival.sausage-small-bites.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把那句没说完的话接上",
+          "en": "Finish the interrupted thought"
+        }
+      },
+      {
+        "id": "chiangmai.arrival.sausage-small-bites.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意这一口的香草味",
+          "en": "Notice the herbs in this bite"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chiangmai.aroma-comma"
+      ],
+      "menuIds": [
+        "chiangmai.menu-sai-ua"
+      ]
+    }
+  },
+  {
+    "id": "chiangmai.arrival.meal-word-game",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "chiangmai",
+    "factIds": [
+      "chiangmai-khao-soi",
+      "chiangmai-sai-ua"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天聊午饭，我们约好一人只用一句。",
+      "en": "Lunch got one sentence from each of us."
+    },
+    "text": {
+      "zh-Hans": "在清迈吃过khao soi和sai ua，我拿着两张小菜单和旅人聊起味道。我们给自己出了个小游戏：一张只讲一句。我说汤碗让铅笔等了一会儿，对方问小逗号是不是也吃饱了。我把这句问话留在背面，菜单正面就继续老老实实记菜名。",
+      "en": "After khao soi and sai ua in Chiang Mai, I compared the two menus with a traveler. Our little game allowed one sentence per card. I said the soup had kept my pencil waiting. My companion wondered whether the comma had enjoyed lunch too. That question went on the back; the front kept the sensible dish names."
+    },
+    "replies": [
+      {
+        "id": "chiangmai.arrival.meal-word-game.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给小逗号也留一句",
+          "en": "Leave a sentence for the comma"
+        }
+      },
+      {
+        "id": "chiangmai.arrival.meal-word-game.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较两张菜单的停顿",
+          "en": "Compare the pauses on the cards"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "chiangmai.menu-khao-soi",
+        "chiangmai.menu-sai-ua"
+      ]
+    }
+  },
+  {
+    "id": "chiangmai.arrival.meal-aromas",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "chiangmai",
+    "factIds": [
+      "chiangmai-khao-soi",
+      "chiangmai-sai-ua"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张菜单收进口袋，味道留在今天。",
+      "en": "Two cards went into the pocket; the flavours stayed with today."
+    },
+    "text": {
+      "zh-Hans": "今天在清迈，我尝过椰奶咖喱汤里的khao soi，也尝过带香草和香料的sai ua。收好两张菜单时，我先想起汤碗，后来想起自己吃香肠时停过的半句话。于是页角留下一个圆点、一个逗号，只有我知道它们是哪两顿饭的座位。",
+      "en": "Today in Chiang Mai I tried khao soi in coconut curry broth and sai ua with herbs and spices. Filing their menus brought back the bowl first, then a sentence paused over sausage. One dot and one comma went into the corners. To anyone else they are punctuation; to me they have seats reserved for two meals."
+    },
+    "replies": [
+      {
+        "id": "chiangmai.arrival.meal-aromas.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说先想起哪一口",
+          "en": "Say which taste returns first"
+        }
+      },
+      {
+        "id": "chiangmai.arrival.meal-aromas.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看圆点和逗号的位置",
+          "en": "Find the dot and the comma"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "chiangmai.menu-khao-soi",
+        "chiangmai.menu-sai-ua"
+      ]
+    }
+  },
+  {
+    "id": "chiangmai.fulfill.near-far-fold",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "chiangmai",
+    "factIds": [
+      "chiangmai-doi-suthep"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "chiangmai.arrival.terrace-colours.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把那次眺望慢慢写了下来。",
+      "en": "Your suggestion, “{reply}”, helped me write down that view."
+    },
+    "text": {
+      "zh-Hans": "素贴寺露台上眺望清迈时记住的远近，今天在我的小卡上各占一面。一面写“先看这里”，翻过去是“再看远处”。它没有画出真正的山路，只收着我那次停步的顺序。我把卡夹进信里，下次展开，就从近处的那一句开始。",
+      "en": "The near and distant parts of my view over Chiang Mai from the Doi Suthep terrace now have a side of a card each: “Start here” and “Then look farther.” There is no actual mountain route on it, only the order of my own pause. Tucked into a letter, it is ready to begin nearby again."
+    },
+    "replies": [
+      {
+        "id": "chiangmai.fulfill.near-far-fold.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给下一次眺望留句话",
+          "en": "Leave a line for the next view"
+        }
+      },
+      {
+        "id": "chiangmai.fulfill.near-far-fold.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "翻看远近两面的顺序",
+          "en": "Turn between near and far"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chiangmai.near-far-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

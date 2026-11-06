@@ -11,7 +11,7 @@
     "capital",
     "food"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "新加坡",
     "en": "Singapore"
@@ -20,5 +20,66 @@
     "zh-Hans": "新加坡",
     "en": "Singapore"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "singapore-merlion",
+      "type": "place",
+      "names": {
+        "zh-Hans": "鱼尾狮公园",
+        "en": "Merlion Park"
+      },
+      "summary": {
+        "zh-Hans": "鱼尾狮公园面向滨海湾。公园里的鱼尾狮雕像有狮头和鱼身，水从口中喷出。",
+        "en": "Overlooking Marina Bay, Merlion Park is home to a water-spouting statue with a lion’s head and a fish’s body."
+      },
+      "sources": [
+        "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/marina-bay/merlion-park/"
+      ]
+    },
+    {
+      "id": "singapore-botanic-gardens",
+      "type": "place",
+      "names": {
+        "zh-Hans": "新加坡植物园",
+        "en": "Singapore Botanic Gardens"
+      },
+      "summary": {
+        "zh-Hans": "新加坡植物园创建于1859年，位于城市中心，兼有植物研究、保护和教育功能。",
+        "en": "Founded in 1859 in the heart of the city, Singapore Botanic Gardens combines botanical research, conservation and education."
+      },
+      "sources": [
+        "https://whc.unesco.org/en/list/1483"
+      ]
+    },
+    {
+      "id": "singapore-chicken-rice",
+      "type": "food",
+      "names": {
+        "zh-Hans": "海南鸡饭",
+        "en": "Hainanese Chicken Rice"
+      },
+      "summary": {
+        "zh-Hans": "新加坡海南鸡饭将鸡肉与用鸡汤煮出的米饭搭配，可选蒸鸡或烤鸡，常配辣椒等酱料。",
+        "en": "Singapore’s Hainanese chicken rice pairs steamed or roasted chicken with rice cooked in chicken stock, with condiments such as chilli sauce."
+      },
+      "sources": [
+        "https://www.visitsingapore.com/content/dam/desktop/global/about-singapore/traveller-information/q2-singapore-insider-2019-en.pdf"
+      ]
+    },
+    {
+      "id": "singapore-kaya-toast",
+      "type": "food",
+      "names": {
+        "zh-Hans": "咖椰吐司",
+        "en": "Kaya Toast"
+      },
+      "summary": {
+        "zh-Hans": "咖椰吐司是在烤面包上抹咖椰酱的点心，咖椰酱以椰子和鸡蛋制作，也常作为早餐食用。",
+        "en": "Kaya toast is toasted bread spread with a coconut-and-egg jam. It is a familiar breakfast choice in Singapore."
+      },
+      "sources": [
+        "https://www.visitsingapore.com/content/dam/desktop/global/about-singapore/traveller-information/q2-singapore-insider-2019-en.pdf"
+      ]
+    }
+  ]
 }

@@ -1,0 +1,367 @@
+[
+  {
+    "id": "lisbon.arrival.river-and-arch",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "lisbon",
+    "factIds": [
+      "lisbon-commerce-square"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我说“那一边”的时候，脚尖又转了方向。",
+      "en": "My feet complicated the words “over there.”"
+    },
+    "text": {
+      "zh-Hans": "到了里斯本，我在商业广场和一位旅人碰面。广场一边朝着特茹河，穿过凯旋门又能走向奥古斯塔街。我指着“那一边”说待会儿见，说完自己转了个身，那一边就变了。我把河与拱门记在便签两头，下回先说名字，再伸手指路。",
+      "en": "At Lisbon's Praça do Comércio, I arranged to meet a traveler later. The Tagus lay on the open side; Rua Augusta waited beyond its arch. “Over there,” I said, then turned around and made “there” much less useful. My note now has river and arch at opposite ends. Names can do the pointing next time."
+    },
+    "replies": [
+      {
+        "id": "lisbon.arrival.river-and-arch.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "试试把碰面地点说清楚",
+          "en": "Try describing our meeting spot clearly"
+        }
+      },
+      {
+        "id": "lisbon.arrival.river-and-arch.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把河与拱门都记下",
+          "en": "Keep both the river and the arch"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "lisbon.river-arch-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "lisbon.arrival.aquarium-still-bag",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "lisbon",
+    "factIds": [
+      "lisbon-oceanarium"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "水里都在动，玻璃上有个邮包没有。",
+      "en": "Everything in the water moved. One mailbag did not."
+    },
+    "text": {
+      "zh-Hans": "里斯本海洋馆的常设展，把四种海洋栖息地和中央水族箱放进同一个海洋的主题里。我站在水族箱前，看着水中的身影游过，忽然在玻璃上认出了自己的邮包。它停得很稳，倒像是来等鱼回信的。我轻轻挪了半步，邮包也跟着挪了，原来等信的还是我。",
+      "en": "At Lisbon's Oceanarium, the permanent exhibition brings four habitats and a central aquarium into the story of one ocean. Shapes moved through the water while my reflected mailbag waited perfectly still on the glass. It looked as though it expected a reply from a fish. I shifted half a step. The bag followed. Apparently I was the one waiting."
+    },
+    "replies": [
+      {
+        "id": "lisbon.arrival.aquarium-still-bag.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说邮包在等什么信",
+          "en": "Imagine the letter the bag is waiting for"
+        }
+      },
+      {
+        "id": "lisbon.arrival.aquarium-still-bag.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看倒影怎样跟着走",
+          "en": "Watch how the reflection follows"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "lisbon.aquarium-reflection-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "lisbon.arrival.nata-comma",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "lisbon",
+    "factIds": [
+      "lisbon-pastel-de-nata"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一小片酥皮，暂时替我当了逗号。",
+      "en": "A flake of pastry briefly became a comma."
+    },
+    "text": {
+      "zh-Hans": "我在里斯本尝了一只葡式蛋挞，给自己这份添了一点肉桂粉。酥皮一碰，掉下一小片，停在盘边，像一句话里的逗号。我先把蛋挞吃好，才在小菜单上画下它和那枚“逗号”。真的酥屑收拾干净了，纸上的那枚可以陪我多走一段。",
+      "en": "I tried a pastel de nata in Lisbon and added a little cinnamon to mine. A flake of pastry landed by the edge of the plate like a comma. After finishing the tart, I put both it and the punctuation on my little menu. The real crumbs were tidied away. The drawn one may travel a little farther."
+    },
+    "replies": [
+      {
+        "id": "lisbon.arrival.nata-comma.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给点心后面接句话",
+          "en": "Add a sentence after the pastry"
+        }
+      },
+      {
+        "id": "lisbon.arrival.nata-comma.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看纸上的小逗号",
+          "en": "Find the small comma on the page"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "lisbon.pastry-comma-note"
+      ],
+      "menuIds": [
+        "lisbon.menu-pastel-de-nata"
+      ]
+    }
+  },
+  {
+    "id": "lisbon.arrival.bras-slow-name",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "lisbon",
+    "factIds": [
+      "lisbon-bacalhau-a-bras"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "菜名还在慢慢念，盘子已经摆好了。",
+      "en": "I was still reading the name when the plate arrived."
+    },
+    "text": {
+      "zh-Hans": "午饭点了布拉斯式鳕鱼，我把 Bacalhau à Brás 这个名字在便纸上分开写，免得自己漏掉哪个字。盘里是碎鳕鱼、细薯条、洋葱和蛋。我读完最后一小段，才发现叉子一直握在另一只手里，已经等了一会儿。菜单先留下名字，接着轮到味道。",
+      "en": "For lunch I ordered bacalhau à Brás and spaced out its name on my note so I would not lose a piece of it. Shredded cod, thin potato sticks, onion and egg arrived while I was still reading. My other hand had been holding the fork throughout. The name was safely on the menu; flavor could have its turn."
+    },
+    "replies": [
+      {
+        "id": "lisbon.arrival.bras-slow-name.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "慢慢介绍这份午饭",
+          "en": "Give this lunch a slow introduction"
+        }
+      },
+      {
+        "id": "lisbon.arrival.bras-slow-name.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看名字分成了几段",
+          "en": "Notice the spaces in the written name"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "lisbon.menu-bacalhau-a-bras"
+      ]
+    }
+  },
+  {
+    "id": "lisbon.arrival.two-menus-day",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "lisbon",
+    "factIds": [
+      "lisbon-pastel-de-nata",
+      "lisbon-bacalhau-a-bras"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张菜单，帮我把今天讲得很有条理。",
+      "en": "Two menus gave my day a useful order."
+    },
+    "text": {
+      "zh-Hans": "在里斯本，我尝过葡式蛋挞，也吃过布拉斯式鳕鱼。和旅人聊起今天时，我把两张小菜单并排放好，指着一张说“这是歇脚的时候”，指着另一张说“这是午饭”。对方问，中间有没有好好走路。我翻到背面，给两张各添了一个小脚印，这下行程也有位置了。",
+      "en": "I tried a pastel de nata and had bacalhau à Brás in Lisbon. Telling a traveler about the day, I used the menus as markers: a rest here, lunch there. “And any walking in between?” they asked. I added a little footprint to the back of each sheet. The journey could now join the conversation too."
+    },
+    "replies": [
+      {
+        "id": "lisbon.arrival.two-menus-day.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "沿着菜单讲讲今天",
+          "en": "Tell today's story with the menus"
+        }
+      },
+      {
+        "id": "lisbon.arrival.two-menus-day.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看脚印连着哪两顿",
+          "en": "See which meals the footprints join"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "lisbon.menu-pastel-de-nata",
+        "lisbon.menu-bacalhau-a-bras"
+      ]
+    }
+  },
+  {
+    "id": "lisbon.arrival.two-menus-waiting",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "lisbon",
+    "factIds": [
+      "lisbon-pastel-de-nata",
+      "lisbon-bacalhau-a-bras"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "有两次停下来，最后都变成了菜单。",
+      "en": "Two pauses became two little menus."
+    },
+    "text": {
+      "zh-Hans": "整理里斯本的便纸时，我发现吃蛋挞那次写的是“添一点肉桂”，吃布拉斯式鳕鱼那次写的是“名字念完再动叉”。都是很小的事，刚好能把两次坐下吃东西的空当认出来。我把它们各自收进菜单背面，留给下次翻纸的自己，不用靠闻香味猜是哪一顿。",
+      "en": "My Lisbon notes kept two small pauses: adding cinnamon to a pastel de nata, and finishing the name bacalhau à Brás before using my fork. Those details were enough to tell the meals apart. Each went on the back of its own menu. My future self will not need to sniff the paper to work out which lunch it remembers."
+    },
+    "replies": [
+      {
+        "id": "lisbon.arrival.two-menus-waiting.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说哪次停顿更有趣",
+          "en": "Share which small pause you remember"
+        }
+      },
+      {
+        "id": "lisbon.arrival.two-menus-waiting.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把两张背面的字看完",
+          "en": "Read the notes on both menu backs"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "lisbon.menu-pastel-de-nata",
+        "lisbon.menu-bacalhau-a-bras"
+      ]
+    }
+  },
+  {
+    "id": "lisbon.fulfill.two-sided-square",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "lisbon",
+    "factIds": [
+      "lisbon-commerce-square"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "lisbon.arrival.river-and-arch.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我让便签的两头都留下来了。",
+      "en": "“{reply},” you said. Both ends of the note stayed."
+    },
+    "text": {
+      "zh-Hans": "商业广场那张便签，我没有再写左边和右边，只把“河”和“拱门”留在两头。中间添一个我自己歇脚的小点，再把纸折成三段。展开时，它让我想起那次转身，也想起后来终于碰上的旅人。这是我的小回忆，不负责替别人指路，但很会提醒我把话说具体。",
+      "en": "On my Praça do Comércio note, I left “river” at one end and “arch” at the other, with a dot for my own resting place between them. Three folds keep the memory together: the turn, the confusing directions, the traveler finally arriving. This is my souvenir of the meeting, with no ambitions to become a map."
+    },
+    "replies": [
+      {
+        "id": "lisbon.fulfill.two-sided-square.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给碰上的旅人留个招呼",
+          "en": "Leave a greeting for the traveler"
+        }
+      },
+      {
+        "id": "lisbon.fulfill.two-sided-square.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "展开对照便签的两头",
+          "en": "Unfold the note and compare its ends"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "lisbon.river-arch-fold-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

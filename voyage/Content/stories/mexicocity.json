@@ -1,0 +1,367 @@
+[
+  {
+    "id": "mexicocity.arrival.before-and-after-door",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "mexicocity",
+    "factIds": [
+      "mexicocity-bellas-artes"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "进门以前和进门以后，我各停了一小会儿。",
+      "en": "I paused once before the door, and once beyond it."
+    },
+    "text": {
+      "zh-Hans": "在墨西哥城美术宫，我先看白色大理石的外立面，再进去慢慢看。介绍里写着外部的新艺术风格和内部的装饰艺术风格，我把两个名字记在便纸的两面。出门时翻了一下纸，发现自己还没写最先注意到什么。明天想把进门前后的那一眼补上。",
+      "en": "At the Palacio de Bellas Artes, I looked at the white-marble facade before taking my time inside. The introduction paired an Art Nouveau exterior with an Art Deco interior. I put one name on each side of a note. Leaving, I realized I had recorded the names but not what caught my eye first. Tomorrow I would like to add those two first impressions."
+    },
+    "replies": [
+      {
+        "id": "mexicocity.arrival.before-and-after-door.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说你先注意到了什么",
+          "en": "Say what caught your eye first"
+        }
+      },
+      {
+        "id": "mexicocity.arrival.before-and-after-door.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "记下进门前后的颜色",
+          "en": "Keep a color from before and after the door"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "mexicocity.two-sided-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "mexicocity.arrival.forest-meeting",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "mexicocity",
+    "factIds": [
+      "mexicocity-chapultepec"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "查普尔特佩克的树下，碰面比约好时慢了一点。",
+      "en": "Our meeting beneath the trees took a little longer."
+    },
+    "text": {
+      "zh-Hans": "墨西哥城的查普尔特佩克是一片分为四区的城市森林。我和旅人约了在入口会合，走近才发现，彼此都先停下来整理了一次背包。等到终于碰头，谁也没催谁。我们沿路慢慢走，我把先听见招呼、后看见挥手的那一刻记在小纸上。",
+      "en": "Chapultepec is a Mexico City urban forest with four sections. A traveler and I arranged to meet at an entrance. It turned out that both of us had stopped to rearrange a backpack. Once we met, neither was in a hurry. My small note keeps the moment when I heard the greeting just before I spotted the wave."
+    },
+    "replies": [
+      {
+        "id": "mexicocity.arrival.forest-meeting.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊刚才各自在忙什么",
+          "en": "Compare what kept each of you busy"
+        }
+      },
+      {
+        "id": "mexicocity.arrival.forest-meeting.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "想想招呼与挥手的先后",
+          "en": "Recall the greeting just before the wave"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "mexicocity.greeting-before-wave"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "mexicocity.arrival.potato-first",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "mexicocity",
+    "factIds": [
+      "mexicocity-tacos-de-canasta"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天先学会一个菜名，再让午饭接着说。",
+      "en": "I learned a dish name, then let lunch do the talking."
+    },
+    "text": {
+      "zh-Hans": "在墨西哥城吃篮子塔可，我选了土豆馅。记菜单时，我把菜名慢慢念给同行旅人听，又指了指自己这份午饭。念到一半肚子先催了，我就把整句话缩成一个笑脸。吃完再补名字，这回总算记住菜单上谁先到、谁后到了。",
+      "en": "I chose potato-filled tacos de canasta in Mexico City. While making a menu, I tried saying the dish’s name to a companion and pointed to my lunch. Hunger interrupted halfway through, so the speech became a small smile. I added the name after eating. Now I remember exactly which arrived first: lunch, then the sentence."
+    },
+    "replies": [
+      {
+        "id": "mexicocity.arrival.potato-first.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把菜名慢慢再说一遍",
+          "en": "Try the dish name once more, slowly"
+        }
+      },
+      {
+        "id": "mexicocity.arrival.potato-first.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看菜单上名字和笑脸",
+          "en": "Find the name and smile on the menu"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "mexicocity.menu-tacos-de-canasta"
+      ]
+    }
+  },
+  {
+    "id": "mexicocity.arrival.tamal-unwrapping",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "mexicocity",
+    "factIds": [
+      "mexicocity-tamales"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午饭像个小包裹，要先打开才好说话。",
+      "en": "Lunch arrived as a little parcel of its own."
+    },
+    "text": {
+      "zh-Hans": "在墨西哥城买了一份玉米苞叶包的塔马尔，里面是玉米面团和馅料。我坐稳了，慢慢展开外面的叶子，原先想写的开头也跟着慢了一点。后来在菜单上记了两步：先打开，再尝一口。不是做菜的方法，只是今天午饭找到我的顺序。",
+      "en": "My Mexico City tamal came wrapped in a corn husk, with corn dough and filling inside. Settled in my seat, I unwrapped it slowly, and my planned opening sentence slowed down too. The menu has two steps: open, then taste. No cooking instructions, just the order in which lunch reached me."
+    },
+    "replies": [
+      {
+        "id": "mexicocity.arrival.tamal-unwrapping.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说打开午饭时想到什么",
+          "en": "Tell what the little parcel brought to mind"
+        }
+      },
+      {
+        "id": "mexicocity.arrival.tamal-unwrapping.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意展开前后的样子",
+          "en": "Notice the change as the wrapping opens"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "mexicocity.lunch-opening-note"
+      ],
+      "menuIds": [
+        "mexicocity.menu-tamales"
+      ]
+    }
+  },
+  {
+    "id": "mexicocity.arrival.names-over-lunch",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "mexicocity",
+    "factIds": [
+      "mexicocity-tacos-de-canasta",
+      "mexicocity-tamales"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两个菜名，今天都有了自己的座位。",
+      "en": "Both dish names found a place at the table today."
+    },
+    "text": {
+      "zh-Hans": "我和旅人说起墨西哥城吃过的篮子塔可与塔马尔，把两张菜单放在面前。一个让我想起土豆馅的那顿午饭，一个让我想起慢慢展开的玉米苞叶。我先说名字，再讲自己的小事；说完以后，两个名字就不再只是一串等我认的字了。",
+      "en": "I laid out the tacos de canasta and tamales menus while talking with a traveler in Mexico City. One returned me to my potato-filled lunch, the other to the corn husk opening slowly. I said each name, then told the small memory that belonged to it. The words felt much easier to recognize afterwards."
+    },
+    "replies": [
+      {
+        "id": "mexicocity.arrival.names-over-lunch.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给两顿午饭各讲一小段",
+          "en": "Give each lunch its own short story"
+        }
+      },
+      {
+        "id": "mexicocity.arrival.names-over-lunch.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪个名字先被记住",
+          "en": "See which name comes back first"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "mexicocity.menu-tacos-de-canasta",
+        "mexicocity.menu-tamales"
+      ]
+    }
+  },
+  {
+    "id": "mexicocity.arrival.two-ways-to-begin",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "mexicocity",
+    "factIds": [
+      "mexicocity-tacos-de-canasta",
+      "mexicocity-tamales"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两顿午饭，开头的动作不太一样。",
+      "en": "Two lunches began with different little movements."
+    },
+    "text": {
+      "zh-Hans": "收好墨西哥城的两张菜单前，我又看了一遍。篮子塔可那张留着一个没说完菜名的笑脸，塔马尔那张记着打开苞叶的顺序。我在纸背各写一句回想，然后把菜单并排放好。今天记住的除了味道，还有自己怎样安安稳稳坐下来吃饭。",
+      "en": "Before putting away my Mexico City menus, I looked once more. The tacos card keeps a smile where the dish name went unfinished; the tamal card recalls opening the husk. I wrote a memory on each back and laid them together. Alongside the tastes, I had kept the small movements of settling down to eat."
+    },
+    "replies": [
+      {
+        "id": "mexicocity.arrival.two-ways-to-begin.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说哪顿饭先浮上心头",
+          "en": "Say which lunch returns to mind first"
+        }
+      },
+      {
+        "id": "mexicocity.arrival.two-ways-to-begin.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "翻到纸背看看两种开头",
+          "en": "Turn the cards over to revisit the beginnings"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "mexicocity.menu-tacos-de-canasta",
+        "mexicocity.menu-tamales"
+      ]
+    }
+  },
+  {
+    "id": "mexicocity.fulfill.color-on-both-sides",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "mexicocity",
+    "factIds": [
+      "mexicocity-bellas-artes"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "mexicocity.arrival.before-and-after-door.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，这张便纸终于有了我的那一眼。",
+      "en": "You suggested “{reply},” and the note finally acquired my own first impressions."
+    },
+    "text": {
+      "zh-Hans": "我把墨西哥城美术宫那张双面便签取出来，先记白色大理石外墙，再记自己进门时注意到的色彩。颜色只照着这次记忆写，没有替整座建筑下结论。我把便签折进一张小卡，翻开能从门外走到门里，合上又回到当天出门的那一刻。",
+      "en": "I took out my two-sided note from the Palacio de Bellas Artes. First came the white marble outside; then the colors I remembered noticing beyond the door. They describe my visit, rather than the whole building. Tucked into a small card, the note opens from outside to inside and closes on the moment I left."
+    },
+    "replies": [
+      {
+        "id": "mexicocity.fulfill.color-on-both-sides.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给翻开的卡讲一句开头",
+          "en": "Give the opening card a first sentence"
+        }
+      },
+      {
+        "id": "mexicocity.fulfill.color-on-both-sides.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "翻一翻门外与门里的两面",
+          "en": "Turn between the outside and inside"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "mexicocity.doorway-memory-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

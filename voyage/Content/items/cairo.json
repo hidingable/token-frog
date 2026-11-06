@@ -1,0 +1,98 @@
+[
+  {
+    "id": "cairo.menu-koshari",
+    "kind": "menu",
+    "cityId": "cairo",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "库沙里小菜单",
+      "en": "Koshari Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在开罗尝过库沙里后写的菜单。食材清单只写了一半，因为那时先拿起了勺子。",
+      "en": "A menu after koshari in Cairo. The inventory pauses where I picked up my spoon."
+    }
+  },
+  {
+    "id": "cairo.menu-ful-medames",
+    "kind": "menu",
+    "cityId": "cairo",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "富尔炖豆小菜单",
+      "en": "Ful Medames Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在开罗吃过ful medames后留下的两行小记：一行菜名，一行记自己放下勺子的轻响。",
+      "en": "Two lines after ful medames in Cairo: one for its name, one for the sound of my spoon coming to rest."
+    }
+  },
+  {
+    "id": "cairo.second-look-slip",
+    "kind": "souvenir",
+    "cityId": "cairo",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "再看一眼便签",
+      "en": "Another Look Slip"
+    },
+    "descriptions": {
+      "zh-Hans": "从开罗埃及博物馆出来后写的便签，记着自己在一件首饰前停了两回。",
+      "en": "My own note after two pauses beside a piece of jewellery at Cairo’s Egyptian Museum."
+    }
+  },
+  {
+    "id": "cairo.waiting-walk-note",
+    "kind": "souvenir",
+    "cityId": "cairo",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "等人散步记",
+      "en": "Waiting Walk Note"
+    },
+    "descriptions": {
+      "zh-Hans": "在开罗爱资哈尔公园等人，我先走了一小段，碰头后两人把这段路接着走完。",
+      "en": "A note from Al-Azhar Park in Cairo: a short walk while waiting became a longer walk with company."
+    }
+  },
+  {
+    "id": "cairo.meal-opening-pair",
+    "kind": "souvenir",
+    "cityId": "cairo",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两顿饭开头纸",
+      "en": "Two Meal Openings"
+    },
+    "descriptions": {
+      "zh-Hans": "在开罗尝过库沙里和炖豆，我给自己的两张菜单各写了一个“今天”，从哪张都能开口讲。",
+      "en": "After koshari and ful medames in Cairo, both my menu backs began with “Today…” Either could start a story."
+    }
+  },
+  {
+    "id": "cairo.two-distances-card",
+    "kind": "souvenir",
+    "cityId": "cairo",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两次停步折卡",
+      "en": "Two Distances Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我把在开罗埃及博物馆看首饰时的两次停步折在卡片两面，只带走自己的观察记忆。",
+      "en": "My two pauses before jewellery at Cairo’s Egyptian Museum, folded onto opposite sides of a homemade card."
+    }
+  }
+]

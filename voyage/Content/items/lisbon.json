@@ -1,0 +1,98 @@
+[
+  {
+    "id": "lisbon.menu-pastel-de-nata",
+    "kind": "menu",
+    "cityId": "lisbon",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "葡式蛋挞小菜单",
+      "en": "Pastel de Nata Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在里斯本尝过的蛋挞，旁边画了一小片像逗号的酥皮。肉桂粉是我给自己这份添的。",
+      "en": "The pastel de nata I tried in Lisbon, with a comma-shaped flake on my menu. The cinnamon was my choice for that serving."
+    }
+  },
+  {
+    "id": "lisbon.menu-bacalhau-a-bras",
+    "kind": "menu",
+    "cityId": "lisbon",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "布拉斯式鳕鱼小菜单",
+      "en": "Bacalhau à Brás Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在里斯本吃过鳕鱼午饭后留下的菜单。菜名分开写了几段，叉子终于等到了自己的那一段。",
+      "en": "My menu after a salt-cod lunch in Lisbon. I spaced out the dish's name; the waiting fork eventually got its turn."
+    }
+  },
+  {
+    "id": "lisbon.river-arch-note",
+    "kind": "souvenir",
+    "cityId": "lisbon",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "河与拱门便签",
+      "en": "River at One End, Arch at the Other"
+    },
+    "descriptions": {
+      "zh-Hans": "在里斯本商业广场说“那一边”没说清楚后，我记下的两个地标。只为保存自己的碰面回忆。",
+      "en": "Two landmarks I noted after “over there” failed us at Lisbon's Praça do Comércio. A keepsake of my own meeting."
+    }
+  },
+  {
+    "id": "lisbon.pastry-comma-note",
+    "kind": "souvenir",
+    "cityId": "lisbon",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "酥皮逗号便纸",
+      "en": "A Pastry Comma on Paper"
+    },
+    "descriptions": {
+      "zh-Hans": "在里斯本吃蛋挞时落到盘边的一小片酥皮，我后来把它画成逗号。袋里收的是这张干净便纸。",
+      "en": "A flake beside my Lisbon custard tart became a drawn comma. This clean note is what came away in my bag."
+    }
+  },
+  {
+    "id": "lisbon.aquarium-reflection-note",
+    "kind": "souvenir",
+    "cityId": "lisbon",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "玻璃里的等信邮包",
+      "en": "The Reflected Waiting Mailbag"
+    },
+    "descriptions": {
+      "zh-Hans": "参观里斯本海洋馆时，我在玻璃上认出自己的邮包倒影，后来把它记在这张小纸上。",
+      "en": "A little record of spotting my own mailbag reflected in the glass at Lisbon's Oceanarium, apparently waiting for a letter."
+    }
+  },
+  {
+    "id": "lisbon.river-arch-fold-card",
+    "kind": "souvenir",
+    "cityId": "lisbon",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "广场两头折卡",
+      "en": "Both Ends of the Square"
+    },
+    "descriptions": {
+      "zh-Hans": "把河与拱门分放两头的自制折卡，中间是我在里斯本那次歇脚的小点，不是导航地图。",
+      "en": "My homemade Lisbon fold card, with river and arch at its ends and a dot for one personal pause between them. It is not a navigation map."
+    }
+  }
+]

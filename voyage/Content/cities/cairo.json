@@ -12,7 +12,7 @@
     "heritage",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "开罗",
     "en": "Cairo"
@@ -21,5 +21,66 @@
     "zh-Hans": "开罗",
     "en": "Cairo"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "cairo-egyptian-museum",
+      "type": "place",
+      "names": {
+        "zh-Hans": "埃及博物馆",
+        "en": "Egyptian Museum"
+      },
+      "summary": {
+        "zh-Hans": "开罗市中心的埃及博物馆于1902年开馆，馆藏涵盖从前王朝时期到希腊罗马时期的文物。",
+        "en": "Opened in 1902 in central Cairo, the Egyptian Museum holds antiquities spanning the Predynastic Period to the Greco-Roman Era."
+      },
+      "sources": [
+        "https://egymonuments.gov.eg/museums/egyptian-museum"
+      ]
+    },
+    {
+      "id": "cairo-al-azhar-park",
+      "type": "place",
+      "names": {
+        "zh-Hans": "爱资哈尔公园",
+        "en": "Al-Azhar Park"
+      },
+      "summary": {
+        "zh-Hans": "爱资哈尔公园于2005年在开罗揭幕，将原先堆积填土与废料的场地改造成供休闲的绿地。",
+        "en": "Inaugurated in Cairo in 2005, Al-Azhar Park transformed a site of accumulated fill and debris into green space for recreation."
+      },
+      "sources": [
+        "https://prod.the.akdn/en/resources-media/whats-new/events/inauguration-cairos-al-azhar-park"
+      ]
+    },
+    {
+      "id": "cairo-koshari",
+      "type": "food",
+      "names": {
+        "zh-Hans": "库沙里",
+        "en": "Koshari"
+      },
+      "summary": {
+        "zh-Hans": "库沙里把米饭、意面、扁豆和鹰嘴豆等搭配在一起，配番茄蒜味酱汁与炸洋葱。",
+        "en": "Koshari brings together rice, pasta, lentils and chickpeas with a tomato-and-garlic sauce and fried onions."
+      },
+      "sources": [
+        "https://www.experienceegypt.eg/files/Nile%20Valley-Eng.pdf"
+      ]
+    },
+    {
+      "id": "cairo-ful-medames",
+      "type": "food",
+      "names": {
+        "zh-Hans": "富尔炖豆",
+        "en": "Ful Medames"
+      },
+      "summary": {
+        "zh-Hans": "Ful medames是埃及的传统豆类菜肴，可搭配煮鸡蛋食用。",
+        "en": "Ful medames is a traditional Egyptian bean dish that can be served with boiled eggs."
+      },
+      "sources": [
+        "https://www.experienceegypt.eg/files/Nile%20Valley-Eng.pdf"
+      ]
+    }
+  ]
 }

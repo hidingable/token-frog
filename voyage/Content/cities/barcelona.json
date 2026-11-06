@@ -10,7 +10,7 @@
     "coast",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "巴塞罗那",
     "en": "Barcelona"
@@ -19,5 +19,69 @@
     "zh-Hans": "巴塞罗那",
     "en": "Barcelona"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "barcelona-park-guell",
+      "type": "place",
+      "names": {
+        "zh-Hans": "桂尔公园",
+        "en": "Park Güell"
+      },
+      "summary": {
+        "zh-Hans": "桂尔公园的自然广场边缘有一条蜿蜒长椅，表面铺着彩色碎片拼成的 trencadís 马赛克。长椅也构成广场边缘的栏护。",
+        "en": "A serpentine bench borders the Nature Square at Park Güell. Its surface is covered with colorful trencadís mosaic, and the bench also forms a railing along the square's edge."
+      },
+      "sources": [
+        "https://parkguell.barcelona/en/renovation-works-status/03-medallions-trencadis",
+        "https://visitmuseum.gencat.cat/en/museum/museu-del-cau-ferrat/tour/ambit-2-levolucio-del-trencadis-a-lobra-de-gaudi-pas-a-pas-obra-a-obra/object/el-park-guell-1900-1914-el-banc-ondulat-el-mirador-de-colors-sobre-barcelona-1909-1914"
+      ]
+    },
+    {
+      "id": "barcelona-palau-music",
+      "type": "place",
+      "names": {
+        "zh-Hans": "加泰罗尼亚音乐宫",
+        "en": "Palau de la Música Catalana"
+      },
+      "summary": {
+        "zh-Hans": "加泰罗尼亚音乐宫的音乐厅中央有象征太阳的天窗，让自然光进入厅内。舞台上方设有管风琴，周围装饰有花朵等自然图案。",
+        "en": "The concert hall at the Palau de la Música Catalana has a central skylight representing the sun, admitting natural light. An organ stands above the stage, amid decorations that include flowers and other natural forms."
+      },
+      "sources": [
+        "https://www.palaumusica.cat/en/self-guided-tour_1663243"
+      ]
+    },
+    {
+      "id": "barcelona-tomato-bread",
+      "type": "food",
+      "names": {
+        "zh-Hans": "番茄面包",
+        "en": "Pa amb Tomàquet"
+      },
+      "summary": {
+        "zh-Hans": "加泰罗尼亚番茄面包把熟番茄擦在切片面包上，再加油和盐。面包可以先烤过，也可以搭配火腿或奶酪等食物。",
+        "en": "Pa amb tomàquet is sliced bread rubbed with ripe tomato and dressed with oil and salt. The bread may be toasted and served with foods such as ham or cheese."
+      },
+      "sources": [
+        "https://fr.visitbarcelona.com/wv3/fr/page/1786/pa-amb-tomaquet.html",
+        "https://www.meet.barcelona/en/visit-and-love-it/food-and-drink/catalan-cooking"
+      ]
+    },
+    {
+      "id": "barcelona-crema-catalana",
+      "type": "food",
+      "names": {
+        "zh-Hans": "加泰罗尼亚焦糖奶冻",
+        "en": "Crema Catalana"
+      },
+      "summary": {
+        "zh-Hans": "加泰罗尼亚焦糖奶冻用牛奶、蛋黄、糖和淀粉等制成，以肉桂和柠檬皮增香。冷却后可在表面撒糖烧成焦糖薄壳，也有不加糖壳的吃法。",
+        "en": "Crema catalana is a milk and egg-yolk custard thickened with starch and flavored with cinnamon and lemon peel. It may be topped with a caramelized sugar crust after cooling, or served without the crust."
+      },
+      "sources": [
+        "https://fr.visitbarcelona.com/wv3/en/page/1778/crema-catalana.html",
+        "https://www.meet.barcelona/en/visit-and-love-it/food-and-drink/catalan-cooking"
+      ]
+    }
+  ]
 }

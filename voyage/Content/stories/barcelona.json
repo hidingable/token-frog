@@ -1,0 +1,367 @@
+[
+  {
+    "id": "barcelona.arrival.bench-bend",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "barcelona",
+    "factIds": [
+      "barcelona-park-guell"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天的歇脚处，自带一点弯弯的方向。",
+      "en": "Today's resting place came with a curve."
+    },
+    "text": {
+      "zh-Hans": "在巴塞罗那的桂尔公园，我沿着自然广场边的蜿蜒长椅慢慢看。彩色碎片拼成的表面一段接一段，目光刚跟过去，椅子又拐了弯。我选一处坐下，把邮包放在自己腿边。便签只写“在这里歇过”，没有替整条长椅编号码，它已经够会带着目光散步了。",
+      "en": "At Park Güell in Barcelona, I followed the serpentine bench along the Nature Square with my eyes. Its colorful mosaic kept turning just as I caught up. I chose a place to sit, with my mailbag by my legs. My note simply says, “Rested here.” No numbering system required; the bench was already guiding a very pleasant wander."
+    },
+    "replies": [
+      {
+        "id": "barcelona.arrival.bench-bend.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说在哪一弯歇过脚",
+          "en": "Describe the curve where you rested"
+        }
+      },
+      {
+        "id": "barcelona.arrival.bench-bend.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看颜色怎样接下去",
+          "en": "Follow the colors into the next section"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "barcelona.bench-rest-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "barcelona.arrival.palau-borrowed-light",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "barcelona",
+    "factIds": [
+      "barcelona-palau-music"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "参观还没结束，我先记住了抬头的一眼。",
+      "en": "One upward glance stayed before the visit was over."
+    },
+    "text": {
+      "zh-Hans": "参观加泰罗尼亚音乐宫时，我望着音乐厅中央象征太阳的天窗。自然光从上面进来，舞台上方的管风琴还在视线里，眼睛却总想再往上走一点。我安静地看了一会儿，出来才在便纸上留个亮亮的小圆。今天没有把声音带走，先带走这一眼。",
+      "en": "During a visit to the Palau de la Música Catalana, I looked toward the concert hall's sun-like central skylight. The organ above the stage remained in view, yet my eyes kept wandering higher into the daylight. Outside, I noted the moment with one bright circle. Today's keepsake is a glance, saved after a quiet visit."
+    },
+    "replies": [
+      {
+        "id": "barcelona.arrival.palau-borrowed-light.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说先注意到哪处",
+          "en": "Share what caught your eye first"
+        }
+      },
+      {
+        "id": "barcelona.arrival.palau-borrowed-light.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把那束光记在信上",
+          "en": "Keep that light in the letter"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "barcelona.palau-light-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "barcelona.arrival.tomato-name",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "barcelona",
+    "factIds": [
+      "barcelona-tomato-bread"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "名字慢慢念完，番茄已经把面包染好了。",
+      "en": "By the end of the name, the bread was already red."
+    },
+    "text": {
+      "zh-Hans": "在巴塞罗那吃番茄面包，我先把 pa amb tomàquet 写在小菜单上，再慢慢念给自己听。熟番茄擦过面包，表面添了油和盐，颜色比我的铅笔利索多了。我给纸上的面包补了几处红，就先收笔。名字可以再练，眼前这一片得先尝尝。",
+      "en": "Trying pa amb tomàquet in Barcelona, I wrote its name on my little menu and read it slowly to myself. Ripe tomato, oil and salt had dressed the bread far more efficiently than my pencil could record it. A few touches of red finished the sketch. The name could wait for more practice; the bread deserved a bite."
+    },
+    "replies": [
+      {
+        "id": "barcelona.arrival.tomato-name.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "慢慢说一遍菜单名字",
+          "en": "Say the menu name slowly"
+        }
+      },
+      {
+        "id": "barcelona.arrival.tomato-name.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看红色落在了哪里",
+          "en": "Notice where the red has settled"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "barcelona.menu-tomato-bread"
+      ]
+    }
+  },
+  {
+    "id": "barcelona.arrival.crema-small-crack",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "barcelona",
+    "factIds": [
+      "barcelona-crema-catalana"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "这次第一口，是小勺子轻轻敲开的。",
+      "en": "A small spoon opened the first bite."
+    },
+    "text": {
+      "zh-Hans": "我点的加泰罗尼亚焦糖奶冻，表面有一层薄薄的焦糖壳。小勺轻轻碰下去，咔的一声，下面是柔软的奶冻。我在菜单旁边记了个小音符，又怕自己以后以为点过一首歌，于是加了一把勺子。好了，这张纸一看就知道，是我的下午点心唱过一小声。",
+      "en": "My crema catalana came with a thin caramelized sugar crust. A gentle touch of the spoon made a small crack, then reached the soft custard beneath. I put a tiny musical note beside the menu sketch, then added a spoon so my future self would not mistake it for a song order. Just one brief note from an afternoon dessert."
+    },
+    "replies": [
+      {
+        "id": "barcelona.arrival.crema-small-crack.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说小勺子敲开的声音",
+          "en": "Describe the spoon's small opening sound"
+        }
+      },
+      {
+        "id": "barcelona.arrival.crema-small-crack.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看薄壳下的奶冻",
+          "en": "Notice the custard beneath the crust"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "barcelona.spoon-sound-note"
+      ],
+      "menuIds": [
+        "barcelona.menu-crema-catalana"
+      ]
+    }
+  },
+  {
+    "id": "barcelona.arrival.two-menus-opening-lines",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "barcelona",
+    "factIds": [
+      "barcelona-tomato-bread",
+      "barcelona-crema-catalana"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "同桌的旅人，帮我的菜单换了个开头。",
+      "en": "A fellow traveler rearranged my opening lines."
+    },
+    "text": {
+      "zh-Hans": "尝过番茄面包和加泰罗尼亚焦糖奶冻，我请一位旅人选选，讲今天吃的东西该从哪张菜单说起。我想从番茄的红开始，对方却对小勺子那一声更好奇。我们轮流讲了两遍，顺序不同，最后都讲饿了。于是把菜单收起，先商量下一次在哪里碰头。",
+      "en": "After tomato bread and crema catalana, I asked a traveler which menu should begin the story. I favored tomato red; they wanted to hear about the spoon's little crack. We told it both ways and made ourselves hungry again. The menus went away while we agreed on a place to meet next time."
+    },
+    "replies": [
+      {
+        "id": "barcelona.arrival.two-menus-opening-lines.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "轮流选一个开头讲讲",
+          "en": "Take turns choosing an opening"
+        }
+      },
+      {
+        "id": "barcelona.arrival.two-menus-opening-lines.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两个开头差在哪",
+          "en": "Compare the two ways to begin"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "barcelona.menu-tomato-bread",
+        "barcelona.menu-crema-catalana"
+      ]
+    }
+  },
+  {
+    "id": "barcelona.arrival.two-menus-color-sound",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "barcelona",
+    "factIds": [
+      "barcelona-tomato-bread",
+      "barcelona-crema-catalana"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天一张菜单记颜色，一张记声音。",
+      "en": "One menu kept a color; the other kept a sound."
+    },
+    "text": {
+      "zh-Hans": "晚上翻开在巴塞罗那的小菜单，番茄面包旁边是几处红色，焦糖奶冻旁边是一把勺子和小音符。我这才发现，两张都没有认真画餐桌，倒把各自最先注意到的细节留下了。便纸放在一起，像一场很短的回想：先看见，再听见，最后想起都很好吃。",
+      "en": "Opening my Barcelona menus that evening, I found red beside the tomato bread and a spoon with a tiny note beside the crema catalana. Neither sheet had much of a table. Both had kept the detail I noticed first. Together they offered a short replay: a color, a sound, then the happy memory of eating both."
+    },
+    "replies": [
+      {
+        "id": "barcelona.arrival.two-menus-color-sound.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说先想起颜色还是声音",
+          "en": "Share which returns first: color or sound"
+        }
+      },
+      {
+        "id": "barcelona.arrival.two-menus-color-sound.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找两张各留下什么",
+          "en": "Notice what each menu kept"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "barcelona.menu-tomato-bread",
+        "barcelona.menu-crema-catalana"
+      ]
+    }
+  },
+  {
+    "id": "barcelona.fulfill.light-fold-letter",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "barcelona",
+    "factIds": [
+      "barcelona-palau-music"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "barcelona.arrival.palau-borrowed-light.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，信上便多了那一眼的亮。",
+      "en": "Your idea, “{reply}”, gave that glance a place on the page."
+    },
+    "text": {
+      "zh-Hans": "我把参观音乐宫后留下的小圆展开，旁边添了几条暖色和一行字：“记得抬头。”再折一次，小圆刚好藏到里面，像要等信读到这里才亮相。这不是天窗的样本，只是我给那一眼做的小折页。下一封信打开时，它可以先替我问声好。",
+      "en": "I unfolded the little circle I had noted after the Palau visit, added a few warm strokes and the words “Remember to look up,” then folded it inward. The circle now waits to appear partway through the letter. No sample of the skylight, just my own folded memory of one glance. It may say hello before the next sentence does."
+    },
+    "replies": [
+      {
+        "id": "barcelona.fulfill.light-fold-letter.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给折页里的光留句话",
+          "en": "Leave a line for the light inside"
+        }
+      },
+      {
+        "id": "barcelona.fulfill.light-fold-letter.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "展开看看小圆躲在哪",
+          "en": "Unfold the page to find the circle"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "barcelona.skylight-fold-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

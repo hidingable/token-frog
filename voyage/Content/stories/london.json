@@ -1,0 +1,367 @@
+[
+  {
+    "id": "london.arrival.two-directions",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "london",
+    "factIds": [
+      "london-tower-bridge"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "走到塔桥高处，我把来路和去路认了一遍。",
+      "en": "Up on Tower Bridge, I found my way here and my way onward."
+    },
+    "text": {
+      "zh-Hans": "在伦敦塔桥的高层步道上，我和一位旅人指认各自来的方向。步道连接着南北两座桥塔，下面是泰晤士河。我们说着说着，又交换了想去的地方。我在便签上画了两个方向箭头，一个写“已经走过”，一个写“吃过午饭再说”。河上的小船还没看仔细，明天想再留意一会儿。",
+      "en": "On a high-level walkway at Tower Bridge, another traveler and I pointed out where we had come from. The walkway joins the north and south towers, with the Thames below. Soon we were discussing where to go next. My note now has two arrows: “already walked” and “ask again after lunch.” I would like a longer look at the little boats tomorrow."
+    },
+    "replies": [
+      {
+        "id": "london.arrival.two-directions.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问旅人下一站去哪",
+          "en": "Ask where the traveler is heading"
+        }
+      },
+      {
+        "id": "london.arrival.two-directions.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找河上的小船",
+          "en": "Look for the little boats on the river"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "london.direction-arrows"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "london.arrival.plant-name-pause",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "london",
+    "factIds": [
+      "london-kew-gardens"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一个植物名字，让我在邱园停了好一会儿。",
+      "en": "One plant name held me up at Kew."
+    },
+    "text": {
+      "zh-Hans": "邱园有活体植物，也有保存下来的植物标本和文献。我看完园里的温室，又在一块植物说明牌前停住，把名字默读了两遍。走出几步，名字忘了一半，叶子的样子倒记住了。我在便签上给自己留了两个空格：一个等名字回来，一个先写“今天见过”。",
+      "en": "Kew keeps living plants as well as preserved specimens and documents. After looking at the glasshouses, I stopped to read a plant label twice. A few steps later, half the name had escaped, while the leaves stayed clear in my mind. My note has two spaces: one awaiting the name, and one that simply says “met today.”"
+    },
+    "replies": [
+      {
+        "id": "london.arrival.plant-name-pause.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说你先记住了什么",
+          "en": "Tell someone what stayed with you"
+        }
+      },
+      {
+        "id": "london.arrival.plant-name-pause.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再看一遍名字和叶子",
+          "en": "Look again at the name and leaves"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "london.plant-name-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "london.arrival.lunch-crunch",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "london",
+    "factIds": [
+      "london-fish-and-chips"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午饭的第一声，先替我开了头。",
+      "en": "Lunch supplied its own opening sound."
+    },
+    "text": {
+      "zh-Hans": "在伦敦吃炸鱼薯条，我原本准备边吃边写。鱼裹着面糊炸过，和薯条放在一起；第一口轻轻一脆，我就把笔放下了。吃完再看便纸，开头只有“今天”。我给它续上“午饭很好”，菜单旁留了一个小小的锯齿，记那一声脆。",
+      "en": "I planned to write while eating fish and chips in London. The battered fish arrived beside the chips, and one crisp bite persuaded me to put the pen down. Afterwards, my letter still began with a lonely “Today.” I added “lunch was good.” A tiny zigzag beside the menu remembers the crunch."
+    },
+    "replies": [
+      {
+        "id": "london.arrival.lunch-crunch.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把午饭的开头讲给人听",
+          "en": "Tell someone how lunch began"
+        }
+      },
+      {
+        "id": "london.arrival.lunch-crunch.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看菜单旁的小锯齿",
+          "en": "Find the tiny zigzag on the menu"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "london.menu-fish-and-chips"
+      ]
+    }
+  },
+  {
+    "id": "london.arrival.tea-with-a-comma",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "london",
+    "factIds": [
+      "london-afternoon-tea"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "下午茶来了，我的一句话多了几个逗号。",
+      "en": "Afternoon tea put a few commas into my sentence."
+    },
+    "text": {
+      "zh-Hans": "今天在伦敦试了下午茶：茶、三明治、小蛋糕，还有配奶油和果酱的司康。我正给同行旅人讲上午的路，讲到一半拿起司康，话便停了一小会儿。后来我们都慢慢讲，慢慢吃。我把这段空当记在菜单上，像给下午留了个舒服的逗号。",
+      "en": "My London afternoon tea brought tea, sandwiches, little cakes and scones with cream and jam. I was telling a companion about the morning when I picked up a scone and let the sentence rest. We took our time with both the story and the food. The menu has a small comma for that pleasant pause."
+    },
+    "replies": [
+      {
+        "id": "london.arrival.tea-with-a-comma.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "接着讲上午走过的路",
+          "en": "Continue the story of the morning"
+        }
+      },
+      {
+        "id": "london.arrival.tea-with-a-comma.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意喝茶时的小停顿",
+          "en": "Notice the little pauses over tea"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "london.afternoon-comma"
+      ],
+      "menuIds": [
+        "london.menu-afternoon-tea"
+      ]
+    }
+  },
+  {
+    "id": "london.arrival.two-meals-one-sound",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "london",
+    "factIds": [
+      "london-fish-and-chips",
+      "london-afternoon-tea"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "说起今天吃的东西，我们先交换了声音。",
+      "en": "We compared the sounds of our meals first."
+    },
+    "text": {
+      "zh-Hans": "和旅人聊伦敦的两顿饭，我拿出了炸鱼薯条和下午茶的菜单。我先说午饭那一声脆，对方问下午茶是什么声音。我想了一会儿，说是自己把杯子轻放回碟子的声音。两份菜单各添了一个小记号，今天的饭也就能从耳朵里再走一遍。",
+      "en": "Talking over my London meals, I brought out the fish-and-chips and afternoon-tea menus. I mentioned the crunch at lunch. What sound belonged to tea? After a moment, I chose the cup settling gently onto its saucer. Each menu gained a little mark, enough to let my ears revisit the day."
+    },
+    "replies": [
+      {
+        "id": "london.arrival.two-meals-one-sound.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给两种声音各起个名字",
+          "en": "Give each sound a small name"
+        }
+      },
+      {
+        "id": "london.arrival.two-meals-one-sound.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪张菜单的声音更轻",
+          "en": "See which menu sounds quieter"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "london.menu-fish-and-chips",
+        "london.menu-afternoon-tea"
+      ]
+    }
+  },
+  {
+    "id": "london.arrival.crisp-and-unhurried",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "london",
+    "factIds": [
+      "london-fish-and-chips",
+      "london-afternoon-tea"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张菜单，一张脆一点，一张慢一点。",
+      "en": "One menu feels crisp; the other takes its time."
+    },
+    "text": {
+      "zh-Hans": "整理伦敦的小菜单时，我把炸鱼薯条放在左边，下午茶放在右边。午饭那张记着第一口的脆，另一张记着司康、茶和一句话中间的停顿。我没有给它们排高低，只在纸背写了当时想起的事。把两张翻回来，今天的胃口和心情就都找到了。",
+      "en": "Sorting my London menus, I set fish and chips on the left and afternoon tea on the right. One recalls a crisp first bite; the other, a scone and a sentence allowed to rest. I wrote those memories on the backs. Turned over again, the two cards bring back both the meals and my mood."
+    },
+    "replies": [
+      {
+        "id": "london.arrival.crisp-and-unhurried.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说哪一口先被想起来",
+          "en": "Say which bite comes to mind first"
+        }
+      },
+      {
+        "id": "london.arrival.crisp-and-unhurried.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "翻到纸背看看两段回想",
+          "en": "Read the two memories on the backs"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "london.menu-fish-and-chips",
+        "london.menu-afternoon-tea"
+      ]
+    }
+  },
+  {
+    "id": "london.fulfill.river-in-view",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "london",
+    "factIds": [
+      "london-tower-bridge"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "london.arrival.two-directions.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我给河上的动静留了些时间。",
+      "en": "Your suggestion, “{reply},” gave the river a little more of my time."
+    },
+    "text": {
+      "zh-Hans": "我又留意起伦敦塔桥下的泰晤士河。一只小船慢慢经过视野，我先看船，再看它后面的水纹，直到想起脚下也还有路。我把这段回想做成一张折卡：外面写“桥上”，打开写“河上”。船没有装进行李，目光走过的那一小段留住了。",
+      "en": "I spent longer watching the Thames below Tower Bridge. A small boat passed through my view; I followed it, then its wake, before remembering the path under my own feet. My memory card says “up on the bridge” outside and “down on the river” within. No boat in the luggage, just the short journey my eyes took."
+    },
+    "replies": [
+      {
+        "id": "london.fulfill.river-in-view.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲目光跟着船走的路",
+          "en": "Tell someone where your eyes traveled"
+        }
+      },
+      {
+        "id": "london.fulfill.river-in-view.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "展开折卡看桥上与河上",
+          "en": "Open the card from bridge to river"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "london.near-and-far-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

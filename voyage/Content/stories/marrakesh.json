@@ -1,0 +1,367 @@
+[
+  {
+    "id": "marrakesh.arrival.blue-and-green",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "marrakesh",
+    "factIds": [
+      "marrakesh-majorelle-garden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天在花园里，蓝色比我先停下来了。",
+      "en": "Blue stopped me in my tracks at the garden today."
+    },
+    "text": {
+      "zh-Hans": "在马拉喀什的马若雷勒花园，马若雷勒蓝和植物的绿放在一起，我不由得慢了下来。仙人掌、棕榈、竹子，各有各的样子。我先把笔收好，想看看自己不写字能记住多少。离开时，最先想起的还是那两种颜色；明天想再给这段回想多一点时间。",
+      "en": "At Jardin Majorelle in Marrakesh, the meeting of Majorelle blue and plant green slowed me down. Cacti, palms and bamboo each held their own shapes. I put away my pen to see what memory could manage alone. Leaving, those two colors returned first. Tomorrow I would like to let that memory linger a little longer."
+    },
+    "replies": [
+      {
+        "id": "marrakesh.arrival.blue-and-green.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说哪种颜色先留了下来",
+          "en": "Say which color stayed with you first"
+        }
+      },
+      {
+        "id": "marrakesh.arrival.blue-and-green.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再看一会儿蓝与绿",
+          "en": "Spend a little longer with blue and green"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "marrakesh.two-color-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "marrakesh.arrival.courtyard-listening",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "marrakesh",
+    "factIds": [
+      "marrakesh-bahia-palace"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "换了一个庭院，我把话也放轻了一点。",
+      "en": "In the next courtyard, my sentence grew quieter."
+    },
+    "text": {
+      "zh-Hans": "巴伊亚宫的庭院、花园和厅室接连展开。我和旅人从一处走到另一处，看过瓷砖和木作后，在庭院边稍作停留。刚才的话题还没讲完，我们都先听了一会儿周围的声音。我把这一停写在便纸上，回去再读，句子之间也像留出了一个小院子。",
+      "en": "Courtyards, gardens and rooms followed one another at Bahia Palace. A companion and I looked at tilework and woodwork, then paused beside a courtyard. Our conversation was unfinished, but we both listened for a while before continuing. Reading my note later, the space between sentences felt like a small courtyard too."
+    },
+    "replies": [
+      {
+        "id": "marrakesh.arrival.courtyard-listening.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把刚才没讲完的话接上",
+          "en": "Pick up the conversation where it paused"
+        }
+      },
+      {
+        "id": "marrakesh.arrival.courtyard-listening.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意句子之间的那一停",
+          "en": "Notice the pause between sentences"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "marrakesh.courtyard-pause-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "marrakesh.arrival.spoonful-of-grains",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "marrakesh",
+    "factIds": [
+      "marrakesh-couscous"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一勺午饭，让数数这件事歇了歇。",
+      "en": "A spoonful of lunch gave counting a rest."
+    },
+    "text": {
+      "zh-Hans": "在马拉喀什吃库斯库斯，我选了配蔬菜的那份。勺子里的小颗粒挤挤挨挨，我刚想数一数，香味就把这个念头打断了。吃完画菜单，只留下几簇小点，旁边写“这一勺先吃”。今天的点数没算出来，午饭倒吃得很踏实。",
+      "en": "I chose couscous with vegetables in Marrakesh. Looking at the little grains gathered on my spoon, I briefly considered counting them. The aroma put an end to that project. A few clusters of dots on my menu now say “this spoonful first.” The arithmetic went unfinished; lunch was thoroughly enjoyed."
+    },
+    "replies": [
+      {
+        "id": "marrakesh.arrival.spoonful-of-grains.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说香味先让你想到什么",
+          "en": "Say what the aroma brought to mind"
+        }
+      },
+      {
+        "id": "marrakesh.arrival.spoonful-of-grains.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看勺子旁的几簇小点",
+          "en": "Look at the little dots beside the spoon"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "marrakesh.menu-couscous"
+      ]
+    }
+  },
+  {
+    "id": "marrakesh.arrival.flavor-before-words",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "marrakesh",
+    "factIds": [
+      "marrakesh-tagine"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "菜已经尝到了，形容它的话还在路上。",
+      "en": "The flavor arrived before the words did."
+    },
+    "text": {
+      "zh-Hans": "在马拉喀什尝了一份蔬菜塔吉锅菜。我想把尝到的香料味说给同行旅人听，开了头，却又停下来吃了一口。对方说可以等我慢慢想。我便在菜单旁写“这句话还在路上”，最后补了一个笑脸。味道记住了，句子不急着交卷。",
+      "en": "Over a vegetable tagine in Marrakesh, I tried to describe the spices to a companion. I began, paused, and took another bite. My companion was happy to wait while I found the words. “Sentence still on its way,” says the note beside my menu, followed eventually by a smile. The flavor was already safely remembered."
+    },
+    "replies": [
+      {
+        "id": "marrakesh.arrival.flavor-before-words.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "慢慢说完那句味道",
+          "en": "Take your time finishing the description"
+        }
+      },
+      {
+        "id": "marrakesh.arrival.flavor-before-words.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意第二口想起了什么",
+          "en": "Notice what the second bite brings back"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "marrakesh.unfinished-sentence"
+      ],
+      "menuIds": [
+        "marrakesh.menu-tagine"
+      ]
+    }
+  },
+  {
+    "id": "marrakesh.arrival.two-lunch-memories",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "marrakesh",
+    "factIds": [
+      "marrakesh-couscous",
+      "marrakesh-tagine"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天聊午饭，勺子和半句话都来了。",
+      "en": "A spoon and half a sentence joined our lunch conversation."
+    },
+    "text": {
+      "zh-Hans": "我把马拉喀什的库斯库斯和塔吉锅菜菜单拿给旅人看。库斯库斯让我想起那次没数完的小颗粒，塔吉锅菜让我想起说了一半的形容。我们聊着聊着，决定先让每张菜单只说一句。两句都短，却够把两顿饭重新请到桌边。",
+      "en": "I showed a traveler my couscous and tagine menus from Marrakesh. One recalled an abandoned grain-counting project; the other, a description interrupted by another bite. We gave each card just one sentence to begin with. Neither needed many words to bring its meal back to the table."
+    },
+    "replies": [
+      {
+        "id": "marrakesh.arrival.two-lunch-memories.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给两张菜单各说一句",
+          "en": "Give each menu one sentence"
+        }
+      },
+      {
+        "id": "marrakesh.arrival.two-lunch-memories.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪段回想先回来了",
+          "en": "See which memory returns first"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "marrakesh.menu-couscous",
+        "marrakesh.menu-tagine"
+      ]
+    }
+  },
+  {
+    "id": "marrakesh.arrival.dots-and-a-smile",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "marrakesh",
+    "factIds": [
+      "marrakesh-couscous",
+      "marrakesh-tagine"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张菜单的角落，各藏着今天的一点胃口。",
+      "en": "Each menu kept a small corner of today’s appetite."
+    },
+    "text": {
+      "zh-Hans": "整理马拉喀什的菜单，我先看库斯库斯旁的几簇小点，再看塔吉锅菜旁迟到的笑脸。一顿饭打断了数数，一顿饭让形容停了一口。我在两张纸背各添了一行记忆，把它们收在一起。再打开时，不必先想出好句子，也能想起味道。",
+      "en": "Sorting my Marrakesh menus, I noticed the dots beside couscous and the late-arriving smile beside tagine. One meal interrupted my counting, the other my description. I added a memory to each back and stored them together. Next time, the flavors can return before I find a clever sentence."
+    },
+    "replies": [
+      {
+        "id": "marrakesh.arrival.dots-and-a-smile.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲你先想起哪一口",
+          "en": "Tell which bite returns first"
+        }
+      },
+      {
+        "id": "marrakesh.arrival.dots-and-a-smile.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看小点和笑脸的位置",
+          "en": "Find the dots and the little smile"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "marrakesh.menu-couscous",
+        "marrakesh.menu-tagine"
+      ]
+    }
+  },
+  {
+    "id": "marrakesh.fulfill.colors-kept-company",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "marrakesh",
+    "factIds": [
+      "marrakesh-majorelle-garden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "marrakesh.arrival.blue-and-green.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我让两种颜色又做了一会儿伴。",
+      "en": "Your suggestion, “{reply},” gave the two colors more time together."
+    },
+    "text": {
+      "zh-Hans": "我翻出马若雷勒花园的便签，回想那次看过的蓝色与绿意。先不写说明，只在自己的卡片上并排涂两小块颜色，等一会儿再添“马拉喀什”。合上卡时，想起的还是自己放下笔慢慢看的那一刻。这次笔也有了工作，却没有催眼睛赶路。",
+      "en": "I returned to my Jardin Majorelle note and recalled the blue beside the greenery. Before writing anything, I placed two small patches of color together on my own card. “Marrakesh” came later. Closing it brought back the moment when I put away my pen and simply looked. This time the pen had a task too, without hurrying my eyes."
+    },
+    "replies": [
+      {
+        "id": "marrakesh.fulfill.colors-kept-company.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说两种颜色让你想起什么",
+          "en": "Tell what the two colors bring back"
+        }
+      },
+      {
+        "id": "marrakesh.fulfill.colors-kept-company.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "合上再展开看看两块颜色",
+          "en": "Close and reopen the two patches of color"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "marrakesh.garden-color-card"
+      ],
+      "menuIds": []
+    }
+  }
+]

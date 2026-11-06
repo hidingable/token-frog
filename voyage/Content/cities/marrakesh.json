@@ -10,7 +10,7 @@
     "heritage",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "马拉喀什",
     "en": "Marrakesh"
@@ -19,5 +19,70 @@
     "zh-Hans": "马拉喀什",
     "en": "Marrakesh"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "marrakesh-majorelle-garden",
+      "type": "place",
+      "names": {
+        "zh-Hans": "马若雷勒花园",
+        "en": "Jardin Majorelle"
+      },
+      "summary": {
+        "zh-Hans": "马若雷勒花园里有仙人掌、棕榈和竹子等植物。鲜明的马若雷勒蓝用于园中建筑，与植物的绿色形成对照。",
+        "en": "Jardin Majorelle contains plants including cacti, palms and bamboo. Its vivid Majorelle blue brings a strong contrast to the garden’s greenery."
+      },
+      "sources": [
+        "https://www.museeyslmarrakech.com/en/fondation-jardin-majorelle/le-jardin-majorelle/",
+        "https://visitmarrakech.com/en/listing/jardin-majorelle/"
+      ]
+    },
+    {
+      "id": "marrakesh-bahia-palace",
+      "type": "place",
+      "names": {
+        "zh-Hans": "巴伊亚宫",
+        "en": "Bahia Palace"
+      },
+      "summary": {
+        "zh-Hans": "巴伊亚宫由一连串庭院、花园和厅室组成。装饰包括马赛克瓷砖、雕绘木作、灰泥和彩色玻璃等工艺。",
+        "en": "Bahia Palace is arranged as a succession of courtyards, gardens and rooms. Its decoration includes zellij tilework, carved and painted wood, stucco and stained glass."
+      },
+      "sources": [
+        "https://e-services.minculture.gov.ma/en/tickets/palais-bahia/"
+      ]
+    },
+    {
+      "id": "marrakesh-couscous",
+      "type": "food",
+      "names": {
+        "zh-Hans": "库斯库斯",
+        "en": "Couscous"
+      },
+      "summary": {
+        "zh-Hans": "库斯库斯可用硬粒小麦粗粒制成，在摩洛哥可配肉类、鱼、鸡肉或蔬菜，也常配蔬菜汤汁。马拉喀什的餐馆供应这道菜。",
+        "en": "Couscous can be made from durum wheat semolina. In Morocco it is served with options such as meat, fish, chicken or vegetables, often with vegetable broth; it is also part of Marrakesh’s food scene."
+      },
+      "sources": [
+        "https://www.onssa.gov.ma/wp-content/uploads/2025/01/DEC.2-22-136.ENG_.pdf",
+        "https://www.visitmorocco.com/en/travel-info/food-drinks",
+        "https://visitmarrakech.com/en/a-vivre-absolument/gastronomie/"
+      ]
+    },
+    {
+      "id": "marrakesh-tagine",
+      "type": "food",
+      "names": {
+        "zh-Hans": "塔吉锅菜",
+        "en": "Tagine"
+      },
+      "summary": {
+        "zh-Hans": "塔吉锅菜在马拉喀什有多种版本，食材可包括肉类、鸡肉、鱼或蔬菜，并配香料烹制；有些版本会加入坚果、李子或杏。",
+        "en": "Marrakesh serves several versions of tagine. Ingredients can include meat, chicken, fish or vegetables cooked with spices, with nuts, plums or apricots in some versions."
+      },
+      "sources": [
+        "https://www.visitmorocco.com/en/travel-info/food-drinks",
+        "https://visitmarrakech.com/en/a-vivre-absolument/gastronomie/"
+      ]
+    }
+  ]
 }

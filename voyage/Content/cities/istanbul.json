@@ -12,7 +12,7 @@
     "food",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "伊斯坦布尔",
     "en": "Istanbul"
@@ -21,5 +21,66 @@
     "zh-Hans": "伊斯坦布尔",
     "en": "Istanbul"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "istanbul-galata-tower",
+      "type": "place",
+      "names": {
+        "zh-Hans": "加拉塔塔",
+        "en": "Galata Tower"
+      },
+      "summary": {
+        "zh-Hans": "现今加拉塔塔的基础可追溯至1348年热那亚人的建造，塔身在后世经历过修复与改建。",
+        "en": "The present Galata Tower traces its foundations to Genoese construction in 1348 and has undergone later repairs and rebuilding."
+      },
+      "sources": [
+        "https://galatakulesi.gov.tr/tarihce"
+      ]
+    },
+    {
+      "id": "istanbul-basilica-cistern",
+      "type": "place",
+      "names": {
+        "zh-Hans": "地下水宫",
+        "en": "Basilica Cistern"
+      },
+      "summary": {
+        "zh-Hans": "地下水宫是伊斯坦布尔的地下蓄水建筑，内部由336根柱子支撑。",
+        "en": "Istanbul’s Basilica Cistern is an underground water reservoir supported by 336 columns."
+      },
+      "sources": [
+        "https://www.ktb.gov.tr/EN-113825/yerebatan-palace-cistern.html"
+      ]
+    },
+    {
+      "id": "istanbul-simit",
+      "type": "food",
+      "names": {
+        "zh-Hans": "芝麻面包圈",
+        "en": "Simit"
+      },
+      "summary": {
+        "zh-Hans": "Simit是表面覆有芝麻的环形面包，也是伊斯坦布尔常见的街头点心。",
+        "en": "Simit is a sesame-coated ring of bread, familiar among Istanbul’s street snacks."
+      },
+      "sources": [
+        "https://goturkiye.com/branding/press-releases/iconic-street-food-from-istanbul"
+      ]
+    },
+    {
+      "id": "istanbul-balik-ekmek",
+      "type": "food",
+      "names": {
+        "zh-Hans": "烤鱼三明治",
+        "en": "Balık Ekmek"
+      },
+      "summary": {
+        "zh-Hans": "Balık ekmek将烤鱼、洋葱和蔬菜夹进面包，在伊斯坦布尔海滨一带可见。",
+        "en": "Balık ekmek sandwiches grilled fish, onions and greens in a bread roll and is associated with Istanbul’s waterfront neighbourhoods."
+      },
+      "sources": [
+        "https://goturkiye.com/branding/press-releases/iconic-street-food-from-istanbul"
+      ]
+    }
+  ]
 }

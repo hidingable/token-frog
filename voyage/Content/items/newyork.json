@@ -1,0 +1,98 @@
+[
+  {
+    "id": "newyork.menu-bagel",
+    "kind": "menu",
+    "cityId": "newyork",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "贝果手绘菜单",
+      "en": "Bagel Sketch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "纽约H&H贝果早餐留下的菜单。我选了奶油奶酪，旁边写着吃完最先想到的一句话。",
+      "en": "A menu from my H&H bagel breakfast in New York. Cream cheese was my choice; the note preserves my first thought afterwards."
+    }
+  },
+  {
+    "id": "newyork.menu-pizza-slice",
+    "kind": "menu",
+    "cityId": "newyork",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "切片披萨手绘菜单",
+      "en": "Pizza Slice Sketch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在纽约Joe’s吃过切片披萨后画的小菜单。两个对话框之间，是我和旅人暂停说话吃午饭的空当。",
+      "en": "Drawn after a slice at Joe’s in New York. Two speech bubbles leave space for the lunch that interrupted our conversation."
+    }
+  },
+  {
+    "id": "newyork.crossing-note",
+    "kind": "souvenir",
+    "cityId": "newyork",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "东河过桥便签",
+      "en": "Across the East River"
+    },
+    "descriptions": {
+      "zh-Hans": "在纽约布鲁克林大桥歇脚时写的便签。“过河”旁边留着一行，等脚步的声音经过。",
+      "en": "My note from a rest on the Brooklyn Bridge in New York. Beside “across the river,” a line waits for passing footsteps."
+    }
+  },
+  {
+    "id": "newyork.lunch-speech-note",
+    "kind": "souvenir",
+    "cityId": "newyork",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "午饭对话纸条",
+      "en": "Room Between Mouthfuls"
+    },
+    "descriptions": {
+      "zh-Hans": "纽约披萨午饭后自己留的小纸条。两段没讲完的话，都在等下一口吃完。",
+      "en": "A homemade note from my New York pizza lunch. Two pieces of conversation wait patiently between bites."
+    }
+  },
+  {
+    "id": "newyork.looking-back-note",
+    "kind": "souvenir",
+    "cityId": "newyork",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "弓桥回望便签",
+      "en": "A Look Back at Bow Bridge"
+    },
+    "descriptions": {
+      "zh-Hans": "在纽约中央公园看弓桥时，我给自己的散步留了一句提醒：走过以后也可以回头看。",
+      "en": "My reminder from Bow Bridge in New York’s Central Park: a walk may include looking back."
+    }
+  },
+  {
+    "id": "newyork.crossing-rhythm-card",
+    "kind": "souvenir",
+    "cityId": "newyork",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "过桥脚步记忆卡",
+      "en": "Footsteps Across the Bridge"
+    },
+    "descriptions": {
+      "zh-Hans": "我在纽约布鲁克林大桥边听见的快慢，变成了纸上长短不同的线。这张卡记录一次自己的停步，不是桥上的乐谱。",
+      "en": "Short and long lines recall the changing pace I heard on the Brooklyn Bridge in New York. A record of my own pause, rather than a score for the bridge."
+    }
+  }
+]

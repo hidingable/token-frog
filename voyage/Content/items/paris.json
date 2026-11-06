@@ -1,0 +1,98 @@
+[
+  {
+    "id": "paris.menu-baguette",
+    "kind": "menu",
+    "cityId": "paris",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "法棍小菜单",
+      "en": "Baguette Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在巴黎吃法棍时画的断面，留着几处大小不一的气孔。旁边记了掰开外壳的一声轻响。",
+      "en": "My sketch of baguette in Paris, with uneven pockets in its cut surface and a note about the small crack of the crust."
+    }
+  },
+  {
+    "id": "paris.menu-paris-brest",
+    "kind": "menu",
+    "cityId": "paris",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "巴黎布雷斯特小菜单",
+      "en": "Paris-Brest Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在巴黎尝过的环形泡芙，纸上标了第一口从哪里开始。箭头是我的回忆，没有规定吃法。",
+      "en": "A ring of choux pastry I tried in Paris, with an arrow marking my first bite. A personal memory, with no instructions for anyone else's fork."
+    }
+  },
+  {
+    "id": "paris.meeting-place-note",
+    "kind": "souvenir",
+    "cityId": "paris",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "铁塔碰面便签",
+      "en": "Near Which Part of the Tower?"
+    },
+    "descriptions": {
+      "zh-Hans": "在巴黎看埃菲尔铁塔时，我给“塔那边见”补上的具体位置。它只记着我和旅人的那次约定。",
+      "en": "The detail I added to “near the tower” while meeting a traveler in Paris. It keeps our own arrangement for that visit."
+    }
+  },
+  {
+    "id": "paris.first-bite-arrow",
+    "kind": "souvenir",
+    "cityId": "paris",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "第一口小箭头",
+      "en": "The First-Bite Arrow"
+    },
+    "descriptions": {
+      "zh-Hans": "我在巴黎吃过圆圆的巴黎布雷斯特泡芙后留下的箭头。它指向的是那天下午的开头。",
+      "en": "My arrow after a Paris-Brest in Paris. It points to the beginning of that particular afternoon."
+    }
+  },
+  {
+    "id": "paris.pyramid-layer-note",
+    "kind": "souvenir",
+    "cityId": "paris",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "玻璃两层便签",
+      "en": "Two Layers in the Glass"
+    },
+    "descriptions": {
+      "zh-Hans": "看巴黎卢浮宫玻璃金字塔时，我画的三角和方框。它们提醒我慢一点看玻璃后面与表面的影子。",
+      "en": "A triangle and square I drew by the Louvre Pyramid in Paris, reminders to notice both the view through the glass and its reflections."
+    }
+  },
+  {
+    "id": "paris.two-line-meeting-card",
+    "kind": "souvenir",
+    "cityId": "paris",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两行碰面折卡",
+      "en": "A Meeting in Two Lines"
+    },
+    "descriptions": {
+      "zh-Hans": "我和旅人在巴黎商量好的两行碰面办法，还有一个挥手的小身影。这张折卡不是铁塔的官方导览。",
+      "en": "Two lines agreed with a traveler in Paris, plus a tiny waving figure. Our homemade meeting card, rather than an Eiffel Tower guide."
+    }
+  }
+]

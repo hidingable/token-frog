@@ -1,0 +1,98 @@
+[
+  {
+    "id": "mexicocity.menu-tacos-de-canasta",
+    "kind": "menu",
+    "cityId": "mexicocity",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "篮子塔可手绘菜单",
+      "en": "Tacos de Canasta Sketch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在墨西哥城吃土豆馅篮子塔可后记的菜单。笑脸先到了，菜名是吃完再补上的。",
+      "en": "A menu from my potato-filled tacos de canasta in Mexico City. The smile arrived first; the dish name followed after lunch."
+    }
+  },
+  {
+    "id": "mexicocity.menu-tamales",
+    "kind": "menu",
+    "cityId": "mexicocity",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "塔马尔手绘菜单",
+      "en": "Tamales Sketch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "墨西哥城塔马尔午饭的小记。玉米苞叶在画里慢慢展开，旁边记的是我打开午饭的顺序。",
+      "en": "A memory of my tamal lunch in Mexico City. The corn husk opens in the drawing, beside my own two-step introduction to lunch."
+    }
+  },
+  {
+    "id": "mexicocity.two-sided-note",
+    "kind": "souvenir",
+    "cityId": "mexicocity",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "美术宫双面便签",
+      "en": "A Two-Sided Palacio Note"
+    },
+    "descriptions": {
+      "zh-Hans": "在墨西哥城美术宫留的便签。一面记外部的新艺术风格，另一面记内部的装饰艺术风格。",
+      "en": "My note from the Palacio de Bellas Artes in Mexico City: Art Nouveau outside on one side, Art Deco inside on the other."
+    }
+  },
+  {
+    "id": "mexicocity.lunch-opening-note",
+    "kind": "souvenir",
+    "cityId": "mexicocity",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "午饭打开顺序条",
+      "en": "How Lunch Opened"
+    },
+    "descriptions": {
+      "zh-Hans": "我在墨西哥城吃塔马尔时留的小纸条。写着“先打开，再尝一口”，只管这一天的小午饭。",
+      "en": "A note from my tamal lunch in Mexico City: “open, then taste.” It keeps the order of one small meal."
+    }
+  },
+  {
+    "id": "mexicocity.greeting-before-wave",
+    "kind": "souvenir",
+    "cityId": "mexicocity",
+    "rarity": "uncommon",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "先听见的招呼",
+      "en": "A Greeting Before a Wave"
+    },
+    "descriptions": {
+      "zh-Hans": "在墨西哥城查普尔特佩克和旅人会合后留下的记号。先听见招呼，才看见对方挥手。",
+      "en": "A small mark from meeting a traveler in Chapultepec, Mexico City. I heard the greeting just before I spotted the wave."
+    }
+  },
+  {
+    "id": "mexicocity.doorway-memory-card",
+    "kind": "souvenir",
+    "cityId": "mexicocity",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "美术宫门里门外卡",
+      "en": "Outside and Inside the Palacio"
+    },
+    "descriptions": {
+      "zh-Hans": "我把墨西哥城美术宫的双面便签折进自己做的卡里。打开与合上，是那次进门和出门的回想。",
+      "en": "My handmade card holds the two-sided Palacio de Bellas Artes note from Mexico City. Opening and closing it recalls arriving and leaving."
+    }
+  }
+]

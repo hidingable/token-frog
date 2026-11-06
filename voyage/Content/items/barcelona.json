@@ -1,0 +1,98 @@
+[
+  {
+    "id": "barcelona.menu-tomato-bread",
+    "kind": "menu",
+    "cityId": "barcelona",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "番茄面包小菜单",
+      "en": "Pa amb Tomàquet Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在巴塞罗那尝过番茄面包后留下的菜单。名字写得慢，旁边的红色添得很快。",
+      "en": "My menu after tomato bread in Barcelona. The name took time; the touches of tomato red were much quicker."
+    }
+  },
+  {
+    "id": "barcelona.menu-crema-catalana",
+    "kind": "menu",
+    "cityId": "barcelona",
+    "rarity": null,
+    "icon": "bowl",
+    "habit": null,
+    "names": {
+      "zh-Hans": "焦糖奶冻小菜单",
+      "en": "Crema Catalana Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在巴塞罗那吃过的焦糖奶冻，菜单旁边有小勺子和音符，记着那份糖壳轻轻裂开的一声。",
+      "en": "The crema catalana I tried in Barcelona, with a spoon and tiny musical note for the small crack of that serving's sugar crust."
+    }
+  },
+  {
+    "id": "barcelona.bench-rest-note",
+    "kind": "souvenir",
+    "cityId": "barcelona",
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "长椅一弯便签",
+      "en": "A Rest in the Curve"
+    },
+    "descriptions": {
+      "zh-Hans": "在巴塞罗那桂尔公园长椅的一处弯边歇脚后，我留下的个人记号，不是座位号码。",
+      "en": "A personal note after resting by a curve in Park Güell's bench in Barcelona. It marks a memory, not a seat number."
+    }
+  },
+  {
+    "id": "barcelona.spoon-sound-note",
+    "kind": "souvenir",
+    "cityId": "barcelona",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小勺子音符便纸",
+      "en": "A Spoon's Brief Note"
+    },
+    "descriptions": {
+      "zh-Hans": "在巴塞罗那吃焦糖奶冻时，我给自己那份薄壳裂开声画的小音符。旁边有勺子，免得认成歌单。",
+      "en": "A musical note for the crack of my crema catalana crust in Barcelona, with a spoon beside it to keep it off the song list."
+    }
+  },
+  {
+    "id": "barcelona.palau-light-note",
+    "kind": "souvenir",
+    "cityId": "barcelona",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "抬头借光便签",
+      "en": "A Glance Toward the Light"
+    },
+    "descriptions": {
+      "zh-Hans": "参观巴塞罗那加泰罗尼亚音乐宫后，我在外面记下的小圆，保存望向中央天窗的那一眼。",
+      "en": "A small circle I noted outside after visiting Barcelona's Palau de la Música Catalana, keeping a glance toward the central skylight."
+    }
+  },
+  {
+    "id": "barcelona.skylight-fold-card",
+    "kind": "souvenir",
+    "cityId": "barcelona",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "天窗一眼折页",
+      "en": "A Folded Glance of Light"
+    },
+    "descriptions": {
+      "zh-Hans": "我为巴塞罗那音乐宫那次参观做的折页。暖色小圆藏在里面，展开时才读得到“记得抬头”。",
+      "en": "My homemade fold from a visit to the Palau in Barcelona. A warm circle waits inside with the words “Remember to look up.”"
+    }
+  }
+]

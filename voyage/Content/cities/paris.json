@@ -12,7 +12,7 @@
     "food",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "巴黎",
     "en": "Paris"
@@ -21,5 +21,68 @@
     "zh-Hans": "巴黎",
     "en": "Paris"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "paris-eiffel-tower",
+      "type": "place",
+      "names": {
+        "zh-Hans": "埃菲尔铁塔",
+        "en": "Eiffel Tower"
+      },
+      "summary": {
+        "zh-Hans": "埃菲尔铁塔为1889年巴黎世界博览会而建，位于战神广场。它在当年的博览会中成为醒目的城市地标。",
+        "en": "The Eiffel Tower was built for the 1889 Paris Exposition Universelle on the Champ-de-Mars, becoming a prominent landmark of the fair."
+      },
+      "sources": [
+        "https://www.toureiffel.paris/en/the-monument/universal-exhibition"
+      ]
+    },
+    {
+      "id": "paris-louvre-pyramid",
+      "type": "place",
+      "names": {
+        "zh-Hans": "卢浮宫玻璃金字塔",
+        "en": "Louvre Pyramid"
+      },
+      "summary": {
+        "zh-Hans": "卢浮宫拿破仑庭院中的玻璃金字塔由贝聿铭设计，1989年落成。它通向地下的中央接待空间，连接博物馆的三个翼馆。",
+        "en": "I. M. Pei's glass Pyramid in the Louvre's Cour Napoléon was inaugurated in 1989. It leads to a central underground lobby connecting the museum's three wings."
+      },
+      "sources": [
+        "https://musee.louvre.fr/en/explore/the-palace/a-pyramid-for-a-symbol",
+        "https://presse.louvre.fr/the-pyramid-project/?lang=en"
+      ]
+    },
+    {
+      "id": "paris-baguette",
+      "type": "food",
+      "names": {
+        "zh-Hans": "法棍面包",
+        "en": "Baguette"
+      },
+      "summary": {
+        "zh-Hans": "法棍是细长的法国面包，常用面粉、水、盐、酵母或老面制作。外壳酥脆，内部柔软，带有大小不一的气孔。",
+        "en": "A baguette is a long French loaf commonly made from flour, water, salt, and yeast or sourdough. It has a crisp crust and a soft interior with uneven air pockets."
+      },
+      "sources": [
+        "https://www.culture.gouv.fr/Media/Thematiques/Patrimoine-culturel-immateriel/Files/Fiches-inventaire-du-PCI/Les-savoir-faire-artisanaux-et-la-culture-de-la-baguette-de-pain#page=1",
+        "https://parisjetaime.com/eng/article/the-parisian-baguette-queen-of-french-bread-a566"
+      ]
+    },
+    {
+      "id": "paris-paris-brest",
+      "type": "food",
+      "names": {
+        "zh-Hans": "巴黎布雷斯特泡芙",
+        "en": "Paris-Brest"
+      },
+      "summary": {
+        "zh-Hans": "巴黎布雷斯特是一种环形泡芙甜点，常以坚果果仁糖奶油夹馅。巴黎的糕点店也有使用榛子果仁糖奶油的版本。",
+        "en": "Paris-Brest is a ring-shaped choux pastry filled with praline cream. Paris patisseries include versions made with hazelnut praline cream."
+      },
+      "sources": [
+        "https://parisjetaime.com/eng/article/where-to-sample-24-must-try-sweet-specialities-in-paris-a1624"
+      ]
+    }
+  ]
 }

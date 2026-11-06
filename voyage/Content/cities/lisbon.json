@@ -11,7 +11,7 @@
     "capital",
     "heritage"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "里斯本",
     "en": "Lisbon"
@@ -20,5 +20,70 @@
     "zh-Hans": "里斯本",
     "en": "Lisbon"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "lisbon-commerce-square",
+      "type": "place",
+      "names": {
+        "zh-Hans": "商业广场",
+        "en": "Praça do Comércio"
+      },
+      "summary": {
+        "zh-Hans": "里斯本商业广场面向特茹河河口，也叫王宫广场。穿过奥古斯塔街凯旋门，可以从广场进入奥古斯塔街。",
+        "en": "Lisbon's Praça do Comércio, also called Terreiro do Paço, opens toward the Tagus estuary. The Rua Augusta arch links the square with Rua Augusta."
+      },
+      "sources": [
+        "https://www.visitlisboa.com/pt-pt/locais/praca-do-comercio-terreiro-do-paco",
+        "https://www.visitportugal.com/pt-pt/NR/exeres/094DD140-DC60-493B-95F5-F45B24C6B3C1"
+      ]
+    },
+    {
+      "id": "lisbon-oceanarium",
+      "type": "place",
+      "names": {
+        "zh-Hans": "里斯本海洋馆",
+        "en": "Oceanário de Lisboa"
+      },
+      "summary": {
+        "zh-Hans": "里斯本海洋馆的常设展以“一个星球，一个海洋”为主题，设有中央水族箱和四种海洋栖息地展示。展览把不同水域的海洋生命联系在一起。",
+        "en": "The Lisbon Oceanarium's permanent exhibition, One Planet, One Ocean, features a central aquarium and four ocean habitats. It connects marine life from different waters through the idea of one global ocean."
+      },
+      "sources": [
+        "https://oceanario.pt/en/exhibitions/",
+        "https://oceanario.pt/en/exhibitions/aquarium/"
+      ]
+    },
+    {
+      "id": "lisbon-pastel-de-nata",
+      "type": "food",
+      "names": {
+        "zh-Hans": "葡式蛋挞",
+        "en": "Pastel de Nata"
+      },
+      "summary": {
+        "zh-Hans": "葡式蛋挞在酥皮中装入用牛奶、蛋和糖等制成的馅料，再烤至表面上色。在里斯本的咖啡馆和糕点店，可以搭配肉桂粉品尝。",
+        "en": "Pastel de nata has a flaky pastry shell filled with a milk, egg and sugar custard, baked until the top browns. Lisbon cafés and pastry shops may serve it with cinnamon to sprinkle over."
+      },
+      "sources": [
+        "https://www.visitportugal.com/pt-pt/content/receitas-tradicionais-portuguesas-past%C3%A9is-de-nata",
+        "https://www.visitlisboa.com/pt-pt/p/lisbon-flavours/especialidades/pastel-de-nata"
+      ]
+    },
+    {
+      "id": "lisbon-bacalhau-a-bras",
+      "type": "food",
+      "names": {
+        "zh-Hans": "布拉斯式鳕鱼",
+        "en": "Bacalhau à Brás"
+      },
+      "summary": {
+        "zh-Hans": "布拉斯式鳕鱼把鳕鱼拆成细碎鱼肉，与细炸薯条、洋葱和炒蛋拌在一起。黑橄榄和欧芹可用来点缀。",
+        "en": "Bacalhau à Brás combines shredded salt cod, thin fried potato sticks, onion and scrambled egg. Black olives and parsley can finish the dish."
+      },
+      "sources": [
+        "https://www.visitlisboa.com/pt-pt/lisbon-stories/13-rota-do-bacalhau",
+        "https://www.visitportugal.com/pt-pt/content/menu-%C3%A0-portuguesa-peixe-coentros-e-fantasia"
+      ]
+    }
+  ]
 }

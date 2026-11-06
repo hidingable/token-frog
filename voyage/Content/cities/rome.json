@@ -11,7 +11,7 @@
     "heritage",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "罗马",
     "en": "Rome"
@@ -20,5 +20,68 @@
     "zh-Hans": "罗马",
     "en": "Rome"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "rome-colosseum",
+      "type": "place",
+      "names": {
+        "zh-Hans": "罗马斗兽场",
+        "en": "Colosseum"
+      },
+      "summary": {
+        "zh-Hans": "罗马斗兽场又名弗拉维圆形剧场，建于公元1世纪。建筑外立面分为四层，下面三层排列着拱门。",
+        "en": "Built in the 1st century CE, the Colosseum is also known as the Flavian Amphitheatre. Its exterior has four architectural levels, with rows of arches on the lower three."
+      },
+      "sources": [
+        "https://colosseo.it/en/area/colosseo/",
+        "https://turismoroma.it/en/node/1155"
+      ]
+    },
+    {
+      "id": "rome-pantheon",
+      "type": "place",
+      "names": {
+        "zh-Hans": "万神殿",
+        "en": "Pantheon"
+      },
+      "summary": {
+        "zh-Hans": "万神殿的穹顶中央留有圆形天窗，自然光由此进入室内。穹顶内侧一圈圈逐渐收拢的凹格围着这个开口。",
+        "en": "A circular opening at the crown of the Pantheon's dome admits daylight. Rings of recessed panels grow smaller as they rise toward the opening."
+      },
+      "sources": [
+        "https://www.turismoroma.it/it/luoghi/pantheon"
+      ]
+    },
+    {
+      "id": "rome-carbonara",
+      "type": "food",
+      "names": {
+        "zh-Hans": "卡尔博纳拉意面",
+        "en": "Pasta alla Carbonara"
+      },
+      "summary": {
+        "zh-Hans": "卡尔博纳拉是罗马的代表意面之一，常见的传统做法使用鸡蛋、猪颊肉、佩科里诺奶酪和黑胡椒。蛋与奶酪拌成包裹面条的酱汁。",
+        "en": "Carbonara is a Roman pasta dish traditionally made with eggs, guanciale, pecorino and black pepper. Egg and cheese form the sauce that coats the pasta."
+      },
+      "sources": [
+        "https://www.turismoroma.it/en/page/tradititional-carbonara"
+      ]
+    },
+    {
+      "id": "rome-suppli",
+      "type": "food",
+      "names": {
+        "zh-Hans": "苏普利炸饭团",
+        "en": "Supplì"
+      },
+      "summary": {
+        "zh-Hans": "苏普利是罗马的炸米饭点心，外面有薄脆的面包屑外皮，里面是调味米饭和马苏里拉奶酪。奶酪融化后可以拉出细丝。",
+        "en": "Supplì are Roman rice croquettes with a thin, crisp breadcrumb coating. Seasoned rice surrounds mozzarella, which can stretch into a thread when melted."
+      },
+      "sources": [
+        "https://www.turismoroma.it/en/page/street-food-rome-itinerary-among-best-recipes",
+        "https://www.turismoroma.it/it/lo-street-food"
+      ]
+    }
+  ]
 }
