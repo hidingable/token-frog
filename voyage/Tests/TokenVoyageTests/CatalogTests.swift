@@ -106,7 +106,7 @@ private func literalLocalizationReferences() throws -> [(file: String, key: Stri
 }
 
 @Test func swiftSourcesDoNotContainHardcodedChineseOutsideAllowedFiles() throws {
-    let allowed = Set(["VoyageCore/JourneyMigrations.swift", "VoyageCore/Journey.swift"])
+    let allowed = Set(["VoyageCore/JourneyMigrations.swift"])
     let enumerator = try #require(FileManager.default.enumerator(at: LocalizationTestFiles.sources, includingPropertiesForKeys: nil))
     var scanned = 0
     for case let file as URL in enumerator where file.pathExtension == "swift" {

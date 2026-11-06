@@ -22,7 +22,7 @@ private final class CareDefaults: UserDefaults, @unchecked Sendable {
         for index in examples.journey.letters.indices { examples.journey.letters[index].read = allRead }
         examples.care.bag.todayItem = nil
         update(&examples.journey, &examples.care)
-        let store = SaveStore(directory: directory, journeyMigrations: .journey(catalog: localizationCatalog))
+        let store = SaveStore(directory: directory, pets: localizationCatalog.pets, journeyMigrations: .journey(catalog: localizationCatalog))
         store.load()
         try store.save(examples.journey)
         try store.save(examples.care)

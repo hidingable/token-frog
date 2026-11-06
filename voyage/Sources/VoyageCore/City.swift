@@ -72,17 +72,19 @@ extension City {
 public struct CityCatalog: Sendable {
     public let all: [City]
     public let stories: StoryLibrary
+    public let pets: PetCatalog
     public let items: ItemLibrary
     public var active: [City] { all.filter { $0.status == "active" } }
     private let byId: [String: City]
     private let countries: [String: [String: String]]
 
-    private init(cities: [City], countries: [String: [String: String]], stories: StoryLibrary, items: ItemLibrary) {
+    private init(cities: [City], countries: [String: [String: String]], stories: StoryLibrary, items: ItemLibrary, pets: PetCatalog) {
         all = cities.sorted { $0.id < $1.id }
         byId = Dictionary(uniqueKeysWithValues: all.map { ($0.id, $0) })
         self.countries = countries
         self.stories = stories
         self.items = items
+        self.pets = pets
     }
 
     public static func load(directory: URL) throws -> CityCatalog {
@@ -95,7 +97,8 @@ public struct CityCatalog: Sendable {
             items: ItemLibrary(
                 items: ContentValidator.readItems(directory: directory).flatMap(\.items),
                 boxes: ContentValidator.readBoxes(directory: directory)
-            )
+            ),
+            pets: PetCatalog.load(directory: directory)
         )
     }
 

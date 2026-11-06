@@ -52,11 +52,8 @@ public enum ContentValidator {
         try JSONDecoder().decode(BoxContents.self, from: Data(contentsOf: directory.appendingPathComponent("boxes.json")))
     }
 
-    // The data-i icon names from docs/mockup.html.
-    static let itemIcons: Set<String> = ["note", "bowl", "tea", "anchor", "lamp", "box", "shard", "sketch", "slip", "coat", "camera", "lunch", "fan"]
-
     public static func validate(directory: URL) -> [ContentIssue] {
-        var issues: [ContentIssue] = []
+        var issues = validatePets(directory: directory)
         func report(_ file: String, _ rule: String, _ message: String) {
             issues.append(ContentIssue(file: file, rule: rule, message: message))
         }
@@ -146,14 +143,14 @@ public enum ContentValidator {
         }
         for id in published.subtracting(ids).sorted() { report("published-ids.txt", "publishedMissing", "Published city is missing: \(id)") }
         for id in ids.subtracting(published).sorted() { report("published-ids.txt", "unpublished", "City is not registered: \(id)") }
-        let itemValidation = validateItems(directory: directory, cities: cities)
+        let itemValidation = validateItems(directory: directory, cities: cities, icons: Set((try? PetCatalog.readIcons(directory: directory))?.keys.map { $0 } ?? []))
         issues += itemValidation.issues
         issues += validateBoxes(directory: directory, items: itemValidation.items)
         issues += validateStories(directory: directory, cities: cities, tags: tags, items: itemValidation.items)
         return issues
     }
 
-    private static func validateItems(directory: URL, cities: [String: City]) -> (items: [String: Item], issues: [ContentIssue]) {
+    private static func validateItems(directory: URL, cities: [String: City], icons: Set<String>) -> (items: [String: Item], issues: [ContentIssue]) {
         var issues: [ContentIssue] = []
         var items: [String: Item] = [:]
         func report(_ file: String, _ rule: String, _ message: String) {
@@ -183,7 +180,7 @@ public enum ContentValidator {
                 if let habit = item.habit, item.kind != "bag" || !["talkative", "observant"].contains(habit) {
                     report(path, "itemHabit", "Only bag items may have a talkative or observant habit")
                 }
-                if !itemIcons.contains(item.icon) { report(path, "itemIcon", "Unknown item icon") }
+                if !icons.contains(item.icon) { report(path, "itemIcon", "Unknown item icon") }
                 if let city = item.cityId, cities[city] == nil { report(path, "itemCity", "Unknown item city: \(city)") }
                 for texts in [item.names, item.descriptions] {
                     if !["zh-Hans", "en"].allSatisfy({ !(texts[$0] ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }) {

@@ -1,0 +1,57 @@
+{
+  "id": "letter",
+  "order": 4,
+  "names": {
+    "zh-Hans": "小笺",
+    "en": "Note"
+  },
+  "eggNames": {
+    "zh-Hans": "信纸蛋",
+    "en": "Paper egg"
+  },
+  "egg": {
+    "recolor": {
+      "w": "w",
+      "l": "r"
+    }
+  },
+  "sprite": {
+    "size": [
+      16,
+      16
+    ],
+    "rows": [
+      "................",
+      "................",
+      ".kkkkkkkkkkkkkk.",
+      ".kwkwwwwwwwwkwk.",
+      ".kwwkwwwwwwkwwk.",
+      ".kwwwkwwwwkwwwk.",
+      ".kwwwwkrrkwwwwk.",
+      ".kwwwwwrrwwwwwk.",
+      ".kwwwwwwwwwwwwk.",
+      ".kwwkkwwwwkkwwk.",
+      ".kwwkkwwwwkkwwk.",
+      ".kwpwwwkkwwwpwk.",
+      ".kwwwwwwwwwwwwk.",
+      ".kkkkkkkkkkkkkk.",
+      "...kr......kr...",
+      "...krr.....krr.."
+    ]
+  },
+  "accessories": [],
+  "quirks": [
+    {
+      "zh-Hans": "我把今天的事都折进了身体里。",
+      "en": "Folded all of today's stories into myself for safekeeping."
+    },
+    {
+      "zh-Hans": "风大的时候，我得贴着墙走。",
+      "en": "Had to hug the walls when the wind picked up. Being paper has its moments."
+    },
+    {
+      "zh-Hans": "邮戳盖在身上，有一点痒。",
+      "en": "Got a fresh postmark today. Tickled a little."
+    }
+  ]
+}

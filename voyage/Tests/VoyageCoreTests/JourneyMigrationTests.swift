@@ -27,7 +27,7 @@ private struct MigrationSandbox {
     }
 
     func load() throws -> (JourneyState, SaveStore) {
-        let store = SaveStore(directory: directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .loaded(let state) = store.journey else {
             throw MigrationTestError.didNotLoad

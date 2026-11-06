@@ -2,12 +2,15 @@ import SwiftUI
 import VoyageCore
 
 struct ItemIcon: View {
+    @Environment(\.petCatalog) private var catalog
     @Environment(\.theme) private var theme
     let item: Item
     var scale = 3
     var body: some View {
-        PixelArtView(image: Sprites.item(item.icon), scale: scale)
-            .fixedSize().accessibilityHidden(true)
+        if let catalog {
+            PixelArtView(image: Sprites.item(item.icon, catalog: catalog), scale: scale)
+                .fixedSize().accessibilityHidden(true)
+        }
     }
 }
 

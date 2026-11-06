@@ -21,8 +21,10 @@ struct BoxView: View {
                     Button {
                         if shaking { shaking = false; shakeOffset = 0 }
                     } label: {
-                        PixelArtView(image: Sprites.item("box"), scale: 6)
-                            .frame(width: 72, height: 72).offset(x: shakeOffset)
+                        if let catalog = model.catalog {
+                            PixelArtView(image: Sprites.item("box", catalog: catalog.pets), scale: 6)
+                                .frame(width: 72, height: 72).offset(x: shakeOffset)
+                        }
                     }
                     .buttonStyle(.plain).disabled(!shaking)
                     .accessibilityLabel(l10n("box.skip"))
@@ -67,7 +69,7 @@ struct BoxView: View {
                         .fixedSize(horizontal: false, vertical: true).frame(maxWidth: 440)
                 }
             case .clue(let city):
-                PixelArtView(image: Sprites.item("note"), scale: 6).fixedSize()
+                PixelArtView(image: Sprites.item("note", catalog: catalog.pets), scale: 6).fixedSize()
                 Text(l10n("box.clue", l10n.cityName(catalog.city(city)))).font(Theme.pixel(24))
                     .fixedSize(horizontal: false, vertical: true)
                 Text(l10n("collection.clueProgress", model.care?.trailClues[city] ?? 0))

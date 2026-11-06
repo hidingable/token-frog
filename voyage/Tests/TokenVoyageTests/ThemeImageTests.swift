@@ -38,24 +38,24 @@ private func rgb(_ image: CGImage, x: Int, y: Int) throws -> UInt32 {
 @MainActor
 @Test func roomCacheChangesThemeWithoutRecoloringTheCharacter() throws {
     let night = AppTheme(testThemes.standard(.dark)), day = AppTheme(testThemes.standard(.light))
-    for pet in PetKind.allCases {
-        let darkRoom = RoomArt.image(pet: pet, shelf: [], theme: night)
-        let lightRoom = RoomArt.image(pet: pet, shelf: [], theme: day)
-        #expect(darkRoom === RoomArt.image(pet: pet, shelf: [], theme: night))
-        #expect(lightRoom === RoomArt.image(pet: pet, shelf: [], theme: day))
+    for pet in localizationCatalog.pets.all.map(\.id) {
+        let darkRoom = RoomArt.image(pet: pet, shelf: [], theme: night, catalog: localizationCatalog.pets)
+        let lightRoom = RoomArt.image(pet: pet, shelf: [], theme: day, catalog: localizationCatalog.pets)
+        #expect(darkRoom === RoomArt.image(pet: pet, shelf: [], theme: night, catalog: localizationCatalog.pets))
+        #expect(lightRoom === RoomArt.image(pet: pet, shelf: [], theme: day, catalog: localizationCatalog.pets))
         #expect(darkRoom !== lightRoom)
         #expect(try rgb(darkRoom, x: 0, y: 0) == night.rgb(.roomWallLine))
         #expect(try rgb(lightRoom, x: 0, y: 0) == day.rgb(.roomWallLine))
         #expect(try rgb(darkRoom, x: 24, y: 26) == night.rgb(.roomStar))
         #expect(try rgb(lightRoom, x: 24, y: 26) == day.rgb(.roomWindowBack))
-        for (index, color) in Sprites.petPixels(pet).enumerated() {
+        for (index, color) in Sprites.petPixels(pet, catalog: localizationCatalog.pets).enumerated() {
             guard let color else { continue }
             #expect(try rgb(lightRoom, x: 116 + index % 16 * 2, y: 76 + index / 16 * 2) == color)
         }
     }
     let item = try #require(localizationCatalog.items.find("box.tea-paper"))
-    let empty = RoomArt.image(pet: .pigeon, shelf: [], theme: day)
-    let full = RoomArt.image(pet: .pigeon, shelf: [item], theme: day)
+    let empty = RoomArt.image(pet: PetID(rawValue: "pigeon"), shelf: [], theme: day, catalog: localizationCatalog.pets)
+    let full = RoomArt.image(pet: PetID(rawValue: "pigeon"), shelf: [item], theme: day, catalog: localizationCatalog.pets)
     #expect(empty !== full)
     #expect(try pixels(empty) != pixels(full))
 }

@@ -1428,57 +1428,6 @@
         }
       }
     },
-    "letter.letter.fold": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "我把今天的事都折进了身体里。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Folded all of today's stories into myself for safekeeping."
-          }
-        }
-      }
-    },
-    "letter.letter.postmark": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "邮戳盖在身上，有一点痒。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Got a fresh postmark today. Tickled a little."
-          }
-        }
-      }
-    },
-    "letter.letter.wind": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "风大的时候，我得贴着墙走。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Had to hug the walls when the wind picked up. Being paper has its moments."
-          }
-        }
-      }
-    },
     "letter.localPlace": {
       "extractionState": "manual",
       "localizations": {
@@ -1581,57 +1530,6 @@
         }
       }
     },
-    "letter.pigeon.bag": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "邮包还很轻，下一封信也装得下。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "My mailbag is still pretty light. Plenty of room for the next letter."
-          }
-        }
-      }
-    },
-    "letter.pigeon.clouds": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "我在屋顶上数了数今天的云。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "I found a rooftop and counted the clouds for a while."
-          }
-        }
-      }
-    },
-    "letter.pigeon.hat": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "邮差帽被风吹歪了，我又把它扶正。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The wind knocked my mail carrier cap sideways. All straight again now."
-          }
-        }
-      }
-    },
     "letter.sights": {
       "extractionState": "manual",
       "localizations": {
@@ -1666,57 +1564,6 @@
         }
       }
     },
-    "letter.snail.coins": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "我不着急，壳里的金币叮当响。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No rush. The coins in my shell make a lovely little jingle."
-          }
-        }
-      }
-    },
-    "letter.snail.shell": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "今晚把壳擦亮了，明天接着走。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gave my shell a good polish tonight. Back on the trail tomorrow."
-          }
-        }
-      }
-    },
-    "letter.snail.slow": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "慢一点也能到，我一直这么觉得。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Slow gets you there too. That's always been my theory."
-          }
-        }
-      }
-    },
     "letter.source": {
       "extractionState": "manual",
       "localizations": {
@@ -1730,57 +1577,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Source: Wikipedia · %@"
-          }
-        }
-      }
-    },
-    "letter.suitcase.clasps": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "我把自己的搭扣检查了两遍。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Checked my clasps twice. Can't have my socks escaping."
-          }
-        }
-      }
-    },
-    "letter.suitcase.sticker": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "今天又多了一张旅行贴纸。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Another day, another travel sticker for my collection."
-          }
-        }
-      }
-    },
-    "letter.suitcase.wheels": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "轮子有点累，不过还能走。"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "My wheels are a little tired, but there's plenty of roll left in them."
           }
         }
       }
@@ -4001,74 +3797,6 @@
         }
       }
     },
-    "onboarding.egg.gold": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "金壳蛋"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Golden egg"
-          }
-        }
-      }
-    },
-    "onboarding.egg.leather": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "皮纹蛋"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Leather egg"
-          }
-        }
-      }
-    },
-    "onboarding.egg.paper": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "信纸蛋"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Paper egg"
-          }
-        }
-      }
-    },
-    "onboarding.egg.spotted": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "斑点蛋"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spotted egg"
-          }
-        }
-      }
-    },
     "onboarding.eggHint": {
       "extractionState": "manual",
       "localizations": {
@@ -4371,74 +4099,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "A letter will arrive tomorrow morning at 9."
-          }
-        }
-      }
-    },
-    "pet.letter.defaultName": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "小笺"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Note"
-          }
-        }
-      }
-    },
-    "pet.pigeon.defaultName": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "阿鸽"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coo"
-          }
-        }
-      }
-    },
-    "pet.snail.defaultName": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "壳壳"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Shelly"
-          }
-        }
-      }
-    },
-    "pet.suitcase.defaultName": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "皮箱"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trunk"
           }
         }
       }

@@ -51,8 +51,6 @@ struct L10n: Sendable {
     static let appearanceKeys: [AppearancePreference: String] = [.system: "appearance.system", .dark: "appearance.dark", .light: "appearance.light"]
     static let languageKeys: [LanguagePreference: String] = [.system: "language.system", .zhHans: "language.zhHans", .en: "language.en"]
     static let countKeys = ["tokens": ["tokens.one", "tokens.other"], "days": ["days.one", "days.other"], "hours": ["hours.one", "hours.other"], "minutes": ["minutes.one", "minutes.other"]]
-    static let defaultPetNameKeys: [PetKind: String] = [.pigeon: "pet.pigeon.defaultName", .snail: "pet.snail.defaultName", .suitcase: "pet.suitcase.defaultName", .letter: "pet.letter.defaultName"]
-    static let eggKeys: [PetKind: String] = [.pigeon: "onboarding.egg.spotted", .snail: "onboarding.egg.gold", .suitcase: "onboarding.egg.leather", .letter: "onboarding.egg.paper"]
     static let onboardingTitleKeys: [OnboardingFlow.Step: String] = [.eggs: "onboarding.eggs", .home: "onboarding.home", .hatch: "onboarding.hatch", .logbook: "onboarding.logbook", .depart: "onboarding.depart"]
     static let stageKeys: [Stage: String] = [.egg: "stage.egg", .hatchling: "stage.hatchling", .juvenile: "stage.juvenile", .teen: "stage.teen", .traveler: "stage.traveler", .veteran: "stage.veteran", .legend: "stage.legend"]
     static let habitKeys: [Habit: String] = [.talkative: "habit.talkative", .observant: "habit.observant"]
@@ -62,10 +60,15 @@ struct L10n: Sendable {
     ]
     static let floatingKeys = ["floating.line.0", "floating.line.1", "floating.line.2"]
     static var dynamicKeys: [String] {
-        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + Array(appearanceKeys.values) + countKeys.values.flatMap { $0 } + LetterComposer.quirkKeys.values.flatMap { $0 } + Array(defaultPetNameKeys.values) + Array(eggKeys.values) + Array(onboardingTitleKeys.values) + Enricher.weatherKeys + Array(stageKeys.values) + Array(habitKeys.values) + habitDescriptionKeys.values.flatMap { $0 } + floatingKeys + ["habit.both", "home.bubble.mail", "home.bubble.reply", "home.bubble.bag", "box.next", "box.keep", "box.open"]
+        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + Array(appearanceKeys.values) + countKeys.values.flatMap { $0 } + Array(onboardingTitleKeys.values) + Enricher.weatherKeys + Array(stageKeys.values) + Array(habitKeys.values) + habitDescriptionKeys.values.flatMap { $0 } + floatingKeys + ["habit.both", "home.bubble.mail", "home.bubble.reply", "home.bubble.bag", "box.next", "box.keep", "box.open"]
     }
 
-    func defaultPetName(_ pet: PetKind) -> String { language == .zhHans ? pet.displayName : self(Self.defaultPetNameKeys[pet]!) }
+    func defaultPetName(_ pet: PetID, catalog: PetCatalog) -> String {
+        catalog.find(pet).flatMap { LetterComposer.localized($0.names, l10n: self) } ?? pet.rawValue
+    }
+    func eggName(_ pet: PetID, catalog: PetCatalog) -> String {
+        catalog.find(pet).flatMap { LetterComposer.localized($0.eggNames, l10n: self) } ?? pet.rawValue
+    }
 
     @MainActor func onboardingTitle(_ flow: OnboardingFlow) -> String {
         if flow.step == .logbook, flow.logbook == nil { return self("onboarding.welcome") }
@@ -186,6 +189,7 @@ struct LocalizedRoot<Content: View>: View {
     var body: some View {
         content.environment(\.l10n, model.l10n).environment(\.locale, model.l10n.locale)
             .environment(\.theme, model.theme)
+            .environment(\.petCatalog, model.catalog?.pets)
             .preferredColorScheme(model.theme.scheme == .dark ? .dark : .light)
     }
 }

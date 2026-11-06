@@ -4,11 +4,18 @@ import VoyageCore
 /// Level-one room() from the mockup, in top-to-bottom logical pixels.
 @MainActor
 enum RoomArt {
-    private struct Key: Equatable { let pet: PetKind; let icons: [String] }
+    private struct Key: Equatable {
+        let pet: PetID
+        let icons: [String]
+        let catalog: PetCatalog
+        static func == (lhs: Key, rhs: Key) -> Bool {
+            lhs.pet == rhs.pet && lhs.icons == rhs.icons && lhs.catalog === rhs.catalog
+        }
+    }
     private static var cache: [String: (key: Key, image: CGImage)] = [:]
 
-    static func image(pet: PetKind, shelf: [Item], theme: AppTheme) -> CGImage {
-        let key = Key(pet: pet, icons: shelf.prefix(CareRules.shelfCapacity).map(\.icon))
+    static func image(pet: PetID, shelf: [Item], theme: AppTheme, catalog: PetCatalog) -> CGImage {
+        let key = Key(pet: pet, icons: shelf.prefix(CareRules.shelfCapacity).map(\.icon), catalog: catalog)
         if let cached = cache[theme.id], cached.key == key { return cached.image }
         let width = RoomLayout.width
         let height = RoomLayout.height
@@ -38,7 +45,7 @@ enum RoomArt {
         // Empty shelf slots stay empty; acquisition order comes from care.souvenirs.
         rect(theme.rgb(.roomWoodDark), 78, 52, 78, 3)
         for (index, item) in shelf.prefix(CareRules.shelfCapacity).enumerated() {
-            sprite(Sprites.itemPixels(item.icon), width: 12, x: 80 + index * 19, y: 40, scale: 1)
+            sprite(Sprites.itemPixels(item.icon, catalog: catalog), width: 12, x: 80 + index * 19, y: 40, scale: 1)
         }
         rect(theme.rgb(.roomWood), 0, 84, 92, 14)
         rect(theme.rgb(.roomWoodDark), 0, 84, 92, 2); rect(theme.rgb(.roomWoodDark), 0, 98, 92, 2)
@@ -51,7 +58,7 @@ enum RoomArt {
         rect(theme.rgb(.roomLight), 224, 74, 2, 2); rect(theme.rgb(.roomMail), 207, 44, 18, 6)
         rect(theme.rgb(.roomShadow), 100, 10, 8, 1); rect(theme.rgb(.roomShadow), 108, 12, 6, 1)
         rect(theme.rgb(.roomCabinet), 140, 18, 1, 20); rect(theme.rgb(.roomCabinet), 141, 28, 6, 1)
-        sprite(Sprites.petPixels(pet), width: 16, x: 116, y: 76, scale: 2)
+        sprite(Sprites.petPixels(pet, catalog: catalog), width: 16, x: 116, y: 76, scale: 2)
         let image = PixelImage.make(width: width, height: height, pixels: pixels)
         cache[theme.id] = (key, image)
         return image

@@ -190,7 +190,7 @@ private struct NavigationFixture {
 
     init(allDeliveredRead: Bool = false) throws {
         directory = FileManager.default.temporaryDirectory.appendingPathComponent("voyage-navigation-\(UUID().uuidString)")
-        let store = SaveStore(directory: directory, journeyMigrations: .journey(catalog: localizationCatalog))
+        let store = SaveStore(directory: directory, pets: localizationCatalog.pets, journeyMigrations: .journey(catalog: localizationCatalog))
         store.load()
         var state = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-01", now: Date(timeIntervalSince1970: 0), catalog: localizationCatalog)
         // Keep coverage for existing saves with the old unread departure letter.
@@ -212,7 +212,7 @@ private struct NavigationFixture {
             }
         }
         try store.save(state)
-        try store.save(CareState.legacy(from: state))
+        try store.save(CareState.legacy(from: state, pets: localizationCatalog.pets))
     }
 
     func model(isSnapshot: Bool = true, defaults: UserDefaults = NavigationDefaults()) -> AppModel {

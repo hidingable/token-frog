@@ -136,9 +136,9 @@ func damagedThemesUseContentRecoveryBeforeReadingAnySave(_ failure: String) asyn
     #expect(defaults.writes.isEmpty)
 }
 
-@Test func appSourcesKeepColorLiteralsInsideTheThemeAndSpriteAllowlist() throws {
-    // Theme.swift converts validated RGB data; Sprites.swift retains fixed character/item/egg art.
-    let allowed = Set(["Theme.swift", "Sprites.swift"])
+@Test func appSourcesKeepColorLiteralsInsideTheThemeAllowlist() throws {
+    // Theme.swift converts validated RGB data; sprite colors live in Content/sprites/.
+    let allowed = Set(["Theme.swift"])
     let expression = try NSRegularExpression(pattern: #"Color\s*\(\s*hex\s*:|0x[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{6}\b|Color\.(?:black|white|gray|red|blue)\b"#)
     let files = try #require(FileManager.default.enumerator(at: LocalizationTestFiles.appSources, includingPropertiesForKeys: nil))
     var count = 0

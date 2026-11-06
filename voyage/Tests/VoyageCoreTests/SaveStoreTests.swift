@@ -34,12 +34,12 @@ private struct SaveSandbox {
         defer { box.cleanUp() }
         let original = try box.fixture()
         try original.write(to: box.journeyURL)
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .loaded(let journey) = store.journey else { Issue.record("v5 must load"); return }
         #expect(journey.version == 5)
         #expect(journey.seed == 42)
-        #expect(journey.pet == .snail)
+        #expect(journey.pet == PetID(rawValue: "snail"))
         #expect(journey.targetCityId == "xian")
         #expect(journey.stamps.first?.countryCode == "CN")
         #expect(journey.days["2026-11-01"]?.byClient == ["codex": 123])
@@ -67,7 +67,7 @@ private struct SaveSandbox {
         }
         json["letters"] = letters
         try JSONSerialization.data(withJSONObject: json).write(to: box.journeyURL)
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .loaded(let state) = store.journey else { Issue.record("Defaults must decode"); return }
         #expect(state.legFuel == 0 && state.totalFuel == 0)
@@ -84,7 +84,7 @@ private struct SaveSandbox {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
         _ = try box.writeJourney { $0.removeValue(forKey: key) }
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .corrupted = store.journey else { Issue.record("Missing \(key) must be corrupted"); return }
         #expect(store.isLocked)
@@ -102,7 +102,7 @@ private struct SaveSandbox {
         defer { box.cleanUp() }
         let data = try box.writeJourney { $0["legCost"] = cost }
         #expect(throws: DecodingError.self) { try JSONDecoder().decode(JourneyState.self, from: data) }
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .corrupted(let backup) = store.journey else { Issue.record("Non-positive leg cost must be corrupted"); return }
         #expect(try Data(contentsOf: backup) == data)
@@ -118,7 +118,7 @@ private struct SaveSandbox {
             letters[0].removeValue(forKey: key)
             $0["letters"] = letters
         }
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .corrupted = store.journey else { Issue.record("Missing letter \(key) must be corrupted"); return }
     }
@@ -127,7 +127,7 @@ private struct SaveSandbox {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
         _ = try box.writeJourney { $0["version"] = version }
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .corrupted = store.journey else { Issue.record("Invalid version must be corrupted"); return }
     }
@@ -146,7 +146,7 @@ private struct SaveSandbox {
         defer { box.cleanUp() }
         let bytes = Data([0xFF, 0x00, 0x7B, 0x01])
         try bytes.write(to: box.journeyURL)
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .corrupted(let backup) = store.journey else { Issue.record("Must quarantine"); return }
         #expect(try Data(contentsOf: backup) == bytes)
@@ -154,10 +154,10 @@ private struct SaveSandbox {
         #expect(!FileManager.default.fileExists(atPath: box.careURL.path))
         let fresh = JourneyState(seed: 1, startCityId: "shanghai", date: "2026-11-01", catalog: testCatalog)
         #expect(throws: SaveStoreError.locked) { try store.save(fresh) }
-        #expect(throws: SaveStoreError.locked) { try store.save(CareState.legacy(from: fresh)) }
+        #expect(throws: SaveStoreError.locked) { try store.save(CareState.legacy(from: fresh, pets: testCatalog.pets)) }
         store.load()
         #expect(store.isLocked)
-        let relaunched = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let relaunched = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         relaunched.load()
         #expect(relaunched.isLocked)
         #expect(try relaunched.backups(for: .journey).count == 1)
@@ -167,14 +167,14 @@ private struct SaveSandbox {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
         let bytes = try box.writeJourney { $0["version"] = 99 }
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .tooNew(99) = store.journey else { Issue.record("Must reject newer version"); return }
         #expect(try Data(contentsOf: box.journeyURL) == bytes)
         #expect(try store.backups(for: .journey).isEmpty)
         let fresh = JourneyState(seed: 1, startCityId: "shanghai", date: "2026-11-01", catalog: testCatalog)
         #expect(throws: SaveStoreError.locked) { try store.save(fresh) }
-        #expect(throws: SaveStoreError.locked) { try store.save(CareState.legacy(from: fresh)) }
+        #expect(throws: SaveStoreError.locked) { try store.save(CareState.legacy(from: fresh, pets: testCatalog.pets)) }
         #expect(!FileManager.default.fileExists(atPath: box.careURL.path))
     }
 
@@ -198,7 +198,7 @@ private struct SaveSandbox {
                 return json
             },
         ])
-        let store = SaveStore(directory: box.directory, journeyMigrations: migrations)
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: migrations)
         store.load()
         #expect(order == [2, 3])
         guard case .loaded(let state) = store.journey else { Issue.record("Migration must load"); return }
@@ -217,7 +217,7 @@ private struct SaveSandbox {
         enum MigrationError: Error { case failed }
         var steps: [Int: SaveMigrations.Step] = [2: { $0 }]
         if !missing { steps[3] = { _ in throw MigrationError.failed } }
-        let store = SaveStore(directory: box.directory, journeyMigrations: SaveMigrations(currentVersion: 4, steps: steps))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: SaveMigrations(currentVersion: 4, steps: steps))
         store.load()
         guard case .unreadable = store.journey else { Issue.record("Migration failure must lock"); return }
         #expect(try Data(contentsOf: box.journeyURL) == original)
@@ -234,12 +234,12 @@ private struct SaveSandbox {
             json.removeValue(forKey: "seed")
             return json
         }])
-        let store = SaveStore(directory: box.directory, journeyMigrations: broken)
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: broken)
         store.load()
         #expect(store.isLocked)
         #expect(try Data(contentsOf: box.journeyURL) == original)
         try Data("broken care".utf8).write(to: box.careURL)
-        let valid = SaveStore(directory: box.directory, journeyMigrations: SaveMigrations(currentVersion: 3, steps: [2: { $0 }]))
+        let valid = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: SaveMigrations(currentVersion: 3, steps: [2: { $0 }]))
         valid.load()
         #expect(valid.isLocked)
         #expect(try Data(contentsOf: box.journeyURL) == original)
@@ -251,7 +251,7 @@ private struct SaveSandbox {
         let original = try box.writeJourney()
         try FileManager.default.setAttributes([.posixPermissions: 0o000], ofItemAtPath: box.journeyURL.path)
         defer { try? FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: box.journeyURL.path) }
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .unreadable = store.journey else { Issue.record("chmod 000 must be unreadable"); return }
         #expect(FileManager.default.fileExists(atPath: box.journeyURL.path))
@@ -265,7 +265,7 @@ private struct SaveSandbox {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
         try FileManager.default.createDirectory(at: box.journeyURL, withIntermediateDirectories: true)
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .unreadable = store.journey else { Issue.record("I/O failure must be unreadable"); return }
         #expect(try store.backups(for: .journey).isEmpty)
@@ -277,14 +277,14 @@ private struct SaveSandbox {
         let bytes = try box.writeJourney()
         let badCare = Data("not json".utf8)
         try badCare.write(to: box.careURL)
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .loaded(let state) = store.journey, case .corrupted(let backup) = store.care else {
             Issue.record("Care must lock a normal journey"); return
         }
         #expect(try Data(contentsOf: backup) == badCare)
         #expect(throws: SaveStoreError.locked) { try store.save(state) }
-        #expect(throws: SaveStoreError.locked) { try store.save(CareState.legacy(from: state)) }
+        #expect(throws: SaveStoreError.locked) { try store.save(CareState.legacy(from: state, pets: testCatalog.pets)) }
         #expect(try Data(contentsOf: box.journeyURL) == bytes)
     }
 
@@ -292,9 +292,9 @@ private struct SaveSandbox {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
         let state = try JSONDecoder().decode(JourneyState.self, from: box.fixture())
-        let care = CareState.legacy(from: state)
+        let care = CareState.legacy(from: state, pets: testCatalog.pets)
         #expect(care.version == 1)
-        #expect(care.species == .snail && care.petName == "壳壳")
+        #expect(care.species == PetID(rawValue: "snail") && care.petName == "壳壳")
         #expect(care.hatchedAt == state.startDate)
         #expect(care.companionDays.isEmpty)
         #expect(care.habits.talkative == 0 && care.habits.observant == 0)
@@ -312,7 +312,7 @@ private struct SaveSandbox {
         defer { box.cleanUp() }
         let bytes = try box.fixture("care-v1")
         let care = try JSONDecoder().decode(CareState.self, from: bytes)
-        #expect(care.petName == "阿鸽" && care.species == .pigeon)
+        #expect(care.petName == "阿鸽" && care.species == PetID(rawValue: "pigeon"))
         #expect(care.habits.talkative == 20 && care.habits.observant == 10)
         #expect(care.souvenirs.first?.id == "jingdezhen.note")
         #expect(care.souvenirs.first?.shelved == true)
@@ -325,7 +325,7 @@ private struct SaveSandbox {
         #expect(try JSONDecoder().decode(CareState.self, from: JSONEncoder().encode(care)) == care)
         try bytes.write(to: box.careURL)
         _ = try box.writeJourney()
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         #expect(try Data(contentsOf: box.careURL) == bytes)
         #expect(try store.backups(for: .care).isEmpty)
@@ -334,18 +334,18 @@ private struct SaveSandbox {
     @Test func missingSavesDoNotCreateAnythingAndCareUsesSameVersionPipeline() throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .missing = store.journey, case .missing = store.care else { Issue.record("Fresh directory must be missing"); return }
         #expect(try FileManager.default.contentsOfDirectory(atPath: box.directory.path).isEmpty)
         let original = try box.fixture("care-v1")
         try original.write(to: box.careURL)
-        let migrating = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog), careMigrations: SaveMigrations(currentVersion: 2, steps: [1: { $0 }]))
+        let migrating = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog), careMigrations: SaveMigrations(currentVersion: 2, steps: [1: { $0 }]))
         migrating.load()
         guard case .loaded(let care) = migrating.care else { Issue.record("Care must migrate"); return }
         #expect(care.version == 2)
         #expect(try Data(contentsOf: #require(migrating.backups(for: .care).first).url) == original)
-        let older = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let older = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         older.load()
         guard case .tooNew(2) = older.care else { Issue.record("Care must reject newer versions"); return }
         #expect(older.isLocked)
@@ -355,7 +355,7 @@ private struct SaveSandbox {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
         let current = try box.writeJourney()
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         let candidate = box.directory.appendingPathComponent("candidate.json")
         try Data("bad backup".utf8).write(to: candidate)
@@ -377,7 +377,7 @@ private struct SaveSandbox {
     @Test func sameTimestampBackupsNeverOverwrite() throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
-        let store = SaveStore(directory: box.directory, now: { Date(timeIntervalSince1970: 0) }, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, now: { Date(timeIntervalSince1970: 0) }, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         let first = Data("first broken save".utf8)
         let second = Data("second broken save".utf8)
         try first.write(to: box.journeyURL)
@@ -394,7 +394,7 @@ private struct SaveSandbox {
         defer { box.cleanUp() }
         let store = SaveStore(
             directory: box.directory,
-            journeyMigrations: SaveMigrations(currentVersion: 3, steps: [2: { $0 }])
+            pets: testCatalog.pets, journeyMigrations: SaveMigrations(currentVersion: 3, steps: [2: { $0 }])
         )
         #expect(try store.restorableBackups(for: .journey).isEmpty)
         _ = try box.writeJourney { $0["version"] = 2 }
@@ -419,7 +419,7 @@ private struct SaveSandbox {
         let data = try box.fixture()
         try data.write(to: older)
         try data.write(to: newer)
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         let allNames = try store.backups(for: .journey).map { $0.url.lastPathComponent }
         let restorableNames = try store.restorableBackups(for: .journey).map { $0.url.lastPathComponent }
         #expect(allNames == [older.lastPathComponent, newer.lastPathComponent])
@@ -431,7 +431,7 @@ private struct SaveSandbox {
         defer { box.cleanUp() }
         let corrupt = Data("broken".utf8)
         try corrupt.write(to: box.journeyURL)
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         let good = box.directory.appendingPathComponent("good-backup.json")
         let original = try box.fixture()
@@ -448,7 +448,7 @@ private struct SaveSandbox {
     @Test func onlyCorruptedFilesCanRestart() throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         #expect(throws: SaveStoreError.restartNotAllowed) { try store.restart() }
         _ = try box.writeJourney { $0["version"] = 99 }
@@ -474,7 +474,7 @@ private struct SaveSandbox {
         defer { box.cleanUp() }
         let journeyBytes = try box.writeJourney()
         try Data("broken care".utf8).write(to: box.careURL)
-        let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         try store.restart(.care)
         store.load()

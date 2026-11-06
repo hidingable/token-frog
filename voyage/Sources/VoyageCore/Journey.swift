@@ -1,18 +1,5 @@
 import Foundation
 
-public enum PetKind: String, Codable, CaseIterable, Sendable {
-    case pigeon, snail, suitcase, letter
-
-    public var displayName: String {
-        switch self {
-        case .pigeon: "阿鸽"
-        case .snail: "壳壳"
-        case .suitcase: "皮箱"
-        case .letter: "小笺"
-        }
-    }
-}
-
 public struct VehicleShare: Codable, Equatable, Sendable {
     public var client: String
     public var percent: Int
@@ -29,7 +16,7 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var id: Int
     public var kind: Kind
     public var date: String
-    public var pet: PetKind
+    public var pet: PetID
     public var cityId: String
     /// Set when no city was reached that day: the pet writes from the road towards this city.
     public var transitTargetId: String?
@@ -104,7 +91,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public static let currentVersion = 5
     public var version = currentVersion
     public var seed: UInt32
-    public var pet: PetKind
+    public var pet: PetID
     public var startDate: String
     public var currentCityId: String
     public var targetCityId: String
@@ -120,7 +107,8 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public var letters: [Letter] = []
     public var totalFuel = 0
 
-    public init(seed: UInt32, startCityId: String, pet: PetKind = .pigeon, date: String, now: Date = Date(), logbook: Logbook? = nil, catalog: CityCatalog) {
+    public init(seed: UInt32, startCityId: String, pet: PetID? = nil, date: String, now: Date = Date(), logbook: Logbook? = nil, catalog: CityCatalog) {
+        let pet = pet ?? catalog.pets.defaultID
         let start = catalog.city(startCityId)
         self.seed = seed
         self.pet = pet
@@ -324,7 +312,7 @@ extension JourneyState {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         version = try values.decode(Int.self, forKey: .version)
         seed = try values.decode(UInt32.self, forKey: .seed)
-        pet = try values.decode(PetKind.self, forKey: .pet)
+        pet = try values.decode(PetID.self, forKey: .pet)
         startDate = try values.decode(String.self, forKey: .startDate)
         currentCityId = try values.decode(String.self, forKey: .currentCityId)
         targetCityId = try values.decode(String.self, forKey: .targetCityId)
@@ -359,7 +347,7 @@ extension Letter {
         id = try values.decode(Int.self, forKey: .id)
         kind = try values.decode(Kind.self, forKey: .kind)
         date = try values.decode(String.self, forKey: .date)
-        pet = try values.decode(PetKind.self, forKey: .pet)
+        pet = try values.decode(PetID.self, forKey: .pet)
         cityId = try values.decode(String.self, forKey: .cityId)
         transitTargetId = try values.decodeIfPresent(String.self, forKey: .transitTargetId)
         arrivals = try values.decode([String].self, forKey: .arrivals)

@@ -5,150 +5,39 @@ import VoyageCore
 enum Sprites {
     enum Frame: Hashable, CaseIterable { case rest, bob, stepLeft, stepRight }
 
-    // Fixed character/item/egg art palette; intentionally excluded from theme extraction.
-    // Theme source scanning allows this file until sprite data is extracted separately.
-    private static let colors: [Character: UInt32] = [
-        "k": 0x1D1A39, "w": 0xF7EBD0, "g": 0x8E86B8, "l": 0xC9C3DE, "r": 0xE5533D,
-        "y": 0xF4B63F, "o": 0xC9852B, "b": 0x2B6C8F, "c": 0x7FD1C7, "n": 0x8A5A3C,
-        "d": 0x5E3B2A, "p": 0xEFA0A8, "m": 0x3F7F5F,
-    ]
-
-    private static let art: [PetKind: [String]] = [
-        .pigeon: [
-            "................", "......kkkkk.....", ".....krrrrrk....", "....krrrrrrrk...",
-            "....kkkkkkkkkk..", "....klllllllk...", "....kllkklllkyy.", "....klllllllkkk.",
-            "..kkkwwwlllk....", ".kgggkwwwwllk...", ".kgggggwnnnnlk..", "..kggggwnyynlk..",
-            "...kgggwnnnnlk..", "....kkkkkkkkk...", ".....ky...ky....", "....kyy..kyy....",
-        ],
-        .snail: [
-            "................", ".............k..", "...........k.k..", "...........k.k..",
-            "....kkkkk..kkkk.", "...kyyyyyk.kccck", "..kyyoooyykkckck", "..kyoyyyoykkccck",
-            "..kyoyoyoykkccck", "..kyoyooyykkcck.", "..kyyoyyyykkcck.", "...kyyyyyk.kcck.",
-            "..kkkkkkkkkkcck.", ".kccccccccccck..", "kcccccccccccck..", ".kkkkkkkkkkkk...",
-        ],
-        .suitcase: [
-            "................", "......kkkk......", ".....kyyyyk.....", ".....ky..yk.....",
-            "..kkkkkkkkkkkk..", ".knnnnnnnnnnnnk.", ".kndddddddddnnk.", ".knnnnnnnnnnnnk.",
-            ".knnkknnnnkknnk.", ".knnkknnnnkknnk.", ".knnnnnnnnnnnnk.", ".knnnrrnnwwwnnk.",
-            ".knnnrrnnwbwnnk.", ".kddddddddddddk.", "..kkkkkkkkkkkk..", "...ky......ky...",
-        ],
-        .letter: [
-            "................", "................", ".kkkkkkkkkkkkkk.", ".kwkwwwwwwwwkwk.",
-            ".kwwkwwwwwwkwwk.", ".kwwwkwwwwkwwwk.", ".kwwwwkrrkwwwwk.", ".kwwwwwrrwwwwwk.",
-            ".kwwwwwwwwwwwwk.", ".kwwkkwwwwkkwwk.", ".kwwkkwwwwkkwwk.", ".kwpwwwkkwwwpwk.",
-            ".kwwwwwwwwwwwwk.", ".kkkkkkkkkkkkkk.", "...kr......kr...", "...krr.....krr..",
-        ],
-    ]
-
-    /// Exact 12 px item art from the mockup. Catalog icons are checked against these keys.
-    private static let itemArt: [String: [String]] = [
-        "note": [
-            "............", ".kkkkkkkkkk.", ".kwwwwwwwwk.", ".kwyyyywwwk.",
-            ".kwwwwwwwwk.", ".kwyyywwwwk.", ".kwwwwwwwwk.", ".kwyyyyywwk.",
-            ".kwwwwwwowk.", ".kkkkkkkkkk.", "............", "............",
-        ],
-        "bowl": [
-            "............", "...y..y..y..", "....y..y....", "..kkkkkkkk..",
-            ".kwwwwwwwwk.", ".kooooooook.", ".kwwwwwwwwk.", "..kwwwwwwk..",
-            "...kwwwwk...", "....kkkk....", "............", "............",
-        ],
-        "tea": [
-            "............", "...kkkkkk...", "..kmmmmmmk..", "..kmwwwwmk..",
-            "..kmwmmwmk..", "..kmwwwwmk..", "..kmmmmmmk..", "..kmmmmmmk..",
-            "..kkkkkkkk..", "............", "............", "............",
-        ],
-        "anchor": [
-            ".....kk.....", "....kyyk....", "....kyyk....", ".....kk.....",
-            "...kkyykk...", ".....yy.....", ".....yy.....", ".k...yy...k.",
-            ".ky..yy..yk.", "..yy.yy.yy..", "...yyyyyy...", "............",
-        ],
-        "lamp": [
-            "............", "....kkkk....", "...kyyyyk...", "..kyyyyyyk..",
-            "..kyyyyyyk..", "...kkkkkk...", ".....kk.....", ".....kk.....",
-            ".....kk.....", "...kkkkkk...", "............", "............",
-        ],
-        "box": [
-            "............", ".....rr.....", "..kkkrrkkk..", ".kpppppppk..",
-            ".kkkkrrkkkk.", ".kwwwrrwwwk.", ".kwwwrrwwwk.", ".kwwwrrwwwk.",
-            ".kwwwrrwwwk.", ".kkkkkkkkkk.", "............", "............",
-        ],
-        "shard": [
-            "............", "....kkk.....", "...kwbbk....", "..kwwbwbk...",
-            "..kwbwwbk...", "...kbwbwk...", "....kbbk....", ".....kk.....",
-            "............", "............", "............", "............",
-        ],
-        "sketch": [
-            "............", ".kkkkkkkkkk.", ".kwwwwwwwwk.", ".kwbbwwwwwk.",
-            ".kwwbbwwwwk.", ".kwwwwbbwwk.", ".kwwwwwwbwk.", ".kwwwwwwwwk.",
-            ".kwwwwwwwwk.", ".kkkkkkkkkk.", "............", "............",
-        ],
-        "slip": [
-            "............", "............", "..kkkkkkkk..", "..kwwwwwwk..",
-            "..kwrrwwwk..", "..kwwwwwwk..", "..kwrrrrwk..", "..kwwwwwwk..",
-            "..kkkkkkkk..", "............", "............", "............",
-        ],
-        "coat": [
-            "............", "....kkkk....", "...kyyyyk...", "..kyyyyyyk..",
-            ".kyykyykyyk.", ".kkkyyyykkk.", "...kyyyyk...", "...kyyyyk...",
-            "...kyyyyk...", "...kkkkkk...", "............", "............",
-        ],
-        "camera": [
-            "............", "............", "...kkk......", ".kkkkkkkkkk.",
-            ".kddddddddk.", ".kddkkkkddk.", ".kddkbbkddk.", ".kddkbbkddk.",
-            ".kddkkkkddk.", ".kkkkkkkkkk.", "............", "............",
-        ],
-        "lunch": [
-            "............", "............", "..kkkkkkkk..", ".kllllllllk.",
-            ".kkkkkkkkkk.", ".kllllllllk.", ".kllllllllk.", ".kllllllllk.",
-            ".kkkkkkkkkk.", "............", "............", "............",
-        ],
-        "fan": [
-            "............", "............", "..kkkkkkkk..", ".krwrwrwrwk.",
-            ".kwrwrwrwrk.", "..krwrwrwk..", "...kwrwrk...", "....kkkk....",
-            ".....nn.....", ".....nn.....", "............", "............",
-        ],
-    ]
-
-    static var itemIconIDs: Set<String> { Set(itemArt.keys) }
-
-    static func petPixels(_ pet: PetKind) -> [UInt32?] { art[pet]!.flatMap { $0.map { colors[$0] } } }
-    static func itemPixels(_ icon: String) -> [UInt32?] { itemArt[icon]!.flatMap { $0.map { colors[$0] } } }
-
-    static func item(_ icon: String) -> CGImage {
-        guard let rows = itemArt[icon] else { preconditionFailure("Missing item art for \(icon)") }
-        return PixelImage.make(width: 12, height: 12, pixels: rows.flatMap { $0.map { colors[$0] } })
+    static func petPixels(_ pet: PetID, catalog: PetCatalog) -> [UInt32?] {
+        pixels(catalog.sprite(pet), catalog: catalog)
+    }
+    static func itemPixels(_ icon: String, catalog: PetCatalog) -> [UInt32?] {
+        pixels(catalog.icons[icon]!, catalog: catalog)
+    }
+    private static func pixels(_ sprite: PixelSprite, catalog: PetCatalog, recolor: [String: String] = [:]) -> [UInt32?] {
+        sprite.rows.flatMap { row in row.map { symbol in
+            catalog.palette[(recolor[String(symbol)] ?? String(symbol)).first!]
+        } }
+    }
+    static func item(_ icon: String, catalog: PetCatalog) -> CGImage {
+        let sprite = catalog.icons[icon]!
+        return PixelImage.make(width: sprite.size[0], height: sprite.size[1], pixels: itemPixels(icon, catalog: catalog))
+    }
+    static func egg(_ pet: PetID, cracked: Bool = false, catalog: PetCatalog) -> CGImage {
+        let sprite = cracked ? catalog.eggs.cracked : catalog.eggs.base
+        let pixels = pixels(sprite, catalog: catalog, recolor: catalog.find(pet)?.egg.recolor ?? [:])
+        return PixelImage.make(width: sprite.size[0], height: sprite.size[1], pixels: pixels)
     }
 
     @MainActor private static var cache: [String: CGImage] = [:]
-
-    /// eggA and the three exact recolorings from the first-launch mockup.
-    static let eggRows = [
-        "................", "................", "......kkkk......", ".....kwwwwk.....",
-        "....kwwwwwwk....", "....kwwlwwwk....", "...kwwllwwwwk...", "...kwwwwwwlwk...",
-        "...kwwwwwwwwk...", "...kwlwwwwwwk...", "...kwwwwwllwk...", "....kwwwwwwk....",
-        "....kwwwwwwk....", ".....kkkkkk.....", "................", "................",
-    ]
-
-    static func egg(_ pet: PetKind, cracked: Bool = false) -> CGImage {
-        let recolor: [Character: Character]
-        switch pet {
-        case .pigeon: recolor = [:]
-        case .snail: recolor = ["w": "y", "l": "o"]
-        case .suitcase: recolor = ["w": "n", "l": "d"]
-        case .letter: recolor = ["w": "w", "l": "r"]
-        }
-        var pixels: [UInt32?] = eggRows.flatMap { row in row.map { colors[recolor[$0] ?? $0] } }
-        if cracked {
-            for (x, y) in [(7, 4), (8, 5), (7, 6), (8, 7), (7, 8), (8, 9)] { pixels[y * 16 + x] = 0x1D1A39 }
-        }
-        return PixelImage.make(width: 16, height: 16, pixels: pixels)
-    }
+    @MainActor private static var cachedCatalog: PetCatalog?
 
     /// Frames are 16x17: one spare row lets the body bob without clipping.
-    @MainActor static func image(_ pet: PetKind, _ frame: Frame) -> CGImage {
+    @MainActor static func image(_ pet: PetID, _ frame: Frame, catalog: PetCatalog) -> CGImage {
+        if cachedCatalog !== catalog {
+            cache.removeAll()
+            cachedCatalog = catalog
+        }
         let key = "\(pet.rawValue)-\(frame)"
         if let cached = cache[key] { return cached }
-        guard let rows = art[pet] else { preconditionFailure("Missing art for \(pet)") }
+        let rows = catalog.sprite(pet).rows
         var pixels = [UInt32?](repeating: nil, count: 16 * 17)
         for (y, row) in rows.enumerated() {
             let isFoot = y >= 14
@@ -158,7 +47,7 @@ enum Sprites {
                 let targetX = x + shift
                 let targetY = y + lift
                 guard (0..<16).contains(targetX), (0..<17).contains(targetY) else { continue }
-                pixels[targetY * 16 + targetX] = colors[symbol]
+                pixels[targetY * 16 + targetX] = catalog.palette[symbol]
             }
         }
         let image = PixelImage.make(width: 16, height: 17, pixels: pixels)
@@ -197,7 +86,10 @@ final class SpriteNSView: NSView {
     private var frameIndex = 0
     private var timer: Timer?
 
-    var pet: PetKind = .pigeon {
+    var catalog: PetCatalog? {
+        didSet { if catalog !== oldValue { needsDisplay = true } }
+    }
+    var pet: PetID? {
         didSet { if pet != oldValue { needsDisplay = true } }
     }
 
@@ -225,27 +117,39 @@ final class SpriteNSView: NSView {
     }
 
     override func draw(_ dirtyRect: NSRect) {
-        guard let context = NSGraphicsContext.current?.cgContext else { return }
+        guard let context = NSGraphicsContext.current?.cgContext, let pet, let catalog else { return }
         let even = frameIndex % 2 == 0
         let frame: Sprites.Frame = moving ? (even ? .stepLeft : .stepRight) : (even ? .rest : .bob)
         context.interpolationQuality = .none
-        context.draw(Sprites.image(pet, frame), in: bounds)
+        context.draw(Sprites.image(pet, frame, catalog: catalog), in: bounds)
     }
 }
 
 struct SpriteView: NSViewRepresentable {
-    var pet: PetKind
+    @Environment(\.petCatalog) private var catalog
+    var pet: PetID
     var scale: CGFloat
     var moving = false
 
     func makeNSView(context: Context) -> SpriteNSView { SpriteNSView() }
 
     func updateNSView(_ view: SpriteNSView, context: Context) {
+        view.catalog = catalog
         view.pet = pet
         view.moving = moving
     }
 
     func sizeThatFits(_ proposal: ProposedViewSize, nsView: SpriteNSView, context: Context) -> CGSize? {
         CGSize(width: 16 * scale, height: 17 * scale)
+    }
+}
+
+private struct PetCatalogKey: EnvironmentKey {
+    static let defaultValue: PetCatalog? = nil
+}
+extension EnvironmentValues {
+    var petCatalog: PetCatalog? {
+        get { self[PetCatalogKey.self] }
+        set { self[PetCatalogKey.self] = newValue }
     }
 }

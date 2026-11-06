@@ -60,6 +60,7 @@ public final class SaveStore {
     public private(set) var care: SaveLoadResult<CareState> = .unreadable(reason: "Save store has not been loaded.")
     public var isLocked: Bool { !journey.allowsSaving || !care.allowsSaving }
 
+    private let pets: PetCatalog?
     private let now: () -> Date
     private let journeyMigrations: SaveMigrations
     private let careMigrations: SaveMigrations
@@ -67,10 +68,11 @@ public final class SaveStore {
     private var pendingRestarts: Set<SaveFile> = []
 
     public init(
-        directory: URL, now: @escaping () -> Date = Date.init,
+        directory: URL, now: @escaping () -> Date = Date.init, pets: PetCatalog?,
         journeyMigrations: SaveMigrations,
         careMigrations: SaveMigrations = SaveMigrations(currentVersion: CareState.currentVersion)
     ) {
+        self.pets = pets
         self.directory = directory
         self.now = now
         self.journeyMigrations = journeyMigrations
@@ -88,7 +90,7 @@ public final class SaveStore {
             if let data = pendingJourney.1 { try atomicWrite(data, to: .journey) }
             if let data = pendingCare.1 { try atomicWrite(data, to: .care) }
             if case .loaded(let saved) = journey, case .missing = care {
-                try save(CareState.legacy(from: saved))
+                try save(CareState.legacy(from: saved, pets: pets))
             }
         } catch {
             // atomicWrite records the failing file as unreadable.

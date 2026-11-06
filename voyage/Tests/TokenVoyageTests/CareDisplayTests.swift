@@ -134,11 +134,11 @@ func homeHabitSummaryShowsBothPositiveTiesAndOmitsZero(talkative: Int, observant
 @MainActor
 @Test func roomArtUsesCurrentSpeciesAndOnlySelectedShelfSlots() throws {
     let item = try #require(localizationCatalog.items.find("box.tea-paper"))
-    for pet in PetKind.allCases {
-        let room = RoomArt.image(pet: pet, shelf: [], theme: AppTheme(testThemes.standard(.dark)))
+    for pet in localizationCatalog.pets.all.map(\.id) {
+        let room = RoomArt.image(pet: pet, shelf: [], theme: AppTheme(testThemes.standard(.dark)), catalog: localizationCatalog.pets)
         #expect(room.width == 240 && room.height == 132 && !room.shouldInterpolate)
         let data = try #require(room.dataProvider?.data) as Data
-        for (index, color) in Sprites.petPixels(pet).enumerated() {
+        for (index, color) in Sprites.petPixels(pet, catalog: localizationCatalog.pets).enumerated() {
             guard let color else { continue }
             let x = 116 + index % 16 * 2
             let y = 76 + index / 16 * 2
@@ -152,8 +152,8 @@ func homeHabitSummaryShowsBothPositiveTiesAndOmitsZero(talkative: Int, observant
             }
         }
     }
-    let empty = try #require(RoomArt.image(pet: .pigeon, shelf: [], theme: AppTheme(testThemes.standard(.dark))).dataProvider?.data) as Data
-    let full = try #require(RoomArt.image(pet: .pigeon, shelf: [item], theme: AppTheme(testThemes.standard(.dark))).dataProvider?.data) as Data
+    let empty = try #require(RoomArt.image(pet: PetID(rawValue: "pigeon"), shelf: [], theme: AppTheme(testThemes.standard(.dark)), catalog: localizationCatalog.pets).dataProvider?.data) as Data
+    let full = try #require(RoomArt.image(pet: PetID(rawValue: "pigeon"), shelf: [item], theme: AppTheme(testThemes.standard(.dark)), catalog: localizationCatalog.pets).dataProvider?.data) as Data
     #expect(empty != full)
     for y in 0..<132 {
         for x in 0..<240 where !(80..<92).contains(x) || !(40..<52).contains(y) {
@@ -164,7 +164,7 @@ func homeHabitSummaryShowsBothPositiveTiesAndOmitsZero(talkative: Int, observant
 }
 
 @Test func shelfFiltersBeforeLimitingAndKeepsAcquisitionOrder() throws {
-    var care = CareState(petName: "Ginkgo", species: .pigeon, hatchedAt: "2026-11-02")
+    var care = CareState(petName: "Ginkgo", species: PetID(rawValue: "pigeon"), hatchedAt: "2026-11-02")
     care.souvenirs = try JSONDecoder().decode([CareState.Souvenir].self, from: Data("""
         [{"id":"z","letterId":1,"shelved":false},
          {"id":"b","letterId":3,"shelved":true},
@@ -180,7 +180,7 @@ func homeHabitSummaryShowsBothPositiveTiesAndOmitsZero(talkative: Int, observant
 
 @MainActor @Test func bubblesUseUnreadThenLatestReadUnansweredThenBagThenSilence() throws {
     var examples = Snapshots.mailExamples(catalog: localizationCatalog, now: careDisplayDate, petName: "Ginkgo")
-    var care = CareState(petName: "Ginkgo", species: .pigeon, hatchedAt: "2026-11-02")
+    var care = CareState(petName: "Ginkgo", species: PetID(rawValue: "pigeon"), hatchedAt: "2026-11-02")
     let latest = try #require(examples.letters.max { $0.id < $1.id })
     #expect(!latest.replyOptions.isEmpty)
     #expect(PetBubble.current(letters: examples.deliveredLetters(now: careDisplayDate), care: care) == .mail)
@@ -200,7 +200,7 @@ func homeHabitSummaryShowsBothPositiveTiesAndOmitsZero(talkative: Int, observant
 
 @Test(arguments: [(0, "再 4 章开礼盒"), (3, "再 1 章开礼盒"), (4, "再 2 章多一件"), (5, "再 1 章多一件"), (6, "")])
 func weeklyCopyAndLocalizedMondayToSundayCells(count: Int, expected: String) {
-    var care = CareState(petName: "Ginkgo", species: .pigeon, hatchedAt: "2026-11-02")
+    var care = CareState(petName: "Ginkgo", species: PetID(rawValue: "pigeon"), hatchedAt: "2026-11-02")
     care.weekly.stamps = (2..<(2 + count)).map { String(format: "2026-11-%02d", $0) }
     care.weekly.boxes = Array(["2026-11-02#4", "2026-11-02#6"].prefix(count < 4 ? 0 : count < 6 ? 1 : 2))
     for language in Language.allCases {
@@ -250,7 +250,7 @@ func habitsUseDistinctNaturalDescriptionsWithoutNumbers(value: Int, band: Int) {
         letter.learnedTexts = ["en": "Lesson \(id)", "zh-Hans": "心得 \(id)"]
         return letter
     }.reversed()
-    var care = CareState(petName: "银杏 Ginkgo", species: .pigeon, hatchedAt: "2025-11-01")
+    var care = CareState(petName: "银杏 Ginkgo", species: PetID(rawValue: "pigeon"), hatchedAt: "2025-11-01")
     care.companionDays = (0..<27).map { DayKey.string(from: Calendar.current.date(byAdding: .day, value: $0, to: DayKey.date(from: care.hatchedAt)!)!) }
     for language in Language.allCases {
         let l10n = L10n(language: language)

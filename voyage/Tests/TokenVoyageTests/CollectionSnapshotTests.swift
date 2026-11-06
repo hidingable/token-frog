@@ -56,7 +56,7 @@ private final class CollectionSnapshotDefaults: UserDefaults, @unchecked Sendabl
         var savedJourney = examples.journey
         for index in savedJourney.letters.indices { savedJourney.letters[index].read = true }
         do {
-            let store = SaveStore(directory: directory, journeyMigrations: .journey(catalog: localizationCatalog))
+            let store = SaveStore(directory: directory, pets: localizationCatalog.pets, journeyMigrations: .journey(catalog: localizationCatalog))
             store.load()
             try store.save(savedJourney)
             try store.save(examples.care)

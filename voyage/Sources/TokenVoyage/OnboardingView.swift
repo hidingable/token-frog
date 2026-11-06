@@ -55,11 +55,12 @@ struct OnboardingView: View {
     private var eggs: some View {
         VStack(alignment: .leading, spacing: 20) {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
-                ForEach(PetKind.allCases, id: \.self) { pet in
+                ForEach(flow.eggs) { definition in
+                    let pet = definition.id
                     Button { flow.selectEgg(pet) } label: {
                         VStack(spacing: 10) {
                             eggImage(pet, scale: 10)
-                            Text(l10n(L10n.eggKeys[pet]!)).font(Theme.pixel())
+                            Text(l10n.eggName(pet, catalog: flow.catalog.pets)).font(Theme.pixel())
                         }
                         .padding(16).frame(maxWidth: .infinity)
                         .foregroundStyle(flow.species == pet ? theme.selectedText : theme.text)
@@ -111,7 +112,7 @@ struct OnboardingView: View {
             Button { flow.skipHatching() } label: {
                 Group {
                     if flow.hatchFrame == 2 {
-                        PixelArtView(image: Sprites.image(flow.species!, .rest), scale: 6).fixedSize()
+                        PixelArtView(image: Sprites.image(flow.species!, .rest, catalog: flow.catalog.pets), scale: 6).fixedSize()
                     } else {
                         eggImage(flow.species!, scale: 6, cracked: flow.hatchFrame == 1)
                             .offset(x: flow.hatchFrame == 0 ? -4 : 4)
@@ -160,7 +161,7 @@ struct OnboardingView: View {
             .fixedSize(horizontal: false, vertical: true)
     }
 
-    private func eggImage(_ pet: PetKind, scale: Int, cracked: Bool = false) -> some View {
-        PixelArtView(image: Sprites.egg(pet, cracked: cracked), scale: scale).fixedSize()
+    private func eggImage(_ pet: PetID, scale: Int, cracked: Bool = false) -> some View {
+        PixelArtView(image: Sprites.egg(pet, cracked: cracked, catalog: flow.catalog.pets), scale: scale).fixedSize()
     }
 }

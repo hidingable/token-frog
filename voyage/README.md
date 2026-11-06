@@ -33,6 +33,10 @@ TOKEN_VOYAGE_DATA_DIR=/tmp/voyage-data build/TokenVoyage.app/Contents/MacOS/Toke
 
 世界地图由 `scripts/generate-worldmap.py` 从 world-atlas 的 `land-110m.json` 生成，平时不需要重跑。
 
+### 加一个角色
+
+在 `Content/pets/` 新建 `<id>.json`，可复制现有角色文件；令 `id` 等于文件名，使用唯一的 `order`（首次打开按它排序，首个角色也是默认角色）。填写中英文默认名、蛋名和至少三条短句，默认名不超过 12 个字符；身体使用 16×16 像素，行内字符与 `egg.recolor` 都引用 `Content/sprites/palette.json`。`accessories` 保持空数组，留作以后身体与配饰的组合层；当前不会绘制配饰。无需登记角色或修改代码，运行 `swift test` 验证内容和存档兼容性。
+
 ## 第三方内容
 
 - [tokscale](https://github.com/junhoyeo/tokscale)：MIT，构建时下载。

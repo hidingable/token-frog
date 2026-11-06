@@ -10,7 +10,7 @@ private let weeklyCalendar: Calendar = {
 }()
 
 private func weeklyCare() -> CareState {
-    CareState(petName: "Pip", species: .pigeon, hatchedAt: "2026-11-02", calendar: weeklyCalendar)
+    CareState(petName: "Pip", species: PetID(rawValue: "pigeon"), hatchedAt: "2026-11-02", calendar: weeklyCalendar)
 }
 
 @Suite struct WeeklyEngineTests {

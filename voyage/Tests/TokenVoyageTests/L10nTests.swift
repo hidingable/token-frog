@@ -99,7 +99,7 @@ import VoyageCore
         finalized: [DayUsage(date: "2026-11-01", fuel: 8_880_000, byClient: ["codex": 8_880_000])],
         calendar: calendar, catalog: localizationCatalog
     )
-    var care = CareState(petName: "Ginkgo", species: .pigeon, hatchedAt: state.startDate)
+    var care = CareState(petName: "Ginkgo", species: PetID(rawValue: "pigeon"), hatchedAt: state.startDate)
     CareEngine.process(journey: &state, care: &care, stories: localizationCatalog.stories, catalog: localizationCatalog)
     let letter = try #require(state.letters.last)
     let text = LetterComposer.text(for: letter, l10n: L10n(language: .zhHans), petName: "Ginkgo", catalog: localizationCatalog)
@@ -107,8 +107,8 @@ import VoyageCore
     #expect(!text.voice.isEmpty)
 }
 
-@Test(arguments: PetKind.allCases)
-func oldLettersRenderInBothLanguagesWithoutChangingSavedData(_ pet: PetKind) throws {
+@Test(arguments: localizationCatalog.pets.all.map(\.id))
+func oldLettersRenderInBothLanguagesWithoutChangingSavedData(_ pet: PetID) throws {
     let state = JourneyState(seed: 7, startCityId: "shanghai", pet: pet, date: "2026-11-01", now: Date(timeIntervalSince1970: 0), catalog: localizationCatalog)
     let initial = try #require(state.letters.first)
     for index in 0..<3 {
@@ -149,20 +149,20 @@ func oldLettersRenderInBothLanguagesWithoutChangingSavedData(_ pet: PetKind) thr
 }
 
 @Test(arguments: [
-    (PetKind.pigeon, 0, "邮差帽被风吹歪了，我又把它扶正。"),
-    (PetKind.pigeon, 1, "邮包还很轻，下一封信也装得下。"),
-    (PetKind.pigeon, 2, "我在屋顶上数了数今天的云。"),
-    (PetKind.snail, 0, "我不着急，壳里的金币叮当响。"),
-    (PetKind.snail, 1, "慢一点也能到，我一直这么觉得。"),
-    (PetKind.snail, 2, "今晚把壳擦亮了，明天接着走。"),
-    (PetKind.suitcase, 0, "今天又多了一张旅行贴纸。"),
-    (PetKind.suitcase, 1, "我把自己的搭扣检查了两遍。"),
-    (PetKind.suitcase, 2, "轮子有点累，不过还能走。"),
-    (PetKind.letter, 0, "我把今天的事都折进了身体里。"),
-    (PetKind.letter, 1, "风大的时候，我得贴着墙走。"),
-    (PetKind.letter, 2, "邮戳盖在身上，有一点痒。"),
+    (PetID(rawValue: "pigeon"), 0, "邮差帽被风吹歪了，我又把它扶正。"),
+    (PetID(rawValue: "pigeon"), 1, "邮包还很轻，下一封信也装得下。"),
+    (PetID(rawValue: "pigeon"), 2, "我在屋顶上数了数今天的云。"),
+    (PetID(rawValue: "snail"), 0, "我不着急，壳里的金币叮当响。"),
+    (PetID(rawValue: "snail"), 1, "慢一点也能到，我一直这么觉得。"),
+    (PetID(rawValue: "snail"), 2, "今晚把壳擦亮了，明天接着走。"),
+    (PetID(rawValue: "suitcase"), 0, "今天又多了一张旅行贴纸。"),
+    (PetID(rawValue: "suitcase"), 1, "我把自己的搭扣检查了两遍。"),
+    (PetID(rawValue: "suitcase"), 2, "轮子有点累，不过还能走。"),
+    (PetID(rawValue: "letter"), 0, "我把今天的事都折进了身体里。"),
+    (PetID(rawValue: "letter"), 1, "风大的时候，我得贴着墙走。"),
+    (PetID(rawValue: "letter"), 2, "邮戳盖在身上，有一点痒。"),
 ])
-func chineseCharacterVoicesPreserveAllTwelveOriginalLines(pet: PetKind, index: Int, expected: String) throws {
+func chineseCharacterVoicesPreserveAllTwelveOriginalLines(pet: PetID, index: Int, expected: String) throws {
     let state = JourneyState(seed: 7, startCityId: "shanghai", pet: pet, date: "2026-11-01", catalog: localizationCatalog)
     var letter = try #require(state.letters.first)
     letter.kind = .daily
@@ -287,7 +287,7 @@ func containsHan(_ value: String) -> Bool {
 @Test func allEnglishLetterPathsContainNoHanExceptThePetName() throws {
     let en = L10n(language: .en)
     let petName = "银杏 Ginkgo"
-    for pet in PetKind.allCases {
+    for pet in localizationCatalog.pets.all.map(\.id) {
         var letter = try #require(JourneyState(seed: 7, startCityId: "shanghai", pet: pet, date: "2026-11-01", catalog: localizationCatalog).letters.first)
         for path in ["departure", "arrival", "long", "deep", "transit"] {
             letter.kind = path == "departure" ? .departure : .daily

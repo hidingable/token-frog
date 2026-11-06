@@ -378,7 +378,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
     }
 
     private func statusImage() -> NSImage {
-        let image = NSImage(cgImage: Sprites.image(model.state?.pet ?? .pigeon, .rest), size: NSSize(width: 16, height: 17))
+        guard let pets = model.catalog?.pets else { return NSImage(size: NSSize(width: 16, height: 17)) }
+        let image = NSImage(cgImage: Sprites.image(model.state?.pet ?? pets.defaultID, .rest, catalog: pets), size: NSSize(width: 16, height: 17))
         return image
     }
 

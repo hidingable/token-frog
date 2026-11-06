@@ -1,0 +1,262 @@
+{
+  "note": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      "............",
+      ".kkkkkkkkkk.",
+      ".kwwwwwwwwk.",
+      ".kwyyyywwwk.",
+      ".kwwwwwwwwk.",
+      ".kwyyywwwwk.",
+      ".kwwwwwwwwk.",
+      ".kwyyyyywwk.",
+      ".kwwwwwwowk.",
+      ".kkkkkkkkkk.",
+      "............",
+      "............"
+    ]
+  },
+  "bowl": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      "............",
+      "...y..y..y..",
+      "....y..y....",
+      "..kkkkkkkk..",
+      ".kwwwwwwwwk.",
+      ".kooooooook.",
+      ".kwwwwwwwwk.",
+      "..kwwwwwwk..",
+      "...kwwwwk...",
+      "....kkkk....",
+      "............",
+      "............"
+    ]
+  },
+  "tea": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      "............",
+      "...kkkkkk...",
+      "..kmmmmmmk..",
+      "..kmwwwwmk..",
+      "..kmwmmwmk..",
+      "..kmwwwwmk..",
+      "..kmmmmmmk..",
+      "..kmmmmmmk..",
+      "..kkkkkkkk..",
+      "............",
+      "............",
+      "............"
+    ]
+  },
+  "anchor": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      ".....kk.....",
+      "....kyyk....",
+      "....kyyk....",
+      ".....kk.....",
+      "...kkyykk...",
+      ".....yy.....",
+      ".....yy.....",
+      ".k...yy...k.",
+      ".ky..yy..yk.",
+      "..yy.yy.yy..",
+      "...yyyyyy...",
+      "............"
+    ]
+  },
+  "lamp": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      "............",
+      "....kkkk....",
+      "...kyyyyk...",
+      "..kyyyyyyk..",
+      "..kyyyyyyk..",
+      "...kkkkkk...",
+      ".....kk.....",
+      ".....kk.....",
+      ".....kk.....",
+      "...kkkkkk...",
+      "............",
+      "............"
+    ]
+  },
+  "box": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      "............",
+      ".....rr.....",
+      "..kkkrrkkk..",
+      ".kpppppppk..",
+      ".kkkkrrkkkk.",
+      ".kwwwrrwwwk.",
+      ".kwwwrrwwwk.",
+      ".kwwwrrwwwk.",
+      ".kwwwrrwwwk.",
+      ".kkkkkkkkkk.",
+      "............",
+      "............"
+    ]
+  },
+  "shard": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      "............",
+      "....kkk.....",
+      "...kwbbk....",
+      "..kwwbwbk...",
+      "..kwbwwbk...",
+      "...kbwbwk...",
+      "....kbbk....",
+      ".....kk.....",
+      "............",
+      "............",
+      "............",
+      "............"
+    ]
+  },
+  "sketch": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      "............",
+      ".kkkkkkkkkk.",
+      ".kwwwwwwwwk.",
+      ".kwbbwwwwwk.",
+      ".kwwbbwwwwk.",
+      ".kwwwwbbwwk.",
+      ".kwwwwwwbwk.",
+      ".kwwwwwwwwk.",
+      ".kwwwwwwwwk.",
+      ".kkkkkkkkkk.",
+      "............",
+      "............"
+    ]
+  },
+  "slip": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      "............",
+      "............",
+      "..kkkkkkkk..",
+      "..kwwwwwwk..",
+      "..kwrrwwwk..",
+      "..kwwwwwwk..",
+      "..kwrrrrwk..",
+      "..kwwwwwwk..",
+      "..kkkkkkkk..",
+      "............",
+      "............",
+      "............"
+    ]
+  },
+  "coat": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      "............",
+      "....kkkk....",
+      "...kyyyyk...",
+      "..kyyyyyyk..",
+      ".kyykyykyyk.",
+      ".kkkyyyykkk.",
+      "...kyyyyk...",
+      "...kyyyyk...",
+      "...kyyyyk...",
+      "...kkkkkk...",
+      "............",
+      "............"
+    ]
+  },
+  "camera": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      "............",
+      "............",
+      "...kkk......",
+      ".kkkkkkkkkk.",
+      ".kddddddddk.",
+      ".kddkkkkddk.",
+      ".kddkbbkddk.",
+      ".kddkbbkddk.",
+      ".kddkkkkddk.",
+      ".kkkkkkkkkk.",
+      "............",
+      "............"
+    ]
+  },
+  "lunch": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      "............",
+      "............",
+      "..kkkkkkkk..",
+      ".kllllllllk.",
+      ".kkkkkkkkkk.",
+      ".kllllllllk.",
+      ".kllllllllk.",
+      ".kllllllllk.",
+      ".kkkkkkkkkk.",
+      "............",
+      "............",
+      "............"
+    ]
+  },
+  "fan": {
+    "size": [
+      12,
+      12
+    ],
+    "rows": [
+      "............",
+      "............",
+      "..kkkkkkkk..",
+      ".krwrwrwrwk.",
+      ".kwrwrwrwrk.",
+      "..krwrwrwk..",
+      "...kwrwrk...",
+      "....kkkk....",
+      ".....nn.....",
+      ".....nn.....",
+      "............",
+      "............"
+    ]
+  }
+}

@@ -87,7 +87,7 @@ final class AppModel {
     private let defaults: UserDefaults
     private let languageOverride: Language?
     var l10n: L10n { L10n(language: languageOverride ?? languagePreference.resolve(systemLanguages: Locale.preferredLanguages)) }
-    var petName: String { care?.petName ?? state?.pet.displayName ?? "" }
+    var petName: String { care?.petName ?? state.map { catalog?.pets.find($0.pet)?.names["zh-Hans"] ?? $0.pet.rawValue } ?? "" }
 
     private let dataDirectory: URL
     private let store: SaveStore
@@ -175,14 +175,14 @@ final class AppModel {
         let loadedCatalog = catalog ?? (try? CityCatalog.load(directory: contentRoot))
         self.catalog = loadedCatalog
         contentFailed = loadedThemes == nil || (loadedCatalog.map { $0.active.count < 2 } ?? true)
-        store = SaveStore(directory: dataDirectory, journeyMigrations: loadedCatalog.map { .journey(catalog: $0) } ?? SaveMigrations(currentVersion: JourneyState.currentVersion))
+        store = SaveStore(directory: dataDirectory, pets: loadedCatalog?.pets, journeyMigrations: loadedCatalog.map { .journey(catalog: $0) } ?? SaveMigrations(currentVersion: JourneyState.currentVersion))
         isLocked = true
         guard !contentFailed, let loadedCatalog else {
             recoveryIssues = [SaveRecoveryIssue(file: .journey, problem: .content)]
             return
         }
         if isSnapshot {
-            let examples = Snapshots.homeExamples(catalog: loadedCatalog, now: self.now, petName: l10n.defaultPetName(.pigeon))
+            let examples = Snapshots.homeExamples(catalog: loadedCatalog, now: self.now, petName: l10n.defaultPetName(loadedCatalog.pets.defaultID, catalog: loadedCatalog.pets))
             state = examples.journey
             care = examples.care
             isLocked = false
@@ -856,11 +856,11 @@ final class AppModel {
     }
 
     private static func newJourney(in store: SaveStore, catalog: CityCatalog, now: Date) -> JourneyState {
-        let pet: PetKind
+        let pet: PetID
         if case .loaded(let care) = store.care {
             pet = care.species
         } else {
-            pet = .pigeon
+            pet = catalog.pets.defaultID
         }
         return JourneyState(
             seed: UInt32.random(in: 0...UInt32.max), startCityId: "shanghai", pet: pet,

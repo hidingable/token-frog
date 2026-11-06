@@ -1,0 +1,57 @@
+{
+  "id": "suitcase",
+  "order": 3,
+  "names": {
+    "zh-Hans": "皮箱",
+    "en": "Trunk"
+  },
+  "eggNames": {
+    "zh-Hans": "皮纹蛋",
+    "en": "Leather egg"
+  },
+  "egg": {
+    "recolor": {
+      "w": "n",
+      "l": "d"
+    }
+  },
+  "sprite": {
+    "size": [
+      16,
+      16
+    ],
+    "rows": [
+      "................",
+      "......kkkk......",
+      ".....kyyyyk.....",
+      ".....ky..yk.....",
+      "..kkkkkkkkkkkk..",
+      ".knnnnnnnnnnnnk.",
+      ".kndddddddddnnk.",
+      ".knnnnnnnnnnnnk.",
+      ".knnkknnnnkknnk.",
+      ".knnkknnnnkknnk.",
+      ".knnnnnnnnnnnnk.",
+      ".knnnrrnnwwwnnk.",
+      ".knnnrrnnwbwnnk.",
+      ".kddddddddddddk.",
+      "..kkkkkkkkkkkk..",
+      "...ky......ky..."
+    ]
+  },
+  "accessories": [],
+  "quirks": [
+    {
+      "zh-Hans": "今天又多了一张旅行贴纸。",
+      "en": "Another day, another travel sticker for my collection."
+    },
+    {
+      "zh-Hans": "我把自己的搭扣检查了两遍。",
+      "en": "Checked my clasps twice. Can't have my socks escaping."
+    },
+    {
+      "zh-Hans": "轮子有点累，不过还能走。",
+      "en": "My wheels are a little tired, but there's plenty of roll left in them."
+    }
+  ]
+}

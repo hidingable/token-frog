@@ -217,7 +217,7 @@ enum Snapshots {
     static func mailExamples(catalog: CityCatalog, now: Date, petName: String) -> JourneyState {
         let start = Calendar.current.date(byAdding: .day, value: -3, to: now)!
         var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: start), now: start, catalog: catalog)
-        var care = CareState(petName: petName, species: .pigeon, hatchedAt: journey.startDate)
+        var care = CareState(petName: petName, species: catalog.pets.defaultID, hatchedAt: journey.startDate)
         for offset in 1...3 {
             let next = Calendar.current.date(byAdding: .day, value: offset, to: start)!
             let day = journey.openDate
@@ -241,7 +241,7 @@ enum Snapshots {
     static func collectionExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
         let start = Calendar.current.date(byAdding: .day, value: -5, to: now)!
         var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: start), now: start, catalog: catalog)
-        var care = CareState(petName: petName, species: .pigeon, hatchedAt: journey.startDate)
+        var care = CareState(petName: petName, species: catalog.pets.defaultID, hatchedAt: journey.startDate)
         for offset in 1...5 {
             let next = Calendar.current.date(byAdding: .day, value: offset, to: start)!
             let day = journey.openDate
@@ -269,7 +269,7 @@ enum Snapshots {
             journey.letters[index].enrichmentDone = true
         }
         // Replaying saved story rewards gives each souvenir a real provenance without changing draw rules.
-        care = CareState(petName: petName, species: .pigeon, hatchedAt: journey.startDate)
+        care = CareState(petName: petName, species: catalog.pets.defaultID, hatchedAt: journey.startDate)
         CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
         care.bag.todayItem = "sketchbook"
         if let index = care.souvenirs.firstIndex(where: { $0.id == souvenirs[2].id }) {

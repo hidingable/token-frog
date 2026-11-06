@@ -54,7 +54,7 @@ private struct MailFixture {
          update: (inout JourneyState, inout CareState) -> Void = { _, _ in }) throws {
         self.enrichment = enrichment
         var journey = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-01", now: .distantPast, catalog: localizationCatalog)
-        var care = CareState(petName: "Ginkgo", species: .pigeon, hatchedAt: journey.startDate)
+        var care = CareState(petName: "Ginkgo", species: PetID(rawValue: "pigeon"), hatchedAt: journey.startDate)
         for _ in 0..<days { Self.settle(&journey) }
         update(&journey, &care)
         try write(journey, care)
@@ -68,7 +68,7 @@ private struct MailFixture {
     }
 
     func write(_ journey: JourneyState, _ care: CareState) throws {
-        let store = SaveStore(directory: directory, journeyMigrations: .journey(catalog: localizationCatalog))
+        let store = SaveStore(directory: directory, pets: localizationCatalog.pets, journeyMigrations: .journey(catalog: localizationCatalog))
         store.load()
         try store.save(journey)
         try store.save(care)

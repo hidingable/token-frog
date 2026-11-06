@@ -64,7 +64,8 @@ enum LetterComposer {
     }
 
     private static func voice(_ letter: Letter, city: City, target: City?, l10n: L10n, catalog: CityCatalog) -> String {
-        let quirk = l10n(quirkKeys[letter.pet]![letter.id % 3])
+        let quirks = catalog.pets.find(letter.pet)?.quirks
+        let quirk = quirks.flatMap { localized($0[letter.id % $0.count], l10n: l10n) } ?? ""
         if let target { return l10n("letter.transitBody", l10n.cityName(target), quirk) }
         var parts: [String] = []
         if letter.isDeepVisit {
@@ -76,7 +77,7 @@ enum LetterComposer {
             parts.append(l10n("letter.arrived", l10n.cityName(city)))
         }
         if let country = letter.newCountries.last { parts.append(l10n("letter.newStamp", l10n.countryName(catalog.countryNames(country)))) }
-        parts.append(quirk)
+        if !quirk.isEmpty { parts.append(quirk) }
         return parts.joined(separator: l10n.language == .zhHans ? "" : " ")
     }
 
@@ -104,10 +105,4 @@ enum LetterComposer {
         return lines
     }
 
-    static let quirkKeys: [PetKind: [String]] = [
-        .pigeon: ["letter.pigeon.hat", "letter.pigeon.bag", "letter.pigeon.clouds"],
-        .snail: ["letter.snail.coins", "letter.snail.slow", "letter.snail.shell"],
-        .suitcase: ["letter.suitcase.sticker", "letter.suitcase.clasps", "letter.suitcase.wheels"],
-        .letter: ["letter.letter.fold", "letter.letter.wind", "letter.letter.postmark"],
-    ]
 }

@@ -15,7 +15,7 @@ final class OnboardingFlow {
     let date: String
     let calendar: Calendar
     private(set) var step: Step = .eggs
-    private(set) var species: PetKind?
+    private(set) var species: PetID?
     var homeCityId = "shanghai"
     var search = ""
     var petName = ""
@@ -90,8 +90,10 @@ final class OnboardingFlow {
         timeoutTask?.cancel()
     }
 
-    func selectEgg(_ pet: PetKind) {
-        guard step == .eggs else { return }
+    var eggs: [PetDefinition] { catalog.pets.all }
+
+    func selectEgg(_ pet: PetID) {
+        guard step == .eggs, catalog.pets.find(pet) != nil else { return }
         species = pet
     }
 
@@ -124,7 +126,7 @@ final class OnboardingFlow {
         switch step {
         case .eggs: step = .home
         case .home:
-            petName = l10n.defaultPetName(species!)
+            petName = l10n.defaultPetName(species!, catalog: catalog.pets)
             step = .hatch
         case .hatch: step = .logbook
         case .logbook:
@@ -153,7 +155,7 @@ final class OnboardingFlow {
     }
 
     var preview: JourneyState {
-        JourneyState(seed: seed, startCityId: homeCityId, pet: species ?? .pigeon, date: date, logbook: logbook, catalog: catalog)
+        JourneyState(seed: seed, startCityId: homeCityId, pet: species ?? catalog.pets.defaultID, date: date, logbook: logbook, catalog: catalog)
     }
 
     func saves(now: Date) -> (journey: JourneyState, care: CareState)? {
@@ -168,7 +170,7 @@ final class OnboardingFlow {
     /// Snapshot examples never start a reader or obtain a save store.
     static func snapshot(catalog: CityCatalog, today: Date, l10n: L10n, step: Step, welcome: Bool) -> OnboardingFlow {
         let flow = OnboardingFlow(catalog: catalog, seed: 42, today: today, readUsage: { _, _ in ([], []) })
-        if step != .eggs { flow.selectEgg(.pigeon) }
+        if step != .eggs { flow.selectEgg(catalog.pets.defaultID) }
         while flow.step != step { flow.advance(l10n: l10n) }
         flow.hatchFrame = 2
         flow.didRead = true

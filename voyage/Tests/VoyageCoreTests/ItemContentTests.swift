@@ -34,7 +34,7 @@ extension ContentSandbox {
         }
         #expect(!library.all.contains { $0.kind == "menu" }) // Sourced dishes arrive in step 11.
         for item in library.all {
-            #expect(ContentValidator.itemIcons.contains(item.icon))
+            #expect(testCatalog.pets.icons[item.icon] != nil)
             for texts in [item.names, item.descriptions] {
                 let chinese = try #require(texts["zh-Hans"])
                 let english = try #require(texts["en"])

@@ -31,13 +31,13 @@ func engineStories(_ extra: [Story] = []) -> StoryLibrary {
 func engineState(seed: UInt32 = 7) -> (JourneyState, CareState) {
     (
         JourneyState(seed: seed, startCityId: "shanghai", date: "2026-11-01", now: Date(timeIntervalSince1970: 0), catalog: testCatalog),
-        CareState(petName: "小邮差 Pip", species: .pigeon, hatchedAt: "2026-11-01")
+        CareState(petName: "小邮差 Pip", species: PetID(rawValue: "pigeon"), hatchedAt: "2026-11-01")
     )
 }
 
 func engineLetter(_ id: Int, arrivals: [String] = ["shanghai"], date: String = "2026-11-01") -> Letter {
     Letter(
-        id: id, kind: .daily, date: date, pet: .pigeon, cityId: "shanghai",
+        id: id, kind: .daily, date: date, pet: PetID(rawValue: "pigeon"), cityId: "shanghai",
         transitTargetId: arrivals.isEmpty ? "xian" : nil, arrivals: arrivals, newCountries: [], fuel: 100,
         compareToMedianPercent: nil, vehicles: [.init(client: "codex", percent: 100)], isDeepVisit: false,
         deliverAt: Date(timeIntervalSince1970: 0)
@@ -276,7 +276,7 @@ func engineLetter(_ id: Int, arrivals: [String] = ["shanghai"], date: String = "
     @Test func legacyDailyLettersAndTheLogbookAreNotRewrittenOrGivenReplies() throws {
         let fixture = try #require(Bundle.module.url(forResource: "journey-v4", withExtension: "json", subdirectory: "Fixtures"))
         var journey = try JSONDecoder().decode(JourneyState.self, from: Data(contentsOf: fixture))
-        var care = CareState(petName: "Pip", species: .snail, hatchedAt: journey.startDate)
+        var care = CareState(petName: "Pip", species: PetID(rawValue: "snail"), hatchedAt: journey.startDate)
         let original = journey
         CareEngine.process(journey: &journey, care: &care, stories: engineStories(), catalog: testCatalog)
         #expect(journey == original)

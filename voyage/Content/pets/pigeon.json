@@ -1,0 +1,54 @@
+{
+  "id": "pigeon",
+  "order": 1,
+  "names": {
+    "zh-Hans": "阿鸽",
+    "en": "Coo"
+  },
+  "eggNames": {
+    "zh-Hans": "斑点蛋",
+    "en": "Spotted egg"
+  },
+  "egg": {
+    "recolor": {}
+  },
+  "sprite": {
+    "size": [
+      16,
+      16
+    ],
+    "rows": [
+      "................",
+      "......kkkkk.....",
+      ".....krrrrrk....",
+      "....krrrrrrrk...",
+      "....kkkkkkkkkk..",
+      "....klllllllk...",
+      "....kllkklllkyy.",
+      "....klllllllkkk.",
+      "..kkkwwwlllk....",
+      ".kgggkwwwwllk...",
+      ".kgggggwnnnnlk..",
+      "..kggggwnyynlk..",
+      "...kgggwnnnnlk..",
+      "....kkkkkkkkk...",
+      ".....ky...ky....",
+      "....kyy..kyy...."
+    ]
+  },
+  "accessories": [],
+  "quirks": [
+    {
+      "zh-Hans": "邮差帽被风吹歪了，我又把它扶正。",
+      "en": "The wind knocked my mail carrier cap sideways. All straight again now."
+    },
+    {
+      "zh-Hans": "邮包还很轻，下一封信也装得下。",
+      "en": "My mailbag is still pretty light. Plenty of room for the next letter."
+    },
+    {
+      "zh-Hans": "我在屋顶上数了数今天的云。",
+      "en": "I found a rooftop and counted the clouds for a while."
+    }
+  ]
+}

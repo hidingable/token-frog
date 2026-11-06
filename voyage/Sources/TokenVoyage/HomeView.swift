@@ -137,7 +137,7 @@ private struct RoomSceneView: View {
             let height = CGFloat(RoomLayout.height * scale)
             let shelf = RoomLayout.shelf(care).compactMap { catalog.items.find($0.id) }
             ZStack(alignment: .topLeading) {
-                PixelArtView(image: RoomArt.image(pet: state.pet, shelf: shelf, theme: theme), scale: scale)
+                PixelArtView(image: RoomArt.image(pet: state.pet, shelf: shelf, theme: theme, catalog: catalog.pets), scale: scale)
                     .frame(width: width, height: height).accessibilityHidden(true)
                 Color.clear.contentShape(Rectangle()).onTapGesture { selectedSouvenir = nil }
                 ForEach(Array(shelf.enumerated()), id: \.element.id) { index, item in

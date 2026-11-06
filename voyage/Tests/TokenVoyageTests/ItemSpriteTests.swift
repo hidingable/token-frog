@@ -5,9 +5,9 @@ import Testing
 @Test func everyCatalogItemIconHasNonemptyPixelArt() throws {
     let icons = Set(localizationCatalog.items.all.map(\.icon))
     #expect(!icons.isEmpty)
-    try #require(icons.isSubset(of: Sprites.itemIconIDs))
+    try #require(icons.isSubset(of: Set(localizationCatalog.pets.icons.keys)))
     for icon in icons {
-        let image = Sprites.item(icon)
+        let image = Sprites.item(icon, catalog: localizationCatalog.pets)
         #expect(image.width == 12)
         #expect(image.height == 12)
         #expect(!image.shouldInterpolate)

@@ -71,14 +71,14 @@ private struct OnboardingFixture {
     }
 
     func prepare(journey: Bool, care: Bool) throws {
-        let store = SaveStore(directory: directory, journeyMigrations: .journey(catalog: localizationCatalog))
+        let store = SaveStore(directory: directory, pets: localizationCatalog.pets, journeyMigrations: .journey(catalog: localizationCatalog))
         store.load()
         if journey {
-            var state = JourneyState(seed: 7, startCityId: "shanghai", pet: .snail, date: onboardingDate, now: onboardingToday, catalog: localizationCatalog)
+            var state = JourneyState(seed: 7, startCityId: "shanghai", pet: PetID(rawValue: "snail"), date: onboardingDate, now: onboardingToday, catalog: localizationCatalog)
             state.letters[0].kind = .departure
             try store.save(state)
         }
-        if care { try store.save(CareState(petName: "My Shelly", species: .snail, hatchedAt: onboardingDate)) }
+        if care { try store.save(CareState(petName: "My Shelly", species: PetID(rawValue: "snail"), hatchedAt: onboardingDate)) }
     }
 }
 
@@ -92,7 +92,7 @@ private func waitForOnboardingRead(_ flow: OnboardingFlow) async throws {
 }
 
 @MainActor
-private func advanceToHatch(_ flow: OnboardingFlow, language: Language = .en, pet: PetKind = .pigeon) {
+private func advanceToHatch(_ flow: OnboardingFlow, language: Language = .en, pet: PetID = PetID(rawValue: "pigeon")) {
     let l10n = L10n(language: language)
     flow.selectEgg(pet)
     flow.advance(l10n: l10n)
@@ -100,7 +100,7 @@ private func advanceToHatch(_ flow: OnboardingFlow, language: Language = .en, pe
 }
 
 @MainActor
-private func advanceToDeparture(_ flow: OnboardingFlow, language: Language = .en, pet: PetKind = .pigeon) {
+private func advanceToDeparture(_ flow: OnboardingFlow, language: Language = .en, pet: PetID = PetID(rawValue: "pigeon")) {
     advanceToHatch(flow, language: language, pet: pet)
     flow.skipHatching()
     flow.advance(l10n: L10n(language: language))
@@ -132,10 +132,10 @@ private func substantialOnboardingHistory() -> [DayDetail] {
             #expect(model.state == nil && model.care == nil)
             #expect(try fixture.files().isEmpty)
         } else {
-            #expect(model.state?.pet == .snail)
-            #expect(model.care?.species == .snail)
+            #expect(model.state?.pet == PetID(rawValue: "snail"))
+            #expect(model.care?.species == PetID(rawValue: "snail"))
             if hasJourney && !hasCare {
-                #expect(model.care?.petName == PetKind.snail.displayName)
+                #expect(model.care?.petName == localizationCatalog.pets.find(PetID(rawValue: "snail"))!.names["zh-Hans"]!)
                 #expect(model.care?.processedLetterIds == [0])
             }
             if let existingCare { #expect(try Data(contentsOf: fixture.careURL) == existingCare) }
@@ -153,11 +153,11 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         model?.start()
         try await waitForOnboardingRead(flow)
         #expect(try fixture.files().isEmpty)
-        flow.selectEgg(.suitcase)
+        flow.selectEgg(PetID(rawValue: "suitcase"))
         flow.advance(l10n: L10n(language: .en))
         #expect(try fixture.files().isEmpty)
-        flow.selectEgg(.letter)
-        #expect(flow.species == .suitcase)
+        flow.selectEgg(PetID(rawValue: "letter"))
+        #expect(flow.species == PetID(rawValue: "suitcase"))
         flow.advance(l10n: L10n(language: .en))
         #expect(try fixture.files().isEmpty)
         flow.petName = "Parcel"
@@ -182,7 +182,7 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         model.start()
         try await waitForOnboardingRead(flow)
         #expect(flow.logbook?.topClients == ["codex", "claude"])
-        advanceToHatch(flow, pet: .snail)
+        advanceToHatch(flow, pet: PetID(rawValue: "snail"))
         flow.petName = "  Shelly Jr\n"
         flow.skipHatching()
         flow.advance(l10n: model.l10n)
@@ -199,7 +199,7 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         #expect(try fixture.files() == ["care.json", "journey.json"])
         let journey = try JSONDecoder().decode(JourneyState.self, from: Data(contentsOf: fixture.journeyURL))
         let care = try JSONDecoder().decode(CareState.self, from: Data(contentsOf: fixture.careURL))
-        #expect(journey.version == 5 && journey.seed == 42 && journey.pet == .snail)
+        #expect(journey.version == 5 && journey.seed == 42 && journey.pet == PetID(rawValue: "snail"))
         #expect(journey.startDate == onboardingDate && journey.openDate == onboardingDate)
         #expect(journey.totalFuel == 0 && journey.legFuel == 0 && journey.days.isEmpty)
         #expect(journey.route == ["shanghai"] && journey.targetCityId == firstStation)
@@ -208,7 +208,7 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         #expect(letter.kind == .logbook && letter.logbook == flow.logbook)
         #expect(letter.read && letter.deliverAt == onboardingToday && letter.enrichmentDone)
         #expect(journey.unreadCount(now: onboardingToday) == 0)
-        #expect(care.petName == "Shelly Jr" && care.species == .snail && care.hatchedAt == onboardingDate)
+        #expect(care.petName == "Shelly Jr" && care.species == PetID(rawValue: "snail") && care.hatchedAt == onboardingDate)
         #expect(care.bag.todayItem == "raincoat")
         #expect(care.companionDays == [onboardingDate] && care.weekly.stamps == [onboardingDate])
         #expect(model.state == journey && model.care == care)
@@ -223,7 +223,7 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         defer { fixture.remove() }
         let model = fixture.model()
         let flow = try #require(model.onboarding)
-        flow.selectEgg(.letter)
+        flow.selectEgg(PetID(rawValue: "letter"))
         flow.advance(l10n: L10n(language: .en))
         flow.homeCityId = "beijing"
         flow.advance(l10n: L10n(language: .en))
@@ -252,14 +252,14 @@ private func substantialOnboardingHistory() -> [DayDetail] {
 
     @Test(arguments: [Language.zhHans, .en])
     func defaultNamesAreChosenOnceAndSavedAsLiteralStrings(language: Language) throws {
-        let expectedEnglish: [PetKind: String] = [.pigeon: "Coo", .snail: "Shelly", .suitcase: "Trunk", .letter: "Note"]
-        for pet in PetKind.allCases {
+        let expectedEnglish: [PetID: String] = [PetID(rawValue: "pigeon"): "Coo", PetID(rawValue: "snail"): "Shelly", PetID(rawValue: "suitcase"): "Trunk", PetID(rawValue: "letter"): "Note"]
+        for pet in localizationCatalog.pets.all.map(\.id) {
             let fixture = try OnboardingFixture()
             defer { fixture.remove() }
             let model = fixture.model()
             let flow = try #require(model.onboarding)
             advanceToDeparture(flow, language: language, pet: pet)
-            let expected = language == .zhHans ? pet.displayName : expectedEnglish[pet]!
+            let expected = language == .zhHans ? localizationCatalog.pets.find(pet)!.names["zh-Hans"]! : expectedEnglish[pet]!
             #expect(flow.petName == expected)
             model.completeOnboarding()
             for preference in [LanguagePreference.zhHans, .en] {
@@ -459,7 +459,7 @@ private func substantialOnboardingHistory() -> [DayDetail] {
             let calls = await quota.calls
             #expect(calls == 0)
             #expect(try fixture.files().isEmpty)
-            if step == .eggs { flow.selectEgg(.pigeon) }
+            if step == .eggs { flow.selectEgg(PetID(rawValue: "pigeon")) }
             flow.advance(l10n: L10n(language: .en))
         }
         model.completeOnboarding()

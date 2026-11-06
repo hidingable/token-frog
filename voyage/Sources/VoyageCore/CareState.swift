@@ -5,7 +5,7 @@ public struct CareState: Codable, Equatable, Sendable {
     public static let currentVersion = 1
     public var version = currentVersion
     public var petName: String
-    public var species: PetKind
+    public var species: PetID
     public var hatchedAt: String
     public var companionDays: [String] = []
     public var habits = Habits()
@@ -101,15 +101,15 @@ public struct CareState: Codable, Equatable, Sendable {
         public var replyId: String?
     }
 
-    public init(petName: String, species: PetKind, hatchedAt: String, calendar: Calendar = .current) {
+    public init(petName: String, species: PetID, hatchedAt: String, calendar: Calendar = .current) {
         self.petName = petName
         self.species = species
         self.hatchedAt = hatchedAt
         weekly = Weekly(weekStart: WeeklyEngine.weekStart(for: hatchedAt, calendar: calendar) ?? hatchedAt)
     }
 
-    public static func legacy(from journey: JourneyState) -> CareState {
-        var care = CareState(petName: journey.pet.displayName, species: journey.pet, hatchedAt: journey.startDate)
+    public static func legacy(from journey: JourneyState, pets: PetCatalog?) -> CareState {
+        var care = CareState(petName: pets?.find(journey.pet)?.names["zh-Hans"] ?? journey.pet.rawValue, species: journey.pet, hatchedAt: journey.startDate)
         care.processedLetterIds = journey.letters.map(\.id)
         return care
     }
@@ -118,7 +118,7 @@ public struct CareState: Codable, Equatable, Sendable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.init(
             petName: try values.decode(String.self, forKey: .petName),
-            species: try values.decode(PetKind.self, forKey: .species),
+            species: try values.decode(PetID.self, forKey: .species),
             hatchedAt: try values.decode(String.self, forKey: .hatchedAt)
         )
         version = try values.decode(Int.self, forKey: .version)

@@ -42,7 +42,7 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
 @Test func changingHomeReplaysTodayAndOnlyChangesFirstLetterCity() throws {
     let logbook = Logbook(workdayStartHour: 9, weekendActivePercent: 25, topClients: ["codex", "claude"])
     var state = JourneyState(
-        seed: 42, startCityId: "shanghai", pet: .snail, date: "2026-11-01",
+        seed: 42, startCityId: "shanghai", pet: PetID(rawValue: "snail"), date: "2026-11-01",
         now: Date(timeIntervalSince1970: 123), logbook: logbook, catalog: testCatalog
     )
     state.letters[0].read = false
@@ -50,7 +50,7 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     state.sync(today: usage("2026-11-01", 400_000_000), calendar: calendar, catalog: testCatalog)
     var expectedLetter = state.letters[0]
     expectedLetter.cityId = "xian"
-    var expected = JourneyState(seed: 42, startCityId: "xian", pet: .snail, date: "2026-11-01", catalog: testCatalog)
+    var expected = JourneyState(seed: 42, startCityId: "xian", pet: PetID(rawValue: "snail"), date: "2026-11-01", catalog: testCatalog)
     expected.sync(today: usage("2026-11-01", 400_000_000), calendar: calendar, catalog: testCatalog)
     expected.letters = [expectedLetter]
     state.setStart("xian", calendar: calendar, catalog: testCatalog)

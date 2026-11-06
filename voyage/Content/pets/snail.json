@@ -1,0 +1,57 @@
+{
+  "id": "snail",
+  "order": 2,
+  "names": {
+    "zh-Hans": "壳壳",
+    "en": "Shelly"
+  },
+  "eggNames": {
+    "zh-Hans": "金壳蛋",
+    "en": "Golden egg"
+  },
+  "egg": {
+    "recolor": {
+      "w": "y",
+      "l": "o"
+    }
+  },
+  "sprite": {
+    "size": [
+      16,
+      16
+    ],
+    "rows": [
+      "................",
+      ".............k..",
+      "...........k.k..",
+      "...........k.k..",
+      "....kkkkk..kkkk.",
+      "...kyyyyyk.kccck",
+      "..kyyoooyykkckck",
+      "..kyoyyyoykkccck",
+      "..kyoyoyoykkccck",
+      "..kyoyooyykkcck.",
+      "..kyyoyyyykkcck.",
+      "...kyyyyyk.kcck.",
+      "..kkkkkkkkkkcck.",
+      ".kccccccccccck..",
+      "kcccccccccccck..",
+      ".kkkkkkkkkkkk..."
+    ]
+  },
+  "accessories": [],
+  "quirks": [
+    {
+      "zh-Hans": "我不着急，壳里的金币叮当响。",
+      "en": "No rush. The coins in my shell make a lovely little jingle."
+    },
+    {
+      "zh-Hans": "慢一点也能到，我一直这么觉得。",
+      "en": "Slow gets you there too. That's always been my theory."
+    },
+    {
+      "zh-Hans": "今晚把壳擦亮了，明天接着走。",
+      "en": "Gave my shell a good polish tonight. Back on the trail tomorrow."
+    }
+  ]
+}

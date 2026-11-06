@@ -20,7 +20,7 @@ private final class ItemDefaults: UserDefaults, @unchecked Sendable {
     init(update: (inout JourneyState, inout CareState) -> Void = { _, _ in }) throws {
         var examples = Snapshots.collectionExamples(catalog: localizationCatalog, now: clock.date, petName: "Ginkgo")
         update(&examples.journey, &examples.care)
-        let store = SaveStore(directory: directory, journeyMigrations: .journey(catalog: localizationCatalog))
+        let store = SaveStore(directory: directory, pets: localizationCatalog.pets, journeyMigrations: .journey(catalog: localizationCatalog))
         store.load()
         try store.save(examples.journey)
         try store.save(examples.care)
@@ -229,7 +229,7 @@ private final class ItemDefaults: UserDefaults, @unchecked Sendable {
 @Test func menusAreEmptyByDefaultAndGroupAcquiredDishesByCityWithOrigins() throws {
     let directory = FileManager.default.temporaryDirectory.appendingPathComponent("voyage-menu-content-\(UUID().uuidString)")
     defer { try? FileManager.default.removeItem(at: directory) }
-    var care = CareState(petName: "Ginkgo", species: .pigeon, hatchedAt: "2026-11-01")
+    var care = CareState(petName: "Ginkgo", species: PetID(rawValue: "pigeon"), hatchedAt: "2026-11-01")
     #expect(ItemCollection.menuGroups(care: care, catalog: localizationCatalog, letters: []).isEmpty)
     try FileManager.default.copyItem(at: LocalizationTestFiles.root.appendingPathComponent("Content"), to: directory)
     var menus: [Item] = []
