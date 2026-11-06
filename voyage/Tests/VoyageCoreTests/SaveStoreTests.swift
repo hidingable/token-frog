@@ -14,7 +14,7 @@ private struct SaveSandbox {
 
     func cleanUp() { try? FileManager.default.removeItem(at: directory) }
 
-    func fixture(_ name: String = "journey-v2") throws -> Data {
+    func fixture(_ name: String = "journey-v3") throws -> Data {
         let url = try #require(Bundle.module.url(forResource: name, withExtension: "json", subdirectory: "Fixtures"))
         return try Data(contentsOf: url)
     }
@@ -29,19 +29,18 @@ private struct SaveSandbox {
 }
 
 @Suite struct SaveStoreTests {
-    @Test func frozenV2LoadsWithoutRewritingOrBackingUp() throws {
+    @Test func frozenV3LoadsWithoutRewritingOrBackingUp() throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
         let original = try box.fixture()
         try original.write(to: box.journeyURL)
         let store = SaveStore(directory: box.directory, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
-        guard case .loaded(let journey) = store.journey else { Issue.record("v2 must load"); return }
-        #expect(journey.version == 2)
+        guard case .loaded(let journey) = store.journey else { Issue.record("v3 must load"); return }
+        #expect(journey.version == 3)
         #expect(journey.seed == 42)
         #expect(journey.pet == .snail)
         #expect(journey.targetCityId == "xian")
-        #expect(journey.nextChoiceId == "beijing")
         #expect(journey.stamps.first?.countryCode == "CN")
         #expect(journey.days["2026-11-01"]?.byClient == ["codex": 123])
         #expect(journey.letters.map(\.id) == [0, 7])
@@ -56,7 +55,7 @@ private struct SaveSandbox {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
         var json = try #require(JSONSerialization.jsonObject(with: box.fixture()) as? [String: Any])
-        for key in ["legFuel", "nextChoiceId", "stamps", "totalFuel"] { json.removeValue(forKey: key) }
+        for key in ["legFuel", "stamps", "totalFuel"] { json.removeValue(forKey: key) }
         json["days"] = ["2026-11-01": [:]]
         var letters = try #require(json["letters"] as? [[String: Any]])
         for index in letters.indices {
@@ -70,7 +69,7 @@ private struct SaveSandbox {
         store.load()
         guard case .loaded(let state) = store.journey else { Issue.record("Defaults must decode"); return }
         #expect(state.legFuel == 0 && state.totalFuel == 0)
-        #expect(state.nextChoiceId == nil && state.stamps.isEmpty)
+        #expect(state.stamps.isEmpty)
         #expect(state.days["2026-11-01"] == DayRecord())
         #expect(state.letters.allSatisfy { !$0.read && !$0.enrichmentDone && $0.transitTargetId == nil })
         for key in ["days", "letters"] { json.removeValue(forKey: key) }
@@ -180,7 +179,7 @@ private struct SaveSandbox {
     @Test func migrationsRunInOrderAndBackUpOriginalBytes() throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
-        let original = try box.writeJourney()
+        let original = try box.writeJourney { $0["version"] = 2 }
         var order: [Int] = []
         let migrations = SaveMigrations(currentVersion: 4, steps: [
             2: { json in
@@ -212,7 +211,7 @@ private struct SaveSandbox {
     @Test(arguments: [false, true]) func failedOrMissingMigrationNeverWrites(missing: Bool) throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
-        let original = try box.writeJourney()
+        let original = try box.writeJourney { $0["version"] = 2 }
         enum MigrationError: Error { case failed }
         var steps: [Int: SaveMigrations.Step] = [2: { $0 }]
         if !missing { steps[3] = { _ in throw MigrationError.failed } }
@@ -227,7 +226,7 @@ private struct SaveSandbox {
     @Test func migrationMustDecodeBeforeWritingAndOtherFileCanBlockWriteback() throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
-        let original = try box.writeJourney()
+        let original = try box.writeJourney { $0["version"] = 2 }
         let broken = SaveMigrations(currentVersion: 3, steps: [2: { json in
             var json = json
             json.removeValue(forKey: "seed")
@@ -396,7 +395,7 @@ private struct SaveSandbox {
             journeyMigrations: SaveMigrations(currentVersion: 3, steps: [2: { $0 }])
         )
         #expect(try store.restorableBackups(for: .journey).isEmpty)
-        _ = try box.writeJourney()
+        _ = try box.writeJourney { $0["version"] = 2 }
         store.load()
         try Data("broken journey".utf8).write(to: box.journeyURL)
         store.load()

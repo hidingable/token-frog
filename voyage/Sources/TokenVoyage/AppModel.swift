@@ -305,12 +305,6 @@ final class AppModel {
         }
     }
 
-    func choose(_ cityId: String?) {
-        guard !isLocked else { return }
-        state?.choose(next: cityId)
-        persist()
-    }
-
     func markRead(_ letter: Letter) {
         guard !isLocked, !letter.read else { return }
         state?.markRead(letter.id)

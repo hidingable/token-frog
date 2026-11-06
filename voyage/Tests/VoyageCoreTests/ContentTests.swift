@@ -165,7 +165,13 @@ func removedCitiesLoadAndReachTheirSavedTarget(endpoint: String) throws {
     let catalog = try CityCatalog.load(directory: box.directory)
     #expect(catalog.find("test-harbor") != nil)
     #expect(catalog.active.count == 108)
-    #expect(state.destinationCards(catalog: catalog).contains { $0.id == "test-harbor" })
+    let picks = (0..<200).map { seed in
+        DestinationPicker.pick(
+            from: state.legTo, currentCityId: state.targetCityId, route: state.route + [state.targetCityId],
+            stampedCountries: Set(state.stamps.map(\.countryCode)), medianFuel: 0, catalog: catalog, seed: UInt32(seed)
+        )
+    }
+    #expect(picks.contains("test-harbor"))
 }
 
 @Test func retiredTargetsArriveButAreNeverSelectedAgain() throws {
@@ -179,10 +185,9 @@ func removedCitiesLoadAndReachTheirSavedTarget(endpoint: String) throws {
     #expect(!catalog.active.contains { $0.id == retired })
     state.sync(today: DayUsage(date: "2026-11-01", fuel: state.legCost), catalog: catalog)
     #expect(state.currentCityId == retired)
-    state.choose(next: retired)
     var fuel = state.totalFuel
     for _ in 0..<12 {
-        #expect(!state.destinationCards(catalog: catalog).contains { $0.id == retired })
+        #expect(!DestinationPicker.candidates(currentCityId: state.currentCityId, route: state.route, catalog: catalog).contains { $0.id == retired })
         #expect(state.targetCityId != retired)
         fuel += state.remainingFuel
         state.sync(today: DayUsage(date: "2026-11-01", fuel: fuel), catalog: catalog)

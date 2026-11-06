@@ -78,6 +78,12 @@ public enum JourneyMigrations {
         legacyCountryCodes[legacyName] ?? "ZZ"
     }
 
+    static func migrateV2(_ original: [String: Any]) -> [String: Any] {
+        var json = original
+        json.removeValue(forKey: "nextChoiceId")
+        return json
+    }
+
     static func migrateV1(_ original: [String: Any], catalog: CityCatalog) throws -> [String: Any] {
         var json = original
         if let stamps = json["stamps"] as? [[String: Any]] {
@@ -116,6 +122,7 @@ extension SaveMigrations {
     public static func journey(catalog: CityCatalog) -> SaveMigrations {
         SaveMigrations(currentVersion: JourneyState.currentVersion, steps: [
             1: { try JourneyMigrations.migrateV1($0, catalog: catalog) },
+            2: { JourneyMigrations.migrateV2($0) },
         ])
     }
 }

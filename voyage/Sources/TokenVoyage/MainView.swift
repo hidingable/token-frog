@@ -112,7 +112,6 @@ struct JourneyTab: View {
                 }
 
                 RecentBars(days: model.recentDays)
-                DestinationCards(model: model)
             }
         }
     }
@@ -138,52 +137,6 @@ struct RecentBars: View {
         }
         .font(Theme.pixel())
         .frame(height: 88, alignment: .bottom)
-    }
-}
-
-struct DestinationCards: View {
-    @Environment(\.l10n) private var l10n
-    let model: AppModel
-
-    var body: some View {
-        if let state = model.state, let catalog = model.catalog {
-            VStack(alignment: .leading, spacing: 8) {
-                Text(l10n("destination.prompt", l10n.cityName(catalog.city(state.targetCityId)), model.petName))
-                    .font(Theme.pixel())
-                    .foregroundStyle(Theme.paper)
-                HStack(alignment: .top, spacing: 8) {
-                    ForEach(state.destinationCards(catalog: catalog)) { card in
-                        let selected = state.nextChoiceId == card.city.id
-                        Button {
-                            model.choose(selected ? nil : card.city.id)
-                        } label: {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(l10n.cityName(card.city)).font(Theme.pixel(24))
-                                Text(l10n.countryName(catalog.countryNames(card.city.countryCode)))
-                                Text(l10n("destination.distance", Format.km(fuel: card.distanceFuel))).foregroundStyle(Theme.sea)
-                                Text(l10n("destination.tokens", l10n.tokens(card.distanceFuel)))
-                                Text(reasonText(card.reason)).foregroundStyle(Theme.brown)
-                            }
-                            .font(Theme.pixel())
-                            .foregroundStyle(Theme.ink)
-                            .padding(10)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Theme.paper)
-                            .pixelBorder(selected ? Theme.amber : Theme.ink, width: selected ? 4 : 2)
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
-            }
-        }
-    }
-
-    private func reasonText(_ reason: DestinationCard.Reason) -> String {
-        switch reason {
-        case .nearest: l10n("destination.nearest")
-        case .reachable: l10n("destination.reachable")
-        case .newCountry: l10n("destination.newCountry")
-        }
     }
 }
 

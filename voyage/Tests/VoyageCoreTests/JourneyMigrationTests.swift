@@ -39,20 +39,44 @@ private struct MigrationSandbox {
 private enum MigrationTestError: Error { case didNotLoad }
 
 @Suite struct JourneyMigrationTests {
+    @Test func frozenV2MigrationOnlyRemovesChoiceAndUpdatesVersion() throws {
+        let box = try MigrationSandbox()
+        defer { box.cleanUp() }
+        let original = try box.fixture("journey-v2")
+        try original.write(to: box.journeyURL)
+        let (state, store) = try box.load()
+        let expected = try JSONDecoder().decode(JourneyState.self, from: box.fixture("journey-v3"))
+        #expect(state == expected)
+        var old = try #require(JSONSerialization.jsonObject(with: original) as? [String: Any])
+        old.removeValue(forKey: "nextChoiceId")
+        old["version"] = 3
+        let written = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: box.journeyURL)) as? [String: Any])
+        #expect(NSDictionary(dictionary: written).isEqual(to: old))
+        #expect(written["nextChoiceId"] == nil)
+        let encoded = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(state)) as? [String: Any])
+        #expect(encoded["nextChoiceId"] == nil)
+        #expect(state.targetCityId == "xian")
+        #expect(state.legCost == 12_203_490)
+        #expect(state.legFrom == Coordinate(lat: 31.23, lon: 121.47))
+        #expect(state.legTo == Coordinate(lat: 34.34, lon: 108.94))
+        let backups = try store.backups(for: .journey)
+        #expect(backups.count == 1)
+        #expect(try Data(contentsOf: #require(backups.first).url) == original)
+    }
+
     @Test func frozenV1MigrationPreservesOriginalAndJourneyHistory() throws {
         let box = try MigrationSandbox()
         defer { box.cleanUp() }
         let original = try box.fixture("journey-v1")
         try original.write(to: box.journeyURL)
         let (state, store) = try box.load()
-        let expected = try JSONDecoder().decode(JourneyState.self, from: box.fixture("journey-v2"))
+        let expected = try JSONDecoder().decode(JourneyState.self, from: box.fixture("journey-v3"))
         #expect(state == expected)
-        #expect(state.version == 2)
+        #expect(state.version == 3)
         #expect(state.totalFuel == 123 && state.legFuel == 123)
         #expect(state.route == ["shanghai"])
         #expect(state.letters.map(\.id) == [0, 7])
         #expect(state.stamps.map(\.countryCode) == ["CN"])
-        #expect(state.nextChoiceId == "beijing")
         #expect(state.legFrom == testCatalog.city("shanghai").coordinate)
         #expect(state.legTo == testCatalog.city("xian").coordinate)
         #expect(state.targetCountryCode == "CN")
@@ -130,13 +154,12 @@ private enum MigrationTestError: Error { case didNotLoad }
         try box.fixture("journey-v1").write(to: box.journeyURL)
         var (migrated, _) = try box.load()
         // This fixture freezes the M0 coordinates and exact truncated distance formula.
-        var reference = try JSONDecoder().decode(JourneyState.self, from: box.fixture("journey-v2"))
+        var reference = try JSONDecoder().decode(JourneyState.self, from: box.fixture("journey-v3"))
         let fuel = reference.remainingFuel + 4_321
         let usage = DayUsage(date: "2026-11-02", fuel: fuel, byClient: ["codex": fuel])
         migrated.sync(today: usage, catalog: testCatalog)
         reference.sync(today: usage, catalog: testCatalog)
         #expect(migrated.currentCityId == "xian")
-        #expect(migrated.targetCityId == "beijing")
         #expect(migrated.legFuel == 4_321)
         #expect(migrated.route == reference.route)
         #expect(migrated.currentCityId == reference.currentCityId)

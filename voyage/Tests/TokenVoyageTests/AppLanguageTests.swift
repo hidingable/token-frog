@@ -118,7 +118,6 @@ func invalidContentLocksBeforeAnySaveOrScan(mode: String) async throws {
     model.retrySaves()
     model.restartSave(.journey)
     model.restoreSave(SaveBackup(file: .journey, url: directory.appendingPathComponent("not-a-backup")))
-    model.choose("beijing")
     model.setPet(.snail)
     model.setStart("beijing")
     #expect(model.isLocked && model.state == nil)

@@ -68,17 +68,8 @@ public struct Stamp: Codable, Equatable, Sendable {
     public var date: String
 }
 
-public struct DestinationCard: Equatable, Sendable, Identifiable {
-    public enum Reason: Equatable, Sendable { case nearest, reachable, newCountry }
-
-    public var city: City
-    public var distanceFuel: Int
-    public var reason: Reason
-    public var id: String { city.id }
-}
-
 public struct JourneyState: Codable, Equatable, Sendable {
-    public static let currentVersion = 2
+    public static let currentVersion = 3
     public var version = currentVersion
     public var seed: UInt32
     public var pet: PetKind
@@ -90,7 +81,6 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public var legTo: Coordinate
     public var targetCountryCode: String?
     public var legFuel = 0
-    public var nextChoiceId: String?
     public var route: [String]
     public var stamps: [Stamp] = []
     public var openDate: String
@@ -111,7 +101,11 @@ public struct JourneyState: Codable, Equatable, Sendable {
         legFrom = start.coordinate
         legTo = start.coordinate
         legCost = fuelPerKm
-        setTarget(autoPick(from: start.id, coordinate: start.coordinate, catalog: catalog), from: start.coordinate, catalog: catalog)
+        let first = DestinationPicker.first(
+            from: start.coordinate, currentCityId: start.id, route: route,
+            stampedCountries: Set(stamps.map(\.countryCode)), catalog: catalog, seed: seed
+        )
+        setTarget(first, from: start.coordinate, catalog: catalog)
         letters = [
             Letter(
                 id: 0, kind: .departure, date: date, pet: pet, cityId: start.id, transitTargetId: nil, arrivals: [],
@@ -139,7 +133,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         Self.cost(from: from.coordinate, to: to.coordinate)
     }
 
-    private static func cost(from: Coordinate, to: Coordinate) -> Int {
+    static func cost(from: Coordinate, to: Coordinate) -> Int {
         max(fuelPerKm, Int(from.distanceKm(to: to) * Double(fuelPerKm)))
     }
 
@@ -147,19 +141,15 @@ public struct JourneyState: Codable, Equatable, Sendable {
 
     /// Advances the journey. `finalized` must hold the final count of every day from `openDate` up to,
     /// but excluding, `today.date`; the caller skips this call when those counts could not be read.
-    public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], calendar: Calendar = .current, catalog: CityCatalog) {
+    public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = []) {
         guard today.date >= openDate else { return }
         let finals = Dictionary(finalized.map { ($0.date, $0) }, uniquingKeysWith: { _, latest in latest })
         while openDate < today.date {
-            apply(finals[openDate] ?? DayUsage(date: openDate), catalog: catalog)
+            apply(finals[openDate] ?? DayUsage(date: openDate), catalog: catalog, wishTags: wishTags)
             settle(openDate, calendar: calendar)
             openDate = DayKey.next(openDate, calendar: calendar)
         }
-        apply(today, catalog: catalog)
-    }
-
-    public mutating func choose(next cityId: String?) {
-        nextChoiceId = cityId
+        apply(today, catalog: catalog, wishTags: wishTags)
     }
 
     public mutating func markRead(_ letterId: Int) {
@@ -175,30 +165,6 @@ public struct JourneyState: Codable, Equatable, Sendable {
         letters.filter { $0.deliverAt <= now && !$0.read }.count
     }
 
-    /// Offers up to three stops after the current target, each priced in tokens.
-    public func destinationCards(catalog: CityCatalog) -> [DestinationCard] {
-        let from = catalog.city(targetCityId)
-        let coordinate = from.isPlaceholder ? legTo : from.coordinate
-        let pool = candidatePool(excluding: [from.id, currentCityId], catalog: catalog)
-            .map { (city: $0, cost: Self.cost(from: coordinate, to: $0.coordinate)) }
-            .sorted { $0.cost < $1.cost }
-        guard let nearest = pool.first else { return [] }
-
-        var cards = [DestinationCard(city: nearest.city, distanceFuel: nearest.cost, reason: .nearest)]
-        let reach = max(nearest.cost * 3 / 2, recentDailyFuel())
-        if let reachable = pool.first(where: { $0.cost >= reach && $0.city.id != nearest.city.id }) {
-            cards.append(DestinationCard(city: reachable.city, distanceFuel: reachable.cost, reason: .reachable))
-        }
-        let stamped = Set(stamps.map(\.countryCode))
-        if let fresh = pool.first(where: { entry in
-            !stamped.contains(entry.city.countryCode) && entry.city.countryCode != from.countryCode
-                && !cards.contains { $0.city.id == entry.city.id }
-        }) {
-            cards.append(DestinationCard(city: fresh.city, distanceFuel: fresh.cost, reason: .newCountry))
-        }
-        return cards.sorted { $0.distanceFuel < $1.distanceFuel }
-    }
-
     /// Median of the most recent active days, used to compare today against "usual".
     public func recentDailyFuel(before date: String? = nil, limit: Int = 14) -> Int {
         let values = days
@@ -210,24 +176,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         return values.isEmpty ? 0 : values[values.count / 2]
     }
 
-    private func candidatePool(excluding excluded: Set<String>, catalog: CityCatalog) -> [City] {
-        let visited = Set(route)
-        let unvisited = catalog.active.filter { !visited.contains($0.id) && !excluded.contains($0.id) }
-        return unvisited.isEmpty ? catalog.active.filter { !excluded.contains($0.id) } : unvisited
-    }
-
-    private func autoPick(from cityId: String, coordinate: Coordinate, catalog: CityCatalog) -> String {
-        let pool = candidatePool(excluding: [cityId], catalog: catalog)
-            .sorted { Self.cost(from: coordinate, to: $0.coordinate) < Self.cost(from: coordinate, to: $1.coordinate) }
-        let stamped = Set(stamps.map(\.countryCode))
-        let nearby = Array(pool.prefix(4))
-        let preferred = nearby.filter { !stamped.contains($0.countryCode) }
-        let options = preferred.isEmpty ? nearby : preferred
-        // AppModel requires at least two active cities before starting or resuming a journey.
-        return options[Int(mix(seed &+ UInt32(route.count)) % UInt32(options.count))].id
-    }
-
-    private mutating func apply(_ usage: DayUsage, catalog: CityCatalog) {
+    private mutating func apply(_ usage: DayUsage, catalog: CityCatalog, wishTags: Set<String>) {
         var record = days[usage.date] ?? DayRecord()
         let delta = usage.fuel - record.fuel
         for (client, fuel) in usage.byClient {
@@ -237,11 +186,11 @@ public struct JourneyState: Codable, Equatable, Sendable {
         days[usage.date] = record
         if delta > 0 {
             totalFuel += delta
-            advance(delta, date: usage.date, catalog: catalog)
+            advance(delta, date: usage.date, catalog: catalog, wishTags: wishTags)
         }
     }
 
-    private mutating func advance(_ amount: Int, date: String, catalog: CityCatalog) {
+    private mutating func advance(_ amount: Int, date: String, catalog: CityCatalog, wishTags: Set<String>) {
         var remaining = amount
         while remaining > 0 {
             let needed = remainingFuel
@@ -250,7 +199,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
                 return
             }
             remaining -= needed
-            arrive(date: date, catalog: catalog)
+            arrive(date: date, catalog: catalog, wishTags: wishTags)
         }
     }
 
@@ -263,7 +212,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         targetCountryCode = target.isPlaceholder ? nil : target.countryCode
     }
 
-    private mutating func arrive(date: String, catalog: CityCatalog) {
+    private mutating func arrive(date: String, catalog: CityCatalog, wishTags: Set<String>) {
         let arrivedId = targetCityId
         let arrivedCoordinate = legTo
         currentCityId = arrivedId
@@ -274,14 +223,13 @@ public struct JourneyState: Codable, Equatable, Sendable {
             stamps.append(Stamp(countryCode: countryCode, cityId: arrivedId, date: date))
             days[date, default: DayRecord()].newCountries.append(countryCode)
         }
-        let next: String
-        if let choice = nextChoiceId, choice != arrivedId, catalog.find(choice)?.status == "active" {
-            next = choice
-        } else {
-            next = autoPick(from: arrivedId, coordinate: arrivedCoordinate, catalog: catalog)
-        }
+        let next = DestinationPicker.pick(
+            from: arrivedCoordinate, currentCityId: arrivedId, route: route,
+            stampedCountries: Set(stamps.map(\.countryCode)),
+            medianFuel: recentDailyFuel(before: date, limit: DestinationPicker.configuration.recentActiveDays),
+            wishTags: wishTags, catalog: catalog, seed: seed
+        )
         setTarget(next, from: arrivedCoordinate, catalog: catalog)
-        nextChoiceId = nil
     }
 
     private mutating func settle(_ date: String, calendar: Calendar) {
@@ -321,7 +269,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
 
 extension JourneyState {
     private enum CodingKeys: String, CodingKey {
-        case version, seed, pet, startDate, currentCityId, targetCityId, legFuel, nextChoiceId
+        case version, seed, pet, startDate, currentCityId, targetCityId, legFuel
         case route, stamps, openDate, days, letters, totalFuel, legCost, legFrom, legTo, targetCountryCode
     }
 
@@ -341,7 +289,6 @@ extension JourneyState {
         legTo = try values.decode(Coordinate.self, forKey: .legTo)
         targetCountryCode = try values.decodeIfPresent(String.self, forKey: .targetCountryCode)
         legFuel = try values.decode(Int.self, forKey: .legFuel, default: 0)
-        nextChoiceId = try values.decodeIfPresent(String.self, forKey: .nextChoiceId)
         route = try values.decode([String].self, forKey: .route)
         stamps = try values.decode([Stamp].self, forKey: .stamps, default: [])
         openDate = try values.decode(String.self, forKey: .openDate)
@@ -400,11 +347,4 @@ private extension KeyedDecodingContainer {
     func decode<T: Decodable>(_ type: T.Type, forKey key: Key, default fallback: T) throws -> T {
         contains(key) ? try decode(type, forKey: key) : fallback
     }
-}
-
-private func mix(_ value: UInt32) -> UInt32 {
-    var x = value &+ 0x9E37_79B9
-    x = (x ^ (x >> 16)) &* 0x8504_7B6B
-    x = (x ^ (x >> 13)) &* 0xC2B2_AE35
-    return x ^ (x >> 16)
 }

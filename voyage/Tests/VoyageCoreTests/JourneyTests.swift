@@ -118,16 +118,16 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     #expect(run() == run())
 }
 
-@Test func choiceSteersTheStopAfterTheCurrentTarget() {
+@Test func savedTargetDoesNotChangeUntilArrival() throws {
     var state = fresh()
-    let cards = state.destinationCards(catalog: testCatalog)
-    #expect(!cards.isEmpty)
-    #expect(Set(cards.map(\.city.id)).count == cards.count)
-    let picked = cards.last!.city.id
-    state.choose(next: picked)
+    state.sync(today: usage("2026-11-01", 123), calendar: calendar, catalog: testCatalog)
+    let original = state
+    state = try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(state))
+    state.sync(today: usage("2026-11-01", 123), calendar: calendar, catalog: testCatalog, wishTags: ["coast"])
+    #expect(state == original)
     state.sync(today: usage("2026-11-01", state.legCost), calendar: calendar, catalog: testCatalog)
-    #expect(state.targetCityId == picked)
-    #expect(state.nextChoiceId == nil)
+    #expect(state.currentCityId == original.targetCityId)
+    #expect(state.targetCityId != original.targetCityId)
 }
 
 @Test func lowDaysBecomeDeepVisitsOnceThereIsABaseline() {
