@@ -2001,7 +2001,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "One more stamp in my passport, this time from %@."
+            "value": "New passport stamp: %@."
           }
         }
       }

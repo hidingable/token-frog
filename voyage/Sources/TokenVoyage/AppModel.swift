@@ -742,7 +742,8 @@ final class AppModel {
     }
 
     func photoURL(_ letter: Letter) -> URL? {
-        letter.photoFile.map { dataDirectory.appendingPathComponent("photos").appendingPathComponent($0) }
+        guard let name = letter.photoFile, name.wholeMatch(of: /letter-[0-9]+\.png/) != nil else { return nil }
+        return dataDirectory.appendingPathComponent("photos").appendingPathComponent(name)
     }
 
     /// Scans proactively enrich only the newest letter, including its current-language place.
@@ -813,10 +814,10 @@ final class AppModel {
     private func savePhoto(_ data: Data, letterId: Int) -> String? {
         guard !isLocked, let png = Enricher.pixelate(data, palette: theme.definition!.photoPalette) else { return nil }
         let directory = dataDirectory.appendingPathComponent("photos")
-        try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let name = "letter-\(letterId).png"
         do {
-            try png.write(to: directory.appendingPathComponent(name), options: .atomic)
+            try PrivateStorage.createDirectory(at: directory)
+            try PrivateStorage.write(png, to: directory.appendingPathComponent(name))
             return name
         } catch {
             return nil
@@ -960,7 +961,7 @@ final class AppModel {
 
     func openDataFolder() {
         do {
-            try FileManager.default.createDirectory(at: dataDirectory, withIntermediateDirectories: true)
+            try PrivateStorage.createDirectory(at: dataDirectory)
             NSWorkspace.shared.open(dataDirectory)
         } catch { archiveError = error }
     }

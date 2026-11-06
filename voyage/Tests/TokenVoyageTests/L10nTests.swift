@@ -3,6 +3,12 @@ import Testing
 import VoyageCore
 @testable import TokenVoyage
 
+@Test(arguments: ["Philippines", "United States"])
+func passportStampDoesNotRequireACountryArticle(country: String) {
+    #expect(L10n(language: .en)("letter.newStamp", country) == "New passport stamp: \(country).")
+    #expect(L10n(language: .zhHans)("letter.newStamp", country) == "护照上多了一个\(country)的章。")
+}
+
 @Test func localizationFallbackUsesSelectedThenEnglishThenChineseThenKey() {
     let translations: [Language: [String: String]] = [
         .zhHans: ["selected": "所选翻译", "chineseOnly": "中文兜底"],

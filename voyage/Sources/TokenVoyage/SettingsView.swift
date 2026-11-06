@@ -21,17 +21,19 @@ struct SettingsTab: View {
                 }
             }
             group("settings.appearance") {
-                Picker(l10n("settings.appearance"), selection: $model.appearancePreference) {
-                    ForEach(AppearancePreference.standard, id: \.self) { preference in
-                        Text(l10n(L10n.appearanceKeys[preference]!)).tag(preference)
-                    }
-                    if let themes = model.themes {
-                        ForEach(themes.all.filter { $0.id != "night" && $0.id != "day" }) { theme in
-                            Text(theme.names[l10n.language.rawValue]!).tag(AppearancePreference.theme(theme.id))
+                row("settings.appearance") {
+                    Picker(l10n("settings.appearance"), selection: $model.appearancePreference) {
+                        ForEach(AppearancePreference.standard, id: \.self) { preference in
+                            Text(l10n(L10n.appearanceKeys[preference]!)).tag(preference)
+                        }
+                        if let themes = model.themes {
+                            ForEach(themes.all.filter { $0.id != "night" && $0.id != "day" }) { theme in
+                                Text(theme.names[l10n.language.rawValue]!).tag(AppearancePreference.theme(theme.id))
+                            }
                         }
                     }
+                    .labelsHidden().pickerStyle(.menu)
                 }
-                .labelsHidden().pickerStyle(.menu)
             }
             group("settings.display") {
                 Toggle(l10n("settings.notch"), isOn: $model.notchEnabled)

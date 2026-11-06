@@ -76,6 +76,20 @@ private func appearanceModel(_ directory: URL, defaults: UserDefaults, snapshot:
     #expect(!FileManager.default.fileExists(atPath: directory.path))
 }
 
+@MainActor
+@Test func constructingASnapshotModelDoesNotRepairRealSavePermissions() throws {
+    let directory = FileManager.default.temporaryDirectory.appendingPathComponent("voyage-appearance-permissions-\(UUID().uuidString)")
+    defer { try? FileManager.default.removeItem(at: directory) }
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    let file = directory.appendingPathComponent("journey.json")
+    try Data("synthetic save bytes".utf8).write(to: file)
+    try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: directory.path)
+    try FileManager.default.setAttributes([.posixPermissions: 0o644], ofItemAtPath: file.path)
+    _ = appearanceModel(directory, defaults: AppearanceDefaults(), snapshot: true)
+    #expect(try FileManager.default.attributesOfItem(atPath: directory.path)[.posixPermissions] as? Int == 0o755)
+    #expect(try FileManager.default.attributesOfItem(atPath: file.path)[.posixPermissions] as? Int == 0o644)
+}
+
 @Test func appearanceArgumentIsSnapshotOnlyAndRejectsInvalidValues() throws {
     #expect(try SnapshotAppearance.parse(arguments: ["app", "--appearance", "light"]) == nil)
     #expect(try SnapshotAppearance.parse(arguments: ["app", "--snapshot", "out"]) == nil)

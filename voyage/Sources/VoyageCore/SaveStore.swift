@@ -95,6 +95,7 @@ public final class SaveStore {
     private let careMigrations: SaveMigrations
     private let files = FileManager.default
     private var pendingRestarts: Set<SaveFile> = []
+    private var repairedPermissions = false
     // Test seam for failures at each transaction boundary; production uses Foundation file operations.
     var archiveOperation: ((SaveArchiveOperation) throws -> Void)?
 
@@ -113,6 +114,10 @@ public final class SaveStore {
     }
 
     public func load() {
+        if !repairedPermissions {
+            PrivateStorage.repairPermissions(in: directory)
+            repairedPermissions = true
+        }
         let pendingJourney: (SaveLoadResult<JourneyState>, Data?) = prepare(.journey, migrations: journeyMigrations)
         let pendingCare: (SaveLoadResult<CareState>, Data?) = prepare(.care, migrations: careMigrations)
         journey = pendingJourney.0
@@ -168,7 +173,7 @@ public final class SaveStore {
 
     public func exportArchive(to destination: URL, appVersion: String) throws {
         let data = try exportArchive(appVersion: appVersion)
-        do { try data.write(to: destination, options: .atomic) }
+        do { try PrivateStorage.write(data, to: destination) }
         catch { throw SaveArchiveError.writeFailed }
     }
 
@@ -315,17 +320,17 @@ public final class SaveStore {
             }
         }
         do {
-            try files.createDirectory(at: directory, withIntermediateDirectories: true)
+            try PrivateStorage.createDirectory(at: directory)
             var current: [SaveFile: Data] = [:]
             for file in SaveFile.allCases {
                 do { current[file] = try Data(contentsOf: url(for: file)) }
                 catch { if !Self.isMissing(error) { throw error } }
                 try archiveOperation?(.stage(file))
-                try (file == .journey ? archive.journeyData : archive.careData).write(to: staged[file]!, options: .withoutOverwriting)
+                try PrivateStorage.write(file == .journey ? archive.journeyData : archive.careData, to: staged[file]!, options: .withoutOverwriting)
                 if let original = current[file] {
                     let rollback = directory.appendingPathComponent(".voyage-import-\(transactionID)-\(file.rawValue).rollback")
                     rollbackFiles[file] = rollback
-                    try original.write(to: rollback, options: .withoutOverwriting)
+                    try PrivateStorage.write(original, to: rollback, options: .withoutOverwriting)
                 }
             }
             // Preserve exact original bytes before the first replacement, including unreadable JSON.
@@ -514,7 +519,8 @@ public final class SaveStore {
     }
 
     private func makeBackup(for file: SaveFile, version: Int?, kind: String, moving: Bool) throws -> URL {
-        try files.createDirectory(at: backupDirectory, withIntermediateDirectories: true)
+        try PrivateStorage.createDirectory(at: directory)
+        try PrivateStorage.createDirectory(at: backupDirectory)
         let timestamp = ISO8601DateFormatter().string(from: now()).replacingOccurrences(of: ":", with: "-")
         let name = "\(file.rawValue).v\(version.map(String.init) ?? "unknown").\(timestamp).\(UUID().uuidString).\(kind).json"
         let backup = backupDirectory.appendingPathComponent(name)
@@ -523,13 +529,14 @@ public final class SaveStore {
         } else {
             try files.copyItem(at: url(for: file), to: backup)
         }
+        try PrivateStorage.secureFile(at: backup)
         return backup
     }
 
     private func atomicWrite(_ data: Data, to file: SaveFile) throws {
         do {
-            try files.createDirectory(at: directory, withIntermediateDirectories: true)
-            try data.write(to: url(for: file), options: .atomic)
+            try PrivateStorage.createDirectory(at: directory)
+            try PrivateStorage.write(data, to: url(for: file))
             pendingRestarts.remove(file)
         } catch {
             switch file {

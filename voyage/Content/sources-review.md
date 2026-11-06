@@ -491,8 +491,8 @@ CLANG_MODULE_CACHE_PATH="$PWD/.build/codex-cache/clang" SWIFTPM_MODULECACHE_OVER
 | --- | --- | --- |
 | `singapore.singapore-merlion` | https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/marina-bay/merlion-park/ ：新加坡旅游局正文 Half Lion, Half Fish / Story Behind the Statue 明确狮头鱼身、喷水及公园面向滨海湾。 | 旅游局直接介绍，基本可观察造型可信；不用建造人物、雕像重量、搬迁年份、渔村起源象征或传说。旧版 see-do 地址打开后跳到本地址。 |
 | `singapore.singapore-botanic-gardens` | https://whc.unesco.org/en/list/1483 ：UNESCO 简介与 Outstanding Universal Value 明确1859年创建、市中心位置、研究/保护/教育功能。 | 一手遗产资料；不写殖民政治或橡胶传播人物故事，不写植物数量、落叶种类与实时展览。叶影是一次虚构旅途中的观察，不是特定物种资料。 |
-| `singapore.singapore-chicken-rice` | https://www.visitsingapore.com/content/dam/desktop/global/about-singapore/traveller-information/q2-singapore-insider-2019-en.pdf ：旅游局 Singapore Insider 2019年第2季第14页，Hainanese Chicken Rice 段明确蒸/烤鸡、鸡汤米饭、辣椒等酱料。 | 官方公共旅游材料，但年代较旧，只用稳定食物组成；不采用该页商家、门店地址和电话，也不采用起源迁徙叙述、统一配方或酱料比例。 |
-| `singapore.singapore-kaya-toast` | https://www.visitsingapore.com/content/dam/desktop/global/about-singapore/traveller-information/q2-singapore-insider-2019-en.pdf ：同页 Kaya Toast 段明确烤吐司配椰子和鸡蛋做的酱、早餐属性。 | 与鸡饭同一机构同一册，非独立互证；不扩写此段未明确的配料、黄油、炭烤工艺或点餐风俗。脆响只写信使这一份的体验。 |
+| `singapore.singapore-chicken-rice` | https://www.visitsingapore.com/content/dam/desktop/global/about-singapore/traveller-information/q2-singapore-insider-2019-en.pdf ：此前核对旅游局 Singapore Insider 2019年第2季第14页，Hainanese Chicken Rice 段明确蒸/烤鸡、鸡汤米饭、辣椒等酱料；用户本次报告该地址返回404。 | 仓库内该事实仅有这一来源，本次按离线要求未重新访问、未找到可核对的替代来源，因此暂保留地址并列为待补证。只用稳定食物组成；不采用该页商家、门店地址和电话，也不采用起源迁徙叙述、统一配方或酱料比例。 |
+| `singapore.singapore-kaya-toast` | https://www.visitsingapore.com/content/dam/desktop/global/about-singapore/traveller-information/q2-singapore-insider-2019-en.pdf ：此前核对同页 Kaya Toast 段明确烤吐司配椰子和鸡蛋做的酱、早餐属性；用户本次报告该地址返回404。 | 仓库内该事实也仅有这一来源，按离线要求暂保留地址并列为待补证，与鸡饭非独立互证。不扩写此段未明确的配料、黄油、炭烤工艺或点餐风俗。脆响只写信使这一份的体验。 |
 
 内容：鱼尾狮旁从两侧碰头、植物园看叶影停笔、勺子打断鸡饭记述、吐司第一口轻响、两顿饭的词语与停顿；fulfill 将第一条 talkative 回应的“两种招呼接起来”兑现为“这边见，慢慢走”的个人折卡。物品为碰头便签、早餐轻响纸、叶影停步记和两声招呼卡。
 

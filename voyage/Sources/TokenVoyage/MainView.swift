@@ -312,7 +312,7 @@ struct LetterView: View {
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                         ForEach(fact.sources, id: \.self) { source in
-                            if let url = URL(string: source) {
+                            if let url = SafeLink.url(source) {
                                 Link(l10n("letter.source", url.host ?? source), destination: url)
                                     .font(.system(size: 12)).foregroundStyle(theme.paperLink)
                                     .fixedSize(horizontal: false, vertical: true)
@@ -330,7 +330,7 @@ struct LetterView: View {
                 if let summary = place?.summary {
                     Text(place?.title ?? "").font(Theme.pixel()).fixedSize(horizontal: false, vertical: true)
                     Text(summary).font(.system(size: 13)).lineSpacing(3).fixedSize(horizontal: false, vertical: true)
-                    if let page = place?.url, let url = URL(string: page) {
+                    if let page = place?.url, let url = SafeLink.url(page) {
                         Link(l10n("letter.source", place?.title ?? ""), destination: url)
                             .font(.system(size: 12))
                             .foregroundStyle(theme.paperLink)

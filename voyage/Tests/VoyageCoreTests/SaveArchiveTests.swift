@@ -41,6 +41,78 @@ private struct ArchiveSandbox {
 }
 
 @Suite struct SaveArchiveTests {
+    @Test(arguments: [false, true])
+    func importStagingBackupsReplacementAndRollbackArePrivate(failReplacement: Bool) throws {
+        enum Injected: Error { case failure }
+        let box = try ArchiveSandbox()
+        defer { box.cleanUp() }
+        let store = try box.store()
+        let archive = try store.validateArchive(box.archive())
+        var checkedStaging = false
+        store.archiveOperation = { operation in
+            if operation == .replace(.journey) {
+                let temporary = try FileManager.default.contentsOfDirectory(at: box.directory, includingPropertiesForKeys: nil)
+                    .filter { $0.lastPathComponent.hasPrefix(".voyage-import-") }
+                #expect(temporary.count == 4)
+                for file in temporary { #expect(try self.permissions(file) == 0o600) }
+                checkedStaging = true
+            }
+            if failReplacement && operation == .replace(.care) { throw Injected.failure }
+        }
+        if failReplacement {
+            #expect(throws: SaveArchiveError.writeFailed) { try store.importArchive(archive) }
+        } else {
+            try store.importArchive(archive)
+        }
+        #expect(checkedStaging)
+        #expect(try permissions(box.directory) == 0o700)
+        #expect(try permissions(box.directory.appendingPathComponent("backups")) == 0o700)
+        for file in SaveFile.allCases {
+            #expect(try permissions(box.url(file)) == 0o600)
+            let backups = try store.backups(for: file)
+            #expect(backups.count == 1)
+            for backup in backups { #expect(try permissions(backup.url) == 0o600) }
+        }
+        #expect(try box.temporaryFiles().isEmpty)
+    }
+
+    @Test func newAndReplacedExportsArePrivateWithoutChangingTheChosenParent() throws {
+        let box = try ArchiveSandbox()
+        defer { box.cleanUp() }
+        let store = try box.store()
+        let parent = box.directory.appendingPathComponent("chosen-export-location")
+        try FileManager.default.createDirectory(at: parent, withIntermediateDirectories: true)
+        try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: parent.path)
+        let destination = parent.appendingPathComponent("export.json")
+        for _ in 0..<2 {
+            try store.exportArchive(to: destination, appVersion: "1.0")
+            #expect(try permissions(destination) == 0o600)
+            #expect(try permissions(parent) == 0o755)
+            try FileManager.default.setAttributes([.posixPermissions: 0o644], ofItemAtPath: destination.path)
+        }
+    }
+
+    @Test func legacyPhotoFilenameIsPreservedOnImport() throws {
+        let box = try ArchiveSandbox()
+        defer { box.cleanUp() }
+        let store = try box.store()
+        var object = try #require(JSONSerialization.jsonObject(with: box.archive()) as? [String: Any])
+        var journey = try #require(object["journey"] as? [String: Any])
+        var letters = try #require(journey["letters"] as? [[String: Any]])
+        letters[0]["photoFile"] = "legacy-photo.jpg"
+        journey["letters"] = letters
+        object["journey"] = journey
+        let archive = try store.validateArchive(JSONSerialization.data(withJSONObject: object))
+        #expect(archive.journey.letters[0].photoFile == "legacy-photo.jpg")
+        try store.importArchive(archive)
+        guard case .loaded(let state) = store.journey else { Issue.record("Imported save must load"); return }
+        #expect(state.letters[0].photoFile == "legacy-photo.jpg")
+    }
+
+    private func permissions(_ url: URL) throws -> Int {
+        try #require(FileManager.default.attributesOfItem(atPath: url.path)[.posixPermissions] as? Int) & 0o777
+    }
+
     @Test func archiveRoundTripPreservesJourneyAndCare() throws {
         let source = try ArchiveSandbox(), destination = try ArchiveSandbox()
         defer { source.cleanUp(); destination.cleanUp() }

@@ -1,5 +1,6 @@
 import AppKit
 import Foundation
+import ImageIO
 import VoyageCore
 
 struct Enrichment: Sendable {
@@ -13,6 +14,32 @@ struct Enrichment: Sendable {
 enum Enricher {
     private static let userAgent = "TokenVoyage/0.1 (personal desktop app)"
     private static let placeCache = PlaceCache()
+    static let maximumJSONBytes = 2 * 1_024 * 1_024
+    static let maximumPhotoBytes = 5 * 1_024 * 1_024
+    private static let session = URLSession(configuration: sessionConfiguration(), delegate: RedirectPolicy(), delegateQueue: nil)
+
+    static func sessionConfiguration() -> URLSessionConfiguration {
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.urlCache = nil
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        configuration.httpCookieStorage = nil
+        configuration.httpShouldSetCookies = false
+        return configuration
+    }
+
+    static func allowsRedirect(to url: URL) -> Bool {
+        guard let url = SafeLink.url(url.absoluteString), let host = url.host else { return false }
+        return ["open-meteo.com", "wikipedia.org", "wikidata.org", "upload.wikimedia.org"].contains {
+            SafeLink.host(host, belongsTo: $0)
+        }
+    }
+
+    private final class RedirectPolicy: NSObject, URLSessionTaskDelegate {
+        func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse,
+                        newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
+            completionHandler(request.url.map { allowsRedirect(to: $0) } == true ? request : nil)
+        }
+    }
 
     /// This input deliberately has no usage, project, or journey data.
     struct Query: Sendable {
@@ -57,19 +84,40 @@ enum Enricher {
                     title: summary.title, summary: String(extract.prefix(180)), url: summary.content_urls?.desktop?.page
                 )
             }
-            if query.includePhoto, let source = summary.thumbnail?.source, let url = URL(string: source) {
-                result.photoData = try? await request(url, nil)
+            if query.includePhoto, let source = summary.thumbnail?.source, let url = SafeLink.url(source),
+               url.host?.lowercased() == "upload.wikimedia.org",
+               let data = try? await request(url, nil), data.count <= maximumPhotoBytes {
+                result.photoData = data
             }
         }
         return result
     }
 
     private static func networkRequest(_ url: URL, language: String? = nil) async throws -> Data {
+        try await networkRequest(url, language: language) { request in
+            let (bytes, response) = try await session.bytes(for: request)
+            return (bytes, response, { bytes.task.cancel() })
+        }
+    }
+
+    /// The transport supplies a stream, so oversized bodies are cancelled before they can be buffered in full.
+    static func networkRequest<Body: AsyncSequence>(
+        _ url: URL, language: String? = nil,
+        transport: (URLRequest) async throws -> (bytes: Body, response: URLResponse, cancel: @Sendable () -> Void)
+    ) async throws -> Data where Body.Element == UInt8 {
         var request = URLRequest(url: url, timeoutInterval: 20)
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
         if let language { request.setValue(language, forHTTPHeaderField: "Accept-Language") }
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (bytes, response, cancel) = try await transport(request)
+        defer { cancel() }
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw URLError(.badServerResponse) }
+        let limit = url.host?.lowercased() == "upload.wikimedia.org" ? maximumPhotoBytes : maximumJSONBytes
+        guard response.expectedContentLength <= Int64(limit) else { throw URLError(.dataLengthExceedsMaximum) }
+        var data = Data()
+        for try await byte in bytes {
+            guard data.count < limit else { throw URLError(.dataLengthExceedsMaximum) }
+            data.append(byte)
+        }
         return data
     }
 
@@ -90,6 +138,7 @@ enum Enricher {
         ]
         guard let url = components?.url,
               let data = try? await request(url, nil),
+              data.count <= maximumJSONBytes,
               let decoded = try? JSONDecoder().decode(WeatherResponse.self, from: data) else { return nil }
         return (decoded.current.weather_code, Int(decoded.current.temperature_2m.rounded()))
     }
@@ -118,7 +167,20 @@ enum Enricher {
     fileprivate struct PageSummary: Decodable, Sendable {
         struct Thumbnail: Decodable, Sendable { let source: String }
         struct ContentURLs: Decodable, Sendable {
-            struct Desktop: Decodable, Sendable { let page: String }
+            struct Desktop: Decodable, Sendable {
+                let page: String?
+                private enum CodingKeys: String, CodingKey { case page }
+
+                init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: CodingKeys.self)
+                    let value = try container.decode(String.self, forKey: .page)
+                    if let url = SafeLink.url(value), let host = url.host, SafeLink.host(host, belongsTo: "wikipedia.org") {
+                        page = url.absoluteString
+                    } else {
+                        page = nil
+                    }
+                }
+            }
             let desktop: Desktop?
         }
         let title: String
@@ -164,6 +226,7 @@ enum Enricher {
                 guard let url = components?.url else { return nil }
                 do {
                     let data = try await request(url, nil)
+                    guard data.count <= maximumJSONBytes else { return nil }
                     let response = try JSONDecoder().decode(WikidataResponse.self, from: data)
                     guard let resolved = response.entities[wikidata.uppercased()]?.sitelinks?["\(host)wiki"]?.title,
                           !resolved.isEmpty else {
@@ -181,6 +244,7 @@ enum Enricher {
         guard let encoded = title.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed.subtracting(CharacterSet(charactersIn: "/"))),
               let url = URL(string: "https://\(host).wikipedia.org/api/rest_v1/page/summary/\(encoded)"),
               let data = try? await request(url, language == .zhHans ? "zh-cn" : "en"),
+              data.count <= maximumJSONBytes,
               let summary = try? JSONDecoder().decode(PageSummary.self, from: data) else { return nil }
         await cache.store(.summary(summary), cityID: city.id, language: language)
         return summary
@@ -188,7 +252,14 @@ enum Enricher {
 
     /// Downsamples to 96x48, then maps to a 16 colour palette with light ordered dithering.
     static func pixelate(_ data: Data, palette: [UInt32]) -> Data? {
-        guard let source = NSImage(data: data)?.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
+        guard data.count <= maximumPhotoBytes,
+              let imageSource = CGImageSourceCreateWithData(data as CFData, [kCGImageSourceShouldCache: false] as CFDictionary),
+              let source = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, [
+                  kCGImageSourceCreateThumbnailFromImageAlways: true,
+                  kCGImageSourceCreateThumbnailWithTransform: true,
+                  kCGImageSourceThumbnailMaxPixelSize: 192,
+                  kCGImageSourceShouldCacheImmediately: true,
+              ] as CFDictionary) else { return nil }
         let width = 96
         let height = 48
         var buffer = [UInt8](repeating: 0, count: width * height * 4)

@@ -29,6 +29,54 @@ private struct SaveSandbox {
 }
 
 @Suite struct SaveStoreTests {
+    @Test func startupRepairsExistingPermissionsWithoutChangingBytes() throws {
+        let box = try SaveSandbox()
+        defer { box.cleanUp() }
+        let original = try box.writeJourney()
+        let photos = box.directory.appendingPathComponent("photos")
+        let backups = box.directory.appendingPathComponent("backups")
+        for directory in [box.directory, photos, backups] {
+            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+            try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: directory.path)
+        }
+        let existingFiles = [box.journeyURL, photos.appendingPathComponent("letter-7.png"), backups.appendingPathComponent("old.json")]
+        for file in existingFiles {
+            try original.write(to: file)
+            try FileManager.default.setAttributes([.posixPermissions: 0o644], ofItemAtPath: file.path)
+        }
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
+        store.load()
+        #expect(!store.isLocked)
+        for directory in [box.directory, photos, backups] { #expect(try permissions(directory) == 0o700) }
+        for file in existingFiles {
+            #expect(try permissions(file) == 0o600)
+            #expect(try Data(contentsOf: file) == original)
+        }
+    }
+
+    @Test func newAndAtomicallyReplacedSavesArePrivate() throws {
+        let box = try SaveSandbox()
+        defer { box.cleanUp() }
+        try FileManager.default.removeItem(at: box.directory)
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
+        store.load()
+        let state = try JSONDecoder().decode(JourneyState.self, from: box.fixture())
+        for _ in 0..<2 {
+            try store.save(state)
+            try store.save(CareState.legacy(from: state, pets: testCatalog.pets))
+            #expect(try permissions(box.directory) == 0o700)
+            #expect(try permissions(box.journeyURL) == 0o600)
+            #expect(try permissions(box.careURL) == 0o600)
+            for file in [box.journeyURL, box.careURL] {
+                try FileManager.default.setAttributes([.posixPermissions: 0o644], ofItemAtPath: file.path)
+            }
+        }
+    }
+
+    private func permissions(_ url: URL) throws -> Int {
+        try #require(FileManager.default.attributesOfItem(atPath: url.path)[.posixPermissions] as? Int) & 0o777
+    }
+
     @Test func frozenV5LoadsWithoutRewritingOrBackingUp() throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
@@ -248,10 +296,12 @@ private struct SaveSandbox {
     @Test func permissionFailureIsUnreadableAndDoesNotMoveOrWrite() throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
+        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
+        store.load()
         let original = try box.writeJourney()
+        // Revoke access after the one-time startup permission repair.
         try FileManager.default.setAttributes([.posixPermissions: 0o000], ofItemAtPath: box.journeyURL.path)
         defer { try? FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: box.journeyURL.path) }
-        let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
         guard case .unreadable = store.journey else { Issue.record("chmod 000 must be unreadable"); return }
         #expect(FileManager.default.fileExists(atPath: box.journeyURL.path))
