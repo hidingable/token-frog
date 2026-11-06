@@ -75,7 +75,7 @@ private struct MailFixture {
     }
 
     func model(isSnapshot: Bool = false) -> AppModel {
-        AppModel(isSnapshot: isSnapshot, defaults: MailDefaults(), directory: directory, catalog: localizationCatalog,
+        AppModel(isSnapshot: isSnapshot, defaults: MailDefaults(), directory: directory, catalog: localizationCatalog, themes: testThemes,
                  now: { clock.date }, quotaReader: { await usage.readQuotas() },
                  usageReader: { since, until in await usage.read(since: since, until: until) },
                  enrichmentReader: { await enrichment.fetch($0) }, runtimeEnabled: false)
@@ -411,7 +411,7 @@ private func mailUsage(_ day: String) -> DayDetail {
         await locked.enrichLatest()
         await locked.enrichPlace(letterId: 1)
         let empty = fixture.directory.appendingPathComponent("empty")
-        let onboarding = AppModel(defaults: MailDefaults(), directory: empty, catalog: localizationCatalog,
+        let onboarding = AppModel(defaults: MailDefaults(), directory: empty, catalog: localizationCatalog, themes: testThemes,
                                   enrichmentReader: { await fixture.enrichment.fetch($0) }, runtimeEnabled: false)
         #expect(onboarding.onboarding != nil)
         await onboarding.enrichLatest()

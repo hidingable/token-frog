@@ -2,6 +2,7 @@ import SwiftUI
 import VoyageCore
 
 struct ProfileView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
 
@@ -18,22 +19,22 @@ struct ProfileView: View {
                                 Text(model.petName).font(Theme.pixel(24))
                                 Text(l10n("profile.summary", l10n.stage(profile.stage), l10n.days(profile.days),
                                           l10n.cityName(catalog.city(journey.route[0]))))
-                                    .foregroundStyle(Theme.dusk)
+                                    .foregroundStyle(theme.textMuted)
                                 Text(l10n("profile.travel", profile.cityCount, profile.kilometers))
-                                    .foregroundStyle(Theme.amber)
+                                    .foregroundStyle(theme.mileageText)
                             }
                         }
-                        Rectangle().fill(Theme.blockOff).frame(height: 2).padding(.vertical, 4)
+                        Rectangle().fill(theme.controlOff).frame(height: 2).padding(.vertical, 4)
                         Text(l10n("profile.habits"))
                         ForEach(Habit.allCases, id: \.rawValue) { habit in
                             VStack(alignment: .leading, spacing: 8) {
                                 Text(l10n.habit(habit))
                                 Text(l10n.habitDescription(habit, habits: care.habits))
-                                    .foregroundStyle(Theme.dusk)
+                                    .foregroundStyle(theme.textMuted)
                                 let value = habit == .talkative ? care.habits.talkative : care.habits.observant
                                 GeometryReader { proxy in
-                                    Rectangle().fill(Theme.blockOff)
-                                    Rectangle().fill(Theme.rose)
+                                    Rectangle().fill(theme.controlOff)
+                                    Rectangle().fill(theme.companionFill)
                                         .frame(width: floor(proxy.size.width * Double(value) / 100))
                                 }
                                 .frame(height: 8)
@@ -44,7 +45,7 @@ struct ProfileView: View {
                     HomeCard {
                         Text(l10n("profile.learned"))
                         if profile.learned.isEmpty {
-                            Text(l10n("profile.stillLearning")).foregroundStyle(Theme.dusk)
+                            Text(l10n("profile.stillLearning")).foregroundStyle(theme.textMuted)
                         }
                         ForEach(profile.learned) { learned in
                             Button { model.openCollectionLetter(learned.id) } label: {
@@ -56,7 +57,7 @@ struct ProfileView: View {
                             .disabled(!model.letters.contains { $0.id == learned.id })
                         }
                         Text(l10n("profile.next")).padding(.top, 12)
-                        Text(profile.next).foregroundStyle(Theme.dusk)
+                        Text(profile.next).foregroundStyle(theme.textMuted)
                     }
                 }
                 HStack(alignment: .top, spacing: 6) {
@@ -67,17 +68,17 @@ struct ProfileView: View {
                         }
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(maxWidth: .infinity).padding(.vertical, 12).padding(.horizontal, 2)
-                        .foregroundStyle(entry.stage == profile.stage ? Theme.ink : Theme.dusk)
-                        .background(entry.stage == profile.stage ? Theme.rose : Theme.inkRaised)
-                        .pixelBorder(entry.stage == profile.stage ? Theme.rose : Theme.blockOff)
+                        .foregroundStyle(entry.stage == profile.stage ? theme.companionOnFill : theme.textMuted)
+                        .background(entry.stage == profile.stage ? theme.companionFill : theme.surfaceRaised)
+                        .pixelBorder(entry.stage == profile.stage ? theme.companionFill : theme.controlOff)
                     }
                 }
                 HomeCard {
                     Text(l10n("profile.identity"))
-                    Text(l10n("profile.identityHint")).foregroundStyle(Theme.dusk)
+                    Text(l10n("profile.identityHint")).foregroundStyle(theme.textMuted)
                 }
             }
-            .font(Theme.pixel()).foregroundStyle(Theme.paper)
+            .font(Theme.pixel()).foregroundStyle(theme.text)
         }
     }
 }

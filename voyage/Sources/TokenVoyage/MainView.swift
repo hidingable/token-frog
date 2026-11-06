@@ -3,6 +3,7 @@ import SwiftUI
 import VoyageCore
 
 struct MainView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     @State var dashboard = DashboardSelection()
@@ -17,7 +18,7 @@ struct MainView: View {
                     Chip(title: l10n("action.retry"), isOn: false) { model.scheduleScan(immediately: true) }
                 }
                 .font(Theme.pixel())
-                .foregroundStyle(Theme.dusk)
+                .foregroundStyle(theme.textMuted)
                 .padding(.horizontal, 12)
                 .padding(.bottom, 8)
             }
@@ -31,8 +32,7 @@ struct MainView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background(Theme.ink)
-        .preferredColorScheme(.dark)
+        .background(theme.background)
     }
 
     private var navigation: some View {
@@ -41,13 +41,13 @@ struct MainView: View {
                 Button { model.navigate(to: item) } label: {
                     HStack(spacing: 4) {
                         Text(l10n.tab(item))
-                        if item == .mail, model.unread > 0 { Rectangle().fill(Theme.red).frame(width: 6, height: 6) }
+                        if item == .mail, model.unread > 0 { Rectangle().fill(theme.newMailFill).frame(width: 6, height: 6) }
                     }
                     .font(Theme.pixel())
                     .padding(.horizontal, 10)
                     .padding(.vertical, 6)
-                    .foregroundStyle(!model.showingSettings && model.tab == item ? Theme.ink : Theme.paper)
-                    .background(!model.showingSettings && model.tab == item ? Theme.paper : Theme.inkRaised)
+                    .foregroundStyle(!model.showingSettings && model.tab == item ? theme.selectedText : theme.text)
+                    .background(!model.showingSettings && model.tab == item ? theme.selectedFill : theme.surfaceRaised)
                 }
                 .buttonStyle(.plain)
                 .fixedSize()
@@ -55,15 +55,15 @@ struct MainView: View {
             Spacer(minLength: 8)
             if let scan = model.lastScan {
                 Text(l10n("status.updated", l10n.time(scan)))
-                    .font(Theme.pixel()).foregroundStyle(Theme.dusk).fixedSize()
+                    .font(Theme.pixel()).foregroundStyle(theme.textMuted).fixedSize()
             }
             Button { model.showingSettings = true } label: {
                 Text(l10n("nav.settings"))
                     .font(Theme.pixel())
                     .padding(.horizontal, 10)
                     .padding(.vertical, 6)
-                    .foregroundStyle(model.showingSettings ? Theme.ink : Theme.paper)
-                    .background(model.showingSettings ? Theme.paper : Theme.inkRaised)
+                    .foregroundStyle(model.showingSettings ? theme.selectedText : theme.text)
+                    .background(model.showingSettings ? theme.selectedFill : theme.surfaceRaised)
             }
             .buttonStyle(.plain)
             .fixedSize()
@@ -105,7 +105,10 @@ struct MainView: View {
             case .profile: ScrollView { ProfileView(model: model).padding(12) }
             case .box: BoxView(model: model)
             }
-        case .journey: ScrollView { JourneyTab(model: model).padding(12) }
+        case .journey:
+            GeometryReader { proxy in
+                ScrollView { JourneyTab(model: model, availableWidth: proxy.size.width - 24).padding(12) }
+            }
         case .mail: MailTab(model: model)
         case .collection:
             ScrollView {
@@ -131,8 +134,10 @@ struct MainView: View {
 }
 
 struct JourneyTab: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
+    let availableWidth: CGFloat
 
     var body: some View {
         if let state = model.state, let catalog = model.catalog {
@@ -140,13 +145,13 @@ struct JourneyTab: View {
                 HStack(alignment: .center, spacing: 12) {
                     SpriteView(pet: state.pet, scale: 4, moving: model.isMoving)
                         .padding(6)
-                        .background(Theme.paper)
-                        .pixelBorder(Theme.dusk)
+                        .background(theme.paper)
+                        .pixelBorder(theme.border)
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(Format.km(fuel: model.todayFuel)).font(Theme.pixel(24)).foregroundStyle(Theme.amber)
-                        Text(l10n("journey.todayFuel", l10n.tokens(model.todayFuel))).font(Theme.pixel()).foregroundStyle(Theme.paper)
+                        Text(Format.km(fuel: model.todayFuel)).font(Theme.pixel(24)).foregroundStyle(theme.mileageText)
+                        Text(l10n("journey.todayFuel", l10n.tokens(model.todayFuel))).font(Theme.pixel()).foregroundStyle(theme.text)
                         Text(l10n("journey.total", Format.km(fuel: state.totalFuel)))
-                            .font(Theme.pixel()).foregroundStyle(Theme.dusk)
+                            .font(Theme.pixel()).foregroundStyle(theme.textMuted)
                     }
                     Spacer()
                     VStack(alignment: .trailing, spacing: 4) {
@@ -155,16 +160,18 @@ struct JourneyTab: View {
                         }
                     }
                     .font(Theme.pixel())
-                    .foregroundStyle(Theme.paper)
+                    .foregroundStyle(theme.text)
                 }
 
-                PixelMapView(state: state, catalog: catalog, scale: 6).pixelBorder(Theme.dusk).frame(maxWidth: .infinity)
+                PixelMapView(image: PixelMap.image(for: state, catalog: catalog, theme: theme),
+                             availableWidth: availableWidth, borderColor: theme.mapBorder)
+                    .accessibilityLabel(l10n("map.description", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId))))
 
                 HStack(spacing: 12) {
-                    Text(l10n("journey.route", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId)))).foregroundStyle(Theme.paper)
+                    Text(l10n("journey.route", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId)))).foregroundStyle(theme.text)
                     BlockProgress(progress: state.legProgress, blocks: 20, size: 8)
                     Spacer()
-                    Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel))).foregroundStyle(Theme.dusk)
+                    Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel))).foregroundStyle(theme.textMuted)
                 }
                 .font(Theme.pixel())
 
@@ -175,6 +182,7 @@ struct JourneyTab: View {
 }
 
 struct RecentBars: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     var days: [(date: String, fuel: Int)]
 
@@ -183,11 +191,11 @@ struct RecentBars: View {
         HStack(alignment: .bottom, spacing: 8) {
             ForEach(days, id: \.date) { day in
                 VStack(spacing: 4) {
-                    Text(day.fuel > 0 ? Format.km(fuel: day.fuel) : "-").foregroundStyle(Theme.dusk)
+                    Text(day.fuel > 0 ? Format.km(fuel: day.fuel) : "-").foregroundStyle(theme.textMuted)
                     Rectangle()
-                        .fill(day.date == days.last?.date ? Theme.amber : Theme.dusk)
+                        .fill(day.date == days.last?.date ? theme.mileageFill : theme.textMuted)
                         .frame(height: max(2, (CGFloat(day.fuel) / CGFloat(top) * 48).rounded()))
-                    Text(l10n.day(day.date)).foregroundStyle(Theme.dusk)
+                    Text(l10n.day(day.date)).foregroundStyle(theme.textMuted)
                 }
                 .frame(maxWidth: .infinity)
             }
@@ -198,6 +206,7 @@ struct RecentBars: View {
 }
 
 struct MailTab: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
 
@@ -211,18 +220,18 @@ struct MailTab: View {
                         ForEach(letters) { letter in
                             Button { model.selectedLetterID = letter.id } label: {
                                 HStack(spacing: 6) {
-                                    Rectangle().fill(letter.read ? Color.clear : Theme.red).frame(width: 6, height: 6)
+                                    Rectangle().fill(letter.read ? Color.clear : theme.newMailFill).frame(width: 6, height: 6)
                                     VStack(alignment: .leading, spacing: 2) {
                                         Text(LetterComposer.text(for: letter, l10n: l10n, petName: model.petName, catalog: catalog).title)
                                             .fixedSize(horizontal: false, vertical: true)
-                                        Text(l10n.day(letter.date, full: true)).foregroundStyle(Theme.dusk)
+                                        Text(l10n.day(letter.date, full: true)).foregroundStyle(theme.textMuted)
                                     }
                                     Spacer(minLength: 0)
                                 }
                                 .font(Theme.pixel())
-                                .foregroundStyle(Theme.paper)
+                                .foregroundStyle(theme.text)
                                 .padding(6)
-                                .background(letter.id == selected?.id ? Theme.inkRaised : Color.clear)
+                                .background(letter.id == selected?.id ? theme.surfaceRaised : Color.clear)
                             }
                             .buttonStyle(.plain)
                         }
@@ -242,7 +251,7 @@ struct MailTab: View {
                                 await model.enrichPlace(letterId: selected.id)
                             }
                     } else {
-                        Text(l10n("mail.empty")).font(Theme.pixel()).foregroundStyle(Theme.dusk).padding()
+                        Text(l10n("mail.empty")).font(Theme.pixel()).foregroundStyle(theme.textMuted).padding()
                     }
                 }
             }
@@ -251,6 +260,7 @@ struct MailTab: View {
 }
 
 struct LetterView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     var letter: Letter
     var photoURL: URL?
@@ -268,7 +278,7 @@ struct LetterView: View {
             HStack(alignment: .top) {
                 Text(text.title).font(Theme.pixel(24)).fixedSize(horizontal: false, vertical: true)
                 Spacer()
-                Text(l10n.day(letter.date, full: true)).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                Text(l10n.day(letter.date, full: true)).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
                     .fixedSize(horizontal: false, vertical: true)
             }
             if let photoURL, let image = NSImage(contentsOf: photoURL) {
@@ -281,7 +291,7 @@ struct LetterView: View {
                     .accessibilityLabel(l10n("letter.photo", place?.title ?? l10n("letter.localPlace")))
             }
             if let lead = text.lead {
-                Text(lead).font(.system(size: 14, weight: .semibold)).foregroundStyle(Theme.paperRose)
+                Text(lead).font(.system(size: 14, weight: .semibold)).foregroundStyle(theme.paperCompanionText)
                     .lineSpacing(4).fixedSize(horizontal: false, vertical: true)
             }
             Text(text.voice).font(.system(size: 14)).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
@@ -289,7 +299,7 @@ struct LetterView: View {
 
             if !letter.facts.isEmpty {
                 divider
-                Text(l10n("letter.sights")).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                Text(l10n("letter.sights")).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
                 ForEach(letter.facts, id: \.id) { fact in
                     VStack(alignment: .leading, spacing: 4) {
                         Text(LetterComposer.localized(fact.names, l10n: l10n) ?? "").font(Theme.pixel())
@@ -297,7 +307,7 @@ struct LetterView: View {
                         ForEach(fact.sources, id: \.self) { source in
                             if let url = URL(string: source) {
                                 Link(l10n("letter.source", url.host ?? source), destination: url)
-                                    .font(.system(size: 12)).foregroundStyle(Theme.sea)
+                                    .font(.system(size: 12)).foregroundStyle(theme.paperLink)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
                         }
@@ -316,7 +326,7 @@ struct LetterView: View {
                     if let page = place?.url, let url = URL(string: page) {
                         Link(l10n("letter.source", place?.title ?? ""), destination: url)
                             .font(.system(size: 12))
-                            .foregroundStyle(Theme.sea)
+                            .foregroundStyle(theme.paperLink)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
@@ -329,17 +339,17 @@ struct LetterView: View {
             if !text.itinerary.isEmpty {
                 divider
                 if letter.kind != .logbook {
-                    Text(l10n("letter.itinerary")).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                    Text(l10n("letter.itinerary")).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
                 }
                 ForEach(text.itinerary, id: \.self) { Text($0).font(Theme.pixel()).fixedSize(horizontal: false, vertical: true) }
             }
             if let model { response(model: model) }
         }
-        .foregroundStyle(Theme.ink)
+        .foregroundStyle(theme.paperText)
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Theme.paper)
-        .pixelBorder(Theme.ink, width: 3)
+        .background(theme.paper)
+        .pixelBorder(theme.paperBorder, width: 3)
     }
 
     @ViewBuilder private func response(model: AppModel) -> some View {
@@ -347,10 +357,10 @@ struct LetterView: View {
             divider
             Text(l10n("letter.yourReply", LetterComposer.localized(selected.text, l10n: l10n) ?? ""))
                 .font(.system(size: 14)).fixedSize(horizontal: false, vertical: true)
-            Text(l10n("letter.remembered")).font(Theme.pixel()).foregroundStyle(Theme.paperRose)
+            Text(l10n("letter.remembered")).font(Theme.pixel()).foregroundStyle(theme.paperCompanionText)
             if let next = model.followUp(for: letter) {
                 Button { model.openFollowUp(next) } label: {
-                    Text(l10n("letter.followUp", next.id)).font(Theme.pixel()).foregroundStyle(Theme.paperRose)
+                    Text(l10n("letter.followUp", next.id)).font(Theme.pixel()).foregroundStyle(theme.paperCompanionText)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .buttonStyle(.plain)
@@ -358,17 +368,17 @@ struct LetterView: View {
         } else if !letter.replyOptions.isEmpty, letter.deliverAt <= model.now,
                   model.deferredReplyLetterID != letter.id {
             divider
-            Text(l10n("letter.reply")).font(Theme.pixel()).foregroundStyle(Theme.brown)
+            Text(l10n("letter.reply")).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
             ForEach(letter.replyOptions, id: \.id) { option in
                 Button { model.reply(to: letter.id, option: option.id) } label: {
                     VStack(alignment: .leading, spacing: 6) {
                         Text(LetterComposer.localized(option.text, l10n: l10n) ?? "")
                             .font(.system(size: 14)).fixedSize(horizontal: false, vertical: true)
                         Text(option.habit == "talkative" ? l10n("habit.talkative") : l10n("habit.observant"))
-                            .font(Theme.pixel()).foregroundStyle(Theme.paperRose)
+                            .font(Theme.pixel()).foregroundStyle(theme.paperCompanionText)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading).padding(10)
-                    .pixelBorder(Theme.paperRose)
+                    .pixelBorder(theme.paperCompanionText)
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
@@ -384,11 +394,12 @@ struct LetterView: View {
     }
 
     private var divider: some View {
-        Rectangle().fill(Theme.ink).frame(height: 2)
+        Rectangle().fill(theme.paperRule).frame(height: 2)
     }
 }
 
 struct PassportTab: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
 
@@ -396,21 +407,21 @@ struct PassportTab: View {
         if let state = model.state, let catalog = model.catalog {
             let laps = Double(state.totalFuel) / Double(fuelPerKm) / 40_075
             VStack(alignment: .leading, spacing: 12) {
-                Text(l10n("passport.counts", Format.grouped(state.stamps.count), Format.grouped(Set(state.route).count))).font(Theme.pixel(24)).foregroundStyle(Theme.paper)
+                Text(l10n("passport.counts", Format.grouped(state.stamps.count), Format.grouped(Set(state.route).count))).font(Theme.pixel(24)).foregroundStyle(theme.text)
                 Text(l10n("passport.summary", Format.km(fuel: state.totalFuel), l10n.decimal(laps, places: 2), l10n.day(state.startDate, full: true)))
                     .font(Theme.pixel())
-                    .foregroundStyle(Theme.dusk)
+                    .foregroundStyle(theme.textMuted)
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 4), spacing: 8) {
                     ForEach(state.stamps, id: \.countryCode) { stamp in
                         VStack(spacing: 4) {
                             Text(l10n.countryName(catalog.countryNames(stamp.countryCode))).font(Theme.pixel())
-                            Text(l10n.cityName(catalog.city(stamp.cityId))).font(Theme.pixel()).foregroundStyle(Theme.brown)
-                            Text(l10n.day(stamp.date)).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                            Text(l10n.cityName(catalog.city(stamp.cityId))).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
+                            Text(l10n.day(stamp.date)).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
                         }
-                        .foregroundStyle(Theme.ink)
+                        .foregroundStyle(theme.onNewPlace)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
-                        .background(Theme.mint)
+                        .background(theme.newPlaceFill)
                         .pixelBorder()
                     }
                 }
@@ -421,6 +432,7 @@ struct PassportTab: View {
 }
 
 struct QuotaTab: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
 
@@ -429,40 +441,40 @@ struct QuotaTab: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text(l10n("nav.quota")).foregroundStyle(Theme.paper)
+                Text(l10n("nav.quota")).foregroundStyle(theme.text)
                 Spacer()
                 Chip(title: l10n("action.refresh"), isOn: false) { Task { await model.loadQuotas(force: true) } }
             }
             if let error = model.quotaError {
-                Text(l10n("quota.failed", l10n.error(error))).foregroundStyle(Theme.coral)
+                Text(l10n("quota.failed", l10n.error(error))).foregroundStyle(theme.quotaLowText)
             }
             if model.quotas.isEmpty, model.quotaError == nil {
                 Text(model.quotasLoadedAt == nil ? l10n("quota.loading") : l10n("quota.empty"))
-                    .foregroundStyle(Theme.dusk)
+                    .foregroundStyle(theme.textMuted)
             }
             ForEach(model.quotas) { quota in
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
-                        Text(quota.provider).foregroundStyle(Theme.paper)
-                        if let plan = quota.plan { Text(plan).foregroundStyle(Theme.dusk) }
+                        Text(quota.provider).foregroundStyle(theme.text)
+                        if let plan = quota.plan { Text(plan).foregroundStyle(theme.textMuted) }
                         Spacer()
                         if quota.resetCredits > 0 {
-                            Text(l10n("quota.resetCredits", Format.grouped(quota.resetCredits))).foregroundStyle(Theme.dusk)
+                            Text(l10n("quota.resetCredits", Format.grouped(quota.resetCredits))).foregroundStyle(theme.textMuted)
                         }
                     }
                     ForEach(quota.metrics) { metric in
                         metricRow(metric)
                     }
                     if quota.metrics.isEmpty {
-                        Text(l10n("quota.noWindows")).foregroundStyle(Theme.dusk)
+                        Text(l10n("quota.noWindows")).foregroundStyle(theme.textMuted)
                     }
                 }
                 .padding(8)
-                .background(Theme.inkRaised)
+                .background(theme.surfaceRaised)
             }
             if let loaded = model.quotasLoadedAt {
                 Text(l10n("quota.updated", l10n.time(loaded)))
-                    .foregroundStyle(Theme.dusk)
+                    .foregroundStyle(theme.textMuted)
             }
         }
         .font(Theme.pixel())
@@ -473,21 +485,21 @@ struct QuotaTab: View {
     private func metricRow(_ metric: ProviderQuota.Metric) -> some View {
         let low = Self.isLow(metric)
         return HStack(spacing: 8) {
-            Text(l10n.quotaMetric(metric.label)).foregroundStyle(Theme.paper).fixedSize(horizontal: false, vertical: true)
+            Text(l10n.quotaMetric(metric.label)).foregroundStyle(theme.text).fixedSize(horizontal: false, vertical: true)
             GeometryReader { proxy in
                 ZStack(alignment: .leading) {
-                    Rectangle().fill(Theme.blockOff)
-                    Rectangle().fill(low ? Theme.coral : Theme.mint)
+                    Rectangle().fill(theme.controlOff)
+                    Rectangle().fill(low ? theme.quotaLowFill : theme.quotaFill)
                         .frame(width: (proxy.size.width * max(0, min(metric.remainingPercent, 100)) / 100).rounded())
                 }
             }
             .frame(height: 8)
             Text(l10n("quota.remaining", Format.grouped(Int(metric.remainingPercent.rounded()))))
-                .foregroundStyle(low ? Theme.coral : Theme.paper)
+                .foregroundStyle(low ? theme.quotaLowText : theme.text)
                 .fixedSize(horizontal: false, vertical: true)
-            Text(metric.remainingLabel ?? "").foregroundStyle(Theme.dusk).fixedSize(horizontal: false, vertical: true)
+            Text(metric.remainingLabel ?? "").foregroundStyle(theme.textMuted).fixedSize(horizontal: false, vertical: true)
             Text(metric.resetsAt.map { l10n.reset(QuotaReport.resetDescription($0, now: model.now)) } ?? "")
-                .foregroundStyle(Theme.dusk)
+                .foregroundStyle(theme.textMuted)
                 .fixedSize(horizontal: false, vertical: true)
         }
     }

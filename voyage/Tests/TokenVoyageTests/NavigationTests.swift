@@ -216,7 +216,7 @@ private struct NavigationFixture {
     }
 
     func model(isSnapshot: Bool = true, defaults: UserDefaults = NavigationDefaults()) -> AppModel {
-        AppModel(isSnapshot: isSnapshot, defaults: defaults, directory: directory, catalog: localizationCatalog, runtimeEnabled: false)
+        AppModel(isSnapshot: isSnapshot, defaults: defaults, directory: directory, catalog: localizationCatalog, themes: testThemes, runtimeEnabled: false)
     }
 
     func remove() { try? FileManager.default.removeItem(at: directory) }

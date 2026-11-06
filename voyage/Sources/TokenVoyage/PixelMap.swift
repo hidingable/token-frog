@@ -1,34 +1,60 @@
 import SwiftUI
 import VoyageCore
 
+@MainActor
 enum PixelMap {
-    private static let base: [UInt32?] = {
-        WorldMapData.rows.flatMap { row in row.map { $0 == "#" ? Palette.land : Palette.sea } }
-    }()
+    private struct Point: Hashable { let x: Int; let y: Int }
+    private struct HomeKey: Hashable { let themeID: String; let point: Point }
+    private struct RouteKey: Equatable {
+        let stops: [Point]
+        let here: Point
+        let origin: Point
+        let target: Point
+    }
+    private static var bases: [String: [UInt32?]] = [:]
+    private static var homes: [HomeKey: CGImage] = [:]
+    // Only the latest route frame is retained for each theme; moving never grows the cache.
+    private static var routes: [String: (key: RouteKey, image: CGImage)] = [:]
 
-    private static func project(_ point: Coordinate) -> (x: Int, y: Int) {
+    private static func base(theme: AppTheme) -> [UInt32?] {
+        if let pixels = bases[theme.id] { return pixels }
+        let pixels: [UInt32?] = WorldMapData.rows.flatMap { row in
+            row.map { theme.rgb($0 == "#" ? .mapLand : .mapSea) }
+        }
+        bases[theme.id] = pixels
+        return pixels
+    }
+
+    private static func project(_ point: Coordinate) -> Point {
         let width = Double(WorldMapData.width)
         let height = Double(WorldMapData.height)
         let x = Int((point.lon + 180) / 360 * width)
         let y = Int((WorldMapData.latTop - point.lat) / (WorldMapData.latTop - WorldMapData.latBottom) * height)
-        return (min(max(x, 0), WorldMapData.width - 1), min(max(y, 0), WorldMapData.height - 1))
+        return Point(x: min(max(x, 0), WorldMapData.width - 1), y: min(max(y, 0), WorldMapData.height - 1))
     }
 
-    static func homeImage(_ city: City) -> CGImage {
-        var pixels = base
+    static func homeImage(_ city: City, theme: AppTheme) -> CGImage {
         let point = project(city.coordinate)
+        let key = HomeKey(themeID: theme.id, point: point)
+        if let image = homes[key] { return image }
+        var pixels = base(theme: theme)
         for dy in -1...1 {
             for dx in -1...1 {
                 let x = min(max(point.x + dx, 0), WorldMapData.width - 1)
                 let y = min(max(point.y + dy, 0), WorldMapData.height - 1)
-                pixels[y * WorldMapData.width + x] = dx == 0 && dy == 0 ? Palette.ink : Palette.paper
+                pixels[y * WorldMapData.width + x] = dx == 0 && dy == 0 ? theme.rgb(.mapPosition) : theme.rgb(.mapMarker)
             }
         }
-        return PixelImage.make(width: WorldMapData.width, height: WorldMapData.height, pixels: pixels)
+        let image = PixelImage.make(width: WorldMapData.width, height: WorldMapData.height, pixels: pixels)
+        homes[key] = image
+        return image
     }
 
-    static func image(for state: JourneyState, catalog: CityCatalog) -> CGImage {
-        var pixels = base
+    static func image(for state: JourneyState, catalog: CityCatalog, theme: AppTheme) -> CGImage {
+        let key = RouteKey(stops: state.route.compactMap { catalog.find($0) }.map { project($0.coordinate) },
+                           here: project(state.position), origin: project(state.legFrom), target: project(state.legTo))
+        if let cached = routes[theme.id], cached.key == key { return cached.image }
+        var pixels = base(theme: theme)
         let width = WorldMapData.width
         let height = WorldMapData.height
 
@@ -38,7 +64,7 @@ enum PixelMap {
             pixels[y * width + wrapped] = color
         }
 
-        func line(_ from: (x: Int, y: Int), _ to: (x: Int, y: Int), _ color: UInt32, dotted: Bool = false) {
+        func line(_ from: Point, _ to: Point, _ color: UInt32, dotted: Bool = false) {
             var endX = to.x
             if endX - from.x > width / 2 { endX -= width }
             if from.x - endX > width / 2 { endX += width }
@@ -50,31 +76,36 @@ enum PixelMap {
             }
         }
 
-        let stops = state.route.compactMap { catalog.find($0) }.map { project($0.coordinate) }
-        for (from, to) in zip(stops, stops.dropFirst()) { line(from, to, Palette.amber) }
-        let here = project(state.position)
-        let origin = project(state.legFrom)
-        let target = project(state.legTo)
-        line(here, target, Palette.paper, dotted: true)
-        line(origin, here, Palette.amber)
-        for stop in stops { plot(stop.x, stop.y, Palette.paper) }
-        plot(target.x, target.y, Palette.mint)
-        for (dx, dy) in [(0, 0), (1, 0), (0, 1), (1, 1)] { plot(here.x + dx, here.y + dy, Palette.ink) }
-        return PixelImage.make(width: width, height: height, pixels: pixels)
+        let stops = key.stops
+        for (from, to) in zip(stops, stops.dropFirst()) { line(from, to, theme.rgb(.mapRoute)) }
+        let here = key.here
+        let origin = key.origin
+        let target = key.target
+        line(here, target, theme.rgb(.mapMarker), dotted: true)
+        line(origin, here, theme.rgb(.mapRoute))
+        for stop in stops { plot(stop.x, stop.y, theme.rgb(.mapMarker)) }
+        plot(target.x, target.y, theme.rgb(.mapDestination))
+        for (dx, dy) in [(0, 0), (1, 0), (0, 1), (1, 1)] { plot(here.x + dx, here.y + dy, theme.rgb(.mapPosition)) }
+        let image = PixelImage.make(width: width, height: height, pixels: pixels)
+        routes[theme.id] = (key, image)
+        return image
     }
 }
 
 struct PixelMapView: View {
-    @Environment(\.l10n) private var l10n
-    var state: JourneyState
-    var catalog: CityCatalog
-    var scale: CGFloat
+    var image: CGImage
+    var availableWidth: CGFloat
+    var borderColor: Color
+
+    var scale: Int { RoomLayout.scale(availableWidth: availableWidth, pixelWidth: image.width) }
+    var size: CGSize { CGSize(width: image.width * scale, height: image.height * scale) }
+    var leadingInset: CGFloat { floor((availableWidth - size.width) / 2) }
 
     var body: some View {
-        Image(decorative: PixelMap.image(for: state, catalog: catalog), scale: 1)
-            .interpolation(.none)
-            .resizable()
-            .frame(width: CGFloat(WorldMapData.width) * scale, height: CGFloat(WorldMapData.height) * scale)
-            .accessibilityLabel(l10n("map.description", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId))))
+        PixelArtView(image: image, scale: scale)
+            .frame(width: size.width, height: size.height).fixedSize()
+            .pixelBorder(borderColor)
+            .padding(.leading, leadingInset)
+            .frame(width: availableWidth, alignment: .leading)
     }
 }

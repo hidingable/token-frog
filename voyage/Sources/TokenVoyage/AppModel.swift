@@ -8,6 +8,26 @@ import VoyageCore
 final class AppModel {
     private(set) var state: JourneyState?
     let catalog: CityCatalog?
+    let themes: ThemeCatalog?
+    private(set) var systemScheme: ThemeScheme
+    private let appearanceOverride: ThemeScheme?
+    @ObservationIgnored var onAppearanceChange: (() -> Void)?
+    var appearancePreference: AppearancePreference {
+        didSet {
+            if !isSnapshot { defaults.set(appearancePreference.rawValue, forKey: "appearance") }
+            onAppearanceChange?()
+        }
+    }
+    var theme: AppTheme {
+        let scheme = appearanceOverride ?? (appearancePreference == .dark ? .dark : appearancePreference == .light ? .light : systemScheme)
+        guard let themes else { return AppTheme(recoveryScheme: scheme) }
+        return AppTheme(appearanceOverride.map { themes.standard($0) } ?? appearancePreference.resolve(system: systemScheme, catalog: themes))
+    }
+    func systemAppearanceChanged(to scheme: ThemeScheme) {
+        guard systemScheme != scheme else { return }
+        systemScheme = scheme
+        if appearancePreference == .system { onAppearanceChange?() }
+    }
     private let contentFailed: Bool
     private(set) var now = Date()
     private(set) var lastScan: Date?
@@ -77,6 +97,7 @@ final class AppModel {
     private let onboardingReader: OnboardingFlow.UsageReader
     private let quotaReader: @Sendable () async throws -> [ProviderQuota]
     private let usageReader: @Sendable (String?, String) async throws -> [DayDetail]
+    private let hoursReader: @Sendable (String, String) async throws -> [HourUsage]
     private let enrichmentReader: Enricher.Fetch
     /// Persistence tests can finish onboarding without installing OS observers or starting scans.
     private let runtimeEnabled: Bool
@@ -111,11 +132,12 @@ final class AppModel {
     /// Quotas hit provider APIs, so they refresh on a fixed clock and never because tokens were used.
     private static let quotaInterval: TimeInterval = 600
 
-    init(isSnapshot: Bool = false, languageOverride: Language? = nil, defaults: UserDefaults = .standard, directory: URL? = nil, catalog: CityCatalog? = nil, contentDirectory: URL? = nil,
+    init(isSnapshot: Bool = false, languageOverride: Language? = nil, appearanceOverride: ThemeScheme? = nil, systemScheme: ThemeScheme? = nil, defaults: UserDefaults = .standard, directory: URL? = nil, catalog: CityCatalog? = nil, contentDirectory: URL? = nil, themes: ThemeCatalog? = nil,
          now: @escaping () -> Date = Date.init, onboardingSeed: UInt32 = UInt32.random(in: 0...UInt32.max),
          onboardingReader: @escaping OnboardingFlow.UsageReader = OnboardingFlow.readLocalUsage,
          quotaReader: @escaping @Sendable () async throws -> [ProviderQuota] = UsageSource.fetchQuotas,
          usageReader: @escaping @Sendable (String?, String) async throws -> [DayDetail] = UsageSource.fetch,
+         hoursReader: @escaping @Sendable (String, String) async throws -> [HourUsage] = UsageSource.fetchHours,
          enrichmentReader: @escaping Enricher.Fetch = { await Enricher.fetch($0) },
          runtimeEnabled: Bool = true, floatingReactionDuration: Duration = .seconds(3)) {
         self.isSnapshot = isSnapshot
@@ -125,11 +147,15 @@ final class AppModel {
         self.onboardingReader = onboardingReader
         self.quotaReader = quotaReader
         self.usageReader = usageReader
+        self.hoursReader = hoursReader
         self.enrichmentReader = enrichmentReader
         self.runtimeEnabled = runtimeEnabled
         self.floatingReactionDuration = floatingReactionDuration
         self.languageOverride = languageOverride
         self.defaults = defaults
+        self.appearanceOverride = isSnapshot ? appearanceOverride : nil
+        self.systemScheme = systemScheme ?? ThemeScheme(appearance: NSApp?.effectiveAppearance)
+        let savedAppearance = AppearancePreference(rawValue: defaults.string(forKey: "appearance") ?? "system")
         languagePreference = defaults.string(forKey: "language").flatMap(LanguagePreference.init(rawValue:)) ?? .system
         notchEnabled = defaults.object(forKey: "notchEnabled") as? Bool ?? true
         floatingEnabled = defaults.object(forKey: "floatingEnabled") as? Bool ?? true
@@ -141,9 +167,14 @@ final class AppModel {
             dataDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
                 .appendingPathComponent("TokenVoyage")
         }
-        let loadedCatalog = catalog ?? (try? CityCatalog.load(directory: contentDirectory ?? Bundle.main.resourceURL!.appendingPathComponent("Content")))
+        let contentRoot = contentDirectory ?? Bundle.main.resourceURL!.appendingPathComponent("Content")
+        let loadedThemes = themes ?? (try? ThemeCatalog.load(directory: contentRoot.appendingPathComponent("themes")))
+        self.themes = loadedThemes
+        if case .theme(let id) = savedAppearance, loadedThemes?.find(id) == nil { appearancePreference = .system }
+        else { appearancePreference = savedAppearance }
+        let loadedCatalog = catalog ?? (try? CityCatalog.load(directory: contentRoot))
         self.catalog = loadedCatalog
-        contentFailed = loadedCatalog.map { $0.active.count < 2 } ?? true
+        contentFailed = loadedThemes == nil || (loadedCatalog.map { $0.active.count < 2 } ?? true)
         store = SaveStore(directory: dataDirectory, journeyMigrations: loadedCatalog.map { .journey(catalog: $0) } ?? SaveMigrations(currentVersion: JourneyState.currentVersion))
         isLocked = true
         guard !contentFailed, let loadedCatalog else {
@@ -528,9 +559,9 @@ final class AppModel {
 
     /// Reads the whole history only while the dashboard is showing, sharing the scan's serial slot.
     func loadDashboard() async {
-        guard !isSnapshot, !isLocked, onboarding == nil else { return }
+        guard !isLocked, onboarding == nil else { return }
         let generation = backgroundGeneration
-        let now = Date()
+        let now = clock()
         let isStale = dashboardLoadedAt.map { now.timeIntervalSince($0) >= Self.dashboardMaxAge } ?? true
         let monthStale = monthHoursLoadedAt.map { now.timeIntervalSince($0) >= Self.monthHoursMaxAge } ?? true
         guard isStale || monthStale, !isScanning else { return }
@@ -538,10 +569,10 @@ final class AppModel {
         let until = DayKey.string(from: now)
         do {
             if isStale {
-                let days = try await UsageSource.fetch(since: nil, until: until)
+                let days = try await usageReader(nil, until)
                 guard !isLocked, generation == backgroundGeneration else { isScanning = false; return }
                 dashboardDays = days
-                let hours = try await UsageSource.fetchHours(since: until, until: until)
+                let hours = try await hoursReader(until, until)
                 guard !isLocked, generation == backgroundGeneration else { isScanning = false; return }
                 todayHours = hours
                 dashboardLoadedAt = now
@@ -557,7 +588,7 @@ final class AppModel {
         isScanning = true
         defer { isScanning = false }
         do {
-            let hours = try await UsageSource.fetchHours(since: DayKey.string(from: start), until: until)
+            let hours = try await hoursReader(DayKey.string(from: start), until)
             guard !isLocked, generation == backgroundGeneration else { return }
             monthHours = hours
             monthHoursLoadedAt = now
@@ -722,7 +753,7 @@ final class AppModel {
     }
 
     private func savePhoto(_ data: Data, letterId: Int) -> String? {
-        guard !isLocked, let png = Enricher.pixelate(data) else { return nil }
+        guard !isLocked, let png = Enricher.pixelate(data, palette: theme.definition!.photoPalette) else { return nil }
         let directory = dataDirectory.appendingPathComponent("photos")
         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let name = "letter-\(letterId).png"

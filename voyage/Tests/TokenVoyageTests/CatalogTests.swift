@@ -11,6 +11,7 @@ enum LocalizationTestFiles {
     static let catalog = appSources.appendingPathComponent("Resources/Localizable.xcstrings")
 }
 
+let testThemes = try! ThemeCatalog.load(directory: LocalizationTestFiles.root.appendingPathComponent("Content/themes"))
 let localizationCatalog = try! CityCatalog.load(directory: LocalizationTestFiles.root.appendingPathComponent("Content"))
 
 private struct StringCatalog: Decodable {

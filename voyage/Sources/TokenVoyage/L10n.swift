@@ -48,6 +48,7 @@ struct L10n: Sendable {
     static let periodKeys: [DashboardPeriod: String] = [.today: "period.today", .week: "period.week", .month: "period.month", .quarter: "period.quarter", .year: "period.year", .all: "period.all"]
     static let metricKeys: [DashboardMetric: String] = [.total: "metric.total", .fuel: "metric.fuel", .cost: "metric.cost", .messages: "metric.messages"]
     static let quotaKeys = ["Weekly": "quota.weekly", "Daily": "quota.daily", "Monthly": "quota.monthly", "Session": "quota.session", "Chat": "quota.chat", "Completions": "quota.completions", "Premium": "quota.premium"]
+    static let appearanceKeys: [AppearancePreference: String] = [.system: "appearance.system", .dark: "appearance.dark", .light: "appearance.light"]
     static let languageKeys: [LanguagePreference: String] = [.system: "language.system", .zhHans: "language.zhHans", .en: "language.en"]
     static let countKeys = ["tokens": ["tokens.one", "tokens.other"], "days": ["days.one", "days.other"], "hours": ["hours.one", "hours.other"], "minutes": ["minutes.one", "minutes.other"]]
     static let defaultPetNameKeys: [PetKind: String] = [.pigeon: "pet.pigeon.defaultName", .snail: "pet.snail.defaultName", .suitcase: "pet.suitcase.defaultName", .letter: "pet.letter.defaultName"]
@@ -61,7 +62,7 @@ struct L10n: Sendable {
     ]
     static let floatingKeys = ["floating.line.0", "floating.line.1", "floating.line.2"]
     static var dynamicKeys: [String] {
-        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + countKeys.values.flatMap { $0 } + LetterComposer.quirkKeys.values.flatMap { $0 } + Array(defaultPetNameKeys.values) + Array(eggKeys.values) + Array(onboardingTitleKeys.values) + Enricher.weatherKeys + Array(stageKeys.values) + Array(habitKeys.values) + habitDescriptionKeys.values.flatMap { $0 } + floatingKeys + ["habit.both", "home.bubble.mail", "home.bubble.reply", "home.bubble.bag", "box.next", "box.keep", "box.open"]
+        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + Array(appearanceKeys.values) + countKeys.values.flatMap { $0 } + LetterComposer.quirkKeys.values.flatMap { $0 } + Array(defaultPetNameKeys.values) + Array(eggKeys.values) + Array(onboardingTitleKeys.values) + Enricher.weatherKeys + Array(stageKeys.values) + Array(habitKeys.values) + habitDescriptionKeys.values.flatMap { $0 } + floatingKeys + ["habit.both", "home.bubble.mail", "home.bubble.reply", "home.bubble.bag", "box.next", "box.keep", "box.open"]
     }
 
     func defaultPetName(_ pet: PetKind) -> String { language == .zhHans ? pet.displayName : self(Self.defaultPetNameKeys[pet]!) }
@@ -184,6 +185,8 @@ struct LocalizedRoot<Content: View>: View {
     let content: Content
     var body: some View {
         content.environment(\.l10n, model.l10n).environment(\.locale, model.l10n.locale)
+            .environment(\.theme, model.theme)
+            .preferredColorScheme(model.theme.scheme == .dark ? .dark : .light)
     }
 }
 

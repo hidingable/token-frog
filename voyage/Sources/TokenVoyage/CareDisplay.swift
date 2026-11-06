@@ -26,7 +26,9 @@ enum PetBubble: Equatable {
 enum RoomLayout {
     static let width = 240
     static let height = 132
-    static func scale(availableWidth: CGFloat) -> Int { max(0, Int(floor(availableWidth / CGFloat(width)))) }
+    static func scale(availableWidth: CGFloat, pixelWidth: Int = width) -> Int {
+        max(0, Int(floor(availableWidth / CGFloat(pixelWidth))))
+    }
     static func shelf(_ care: CareState) -> [CareState.Souvenir] {
         Array(care.souvenirs.filter(\.shelved).prefix(CareRules.shelfCapacity))
     }

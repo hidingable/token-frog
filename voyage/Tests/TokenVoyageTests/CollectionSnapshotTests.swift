@@ -65,7 +65,7 @@ private final class CollectionSnapshotDefaults: UserDefaults, @unchecked Sendabl
         let careURL = directory.appendingPathComponent("care.json")
         let savedJourneyData = try Data(contentsOf: journeyURL)
         let savedCareData = try Data(contentsOf: careURL)
-        let model = AppModel(isSnapshot: true, defaults: CollectionSnapshotDefaults(), directory: directory, catalog: localizationCatalog,
+        let model = AppModel(isSnapshot: true, defaults: CollectionSnapshotDefaults(), directory: directory, catalog: localizationCatalog, themes: testThemes,
                              now: { now }, quotaReader: { Issue.record("Snapshot must not request quotas"); return [] },
                              usageReader: { _, _ in Issue.record("Snapshot must not read usage"); return [] },
                              enrichmentReader: { _ in Issue.record("Snapshot must not request enrichment"); return Enrichment() },

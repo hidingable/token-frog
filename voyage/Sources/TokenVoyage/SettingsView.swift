@@ -2,13 +2,14 @@ import SwiftUI
 import VoyageCore
 
 struct SettingsTab: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     @Bindable var model: AppModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 12) {
-                Text(l10n("settings.language")).foregroundStyle(Theme.dusk)
+                Text(l10n("settings.language")).foregroundStyle(theme.textMuted)
                 HStack {
                     Text(l10n("settings.interfaceAndLetters"))
                     Spacer()
@@ -20,14 +21,29 @@ struct SettingsTab: View {
                         }
                     } label: {
                         Text(l10n(L10n.languageKeys[model.languagePreference]!))
-                            .padding(8).pixelBorder(Theme.dusk)
+                            .padding(8).pixelBorder(theme.border)
                     }
                     .menuStyle(.borderlessButton)
                     .fixedSize()
                 }
             }
             VStack(alignment: .leading, spacing: 12) {
-                Text(l10n("settings.display")).foregroundStyle(Theme.dusk)
+                Text(l10n("settings.appearance")).foregroundStyle(theme.textMuted)
+                Picker(l10n("settings.appearance"), selection: $model.appearancePreference) {
+                    ForEach(AppearancePreference.standard, id: \.self) { preference in
+                        Text(l10n(L10n.appearanceKeys[preference]!)).tag(preference)
+                    }
+                    if let themes = model.themes {
+                        ForEach(themes.all.filter { $0.id != "night" && $0.id != "day" }) { theme in
+                            Text(theme.names[l10n.language.rawValue]!).tag(AppearancePreference.theme(theme.id))
+                        }
+                    }
+                }
+                .labelsHidden()
+                .pickerStyle(.menu)
+            }
+            VStack(alignment: .leading, spacing: 12) {
+                Text(l10n("settings.display")).foregroundStyle(theme.textMuted)
                 Toggle(l10n("settings.notch"), isOn: $model.notchEnabled)
                 Toggle(l10n("settings.floating"), isOn: $model.floatingEnabled)
             }
@@ -42,32 +58,33 @@ struct SettingsTab: View {
                     .labelsHidden()
                     .frame(maxWidth: 250)
                 }
-                Text(l10n("onboarding.homeHint")).foregroundStyle(Theme.dusk)
+                Text(l10n("onboarding.homeHint")).foregroundStyle(theme.textMuted)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
         .font(Theme.pixel())
-        .foregroundStyle(Theme.paper)
+        .foregroundStyle(theme.text)
         .padding(16)
         .frame(maxWidth: 520, alignment: .leading)
-        .background(Theme.inkRaised)
-        .pixelBorder(Theme.dusk)
+        .background(theme.surfaceRaised)
+        .pixelBorder(theme.border)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
 private struct PixelToggleStyle: ToggleStyle {
+    @Environment(\.theme) private var theme
     func makeBody(configuration: Configuration) -> some View {
         Button { configuration.isOn.toggle() } label: {
             HStack {
                 configuration.label
                 Spacer()
                 ZStack {
-                    Rectangle().fill(configuration.isOn ? Theme.paper : Theme.ink)
-                    if configuration.isOn { Text("✓").foregroundStyle(Theme.ink) }
+                    Rectangle().fill(configuration.isOn ? theme.selectedFill : theme.background)
+                    if configuration.isOn { Text("✓").foregroundStyle(theme.selectedText) }
                 }
                 .frame(width: 20, height: 20)
-                .pixelBorder(Theme.dusk)
+                .pixelBorder(theme.border)
             }
             .contentShape(Rectangle())
         }

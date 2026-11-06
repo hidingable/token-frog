@@ -28,10 +28,13 @@ private final class CareDefaults: UserDefaults, @unchecked Sendable {
         try store.save(examples.care)
     }
 
-    func model(isSnapshot: Bool = false, floatingReactionDuration: Duration = .seconds(3), usageReader: @escaping @Sendable (String?, String) async throws -> [DayDetail] = { _, _ in Issue.record("Care UI must not read usage"); return [] }) -> AppModel {
-        AppModel(isSnapshot: isSnapshot, defaults: CareDefaults(), directory: directory, catalog: localizationCatalog,
+    func model(isSnapshot: Bool = false, floatingReactionDuration: Duration = .seconds(3),
+               usageReader: @escaping @Sendable (String?, String) async throws -> [DayDetail] = { _, _ in Issue.record("Care UI must not read usage"); return [] },
+               hoursReader: @escaping @Sendable (String, String) async throws -> [HourUsage] = { _, _ in Issue.record("Care UI must not read hourly usage"); return [] }) -> AppModel {
+        AppModel(isSnapshot: isSnapshot, defaults: CareDefaults(), directory: directory, catalog: localizationCatalog, themes: testThemes,
                  now: { clock.date }, quotaReader: { Issue.record("Care UI must not request quotas"); return [] },
                  usageReader: usageReader,
+                 hoursReader: hoursReader,
                  enrichmentReader: { _ in Issue.record("Care UI must not request enrichment"); return Enrichment() },
                  runtimeEnabled: false, floatingReactionDuration: floatingReactionDuration)
     }
@@ -210,9 +213,21 @@ private final class CareDefaults: UserDefaults, @unchecked Sendable {
         let detail = DayDetail(date: DayKey.string(from: fixture.clock.date), rows: [
             UsageRow(client: "codex", model: "test", tokens: UsageTotals(input: 123_456, output: 789)),
         ])
+        let yesterday = DayKey.string(from: Calendar.current.date(byAdding: .day, value: -1, to: fixture.clock.date)!)
+        let monthStart = DayKey.string(from: Calendar.current.date(byAdding: .day, value: -29, to: fixture.clock.date)!)
+        let hours = try TokscaleHourly.parse(Data("""
+        {"entries":[
+          {"hour":"\(yesterday) 09:00","input":100},
+          {"hour":"\(detail.date) 10:00","input":123456,"output":789}
+        ]}
+        """.utf8))
         let model = fixture.model(isSnapshot: true, usageReader: { since, until in
             #expect(since == nil && until == detail.date)
             return [detail]
+        }, hoursReader: { since, until in
+            #expect(until == detail.date)
+            #expect(since == until || since == monthStart)
+            return since == until ? hours.filter { $0.date == until } : hours
         })
         #expect(!model.isLocked && model.onboarding == nil)
         #expect(model.petName == "Coo")
@@ -226,6 +241,8 @@ private final class CareDefaults: UserDefaults, @unchecked Sendable {
         #expect(model.todayFuel == detail.usage.fuel)
         #expect(model.todayTotals?.total == detail.rows[0].tokens.total)
         #expect(model.dashboardDays == [detail] && model.quotas.isEmpty)
+        #expect(model.dashboardHours == hours)
+        #expect(HourUsage.profile(model.dashboardHours, start: detail.date, end: detail.date, metric: .total)[10] == Double(detail.rows[0].tokens.total))
         model.showProfile()
         model.reactToFloatingClick()
         for kind in Snapshots.BoxExample.allCases {

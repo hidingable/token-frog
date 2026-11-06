@@ -3,6 +3,7 @@ import SwiftUI
 import VoyageCore
 
 struct BoxView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     @State private var shaking = false
@@ -26,7 +27,7 @@ struct BoxView: View {
                     .buttonStyle(.plain).disabled(!shaking)
                     .accessibilityLabel(l10n("box.skip"))
                     Text(l10n("box.title")).font(Theme.pixel(24))
-                    Text(l10n("box.stamps", model.boxStampCount)).foregroundStyle(Theme.dusk)
+                    Text(l10n("box.stamps", model.boxStampCount)).foregroundStyle(theme.textMuted)
                     CollectionAction(title: l10n(shaking ? "box.skip" : "box.open")) {
                         if shaking { shaking = false; shakeOffset = 0 }
                         else if model.openPresentedBox() != nil { shaking = true }
@@ -37,8 +38,8 @@ struct BoxView: View {
             }
             .frame(maxWidth: .infinity, minHeight: 440).padding(24)
         }
-        .font(Theme.pixel()).foregroundStyle(Theme.paper)
-        .background(Theme.inkRaised).pixelBorder(Theme.dusk).padding(12)
+        .font(Theme.pixel()).foregroundStyle(theme.text)
+        .background(theme.surfaceRaised).pixelBorder(theme.border).padding(12)
         .task(id: shaking) {
             guard shaking else { return }
             if !NSWorkspace.shared.accessibilityDisplayShouldReduceMotion {
@@ -60,8 +61,8 @@ struct BoxView: View {
                 if let item = catalog.items.find(id) {
                     ItemIcon(item: item, scale: 6)
                     Text(l10n.itemName(item)).font(Theme.pixel(24))
-                        .foregroundStyle(kind == "bag" ? Theme.mint : Theme.paper)
-                    if kind == "bag" { Text(l10n("box.newBagItem")).foregroundStyle(Theme.mint) }
+                        .foregroundStyle(kind == "bag" ? theme.newPlaceText : theme.text)
+                    if kind == "bag" { Text(l10n("box.newBagItem")).foregroundStyle(theme.newPlaceText) }
                     Text(l10n.itemDescription(item)).font(.system(size: 14)).lineSpacing(4)
                         .fixedSize(horizontal: false, vertical: true).frame(maxWidth: 440)
                 }
@@ -70,7 +71,7 @@ struct BoxView: View {
                 Text(l10n("box.clue", l10n.cityName(catalog.city(city)))).font(Theme.pixel(24))
                     .fixedSize(horizontal: false, vertical: true)
                 Text(l10n("collection.clueProgress", model.care?.trailClues[city] ?? 0))
-                    .foregroundStyle(Theme.amber)
+                    .foregroundStyle(theme.mileageText)
             }
         }
     }

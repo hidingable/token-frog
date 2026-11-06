@@ -14,6 +14,27 @@ func roomAlwaysChoosesLargestIntegerScaleThatFits(width: Double) {
     #expect(Double((scale + 1) * RoomLayout.width) > width)
 }
 
+@MainActor
+@Test(arguments: [0.0, 119.9, 120, 121, 239.9, 240, 359, 360, 472, 719.5, 736, 1055.5])
+func mapsChooseTheLargestIntegerScaleAndCenterAtWholePoints(width: Double) {
+    let city = localizationCatalog.city("shanghai")
+    let state = JourneyState(seed: 7, startCityId: city.id, date: "2026-11-01", catalog: localizationCatalog)
+    for definition in testThemes.all {
+        let theme = AppTheme(definition)
+        for image in [PixelMap.homeImage(city, theme: theme), PixelMap.image(for: state, catalog: localizationCatalog, theme: theme)] {
+            let map = PixelMapView(image: image, availableWidth: width, borderColor: theme.mapBorder)
+            #expect(map.scale == RoomLayout.scale(availableWidth: width, pixelWidth: WorldMapData.width))
+            #expect(map.size.width == CGFloat(map.scale * WorldMapData.width))
+            #expect(map.size.height == CGFloat(map.scale * WorldMapData.height))
+            #expect(map.size.width <= width && map.size.width + CGFloat(WorldMapData.width) > width)
+            #expect(map.leadingInset >= 0 && map.leadingInset == floor(map.leadingInset))
+            let trailingInset = width - map.leadingInset - map.size.width
+            #expect(trailingInset >= map.leadingInset && trailingInset - map.leadingInset < 2)
+            #expect(!image.shouldInterpolate)
+        }
+    }
+}
+
 @Test(arguments: [760.0, 780, 989, 990, 1000, 1200, 1920])
 func homeKeepsRoomAtTwoOrThreeTimesWithAWrappingRightColumn(width: Double) {
     let layout = HomeLayout(windowWidth: width)
@@ -110,10 +131,11 @@ func homeHabitSummaryShowsBothPositiveTiesAndOmitsZero(talkative: Int, observant
     }
 }
 
+@MainActor
 @Test func roomArtUsesCurrentSpeciesAndOnlySelectedShelfSlots() throws {
     let item = try #require(localizationCatalog.items.find("box.tea-paper"))
     for pet in PetKind.allCases {
-        let room = RoomArt.image(pet: pet, shelf: [])
+        let room = RoomArt.image(pet: pet, shelf: [], theme: AppTheme(testThemes.standard(.dark)))
         #expect(room.width == 240 && room.height == 132 && !room.shouldInterpolate)
         let data = try #require(room.dataProvider?.data) as Data
         for (index, color) in Sprites.petPixels(pet).enumerated() {
@@ -130,8 +152,8 @@ func homeHabitSummaryShowsBothPositiveTiesAndOmitsZero(talkative: Int, observant
             }
         }
     }
-    let empty = try #require(RoomArt.image(pet: .pigeon, shelf: []).dataProvider?.data) as Data
-    let full = try #require(RoomArt.image(pet: .pigeon, shelf: [item]).dataProvider?.data) as Data
+    let empty = try #require(RoomArt.image(pet: .pigeon, shelf: [], theme: AppTheme(testThemes.standard(.dark))).dataProvider?.data) as Data
+    let full = try #require(RoomArt.image(pet: .pigeon, shelf: [item], theme: AppTheme(testThemes.standard(.dark))).dataProvider?.data) as Data
     #expect(empty != full)
     for y in 0..<132 {
         for x in 0..<240 where !(80..<92).contains(x) || !(40..<52).contains(y) {

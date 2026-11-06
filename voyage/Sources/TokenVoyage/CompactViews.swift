@@ -25,18 +25,20 @@ struct SteppedBottom: Shape {
 }
 
 struct MailBadge: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     var count: Int
     var body: some View {
         Text(l10n("compact.mail", Format.grouped(count)))
             .font(Theme.pixel())
-            .foregroundStyle(Theme.ink)
+            .foregroundStyle(theme.onNewMail)
             .padding(.horizontal, 4)
-            .background(Theme.red)
+            .background(theme.newMailFill)
     }
 }
 
 struct NotchCollapsedView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     var metrics: NotchMetrics
@@ -46,8 +48,8 @@ struct NotchCollapsedView: View {
             HStack(spacing: 0) {
                 HStack(spacing: 6) {
                     SpriteView(pet: state.pet, scale: 1, moving: model.isMoving)
-                        .background(Theme.paper)
-                    BlockProgress(progress: state.legProgress, blocks: 6, size: 5)
+                        .background(theme.paper)
+                    BlockProgress(progress: state.legProgress, blocks: 6, size: 5, inactiveColor: theme.notchControlOff)
                 }
                 .frame(width: metrics.shoulderWidth, alignment: .center)
                 Color.clear.frame(width: metrics.notchWidth)
@@ -56,19 +58,20 @@ struct NotchCollapsedView: View {
                          ? l10n("journey.remaining", Format.km(fuel: state.remainingFuel))
                          : l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))))
                         .font(Theme.pixel())
-                        .foregroundStyle(Theme.paper)
+                        .foregroundStyle(theme.notchText)
                         .lineLimit(1)
                     if model.unread > 0 { MailBadge(count: model.unread) }
                 }
                 .frame(width: metrics.shoulderWidth, alignment: .center)
             }
             .frame(width: metrics.collapsedSize.width, height: metrics.collapsedSize.height)
-            .background(Color.black, in: SteppedBottom(step: 2))
+            .background(theme.notchBackground, in: SteppedBottom(step: 2))
         }
     }
 }
 
 struct NotchExpandedView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     var metrics: NotchMetrics
@@ -86,32 +89,35 @@ struct NotchExpandedView: View {
                     .frame(width: metrics.shoulderWidth + (metrics.expandedSize.width - metrics.collapsedSize.width) / 2)
                 }
                 .font(Theme.pixel())
-                .foregroundStyle(Theme.dusk)
+                .foregroundStyle(theme.notchTextMuted)
                 .frame(height: metrics.collapsedSize.height)
 
                 HStack(alignment: .top, spacing: 12) {
-                    PixelMapView(state: state, catalog: catalog, scale: 3).pixelBorder(Theme.blockOff)
+                    PixelMapView(image: PixelMap.image(for: state, catalog: catalog, theme: theme),
+                                 availableWidth: metrics.expandedSize.width - 32 - 12 - 156,
+                                 borderColor: theme.notchControlOff)
+                        .accessibilityLabel(l10n("map.description", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId))))
                     VStack(alignment: .leading, spacing: 5) {
                         Text(Format.km(fuel: model.todayFuel))
                             .font(Theme.pixel(24))
-                            .foregroundStyle(Theme.amber)
+                            .foregroundStyle(theme.notchMileageText)
                         Text(l10n("compact.fuel", l10n.tokens(model.todayFuel)))
                         if let totals = model.todayTotals {
                             Text(l10n("compact.total", Format.tokens(totals.total, language: l10n.language), Format.cost(totals.cost)))
-                                .foregroundStyle(Theme.dusk)
+                                .foregroundStyle(theme.notchTextMuted)
                         }
                         Text(l10n("journey.route", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId))))
-                        BlockProgress(progress: state.legProgress, blocks: 12, size: 6)
+                        BlockProgress(progress: state.legProgress, blocks: 12, size: 6, inactiveColor: theme.notchControlOff)
                         Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel)))
-                            .foregroundStyle(Theme.dusk)
+                            .foregroundStyle(theme.notchTextMuted)
                         ForEach(model.todayVehicles.prefix(1), id: \.client) { share in
                             Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
-                                .foregroundStyle(Theme.dusk)
+                                .foregroundStyle(theme.notchTextMuted)
                         }
                         Spacer(minLength: 0)
                     }
                     .font(Theme.pixel())
-                    .foregroundStyle(Theme.paper)
+                    .foregroundStyle(theme.notchText)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding(.horizontal, 16)
@@ -119,7 +125,7 @@ struct NotchExpandedView: View {
             }
             .frame(width: metrics.expandedSize.width, height: metrics.expandedSize.height, alignment: .top)
             .clipped()
-            .background(Color.black, in: SteppedBottom(step: 4))
+            .background(theme.notchBackground, in: SteppedBottom(step: 4))
         }
     }
 }
@@ -160,6 +166,7 @@ enum FloatingLayout {
 }
 
 struct FloatingView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     var maximumReactionSize = FloatingLayout.maximumReactionSize
@@ -168,20 +175,20 @@ struct FloatingView: View {
         if let state = model.state, let catalog = model.catalog {
             HStack(spacing: 6) {
                 SpriteView(pet: state.pet, scale: 2, moving: model.isMoving)
-                    .background(Theme.paper)
+                    .background(theme.paper)
                     .offset(y: model.floatingJump ? -4 : 0)
                 if model.floatingReaction {
                     Text(model.floatingWords).font(.system(size: 12)).lineSpacing(2)
                         .lineLimit(2).padding(.vertical, surfaceSize.height > 48 ? 6 : 0)
-                        .foregroundStyle(Theme.paper).fixedSize(horizontal: false, vertical: true)
+                        .foregroundStyle(theme.text).fixedSize(horizontal: false, vertical: true)
                         .frame(width: surfaceSize.width - 50, alignment: .leading)
                 } else {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(Format.km(fuel: model.todayFuel)).foregroundStyle(Theme.amber)
+                        Text(Format.km(fuel: model.todayFuel)).foregroundStyle(theme.mileageText)
                         HStack(spacing: 4) {
                             Text(l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))))
-                                .foregroundStyle(Theme.paper)
-                            if model.unread > 0 { Rectangle().fill(Theme.red).frame(width: 6, height: 6) }
+                                .foregroundStyle(theme.text)
+                            if model.unread > 0 { Rectangle().fill(theme.newMailFill).frame(width: 6, height: 6) }
                         }
                     }
                     .font(Theme.pixel())
@@ -190,8 +197,8 @@ struct FloatingView: View {
             }
             .padding(6)
             .frame(width: surfaceSize.width, height: surfaceSize.height, alignment: .leading)
-            .background(Theme.ink)
-            .pixelBorder(Theme.dusk)
+            .background(theme.background)
+            .pixelBorder(theme.border)
         }
     }
 

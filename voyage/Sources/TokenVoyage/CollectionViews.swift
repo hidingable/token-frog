@@ -2,6 +2,7 @@ import SwiftUI
 import VoyageCore
 
 struct ItemIcon: View {
+    @Environment(\.theme) private var theme
     let item: Item
     var scale = 3
     var body: some View {
@@ -11,6 +12,7 @@ struct ItemIcon: View {
 }
 
 private struct ItemTile: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let item: Item
     var owned = true
@@ -29,11 +31,11 @@ private struct ItemTile: View {
                 }
             }
             .font(Theme.pixel())
-            .foregroundStyle(selected ? Theme.ink : Theme.paper)
+            .foregroundStyle(selected ? theme.selectedText : theme.text)
             .frame(maxWidth: .infinity, minHeight: 96)
             .padding(8)
-            .background(selected ? Theme.paper : Theme.inkRaised)
-            .pixelBorder(selected ? Theme.paper : Theme.dusk, width: selected ? 3 : 2)
+            .background(selected ? theme.selectedFill : theme.surfaceRaised)
+            .pixelBorder(selected ? theme.selectedFill : theme.border, width: selected ? 3 : 2)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
@@ -43,6 +45,7 @@ private struct ItemTile: View {
 }
 
 private struct ItemHeading: View {
+    @Environment(\.theme) private var theme
     let display: ItemDisplay
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -56,6 +59,7 @@ private struct ItemHeading: View {
 }
 
 private struct ItemPaper<Content: View>: View {
+    @Environment(\.theme) private var theme
     let content: Content
     let rare: Bool
     init(rare: Bool = false, @ViewBuilder content: () -> Content) {
@@ -64,13 +68,14 @@ private struct ItemPaper<Content: View>: View {
     }
     var body: some View {
         VStack(alignment: .leading, spacing: 16) { content }
-            .foregroundStyle(Theme.ink)
+            .foregroundStyle(theme.paperText)
             .frame(maxWidth: .infinity, alignment: .topLeading)
-            .padding(16).background(Theme.paper).pixelBorder(Theme.ink, width: rare ? 4 : 2)
+            .padding(16).background(theme.paper).pixelBorder(theme.paperBorder, width: rare ? 4 : 2)
     }
 }
 
 struct BagItemPicker: View {
+    @Environment(\.theme) private var theme
     let items: [Item]
     let selection: String?
     let select: (String?) -> Void
@@ -87,6 +92,7 @@ struct BagItemPicker: View {
 }
 
 struct BagCollectionView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     @State private var selectedItemID: String?
@@ -111,7 +117,7 @@ struct BagCollectionView: View {
                         ItemHeading(display: ItemDisplay(selected, l10n: l10n))
                         Text(l10n.itemDescription(selected)).font(.system(size: 14)).lineSpacing(4)
                             .fixedSize(horizontal: false, vertical: true)
-                        Text(l10n("collection.bagSource")).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                        Text(l10n("collection.bagSource")).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
                             .fixedSize(horizontal: false, vertical: true)
                         Text(l10n("collection.carriedCount", model.carriedCount(selected.id))).font(Theme.pixel())
                         CollectionAction(title: care.bag.todayItem == selected.id ? l10n("collection.clearCarry") : l10n("collection.carryToday")) {
@@ -119,7 +125,7 @@ struct BagCollectionView: View {
                             model.setTodayItem(care.bag.todayItem == selected.id ? nil : selected.id)
                         }
                         .disabled(model.isLocked)
-                        Text(l10n("item.randomHint")).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                        Text(l10n("item.randomHint")).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     .frame(maxWidth: .infinity)
@@ -130,6 +136,7 @@ struct BagCollectionView: View {
 }
 
 struct SouvenirsCollectionView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     @State private var selectedItemID: String?
@@ -140,7 +147,7 @@ struct SouvenirsCollectionView: View {
             let selected = souvenirs.first { $0.id == selectedItemID } ?? souvenirs.first
             VStack(alignment: .leading, spacing: 24) {
                 if souvenirs.isEmpty {
-                    collectionEmpty(l10n("collection.souvenirsEmpty"))
+                    CollectionEmpty(l10n("collection.souvenirsEmpty"))
                 } else {
                     HStack(alignment: .top, spacing: 16) {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 130), spacing: 8)], spacing: 8) {
@@ -155,7 +162,7 @@ struct SouvenirsCollectionView: View {
                                 Text(l10n.itemDescription(selected)).font(.system(size: 14)).lineSpacing(4)
                                     .fixedSize(horizontal: false, vertical: true)
                                 if let origin = ItemCollection.boxOrigin(for: saved, l10n: l10n) {
-                                    Text(origin).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                                    Text(origin).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
                                 } else if let letterId = saved.letterId {
                                     ItemOrigin(model: model, letterId: letterId)
                                 }
@@ -164,7 +171,7 @@ struct SouvenirsCollectionView: View {
                                 }
                                 .disabled(model.isLocked)
                                 if let message = ItemCollection.shelfFullMessage(for: saved, care: care, l10n: l10n) {
-                                    Text(message).font(Theme.pixel()).foregroundStyle(Theme.brown)
+                                    Text(message).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
                                         .fixedSize(horizontal: false, vertical: true)
                                 }
                             }
@@ -175,10 +182,10 @@ struct SouvenirsCollectionView: View {
                 let cities = care.trailClues.keys.filter { care.trailClues[$0, default: 0] > 0 }.sorted()
                 if !cities.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {
-                        Text(l10n("collection.trailClues")).font(Theme.pixel(24)).foregroundStyle(Theme.paper)
+                        Text(l10n("collection.trailClues")).font(Theme.pixel(24)).foregroundStyle(theme.text)
                         ForEach(cities, id: \.self) { city in
                             Text(l10n("collection.cityClues", l10n.cityName(catalog.city(city)), care.trailClues[city]!))
-                                .font(Theme.pixel()).foregroundStyle(Theme.dusk)
+                                .font(Theme.pixel()).foregroundStyle(theme.textMuted)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                     }
@@ -189,6 +196,7 @@ struct SouvenirsCollectionView: View {
 }
 
 struct MenusCollectionView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     @State private var selectedItemID: String?
@@ -199,12 +207,12 @@ struct MenusCollectionView: View {
             let entries = groups.flatMap(\.entries)
             let selected = entries.first { $0.id == selectedItemID } ?? entries.first
             if groups.isEmpty {
-                collectionEmpty(l10n("collection.menusEmpty"))
+                CollectionEmpty(l10n("collection.menusEmpty"))
             } else {
                 HStack(alignment: .top, spacing: 16) {
                     VStack(alignment: .leading, spacing: 20) {
                         ForEach(groups) { group in
-                            Text(l10n.cityName(catalog.city(group.cityId))).font(Theme.pixel(24)).foregroundStyle(Theme.paper)
+                            Text(l10n.cityName(catalog.city(group.cityId))).font(Theme.pixel(24)).foregroundStyle(theme.text)
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 130), spacing: 8)], spacing: 8) {
                                 ForEach(group.entries) { entry in
                                     ItemTile(item: entry.item, selected: selected?.id == entry.id) { selectedItemID = entry.id }
@@ -229,6 +237,7 @@ struct MenusCollectionView: View {
 }
 
 private struct ItemOrigin: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     let letterId: Int
@@ -245,20 +254,26 @@ private struct ItemOrigin: View {
 }
 
 struct CollectionAction: View {
+    @Environment(\.theme) private var theme
     let title: String
     let action: () -> Void
     var body: some View {
         Button(action: action) {
             Text(title).font(Theme.pixel()).fixedSize(horizontal: false, vertical: true)
-                .foregroundStyle(Theme.paper).padding(12)
-                .frame(maxWidth: .infinity).background(Theme.ink).pixelBorder(Theme.dusk)
+                .foregroundStyle(theme.actionText).padding(12)
+                .frame(maxWidth: .infinity).background(theme.actionFill).pixelBorder(theme.border)
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
     }
 }
 
-private func collectionEmpty(_ text: String) -> some View {
-    Text(text).font(.system(size: 14)).lineSpacing(4).foregroundStyle(Theme.dusk)
-        .fixedSize(horizontal: false, vertical: true).frame(maxWidth: .infinity, alignment: .leading)
+private struct CollectionEmpty: View {
+    @Environment(\.theme) private var theme
+    let text: String
+    init(_ text: String) { self.text = text }
+    var body: some View {
+        Text(text).font(.system(size: 14)).lineSpacing(4).foregroundStyle(theme.textMuted)
+            .fixedSize(horizontal: false, vertical: true).frame(maxWidth: .infinity, alignment: .leading)
+    }
 }

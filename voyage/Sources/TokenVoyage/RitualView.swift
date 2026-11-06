@@ -2,6 +2,7 @@ import SwiftUI
 import VoyageCore
 
 struct RitualView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
 
@@ -9,22 +10,22 @@ struct RitualView: View {
         if let letter = model.ritualLetter, let catalog = model.catalog, let state = model.state {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    Text(l10n("ritual.title")).font(Theme.pixel(24)).foregroundStyle(Theme.paper)
+                    Text(l10n("ritual.title")).font(Theme.pixel(24)).foregroundStyle(theme.text)
                     LetterView(letter: letter, photoURL: model.photoURL(letter), petName: model.petName, catalog: catalog, model: model)
                     VStack(alignment: .leading, spacing: 12) {
                         Text(l10n("ritual.chooseItem")).font(Theme.pixel(24))
                         BagItemPicker(items: catalog.items.all.filter { model.care?.bag.owned.contains($0.id) == true },
                                       selection: model.care?.bag.todayItem) { model.setTodayItem($0) }
-                        Text(l10n("item.randomHint")).font(Theme.pixel()).foregroundStyle(Theme.dusk)
+                        Text(l10n("item.randomHint")).font(Theme.pixel()).foregroundStyle(theme.textMuted)
                             .fixedSize(horizontal: false, vertical: true)
                     }
-                    .foregroundStyle(Theme.paper).padding(16).background(Theme.inkRaised).pixelBorder(Theme.dusk)
+                    .foregroundStyle(theme.text).padding(16).background(theme.surfaceRaised).pixelBorder(theme.border)
                     VStack(alignment: .leading, spacing: 10) {
                         Text(l10n("ritual.nextStop", l10n.cityName(catalog.city(state.targetCityId))))
-                            .font(Theme.pixel(24)).foregroundStyle(Theme.paper)
+                            .font(Theme.pixel(24)).foregroundStyle(theme.text)
                             .fixedSize(horizontal: false, vertical: true)
                         Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel)))
-                            .font(Theme.pixel()).foregroundStyle(Theme.amber)
+                            .font(Theme.pixel()).foregroundStyle(theme.mileageText)
                     }
                     .padding(16)
                     HStack(alignment: .top, spacing: 12) {
@@ -47,12 +48,13 @@ struct RitualView: View {
 }
 
 struct BroughtItemsView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let brought: BroughtItems
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(l10n("letter.broughtItems")).font(Theme.pixel()).foregroundStyle(Theme.brown)
+            Text(l10n("letter.broughtItems")).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
             ForEach(brought.items) { display in
                 HStack(alignment: .top, spacing: 12) {
                     ItemIcon(item: display.item)
@@ -64,8 +66,8 @@ struct BroughtItemsView: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .padding(12).background(Theme.paper)
-                .pixelBorder(Theme.ink, width: display.isRare ? 4 : 2)
+                .padding(12).background(theme.paper)
+                .pixelBorder(theme.paperBorder, width: display.isRare ? 4 : 2)
             }
             if let duplicate = brought.duplicateMessage {
                 Text(duplicate).font(.system(size: 14)).fixedSize(horizontal: false, vertical: true)

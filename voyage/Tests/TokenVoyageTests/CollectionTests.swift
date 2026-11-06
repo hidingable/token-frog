@@ -27,7 +27,7 @@ private final class ItemDefaults: UserDefaults, @unchecked Sendable {
     }
 
     func model() -> AppModel {
-        AppModel(defaults: ItemDefaults(), directory: directory, catalog: localizationCatalog, now: { clock.date },
+        AppModel(defaults: ItemDefaults(), directory: directory, catalog: localizationCatalog, themes: testThemes, now: { clock.date },
                  quotaReader: { Issue.record("Item UI must not request quotas"); return [] },
                  usageReader: { _, _ in
                      [DayDetail(date: "2026-11-06", rows: [UsageRow(client: "codex", model: "example", tokens: UsageTotals(input: fuelPerKm))])]

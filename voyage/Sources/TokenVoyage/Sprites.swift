@@ -5,10 +5,12 @@ import VoyageCore
 enum Sprites {
     enum Frame: Hashable, CaseIterable { case rest, bob, stepLeft, stepRight }
 
+    // Fixed character/item/egg art palette; intentionally excluded from theme extraction.
+    // Theme source scanning allows this file until sprite data is extracted separately.
     private static let colors: [Character: UInt32] = [
-        "k": Palette.ink, "w": Palette.paper, "g": Palette.dusk, "l": 0xC9C3DE, "r": Palette.red,
-        "y": Palette.amber, "o": 0xC9852B, "b": Palette.sea, "c": Palette.mint, "n": 0x8A5A3C,
-        "d": 0x5E3B2A, "p": 0xEFA0A8, "m": Palette.land,
+        "k": 0x1D1A39, "w": 0xF7EBD0, "g": 0x8E86B8, "l": 0xC9C3DE, "r": 0xE5533D,
+        "y": 0xF4B63F, "o": 0xC9852B, "b": 0x2B6C8F, "c": 0x7FD1C7, "n": 0x8A5A3C,
+        "d": 0x5E3B2A, "p": 0xEFA0A8, "m": 0x3F7F5F,
     ]
 
     private static let art: [PetKind: [String]] = [
@@ -137,7 +139,7 @@ enum Sprites {
         }
         var pixels: [UInt32?] = eggRows.flatMap { row in row.map { colors[recolor[$0] ?? $0] } }
         if cracked {
-            for (x, y) in [(7, 4), (8, 5), (7, 6), (8, 7), (7, 8), (8, 9)] { pixels[y * 16 + x] = Palette.ink }
+            for (x, y) in [(7, 4), (8, 5), (7, 6), (8, 7), (7, 8), (8, 9)] { pixels[y * 16 + x] = 0x1D1A39 }
         }
         return PixelImage.make(width: 16, height: 16, pixels: pixels)
     }

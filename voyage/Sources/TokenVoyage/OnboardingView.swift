@@ -2,51 +2,54 @@ import SwiftUI
 import VoyageCore
 
 struct OnboardingView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     @Bindable var flow: OnboardingFlow
     var onDepart: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            HStack(alignment: .firstTextBaseline, spacing: 16) {
-                Text("\(flow.step.rawValue) / 5").foregroundStyle(Theme.amber)
-                Text(l10n.onboardingTitle(flow)).foregroundStyle(Theme.paper)
-            }
-            .font(Theme.pixel(24))
-            ScrollView {
-                Group {
-                    switch flow.step {
-                    case .eggs: eggs
-                    case .home: home
-                    case .hatch: hatch
-                    case .logbook: logbook
-                    case .depart: departure
-                    }
+        GeometryReader { proxy in
+            VStack(alignment: .leading, spacing: 20) {
+                HStack(alignment: .firstTextBaseline, spacing: 16) {
+                    Text("\(flow.step.rawValue) / 5").foregroundStyle(theme.mileageText)
+                    Text(l10n.onboardingTitle(flow)).foregroundStyle(theme.text)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(2)
+                .font(Theme.pixel(24))
+                ScrollView {
+                    Group {
+                        switch flow.step {
+                        case .eggs: eggs
+                        case .home: home(availableWidth: proxy.size.width - 60)
+                        case .hatch: hatch
+                        case .logbook: logbook
+                        case .depart: departure
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(2)
+                }
+                Button {
+                    if flow.step == .depart { onDepart() } else { flow.advance(l10n: l10n) }
+                } label: {
+                    Text(flow.step == .depart ? l10n("onboarding.go") : l10n("action.continue"))
+                        .font(Theme.pixel())
+                        .foregroundStyle(flow.canContinue ? theme.selectedText : theme.textMuted)
+                        .padding(.horizontal, 28).padding(.vertical, 12)
+                        .background(flow.canContinue ? theme.selectedFill : theme.surfaceRaised)
+                        .pixelBorder(theme.border)
+                }
+                .buttonStyle(.plain)
+                .disabled(!flow.canContinue)
+                if flow.step == .depart {
+                    Text(l10n("onboarding.tomorrow")).font(Theme.pixel()).foregroundStyle(theme.textMuted)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
-            Button {
-                if flow.step == .depart { onDepart() } else { flow.advance(l10n: l10n) }
-            } label: {
-                Text(flow.step == .depart ? l10n("onboarding.go") : l10n("action.continue"))
-                    .font(Theme.pixel())
-                    .foregroundStyle(flow.canContinue ? Theme.ink : Theme.dusk)
-                    .padding(.horizontal, 28).padding(.vertical, 12)
-                    .background(flow.canContinue ? Theme.paper : Theme.inkRaised)
-                    .pixelBorder(Theme.dusk)
-            }
-            .buttonStyle(.plain)
-            .disabled(!flow.canContinue)
-            if flow.step == .depart {
-                Text(l10n("onboarding.tomorrow")).font(Theme.pixel()).foregroundStyle(Theme.dusk)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
+            .padding(28)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .background(theme.background)
+
         }
-        .padding(28)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background(Theme.ink)
-        .preferredColorScheme(.dark)
     }
 
     private var eggs: some View {
@@ -59,9 +62,9 @@ struct OnboardingView: View {
                             Text(l10n(L10n.eggKeys[pet]!)).font(Theme.pixel())
                         }
                         .padding(16).frame(maxWidth: .infinity)
-                        .foregroundStyle(flow.species == pet ? Theme.ink : Theme.paper)
-                        .background(flow.species == pet ? Theme.paper : Theme.inkRaised)
-                        .pixelBorder(flow.species == pet ? Theme.paper : Theme.dusk)
+                        .foregroundStyle(flow.species == pet ? theme.selectedText : theme.text)
+                        .background(flow.species == pet ? theme.selectedFill : theme.surfaceRaised)
+                        .pixelBorder(flow.species == pet ? theme.selectedFill : theme.border)
                     }
                     .buttonStyle(.plain)
                     .accessibilityAddTraits(flow.species == pet ? .isSelected : [])
@@ -71,10 +74,10 @@ struct OnboardingView: View {
         }
     }
 
-    private var home: some View {
+    private func home(availableWidth: CGFloat) -> some View {
         VStack(alignment: .leading, spacing: 16) {
             TextField(l10n("onboarding.search"), text: $flow.search)
-                .textFieldStyle(.plain).padding(10).background(Theme.inkRaised).pixelBorder(Theme.dusk)
+                .textFieldStyle(.plain).padding(10).background(theme.surfaceRaised).pixelBorder(theme.border)
             HStack(alignment: .top, spacing: 18) {
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 4) {
@@ -82,8 +85,8 @@ struct OnboardingView: View {
                             Button { flow.homeCityId = city.id } label: {
                                 Text(l10n.cityName(city)).font(Theme.pixel())
                                     .padding(10).frame(maxWidth: .infinity, alignment: .leading)
-                                    .foregroundStyle(flow.homeCityId == city.id ? Theme.ink : Theme.paper)
-                                    .background(flow.homeCityId == city.id ? Theme.paper : Theme.inkRaised)
+                                    .foregroundStyle(flow.homeCityId == city.id ? theme.selectedText : theme.text)
+                                    .background(flow.homeCityId == city.id ? theme.selectedFill : theme.surfaceRaised)
                             }
                             .buttonStyle(.plain)
                         }
@@ -93,17 +96,14 @@ struct OnboardingView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     let city = flow.catalog.city(flow.homeCityId)
                     Text(l10n.cityName(city)).font(Theme.pixel(24))
-                    Image(decorative: PixelMap.homeImage(city), scale: 1)
-                        .interpolation(.none)
-                        .resizable()
-                        .frame(width: CGFloat(WorldMapData.width) * 3, height: CGFloat(WorldMapData.height) * 3)
+                    PixelMapView(image: PixelMap.homeImage(city, theme: theme),
+                                 availableWidth: availableWidth - 210 - 18, borderColor: theme.border)
                         .accessibilityLabel(l10n("onboarding.homeMap", l10n.cityName(city)))
-                        .pixelBorder(Theme.dusk)
                 }
             }
             hint(l10n("onboarding.homeHint"))
         }
-        .foregroundStyle(Theme.paper)
+        .foregroundStyle(theme.text)
     }
 
     private var hatch: some View {
@@ -117,14 +117,14 @@ struct OnboardingView: View {
                             .offset(x: flow.hatchFrame == 0 ? -4 : 4)
                     }
                 }
-                .padding(24).frame(maxWidth: .infinity).background(Theme.paper)
+                .padding(24).frame(maxWidth: .infinity).background(theme.paper)
             }
             .buttonStyle(.plain)
             .accessibilityLabel(l10n("onboarding.skipHatch"))
             .task { await flow.hatch() }
             TextField(l10n("onboarding.name"), text: $flow.petName)
-                .textFieldStyle(.plain).font(Theme.pixel(24)).foregroundStyle(Theme.paper)
-                .padding(12).background(Theme.inkRaised).pixelBorder(Theme.dusk)
+                .textFieldStyle(.plain).font(Theme.pixel(24)).foregroundStyle(theme.text)
+                .padding(12).background(theme.surfaceRaised).pixelBorder(theme.border)
             hint(l10n("onboarding.nameHint"))
             if let problem = flow.nameProblem {
                 hint(problem == .empty ? l10n("onboarding.nameEmpty") : l10n("onboarding.nameLong"))
@@ -143,10 +143,10 @@ struct OnboardingView: View {
         let preview = flow.preview
         return VStack(alignment: .leading, spacing: 18) {
             Text(l10n("onboarding.firstStop", l10n.cityName(flow.catalog.city(preview.targetCityId))))
-                .font(Theme.pixel(24)).foregroundStyle(Theme.paper)
+                .font(Theme.pixel(24)).foregroundStyle(theme.text)
                 .fixedSize(horizontal: false, vertical: true)
             Text(l10n("onboarding.distance", Format.km(fuel: preview.legCost)))
-                .font(Theme.pixel()).foregroundStyle(Theme.amber)
+                .font(Theme.pixel()).foregroundStyle(theme.mileageText)
             hint(l10n("item.randomHint"))
             BagItemPicker(items: flow.catalog.items.all.filter { CareState.Bag().owned.contains($0.id) }, selection: flow.todayItem) { selected in
                 if let selected { flow.toggleItem(selected) }
@@ -156,7 +156,7 @@ struct OnboardingView: View {
     }
 
     private func hint(_ text: String) -> some View {
-        Text(text).font(.system(size: 14)).foregroundStyle(Theme.dusk)
+        Text(text).font(.system(size: 14)).foregroundStyle(theme.textMuted)
             .fixedSize(horizontal: false, vertical: true)
     }
 

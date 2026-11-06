@@ -9,6 +9,13 @@ enum Snapshots {
         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let metrics = NotchMetrics(notchWidth: 180, barHeight: 37)
         let mainSize = CGSize(width: 760, height: 780)
+        guard !model.isLocked else {
+            render(SaveRecoveryView(
+                issues: model.recoveryIssues, error: model.recoveryError,
+                onRestore: { _ in }, onImport: { _ in }, onRestart: { _ in }, onRetry: {}, onQuit: {}
+            ), size: mainSize, name: "content-recovery", directory, model: model)
+            return
+        }
 
         if let catalog = model.catalog {
             for (name, step, welcome) in [
@@ -137,7 +144,7 @@ enum Snapshots {
             }
         }
         model.showingSettings = true
-        render(MainView(model: model), size: CGSize(width: 760, height: 520), name: "main-settings", directory, model: model)
+        render(MainView(model: model), size: CGSize(width: 760, height: 620), name: "main-settings", directory, model: model)
 
         model.dataTab = .dashboard
         let dashboardSize = CGSize(width: 940, height: 1240)
@@ -276,7 +283,7 @@ enum Snapshots {
         hosting.sizingOptions = []
         hosting.frame = CGRect(origin: .zero, size: size)
         let window = NSWindow(contentRect: hosting.frame, styleMask: [.borderless], backing: .buffered, defer: false)
-        window.backgroundColor = .darkGray
+        window.applyTheme(model.theme)
         window.contentView = hosting
         hosting.layoutSubtreeIfNeeded()
         RunLoop.main.run(until: Date().addingTimeInterval(0.3))

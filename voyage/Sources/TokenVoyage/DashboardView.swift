@@ -30,6 +30,7 @@ struct DashboardSelection {
 }
 
 struct DashboardTab: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     @Binding var selection: DashboardSelection
@@ -39,7 +40,7 @@ struct DashboardTab: View {
             if let days = model.dashboardDays {
                 content(days)
             } else if model.lastError == nil {
-                Text(l10n("dashboard.loading")).font(Theme.pixel()).foregroundStyle(Theme.dusk)
+                Text(l10n("dashboard.loading")).font(Theme.pixel()).foregroundStyle(theme.textMuted)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -63,7 +64,7 @@ struct DashboardTab: View {
         // The grid always shows the past year, whatever range is selected, and marks that range.
         let yearBoard = UsageDashboard(days: days, start: nil, end: today, filter: filter)
         let everything = UsageDashboard(days: days, start: nil, end: today)
-        let tools = Array(everything.ledger.byClient.prefix(Theme.series.count).map(\.name))
+        let tools = Array(everything.ledger.byClient.prefix(theme.series.count).map(\.name))
         return VStack(alignment: .leading, spacing: 12) {
             controls()
             MetricsGrid(board: board)
@@ -73,7 +74,7 @@ struct DashboardTab: View {
             DetailTable(board: board, tools: tools, selection: $selection)
             Text(l10n("dashboard.source"))
                 .font(Theme.pixel())
-                .foregroundStyle(Theme.dusk)
+                .foregroundStyle(theme.textMuted)
         }
     }
 
@@ -100,6 +101,7 @@ struct DashboardTab: View {
 }
 
 struct Chip: View {
+    @Environment(\.theme) private var theme
     var title: String
     var isOn: Bool
     var action: () -> Void
@@ -110,14 +112,15 @@ struct Chip: View {
                 .font(Theme.pixel())
                 .padding(.horizontal, 10)
                 .padding(.vertical, 4)
-                .foregroundStyle(isOn ? Theme.ink : Theme.paper)
-                .background(isOn ? Theme.paper : Theme.inkRaised)
+                .foregroundStyle(isOn ? theme.selectedText : theme.text)
+                .background(isOn ? theme.selectedFill : theme.surfaceRaised)
         }
         .buttonStyle(.plain)
     }
 }
 
 struct ClearChip: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     var title: String
     var action: () -> Void
@@ -129,8 +132,8 @@ struct ClearChip: View {
                 .lineLimit(1)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
-                .foregroundStyle(Theme.paper)
-                .pixelBorder(Theme.dusk)
+                .foregroundStyle(theme.text)
+                .pixelBorder(theme.border)
         }
         .buttonStyle(.plain)
         .accessibilityLabel(l10n("filter.clear", title))
@@ -138,6 +141,7 @@ struct ClearChip: View {
 }
 
 private struct Card<Content: View, Accessory: View>: View {
+    @Environment(\.theme) private var theme
     var title: String
     @ViewBuilder var accessory: Accessory
     @ViewBuilder var content: Content
@@ -145,7 +149,7 @@ private struct Card<Content: View, Accessory: View>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 4) {
-                Text(title).foregroundStyle(Theme.paper)
+                Text(title).foregroundStyle(theme.text)
                 Spacer(minLength: 8)
                 accessory
             }
@@ -154,16 +158,17 @@ private struct Card<Content: View, Accessory: View>: View {
         .font(Theme.pixel())
         .padding(10)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Theme.inkRaised.opacity(0.45))
-        .pixelBorder(Theme.inkRaised)
+        .background(theme.surfaceRaised.opacity(0.45))
+        .pixelBorder(theme.surfaceRaised)
     }
 }
 
-private func toolColor(_ name: String, tools: [String]) -> Color {
-    tools.firstIndex(of: name).map { Theme.series[$0] } ?? Theme.seriesOther
+private func toolColor(_ name: String, tools: [String], theme: AppTheme) -> Color {
+    tools.firstIndex(of: name).map { theme.series[$0] } ?? theme.seriesOther
 }
 
 struct MetricsGrid: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let board: UsageDashboard
 
@@ -173,7 +178,7 @@ struct MetricsGrid: View {
             GridRow {
                 tile(l10n("metric.total"), Format.tokens(totals.total, language: l10n.language), delta(.total))
                 tile(l10n("dashboard.estimatedCost"), Format.cost(totals.cost), delta(.cost))
-                tile(l10n("dashboard.counted"), Format.km(fuel: totals.fuel), delta(.fuel), Theme.amber)
+                tile(l10n("dashboard.counted"), Format.km(fuel: totals.fuel), delta(.fuel), theme.mileageText)
                 tile(l10n("dashboard.cacheHits"), Format.percent(totals.cacheHitPercent), nil)
                 tile(l10n("metric.messages"), Format.grouped(totals.messages), delta(.messages))
             }
@@ -182,7 +187,7 @@ struct MetricsGrid: View {
                 tile(l10n("dashboard.streak"), l10n.days(board.currentStreak), l10n("dashboard.longest", l10n.language == .zhHans ? Format.grouped(board.longestStreak) : l10n.days(board.longestStreak)))
                 tile(l10n("dashboard.sessionTime"), board.activeMs.map(l10n.duration) ?? "-", board.activeMs == nil ? l10n("dashboard.filteredTime") : nil)
                 tile(l10n("dashboard.peakDay"), board.peak.map { Format.tokens($0.total, language: l10n.language) } ?? "-", board.peak.map { l10n.day($0.date) })
-                tile(l10n("dashboard.topModel"), board.topModel.map(l10n.modelName) ?? "-", nil, Theme.paper, small: true)
+                tile(l10n("dashboard.topModel"), board.topModel.map(l10n.modelName) ?? "-", nil, theme.text, small: true)
             }
         }
     }
@@ -193,25 +198,26 @@ struct MetricsGrid: View {
         return rounded == 0 ? l10n("dashboard.unchanged") : l10n("dashboard.delta", "\(rounded > 0 ? "+" : "")\(Format.grouped(rounded))")
     }
 
-    private func tile(_ label: String, _ value: String, _ note: String?, _ color: Color = Theme.paper, small: Bool = false) -> some View {
+    private func tile(_ label: String, _ value: String, _ note: String?, _ color: Color? = nil, small: Bool = false) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(label).foregroundStyle(Theme.dusk)
+            Text(label).foregroundStyle(theme.textMuted)
             Text(value)
                 .font(Theme.pixel(small ? 12 : 24))
-                .foregroundStyle(color)
+                .foregroundStyle(color ?? theme.text)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(minHeight: 24, alignment: .leading)
-            Text(note ?? " ").foregroundStyle(Theme.dusk).fixedSize(horizontal: false, vertical: true)
+            Text(note ?? " ").foregroundStyle(theme.textMuted).fixedSize(horizontal: false, vertical: true)
         }
         .font(Theme.pixel())
         .padding(8)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background(Theme.inkRaised)
+        .background(theme.surfaceRaised)
         .accessibilityElement(children: .combine)
     }
 }
 
 struct TrendCard: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let board: UsageDashboard
     let hours: [HourUsage]
@@ -244,9 +250,9 @@ struct TrendCard: View {
         } content: {
             readout(buckets, metric: metric)
             if isSingleDay && filtered {
-                Text(l10n("trend.clearFilters")).foregroundStyle(Theme.dusk).frame(height: 180)
+                Text(l10n("trend.clearFilters")).foregroundStyle(theme.textMuted).frame(height: 180)
             } else if isSingleDay && marks.isEmpty {
-                Text(l10n("trend.noHours")).foregroundStyle(Theme.dusk).frame(height: 180)
+                Text(l10n("trend.noHours")).foregroundStyle(theme.textMuted).frame(height: 180)
             } else {
                 chart(marks: marks, buckets: buckets, order: order, metric: metric, isSingleDay: isSingleDay)
                     .frame(height: 180)
@@ -272,12 +278,12 @@ struct TrendCard: View {
         return HStack(spacing: 12) {
             if let bucket {
                 let label = isHours ? l10n.hour(Int(bucket.start)!) : (bucket.isWeek ? l10n("trend.weekOf", l10n.day(bucket.start)) : l10n.day(bucket.start))
-                Text(hovered == nil ? l10n("trend.highest", label) : label).foregroundStyle(Theme.dusk)
-                Text(metric.format(bucket.total, language: l10n.language)).foregroundStyle(Theme.paper)
+                Text(hovered == nil ? l10n("trend.highest", label) : label).foregroundStyle(theme.textMuted)
+                Text(metric.format(bucket.total, language: l10n.language)).foregroundStyle(theme.text)
                 ForEach(bucket.values.sorted { $0.value > $1.value }.prefix(4), id: \.key) { entry in
                     if !isHours {
                         Text(l10n("chart.seriesValue", l10n.series(entry.key), metric.format(entry.value, language: l10n.language)))
-                            .foregroundStyle(Theme.dusk)
+                            .foregroundStyle(theme.textMuted)
                     }
                 }
             }
@@ -293,7 +299,7 @@ struct TrendCard: View {
         let labels = keys.enumerated().filter { $0.offset % stride == stride / 2 }.map(\.element)
         return Chart(marks) { mark in
             BarMark(x: .value(l10n("chart.time"), mark.bucket), y: .value(l10n.metric(metric), mark.value), width: .ratio(0.7))
-                .foregroundStyle(isSingleDay ? Theme.dusk : toolColor(mark.series, tools: tools))
+                .foregroundStyle(isSingleDay ? theme.textMuted : toolColor(mark.series, tools: tools, theme: theme))
                 .opacity(hovered == nil || hovered == mark.bucket ? 1 : 0.45)
         }
         .chartXScale(domain: keys)
@@ -301,17 +307,17 @@ struct TrendCard: View {
             AxisMarks(values: labels) { value in
                 AxisValueLabel {
                     if let key = value.as(String.self) {
-                        Text(isSingleDay ? key : l10n.day(key)).font(Theme.pixel()).foregroundStyle(Theme.dusk)
+                        Text(isSingleDay ? key : l10n.day(key)).font(Theme.pixel()).foregroundStyle(theme.textMuted)
                     }
                 }
             }
         }
         .chartYAxis {
             AxisMarks(position: .leading, values: .automatic(desiredCount: 4)) { value in
-                AxisGridLine().foregroundStyle(Theme.blockOff)
+                AxisGridLine().foregroundStyle(theme.controlOff)
                 AxisValueLabel {
                     if let number = value.as(Double.self) {
-                        Text(metric.format(number, language: l10n.language)).font(Theme.pixel()).foregroundStyle(Theme.dusk)
+                        Text(metric.format(number, language: l10n.language)).font(Theme.pixel()).foregroundStyle(theme.textMuted)
                     }
                 }
             }
@@ -338,9 +344,9 @@ struct TrendCard: View {
             ForEach(present, id: \.self) { name in
                 let value = marks.filter { $0.series == name }.reduce(0) { $0 + $1.value }
                 HStack(spacing: 4) {
-                    Rectangle().fill(toolColor(name, tools: tools)).frame(width: 8, height: 8)
-                    Text(l10n.series(name)).foregroundStyle(Theme.paper)
-                    Text(l10n("chart.valueShare", metric.format(value, language: l10n.language), Format.grouped(Int((value / total * 100).rounded())))).foregroundStyle(Theme.dusk)
+                    Rectangle().fill(toolColor(name, tools: tools, theme: theme)).frame(width: 8, height: 8)
+                    Text(l10n.series(name)).foregroundStyle(theme.text)
+                    Text(l10n("chart.valueShare", metric.format(value, language: l10n.language), Format.grouped(Int((value / total * 100).rounded())))).foregroundStyle(theme.textMuted)
                 }
                 .lineLimit(1)
             }
@@ -350,6 +356,7 @@ struct TrendCard: View {
 }
 
 struct ActivityCard: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let board: UsageDashboard
     let yearBoard: UsageDashboard
@@ -361,17 +368,17 @@ struct ActivityCard: View {
         let metric = selection.metric
         let cells = yearBoard.heatCells(metric: metric)
         Card(title: l10n("dashboard.active")) {
-            Text(readoutText(metric)).foregroundStyle(Theme.dusk).lineLimit(1)
+            Text(readoutText(metric)).foregroundStyle(theme.textMuted).lineLimit(1)
         } content: {
             HeatGrid(cells: cells, rangeStart: board.start, rangeEnd: board.end, hovered: $hovered) { selection.day = $0 }
                 .accessibilityLabel(l10n("activity.description", Format.grouped(cells.filter { $0.level > 0 }.count)))
             HStack(alignment: .top, spacing: 16) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(board.filter.isEmpty ? l10n("activity.hours") : l10n("activity.filteredHours")).foregroundStyle(Theme.dusk)
+                    Text(board.filter.isEmpty ? l10n("activity.hours") : l10n("activity.filteredHours")).foregroundStyle(theme.textMuted)
                     MiniBars(values: hourProfile(metric), labels: ["0", "6", "12", "18"], every: 6) { "\(l10n.hour($0)) \(metric.format($1, language: l10n.language))" }
                 }
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(l10n("activity.weekday")).foregroundStyle(Theme.dusk)
+                    Text(l10n("activity.weekday")).foregroundStyle(theme.textMuted)
                     MiniBars(values: board.weekdayProfile(metric), labels: l10n.weekdays, every: 1) { index, value in
                         "\(l10n.weekday(index)) \(metric.format(value, language: l10n.language))"
                     }
@@ -393,6 +400,7 @@ struct ActivityCard: View {
 
 /// One Canvas instead of 371 hit-tested views, so hovering stays cheap.
 struct HeatGrid: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let cells: [HeatCell]
     let rangeStart: String
@@ -413,14 +421,14 @@ struct HeatGrid: View {
                     for cell in cells {
                         let rect = CGRect(x: 20 + CGFloat(cell.week) * pitch, y: 16 + CGFloat(cell.weekday) * pitch, width: size, height: size)
                         let inRange = cell.date >= rangeStart && cell.date <= rangeEnd
-                        context.fill(Path(rect), with: .color(Theme.heat[cell.level].opacity(inRange ? 1 : 0.4)))
+                        context.fill(Path(rect), with: .color(theme.heat[cell.level].opacity(inRange ? 1 : 0.4)))
                     }
                 }
                 ForEach(monthLabels(), id: \.week) { label in
-                    Text(label.text).foregroundStyle(Theme.dusk).offset(x: 20 + CGFloat(label.week) * pitch, y: -2)
+                    Text(label.text).foregroundStyle(theme.textMuted).offset(x: 20 + CGFloat(label.week) * pitch, y: -2)
                 }
                 ForEach(Array([l10n.weekdays[0], l10n.weekdays[2], l10n.weekdays[4]].enumerated()), id: \.offset) { index, name in
-                    Text(name).foregroundStyle(Theme.dusk).offset(x: 0, y: 16 + CGFloat(index * 2) * pitch - 2)
+                    Text(name).foregroundStyle(theme.textMuted).offset(x: 0, y: 16 + CGFloat(index * 2) * pitch - 2)
                 }
             }
             .contentShape(Rectangle())
@@ -461,6 +469,7 @@ struct HeatGrid: View {
 }
 
 struct MiniBars: View {
+    @Environment(\.theme) private var theme
     let values: [Double]
     let labels: [String]
     let every: Int
@@ -481,7 +490,7 @@ struct MiniBars: View {
             HStack(alignment: .bottom, spacing: 2) {
                 ForEach(Array(values.enumerated()), id: \.offset) { index, value in
                     Rectangle()
-                        .fill(hovered == index ? Theme.paper : Theme.dusk)
+                        .fill(hovered == index ? theme.text : theme.textMuted)
                         .frame(height: value > 0 ? max(2, (CGFloat(value / top) * 48).rounded()) : 1)
                         .frame(maxWidth: .infinity, maxHeight: 48, alignment: .bottom)
                         .contentShape(Rectangle())
@@ -491,17 +500,18 @@ struct MiniBars: View {
             }
             HStack(spacing: 0) {
                 ForEach(Array(labels.enumerated()), id: \.offset) { _, label in
-                    Text(label).foregroundStyle(Theme.dusk).frame(maxWidth: .infinity, alignment: .leading)
+                    Text(label).foregroundStyle(theme.textMuted).frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
             Text(hovered.flatMap { values.indices.contains($0) ? describe($0, values[$0]) : nil } ?? " ")
-                .foregroundStyle(Theme.dusk)
+                .foregroundStyle(theme.textMuted)
                 .lineLimit(1)
         }
     }
 }
 
 struct BreakdownRow: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let board: UsageDashboard
     let tools: [String]
@@ -512,20 +522,20 @@ struct BreakdownRow: View {
         let totals = ledger.totals
         HStack(alignment: .top, spacing: 8) {
             Card(title: l10n("breakdown.tools")) { EmptyView() } content: {
-                ranked(ledger.byClient.prefix(6).map { ($0.name, Vehicle.toolName($0.name), $0.tokens.total, toolColor($0.name, tools: tools)) }, total: totals.total, isOn: { selection.client == $0 }) { name in
+                ranked(ledger.byClient.prefix(6).map { ($0.name, Vehicle.toolName($0.name), $0.tokens.total, toolColor($0.name, tools: tools, theme: theme)) }, total: totals.total, isOn: { selection.client == $0 }) { name in
                     selection.client = selection.client == name ? nil : name
                 }
             }
             Card(title: l10n("breakdown.models")) { EmptyView() } content: {
-                ranked(ledger.byModel.prefix(6).map { ($0.name, l10n.modelName($0.name), $0.tokens.total, Theme.dusk) }, total: totals.total, isOn: { selection.model == $0 }) { name in
+                ranked(ledger.byModel.prefix(6).map { ($0.name, l10n.modelName($0.name), $0.tokens.total, theme.textMuted) }, total: totals.total, isOn: { selection.model == $0 }) { name in
                     selection.model = selection.model == name ? nil : name
                 }
             }
             Card(title: l10n("breakdown.composition")) { EmptyView() } content: {
                 ranked([
-                    (l10n("usage.cacheRead"), l10n("usage.cacheRead"), totals.cacheRead, Theme.dusk), (l10n("usage.input"), l10n("usage.input"), totals.input, Theme.dusk),
-                    (l10n("usage.cacheWrite"), l10n("usage.cacheWrite"), totals.cacheWrite, Theme.dusk), (l10n("usage.output"), l10n("usage.output"), totals.output, Theme.dusk),
-                    (l10n("usage.reasoning"), l10n("usage.reasoning"), totals.reasoning, Theme.dusk),
+                    (l10n("usage.cacheRead"), l10n("usage.cacheRead"), totals.cacheRead, theme.textMuted), (l10n("usage.input"), l10n("usage.input"), totals.input, theme.textMuted),
+                    (l10n("usage.cacheWrite"), l10n("usage.cacheWrite"), totals.cacheWrite, theme.textMuted), (l10n("usage.output"), l10n("usage.output"), totals.output, theme.textMuted),
+                    (l10n("usage.reasoning"), l10n("usage.reasoning"), totals.reasoning, theme.textMuted),
                 ], total: totals.total, isOn: { _ in false }, action: nil)
             }
         }
@@ -533,23 +543,23 @@ struct BreakdownRow: View {
 
     private func ranked(_ rows: [(id: String, label: String, value: Int, color: Color)], total: Int, isOn: @escaping (String) -> Bool, action: ((String) -> Void)?) -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            if rows.isEmpty { Text(l10n("usage.empty")).foregroundStyle(Theme.dusk) }
+            if rows.isEmpty { Text(l10n("usage.empty")).foregroundStyle(theme.textMuted) }
             ForEach(rows, id: \.id) { row in
                 let share = total > 0 ? Double(row.value) / Double(total) : 0
                 let line = VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 4) {
                         Text(row.label)
-                            .foregroundStyle(isOn(row.id) ? Theme.ink : Theme.paper)
-                            .background(isOn(row.id) ? Theme.paper : .clear)
+                            .foregroundStyle(isOn(row.id) ? theme.selectedText : theme.text)
+                            .background(isOn(row.id) ? theme.selectedFill : .clear)
                             .lineLimit(1)
                             .truncationMode(.middle)
                         Spacer(minLength: 4)
-                        Text(Format.tokens(row.value, language: l10n.language)).foregroundStyle(Theme.paper).lineLimit(1).layoutPriority(1)
-                        Text(String(format: "%.1f%%", share * 100)).foregroundStyle(Theme.dusk).lineLimit(1).frame(width: 46, alignment: .trailing).layoutPriority(1)
+                        Text(Format.tokens(row.value, language: l10n.language)).foregroundStyle(theme.text).lineLimit(1).layoutPriority(1)
+                        Text(String(format: "%.1f%%", share * 100)).foregroundStyle(theme.textMuted).lineLimit(1).frame(width: 46, alignment: .trailing).layoutPriority(1)
                     }
                     GeometryReader { proxy in
                         ZStack(alignment: .leading) {
-                            Rectangle().fill(Theme.blockOff)
+                            Rectangle().fill(theme.controlOff)
                             Rectangle().fill(row.color).frame(width: row.value > 0 ? max(1, (proxy.size.width * share).rounded()) : 0)
                         }
                     }
@@ -568,6 +578,7 @@ struct BreakdownRow: View {
 }
 
 struct DetailTable: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let board: UsageDashboard
     let tools: [String]
@@ -581,9 +592,9 @@ struct DetailTable: View {
             Chip(title: l10n("dashboard.models"), isOn: showModels) { selection.showModels = true }
         } content: {
             VStack(alignment: .leading, spacing: 4) {
-                row(showModels ? l10n("dashboard.models") : l10n("dashboard.tools"), [l10n("metric.total"), l10n("usage.input"), l10n("usage.output"), l10n("table.cacheRead"), l10n("table.cacheWrite"), l10n("table.hit"), l10n("metric.cost"), l10n("metric.messages")], color: Theme.dusk)
-                Rectangle().fill(Theme.blockOff).frame(height: 2)
-                if entries.isEmpty { Text(l10n("usage.empty")).foregroundStyle(Theme.dusk) }
+                row(showModels ? l10n("dashboard.models") : l10n("dashboard.tools"), [l10n("metric.total"), l10n("usage.input"), l10n("usage.output"), l10n("table.cacheRead"), l10n("table.cacheWrite"), l10n("table.hit"), l10n("metric.cost"), l10n("metric.messages")], color: theme.textMuted)
+                Rectangle().fill(theme.controlOff).frame(height: 2)
+                if entries.isEmpty { Text(l10n("usage.empty")).foregroundStyle(theme.textMuted) }
                 ForEach(entries) { entry in
                     let tokens = entry.tokens
                     Button {
@@ -597,7 +608,7 @@ struct DetailTable: View {
                             Format.tokens(tokens.total, language: l10n.language), Format.tokens(tokens.input, language: l10n.language), Format.tokens(tokens.output, language: l10n.language),
                             Format.tokens(tokens.cacheRead, language: l10n.language), Format.tokens(tokens.cacheWrite, language: l10n.language),
                             Format.percent(tokens.cacheHitPercent), Format.cost(tokens.cost), Format.grouped(tokens.messages),
-                        ], color: Theme.paper)
+                        ], color: theme.text)
                         .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)

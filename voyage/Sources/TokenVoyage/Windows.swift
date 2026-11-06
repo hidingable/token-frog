@@ -290,8 +290,10 @@ final class FloatingController {
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWindowDelegate {
-    private lazy var model = AppModel(isSnapshot: ProcessInfo.processInfo.arguments.contains("--snapshot"), languageOverride: snapshotLanguage)
+    private lazy var model = AppModel(isSnapshot: ProcessInfo.processInfo.arguments.contains("--snapshot"), languageOverride: snapshotLanguage, appearanceOverride: snapshotAppearance)
     private var snapshotLanguage: Language?
+    private var snapshotAppearance: ThemeScheme?
+    private var appearanceObservation: NSKeyValueObservation?
     private var l10n: L10n { model.l10n }
     private var statusItem: NSStatusItem?
     private var mainWindow: NSWindow?
@@ -312,6 +314,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
             }
             let preference = UserDefaults.standard.string(forKey: "language").flatMap(LanguagePreference.init(rawValue:)) ?? .system
             let l10n = L10n(language: snapshotLanguage ?? preference.resolve(systemLanguages: Locale.preferredLanguages))
+            do { snapshotAppearance = try SnapshotAppearance.parse(arguments: arguments) }
+            catch {
+                FileHandle.standardError.write(Data(l10n("snapshot.invalidAppearance").utf8))
+                exit(EXIT_FAILURE)
+            }
             // Keep this before the first access to the lazy model: no real save directory is touched.
             guard let dataDirectory = ProcessInfo.processInfo.environment["TOKEN_VOYAGE_DATA_DIR"], !dataDirectory.isEmpty else {
                 FileHandle.standardError.write(Data(l10n("snapshot.missingDataDirectory").utf8))
@@ -337,6 +344,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
             guard let self else { return }
             mainWindow?.title = l10n("app.name")
             statusItem?.button?.setAccessibilityLabel(l10n("app.name"))
+        }
+        model.onAppearanceChange = { [weak self] in self?.updateWindowTheme() }
+        appearanceObservation = NSApp.observe(\.effectiveAppearance, options: [.initial, .new]) { [weak self] app, _ in
+            MainActor.assumeIsolated { self?.model.systemAppearanceChanged(to: ThemeScheme(appearance: app.effectiveAppearance)) }
         }
         setUpStatusItem()
         model.start()
@@ -428,7 +439,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
             window.title = l10n("app.name")
             window.delegate = self
             window.isReleasedWhenClosed = false
-            window.backgroundColor = NSColor(Theme.ink)
+            // No fullSizeContentView: the content starts below the transparent title bar.
+            window.applyTheme(model.theme)
             window.minSize = NSSize(width: 760, height: 520)
             window.contentView = NSHostingView(rootView: SaveAwareMainView(model: model, onImport: { [weak self] file in
                 self?.importBackup(for: file)
@@ -439,6 +451,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         NSApp.activate()
         mainWindow?.makeKeyAndOrderFront(nil)
         model.setMainWindowPresented(true)
+    }
+
+    private func updateWindowTheme() {
+        mainWindow?.applyTheme(model.theme)
     }
 
     func windowDidBecomeKey(_ notification: Notification) { model.setMainWindowPresented(true) }
@@ -474,5 +490,14 @@ private struct SaveAwareMainView: View {
         } else {
             MainView(model: model)
         }
+    }
+}
+
+/// Used by the same main window for onboarding, normal content and save recovery.
+extension NSWindow {
+    func applyTheme(_ theme: AppTheme) {
+        titlebarAppearsTransparent = true
+        appearance = theme.scheme.appKitAppearance
+        backgroundColor = NSColor(theme.background)
     }
 }

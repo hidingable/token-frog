@@ -118,13 +118,8 @@ enum Enricher {
         return try? JSONDecoder().decode(PageSummary.self, from: data)
     }
 
-    private static let photoPalette: [UInt32] = [
-        0x1D1A39, 0x3A3560, 0x8E86B8, 0xC9C3DE, 0xF7EBD0, 0xF4B63F, 0xC9852B, 0xE5533D,
-        0x993C2D, 0x8A5A3C, 0x5E3B2A, 0x3F7F5F, 0x7FB069, 0x2B6C8F, 0x5FA3C7, 0x7FD1C7,
-    ]
-
     /// Downsamples to 96x48, then maps to a 16 colour palette with light ordered dithering.
-    static func pixelate(_ data: Data) -> Data? {
+    static func pixelate(_ data: Data, palette: [UInt32]) -> Data? {
         guard let source = NSImage(data: data)?.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
         let width = 96
         let height = 48
@@ -152,7 +147,7 @@ enum Enricher {
                 let red = Int(buffer[offset]) + shift
                 let green = Int(buffer[offset + 1]) + shift
                 let blue = Int(buffer[offset + 2]) + shift
-                pixels[y * width + x] = photoPalette.min { a, b in
+                pixels[y * width + x] = palette.min { a, b in
                     distance(a, red, green, blue) < distance(b, red, green, blue)
                 }
             }

@@ -2,6 +2,7 @@ import SwiftUI
 import VoyageCore
 
 struct HomeTab: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     @State private var selectedSouvenir: String?
@@ -21,32 +22,32 @@ struct HomeTab: View {
                                             Text(model.petName).font(Theme.pixel(24))
                                                 .fixedSize(horizontal: false, vertical: true)
                                             Text(l10n.stage(Stage.current(companionDays: care.companionDays.count)))
-                                                .foregroundStyle(Theme.dusk)
+                                                .foregroundStyle(theme.textMuted)
                                         }
                                         Spacer(minLength: 4)
                                         Button(l10n("home.profile")) { model.showProfile() }
-                                            .buttonStyle(.plain).foregroundStyle(Theme.dusk).fixedSize()
+                                            .buttonStyle(.plain).foregroundStyle(theme.textMuted).fixedSize()
                                     }
                                     let habit = ProfileDisplay.habitSummary(care.habits, l10n: l10n)
                                     Text(l10n("home.companionDay", care.companionDays.count)
                                          + (habit.map { " · " + $0 } ?? ""))
-                                        .foregroundStyle(Theme.dusk)
+                                        .foregroundStyle(theme.textMuted)
                                 }
                                 Button { model.activateHomeAction() } label: {
                                     Text(model.unread > 0 ? l10n("home.openMail") : l10n("home.findPet"))
                                         .fixedSize(horizontal: false, vertical: true)
-                                        .foregroundStyle(model.unread > 0 ? Theme.ink : Theme.paper)
+                                        .foregroundStyle(model.unread > 0 ? theme.newMailText : theme.text)
                                         .frame(maxWidth: .infinity).padding(12)
-                                        .background(model.unread > 0 ? Theme.red : Theme.inkRaised)
-                                        .pixelBorder(model.unread > 0 ? Theme.red : Theme.dusk)
+                                        .background(model.unread > 0 ? theme.newMailFill : theme.surfaceRaised)
+                                        .pixelBorder(model.unread > 0 ? theme.newMailFill : theme.textMuted)
                                 }
                                 .buttonStyle(.plain)
                                 HomeCard {
-                                    Text(l10n("home.now")).foregroundStyle(Theme.dusk)
+                                    Text(l10n("home.now")).foregroundStyle(theme.textMuted)
                                     Text(l10n("home.onRoad", l10n.cityName(catalog.city(state.targetCityId))))
                                     BlockProgress(progress: state.legProgress, blocks: 16, size: 8)
-                                    Text(l10n("home.today", Format.km(fuel: model.todayFuel))).foregroundStyle(Theme.amber)
-                                    Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel))).foregroundStyle(Theme.dusk)
+                                    Text(l10n("home.today", Format.km(fuel: model.todayFuel))).foregroundStyle(theme.mileageText)
+                                    Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel))).foregroundStyle(theme.textMuted)
                                 }
                             }
                             .frame(width: layout.rightWidth)
@@ -66,22 +67,24 @@ struct HomeTab: View {
                 }
             }
         }
-        .font(Theme.pixel()).foregroundStyle(Theme.paper)
+        .font(Theme.pixel()).foregroundStyle(theme.text)
         .onAppear { model.postOfficeDidDisplay() }
     }
 }
 
 struct HomeCard<Content: View>: View {
+    @Environment(\.theme) private var theme
     @ViewBuilder var content: Content
     var body: some View {
         VStack(alignment: .leading, spacing: 10) { content }
             .fixedSize(horizontal: false, vertical: true)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(12).background(Theme.inkRaised).pixelBorder(Theme.dusk)
+            .padding(12).background(theme.surfaceRaised).pixelBorder(theme.border)
     }
 }
 
 private struct WeekCard: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     let care: CareState
@@ -93,7 +96,7 @@ private struct WeekCard: View {
                 Text(l10n("home.week"))
                 Spacer(minLength: 8)
                 if let progress = week.progressText(l10n: l10n) {
-                    Text(progress).foregroundStyle(Theme.dusk).multilineTextAlignment(.trailing)
+                    Text(progress).foregroundStyle(theme.textMuted).multilineTextAlignment(.trailing)
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
@@ -101,17 +104,17 @@ private struct WeekCard: View {
                 ForEach(week.days) { day in
                     VStack(spacing: 4) {
                         Text(day.label).font(Theme.pixel())
-                        Rectangle().fill(day.today ? Theme.paper : .clear).frame(height: 2)
+                        Rectangle().fill(day.today ? theme.text : .clear).frame(height: 2)
                     }
-                    .foregroundStyle(day.stamped ? Theme.ink : Theme.dusk)
+                    .foregroundStyle(day.stamped ? theme.companionOnFill : theme.textMuted)
                     .padding(.horizontal, 1).padding(.top, 6)
                     .frame(maxWidth: .infinity)
-                    .background(day.stamped ? Theme.rose : Theme.ink)
+                    .background(day.stamped ? theme.companionFill : theme.background)
                     .accessibilityLabel(l10n.day(day.id, full: true))
                     .accessibilityValue(day.stamped ? l10n("home.week.stamped") : "")
                 }
             }
-            Text(l10n("home.week.noStreak")).foregroundStyle(Theme.dusk)
+            Text(l10n("home.week.noStreak")).foregroundStyle(theme.textMuted)
             if let title = week.boxButton(l10n: l10n) {
                 CollectionAction(title: title) { model.showBoxes() }
             }
@@ -120,6 +123,7 @@ private struct WeekCard: View {
 }
 
 private struct RoomSceneView: View {
+    @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
     let availableWidth: CGFloat
@@ -133,7 +137,7 @@ private struct RoomSceneView: View {
             let height = CGFloat(RoomLayout.height * scale)
             let shelf = RoomLayout.shelf(care).compactMap { catalog.items.find($0.id) }
             ZStack(alignment: .topLeading) {
-                PixelArtView(image: RoomArt.image(pet: state.pet, shelf: shelf), scale: scale)
+                PixelArtView(image: RoomArt.image(pet: state.pet, shelf: shelf, theme: theme), scale: scale)
                     .frame(width: width, height: height).accessibilityHidden(true)
                 Color.clear.contentShape(Rectangle()).onTapGesture { selectedSouvenir = nil }
                 ForEach(Array(shelf.enumerated()), id: \.element.id) { index, item in
@@ -153,7 +157,7 @@ private struct RoomSceneView: View {
                 .accessibilityLabel(l10n("home.profile"))
                 Button { selectedSouvenir = nil; model.openCollection(.souvenirs) } label: {
                     Text(l10n("home.allSouvenirs")).padding(4)
-                        .background(Theme.ink).pixelBorder(Theme.dusk)
+                        .background(theme.background).pixelBorder(theme.border)
                 }
                 .buttonStyle(.plain).fixedSize()
                 .position(x: 181 * factor, y: 32 * factor)
@@ -167,7 +171,7 @@ private struct RoomSceneView: View {
                     }
                 }
             }
-            .frame(width: width, height: height).pixelBorder(Theme.dusk)
+            .frame(width: width, height: height).pixelBorder(theme.border)
             .padding(.leading, floor((availableWidth - width) / 2))
             .frame(width: availableWidth, alignment: .leading)
             .background(Color.clear.contentShape(Rectangle()).onTapGesture { selectedSouvenir = nil })
@@ -184,9 +188,10 @@ private struct RoomSceneView: View {
         ScrollView {
             Button(action: action) {
                 Text(text).font(.system(size: 12)).lineSpacing(2)
-                    .frame(width: region.width - 16, alignment: .leading)
                     .fixedSize(horizontal: false, vertical: true)
-                    .foregroundStyle(Theme.ink).padding(8).background(Theme.paper).pixelBorder(Theme.ink)
+                    .frame(maxWidth: region.width - 16, alignment: .leading)
+                    .fixedSize(horizontal: true, vertical: true)
+                    .foregroundStyle(theme.paperText).padding(8).background(theme.paper).pixelBorder(theme.paperBorder)
             }
             .buttonStyle(.plain)
         }

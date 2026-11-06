@@ -64,7 +64,7 @@ private struct OnboardingFixture {
 
     func model(now: Date = onboardingToday, isSnapshot: Bool = false, defaults: UserDefaults = OnboardingDefaults(),
                reader: OnboardingReadProbe = OnboardingReadProbe(), quota: OnboardingQuotaProbe = OnboardingQuotaProbe()) -> AppModel {
-        AppModel(isSnapshot: isSnapshot, defaults: defaults, directory: directory, catalog: localizationCatalog,
+        AppModel(isSnapshot: isSnapshot, defaults: defaults, directory: directory, catalog: localizationCatalog, themes: testThemes,
                  now: { now }, onboardingSeed: 42,
                  onboardingReader: { since, until in try await reader.read(since: since, until: until) },
                  quotaReader: { await quota.read() }, enrichmentReader: { _ in Enrichment() }, runtimeEnabled: false)
