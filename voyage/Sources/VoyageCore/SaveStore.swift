@@ -90,6 +90,7 @@ public final class SaveStore {
     public var isLocked: Bool { !journey.allowsSaving || !care.allowsSaving }
 
     private let pets: PetCatalog?
+    private let items: ItemLibrary?
     private let now: () -> Date
     private let journeyMigrations: SaveMigrations
     private let careMigrations: SaveMigrations
@@ -102,11 +103,12 @@ public final class SaveStore {
     public static let maximumArchiveBytes = 50 * 1_024 * 1_024
 
     public init(
-        directory: URL, now: @escaping () -> Date = Date.init, pets: PetCatalog?,
+        directory: URL, now: @escaping () -> Date = Date.init, pets: PetCatalog?, items: ItemLibrary? = nil,
         journeyMigrations: SaveMigrations,
         careMigrations: SaveMigrations = SaveMigrations(currentVersion: CareState.currentVersion)
     ) {
         self.pets = pets
+        self.items = items
         self.directory = directory
         self.now = now
         self.journeyMigrations = journeyMigrations
@@ -129,6 +131,12 @@ public final class SaveStore {
             if let data = pendingCare.1 { try atomicWrite(data, to: .care) }
             if case .loaded(let saved) = journey, case .missing = care {
                 try save(CareState.legacy(from: saved, pets: pets))
+            }
+            if case .loaded(var saved) = care {
+                let original = saved
+                RoomDecor.clean(care: &saved, library: items)
+                PetMilestones.establishBaseline(care: &saved)
+                if saved != original { try save(saved) }
             }
         } catch {
             // atomicWrite records the failing file as unreadable.
@@ -218,9 +226,13 @@ public final class SaveStore {
         let (journey, journeyData) = try validatedArchiveState(
             json["journey"], file: .journey, as: JourneyState.self, migrations: journeyMigrations
         )
-        let (care, careData) = try validatedArchiveState(
+        let (decodedCare, _) = try validatedArchiveState(
             json["care"], file: .care, as: CareState.self, migrations: careMigrations
         )
+        var care = decodedCare
+        RoomDecor.clean(care: &care, library: items)
+        PetMilestones.establishBaseline(care: &care)
+        let careData = try JSONEncoder().encode(care)
         // Imported files cross a trust boundary. These are runtime invariants assumed by route[0],
         // day settlement and the photo loader; the existing version decoders only check the JSON shape.
         let dayParser = DateFormatter()

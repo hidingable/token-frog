@@ -89,6 +89,10 @@ extension CareEngine {
         guard let index = care.souvenirs.firstIndex(where: { $0.id == id }) else { return !shelved }
         if shelved && !care.souvenirs[index].shelved
             && care.souvenirs.filter(\.shelved).count >= CareRules.shelfCapacity { return false }
+        if shelved { care.roomPlacements?.removeAll { $0.itemID == id } }
+        for duplicate in care.souvenirs.indices where duplicate != index && care.souvenirs[duplicate].id == id {
+            care.souvenirs[duplicate].shelved = false
+        }
         care.souvenirs[index].shelved = shelved
         return true
     }

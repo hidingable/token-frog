@@ -25,8 +25,13 @@ struct HomeTab: View {
                                                 .foregroundStyle(theme.textMuted)
                                         }
                                         Spacer(minLength: 4)
-                                        Button(l10n("home.profile")) { model.showProfile() }
-                                            .buttonStyle(.plain).foregroundStyle(theme.textMuted).fixedSize()
+                                        VStack(alignment: .trailing, spacing: 10) {
+                                            Button(l10n("home.profile")) { model.showProfile() }
+                                            if model.canArrangeRoom {
+                                                Button(l10n("room.arrange")) { model.showRoomArrangement() }
+                                                    .accessibilityLabel(l10n("room.arrange"))
+                                            }
+                                        }.buttonStyle(.plain).foregroundStyle(theme.textMuted).fixedSize()
                                     }
                                     let habit = ProfileDisplay.habitSummary(care.habits, l10n: l10n)
                                     Text(l10n("home.companionDay", care.companionDays.count)
@@ -67,7 +72,12 @@ struct HomeTab: View {
                         let scale = CGFloat(RoomLayout.scale(availableWidth: layout.roomWidth))
                         let shelfX = floor((proxy.size.width - 24 - layout.contentWidth) / 2) + 78 * scale
                         let shelf = CGRect(x: shelfX, y: 37 * scale, width: 76 * scale, height: 18 * scale)
-                        if !shelf.contains(tap.location) { selectedSouvenir = nil }
+                        let inPlacement = model.canArrangeRoom && RoomSlot.allCases.contains { slot in
+                            RoomLayout.slotBounds(slot).insetBy(dx: -1, dy: -1)
+                                .applying(CGAffineTransform(scaleX: scale, y: scale))
+                                .offsetBy(dx: shelfX - 78 * scale, dy: 0).contains(tap.location)
+                        }
+                        if !shelf.contains(tap.location) && !inPlacement { selectedSouvenir = nil }
                     })
                     .padding(12)
                 }
@@ -142,8 +152,10 @@ private struct RoomSceneView: View {
             let width = CGFloat(RoomLayout.width * scale)
             let height = CGFloat(RoomLayout.height * scale)
             let shelf = RoomLayout.shelf(care).compactMap { catalog.items.find($0.id) }
+            let placements = roomItems(care: care, catalog: catalog)
+            let petBounds = RoomLayout.petBounds(form: model.petForm)
             ZStack(alignment: .topLeading) {
-                PixelArtView(image: RoomArt.image(pet: state.pet, shelf: shelf, theme: theme, catalog: catalog.pets, nightcap: model.nightcapNote != nil), scale: scale)
+                PixelArtView(image: RoomArt.image(pet: state.pet, shelf: shelf, theme: theme, catalog: catalog.pets, form: model.petForm, placements: placements, nightcap: model.nightcapNote != nil), scale: scale)
                     .frame(width: width, height: height).accessibilityHidden(true)
                 Color.clear.contentShape(Rectangle()).onTapGesture { selectedSouvenir = nil }
                 ForEach(Array(shelf.enumerated()), id: \.element.id) { index, item in
@@ -155,11 +167,21 @@ private struct RoomSceneView: View {
                     .position(x: CGFloat(86 + index * 19) * factor, y: 46 * factor)
                     .accessibilityLabel(l10n.itemName(item))
                 }
+                ForEach(RoomSlot.allCases, id: \.rawValue) { slot in
+                    if let item = placements[slot] {
+                        let bounds = RoomLayout.slotBounds(slot)
+                        Button { selectedSouvenir = item.id } label: { Color.clear.contentShape(Rectangle()) }
+                            .buttonStyle(.plain)
+                            .frame(width: 14 * factor, height: 14 * factor)
+                            .position(x: bounds.midX * factor, y: bounds.midY * factor)
+                            .accessibilityLabel(l10n("room.placedItem", l10n.roomSlot(slot), l10n.itemName(item)))
+                    }
+                }
                 Button { selectedSouvenir = nil; model.showProfile() } label: {
                     Color.clear.contentShape(Rectangle())
                 }
-                .buttonStyle(.plain).frame(width: 36 * factor, height: 36 * factor)
-                .position(x: 132 * factor, y: 92 * factor)
+                .buttonStyle(.plain).frame(width: (petBounds.width + 4) * factor, height: (petBounds.height + 4) * factor)
+                .position(x: petBounds.midX * factor, y: petBounds.midY * factor)
                 .accessibilityLabel(l10n("home.profile"))
                 Button { selectedSouvenir = nil; model.openCollection(.souvenirs) } label: {
                     Text(l10n("home.allSouvenirs")).padding(4)
@@ -168,13 +190,13 @@ private struct RoomSceneView: View {
                 .buttonStyle(.plain).fixedSize()
                 .position(x: 181 * factor, y: 32 * factor)
                 if let id = selectedSouvenir, let item = catalog.items.find(id) {
-                    roomBubble(l10n.itemDescription(item), region: RoomLayout.bubbleRegion(scale: scale, souvenir: true)) {
+                    roomBubble(l10n.itemDescription(item), region: RoomLayout.bubbleRegion(scale: scale, souvenir: true, form: model.petForm)) {
                         selectedSouvenir = nil
                     }
                 } else if let text = model.nightcapText {
-                    roomBubble(text, region: RoomLayout.bubbleRegion(scale: scale, souvenir: false)) {}
+                    roomBubble(text, region: RoomLayout.bubbleRegion(scale: scale, souvenir: false, form: model.petForm)) {}
                 } else if let bubble = model.petBubble {
-                    roomBubble(l10n(bubble.titleKey), region: RoomLayout.bubbleRegion(scale: scale, souvenir: false)) {
+                    roomBubble(l10n(bubble.titleKey), region: RoomLayout.bubbleRegion(scale: scale, souvenir: false, form: model.petForm)) {
                         model.activateBubble(bubble)
                     }
                 }

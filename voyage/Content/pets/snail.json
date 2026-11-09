@@ -39,7 +39,39 @@
       ".kkkkkkkkkkkk..."
     ]
   },
-  "accessories": [],
+  "accessories": [
+    {
+      "id": "trail-pennant",
+      "sprite": {
+        "size": [
+          20,
+          20
+        ],
+        "rows": [
+          "....................",
+          "....................",
+          "....................",
+          "...kkkkkkk..........",
+          "...knkrrrkk.........",
+          "...knkrrryk.........",
+          "...knkrrrkk.........",
+          "...knkkkkk..........",
+          "...knk..............",
+          "...kkk..............",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "...................."
+        ]
+      }
+    }
+  ],
   "quirks": [
     {
       "zh-Hans": "我不着急，壳里的金币叮当响。",
@@ -53,5 +85,53 @@
       "zh-Hans": "今晚把壳擦亮了，明天接着走。",
       "en": "Gave my shell a good polish tonight. Back on the trail tomorrow."
     }
-  ]
+  ],
+  "juvenile": {
+    "size": [
+      20,
+      20
+    ],
+    "rows": [
+      "....................",
+      "....................",
+      "....................",
+      "....................",
+      "...............k..k.",
+      "...............k..k.",
+      "......kkkkkk...kkkk.",
+      "....kkyyyyyykk.kccck",
+      "...kyyyooooyyykkckck",
+      "..kyyoooyyyoyyykccck",
+      "..kyoyyyyyyoyyykccck",
+      "..kyoyyoooyoyyykccck",
+      "..kyoyoyyoyoyyykcck.",
+      "..kyoyoyooyoyyykcck.",
+      "..kyyoyyyyyoyykkcck.",
+      "...kyyoooooyykkccck.",
+      "...kkkkkkkkkkkcccck.",
+      "..kcccccccccccccck..",
+      ".kccccccccccccccck..",
+      "..kkkkkkkkkkkkkkk..."
+    ]
+  },
+  "hatchlingMotion": {
+    "footRows": [
+      14,
+      15
+    ],
+    "nightcapAnchor": [
+      2,
+      0
+    ]
+  },
+  "juvenileMotion": {
+    "footRows": [
+      18,
+      19
+    ],
+    "nightcapAnchor": [
+      10,
+      2
+    ]
+  }
 }

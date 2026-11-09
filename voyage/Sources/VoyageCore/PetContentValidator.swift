@@ -43,6 +43,35 @@ extension ContentValidator {
             }
         }
 
+        func validateMotion(_ motion: SpriteMotion, sprite: PixelSprite, dimension: Int, file: String, name: String) {
+            let rows = sprite.rows.map(Array.init)
+            let feet = motion.footRows
+            if feet.count != 2 || feet[0] < 0 || feet[1] < feet[0] || feet[1] >= dimension {
+                report(file, "spriteFootRows", "\(name) footRows requires two ordered inclusive row endpoints inside its body")
+            } else if (feet[0]...feet[1]).contains(where: { row in
+                row >= rows.count || !rows[row].contains(where: { $0 != "." })
+            }) {
+                report(file, "spriteFootRows", "\(name) footRows must contain visible foot pixels on every declared row")
+            }
+            let anchor = motion.nightcapAnchor
+            let capWidth = dimension == 16 ? 12 : 10
+            guard anchor.count == 2, anchor[0] >= 0, anchor[1] >= 0,
+                  anchor[0] <= dimension - capWidth, anchor[1] <= dimension - 4 else {
+                report(file, "spriteNightcapAnchor", "\(name) nightcapAnchor must keep its \(capWidth)x4 cap inside the body grid")
+                return
+            }
+            let headTop = rows.indices.first { row in
+                rows[row].indices.contains { column in
+                    (anchor[0]..<anchor[0] + capWidth).contains(column) && rows[row][column] != "."
+                }
+            }
+            // The brim may cover an existing hat, handle or antennae, but must meet the head.
+            guard let headTop, (-3...1).contains(headTop - (anchor[1] + 3)) else {
+                report(file, "spriteNightcapAnchor", "\(name) nightcap brim must sit at the body's head or existing headwear")
+                return
+            }
+        }
+
         do {
             let eggs = try PetCatalog.readEggs(directory: directory)
             for (name, sprite) in [("base", eggs.base), ("cracked", eggs.cracked), ("placeholder", eggs.placeholder)] {
@@ -88,7 +117,23 @@ extension ContentValidator {
                 report(path, "petNameLength", "Default pet names must be at most 12 characters")
             }
             if pet.quirks.count < 3 { report(path, "petQuirks", "Every pet requires at least three quirks") }
-            validateSprite(pet.sprite, dimension: 16, file: path, name: pet.id.rawValue)
+            validateSprite(pet.sprite, dimension: 16, file: path, name: "\(pet.id.rawValue) hatchling")
+            validateSprite(pet.juvenile, dimension: 20, file: path, name: "\(pet.id.rawValue) juvenile")
+            validateMotion(pet.hatchlingMotion, sprite: pet.sprite, dimension: 16, file: path, name: "hatchling")
+            validateMotion(pet.juvenileMotion, sprite: pet.juvenile, dimension: 20, file: path, name: "juvenile")
+            var accessoryIDs: Set<String> = []
+            if pet.accessories.isEmpty {
+                report(path, "petAccessories", "Every pet requires a visible teen accessory layer")
+            }
+            for accessory in pet.accessories {
+                if accessory.id.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !accessoryIDs.insert(accessory.id).inserted {
+                    report(path, "petAccessoryID", "Accessory IDs must be nonempty and unique within a pet")
+                }
+                validateSprite(accessory.sprite, dimension: 20, file: path, name: "accessory \(accessory.id)")
+                if !accessory.sprite.rows.contains(where: { $0.contains(where: { $0 != "." }) }) {
+                    report(path, "petAccessories", "Accessory \(accessory.id) must contain visible pixels")
+                }
+            }
             for (source, target) in pet.egg.recolor {
                 if source.count != 1 || target.count != 1
                     || symbols.map({ !Set(source + target).isSubset(of: $0) }) == true {

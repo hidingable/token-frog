@@ -5,17 +5,25 @@ import VoyageCore
 enum Sprites {
     enum Frame: Hashable, CaseIterable { case rest, bob, stepLeft, stepRight }
 
-    static func petPixels(_ pet: PetID, catalog: PetCatalog, nightcap: Bool = false) -> [UInt32?] {
-        var result = pixels(catalog.sprite(pet), catalog: catalog)
-        if nightcap { addNightcap(to: &result, catalog: catalog) }
+    static func petPixels(_ pet: PetID, catalog: PetCatalog, form: PetForm = .hatchling, nightcap: Bool = false) -> [UInt32?] {
+        var result = pixels(catalog.sprite(pet, form: form), catalog: catalog)
+        for accessory in catalog.accessories(pet, form: form) {
+            for (index, color) in pixels(accessory.sprite, catalog: catalog).enumerated() {
+                if let color { result[index] = color }
+            }
+        }
+        if nightcap { addNightcap(to: &result, width: catalog.sprite(pet, form: form).size[0],
+                                  anchor: catalog.motion(pet, form: form).nightcapAnchor, catalog: catalog) }
         return result
     }
-    /// A temporary overlay in the render buffer; never modifies the pet catalog or save appearance.
-    private static func addNightcap(to pixels: inout [UInt32?], catalog: PetCatalog, offset: Int = 0) {
-        let rows = [".....ggggll.....", "....gggggll.....", "...gggggggll....", "..llllllllllww.."]
+    /// A temporary overlay in the render buffer, positioned by each body's declared head anchor.
+    private static func addNightcap(to pixels: inout [UInt32?], width: Int, anchor: [Int], catalog: PetCatalog, offset: Int = 0) {
+        let rows = width == 16
+            ? ["...ggggll...", "..gggggll...", ".gggggggll..", "llllllllllww"]
+            : ["...ggggll.", "..gggggll.", ".gggggggll", "llllllllww"]
         for (y, row) in rows.enumerated() {
             for (x, symbol) in row.enumerated() where symbol != "." {
-                pixels[(y + offset) * 16 + x] = catalog.palette[symbol]
+                pixels[(y + anchor[1] + offset) * width + x + anchor[0]] = catalog.palette[symbol]
             }
         }
     }
@@ -40,29 +48,31 @@ enum Sprites {
     @MainActor private static var cache: [String: CGImage] = [:]
     @MainActor private static var cachedCatalog: PetCatalog?
 
-    /// Frames are 16x17: one spare row lets the body bob without clipping.
-    @MainActor static func image(_ pet: PetID, _ frame: Frame, catalog: PetCatalog, nightcap: Bool = false) -> CGImage {
+    /// One spare row lets either body bob without moving its feet off the ground.
+    @MainActor static func image(_ pet: PetID, _ frame: Frame, catalog: PetCatalog, form: PetForm = .hatchling, nightcap: Bool = false) -> CGImage {
         if cachedCatalog !== catalog {
             cache.removeAll()
             cachedCatalog = catalog
         }
-        let key = "\(pet.rawValue)-\(frame)-\(nightcap)"
+        let key = "\(pet.rawValue)-\(form.rawValue)-\(frame)-\(nightcap)"
         if let cached = cache[key] { return cached }
-        let rows = catalog.sprite(pet).rows
-        var pixels = [UInt32?](repeating: nil, count: 16 * 17)
-        for (y, row) in rows.enumerated() {
-            let isFoot = y >= 14
-            let lift = !isFoot && (frame == .bob || frame == .stepLeft || frame == .stepRight) ? 0 : 1
+        let body = catalog.sprite(pet, form: form)
+        let width = body.size[0], height = body.size[1] + 1
+        let motion = catalog.motion(pet, form: form)
+        let source = petPixels(pet, catalog: catalog, form: form)
+        var pixels = [UInt32?](repeating: nil, count: width * height)
+        for (index, color) in source.enumerated() {
+            guard let color else { continue }
+            let x = index % width, y = index / width
+            let isFoot = (motion.footRows[0]...motion.footRows[1]).contains(y)
+            let lift = !isFoot && frame != .rest ? 0 : 1
             let shift = isFoot ? (frame == .stepLeft ? -1 : frame == .stepRight ? 1 : 0) : 0
-            for (x, symbol) in row.enumerated() where symbol != "." {
-                let targetX = x + shift
-                let targetY = y + lift
-                guard (0..<16).contains(targetX), (0..<17).contains(targetY) else { continue }
-                pixels[targetY * 16 + targetX] = catalog.palette[symbol]
-            }
+            let targetX = x + shift
+            if (0..<width).contains(targetX) { pixels[(y + lift) * width + targetX] = color }
         }
-        if nightcap { addNightcap(to: &pixels, catalog: catalog, offset: frame == .rest ? 1 : 0) }
-        let image = PixelImage.make(width: 16, height: 17, pixels: pixels)
+        if nightcap { addNightcap(to: &pixels, width: width, anchor: motion.nightcapAnchor,
+                                  catalog: catalog, offset: frame == .rest ? 1 : 0) }
+        let image = PixelImage.make(width: width, height: height, pixels: pixels)
         cache[key] = image
         return image
     }
@@ -105,6 +115,9 @@ final class SpriteNSView: NSView {
         didSet { if pet != oldValue { needsDisplay = true } }
     }
 
+    var form: PetForm = .hatchling {
+        didSet { if form != oldValue { needsDisplay = true } }
+    }
     var moving = false {
         didSet { if moving != oldValue { restartTimer() } }
     }
@@ -136,7 +149,7 @@ final class SpriteNSView: NSView {
         let even = frameIndex % 2 == 0
         let frame: Sprites.Frame = moving ? (even ? .stepLeft : .stepRight) : (even ? .rest : .bob)
         context.interpolationQuality = .none
-        context.draw(Sprites.image(pet, frame, catalog: catalog, nightcap: nightcap), in: bounds)
+        context.draw(Sprites.image(pet, frame, catalog: catalog, form: form, nightcap: nightcap), in: bounds)
     }
 }
 
@@ -144,6 +157,7 @@ struct SpriteView: NSViewRepresentable {
     @Environment(\.petCatalog) private var catalog
     var pet: PetID
     var scale: CGFloat
+    var form: PetForm = .hatchling
     var moving = false
     var nightcap = false
 
@@ -152,12 +166,14 @@ struct SpriteView: NSViewRepresentable {
     func updateNSView(_ view: SpriteNSView, context: Context) {
         view.catalog = catalog
         view.pet = pet
+        view.form = form
         view.moving = moving
         view.nightcap = nightcap
     }
 
     func sizeThatFits(_ proposal: ProposedViewSize, nsView: SpriteNSView, context: Context) -> CGSize? {
-        CGSize(width: 16 * scale, height: 17 * scale)
+        let size = catalog?.sprite(pet, form: form).size ?? [16, 16]
+        return CGSize(width: CGFloat(size[0]) * scale, height: CGFloat(size[1] + 1) * scale)
     }
 }
 

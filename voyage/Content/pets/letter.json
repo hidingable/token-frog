@@ -39,7 +39,39 @@
       "...krr.....krr.."
     ]
   },
-  "accessories": [],
+  "accessories": [
+    {
+      "id": "wax-seal",
+      "sprite": {
+        "size": [
+          20,
+          20
+        ],
+        "rows": [
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "........kkkk........",
+          ".......krrrrk.......",
+          ".......kryyrk.......",
+          ".......krrrrk.......",
+          "........kkkk........",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "...................."
+        ]
+      }
+    }
+  ],
   "quirks": [
     {
       "zh-Hans": "我把今天的事都折进了身体里。",
@@ -53,5 +85,53 @@
       "zh-Hans": "邮戳盖在身上，有一点痒。",
       "en": "Got a fresh postmark today. Tickled a little."
     }
-  ]
+  ],
+  "juvenile": {
+    "size": [
+      20,
+      20
+    ],
+    "rows": [
+      "....................",
+      "....................",
+      "....................",
+      "....................",
+      ".kkkkkkkkkkkkkkkkkk.",
+      ".kwkwwwwwwwwwwwwkwk.",
+      ".kwwkwwwwwwwwwwkwwk.",
+      ".kwwwkwwwwwwwwkwwwk.",
+      ".kwwwwkwwwwwwkwwwwk.",
+      ".kwwwwwkwwwwkwwwwwk.",
+      ".kwwwwwwkrrkwwwwwwk.",
+      ".kwwwwwwwrrwwwwwwwk.",
+      ".kwwwkkwwwwwwkkwwwk.",
+      ".kwwwkkwwwwwwkkwwwk.",
+      ".kwwpwwwwwkkwwwwpwk.",
+      ".kwwwwwwwwwwwwwwwwk.",
+      ".kwwwwwwwwwwwwwwwwk.",
+      ".kkkkkkkkkkkkkkkkkk.",
+      "....kr.......kr.....",
+      "...krrr.....krrr...."
+    ]
+  },
+  "hatchlingMotion": {
+    "footRows": [
+      14,
+      15
+    ],
+    "nightcapAnchor": [
+      2,
+      0
+    ]
+  },
+  "juvenileMotion": {
+    "footRows": [
+      18,
+      19
+    ],
+    "nightcapAnchor": [
+      5,
+      1
+    ]
+  }
 }

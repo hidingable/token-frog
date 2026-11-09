@@ -14,7 +14,7 @@ struct ProfileView: View {
                 HStack(alignment: .top, spacing: 16) {
                     HomeCard {
                         HStack(alignment: .top, spacing: 12) {
-                            SpriteView(pet: journey.pet, scale: 4)
+                            SpriteView(pet: journey.pet, scale: 4, form: model.petForm, nightcap: model.nightcapNote != nil)
                             VStack(alignment: .leading, spacing: 10) {
                                 Text(model.petName).font(Theme.pixel(24))
                                 Text(l10n("profile.summary", l10n.stage(profile.stage), l10n.days(profile.days),
@@ -72,6 +72,10 @@ struct ProfileView: View {
                         .background(entry.stage == profile.stage ? theme.companionFill : theme.surfaceRaised)
                         .pixelBorder(entry.stage == profile.stage ? theme.companionFill : theme.controlOff)
                     }
+                }
+                if !model.canArrangeRoom {
+                    Text(l10n("profile.arrangementUnlock")).foregroundStyle(theme.textMuted)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 HomeCard {
                     Text(l10n("profile.identity"))

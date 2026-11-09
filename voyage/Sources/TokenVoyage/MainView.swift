@@ -32,6 +32,8 @@ struct MainView: View {
                 ScrollView { SettingsTab(model: model).padding(12) }
             } else if model.ritualLetter != nil {
                 RitualView(model: model)
+            } else if let stage = model.petMoment {
+                ScrollView { PetMomentView(model: model, stage: stage).padding(24) }
             } else {
                 secondaryNavigation
                 content
@@ -110,6 +112,7 @@ struct MainView: View {
             case .room: HomeTab(model: model)
             case .profile: ScrollView { ProfileView(model: model).padding(12) }
             case .box: BoxView(model: model)
+            case .arrangement: ScrollView { RoomArrangementView(model: model).padding(12) }
             }
         case .journey:
             GeometryReader { proxy in
@@ -150,7 +153,7 @@ struct JourneyTab: View {
         if let state = model.state, let catalog = model.catalog {
             VStack(alignment: .leading, spacing: 12) {
                 HStack(alignment: .center, spacing: 12) {
-                    SpriteView(pet: state.pet, scale: 4, moving: model.isMoving)
+                    SpriteView(pet: state.pet, scale: 4, form: model.petForm, moving: model.isMoving)
                         .padding(6)
                         .background(theme.paper)
                         .pixelBorder(theme.border)

@@ -18,11 +18,32 @@ public struct PixelSprite: Decodable, Sendable {
     public let rows: [String]
 }
 
+/// Appearance follows the existing companion-day stage; it is never saved separately.
+public enum PetForm: String, CaseIterable, Sendable {
+    case hatchling, juvenile, teen
+
+    public static func current(companionDays: Int) -> PetForm {
+        switch Stage.current(companionDays: companionDays) {
+        case .egg, .hatchling: .hatchling
+        case .juvenile: .juvenile
+        case .teen, .traveler, .veteran, .legend: .teen
+        }
+    }
+}
+
+/// Pixel coordinates belong to each body rather than to the animation renderer.
+public struct SpriteMotion: Decodable, Sendable {
+    /// The inclusive first and last row containing the walking feet.
+    public let footRows: [Int]
+    /// Left/top position of the nightcap: legacy 12x4 on hatchlings, 10x4 on larger bodies.
+    public let nightcapAnchor: [Int]
+}
+
 public struct PetDefinition: Decodable, Sendable, Identifiable {
     public struct Egg: Decodable, Sendable {
         public let recolor: [String: String]
     }
-    /// Reserved for body + accessory composition. M0 decodes these layers without drawing them.
+    /// Transparent layers share the juvenile body grid and are drawn for teen and later stages.
     public struct Accessory: Decodable, Sendable {
         public let id: String
         public let sprite: PixelSprite
@@ -33,6 +54,9 @@ public struct PetDefinition: Decodable, Sendable, Identifiable {
     public let eggNames: [String: String]
     public let egg: Egg
     public let sprite: PixelSprite
+    public let juvenile: PixelSprite
+    public let hatchlingMotion: SpriteMotion
+    public let juvenileMotion: SpriteMotion
     public let accessories: [Accessory]
     public let quirks: [[String: String]]
 }
@@ -52,7 +76,19 @@ public final class PetCatalog: Sendable {
     private let byID: [PetID: PetDefinition]
     public var defaultID: PetID { all[0].id }
     public func find(_ id: PetID) -> PetDefinition? { byID[id] }
-    public func sprite(_ id: PetID) -> PixelSprite { find(id)?.sprite ?? eggs.placeholder }
+    public func sprite(_ id: PetID, form: PetForm = .hatchling) -> PixelSprite {
+        guard let pet = find(id) else { return eggs.placeholder }
+        return form == .hatchling ? pet.sprite : pet.juvenile
+    }
+    public func motion(_ id: PetID, form: PetForm = .hatchling) -> SpriteMotion {
+        guard let pet = find(id) else {
+            return SpriteMotion(footRows: [14, 15], nightcapAnchor: [2, 0])
+        }
+        return form == .hatchling ? pet.hatchlingMotion : pet.juvenileMotion
+    }
+    public func accessories(_ id: PetID, form: PetForm) -> [PetDefinition.Accessory] {
+        form == .teen ? find(id)?.accessories ?? [] : []
+    }
 
     private init(directory: URL) throws {
         all = try Self.readPets(directory: directory).map(\.pet).sorted { $0.order < $1.order }

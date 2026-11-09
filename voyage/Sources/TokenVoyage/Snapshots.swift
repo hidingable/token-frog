@@ -53,6 +53,8 @@ enum Snapshots {
             }
         }
 
+        writePetForms(model: model, to: directory, metrics: metrics)
+
         let todayUsage = model.dashboardDays?.first { $0.date == DayKey.string(from: model.now) }?.usage
         func main(_ tab: MainTab, name: String, size: CGSize = mainSize, dashboard: DashboardSelection = DashboardSelection(), update: (inout JourneyState) -> Void = { _ in }) {
             model.withSnapshotState({ state in
@@ -331,6 +333,54 @@ enum Snapshots {
             issues: [SaveRecoveryIssue(file: .journey, problem: .tooNew(version: 2))],
             onRestore: { _ in }, onImport: { _ in }, onRestart: { _ in }, onRetry: {}, onQuit: {}
         ), size: CGSize(width: 760, height: 420), name: "save-recovery-too-new", directory, model: model)
+    }
+
+    private static func writePetForms(model: AppModel, to directory: URL, metrics: NotchMetrics) {
+        guard let catalog = model.catalog else { return }
+        render(PetFormsOverview(catalog: catalog.pets), size: CGSize(width: 780, height: 960), name: "pet-forms", directory, model: model)
+        render(PetFormsOverview(catalog: catalog.pets, nightcap: true), size: CGSize(width: 600, height: 960), name: "pet-nightcaps", directory, model: model)
+        let example = homeExamples(catalog: catalog, now: model.now, petName: model.petName)
+        for days in [5, 20] {
+            let form = PetForm.current(companionDays: days)
+            model.withSnapshotCare({ care in
+                care = example.care
+                care.companionDays = (0..<days).map { "snapshot-\($0)" }
+                care.seenPetStages = ["juvenile", "teen"]
+                care.roomPlacements = nil
+                var owned = Set(care.souvenirs.map(\.id))
+                for item in catalog.items.all where item.kind == "souvenir" && owned.count < 8 {
+                    if owned.insert(item.id).inserted {
+                        care.souvenirs.append(.init(id: item.id, letterId: nil, boxId: nil, shelved: false))
+                    }
+                }
+            }) {
+                model.withSnapshotState({ $0 = example.journey }) {
+                    model.showProfile()
+                    render(MainView(model: model), size: CGSize(width: 760, height: 900), name: "profile-\(form.rawValue)", directory, model: model)
+                    render(FloatingView(model: model), size: FloatingLayout.normalSize(form: form), name: "floating-\(form.rawValue)", directory, model: model)
+                    render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-\(form.rawValue)", directory, model: model)
+                    model.openPostOffice()
+                    render(MainView(model: model), size: CGSize(width: 1000, height: 900), name: "home-\(form.rawValue)-empty", directory, model: model)
+                    if days == 20 {
+                        model.withSnapshotCare({ care in
+                            let ids = care.souvenirs.map(\.id)
+                            for (slot, id) in zip(RoomSlot.allCases, ids) { RoomDecor.place(id, in: slot, care: &care, library: catalog.items) }
+                        }) {
+                            render(MainView(model: model), size: CGSize(width: 1000, height: 900), name: "home-teen-full", directory, model: model)
+                            model.showRoomArrangement()
+                            render(MainView(model: model), size: CGSize(width: 760, height: 1160), name: "room-arrangement", directory, model: model)
+                        }
+                    }
+                    model.withSnapshotCare({ $0.seenPetStages = days == 5 ? [] : ["juvenile"] }) {
+                        model.setMainWindowPresented(true)
+                        model.openPostOffice()
+                        render(MainView(model: model), size: CGSize(width: 760, height: 780), name: "moment-\(form.rawValue)", directory, model: model)
+                        model.setMainWindowPresented(false)
+                    }
+                }
+            }
+        }
+        model.openPostOffice()
     }
 
     static func quotaExamples(now: Date) -> [QuotaSource: QuotaAccountState] {

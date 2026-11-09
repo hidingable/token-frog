@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "cards": [
+    {
+      "stage": "juvenile",
+      "title": {"zh-Hans": "长大一点，靠近一点", "en": "A little bigger, a little closer"},
+      "body": {"zh-Hans": "一起读过五天的信，小信使的身体长大了。它在门口比了比身高，又把今天的见闻放到你手边。", "en": "Five days of reading together, and your little messenger has grown. After measuring up against the doorframe, it leaves today's discoveries beside you."}
+    },
+    {
+      "stage": "teen",
+      "title": {"zh-Hans": "带上自己的小标记", "en": "A small mark of its own"},
+      "body": {"zh-Hans": "二十个陪伴日，小信使有了自己的出门装束。邮局现在可以布置了：在窗台、柜顶、墙上和地上，各放一件带回来的纪念品吧。", "en": "Twenty days together, and your messenger has an outfit of its own. You can now arrange the post office: place a souvenir on the sill, cabinet, wall, and floor."}
+    }
+  ]
+}

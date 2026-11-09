@@ -377,7 +377,12 @@ private struct SaveSandbox {
         _ = try box.writeJourney()
         let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
-        #expect(try Data(contentsOf: box.careURL) == bytes)
+        var upgraded = care
+        PetMilestones.establishBaseline(care: &upgraded)
+        #expect(try JSONDecoder().decode(CareState.self, from: Data(contentsOf: box.careURL)) == upgraded)
+        let upgradedBytes = try Data(contentsOf: box.careURL)
+        store.load()
+        #expect(try Data(contentsOf: box.careURL) == upgradedBytes)
         #expect(try store.backups(for: .care).isEmpty)
     }
 

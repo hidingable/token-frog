@@ -39,7 +39,39 @@
       "...ky......ky..."
     ]
   },
-  "accessories": [],
+  "accessories": [
+    {
+      "id": "luggage-tag",
+      "sprite": {
+        "size": [
+          20,
+          20
+        ],
+        "rows": [
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          ".....d..............",
+          "....d...............",
+          "...d................",
+          "..d.................",
+          "kkkk................",
+          "kwwk................",
+          "krrk................",
+          "kwwk................",
+          "kkkk................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "...................."
+        ]
+      }
+    }
+  ],
   "quirks": [
     {
       "zh-Hans": "今天又多了一张旅行贴纸。",
@@ -53,5 +85,53 @@
       "zh-Hans": "轮子有点累，不过还能走。",
       "en": "My wheels are a little tired, but there's plenty of roll left in them."
     }
-  ]
+  ],
+  "juvenile": {
+    "size": [
+      20,
+      20
+    ],
+    "rows": [
+      "....................",
+      "....................",
+      ".......kkkkkk.......",
+      "......kyyyyyyk......",
+      "......kyk..kyk......",
+      "......kyk..kyk......",
+      "...kkkkkkkkkkkkkk...",
+      "..knnnnnnnnnnnnnnk..",
+      "..knddddddddddddnnk.",
+      "..knnnnnnnnnnnnnnnk.",
+      "..knnkknnnnnnkknnnk.",
+      "..knnkknnnnnnkknnnk.",
+      "..knnnnnnnnnnnnnnnk.",
+      "..knnnnrrnnnwwwwnnk.",
+      "..knnnnrrnnnwbbwnnk.",
+      "..knnnnnnnnnwwwwnnk.",
+      "..kdddddddddddddddk.",
+      "...kkkkkkkkkkkkkkk..",
+      "....kyy......kyy....",
+      "....kkkk.....kkkk..."
+    ]
+  },
+  "hatchlingMotion": {
+    "footRows": [
+      14,
+      15
+    ],
+    "nightcapAnchor": [
+      2,
+      0
+    ]
+  },
+  "juvenileMotion": {
+    "footRows": [
+      18,
+      19
+    ],
+    "nightcapAnchor": [
+      5,
+      0
+    ]
+  }
 }

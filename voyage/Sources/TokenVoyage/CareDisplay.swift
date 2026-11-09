@@ -1,7 +1,7 @@
 import Foundation
 import VoyageCore
 
-enum HomePage { case room, profile, box }
+enum HomePage { case room, profile, box, arrangement }
 enum CompanionSurface { case main, floating, notch }
 
 enum PetBubble: Equatable {
@@ -33,8 +33,27 @@ enum RoomLayout {
         Array(care.souvenirs.filter(\.shelved).prefix(CareRules.shelfCapacity))
     }
 
-    static func bubbleRegion(scale: Int, souvenir: Bool) -> CGRect {
+    /// Logical pixels share RoomArt's coordinates. Ground stays at y=108; center stays at x=132.
+    static func petBounds(form: PetForm) -> CGRect {
+        let dimension: CGFloat = form == .hatchling ? 32 : 40
+        return CGRect(x: 132 - dimension / 2, y: 108 - dimension, width: dimension, height: dimension)
+    }
+
+    static func slotBounds(_ slot: RoomSlot) -> CGRect {
+        switch slot {
+        case .windowsill: CGRect(x: 46, y: 61, width: 12, height: 12)
+        case .cabinet: CGRect(x: 1, y: 52, width: 12, height: 12)
+        case .wall: CGRect(x: 174, y: 10, width: 12, height: 12)
+        case .floor: CGRect(x: 64, y: 110, width: 12, height: 12)
+        }
+    }
+
+    static func bubbleRegion(scale: Int, souvenir: Bool, form: PetForm = .hatchling) -> CGRect {
         let factor = CGFloat(scale)
+        // Larger bodies leave the floor too tight for a wide description; pet speech stays beside the pet.
+        if souvenir && form != .hatchling {
+            return CGRect(x: 64 * factor, y: 0, width: 92 * factor, height: 36 * factor)
+        }
         let x: CGFloat = souvenir ? 8 : 154 * factor
         let y = 58 * factor
         return CGRect(x: x, y: y, width: CGFloat(width) * factor - x - 8,

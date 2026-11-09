@@ -164,19 +164,24 @@ struct NotchExpandedView: View {
 
 enum FloatingLayout {
     static let size = CGSize(width: 150, height: 48)
+    static func normalSize(form: PetForm) -> CGSize {
+        form == .hatchling ? size : CGSize(width: 158, height: 56)
+    }
     static let maximumReactionSize = CGSize(width: 300, height: 64)
 
-    static func reactionSize(text: String, maximum: CGSize = maximumReactionSize) -> CGSize {
+    static func reactionSize(text: String, maximum: CGSize = maximumReactionSize, form: PetForm = .hatchling) -> CGSize {
+        let normal = normalSize(form: form)
+        let inset: CGFloat = form == .hatchling ? 50 : 58
         let font = NSFont.systemFont(ofSize: 12)
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 2
         let attributes: [NSAttributedString.Key: Any] = [.font: font, .paragraphStyle: paragraph]
         // Sprite (32), gap (6), and the panel's horizontal padding (12).
-        let width = min(maximum.width, max(size.width, ceil((text as NSString).size(withAttributes: attributes).width) + 50))
-        let bounds = (text as NSString).boundingRect(with: CGSize(width: width - 50, height: .greatestFiniteMagnitude),
+        let width = min(maximum.width, max(normal.width, ceil((text as NSString).size(withAttributes: attributes).width) + inset))
+        let bounds = (text as NSString).boundingRect(with: CGSize(width: width - inset, height: .greatestFiniteMagnitude),
                                                     options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes)
         let twoLines = ceil((font.ascender - font.descender + font.leading) * 2 + 2)
-        let height = max(size.height, ceil(min(bounds.height, twoLines)) + 24)
+        let height = max(normal.height, ceil(min(bounds.height, twoLines)) + 24)
         return CGSize(width: width, height: min(maximum.height, height))
     }
 
@@ -192,8 +197,8 @@ enum FloatingLayout {
     static func restoredFrame(normal: CGRect, speech: CGRect, current: CGRect, visible: CGRect) -> CGRect {
         let x = normal.minX + current.minX - speech.minX
         let y = normal.minY + current.maxY - speech.maxY
-        return CGRect(x: max(visible.minX, min(x, visible.maxX - size.width)),
-                      y: max(visible.minY, min(y, visible.maxY - size.height)), width: size.width, height: size.height)
+        return CGRect(x: max(visible.minX, min(x, visible.maxX - normal.width)),
+                      y: max(visible.minY, min(y, visible.maxY - normal.height)), width: normal.width, height: normal.height)
     }
 }
 
@@ -206,14 +211,14 @@ struct FloatingView: View {
     var body: some View {
         if let state = model.state, let catalog = model.catalog {
             HStack(spacing: 6) {
-                SpriteView(pet: state.pet, scale: 2, moving: model.isMoving, nightcap: model.nightcapNote != nil)
+                SpriteView(pet: state.pet, scale: 2, form: model.petForm, moving: model.isMoving, nightcap: model.nightcapNote != nil)
                     .background(theme.paper)
                     .offset(y: model.floatingJump ? -4 : 0)
                 if model.floatingReaction {
                     Text(model.floatingWords).font(.system(size: 12)).lineSpacing(2)
                         .lineLimit(2).padding(.vertical, surfaceSize.height > 48 ? 6 : 0)
                         .foregroundStyle(theme.text).fixedSize(horizontal: false, vertical: true)
-                        .frame(width: surfaceSize.width - 50, alignment: .leading)
+                        .frame(width: surfaceSize.width - (model.petForm == .hatchling ? 50 : 58), alignment: .leading)
                 } else {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(Format.km(fuel: model.todayFuel)).foregroundStyle(theme.mileageText)
@@ -235,6 +240,6 @@ struct FloatingView: View {
     }
 
     private var surfaceSize: CGSize {
-        model.floatingReaction ? FloatingLayout.reactionSize(text: model.floatingWords, maximum: maximumReactionSize) : FloatingLayout.size
+        model.floatingReaction ? FloatingLayout.reactionSize(text: model.floatingWords, maximum: maximumReactionSize, form: model.petForm) : FloatingLayout.normalSize(form: model.petForm)
     }
 }

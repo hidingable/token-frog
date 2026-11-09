@@ -58,6 +58,7 @@ final class AppModel {
     private(set) var onboarding: OnboardingFlow?
     var tab: MainTab = .home
     private(set) var homePage: HomePage = .room
+    private var displayedPetMoment: Stage?
     private(set) var presentedBoxID: String?
     private(set) var boxResult: BoxResult?
     private(set) var mainWindowPresented = false
@@ -220,7 +221,7 @@ final class AppModel {
         let loadedCatalog = catalog ?? (try? CityCatalog.load(directory: contentRoot))
         self.catalog = loadedCatalog
         contentFailed = loadedThemes == nil || (loadedCatalog.map { $0.active.count < 2 } ?? true)
-        store = SaveStore(directory: dataDirectory, pets: loadedCatalog?.pets, journeyMigrations: loadedCatalog.map { .journey(catalog: $0) } ?? SaveMigrations(currentVersion: JourneyState.currentVersion))
+        store = SaveStore(directory: dataDirectory, pets: loadedCatalog?.pets, items: loadedCatalog?.items, journeyMigrations: loadedCatalog.map { .journey(catalog: $0) } ?? SaveMigrations(currentVersion: JourneyState.currentVersion))
         isLocked = true
         dashboardStore.updateToday(DayKey.string(from: self.now))
         guard !contentFailed, let loadedCatalog else {
@@ -250,6 +251,47 @@ final class AppModel {
             self?.openNotificationLetter(id)
             self?.onNotificationOpen?()
         }
+    }
+
+    var petForm: PetForm { PetForm.current(companionDays: care?.companionDays.count ?? 0) }
+    var canArrangeRoom: Bool { care.map(RoomDecor.isUnlocked) ?? false }
+    /// Cards wait for the room: mail rituals, weekly boxes and other pages keep their own state.
+    var petMoment: Stage? {
+        guard mainWindowPresented, !isLocked, onboarding == nil, tab == .home, homePage == .room,
+              ritualLetterID == nil, presentedBoxID == nil, !showingSettings, !showingAccounts,
+              let care else { return nil }
+        return displayedPetMoment ?? PetMilestones.pending(in: care)
+    }
+
+    func petMomentDidDisplay(_ stage: Stage) {
+        guard !isSnapshot, petMoment == stage, var care else { return }
+        displayedPetMoment = stage
+        PetMilestones.acknowledge(stage, care: &care)
+        self.care = care
+        persist()
+    }
+
+    func dismissPetMoment() {
+        guard let stage = petMoment, var care else { return }
+        PetMilestones.acknowledge(stage, care: &care)
+        self.care = care
+        displayedPetMoment = nil
+        persist()
+    }
+
+    func showRoomArrangement() {
+        guard canArrangeRoom, !isLocked else { return }
+        navigate(to: .home)
+        homePage = .arrangement
+    }
+
+    @discardableResult
+    func placeSouvenir(_ id: String?, in slot: RoomSlot) -> Bool {
+        guard !isLocked, onboarding == nil, var care, let catalog,
+              RoomDecor.place(id, in: slot, care: &care, library: catalog.items) else { return false }
+        self.care = care
+        persist()
+        return true
     }
 
     var today: DayRecord { state.flatMap { $0.days[$0.openDate] } ?? DayRecord() }
@@ -287,6 +329,7 @@ final class AppModel {
     }
 
     func navigate(to tab: MainTab) {
+        displayedPetMoment = nil
         ritualLetterID = nil
         homePage = .room
         presentedBoxID = nil
@@ -417,6 +460,7 @@ final class AppModel {
     /// Only main-window presentation events record an open for postcard settlement and reunions.
     func setMainWindowPresented(_ presented: Bool) {
         mainWindowPresented = presented
+        if !presented { displayedPetMoment = nil }
         if presented {
             processCompanionMail()
             postOfficeDidDisplay()
@@ -980,6 +1024,7 @@ final class AppModel {
     private func resumeAfterRecovery() {
         // Discard results from reads started against the previous journey.
         backgroundGeneration += 1
+        displayedPetMoment = nil
         nightWorkObserver = NightWorkObserver()
         dashboardDays = nil
         dashboardLoadedAt = nil

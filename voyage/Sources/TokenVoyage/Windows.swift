@@ -195,9 +195,11 @@ final class FloatingController {
 
     private struct Root: View {
         let model: AppModel
+        var onFormChange: () -> Void = {}
         var maximumReactionSize = FloatingLayout.maximumReactionSize
         var body: some View {
             FloatingView(model: model, maximumReactionSize: maximumReactionSize).localized(using: model)
+                .onChange(of: model.petForm) { onFormChange() }
         }
     }
 
@@ -217,19 +219,36 @@ final class FloatingController {
 
     func show() {
         guard panel == nil else { return }
+        let size = FloatingLayout.normalSize(form: model.petForm)
         let visible = NSScreen.main?.visibleFrame ?? .zero
-        let panel = makePanel(frame: NSRect(x: visible.maxX - Self.size.width - 24, y: visible.maxY - Self.size.height - 24, width: Self.size.width, height: Self.size.height))
+        let panel = makePanel(frame: NSRect(x: visible.maxX - size.width - 24, y: visible.maxY - size.height - 24, width: size.width, height: size.height))
         panel.level = .floating
-        let host = PanelHostView(rootView: Root(model: model))
+        let host = PanelHostView(rootView: root())
         host.draggable = true
         host.onPress = { [weak self] in self?.clickTask?.cancel() }
         host.onClickCount = { [weak self] count, dragged in self?.click(count: count, dragged: dragged) }
         panel.contentView = host
         panel.setFrameAutosaveName("TokenVoyageFloating")
-        panel.setContentSize(Self.size)
+        panel.setContentSize(size)
         panel.orderFrontRegardless()
         self.panel = panel
         self.host = host
+    }
+
+    private func root(maximum: CGSize = FloatingLayout.maximumReactionSize) -> Root {
+        Root(model: model, onFormChange: { [weak self] in self?.resizeForForm() }, maximumReactionSize: maximum)
+    }
+
+    private func resizeForForm() {
+        restoreFrame()
+        guard let panel else { return }
+        let size = FloatingLayout.normalSize(form: model.petForm)
+        let visible = panel.screen?.visibleFrame ?? panel.frame
+        var frame = panel.frame
+        frame.size = size
+        frame.origin.x = min(frame.minX, visible.maxX - size.width)
+        frame.origin.y = min(frame.minY, visible.maxY - size.height)
+        panel.setFrame(frame, display: true)
     }
 
     func hide() {
@@ -257,12 +276,12 @@ final class FloatingController {
                 let original = panel.frame
                 let visible = panel.screen?.visibleFrame ?? original
                 let maximum = FloatingLayout.availableReactionSize(normal: original, visible: visible)
-                let size = FloatingLayout.reactionSize(text: model.floatingWords, maximum: maximum)
+                let size = FloatingLayout.reactionSize(text: model.floatingWords, maximum: maximum, form: model.petForm)
                 let frame = FloatingLayout.reactionFrame(normal: original, size: size)
                 normalFrame = original
                 speechFrame = frame
                 panel.setFrameAutosaveName("")
-                host?.setRootView(Root(model: model, maximumReactionSize: maximum))
+                host?.setRootView(root(maximum: maximum))
                 panel.setFrame(frame, display: true)
                 reactionTask = Task { [weak self, weak panel] in
                     try? await Task.sleep(for: .seconds(3))
@@ -279,7 +298,7 @@ final class FloatingController {
         let visible = panel.screen?.visibleFrame ?? normalFrame
         let frame = FloatingLayout.restoredFrame(normal: normalFrame, speech: speechFrame, current: panel.frame, visible: visible)
         model.endFloatingReaction()
-        host?.setRootView(Root(model: model))
+        host?.setRootView(root())
         panel.setFrame(frame, display: true)
         panel.saveFrame(usingName: "TokenVoyageFloating")
         panel.setFrameAutosaveName("TokenVoyageFloating")

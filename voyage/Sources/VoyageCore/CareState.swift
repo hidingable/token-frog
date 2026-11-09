@@ -15,6 +15,8 @@ public struct CareState: Codable, Equatable, Sendable {
     public var menus: [Menu] = []
     public var trailClues: [String: Int] = [:]
     public var weekly: Weekly
+    public var seenPetStages: [String]? = []
+    public var roomPlacements: [RoomPlacement]?
     public var wish: String?
     public var wishResolution: WishResolution?
     public var pendingPromises: [Promise] = []
@@ -54,6 +56,15 @@ public struct CareState: Codable, Equatable, Sendable {
         public var letterId: Int?
         public var boxId: String?
         public var shelved: Bool
+        public init(id: String, letterId: Int? = nil, boxId: String? = nil, shelved: Bool) {
+            self.id = id; self.letterId = letterId; self.boxId = boxId; self.shelved = shelved
+        }
+    }
+
+    public struct RoomPlacement: Codable, Equatable, Sendable {
+        public var slot: String
+        public var itemID: String
+        public init(slot: String, itemID: String) { self.slot = slot; self.itemID = itemID }
     }
 
     public struct Menu: Codable, Equatable, Sendable {
@@ -121,6 +132,7 @@ public struct CareState: Codable, Equatable, Sendable {
 
     public static func legacy(from journey: JourneyState, pets: PetCatalog?) -> CareState {
         var care = CareState(petName: pets?.find(journey.pet)?.names["zh-Hans"] ?? journey.pet.rawValue, species: journey.pet, hatchedAt: journey.startDate)
+        care.seenPetStages = nil
         care.processedLetterIds = journey.letters.map(\.id)
         return care
     }
@@ -141,6 +153,8 @@ public struct CareState: Codable, Equatable, Sendable {
         menus = try values.decodeIfMissing([Menu].self, forKey: .menus, default: [])
         trailClues = try values.decodeIfMissing([String: Int].self, forKey: .trailClues, default: [:])
         weekly = try values.decodeIfMissing(Weekly.self, forKey: .weekly, default: weekly)
+        seenPetStages = try values.decodeIfPresent([String].self, forKey: .seenPetStages)
+        roomPlacements = try values.decodeIfPresent([RoomPlacement].self, forKey: .roomPlacements)
         wish = try values.decodeIfPresent(String.self, forKey: .wish)
         wishResolution = try values.decodeIfPresent(WishResolution.self, forKey: .wishResolution)
         pendingPromises = try values.decodeIfMissing([Promise].self, forKey: .pendingPromises, default: [])

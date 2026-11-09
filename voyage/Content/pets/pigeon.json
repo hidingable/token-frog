@@ -36,7 +36,39 @@
       "....kyy..kyy...."
     ]
   },
-  "accessories": [],
+  "accessories": [
+    {
+      "id": "mailbag",
+      "sprite": {
+        "size": [
+          20,
+          20
+        ],
+        "rows": [
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "....................",
+          "............kk......",
+          "...........knk......",
+          "..........knk.......",
+          ".....kkkkknk........",
+          "....knnnnnk.........",
+          "....kdddddk.........",
+          "....knyynnk.........",
+          "....knnnnnk.........",
+          ".....kkkkk..........",
+          "....................",
+          "...................."
+        ]
+      }
+    }
+  ],
   "quirks": [
     {
       "zh-Hans": "邮差帽被风吹歪了，我又把它扶正。",
@@ -50,5 +82,53 @@
       "zh-Hans": "我在屋顶上数了数今天的云。",
       "en": "I found a rooftop and counted the clouds for a while."
     }
-  ]
+  ],
+  "juvenile": {
+    "size": [
+      20,
+      20
+    ],
+    "rows": [
+      "....................",
+      "....................",
+      "....................",
+      ".......kkkkkk.......",
+      "......krrrrrrk......",
+      ".....krrrrrrrrk.....",
+      ".....kkkkkkkkkkkk...",
+      ".....klllllllllk....",
+      ".....klllkkllllkyyk.",
+      ".....klllllllllkkkk.",
+      "...kkkwwwlllllk.....",
+      "..kgggkwwwwllllk....",
+      ".kgggggkwwwwwwllk...",
+      ".kggggggkwwwwwwwlk..",
+      "..kgggggkwwwwwwwlk..",
+      "...kggggkwwwwwwlk...",
+      "....kkggkwwwwwlk....",
+      ".....kkkkkkkkkk.....",
+      "......ky....ky......",
+      ".....kyyy..kyyy....."
+    ]
+  },
+  "hatchlingMotion": {
+    "footRows": [
+      14,
+      15
+    ],
+    "nightcapAnchor": [
+      2,
+      0
+    ]
+  },
+  "juvenileMotion": {
+    "footRows": [
+      18,
+      19
+    ],
+    "nightcapAnchor": [
+      5,
+      0
+    ]
+  }
 }
