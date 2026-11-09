@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "barcelona.revisit.follow-the-curve",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "barcelona",
+    "factIds": [
+      "barcelona-park-guell"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "长椅弯过去的地方，我还想再坐坐。",
+      "en": "I want to stay where the bench bends."
+    },
+    "text": {
+      "zh-Hans": "回到巴塞罗那，我没有急着认新的地名。在桂尔公园，蜿蜒的长椅沿着自然广场的边缘展开，彩色碎片一直拼到我身旁。我挪了挪，给背包腾出些地方，才顺着椅背的弯看过去。再熟悉的城市，也有被自己挡住的一小块。挪开一点，就能继续看。",
+      "en": "I came back to Barcelona without a new list of place names to learn. At Park Güell, the mosaic bench curved along the edge of the Nature Square and right up beside me. I shuffled along to make room for my bag, then followed the bend with my eyes. Even in a familiar city, I can get in my own way. A small shuffle helped."
+    },
+    "replies": [
+      {
+        "id": "barcelona.revisit.follow-the-curve.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊选中的座位",
+          "en": "Talk about choosing a seat"
+        }
+      },
+      {
+        "id": "barcelona.revisit.follow-the-curve.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "沿着长椅的弯看",
+          "en": "Follow the curve of the bench"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

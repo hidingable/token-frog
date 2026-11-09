@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "rome.revisit.unfilled-circle",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "rome",
+    "factIds": [
+      "rome-pantheon"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "罗马这封信，有个地方没有涂颜色。",
+      "en": "An uncoloured space in this letter from Rome."
+    },
+    "text": {
+      "zh-Hans": "进万神殿时，我把帽子拿在了手里。回到罗马，认出地名让我安心，抬头看穹顶中央的圆形天窗，还是忍不住停步。凹格一圈圈向上收拢，日光从开口进来。我低头在本子上画圆，画完却不想把中间涂满。临走又抬头看了看，再把帽子戴好。那处留白，你可以拿着信对着亮一点的地方看。",
+      "en": "I took off my hat as I entered the Pantheon on my return to Rome. The familiar names were reassuring; the opening at the top of the dome still stopped me. Recessed panels drew my gaze upward toward the daylight. In my notebook I drew a circle and decided to leave its centre uncoloured. Before putting my hat back on, I looked up again. Hold that part of the letter toward the light when you read it."
+    },
+    "replies": [
+      {
+        "id": "rome.revisit.unfilled-circle.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊为什么留下这个圆",
+          "en": "Talk about leaving the circle open"
+        }
+      },
+      {
+        "id": "rome.revisit.unfilled-circle.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看向上收拢的凹格",
+          "en": "Follow the panels toward the opening"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

@@ -54,6 +54,7 @@ enum Snapshots {
         }
 
         writePetForms(model: model, to: directory, metrics: metrics)
+        writeRevisits(model: model, to: directory)
 
         let todayUsage = model.dashboardDays?.first { $0.date == DayKey.string(from: model.now) }?.usage
         func main(_ tab: MainTab, name: String, size: CGSize = mainSize, dashboard: DashboardSelection = DashboardSelection(), update: (inout JourneyState) -> Void = { _ in }) {
@@ -333,6 +334,51 @@ enum Snapshots {
             issues: [SaveRecoveryIssue(file: .journey, problem: .tooNew(version: 2))],
             onRestore: { _ in }, onImport: { _ in }, onRestart: { _ in }, onRetry: {}, onQuit: {}
         ), size: CGSize(width: 760, height: 420), name: "save-recovery-too-new", directory, model: model)
+    }
+
+    private static func writeRevisits(model: AppModel, to directory: URL) {
+        guard let catalog = model.catalog else { return }
+        let example = revisitExamples(catalog: catalog, now: model.now, petName: model.petName)
+        model.withSnapshotCare({ $0 = example.care }) {
+            model.withSnapshotState({ $0 = example.journey }) {
+                model.mailFilter = .travel
+                model.selectedLetterID = example.journey.letters.last?.id
+                model.navigate(to: .mail)
+                render(MainView(model: model), size: CGSize(width: 760, height: 1440), name: "mail-revisit", directory, model: model)
+                model.collectionTab = .souvenirs
+                model.navigate(to: .collection)
+                render(MainView(model: model), size: CGSize(width: 760, height: 1060), name: "collection-revisit-states", directory, model: model)
+            }
+        }
+        model.selectedLetterID = nil
+        model.mailFilter = .all
+    }
+
+    static func revisitExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
+        let calendar = Calendar.current
+        let start = calendar.date(byAdding: .day, value: -3, to: now)!
+        var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: start), now: start, catalog: catalog)
+        var care = CareState(petName: petName, species: catalog.pets.defaultID, hatchedAt: journey.startDate)
+        care.trailClues = ["hangzhou": 3]
+        // Both visits are settled travel letters; the first establishes the prior stay.
+        for id in 1...2 {
+            let next = DayKey.string(from: calendar.date(byAdding: .day, value: id, to: start)!)
+            journey.sync(today: DayUsage(date: next), finalized: [
+                DayUsage(date: journey.openDate, fuel: fuelPerKm, byClient: ["codex": fuelPerKm]),
+            ], catalog: catalog)
+            let index = journey.letters.count - 1
+            journey.letters[index].cityId = "hangzhou"
+            journey.letters[index].arrivals = ["hangzhou"]
+            journey.letters[index].transitTargetId = nil
+            journey.letters[index].deliverAt = now
+            journey.letters[index].enrichmentDone = true
+        }
+        journey.openDate = DayKey.string(from: now)
+        CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
+        care.trailClues["shanghai"] = 2
+        care.trailClues["xian"] = 3
+        care.trailClues["tokyo"] = 0
+        return (journey, care)
     }
 
     private static func writePetForms(model: AppModel, to directory: URL, metrics: NotchMetrics) {

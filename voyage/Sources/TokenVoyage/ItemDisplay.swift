@@ -41,7 +41,9 @@ extension LetterComposer {
         return BroughtItems(
             items: items, menus: menus,
             duplicateMessage: city.flatMap { _ in items.first.map { l10n("letter.duplicateItem", $0.name) } },
-            clueProgress: city.map { l10n("collection.clueProgress", care?.trailClues[$0] ?? 0) }
+            clueProgress: city.flatMap { cityId in
+                care.flatMap { TrailClueDisplay(cityId: cityId, care: $0, library: catalog.stories, l10n: l10n)?.summary }
+            }
         )
     }
 }

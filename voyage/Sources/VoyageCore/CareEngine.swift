@@ -44,7 +44,10 @@ public enum CareEngine {
                 let recent = Set(journey.letters.filter { $0.id < letter.id }.sorted { $0.id < $1.id }.suffix(10).compactMap(\.storyId))
                 let story = choose(
                     letter: letter, care: care, stories: stories, catalog: catalog, wishTags: wishTags,
-                    dueReply: due ? reply : nil, itemTrigger: trigger, recent: recent, seed: journey.seed
+                    dueReply: due ? reply : nil, itemTrigger: trigger, recent: recent, seed: journey.seed,
+                    hasPriorStay: journey.letters.contains {
+                        $0.kind == .daily && $0.date < letter.date && !$0.arrivals.isEmpty && $0.cityId == letter.cityId
+                    }
                 )
                 snapshot(story, letter: &letter, petName: care.petName, reply: due ? reply : nil, catalog: catalog)
                 for note in letter.usageEventNotes ?? [] {
@@ -66,6 +69,10 @@ public enum CareEngine {
 
             // A saved story is authoritative even if the content pack has since changed.
             // Replaying only the care side repairs a crash between the two atomic save writes.
+            if letter.isRevisit == true, let storyId = letter.storyId,
+               !(care.toldRevisitStoryIds ?? []).contains(storyId) {
+                care.toldRevisitStoryIds = (care.toldRevisitStoryIds ?? []) + [storyId]
+            }
             if let explainedAt = letter.wishExplanationAt, explainedAt == care.wishResolution?.parsedAt {
                 care.wishResolution?.explanationLetterId = letter.id
             }
@@ -153,7 +160,7 @@ public enum CareEngine {
 
     private static func choose(
         letter: Letter, care: CareState, stories: StoryLibrary, catalog: CityCatalog, wishTags: Set<String>,
-        dueReply: StoryReply?, itemTrigger: Bool, recent: Set<String>, seed: UInt32
+        dueReply: StoryReply?, itemTrigger: Bool, recent: Set<String>, seed: UInt32, hasPriorStay: Bool
     ) -> Story {
         let kind = letter.arrivals.isEmpty ? "transit" : "arrival"
         let city = catalog.city(letter.cityId)
@@ -169,6 +176,10 @@ public enum CareEngine {
                 eligible.filter { $0.cityId == nil && $0.kind == "fulfill" && $0.fulfills.isEmpty && $0.fulfillsHabit != nil },
             ]
         } else {
+            if !letter.arrivals.isEmpty, hasPriorStay,
+               let revisit = RevisitStories.next(in: city.id, care: care, library: stories) {
+                tiers.append([revisit])
+            }
             // A city payoff must not fulfill early merely because it also matches a tool or wish.
             let matching = eligible.filter { $0.kind == kind && $0.fulfills.isEmpty }
             if itemTrigger {
@@ -228,6 +239,7 @@ public enum CareEngine {
         }
         letter.storyId = story.id
         letter.storyVersion = story.version
+        letter.isRevisit = story.kind == "revisit" ? true : nil
         letter.texts = render(story.text)
         letter.leadTexts = story.lead.map(render) ?? [:]
         letter.learnedTexts = story.learned ?? [:]

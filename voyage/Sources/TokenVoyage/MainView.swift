@@ -293,6 +293,10 @@ struct LetterView: View {
                 Text(text.title).font(Theme.pixel(24)).fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(l10n.day(letter.date, full: true)).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
+                if letter.isRevisit == true {
+                    Text(l10n("letter.revisit")).font(Theme.pixel()).foregroundStyle(theme.paperCompanionText)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
             if let photoURL, let image = NSImage(contentsOf: photoURL) {
                 Image(nsImage: image)

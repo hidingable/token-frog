@@ -72,8 +72,10 @@ struct BoxView: View {
                 PixelArtView(image: Sprites.item("note", catalog: catalog.pets), scale: 6).fixedSize()
                 Text(l10n("box.clue", l10n.cityName(catalog.city(city)))).font(Theme.pixel(24))
                     .fixedSize(horizontal: false, vertical: true)
-                Text(l10n("collection.clueProgress", model.care?.trailClues[city] ?? 0))
-                    .foregroundStyle(theme.mileageText)
+                if let care = model.care,
+                   let clues = TrailClueDisplay(cityId: city, care: care, library: catalog.stories, l10n: l10n) {
+                    Text(clues.summary).foregroundStyle(theme.mileageText)
+                }
             }
         }
     }

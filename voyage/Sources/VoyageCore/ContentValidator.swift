@@ -297,7 +297,16 @@ public enum ContentValidator {
         for (file, story) in entries {
             if story.id.isEmpty || !ids.insert(story.id).inserted { report(file, "storyID", "Story IDs must be nonempty and unique: \(story.id)") }
             if story.version < 1 { report(file, "storyVersion", "Story version must be positive") }
-            if !["arrival", "transit", "fulfill", "postcard", "reunion"].contains(story.kind) { report(file, "storyKind", "Invalid story kind") }
+            if !["arrival", "transit", "fulfill", "postcard", "reunion", "revisit"].contains(story.kind) { report(file, "storyKind", "Invalid story kind") }
+            if story.kind == "revisit" {
+                if story.cityId == nil { report(file, "revisitCity", "Revisit stories require a cityId") }
+                if story.lead == nil || story.replies.count != 2 || Set(story.replies.map(\.habit)) != habits {
+                    report(file, "revisitFormat", "Revisit stories require a lead and one reply per habit")
+                }
+                if !story.requires.isEmpty || !story.fulfills.isEmpty || story.fulfillsHabit != nil || story.rewards != StoryRewards() {
+                    report(file, "revisitRules", "Revisit stories are unconditional and use ordinary travel drops")
+                }
+            }
             let companion = ["postcard", "reunion"].contains(story.kind)
             if companion && (story.cityId != nil || !story.requires.isEmpty || !story.factIds.isEmpty
                 || !story.replies.isEmpty || !story.fulfills.isEmpty || story.fulfillsHabit != nil
@@ -370,6 +379,11 @@ public enum ContentValidator {
             }
         }
         let generic = entries.map(\.story).filter { $0.cityId == nil && $0.requires.isEmpty }
+        for city in cities.values.sorted(by: { $0.id < $1.id }) where city.level == "full" {
+            if !entries.contains(where: { $0.story.kind == "revisit" && $0.story.cityId == city.id }) {
+                report("stories/\(city.id).json", "revisitBaseline", "Full city requires a revisit story: \(city.id)")
+            }
+        }
         for kind in ["arrival", "transit"] where !generic.contains(where: { $0.kind == kind && $0.fulfills.isEmpty }) {
             report("stories", "storyBaseline", "Missing unconditional generic \(kind) story")
         }

@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "newyork.revisit.across-the-page",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "newyork",
+    "factIds": [
+      "newyork-brooklyn-bridge"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "又回纽约，信写到桥的另一边。",
+      "en": "Back in New York, a letter across the bridge."
+    },
+    "text": {
+      "zh-Hans": "布鲁克林大桥的步道上，我把信写到一半就收好了。重回纽约，熟悉的地名让我很想赶紧报个平安，东河上的路却还没走完。我从曼哈顿往布鲁克林走，途中有人向我点头，我也点头回应。到了另一头，再打开信纸，原来那句“我到了”后面多了一片空白，正好装下刚才没急着写的路。",
+      "en": "On the Brooklyn Bridge walkway, I put away my half-written letter. “I’m in New York again” was the news I wanted to send, but I still had the East River to cross. I walked from Manhattan toward Brooklyn, returning a nod from a passing traveller. At the other end, I opened the letter again. There was room after “I’m here” for the walk I had taken before finishing the sentence."
+    },
+    "replies": [
+      {
+        "id": "newyork.revisit.across-the-page.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊路上遇见的点头",
+          "en": "Talk about the passing hello"
+        }
+      },
+      {
+        "id": "newyork.revisit.across-the-page.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看信里空下的半页",
+          "en": "Look at the space in the letter"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

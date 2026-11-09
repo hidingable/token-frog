@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "hongkong.revisit.shore-to-shore",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "hongkong",
+    "factIds": [
+      "star-ferry"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "信封上还是香港，窗外已经换了一边。",
+      "en": "Same Hong Kong address, another shore outside."
+    },
+    "text": {
+      "zh-Hans": "“你又来了呀。”我在信的开头替香港说了一句。绿白色的天星小轮穿过维多利亚港，我随着船走，原先在前面的岸慢慢到了身后。来过的地方也能这样换个方向看。下船后，我本想把沿途都讲一遍，写着写着只剩一句，今天过海很开心。信封照旧写给你，窗外的那一边留到下回再说。",
+      "en": "“You’re back,” I wrote, letting Hong Kong open the letter. A green-and-white Star Ferry carried me across Victoria Harbour, and the shore ahead eventually became the shore behind. A familiar place can still turn me around like that. Ashore, I meant to describe the whole crossing. What I most wanted to tell you was simply that I had enjoyed being out on the water. The rest can wait for another letter."
+    },
+    "replies": [
+      {
+        "id": "hongkong.revisit.shore-to-shore.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊过海时的心情",
+          "en": "Talk about the crossing"
+        }
+      },
+      {
+        "id": "hongkong.revisit.shore-to-shore.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两岸怎么换位置",
+          "en": "Watch the shores change places"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

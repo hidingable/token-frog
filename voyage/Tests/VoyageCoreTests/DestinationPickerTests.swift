@@ -19,7 +19,7 @@ private func pickerCity(
 }
 
 /// Write cities in the supplied order, then exercise the production directory loader.
-private struct PickerCatalogSandbox {
+struct PickerCatalogSandbox {
     let directory: URL
     let catalog: CityCatalog
 

@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "cairo.revisit.unmixed-bites",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "cairo",
+    "factIds": [
+      "cairo-koshari"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "又到{city}，这顿饭先不急着拌。",
+      "en": "Back in {city}, taking lunch slowly."
+    },
+    "text": {
+      "zh-Hans": "开罗的名字已经熟悉，碗里的库沙里却值得重新认识。我先尝了带酱汁的米饭，再拨开意面，找出扁豆和鹰嘴豆，最后把炸洋葱也拌进去。邻座问我在找什么，我说，怕自己把“吃过”记成了“都懂”。说完才发现嘴角沾着酱。今天关于开罗的新认识，大概先从擦干净嘴角开始。",
+      "en": "Cairo was a familiar name again, but my bowl of koshari deserved a proper introduction. I tasted rice with sauce, found lentils and chickpeas among the pasta, then mixed in the fried onions. My neighbour asked what I was looking for. I said I was trying not to confuse having tried something with knowing all about it. Then I noticed the sauce on my face. A napkin seemed a sensible place to start."
+    },
+    "replies": [
+      {
+        "id": "cairo.revisit.unmixed-bites.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊碗里各自的味道",
+          "en": "Talk about the flavours in the bowl"
+        }
+      },
+      {
+        "id": "cairo.revisit.unmixed-bites.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看拌开前后的样子",
+          "en": "Compare before and after mixing"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

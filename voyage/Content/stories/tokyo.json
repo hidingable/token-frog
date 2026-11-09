@@ -365,5 +365,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "tokyo.revisit.no-perfect-circle",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "tokyo",
+    "factIds": [
+      "tokyo-monjayaki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "东京的文字烧，这回不用画得圆。",
+      "en": "No perfect circle required for this Tokyo meal."
+    },
+    "text": {
+      "zh-Hans": "看着文字烧的稀面糊和卷心菜在热铁板上烹制，我手里的笔又想替它画个整齐的轮廓。又回东京，还是会忍不住替吃的东西操心。等能吃了，我尝了一小口，便把笔放远些，免得吃饭时还在修改那条线。今天的菜单画得有些歪，饭却吃得很安心。寄给你以前，我也没把歪的地方擦掉。",
+      "en": "As the runny monjayaki batter and cabbage cooked on the griddle, my pencil wanted to give lunch a tidy outline. I had been to Tokyo before and was apparently still inclined to fuss over drawings of food. Once it was ready, I took a small bite and moved the pencil out of reach. The menu sketch remained a little crooked. I was quite content with lunch, and left the drawing alone before posting it."
+    },
+    "replies": [
+      {
+        "id": "tokyo.revisit.no-perfect-circle.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊没画圆的午饭",
+          "en": "Talk about the untidy lunch sketch"
+        }
+      },
+      {
+        "id": "tokyo.revisit.no-perfect-circle.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留下菜单上歪歪的线",
+          "en": "Keep the crooked line on the menu"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

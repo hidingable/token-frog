@@ -365,5 +365,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "chengdu.revisit.a-separate-page",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "chengdu",
+    "factIds": [
+      "chengdu-du-fu-cottage"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "给{city}的信，今天少写了一句话。",
+      "en": "A sentence crossed out of my letter from {city}."
+    },
+    "text": {
+      "zh-Hans": "重来成都，写信时竟更怕把话说满。在杜甫草堂看过展览，我想写“成都就是……”写到这里，自己先停了。这处诗人曾经居住的地方，如今是博物馆，我能慢慢看的还很多。我把那半句话划掉，改成“今天我在这里待得很安心”。这一句小些，刚好是我知道的。",
+      "en": "I could write “Chengdu again” with confidence. Grand statements about the city needed more care. After visiting the museum at Du Fu Thatched Cottage, I began a sentence: “Chengdu is…” Then I stopped. There was still so much to take in at the site of the poet’s former home. I crossed it out and wrote, “I felt at ease here today.” A smaller sentence, and one I could stand behind."
+    },
+    "replies": [
+      {
+        "id": "chengdu.revisit.a-separate-page.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊那句没写完的话",
+          "en": "Talk about the crossed-out sentence"
+        }
+      },
+      {
+        "id": "chengdu.revisit.a-separate-page.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看信里留下的一句",
+          "en": "Read the sentence that stayed"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

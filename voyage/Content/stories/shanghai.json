@@ -363,5 +363,54 @@
         "shanghai.menu.shengjian"
       ]
     }
+  },
+  {
+    "id": "shanghai.revisit.two-sides",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "shanghai",
+    "factIds": [
+      "shengjian"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "又来上海，先把生煎翻过来看。",
+      "en": "Back in Shanghai, turning a bun over."
+    },
+    "text": {
+      "zh-Hans": "我用筷子把生煎轻轻翻了个身，看见金黄的脆底，才满意地放回盘里。又来上海，这顿饭点得很快，吃起来却想慢一点。各家的面皮和汤汁会有不同，我不急着拿眼前这一盘替整座城下结论。旁边有人学我翻着看，我们碰了碰目光，各自笑着护好盘子。熟悉的名字下，今天这一口也值得好好尝。",
+      "en": "I gently turned a shengjian over with my chopsticks, admired its golden base, and set it down again. Revisiting Shanghai made ordering feel easy. Eating deserved more time. With dough and broth varying between styles, I was in no hurry to make this plate speak for the entire city. Someone nearby copied my inspection. We exchanged a smile, then attended to our own plates. This particular bite had my attention."
+    },
+    "replies": [
+      {
+        "id": "shanghai.revisit.two-sides.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊今天这一口的味道",
+          "en": "Talk about this particular bite"
+        }
+      },
+      {
+        "id": "shanghai.revisit.two-sides.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看生煎金黄的底",
+          "en": "Look at the bun’s golden base"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

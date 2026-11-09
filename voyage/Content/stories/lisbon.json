@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "lisbon.revisit.turned-around",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "lisbon",
+    "factIds": [
+      "lisbon-commerce-square"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "又到里斯本，我在门下转了个身。",
+      "en": "Back in Lisbon, turning around beneath the arch."
+    },
+    "text": {
+      "zh-Hans": "走向奥古斯塔街凯旋门时，我已经想好了信的开头，要告诉你我又回到里斯本。门那头通向街道，我却在门下转身，重新看面向特茹河河口的商业广场。身旁的旅人以为我忘了东西。我摸摸背包，说没有，只是还想看看身后。于是我们都停了一会儿。信的开头也晚了一会儿，寄出来的时候，倒比原先更满意。",
+      "en": "On my way to the Rua Augusta arch, I had already composed an opening about being back in Lisbon. The street lay ahead, but beneath the arch I turned toward Praça do Comércio and the Tagus estuary again. A fellow traveller thought I had forgotten something. I checked my bag and said I just wanted another look behind me. We both stayed a while. The letter started later than planned, with a view I was glad to have waited for."
+    },
+    "replies": [
+      {
+        "id": "lisbon.revisit.turned-around.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊身后留下的景色",
+          "en": "Talk about the view behind us"
+        }
+      },
+      {
+        "id": "lisbon.revisit.turned-around.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "从门下再看一眼广场",
+          "en": "Look back at the square"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

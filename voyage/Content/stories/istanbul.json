@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "istanbul.revisit.empty-centre",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "istanbul",
+    "factIds": [
+      "istanbul-simit"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "伊斯坦布尔的问候，中间留着一个洞。",
+      "en": "A hello from Istanbul, with a hole in the middle."
+    },
+    "text": {
+      "zh-Hans": "芝麻面包圈被我举起来，正好框住邻座惊讶的脸。又到伊斯坦布尔，我想用当地常见的simit给你拍张问候照，结果先逗笑了别人。我赶紧放下面包，芝麻落进自己的纸袋。对方也举起面包圈，我们隔着小小的圆洞互相点头。这座来过的城里，又多了一个还不知道名字的熟面孔。",
+      "en": "I held up my simit and accidentally framed my neighbour’s startled face. The photo was meant to say “Istanbul again!” with a sesame bread ring as my greeting to you. Instead, I made somebody laugh. I lowered it, shedding sesame into my own paper bag. My neighbour held up their bread ring too, and we nodded through the holes. A city I had visited before now had another friendly face, still without a name."
+    },
+    "replies": [
+      {
+        "id": "istanbul.revisit.empty-centre.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "隔着面包圈打招呼",
+          "en": "Say hello through the bread ring"
+        }
+      },
+      {
+        "id": "istanbul.revisit.empty-centre.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看纸袋里的芝麻",
+          "en": "Look at the sesame in the bag"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

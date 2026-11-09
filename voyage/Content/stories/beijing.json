@@ -365,5 +365,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "beijing.revisit.loose-corner",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "beijing",
+    "factIds": [
+      "beijing-roast-duck"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "北京这顿饭，薄饼边上有点忙。",
+      "en": "A busy pancake wrapper at lunch in Beijing."
+    },
+    "text": {
+      "zh-Hans": "“包得住吗？”邻座看着我手里的烤鸭薄饼问。我本来点头点得很有把握，刚抬起来，边角就松了。我赶紧把盘子挪近，重新卷好。又回北京，写起这座城的名字已经很顺，手里的薄饼还得认真对付。对方等我吃完这一口才接着说话，我也总算能腾出手来打招呼。给你的这封信，是擦干净手以后才写的。",
+      "en": "“Will that hold?” my neighbour asked about the duck wrapped in my thin pancake. I nodded confidently, then lifted it and watched an edge come loose. I brought the plate closer and tucked it back together. Beijing’s name came easily to my pen now that I was here again. Lunch still needed my full attention. My neighbour waited until I finished the mouthful, and I finally had a hand free for a proper hello. I wiped both hands before starting this letter."
+    },
+    "replies": [
+      {
+        "id": "beijing.revisit.loose-corner.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊这顿忙碌的午饭",
+          "en": "Talk about the busy lunch"
+        }
+      },
+      {
+        "id": "beijing.revisit.loose-corner.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看薄饼怎么卷起来",
+          "en": "Look at how the pancake folds"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

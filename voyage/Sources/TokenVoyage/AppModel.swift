@@ -705,7 +705,9 @@ final class AppModel {
             }
             let before = state.totalFuel
             refreshWishWeek()
-            state.sync(today: today, finalized: finalized, catalog: catalog, wishTags: care.map(WishEngine.tags) ?? [], deliveryTime: deliveryTime)
+            let revisitCities = care.map { RevisitStories.unlockedCities(care: $0, library: catalog.stories) } ?? []
+            state.sync(today: today, finalized: finalized, catalog: catalog, wishTags: care.map(WishEngine.tags) ?? [],
+                       revisitCities: revisitCities, deliveryTime: deliveryTime)
             nightWorkObserver.observe(today, at: clock(), journey: &state, content: catalog.usageEvents)
             self.state = state
             processLetters(persistChanges: false, weeklyMail: true)

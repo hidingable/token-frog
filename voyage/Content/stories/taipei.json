@@ -414,5 +414,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "taipei.revisit.under-the-roof",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "taipei",
+    "factIds": [
+      "beitou-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "回到台北，再看看屋檐下面。",
+      "en": "Back in Taipei, looking beneath the roof."
+    },
+    "text": {
+      "zh-Hans": "黑瓦屋顶下，砖和木头让我在北投温泉博物馆门前停了一会儿。这座建筑曾经是公共浴场，现在用来做博物馆。又回台北，我很喜欢“同一个地方还能有新的用途”这个念头，便把信纸翻到背面接着写。纸没有换，能写的地方却多了。收到信时，记得也翻过来看，我把想和你说的话写在那边了。",
+      "en": "Brick and timber beneath a black-tiled roof made me linger at the Beitou Hot Spring Museum. The building had been a public bath before becoming a museum. I had come to Taipei again; the old bath’s new purpose made me wonder what else I could use twice. I turned my letter over and carried on writing. Same sheet, more room. Remember to turn it over when it reaches you; I have put something for you on the back."
+    },
+    "replies": [
+      {
+        "id": "taipei.revisit.under-the-roof.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊熟悉地方的新用途",
+          "en": "Talk about a place finding a new use"
+        }
+      },
+      {
+        "id": "taipei.revisit.under-the-roof.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看砖木和黑瓦的搭配",
+          "en": "Look at the brick, timber and tiles"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "seoul.revisit.follow-the-water",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "seoul",
+    "factIds": [
+      "cheonggyecheon"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "又见首尔，今天的话顺着水边走。",
+      "en": "Back in Seoul, letting the conversation wander."
+    },
+    "text": {
+      "zh-Hans": "“还往前走吗？”同行的旅人问。我在清溪川水边点头，走到广通桥附近又停下来。又回首尔，总觉得应该说点很熟门熟路的话，结果一路聊的都是背包带勒不勒，午饭想不想吃热的。水边有路，可以继续走，也可以暂时不赶路。对方又问了一遍，我说再待一会儿吧，这段话还没聊完。",
+      "en": "“Shall we keep going?” my fellow traveller asked beside Cheonggyecheon. I nodded, then stopped again near Gwangtong Bridge. Knowing I had visited Seoul before made me feel I ought to have knowledgeable things to say. Instead, we talked about bag straps and whether lunch should be something warm. There was a path ahead whenever we wanted it. When my companion asked again, I suggested staying a little longer. We had not finished talking."
+    },
+    "replies": [
+      {
+        "id": "seoul.revisit.follow-the-water.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "接着聊没说完的话",
+          "en": "Keep the conversation going"
+        }
+      },
+      {
+        "id": "seoul.revisit.follow-the-water.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看桥旁的水边步道",
+          "en": "Look along the waterside path"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

@@ -187,9 +187,14 @@ struct SouvenirsCollectionView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text(l10n("collection.trailClues")).font(Theme.pixel(24)).foregroundStyle(theme.text)
                         ForEach(cities, id: \.self) { city in
-                            Text(l10n("collection.cityClues", l10n.cityName(catalog.city(city)), care.trailClues[city]!))
-                                .font(Theme.pixel()).foregroundStyle(theme.textMuted)
-                                .fixedSize(horizontal: false, vertical: true)
+                            if let clues = TrailClueDisplay(cityId: city, care: care, library: catalog.stories, l10n: l10n) {
+                                VStack(alignment: .leading, spacing: 6) {
+                                    Text(l10n.cityName(catalog.city(city)) + " · " + clues.summary)
+                                        .foregroundStyle(theme.textMuted)
+                                    if let status = clues.status { Text(status).foregroundStyle(theme.text) }
+                                }
+                                .font(Theme.pixel()).fixedSize(horizontal: false, vertical: true)
+                            }
                         }
                     }
                 }

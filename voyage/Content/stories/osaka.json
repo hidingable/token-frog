@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "osaka.revisit.waiting-for-the-turn",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "osaka",
+    "factIds": [
+      "kaiyukan"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "大阪的这一页，我等它慢慢游过来。",
+      "en": "Waiting for the view to swim closer in Osaka."
+    },
+    "text": {
+      "zh-Hans": "又到大阪，我在海游馆中央的“太平洋”水槽前停住。鲸鲨游进眼前的水域时，我本想把脸凑近，后来还是往后退了些，好让自己看得全一点。身旁的小旅人也跟着退，抬头望得很认真。我忍着没先说话。我们都看过这一阵，才互相笑了笑。回来这里，我多学会了一点等别人的耐心。",
+      "en": "Kaiyukan’s central Pacific Ocean tank was one stop I wanted to make on this return to Osaka. As a whale shark swam into view, I nearly leaned closer, then stepped back to take more of it in. A small fellow visitor did the same and looked up intently. I held off starting a conversation. After we had watched for a while, we exchanged a smile. This visit gave me a little more patience for someone else’s moment."
+    },
+    "replies": [
+      {
+        "id": "osaka.revisit.waiting-for-the-turn.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊一起等到的画面",
+          "en": "Talk about the view we waited for"
+        }
+      },
+      {
+        "id": "osaka.revisit.waiting-for-the-turn.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "静静看鲸鲨游过去",
+          "en": "Watch the whale shark pass"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

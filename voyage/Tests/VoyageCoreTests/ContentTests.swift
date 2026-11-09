@@ -188,6 +188,15 @@ func removedCitiesLoadAndReachTheirSavedTarget(endpoint: String) throws {
     let published = box.directory.appendingPathComponent("published-ids.txt")
     let ids = try String(contentsOf: published, encoding: .utf8)
     try (ids + "test-harbor\n").write(to: published, atomically: true, encoding: .utf8)
+    var revisit = try #require(testCatalog.stories.all.first { $0.cityId == "shanghai" && $0.kind == "revisit" })
+    revisit.cityId = "test-harbor"
+    revisit.id = "test-harbor.revisit"
+    revisit.replies = revisit.replies.map { reply in
+        var reply = reply
+        reply.id = revisit.id + "." + reply.habit
+        return reply
+    }
+    try JSONEncoder().encode([revisit]).write(to: box.directory.appendingPathComponent("stories/test-harbor.json"))
     #expect(ContentValidator.validate(directory: box.directory).isEmpty)
     let catalog = try CityCatalog.load(directory: box.directory)
     #expect(catalog.find("test-harbor") != nil)

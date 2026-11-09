@@ -367,5 +367,54 @@
       "zh-Hans": "翻一面还能看见新角度",
       "en": "Another side can hold another view."
     }
+  },
+  {
+    "id": "suzhou.revisit.a-place-to-sit",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "suzhou",
+    "factIds": [
+      "fan-pavilion"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "苏州的扇形小轩，我想给你留个位置。",
+      "en": "Wishing you a seat in Suzhou’s fan-shaped pavilion."
+    },
+    "text": {
+      "zh-Hans": "与谁同坐轩的名字，让我在回苏州后想了很久。到了拙政园西部的水边，看到扇形的小轩，门窗和石桌也有相似的形状，我便想象你坐在对面。我不用忙着讲解，你可以自己找找还有哪里像扇子。信写到这里，我真的往对面让了让。虽然你还没来，坐着的时候，心里已经没那么空了。",
+      "en": "“With Whom Shall I Sit?” was the name I kept thinking about after reaching Suzhou again. By the water in the western part of the Humble Administrator’s Garden, I found the fan-shaped pavilion, with fan shapes in its openings and stone table too. I imagined you opposite me, finding the shapes for yourself while I kept quiet. Writing this, I actually shifted to give you room. I rather like having company in mind."
+    },
+    "replies": [
+      {
+        "id": "suzhou.revisit.a-place-to-sit.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊想坐在什么位置",
+          "en": "Talk about where you would sit"
+        }
+      },
+      {
+        "id": "suzhou.revisit.a-place-to-sit.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找藏在门窗里的扇形",
+          "en": "Find the fan shapes in the openings"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

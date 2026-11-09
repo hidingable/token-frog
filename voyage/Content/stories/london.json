@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "london.revisit.river-room",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "london",
+    "factIds": [
+      "london-tower-bridge"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "伦敦很熟悉的话，我还说不太出口。",
+      "en": "I cannot quite say I know London yet."
+    },
+    "text": {
+      "zh-Hans": "“你认得伦敦吗？”塔桥高层步道上的旅人问。我正看着泰晤士河，听见这句，赶紧把背包上的带子理整齐，好像这样会显得可靠些。我说我来过，不过还想再看。连接桥塔的步道让我们在高处望了一会儿，谁也没急着考谁。写到这里我又笑了，回到一座城，也可以坦坦荡荡地继续当旅人。",
+      "en": "“Do you know London?” another traveller asked on Tower Bridge’s high-level walkway. I was looking over the Thames. I straightened a strap on my bag, as if that might make me more reliable, and said I had been here before, but was still looking. We spent a while enjoying the view between the towers. Nobody tested anybody’s knowledge. I am smiling as I write this. I seem quite happy to remain a visitor."
+    },
+    "replies": [
+      {
+        "id": "london.revisit.river-room.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊怎么回答这句话",
+          "en": "Talk about answering the question"
+        }
+      },
+      {
+        "id": "london.revisit.river-room.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再看看桥下的泰晤士河",
+          "en": "Look over the Thames again"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

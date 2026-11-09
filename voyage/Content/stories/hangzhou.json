@@ -367,5 +367,54 @@
       "zh-Hans": "画不下时可以翻一面",
       "en": "A drawing can continue on the other side."
     }
+  },
+  {
+    "id": "hangzhou.revisit.hands-free",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "hangzhou",
+    "factIds": [
+      "tea-museum-longjing"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "回到杭州，我先把手里的东西收好。",
+      "en": "Back in Hangzhou, putting a few things away."
+    },
+    "text": {
+      "zh-Hans": "在中国茶叶博物馆的龙井馆区，我想腾出手来扶背包，才发现自己抱着本子、笔，还有没扣好的笔套。又回杭州，刚开始看就急着把东西记下来，结果连背包都顾不上。我把手里的东西收进去，拉好拉链。馆区依山而建，周围是茶园，这下可以抬头低头慢慢看了。信是后来坐定才写的，今天的字我自己也认得清。",
+      "en": "At the Longjing branch of the China National Tea Museum, I needed a hand for my bag, but both were occupied by a notebook, a pen and its loose cap. There I was in Hangzhou again, so eager to record the visit that I had barely begun to look. I packed everything away and closed the zip. Now I could look up and down the hillside, taking in the museum and its surrounding tea gardens. I wrote this sitting down later. Even I can read the handwriting."
+    },
+    "replies": [
+      {
+        "id": "hangzhou.revisit.hands-free.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊装进背包的东西",
+          "en": "Talk about what went into the bag"
+        }
+      },
+      {
+        "id": "hangzhou.revisit.hands-free.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "顺着茶园的坡度看",
+          "en": "Follow the slope of the tea gardens"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

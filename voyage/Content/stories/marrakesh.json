@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "marrakesh.revisit.blue-between-leaves",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "marrakesh",
+    "factIds": [
+      "marrakesh-majorelle-garden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "这回在马拉喀什，蓝色旁边还有绿色。",
+      "en": "Back in Marrakesh, noticing the green beside the blue."
+    },
+    "text": {
+      "zh-Hans": "马若雷勒花园的蓝色建筑很醒目，我站定以后，目光却落到了旁边的植物上。仙人掌、棕榈和竹子都在，各有各的样子。又回马拉喀什，写下地名已经很顺，想选一种颜色寄给你却更难了。我拿出蓝色铅笔，又把绿色那支放在旁边。今天的信封不用涂满，留些地方给叶子伸过去。",
+      "en": "The blue buildings at Jardin Majorelle caught my eye immediately. Once I stopped, I began looking at the plants beside them: cacti, palms and bamboo, each with its own shape. Telling you I had returned to Marrakesh was easy enough. Choosing a colour to send you was harder. I took out a blue pencil, then set a green one beside it. There is space left on the envelope for some leaves."
+    },
+    "replies": [
+      {
+        "id": "marrakesh.revisit.blue-between-leaves.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊该选哪支铅笔",
+          "en": "Talk about choosing a pencil"
+        }
+      },
+      {
+        "id": "marrakesh.revisit.blue-between-leaves.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看蓝色旁边的叶子",
+          "en": "Look at the leaves beside the blue"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

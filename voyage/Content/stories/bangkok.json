@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "bangkok.revisit.room-for-trees",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "bangkok",
+    "factIds": [
+      "lumphini-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "这回到{city}，先给大树留个位置。",
+      "en": "Leaving room for the trees in {city}."
+    },
+    "text": {
+      "zh-Hans": "曼谷又出现在旅程里，我在伦披尼公园把背包放在身边，坐下来才发现自己一直攥着背带。大树和宽阔的水面都在眼前，手可以松开了。我原本想列一张很满的游览单，写下“在这里坐一会儿”之后，就把笔盖合上。今天先寄这张没写满的纸，你也可以歇一歇。",
+      "en": "I had reached Bangkok again. In Lumphini Park, I sat down with my bag beside me and found I was still gripping its strap. With trees and open water right in front of me, I could let go. I had meant to make an ambitious list of things to see. After writing “sit here a while,” I put the cap back on my pen. Here is the mostly empty page. You can take a break too."
+    },
+    "replies": [
+      {
+        "id": "bangkok.revisit.room-for-trees.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊空下来的游览单",
+          "en": "Talk about the unfinished list"
+        }
+      },
+      {
+        "id": "bangkok.revisit.room-for-trees.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看树和水之间",
+          "en": "Look between the trees and water"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "hanoi.revisit.red-connection",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "hanoi",
+    "factIds": [
+      "hoan-kiem-lake"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "又到河内，这段路我能说清楚了。",
+      "en": "Back in Hanoi, with a little wayfinding to offer."
+    },
+    "text": {
+      "zh-Hans": "“玉山祠往哪边走？”还剑湖边的旅人问。我指向连接湖岸和小岛的红桥，答得比自己预想的快。又到河内，这回也能帮别人认出一小段路了。对方向我道谢，我把刚抬高的下巴收回来，差点笑出声。给你写信时，我把红桥放在很显眼的位置。要是你也站在湖边，我想先向你招招手。",
+      "en": "“Which way is Ngoc Son Temple?” a traveller asked beside Hoan Kiem Lake. I pointed toward the red bridge linking the shore to its island, answering faster than I expected. For a returning visitor to Hanoi, helping someone else find the way felt rather grand. They thanked me. I lowered my rather proud chin before I could start grinning. In your letter I have given the bridge plenty of space. If you were here by the lake, you would get a wave first."
+    },
+    "replies": [
+      {
+        "id": "hanoi.revisit.red-connection.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊帮人认路的心情",
+          "en": "Talk about helping someone find the way"
+        }
+      },
+      {
+        "id": "hanoi.revisit.red-connection.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看红桥连接的两边",
+          "en": "Look at the ends of the red bridge"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

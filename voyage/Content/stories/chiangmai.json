@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "chiangmai.revisit.space-below",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "chiangmai",
+    "factIds": [
+      "chiangmai-doi-suthep"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我向清迈打招呼，旁边的人先听见了。",
+      "en": "My hello to Chiang Mai reached a neighbour first."
+    },
+    "text": {
+      "zh-Hans": "“又回来了。”我在素贴寺露台上小声说，身旁的旅人也向我点头。我有些不好意思，指指山下的清迈，说这句话原本是向城市说的。对方笑了，往旁边挪了挪，让我看得更清楚。金色佛塔在眼前，市区铺在山下，我们后来都没再说话。我收好笔，陪对方又看了一会儿。",
+      "en": "“Hello again,” I whispered on the terrace at Doi Suthep. A visitor beside me nodded back. A little embarrassed, I pointed down toward Chiang Mai and explained that I had meant the city. They smiled and moved over to give me a better view. With the golden stupa nearby and the city below, we stood quietly for a while. I put my pen away and stayed beside them."
+    },
+    "replies": [
+      {
+        "id": "chiangmai.revisit.space-below.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向山下的城市打招呼",
+          "en": "Say hello to the city below"
+        }
+      },
+      {
+        "id": "chiangmai.revisit.space-below.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看露台外的市区",
+          "en": "Look over the city from the terrace"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

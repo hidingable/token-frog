@@ -191,6 +191,11 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
             care.habits.talkative = 10
             care.habits.observant = 10
             if let item = story.requires.item { care.bag.owned = [item]; care.bag.todayItem = item }
+            if story.kind == "revisit" {
+                journey.letters.append(engineLetter(1, arrivals: [story.cityId!], cityId: story.cityId!))
+                care.processedLetterIds.append(1)
+                care.trailClues[story.cityId!] = 3
+            }
             if story.kind == "fulfill" {
                 let origin = story.fulfills.first.flatMap { replyId in
                     testCatalog.stories.all.first { $0.replies.contains { $0.id == replyId } }
@@ -200,7 +205,10 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
                 let replyId = story.fulfills.first ?? origin.replies.first { $0.habit == story.fulfillsHabit }!.id
                 CareEngine.reply(letterId: 1, replyId: replyId, date: "later", journey: &journey, care: &care)
             }
-            journey.letters.append(engineLetter(story.kind == "fulfill" ? 2 : 1, arrivals: story.kind == "transit" ? [] : [story.cityId ?? "shanghai"], cityId: story.cityId ?? "shanghai"))
+            journey.letters.append(engineLetter(["fulfill", "revisit"].contains(story.kind) ? 2 : 1,
+                                               arrivals: story.kind == "transit" ? [] : [story.cityId ?? "shanghai"],
+                                               date: story.kind == "revisit" ? "2026-11-02" : "2026-11-01",
+                                               cityId: story.cityId ?? "shanghai"))
             CareEngine.process(journey: &journey, care: &care, stories: .init(stories: [story]), catalog: catalog)
             let letter = journey.letters.last!
             #expect(letter.storyId == story.id)

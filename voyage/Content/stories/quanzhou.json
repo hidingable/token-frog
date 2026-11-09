@@ -414,5 +414,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "quanzhou.revisit.against-the-current",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "quanzhou",
+    "factIds": [
+      "luoyang-bridge"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "重回泉州，今天想看看桥怎样站稳。",
+      "en": "Back in Quanzhou, looking at how the bridge stands."
+    },
+    "text": {
+      "zh-Hans": "沿着洛阳桥走，又觉得回到了泉州。石桥横在洛阳江入海口，桥墩朝上游的一侧有船形的分水尖。我盯着那个尖尖的形状看，想起自己只会把桥画成一横。来过这座城，这回想蹲低些，认真看看撑住那一横的地方。站起来时腿有点麻，我慢慢走，没急着把新画好的桥折起来。",
+      "en": "Walking along Luoyang Bridge brought Quanzhou close again. At the river’s estuary, the stone bridge has boat-shaped points on the upstream sides of its piers. I studied that pointed shape and thought about how I usually drew a bridge as a line. This time I crouched for a better look at what held the line up. My legs tingled when I stood. I walked on slowly, leaving the new sketch unfolded."
+    },
+    "replies": [
+      {
+        "id": "quanzhou.revisit.against-the-current.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊桥怎样撑住那一横",
+          "en": "Talk about what supports the bridge"
+        }
+      },
+      {
+        "id": "quanzhou.revisit.against-the-current.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看桥墩朝水来的那侧",
+          "en": "Look at the upstream side of a pier"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

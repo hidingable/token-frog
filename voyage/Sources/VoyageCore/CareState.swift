@@ -14,6 +14,7 @@ public struct CareState: Codable, Equatable, Sendable {
     public var souvenirs: [Souvenir] = []
     public var menus: [Menu] = []
     public var trailClues: [String: Int] = [:]
+    public var toldRevisitStoryIds: [String]? = []
     public var weekly: Weekly
     public var seenPetStages: [String]? = []
     public var roomPlacements: [RoomPlacement]?
@@ -152,6 +153,7 @@ public struct CareState: Codable, Equatable, Sendable {
         souvenirs = try values.decodeIfMissing([Souvenir].self, forKey: .souvenirs, default: [])
         menus = try values.decodeIfMissing([Menu].self, forKey: .menus, default: [])
         trailClues = try values.decodeIfMissing([String: Int].self, forKey: .trailClues, default: [:])
+        toldRevisitStoryIds = try values.decodeIfPresent([String].self, forKey: .toldRevisitStoryIds)
         weekly = try values.decodeIfMissing(Weekly.self, forKey: .weekly, default: weekly)
         seenPetStages = try values.decodeIfPresent([String].self, forKey: .seenPetStages)
         roomPlacements = try values.decodeIfPresent([RoomPlacement].self, forKey: .roomPlacements)

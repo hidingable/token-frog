@@ -1,6 +1,91 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "letter.revisit": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "旧地重游"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back again"
+          }
+        }
+      }
+    },
+    "collection.revisitTold": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重游故事已讲过"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisit story told"
+          }
+        }
+      }
+    },
+    "collection.revisitUnlocked": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下次到这里时，它有话要说"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next time it arrives here, it has a story to tell."
+          }
+        }
+      }
+    },
+    "collection.clueCount": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "旅行线索 %d"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Travel clues %d"
+          }
+        }
+      }
+    },
+    "collection.revisitProgress": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "旅行线索 %d / %d"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Travel clues %d / %d"
+          }
+        }
+      }
+    },
     "tickets.title": {
       "extractionState": "manual",
       "localizations": {
@@ -5442,40 +5527,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Travel clues"
-          }
-        }
-      }
-    },
-    "collection.cityClues": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ %d / 3"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ %d / 3"
-          }
-        }
-      }
-    },
-    "collection.clueProgress": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "线索 %d / 3"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Clues %d / 3"
           }
         }
       }

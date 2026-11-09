@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "singapore.revisit.breakfast-edge",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "singapore",
+    "factIds": [
+      "singapore-kaya-toast"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "咖椰吐司面前，信也等了一会儿。",
+      "en": "Letting the letter wait for some kaya toast."
+    },
+    "text": {
+      "zh-Hans": "回到新加坡，我写地址写得很快，差点忘了面前的咖椰吐司。椰子和鸡蛋做的咖椰酱抹在烤面包上，刚咬下去，手就想去翻信纸。我赶紧停住，先擦干净手。还有半句没写完，吐司也没吃完，我把纸推远了些。这封信便晚开工一会儿。重新拿起笔时，开头多了一句，今天的早餐吃得很好。",
+      "en": "Writing “Singapore” came easily now that I had returned, and I nearly neglected my kaya toast. With coconut-and-egg jam spread on the toasted bread, I took a bite and almost reached straight for the letter. I stopped to wipe my hands. Half a sentence and some toast remained; I pushed the paper farther away. The letter started a little later. When I picked up my pen, I had something to add about a very good breakfast."
+    },
+    "replies": [
+      {
+        "id": "singapore.revisit.breakfast-edge.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊早餐后想说的话",
+          "en": "Talk about words after breakfast"
+        }
+      },
+      {
+        "id": "singapore.revisit.breakfast-edge.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看吐司上的咖椰酱",
+          "en": "Look at the kaya on the toast"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

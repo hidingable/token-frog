@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "paris.revisit.soft-centre",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "paris",
+    "factIds": [
+      "paris-baguette"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "巴黎的问候，掰开以后软软的。",
+      "en": "A greeting from Paris, soft in the middle."
+    },
+    "text": {
+      "zh-Hans": "法棍一掰开，酥脆的外壳就落了些碎屑。我把纸袋往前移，接住掉下来的小块，里头柔软的面包露出大小不一的气孔。又回巴黎，原本只想买点熟悉的食物，吃着吃着，倒为一个没抹平的孔看了好久。邻座以为我在发愁，我把面包举给他看。我们都笑了，纸袋里的碎屑还得慢慢吃完。",
+      "en": "The baguette crackled as I broke it, sending crumbs toward my paper bag. Inside, the soft bread was full of uneven pockets. A familiar loaf had seemed an easy choice for my return to Paris. Then I spent so long examining a hole that my neighbour thought something was wrong. I held up the bread to explain. We both laughed. I still had the crumbs in the bag to finish."
+    },
+    "replies": [
+      {
+        "id": "paris.revisit.soft-centre.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊面包里的小孔",
+          "en": "Talk about the pockets in the bread"
+        }
+      },
+      {
+        "id": "paris.revisit.soft-centre.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看外壳和里面的不同",
+          "en": "Compare the crust and the inside"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

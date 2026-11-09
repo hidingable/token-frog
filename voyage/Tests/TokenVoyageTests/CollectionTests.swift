@@ -133,7 +133,7 @@ private final class ItemDefaults: UserDefaults, @unchecked Sendable {
             var duplicate = try #require(model.state?.letters.first { $0.id == 5 })
             let brought = try #require(LetterComposer.brought(for: duplicate, care: model.care, catalog: localizationCatalog, l10n: l10n))
             #expect(brought.duplicateMessage == l10n("letter.duplicateItem", brought.items[0].name))
-            #expect(brought.clueProgress == l10n("collection.clueProgress", 2))
+            #expect(brought.clueProgress == l10n("collection.revisitProgress", 2, 3))
             if language == .en {
                 #expect(!containsHan(([brought.duplicateMessage!, brought.clueProgress!] + brought.items.flatMap { [$0.name, $0.description, $0.rarity ?? ""] }).joined()))
             }

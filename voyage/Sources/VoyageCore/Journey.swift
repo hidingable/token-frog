@@ -33,6 +33,8 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var enrichmentDone = false
     public var storyId: String?
     public var storyVersion: Int?
+    /// Snapshot the marker so content updates and interrupted care writes cannot change it.
+    public var isRevisit: Bool?
     /// nil is a legacy/template letter; an empty dictionary is a newly settled, uncomposed letter.
     public var texts: [String: String]? = [:]
     public var leadTexts: [String: String] = [:]
@@ -205,19 +207,19 @@ public struct JourneyState: Codable, Equatable, Sendable {
 
     /// Advances the journey. `finalized` must hold the final count of every day from `openDate` up to,
     /// but excluding, `today.date`; the caller skips this call when those counts could not be read.
-    public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], deliveryTime: DeliveryTime = .standard) {
+    public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], revisitCities: Set<String> = [], deliveryTime: DeliveryTime = .standard) {
         guard today.date >= openDate else { return }
         enableRoadClues(on: today.date)
         enableUsageEvents(on: today.date)
         let finals = Dictionary(finalized.map { ($0.date, $0) }, uniquingKeysWith: { _, latest in latest })
         while openDate < today.date {
             let final = finals[openDate] ?? DayUsage(date: openDate)
-            apply(final, catalog: catalog, wishTags: wishTags)
+            apply(final, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
             settleUsageEvents(final, content: catalog.usageEvents)
             settle(openDate, calendar: calendar, deliveryTime: deliveryTime)
             openDate = DayKey.next(openDate, calendar: calendar)
         }
-        apply(today, catalog: catalog, wishTags: wishTags)
+        apply(today, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
     }
 
     public mutating func markRead(_ letterId: Int) {
@@ -244,7 +246,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         return values.isEmpty ? 0 : values[values.count / 2]
     }
 
-    private mutating func apply(_ usage: DayUsage, catalog: CityCatalog, wishTags: Set<String>) {
+    private mutating func apply(_ usage: DayUsage, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
         recordFirstVoyages(usage, content: catalog.usageEvents)
         var record = days[usage.date] ?? DayRecord()
         let delta = usage.fuel - record.fuel
@@ -258,11 +260,11 @@ public struct JourneyState: Codable, Equatable, Sendable {
         days[usage.date] = record
         if delta > 0 {
             totalFuel += delta
-            advance(delta, date: usage.date, catalog: catalog, wishTags: wishTags)
+            advance(delta, date: usage.date, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
         }
     }
 
-    private mutating func advance(_ amount: Int, date: String, catalog: CityCatalog, wishTags: Set<String>) {
+    private mutating func advance(_ amount: Int, date: String, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
         var remaining = amount
         while remaining > 0 {
             let needed = remainingFuel
@@ -271,7 +273,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
                 return
             }
             remaining -= needed
-            arrive(date: date, catalog: catalog, wishTags: wishTags)
+            arrive(date: date, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
         }
     }
 
@@ -284,7 +286,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         targetCountryCode = target.isPlaceholder ? nil : target.countryCode
     }
 
-    private mutating func arrive(date: String, catalog: CityCatalog, wishTags: Set<String>) {
+    private mutating func arrive(date: String, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
         let arrivedId = targetCityId
         let arrivedCoordinate = legTo
         currentCityId = arrivedId
@@ -299,7 +301,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
             from: arrivedCoordinate, currentCityId: arrivedId, route: route,
             stampedCountries: Set(stamps.map(\.countryCode)),
             medianFuel: recentDailyFuel(before: date, limit: DestinationPicker.configuration.recentActiveDays),
-            wishTags: wishTags, catalog: catalog, seed: seed
+            wishTags: wishTags, revisitCities: revisitCities, catalog: catalog, seed: seed
         )
         setTarget(next, from: arrivedCoordinate, catalog: catalog)
     }
@@ -389,7 +391,7 @@ extension Letter {
     private enum CodingKeys: String, CodingKey {
         case id, kind, date, pet, cityId, transitTargetId, arrivals, newCountries, fuel
         case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
-        case storyId, storyVersion, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
+        case storyId, storyVersion, isRevisit, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
         case carriedItem, itemTriggered
         case facts, rewards, rewardItems, memoryReference, weeklySummary, wishExplanationAt, usageEventNotes, weatherCode, temperatureC, place, photoFile
     }
@@ -414,6 +416,7 @@ extension Letter {
         enrichmentDone = try values.decode(Bool.self, forKey: .enrichmentDone, default: false)
         storyId = try values.decodeIfPresent(String.self, forKey: .storyId)
         storyVersion = try values.decodeIfPresent(Int.self, forKey: .storyVersion)
+        isRevisit = try values.decodeIfPresent(Bool.self, forKey: .isRevisit)
         texts = try values.decodeIfPresent([String: String].self, forKey: .texts)
         leadTexts = try values.decode([String: String].self, forKey: .leadTexts, default: [:])
         learnedTexts = try values.decode([String: String].self, forKey: .learnedTexts, default: [:])

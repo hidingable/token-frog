@@ -365,5 +365,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "xian.revisit.between-the-figures",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "xian",
+    "factIds": [
+      "xian-terracotta-army"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "重回西安，我不急着找一个代表。",
+      "en": "Back in Xi’an, looking without choosing a favourite."
+    },
+    "text": {
+      "zh-Hans": "兵马俑的陶俑形态各异，我看着看着，原想挑出一个最能代表眼前景象的，后来迟迟没选定。又回西安，承认自己选不出来，倒比急着说“我知道了”轻松。我往旁边让了让，让身后的旅人也能看。对方看向了另一处，我顺着目光过去，又把刚才没留意的地方看了一会儿。信里先不选代表，你也可以有自己想看的。",
+      "en": "Among the varied figures of the Terracotta Army, I tried choosing one that would stand for everything in front of me. I could not settle on one. It felt easier to admit uncertainty on this return to Xi’an than to declare I had understood it all. I moved aside for a traveller behind me, then followed their gaze toward something I had overlooked. I will leave the choice open in this letter. You may want to look somewhere else again."
+    },
+    "replies": [
+      {
+        "id": "xian.revisit.between-the-figures.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊各自先看到了什么",
+          "en": "Talk about what caught each eye"
+        }
+      },
+      {
+        "id": "xian.revisit.between-the-figures.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "再看形态不同的陶俑",
+          "en": "Look again at the varied figures"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

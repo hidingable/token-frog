@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "fukuoka.revisit.bridge-between",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "fukuoka",
+    "factIds": [
+      "ohori-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "在{city}，今天走了一小段回头路。",
+      "en": "A little retracing of steps in {city}."
+    },
+    "text": {
+      "zh-Hans": "大濠公园的桥把池中的小岛连起来。我又来福冈，走到桥边时还很有把握，觉得自己该一路往前。过了桥，偏偏想看看刚才走来的方向，于是转身走回去，水面换到了另一边。我没有走错，只是想再看一眼。回来的这段路也很好，我把它算进今天的散步里。",
+      "en": "The bridges at Ohori Park link islands across the pond. I approached a bridge with the confidence of someone who had been to Fukuoka before, quite sure I ought to keep going forward. Across it, I wanted to see the way I had come, so I turned back. The water changed sides. I was quite happy to count the return journey as part of the walk. It had a view worth stopping for."
+    },
+    "replies": [
+      {
+        "id": "fukuoka.revisit.bridge-between.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊为什么想回头",
+          "en": "Talk about turning back"
+        }
+      },
+      {
+        "id": "fukuoka.revisit.bridge-between.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看桥另一边的水",
+          "en": "Look at the water from this side"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "mexicocity.revisit.leaf-fold",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "mexicocity",
+    "factIds": [
+      "mexicocity-tamales"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "墨西哥城的这一餐，我从外面慢慢打开。",
+      "en": "Unwrapping lunch slowly in Mexico City."
+    },
+    "text": {
+      "zh-Hans": "塔马尔吃完了，玉米苞叶还摊在面前。我试着沿折痕把它包回原样，少了里面的玉米面团和馅料，怎么折都扁扁的。又到墨西哥城，我倒在收拾一顿饭时耽搁了很久。身旁的旅人看出我在忙什么，也帮着比了比，最后都笑了。叶子还是空的，今天的午餐已经装进了肚子，没法再包回去。我把桌面收干净，再写这封信。",
+      "en": "The tamal was finished, but its corn husk lay open in front of me. I tried folding it back along its creases. Without the filled corn dough inside, it would not regain its shape. I had come all this way to Mexico City again, and now I was puzzling over an empty lunch wrapper. A fellow traveller tried to help; eventually we both laughed. The husk was empty and lunch was in my stomach, well beyond rewrapping. I cleared my place before writing to you."
+    },
+    "replies": [
+      {
+        "id": "mexicocity.revisit.leaf-fold.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊包不回去的午餐",
+          "en": "Talk about the unwrappable lunch"
+        }
+      },
+      {
+        "id": "mexicocity.revisit.leaf-fold.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看苞叶留下的折痕",
+          "en": "Look at the creases in the husk"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

@@ -363,5 +363,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "busan.revisit.open-crescent",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "busan",
+    "factIds": [
+      "gwangalli-beach"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "寄自{city}，手没有挡住的海。",
+      "en": "From {city}, with my hand out of the view."
+    },
+    "text": {
+      "zh-Hans": "又在釜山安顿好行李，我走到广安里海边。月牙形的海滩弯在脚边，远处能望见广安大桥。我举起手，想比出整座桥的宽度，怎么比都差一截。旁边的旅人笑了，我也笑着把手放下。来过这座城，还是会做这样的傻事。好在今天的海不需要我量好，已经可以寄给你。",
+      "en": "Once my bag was settled in Busan, I went to Gwangalli Beach. The shore curved beside me, with Gwangandaegyo Bridge in view. I held up a hand to measure the span and kept coming up short. Another visitor laughed; I laughed too and lowered my hand. Returning to a city clearly does not make me any less silly. I can send you the view without knowing how wide it is."
+    },
+    "replies": [
+      {
+        "id": "busan.revisit.open-crescent.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊没量完的大桥",
+          "en": "Talk about my unfinished measuring"
+        }
+      },
+      {
+        "id": "busan.revisit.open-crescent.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看月牙形的海岸",
+          "en": "Look along the crescent shore"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

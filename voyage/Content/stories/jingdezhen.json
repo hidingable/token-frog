@@ -414,5 +414,54 @@
       ],
       "menuIds": []
     }
+  },
+  {
+    "id": "jingdezhen.revisit.inside-the-arch",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "jingdezhen",
+    "factIds": [
+      "imperial-kiln-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "再到景德镇，我把画纸暂时收起来了。",
+      "en": "Back in Jingdezhen, putting the sketchbook away."
+    },
+    "text": {
+      "zh-Hans": "御窑博物馆大小不同的拱券，让我把手里的本子合上了。重回景德镇，我本想画些自己能认出的形状，到了这里，却想先在拱形的空间里走走。建筑的灵感来自传统窑炉，弧线到了眼前，比我在纸上画的更难一下看全。我离开时没有画完的图，只记得自己仰着头，背包差点从肩上滑下来。",
+      "en": "The vaults of the Imperial Kiln Museum persuaded me to close my sketchbook. Returning to Jingdezhen, I had planned to draw shapes I could recognise. Here, I wanted to move through them first. Inspired by traditional kilns, the arches were harder to take in than a curve on paper. I left without a finished drawing, but with a clear memory of looking up so intently that my bag nearly slipped off my shoulder."
+    },
+    "replies": [
+      {
+        "id": "jingdezhen.revisit.inside-the-arch.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊差点滑落的背包",
+          "en": "Talk about my slipping bag"
+        }
+      },
+      {
+        "id": "jingdezhen.revisit.inside-the-arch.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看拱券的高低变化",
+          "en": "Look at the changing vault sizes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]

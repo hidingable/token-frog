@@ -363,5 +363,54 @@
         "kyoto.menu.yuba"
       ]
     }
+  },
+  {
+    "id": "kyoto.revisit.leave-a-pause",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "kyoto",
+    "factIds": [
+      "nijo"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "回到京都，先听脚步落下以后。",
+      "en": "Back in Kyoto, listening after each footstep."
+    },
+    "text": {
+      "zh-Hans": "我把“京都，我又来了”留到二之丸御殿外面再说。走廊的地板在脚下细细鸣响，抬脚、落脚之间，我的话也跟着停了停。金属连接件和钉子摩擦，能有这样像鸟鸣的声音，我听着仍会惊讶。离开御殿后写信，句子里不知不觉多了空行。你读的时候，那里可以稍微停一下。",
+      "en": "I saved my “Kyoto, I’m back” for outside Ninomaru Palace. In the corridor, the floor chirped underfoot, and I found myself pausing between steps. Metal clamps rubbing against nails could make that birdlike sound; knowing how it worked did not make it any less surprising. Later, my letter acquired a few extra spaces between the lines. You can pause there when you read it."
+    },
+    "replies": [
+      {
+        "id": "kyoto.revisit.leave-a-pause.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊停下来想说的话",
+          "en": "Talk about words saved for later"
+        }
+      },
+      {
+        "id": "kyoto.revisit.leave-a-pause.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听脚步之间的停顿",
+          "en": "Listen between the footsteps"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
   }
 ]
