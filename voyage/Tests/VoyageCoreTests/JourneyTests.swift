@@ -26,7 +26,7 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     ]}]}
     """#
     let days = try TokscaleGraph.parse(Data(json.utf8))
-    #expect(days == [DayUsage(date: "2026-11-05", fuel: 163, byClient: ["codex": 130, "claude": 33])])
+    #expect(days == [DayUsage(date: "2026-11-05", fuel: 163, byClient: ["codex": 130, "claude": 33], observedTokens: 18_168)])
 }
 
 @Test func startsWithReadLogbookLetterAndHomeStamp() {

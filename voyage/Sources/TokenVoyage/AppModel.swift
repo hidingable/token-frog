@@ -129,6 +129,7 @@ final class AppModel {
     private var watcher: FileWatcher?
     private var timers: [Timer] = []
     private var wakeObserver: NSObjectProtocol?
+    private var nightWorkObserver = NightWorkObserver()
     private var hasStarted = false
     private var backgroundGeneration = 0
     private var isScanning = false
@@ -252,6 +253,8 @@ final class AppModel {
     }
 
     var today: DayRecord { state.flatMap { $0.days[$0.openDate] } ?? DayRecord() }
+    var nightcapNote: UsageEventNote? { state?.nightcapNote(at: now) }
+    var nightcapText: String? { nightcapNote?.texts[l10n.language.rawValue] }
     var roadClueText: String? {
         let key = DayKey.string(from: now)
         return LetterComposer.localized(state?.days[key]?.roadClueDecision?.clue?.texts, l10n: l10n)
@@ -593,6 +596,7 @@ final class AppModel {
                 forName: NSWorkspace.didWakeNotification, object: nil, queue: .main
             ) { [weak self] _ in
                 MainActor.assumeIsolated {
+                    self?.nightWorkObserver = NightWorkObserver()
                     self?.scheduleScan()
                     self?.quotaDidWake()
                 }
@@ -658,6 +662,7 @@ final class AppModel {
             let before = state.totalFuel
             refreshWishWeek()
             state.sync(today: today, finalized: finalized, catalog: catalog, wishTags: care.map(WishEngine.tags) ?? [], deliveryTime: deliveryTime)
+            nightWorkObserver.observe(today, at: clock(), journey: &state, content: catalog.usageEvents)
             self.state = state
             processLetters(persistChanges: false, weeklyMail: true)
             if state.totalFuel > before {
@@ -799,6 +804,7 @@ final class AppModel {
         let previousCare = care
         state.enableWeeklyMail(on: DayKey.string(from: clock()))
         state.enableRoadClues(on: DayKey.string(from: clock()))
+        state.enableUsageEvents(on: DayKey.string(from: clock()))
         WishEngine.refreshWeek(at: clock(), care: &care)
         let wishTags = WishEngine.tags(in: care)
         CareEngine.process(journey: &state, care: &care, stories: catalog.stories, catalog: catalog, wishTags: wishTags)
@@ -974,6 +980,7 @@ final class AppModel {
     private func resumeAfterRecovery() {
         // Discard results from reads started against the previous journey.
         backgroundGeneration += 1
+        nightWorkObserver = NightWorkObserver()
         dashboardDays = nil
         dashboardLoadedAt = nil
         monthHoursLoadedAt = nil
@@ -1049,6 +1056,14 @@ final class AppModel {
     }
 
     /// In-memory states for snapshot rendering only; no system APIs or saves are touched.
+    func withSnapshotTime(_ date: Date, render: () -> Void) {
+        precondition(isSnapshot)
+        let previous = now
+        defer { now = previous }
+        now = date
+        render()
+    }
+
     func withSnapshotUsage(_ value: UsageDisplayState, render: () -> Void) {
         precondition(isSnapshot)
         let previous = (state, lastScan, lastError, history, todayTotals, dashboardDays, usageFailed)

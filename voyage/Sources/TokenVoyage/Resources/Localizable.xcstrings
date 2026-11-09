@@ -1,6 +1,57 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "tickets.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "船票"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tickets"
+          }
+        }
+      }
+    },
+    "tickets.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下一次搭上新工具时，会在这里留下一张首航船票。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The first voyage with a new tool will leave a ticket here."
+          }
+        }
+      }
+    },
+    "tickets.firstVoyage": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "首航 · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First voyage · %@"
+          }
+        }
+      }
+    },
     "footprints.title": {
       "extractionState": "manual",
       "localizations": {

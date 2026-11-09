@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "tea": [
+    { "id": "tea.warm-cup", "texts": { "zh-Hans": "今天走了很远，我把茶端到你手边：今天辛苦了。", "en": "We went a long way today, so I brought a warm cup of tea: you worked hard today." } },
+    { "id": "tea.quiet-steam", "texts": { "zh-Hans": "走过这么长的一段路，我替你泡了杯茶：今天辛苦了。", "en": "After such a long stretch of road, I made you some tea: you worked hard today." } },
+    { "id": "tea.small-table", "texts": { "zh-Hans": "今天的路格外长，小桌上给你留了一杯茶：今天辛苦了。", "en": "Today's road was unusually long; I left tea on the little table for you: you worked hard today." } },
+    { "id": "tea.resting-hands", "texts": { "zh-Hans": "今天走得真远，先捧一会儿这杯热茶吧：今天辛苦了。", "en": "We traveled so far today; warm your hands around this tea: you worked hard today." } }
+  ],
+  "nightcap": [
+    { "id": "nightcap.little-star", "texts": { "zh-Hans": "睡帽戴好啦，你忙的时候，我替你守着这颗小星星。", "en": "Nightcap on. While you work, I'll keep this little star company." } },
+    { "id": "nightcap.quiet-chair", "texts": { "zh-Hans": "我戴上睡帽，搬把小椅子来，安安静静陪着你。", "en": "I've put on my nightcap and pulled up a little chair to sit quietly beside you." } },
+    { "id": "nightcap.soft-brim", "texts": { "zh-Hans": "睡帽有点歪，没关系，我还醒着，陪你坐一会儿。", "en": "My nightcap is a little crooked. That's all right; I'm awake and can sit with you a while." } },
+    { "id": "nightcap.window-moon", "texts": { "zh-Hans": "窗边的月亮还没走，我也戴着睡帽陪你待一会儿。", "en": "The moon is still at the window, so I'll stay beside you in my nightcap for a while." } }
+  ],
+  "firstVoyage": [
+    { "id": "firstVoyage.paper-edge", "texts": { "zh-Hans": "第一次搭上 {tool}，我把首航船票的纸边轻轻抚平，替你收好了。", "en": "Our first voyage aboard {tool}: I smoothed the edges of the ticket and saved it for you." } },
+    { "id": "firstVoyage.fresh-ink", "texts": { "zh-Hans": "{tool} 的首航船票还带着新墨的味道，我已经夹进护照旁的小袋子。", "en": "The ticket for our first voyage aboard {tool} still smells of fresh ink; I've tucked it beside the passport." } },
+    { "id": "firstVoyage.first-step", "texts": { "zh-Hans": "迈上 {tool} 的第一步，我留下一张首航船票，记住这次新的出发。", "en": "With our first step aboard {tool}, I kept a maiden-voyage ticket to remember this new beginning." } },
+    { "id": "firstVoyage.safe-pocket", "texts": { "zh-Hans": "今天第一次乘 {tool}，首航船票已经收进口袋，回头一起看。", "en": "We boarded {tool} for the first time today; the maiden-voyage ticket is safe in my pocket for us to look at later." } }
+  ]
+}

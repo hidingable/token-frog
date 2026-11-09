@@ -7,11 +7,16 @@ public struct DayUsage: Equatable, Sendable {
     public var date: String
     public var fuel: Int
     public var byClient: [String: Int]
+    /// All tokens observed by the scanner, including cache reads and reasoning; never mileage.
+    public var observedTokens: Int
+    public var usedToolIDs: [String]
 
-    public init(date: String, fuel: Int = 0, byClient: [String: Int] = [:]) {
+    public init(date: String, fuel: Int = 0, byClient: [String: Int] = [:], observedTokens: Int? = nil, usedToolIDs: [String]? = nil) {
         self.date = date
         self.fuel = fuel
         self.byClient = byClient
+        self.observedTokens = observedTokens ?? fuel
+        self.usedToolIDs = usedToolIDs ?? byClient.filter { $0.value > 0 }.keys.sorted()
     }
 }
 
@@ -83,7 +88,9 @@ public struct DayDetail: Equatable, Sendable {
         for row in rows where row.tokens.fuel > 0 {
             byClient[row.client, default: 0] += row.tokens.fuel
         }
-        return DayUsage(date: date, fuel: byClient.values.reduce(0, +), byClient: byClient)
+        return DayUsage(date: date, fuel: byClient.values.reduce(0, +), byClient: byClient,
+                        observedTokens: rows.reduce(0) { $0 + $1.tokens.total },
+                        usedToolIDs: Set(rows.filter { $0.tokens.total > 0 || $0.tokens.messages > 0 || $0.tokens.cost > 0 }.map(\.client)).sorted())
     }
 }
 
@@ -297,6 +304,6 @@ public enum Vehicle {
     ]
 
     public static func toolName(_ client: String) -> String {
-        names[client] ?? client.capitalized
+        names[normalizeClientID(client)] ?? client.capitalized
     }
 }

@@ -187,7 +187,39 @@ enum Snapshots {
             model.mailFilter = .all
         }
         model.collectionTab = .passport
-        main(.collection, name: "collection-passport", size: CGSize(width: 760, height: 400))
+        main(.collection, name: "collection-passport", size: CGSize(width: 760, height: 620))
+        if let catalog = model.catalog {
+            for tea in [true, false] {
+                let example = usageEventExamples(catalog: catalog, now: model.now, petName: model.petName, tea: tea)
+                model.withSnapshotCare({ $0 = example.care }) {
+                    model.withSnapshotState({ $0 = example.journey }) {
+                        model.selectedLetterID = example.journey.letters.last?.id
+                        model.navigate(to: .mail)
+                        render(MainView(model: model), size: CGSize(width: 760, height: 1200), name: tea ? "mail-usage-tea" : "mail-first-voyage", directory, model: model)
+                        model.collectionTab = .passport
+                        model.navigate(to: .collection)
+                        render(MainView(model: model), size: CGSize(width: 760, height: 720), name: tea ? "tickets-empty" : "tickets", directory, model: model)
+                    }
+                }
+            }
+            let night = Calendar.current.date(bySettingHour: 23, minute: 30, second: 0, of: model.now)!
+            var example = homeExamples(catalog: catalog, now: night, petName: model.petName)
+            var observer = NightWorkObserver()
+            let key = DayKey.string(from: night)
+            observer.observe(DayUsage(date: key, fuel: 10), at: night.addingTimeInterval(-60), journey: &example.journey, content: catalog.usageEvents)
+            observer.observe(DayUsage(date: key, fuel: 20), at: night, journey: &example.journey, content: catalog.usageEvents)
+            model.withSnapshotTime(night) {
+                model.withSnapshotCare({ $0 = example.care }) {
+                    model.withSnapshotState({ $0 = example.journey }) {
+                        model.navigate(to: .home)
+                        render(MainView(model: model), size: CGSize(width: 1000, height: 900), name: "home-nightcap", directory, model: model)
+                        render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-nightcap", directory, model: model)
+                        render(FloatingView(model: model), size: FloatingLayout.size, name: "floating-nightcap", directory, model: model)
+                    }
+                }
+            }
+            model.selectedLetterID = nil
+        }
         if let catalog = model.catalog {
             let memories = memoryExamples(catalog: catalog, now: model.now, petName: model.petName)
             model.collectionTab = .memories
@@ -402,6 +434,28 @@ enum Snapshots {
         CareEngine.process(journey: &example.journey, care: &example.care, stories: catalog.stories, catalog: catalog,
                            wishTags: WishEngine.tags(in: example.care))
         return example
+    }
+
+    static func usageEventExamples(catalog: CityCatalog, now: Date, petName: String, tea: Bool) -> (journey: JourneyState, care: CareState) {
+        let start = Calendar.current.date(byAdding: .day, value: -15, to: now)!
+        var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: start), now: start, catalog: catalog)
+        // This fixture represents a previously used tool without a collectible ticket.
+        journey.usageEvents?.seenTools = ["codex"]
+        var care = CareState(petName: petName, species: journey.pet, hatchedAt: journey.startDate)
+        for offset in 1...15 {
+            let fuel = tea && offset == 15 ? 3_000_000 : 1_000_000
+            let tool = !tea && offset == 15 ? "claude-code" : "codex"
+            let next = Calendar.current.date(byAdding: .day, value: offset, to: start)!
+            journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
+                DayUsage(date: journey.openDate, fuel: fuel, byClient: [tool: fuel]),
+            ], catalog: catalog)
+            CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
+        }
+        for index in journey.letters.indices {
+            journey.letters[index].deliverAt = min(journey.letters[index].deliverAt, now)
+            journey.letters[index].enrichmentDone = true
+        }
+        return (journey, care)
     }
 
     static func memoryExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {

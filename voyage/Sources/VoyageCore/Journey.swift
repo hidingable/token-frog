@@ -50,6 +50,7 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var weeklySummary: WeeklyMailSummary?
     /// Identifies the saved wish whose one-time explanation is included in this text snapshot.
     public var wishExplanationAt: Date?
+    public var usageEventNotes: [UsageEventNote]?
     public var weatherCode: Int?
     public var temperatureC: Int?
     public var place: [String: Place] = [:]
@@ -86,6 +87,8 @@ public struct DayRecord: Codable, Equatable, Sendable {
     public var arrivals: [String] = []
     public var newCountries: [String] = []
     public var roadClueDecision: RoadClueDecision?
+    /// Final scan value, separate from mileage's monotonic high-water mark.
+    public var finalUsageFuel: Int?
 
     public init() {}
 }
@@ -121,6 +124,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public var weeklyMailEligibleFrom: String?
     public var lastWeeklyMailSunday: String?
     public var roadCluesEligibleFrom: String?
+    public var usageEvents: UsageEvents?
 
     public init(seed: UInt32, startCityId: String, pet: PetID? = nil, date: String, now: Date = Date(), logbook: Logbook? = nil, catalog: CityCatalog) {
         let pet = pet ?? catalog.pets.defaultID
@@ -130,6 +134,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         startDate = date
         weeklyMailEligibleFrom = date
         roadCluesEligibleFrom = date
+        usageEvents = UsageEvents(eligibleFrom: date)
         openDate = date
         currentCityId = start.id
         targetCityId = start.id
@@ -190,6 +195,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         replacement.lastWeeklyMailSunday = lastWeeklyMailSunday
         replacement.roadCluesEligibleFrom = roadCluesEligibleFrom
         replacement.days[openDate]?.roadClueDecision = record.roadClueDecision
+        replacement.usageEvents = usageEvents
         if var firstLetter {
             firstLetter.cityId = cityId
             replacement.letters = [firstLetter]
@@ -202,9 +208,12 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], deliveryTime: DeliveryTime = .standard) {
         guard today.date >= openDate else { return }
         enableRoadClues(on: today.date)
+        enableUsageEvents(on: today.date)
         let finals = Dictionary(finalized.map { ($0.date, $0) }, uniquingKeysWith: { _, latest in latest })
         while openDate < today.date {
-            apply(finals[openDate] ?? DayUsage(date: openDate), catalog: catalog, wishTags: wishTags)
+            let final = finals[openDate] ?? DayUsage(date: openDate)
+            apply(final, catalog: catalog, wishTags: wishTags)
+            settleUsageEvents(final, content: catalog.usageEvents)
             settle(openDate, calendar: calendar, deliveryTime: deliveryTime)
             openDate = DayKey.next(openDate, calendar: calendar)
         }
@@ -236,6 +245,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
     }
 
     private mutating func apply(_ usage: DayUsage, catalog: CityCatalog, wishTags: Set<String>) {
+        recordFirstVoyages(usage, content: catalog.usageEvents)
         var record = days[usage.date] ?? DayRecord()
         let delta = usage.fuel - record.fuel
         for (client, fuel) in usage.byClient {
@@ -331,7 +341,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
                 compareToMedianPercent: hasBaseline && median > 0 ? Int(((Double(record.fuel) / Double(median) - 1) * 100).rounded()) : nil,
                 vehicles: vehicles,
                 isDeepVisit: hasBaseline && record.fuel * 2 < median,
-                deliverAt: deliverAt
+                deliverAt: deliverAt, usageEventNotes: takeUsageEventNotes()
             )
         )
     }
@@ -342,6 +352,7 @@ extension JourneyState {
         case version, seed, pet, startDate, currentCityId, targetCityId, legFuel
         case route, stamps, openDate, days, letters, totalFuel, legCost, legFrom, legTo, targetCountryCode
         case lastOpenedDate, weeklyMailEligibleFrom, lastWeeklyMailSunday, roadCluesEligibleFrom
+        case usageEvents
     }
 
     public init(from decoder: Decoder) throws {
@@ -370,6 +381,7 @@ extension JourneyState {
         weeklyMailEligibleFrom = try values.decodeIfPresent(String.self, forKey: .weeklyMailEligibleFrom)
         lastWeeklyMailSunday = try values.decodeIfPresent(String.self, forKey: .lastWeeklyMailSunday)
         roadCluesEligibleFrom = try values.decodeIfPresent(String.self, forKey: .roadCluesEligibleFrom)
+        usageEvents = try values.decodeIfPresent(UsageEvents.self, forKey: .usageEvents)
     }
 }
 
@@ -379,7 +391,7 @@ extension Letter {
         case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
         case storyId, storyVersion, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
         case carriedItem, itemTriggered
-        case facts, rewards, rewardItems, memoryReference, weeklySummary, wishExplanationAt, weatherCode, temperatureC, place, photoFile
+        case facts, rewards, rewardItems, memoryReference, weeklySummary, wishExplanationAt, usageEventNotes, weatherCode, temperatureC, place, photoFile
     }
 
     public init(from decoder: Decoder) throws {
@@ -416,6 +428,7 @@ extension Letter {
         memoryReference = try values.decodeIfPresent(CareState.Memory.self, forKey: .memoryReference)
         weeklySummary = try values.decodeIfPresent(WeeklyMailSummary.self, forKey: .weeklySummary)
         wishExplanationAt = try values.decodeIfPresent(Date.self, forKey: .wishExplanationAt)
+        usageEventNotes = try values.decodeIfPresent([UsageEventNote].self, forKey: .usageEventNotes)
         weatherCode = try values.decodeIfPresent(Int.self, forKey: .weatherCode)
         temperatureC = try values.decodeIfPresent(Int.self, forKey: .temperatureC)
         place = try values.decode([String: Place].self, forKey: .place, default: [:])
@@ -424,7 +437,7 @@ extension Letter {
 }
 
 extension DayRecord {
-    private enum CodingKeys: String, CodingKey { case fuel, byClient, arrivals, newCountries, mainWindowOpened, roadClueDecision }
+    private enum CodingKeys: String, CodingKey { case fuel, byClient, arrivals, newCountries, mainWindowOpened, roadClueDecision, finalUsageFuel }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -434,6 +447,7 @@ extension DayRecord {
         arrivals = try values.decode([String].self, forKey: .arrivals, default: [])
         newCountries = try values.decode([String].self, forKey: .newCountries, default: [])
         roadClueDecision = try values.decodeIfPresent(RoadClueDecision.self, forKey: .roadClueDecision)
+        finalUsageFuel = try values.decodeIfPresent(Int.self, forKey: .finalUsageFuel)
     }
 }
 

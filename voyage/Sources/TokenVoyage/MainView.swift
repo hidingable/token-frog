@@ -286,11 +286,10 @@ struct LetterView: View {
             letter.temperatureC.map { "\($0)°C \(Enricher.weatherName(code, l10n: l10n))" }
         }
         VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .top) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text(text.title).font(Theme.pixel(24)).fixedSize(horizontal: false, vertical: true)
-                Spacer()
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Text(l10n.day(letter.date, full: true)).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
-                    .fixedSize(horizontal: false, vertical: true)
             }
             if let photoURL, let image = NSImage(contentsOf: photoURL) {
                 Image(nsImage: image)
@@ -454,6 +453,7 @@ struct PassportTab: View {
                         .pixelBorder()
                     }
                 }
+                TicketCollection(tickets: state.usageEvents?.tickets ?? [])
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }

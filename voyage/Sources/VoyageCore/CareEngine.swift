@@ -47,6 +47,11 @@ public enum CareEngine {
                     dueReply: due ? reply : nil, itemTrigger: trigger, recent: recent, seed: journey.seed
                 )
                 snapshot(story, letter: &letter, petName: care.petName, reply: due ? reply : nil, catalog: catalog)
+                for note in letter.usageEventNotes ?? [] {
+                    for language in Language.allCases {
+                        letter.texts?[language.rawValue, default: ""] += "\n\n" + note.texts[language.rawValue]!
+                    }
+                }
                 if due { letter.fulfilledReplyId = promise!.replyId }
                 letter.itemTriggered = trigger && !due && letter.carriedItem.flatMap { catalog.items.find($0)?.habit } != nil
                 letter.rewards = catalog.items.drop(rewards: story.rewards, letter: letter, care: care, seed: journey.seed)

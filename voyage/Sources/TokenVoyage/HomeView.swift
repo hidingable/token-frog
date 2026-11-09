@@ -143,7 +143,7 @@ private struct RoomSceneView: View {
             let height = CGFloat(RoomLayout.height * scale)
             let shelf = RoomLayout.shelf(care).compactMap { catalog.items.find($0.id) }
             ZStack(alignment: .topLeading) {
-                PixelArtView(image: RoomArt.image(pet: state.pet, shelf: shelf, theme: theme, catalog: catalog.pets), scale: scale)
+                PixelArtView(image: RoomArt.image(pet: state.pet, shelf: shelf, theme: theme, catalog: catalog.pets, nightcap: model.nightcapNote != nil), scale: scale)
                     .frame(width: width, height: height).accessibilityHidden(true)
                 Color.clear.contentShape(Rectangle()).onTapGesture { selectedSouvenir = nil }
                 ForEach(Array(shelf.enumerated()), id: \.element.id) { index, item in
@@ -171,6 +171,8 @@ private struct RoomSceneView: View {
                     roomBubble(l10n.itemDescription(item), region: RoomLayout.bubbleRegion(scale: scale, souvenir: true)) {
                         selectedSouvenir = nil
                     }
+                } else if let text = model.nightcapText {
+                    roomBubble(text, region: RoomLayout.bubbleRegion(scale: scale, souvenir: false)) {}
                 } else if let bubble = model.petBubble {
                     roomBubble(l10n(bubble.titleKey), region: RoomLayout.bubbleRegion(scale: scale, souvenir: false)) {
                         model.activateBubble(bubble)
@@ -193,11 +195,15 @@ private struct RoomSceneView: View {
     private func roomBubble(_ text: String, region: CGRect, action: @escaping () -> Void) -> some View {
         ScrollView {
             Button(action: action) {
-                Text(text).font(.system(size: 12)).lineSpacing(2)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: region.width - 16, alignment: .leading)
-                    .fixedSize(horizontal: true, vertical: true)
-                    .foregroundStyle(theme.paperText).padding(8).background(theme.paper).pixelBorder(theme.paperBorder)
+                // Short text hugs its width; a nil-width measure would size wrapped text as one line and clip it.
+                ViewThatFits(in: .horizontal) {
+                    Text(text).font(.system(size: 12)).lineSpacing(2)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(text).font(.system(size: 12)).lineSpacing(2)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(width: region.width - 16, alignment: .leading)
+                }
+                .foregroundStyle(theme.paperText).padding(8).background(theme.paper).pixelBorder(theme.paperBorder)
             }
             .buttonStyle(.plain)
         }

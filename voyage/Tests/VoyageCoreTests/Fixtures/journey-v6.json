@@ -35,7 +35,8 @@
             "en": "I found a round button and kept it as a spare moon."
           }
         }
-      }
+      },
+      "finalUsageFuel": 123
     },
     "2026-11-02": {
       "mainWindowOpened": true
@@ -149,5 +150,13 @@
   "lastOpenedDate": "2026-11-02",
   "weeklyMailEligibleFrom": "2026-11-01",
   "lastWeeklyMailSunday": "2026-11-01",
-  "roadCluesEligibleFrom": "2026-11-01"
+  "roadCluesEligibleFrom": "2026-11-01",
+  "usageEvents": {
+    "eligibleFrom": "2026-11-02",
+    "seenTools": [
+      "codex"
+    ],
+    "tickets": [],
+    "nightcapWeeks": []
+  }
 }

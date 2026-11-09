@@ -6,16 +6,17 @@ import VoyageCore
 enum RoomArt {
     private struct Key: Equatable {
         let pet: PetID
+        let nightcap: Bool
         let icons: [String]
         let catalog: PetCatalog
         static func == (lhs: Key, rhs: Key) -> Bool {
-            lhs.pet == rhs.pet && lhs.icons == rhs.icons && lhs.catalog === rhs.catalog
+            lhs.pet == rhs.pet && lhs.nightcap == rhs.nightcap && lhs.icons == rhs.icons && lhs.catalog === rhs.catalog
         }
     }
     private static var cache: [String: (key: Key, image: CGImage)] = [:]
 
-    static func image(pet: PetID, shelf: [Item], theme: AppTheme, catalog: PetCatalog) -> CGImage {
-        let key = Key(pet: pet, icons: shelf.prefix(CareRules.shelfCapacity).map(\.icon), catalog: catalog)
+    static func image(pet: PetID, shelf: [Item], theme: AppTheme, catalog: PetCatalog, nightcap: Bool = false) -> CGImage {
+        let key = Key(pet: pet, nightcap: nightcap, icons: shelf.prefix(CareRules.shelfCapacity).map(\.icon), catalog: catalog)
         if let cached = cache[theme.id], cached.key == key { return cached.image }
         let width = RoomLayout.width
         let height = RoomLayout.height
@@ -58,7 +59,7 @@ enum RoomArt {
         rect(theme.rgb(.roomLight), 224, 74, 2, 2); rect(theme.rgb(.roomMail), 207, 44, 18, 6)
         rect(theme.rgb(.roomShadow), 100, 10, 8, 1); rect(theme.rgb(.roomShadow), 108, 12, 6, 1)
         rect(theme.rgb(.roomCabinet), 140, 18, 1, 20); rect(theme.rgb(.roomCabinet), 141, 28, 6, 1)
-        sprite(Sprites.petPixels(pet, catalog: catalog), width: 16, x: 116, y: 76, scale: 2)
+        sprite(Sprites.petPixels(pet, catalog: catalog, nightcap: nightcap), width: 16, x: 116, y: 76, scale: 2)
         let image = PixelImage.make(width: width, height: height, pixels: pixels)
         cache[theme.id] = (key, image)
         return image

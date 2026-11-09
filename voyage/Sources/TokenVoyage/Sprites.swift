@@ -5,8 +5,19 @@ import VoyageCore
 enum Sprites {
     enum Frame: Hashable, CaseIterable { case rest, bob, stepLeft, stepRight }
 
-    static func petPixels(_ pet: PetID, catalog: PetCatalog) -> [UInt32?] {
-        pixels(catalog.sprite(pet), catalog: catalog)
+    static func petPixels(_ pet: PetID, catalog: PetCatalog, nightcap: Bool = false) -> [UInt32?] {
+        var result = pixels(catalog.sprite(pet), catalog: catalog)
+        if nightcap { addNightcap(to: &result, catalog: catalog) }
+        return result
+    }
+    /// A temporary overlay in the render buffer; never modifies the pet catalog or save appearance.
+    private static func addNightcap(to pixels: inout [UInt32?], catalog: PetCatalog, offset: Int = 0) {
+        let rows = [".....ggggll.....", "....gggggll.....", "...gggggggll....", "..llllllllllww.."]
+        for (y, row) in rows.enumerated() {
+            for (x, symbol) in row.enumerated() where symbol != "." {
+                pixels[(y + offset) * 16 + x] = catalog.palette[symbol]
+            }
+        }
     }
     static func itemPixels(_ icon: String, catalog: PetCatalog) -> [UInt32?] {
         pixels(catalog.icons[icon]!, catalog: catalog)
@@ -30,12 +41,12 @@ enum Sprites {
     @MainActor private static var cachedCatalog: PetCatalog?
 
     /// Frames are 16x17: one spare row lets the body bob without clipping.
-    @MainActor static func image(_ pet: PetID, _ frame: Frame, catalog: PetCatalog) -> CGImage {
+    @MainActor static func image(_ pet: PetID, _ frame: Frame, catalog: PetCatalog, nightcap: Bool = false) -> CGImage {
         if cachedCatalog !== catalog {
             cache.removeAll()
             cachedCatalog = catalog
         }
-        let key = "\(pet.rawValue)-\(frame)"
+        let key = "\(pet.rawValue)-\(frame)-\(nightcap)"
         if let cached = cache[key] { return cached }
         let rows = catalog.sprite(pet).rows
         var pixels = [UInt32?](repeating: nil, count: 16 * 17)
@@ -50,6 +61,7 @@ enum Sprites {
                 pixels[targetY * 16 + targetX] = catalog.palette[symbol]
             }
         }
+        if nightcap { addNightcap(to: &pixels, catalog: catalog, offset: frame == .rest ? 1 : 0) }
         let image = PixelImage.make(width: 16, height: 17, pixels: pixels)
         cache[key] = image
         return image
@@ -96,6 +108,9 @@ final class SpriteNSView: NSView {
     var moving = false {
         didSet { if moving != oldValue { restartTimer() } }
     }
+    var nightcap = false {
+        didSet { if nightcap != oldValue { needsDisplay = true } }
+    }
 
     override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
@@ -121,7 +136,7 @@ final class SpriteNSView: NSView {
         let even = frameIndex % 2 == 0
         let frame: Sprites.Frame = moving ? (even ? .stepLeft : .stepRight) : (even ? .rest : .bob)
         context.interpolationQuality = .none
-        context.draw(Sprites.image(pet, frame, catalog: catalog), in: bounds)
+        context.draw(Sprites.image(pet, frame, catalog: catalog, nightcap: nightcap), in: bounds)
     }
 }
 
@@ -130,6 +145,7 @@ struct SpriteView: NSViewRepresentable {
     var pet: PetID
     var scale: CGFloat
     var moving = false
+    var nightcap = false
 
     func makeNSView(context: Context) -> SpriteNSView { SpriteNSView() }
 
@@ -137,6 +153,7 @@ struct SpriteView: NSViewRepresentable {
         view.catalog = catalog
         view.pet = pet
         view.moving = moving
+        view.nightcap = nightcap
     }
 
     func sizeThatFits(_ proposal: ProposedViewSize, nsView: SpriteNSView, context: Context) -> CGSize? {

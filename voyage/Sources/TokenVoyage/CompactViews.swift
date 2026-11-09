@@ -73,7 +73,7 @@ struct NotchCollapsedView: View {
         if let state = model.state, let catalog = model.catalog {
             HStack(spacing: 0) {
                 HStack(spacing: 6) {
-                    SpriteView(pet: state.pet, scale: 1, moving: model.isMoving)
+                    SpriteView(pet: state.pet, scale: 1, moving: model.isMoving, nightcap: model.nightcapNote != nil)
                         .background(theme.paper)
                     BlockProgress(progress: state.legProgress, blocks: 6, size: 5, inactiveColor: theme.notchControlOff)
                 }
@@ -206,7 +206,7 @@ struct FloatingView: View {
     var body: some View {
         if let state = model.state, let catalog = model.catalog {
             HStack(spacing: 6) {
-                SpriteView(pet: state.pet, scale: 2, moving: model.isMoving)
+                SpriteView(pet: state.pet, scale: 2, moving: model.isMoving, nightcap: model.nightcapNote != nil)
                     .background(theme.paper)
                     .offset(y: model.floatingJump ? -4 : 0)
                 if model.floatingReaction {
