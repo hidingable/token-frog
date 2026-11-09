@@ -1,0 +1,140 @@
+{
+  "version": 6,
+  "seed": 42,
+  "pet": "snail",
+  "startDate": "2026-11-01",
+  "currentCityId": "shanghai",
+  "targetCityId": "xian",
+  "legFuel": 123,
+  "route": [
+    "shanghai"
+  ],
+  "stamps": [
+    {
+      "cityId": "shanghai",
+      "date": "2026-11-01",
+      "countryCode": "CN"
+    }
+  ],
+  "openDate": "2026-11-02",
+  "days": {
+    "2026-11-01": {
+      "fuel": 123,
+      "byClient": {
+        "codex": 123
+      },
+      "arrivals": [],
+      "newCountries": [],
+      "mainWindowOpened": true
+    },
+    "2026-11-02": {
+      "mainWindowOpened": true
+    }
+  },
+  "letters": [
+    {
+      "id": 0,
+      "kind": "logbook",
+      "date": "2026-11-01",
+      "pet": "snail",
+      "cityId": "shanghai",
+      "arrivals": [],
+      "newCountries": [],
+      "fuel": 0,
+      "vehicles": [],
+      "isDeepVisit": false,
+      "deliverAt": 0,
+      "read": true,
+      "enrichmentDone": true,
+      "logbook": {
+        "workdayStartHour": 9,
+        "weekendActivePercent": 25,
+        "topClients": [
+          "codex",
+          "claude"
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "kind": "daily",
+      "date": "2026-11-01",
+      "pet": "snail",
+      "cityId": "shanghai",
+      "arrivals": [],
+      "newCountries": [],
+      "fuel": 123,
+      "vehicles": [],
+      "isDeepVisit": false,
+      "deliverAt": 0,
+      "read": false,
+      "enrichmentDone": false,
+      "transitTargetId": "xian",
+      "storyId": "generic.transit.moving-address",
+      "storyVersion": 1,
+      "texts": {
+        "zh-Hans": "往西安走的路上，壳壳想好了一句很短的报到话。走一阵添一个词，歇一会儿又删两个词，现在只剩下“我到”。剩下那个“啦”，留给真正到达的时候。明天先想好写在哪儿。",
+        "en": "On the way to Xi'an, 壳壳 has been editing a one-line arrival message. A word goes in, two come out, and now it simply says “I am”. The word “here” can wait until we get there. Tomorrow I will choose its place on the page."
+      },
+      "leadTexts": {},
+      "replyOptions": [
+        {
+          "id": "ask-next-time",
+          "habit": "talkative",
+          "text": {
+            "zh-Hans": "问问别人怎么报到",
+            "en": "Collect another arrival greeting"
+          }
+        },
+        {
+          "id": "look-closer",
+          "habit": "observant",
+          "text": {
+            "zh-Hans": "留意路上的小变化",
+            "en": "Watch for one small change"
+          }
+        }
+      ],
+      "selectedReplyId": null,
+      "fulfilledReplyId": null,
+      "facts": [
+        {
+          "id": "saved-fact",
+          "names": {
+            "zh-Hans": "上海",
+            "en": "Shanghai"
+          },
+          "sources": [
+            "https://en.wikipedia.org/wiki/Shanghai"
+          ]
+        }
+      ],
+      "rewards": {
+        "itemIds": [],
+        "menuIds": []
+      },
+      "weatherCode": 61,
+      "temperatureC": 14,
+      "place": {
+        "en": {
+          "title": "Shanghai",
+          "summary": "A saved place summary.",
+          "url": "https://en.wikipedia.org/wiki/Shanghai"
+        }
+      },
+      "photoFile": "letter-7.png"
+    }
+  ],
+  "totalFuel": 123,
+  "legCost": 12203490,
+  "legFrom": {
+    "lat": 31.23,
+    "lon": 121.47
+  },
+  "legTo": {
+    "lat": 34.34,
+    "lon": 108.94
+  },
+  "targetCountryCode": "CN",
+  "lastOpenedDate": "2026-11-02"
+}

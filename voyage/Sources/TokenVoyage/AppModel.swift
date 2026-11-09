@@ -365,21 +365,29 @@ final class AppModel {
         homePage = .profile
     }
 
-    /// Only main-window presentation events can enter the no-mail companion path.
+    /// Only main-window presentation events record an open for postcard settlement and reunions.
     func setMainWindowPresented(_ presented: Bool) {
         mainWindowPresented = presented
-        if presented { postOfficeDidDisplay() }
+        if presented {
+            processCompanionMail()
+            postOfficeDidDisplay()
+        }
     }
 
     func postOfficeDidDisplay(surface: CompanionSurface = .main) {
-        guard surface == .main, mainWindowPresented, !isSnapshot, !isLocked, onboarding == nil,
-              tab == .home, homePage == .room, !showingSettings, ritualLetterID == nil,
-              var care else { return }
+        guard surface == .main, mainWindowPresented, tab == .home, homePage == .room,
+              !showingSettings, ritualLetterID == nil else { return }
+        processCompanionMail()
+    }
+
+    private func processCompanionMail() {
+        guard !isSnapshot, !isLocked, onboarding == nil, var state, var care, let catalog else { return }
         now = clock()
-        guard unread == 0 else { return }
-        let previous = care
-        CareEngine.markCompanion(date: now, care: &care)
-        guard care != previous else { return }
+        let previousState = state
+        let previousCare = care
+        CareEngine.open(at: now, journey: &state, care: &care, catalog: catalog)
+        guard state != previousState || care != previousCare else { return }
+        self.state = state
         self.care = care
         persist()
     }
@@ -694,13 +702,14 @@ final class AppModel {
 
     func markRead(_ letter: Letter) {
         guard !isLocked, onboarding == nil,
-              let saved = state?.letters.first(where: { $0.id == letter.id }), !saved.read else { return }
+              let saved = state?.letters.first(where: { $0.id == letter.id }), saved.deliverAt <= clock() else { return }
+        let previousCare = care
         state?.markRead(letter.id)
         if !isSnapshot, var care {
             CareEngine.markCompanion(date: DayKey.string(from: clock()), care: &care)
             self.care = care
         }
-        persist()
+        if !saved.read || care != previousCare { persist() }
     }
 
     func openLetter(_ letter: Letter) {
@@ -775,6 +784,7 @@ final class AppModel {
     private func enrich(letterId: Int, weatherAndPhoto: Bool) async {
         guard !isLocked, onboarding == nil, !isSnapshot, let state, let catalog,
               let letter = state.letters.first(where: { $0.id == letterId }),
+              ![.postcard, .reunion].contains(letter.kind),
               let city = catalog.find(letter.subjectCityId), !city.isPlaceholder else { return }
         let generation = backgroundGeneration
         let language = l10n.language

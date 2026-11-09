@@ -20,7 +20,7 @@ extension ContentSandbox {
         for habit in ["talkative", "observant"] {
             #expect(stories.filter { $0.kind == "fulfill" && $0.fulfillsHabit == habit && $0.lead != nil }.count >= 4)
         }
-        for story in stories {
+        for story in stories where !["postcard", "reunion"].contains(story.kind) {
             #expect(story.replies.count == 2)
             #expect(Set(story.replies.map(\.habit)) == ["talkative", "observant"])
             #expect(story.replies.allSatisfy { $0.text["zh-Hans"]!.count <= 12 })
@@ -62,7 +62,7 @@ extension ContentSandbox {
         let box = try ContentSandbox()
         defer { box.cleanUp() }
         var other = engineStory("another-story")
-        other.replies[0].id = testCatalog.stories.all[0].replies[0].id
+        other.replies[0].id = testCatalog.stories.all.first { !$0.replies.isEmpty }!.replies[0].id
         if location == "another-file" {
             try JSONEncoder().encode([other]).write(to: box.directory.appendingPathComponent("stories/another.json"))
         } else {
@@ -94,7 +94,7 @@ extension ContentSandbox {
         let box = try ContentSandbox()
         defer { box.cleanUp() }
         var local = engineStory("local.payoff", kind: "fulfill", city: "shanghai")
-        local.fulfills = [testCatalog.stories.all[0].replies[0].id]
+        local.fulfills = [testCatalog.stories.all.first { !$0.replies.isEmpty }!.replies[0].id]
         try JSONEncoder().encode([local]).write(to: box.directory.appendingPathComponent("stories/local.json"))
         #expect(ContentValidator.validate(directory: box.directory).isEmpty)
     }
@@ -107,7 +107,7 @@ extension ContentSandbox {
             switch rule {
             case "storyID": stories.append(stories[0])
             case "storyVersion": stories[0]["version"] = 0
-            case "storyKind": stories[0]["kind"] = "postcard"
+            case "storyKind": stories[0]["kind"] = "unknown"
             case "storyCity": stories[0]["cityId"] = "missing-city"
             case "storyFacts": stories[0]["factIds"] = ["missing-fact"]
             case "storyTags": stories[0]["tags"] = ["missing-tag"]

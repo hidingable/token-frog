@@ -1,0 +1,206 @@
+[
+  {
+    "id": "postcard.pencil-pillow",
+    "kind": "souvenir",
+    "source": "postcard",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "铅笔小枕头",
+      "en": "Pencil Pillow"
+    },
+    "descriptions": {
+      "zh-Hans": "从邮包底翻出的旧纸折成了小枕头，边上留着铅笔躺过的浅痕。展开以后，还是能看出它睡过的位置。",
+      "en": "An old scrap from the bottom of the mailbag became a pillow for a rolling pencil. Unfolded, it still shows the faint mark of where the pencil rested."
+    }
+  },
+  {
+    "id": "postcard.unmatched-button",
+    "kind": "souvenir",
+    "source": "postcard",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "shard",
+    "habit": null,
+    "names": {
+      "zh-Hans": "独坐旧扣子",
+      "en": "Button at Rest"
+    },
+    "descriptions": {
+      "zh-Hans": "一枚在内袋里躺了很久的旧扣子，今天被请到桌边坐了坐。背面画了两条短腿，看起来终于有了自己的凳子。",
+      "en": "A button that spent a long time in an inner pocket was invited to sit on the table today. Two short legs drawn on its back have given it a stool of its own."
+    }
+  },
+  {
+    "id": "postcard.bookmark-corner",
+    "kind": "souvenir",
+    "source": "postcard",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "笑脸书签角",
+      "en": "Smiling Bookmark Corner"
+    },
+    "descriptions": {
+      "zh-Hans": "旧书签剪下的小角，上面添了一张笑脸。背面只剩半个字，已经认不出原来标的是哪一页。",
+      "en": "A corner trimmed from an old bookmark now wears a small smile. Half a word remains on the back; the page it once marked is anyone's guess."
+    }
+  },
+  {
+    "id": "postcard.soft-bow",
+    "kind": "souvenir",
+    "source": "postcard",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "box",
+    "habit": null,
+    "names": {
+      "zh-Hans": "不对称旧绳结",
+      "en": "Uneven Old Bow"
+    },
+    "descriptions": {
+      "zh-Hans": "换下来的包绳已经磨软，重新打结后留着一大一小两只翅膀。放平时，大的那只总要先抬起一点。",
+      "en": "A worn mailbag cord, soft with use, has been retied into a bow with unequal wings. Even laid flat, the larger wing insists on lifting a little."
+    }
+  },
+  {
+    "id": "postcard.steam-study",
+    "kind": "souvenir",
+    "source": "postcard",
+    "cityId": null,
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "差一点的白气画",
+      "en": "Steam, Almost"
+    },
+    "descriptions": {
+      "zh-Hans": "旧便签上留着两道弯线，是歇脚时追着杯口白气画的。第三道没赶上，旁边便认真写了一个小小的“跑了”。",
+      "en": "Two curved lines on an old note are an attempt to draw steam from a resting cup. The third escaped, so a careful little “got away” takes its place."
+    }
+  },
+  {
+    "id": "postcard.mended-paper-roof",
+    "kind": "souvenir",
+    "source": "postcard",
+    "cityId": null,
+    "rarity": "uncommon",
+    "icon": "box",
+    "habit": null,
+    "names": {
+      "zh-Hans": "补过的小纸亭",
+      "en": "Patched Paper Shelter"
+    },
+    "descriptions": {
+      "zh-Hans": "旧包纸折的小亭子，屋脊开裂后用细纸条补了一回。底下有两枚扣子压出的圆印，像两位坐过这里的客人。",
+      "en": "A shelter folded from old wrapping paper has had its split roof patched with a narrow strip. Two button impressions underneath mark the places of its former guests."
+    }
+  },
+  {
+    "id": "postcard.pocket-sound-book",
+    "kind": "souvenir",
+    "source": "postcard",
+    "cityId": null,
+    "rarity": "rare",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小小声音册",
+      "en": "Little Book of Sounds"
+    },
+    "descriptions": {
+      "zh-Hans": "攒下的旧纸角被缝成一本小册，每页记一种歇脚时听见的声音。最后一页只有一条横线，旁边写着“刚才很安静”。",
+      "en": "Saved paper corners have been stitched into a book of sounds heard during quiet rests. The last page holds a single line and the words “very quiet just then.”"
+    }
+  },
+  {
+    "id": "postcard.window-light-frame",
+    "kind": "souvenir",
+    "source": "postcard",
+    "cityId": null,
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "光斑小窗框",
+      "en": "Patch-of-Light Frame"
+    },
+    "descriptions": {
+      "zh-Hans": "旧纸盒剪成的小窗框，内沿描着某次午后落在桌上的光。纸背还留着盒子的折痕，窗台上画着一只空花盆。",
+      "en": "A little window frame cut from an old box traces a patch of afternoon light that once crossed a table. Box folds remain on the back; an empty flowerpot is drawn on the sill."
+    }
+  },
+  {
+    "id": "reunion.two-cup-card",
+    "kind": "souvenir",
+    "source": "reunion",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "tea",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两只杯子小卡",
+      "en": "Two-Cup Card"
+    },
+    "descriptions": {
+      "zh-Hans": "欢迎回来时画的小卡，两只杯子的把手不小心挨在一起。下面补了一只大托盘，刚好把它们都接住。",
+      "en": "A welcome-back card with two cups whose handles accidentally meet. A large tray added underneath holds them both quite comfortably."
+    }
+  },
+  {
+    "id": "reunion.waving-sign",
+    "kind": "souvenir",
+    "source": "reunion",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "note",
+    "habit": null,
+    "names": {
+      "zh-Hans": "双面招手牌",
+      "en": "Two-Sided Hello"
+    },
+    "descriptions": {
+      "zh-Hans": "折在信封口的小纸牌，正面画着招手，背面是一颗歪星星。翻过来再翻过去，两边都很高兴见到你。",
+      "en": "A tiny sign folded into an envelope flap, with a wave on one side and a crooked star on the other. Either way round, it is pleased to see you."
+    }
+  },
+  {
+    "id": "reunion.shared-table-sketch",
+    "kind": "souvenir",
+    "source": "reunion",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两把椅子的画",
+      "en": "A Table for Two"
+    },
+    "descriptions": {
+      "zh-Hans": "路线图边角添了一张桌和两把椅子，桌上只有一封展开的信。铅笔线在椅子旁边转了弯，像还想多坐一会儿。",
+      "en": "A table and two chairs have appeared in the corner of a route drawing. An open letter lies on the table; the pencil line curls beside a chair as though settling in."
+    }
+  },
+  {
+    "id": "reunion.hello-bookmark",
+    "kind": "souvenir",
+    "source": "reunion",
+    "cityId": null,
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "见面书签",
+      "en": "Hello-Again Bookmark"
+    },
+    "descriptions": {
+      "zh-Hans": "一张画了笑脸的书签，背面新添了“从这里接着读”。露出书页的那一角，刚好能让笑脸看见外面。",
+      "en": "A smiling bookmark with a new note on the back: “Pick up the story here.” The corner above the page gives its little face a view outside."
+    }
+  }
+]

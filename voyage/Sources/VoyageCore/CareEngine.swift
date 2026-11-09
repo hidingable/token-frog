@@ -8,6 +8,16 @@ public enum CareEngine {
         let indices = journey.letters.indices.sorted { journey.letters[$0].id < journey.letters[$1].id }
         for index in indices {
             var letter = journey.letters[index]
+            if [.postcard, .reunion].contains(letter.kind) {
+                guard !care.processedLetterIds.contains(letter.id) else { continue }
+                if letter.storyId == nil {
+                    snapshotCompanionMail(letter: &letter, journey: journey, care: care, stories: stories, catalog: catalog)
+                    journey.letters[index] = letter
+                }
+                applyRewards(letter, care: &care)
+                care.processedLetterIds.append(letter.id)
+                continue
+            }
             guard letter.kind == .daily, !care.processedLetterIds.contains(letter.id) else { continue }
             // Migrated daily letters remain template letters, without retroactive replies or effects.
             guard letter.texts != nil || letter.storyId != nil else {
@@ -107,7 +117,7 @@ public enum CareEngine {
     private static func applyRewards(_ letter: Letter, care: inout CareState) {
         // No rarity stamp means this is an older story snapshot: never backfill its drop.
         if let rarity = letter.rewards.dropRarity {
-            care.pity = rarity == "rare" ? 0 : care.pity + 1
+            if letter.kind != .reunion { care.pity = rarity == "rare" ? 0 : care.pity + 1 }
             if let city = letter.rewards.duplicateClueCityId {
                 care.trailClues[city, default: 0] += 1
             } else {

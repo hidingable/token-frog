@@ -11,6 +11,29 @@ struct LetterText: Equatable, Sendable {
 
 /// Story snapshots and legacy semantic templates both render in the current language.
 enum LetterComposer {
+    /// Keep legacy numbering, subtracting only the IDs occupied by companion mail.
+    static func number(for letter: Letter, letters: [Letter]) -> Int? {
+        guard ![.postcard, .reunion].contains(letter.kind) else { return nil }
+        let companions = Set(letters.filter { [.postcard, .reunion].contains($0.kind) && $0.id < letter.id }.map(\.id))
+        return letter.id - companions.count
+    }
+
+    static func origin(for letter: Letter, letters: [Letter], l10n: L10n, catalog: CityCatalog) -> String {
+        if let number = number(for: letter, letters: letters) {
+            return l10n("collection.origin", number, l10n.cityName(catalog.city(letter.cityId)))
+        }
+        return l10n("collection.companionOrigin", companionTitle(letter, l10n: l10n))
+    }
+
+    static func citation(for letter: Letter, letters: [Letter], l10n: L10n) -> String {
+        if let number = number(for: letter, letters: letters) { return l10n("memory.citedLetter", number) }
+        return l10n("memory.citedCompanion", companionTitle(letter, l10n: l10n))
+    }
+
+    private static func companionTitle(_ letter: Letter, l10n: L10n) -> String {
+        letter.kind == .postcard ? l10n("letter.postcardTitle") : l10n("letter.reunionTitle")
+    }
+
     static func localized(_ texts: [String: String]?, l10n: L10n) -> String? {
         guard let texts else { return nil }
         return [l10n.language.rawValue, "en", "zh-Hans"].lazy.compactMap { texts[$0] }.first { !$0.isEmpty }
@@ -20,7 +43,7 @@ enum LetterComposer {
         letter.place[l10n.language.rawValue]
     }
 
-    static func text(for letter: Letter, l10n: L10n, petName: String, catalog: CityCatalog) -> LetterText {
+    static func text(for letter: Letter, l10n: L10n, petName: String, catalog: CityCatalog, letters: [Letter] = []) -> LetterText {
         let city = catalog.city(letter.cityId)
         let signature = l10n("letter.signature", petName)
         if letter.kind == .logbook {
@@ -36,9 +59,15 @@ enum LetterComposer {
                 itinerary: [l10n("letter.mileageRule")]
             )
         }
+        if [.postcard, .reunion].contains(letter.kind) {
+            return LetterText(title: companionTitle(letter, l10n: l10n),
+                              voice: localized(letter.texts, l10n: l10n) ?? "",
+                              lead: localized(letter.leadTexts, l10n: l10n), signature: signature, itinerary: [])
+        }
         let target = letter.transitTargetId.map { catalog.city($0) }
-        let title = target.map { l10n("letter.transitTitle", letter.id, l10n.cityName($0)) }
-            ?? l10n("letter.dailyTitle", letter.id, l10n.cityName(city))
+        let number = number(for: letter, letters: letters)!
+        let title = target.map { l10n("letter.transitTitle", number, l10n.cityName($0)) }
+            ?? l10n("letter.dailyTitle", number, l10n.cityName(city))
         return LetterText(
             title: title,
             voice: letter.texts.map { localized($0, l10n: l10n) ?? "" }

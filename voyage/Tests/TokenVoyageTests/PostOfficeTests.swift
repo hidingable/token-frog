@@ -19,7 +19,10 @@ private final class CareDefaults: UserDefaults, @unchecked Sendable {
 
     init(allRead: Bool = true, update: (inout JourneyState, inout CareState) -> Void = { _, _ in }) throws {
         var examples = Snapshots.collectionExamples(catalog: localizationCatalog, now: clock.date, petName: "Ginkgo")
-        for index in examples.journey.letters.indices { examples.journey.letters[index].read = allRead }
+        for index in examples.journey.letters.indices {
+            examples.journey.letters[index].read = allRead
+            examples.journey.letters[index].place["en"] = Letter.Place(title: "Saved place", summary: "An already enriched letter.", url: nil)
+        }
         examples.care.bag.todayItem = nil
         update(&examples.journey, &examples.care)
         let store = SaveStore(directory: directory, pets: localizationCatalog.pets, journeyMigrations: .journey(catalog: localizationCatalog))
@@ -29,7 +32,7 @@ private final class CareDefaults: UserDefaults, @unchecked Sendable {
     }
 
     func model(isSnapshot: Bool = false, floatingReactionDuration: Duration = .seconds(3),
-               usageReader: @escaping @Sendable (String?, String) async throws -> [DayDetail] = { _, _ in Issue.record("Care UI must not read usage"); return [] },
+               usageReader: @escaping @Sendable (String?, String) async throws -> [DayDetail] = { _, _ in [] },
                hoursReader: @escaping @Sendable (String, String) async throws -> [HourUsage] = { _, _ in Issue.record("Care UI must not read hourly usage"); return [] }) -> AppModel {
         AppModel(isSnapshot: isSnapshot, defaults: CareDefaults(), directory: directory, catalog: localizationCatalog, themes: testThemes,
                  now: { clock.date }, quotaReader: { Issue.record("Care UI must not request quotas"); return [] },
@@ -42,35 +45,34 @@ private final class CareDefaults: UserDefaults, @unchecked Sendable {
 }
 
 @Suite @MainActor struct PostOfficeTests {
-    @Test func noMailPresentationPersistsOncePerDayAndRechecksOnReturningOrBecomingFrontmost() throws {
+    @Test func noMailPresentationRecordsOpensWithoutAwardingCompanionDays() async throws {
         let fixture = try CareFixture()
         defer { fixture.remove() }
         let model = fixture.model()
-        model.postOfficeDidDisplay() // Hidden windows are not companionship.
+        model.postOfficeDidDisplay()
+        #expect(model.state?.lastOpenedDate == nil)
+        model.setMainWindowPresented(true)
+        await model.scan()
+        #expect(model.state?.days["2026-11-06"]?.mainWindowOpened == true)
         #expect(model.care?.companionDays.isEmpty == true)
-        model.setMainWindowPresented(true)
-        #expect(model.care?.companionDays == ["2026-11-06"])
         model.setMainWindowPresented(false)
         model.setMainWindowPresented(true)
         model.postOfficeDidDisplay()
-        #expect(model.care?.companionDays == ["2026-11-06"])
-        #expect(fixture.model().care?.companionDays == ["2026-11-06"])
+        #expect(model.care?.companionDays.isEmpty == true)
+        #expect(fixture.model().state?.days["2026-11-06"]?.mainWindowOpened == true)
         model.setMainWindowPresented(false)
         fixture.clock.date = Calendar.current.date(byAdding: .day, value: 1, to: fixture.clock.date)!
         model.postOfficeDidDisplay()
-        #expect(model.care?.companionDays.count == 1)
+        #expect(model.state?.days["2026-11-07"]?.mainWindowOpened != true)
         model.setMainWindowPresented(true)
-        #expect(model.care?.companionDays == ["2026-11-06", "2026-11-07"])
-        #expect(fixture.model().care?.companionDays == model.care?.companionDays)
-        model.navigate(to: .journey)
-        fixture.clock.date = Calendar.current.date(byAdding: .day, value: 1, to: fixture.clock.date)!
-        model.postOfficeDidDisplay()
-        #expect(model.care?.companionDays.count == 2)
-        model.openPostOffice()
-        #expect(model.care?.companionDays.last == "2026-11-08")
+        await model.scan()
+        #expect(model.state?.days["2026-11-07"]?.mainWindowOpened == true)
+        #expect(model.care?.companionDays.isEmpty == true)
+        #expect(model.letters.filter { $0.kind == .postcard }.map(\.date) == ["2026-11-06"])
+        #expect(fixture.model().care?.companionDays.isEmpty == true)
     }
 
-    @Test func unreadMailWaitsForReadingAndFutureMailDoesNotBlock() throws {
+    @Test func unreadMailWaitsForReadingAndFutureMailDoesNotBlock() async throws {
         let fixture = try CareFixture(allRead: false) { journey, _ in
             for index in journey.letters.indices { journey.letters[index].read = journey.letters[index].id != 5 }
         }
@@ -90,7 +92,8 @@ private final class CareDefaults: UserDefaults, @unchecked Sendable {
         defer { future.remove() }
         let other = future.model()
         other.setMainWindowPresented(true)
-        #expect(other.care?.companionDays == ["2026-11-06"])
+        await other.scan()
+        #expect(other.care?.companionDays.isEmpty == true)
     }
 
     @Test func floatingNotchProfileSettingsAndSnapshotsDoNotRecordGlances() throws {

@@ -194,8 +194,10 @@ public enum ContentValidator {
             for item in entries {
                 if item.id.isEmpty || items[item.id] != nil { report(path, "itemID", "Item IDs must be nonempty and unique: \(item.id)") }
                 items[item.id] = item
-                if let source = item.source, source != "box" || item.kind != "souvenir" || item.rarity != "common" {
-                    report(path, "itemSource", "Source may only be box, on a common souvenir")
+                if let source = item.source, !["box", "postcard", "reunion"].contains(source) || item.kind != "souvenir"
+                    || (source != "postcard" && item.rarity != "common")
+                    || (source != "box" && item.cityId != nil) {
+                    report(path, "itemSource", "Source must be box/postcard/reunion on a souvenir; companion pools must be cityless and box/reunion must be common")
                 }
                 if !["bag", "souvenir", "menu"].contains(item.kind) { report(path, "itemKind", "Invalid item kind") }
                 if let rarity = item.rarity, !["common", "uncommon", "rare"].contains(rarity) {
@@ -210,6 +212,9 @@ public enum ContentValidator {
                 if !icons.contains(item.icon) { report(path, "itemIcon", "Unknown item icon") }
                 if let city = item.cityId, cities[city] == nil { report(path, "itemCity", "Unknown item city: \(city)") }
                 for texts in [item.names, item.descriptions] {
+                    if texts.values.contains(where: { $0.contains("{") || $0.contains("}") }) {
+                        report(path, "itemSlots", "Item names and descriptions are literal text and cannot contain slots")
+                    }
                     if !["zh-Hans", "en"].allSatisfy({ !(texts[$0] ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }) {
                         report(path, "itemTranslation", "Item names and descriptions require nonempty zh-Hans and en")
                     }
@@ -230,6 +235,12 @@ public enum ContentValidator {
         }
         for rarity in ["common", "uncommon", "rare"] where !items.values.contains(where: { $0.kind == "souvenir" && $0.source == nil && $0.cityId == nil && $0.rarity == rarity }) {
             report("items", "itemBaseline", "Missing generic \(rarity) souvenir")
+        }
+        for rarity in ["common", "uncommon", "rare"] where !items.values.contains(where: { $0.source == "postcard" && $0.rarity == rarity }) {
+            report("items", "postcardBaseline", "Missing postcard souvenir for \(rarity)")
+        }
+        if !items.values.contains(where: { $0.source == "reunion" }) {
+            report("items", "reunionBaseline", "Missing reunion gift")
         }
         return (items, issues)
     }
@@ -276,7 +287,17 @@ public enum ContentValidator {
         for (file, story) in entries {
             if story.id.isEmpty || !ids.insert(story.id).inserted { report(file, "storyID", "Story IDs must be nonempty and unique: \(story.id)") }
             if story.version < 1 { report(file, "storyVersion", "Story version must be positive") }
-            if !["arrival", "transit", "fulfill"].contains(story.kind) { report(file, "storyKind", "Invalid story kind") }
+            if !["arrival", "transit", "fulfill", "postcard", "reunion"].contains(story.kind) { report(file, "storyKind", "Invalid story kind") }
+            let companion = ["postcard", "reunion"].contains(story.kind)
+            if companion && (story.cityId != nil || !story.requires.isEmpty || !story.factIds.isEmpty
+                || !story.replies.isEmpty || !story.fulfills.isEmpty || story.fulfillsHabit != nil
+                || story.lead != nil || story.learned != nil || !story.rewards.itemIds.isEmpty || !story.rewards.menuIds.isEmpty) {
+                report(file, "companionStory", "Companion mail must be unconditional, cityless and free of replies, fulfillment and authored rewards")
+            }
+            if companion && story.memoryLead == nil {
+                report(file, "memoryLead", "Companion mail requires an optional memory lead template")
+            }
+            if !companion && story.memoryLead != nil { report(file, "memoryLead", "Memory leads belong to companion mail") }
             if let id = story.cityId, cities[id] == nil { report(file, "storyCity", "Unknown story city: \(id)") }
             let facts = Set(story.cityId.flatMap { cities[$0] }?.facts.map(\.id) ?? [])
             if !Set(story.factIds).isSubset(of: facts) { report(file, "storyFacts", "Unknown facts in story city") }
@@ -285,8 +306,8 @@ public enum ContentValidator {
             if let habit = story.fulfillsHabit, !habits.contains(habit) { report(file, "storyHabit", "Invalid fulfillment habit") }
             if let season = story.requires.season, !seasons.contains(season) { report(file, "storySeason", "Invalid required season") }
             if let item = story.requires.item, items[item]?.kind != "bag" { report(file, "storyItemRequirement", "Required item must reference a bag item: \(item)") }
-            for id in story.rewards.itemIds where items[id]?.kind != "souvenir" {
-                report(file, "storyItemReward", "Item rewards must reference souvenirs: \(id)")
+            for id in story.rewards.itemIds where items[id]?.kind != "souvenir" || items[id]?.source != nil {
+                report(file, "storyItemReward", "Item rewards must reference ordinary travel souvenirs: \(id)")
             }
             for id in story.rewards.menuIds where items[id]?.kind != "menu" {
                 report(file, "storyMenuReward", "Menu rewards must reference menus: \(id)")
@@ -308,7 +329,7 @@ public enum ContentValidator {
                 if reply.id.isEmpty || !seenReplyIds.insert(reply.id).inserted { report(file, "replyID", "Reply IDs must be nonempty and globally unique: \(reply.id)") }
                 if !habits.contains(reply.habit) { report(file, "storyHabit", "Invalid reply habit") }
             }
-            let localizedTexts = [story.text] + (story.lead.map { [$0] } ?? []) + story.replies.map(\.text)
+            let localizedTexts = [story.text] + (story.lead.map { [$0] } ?? []) + story.replies.map(\.text) + (story.memoryLead.map { [$0] } ?? [])
             for texts in localizedTexts {
                 if !["zh-Hans", "en"].allSatisfy({ texts[$0] != nil })
                     || texts.values.contains(where: { $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }) {
@@ -319,7 +340,10 @@ public enum ContentValidator {
                 for text in texts.values {
                     let names = StorySlots.names(in: text)
                     let stripped = StorySlots.pattern.stringByReplacingMatches(in: text, range: NSRange(text.startIndex..., in: text), withTemplate: "")
-                    if !names.isSubset(of: ["pet", "city", "target", "reply"]) || stripped.contains("{") || stripped.contains("}") {
+                    let memoryLead = story.memoryLead == texts
+                    let allowed: Set<String> = companion ? (memoryLead ? ["pet", "memory"] : ["pet"]) : ["pet", "city", "target", "reply"]
+                    if memoryLead && !names.contains("memory") { report(file, "memoryLead", "Memory lead must quote the memory slot") }
+                    if !names.isSubset(of: allowed) || stripped.contains("{") || stripped.contains("}") {
                         report(file, "storySlots", "Unknown or malformed slot")
                     }
                     if names.contains("target") && story.kind != "transit" { report(file, "storyTarget", "Target is only allowed in transit stories") }
@@ -338,6 +362,9 @@ public enum ContentValidator {
         let generic = entries.map(\.story).filter { $0.cityId == nil && $0.requires.isEmpty }
         for kind in ["arrival", "transit"] where !generic.contains(where: { $0.kind == kind && $0.fulfills.isEmpty }) {
             report("stories", "storyBaseline", "Missing unconditional generic \(kind) story")
+        }
+        for kind in ["postcard", "reunion"] where !generic.contains(where: { $0.kind == kind }) {
+            report("stories", "companionBaseline", "Missing generic \(kind) story")
         }
         for habit in habits.sorted() where !generic.contains(where: { $0.kind == "fulfill" && $0.fulfills.isEmpty && $0.fulfillsHabit == habit }) {
             report("stories", "storyBaseline", "Missing unconditional generic fulfillment for \(habit)")

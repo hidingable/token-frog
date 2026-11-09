@@ -127,6 +127,17 @@ enum Snapshots {
                 state.letters[index].rewards = StoryRewards()
                 state.letters[index].carriedItem = nil
             })
+            let companion = companionMailExamples(catalog: catalog, now: model.now, petName: model.petName)
+            model.withSnapshotCare({ $0 = companion.care }) {
+                for (kind, name) in [(Letter.Kind.postcard, "mail-postcard"), (.reunion, "mail-reunion")] {
+                    model.selectedLetterID = companion.journey.letters.first { $0.kind == kind }?.id
+                    main(.mail, name: name, update: { $0 = companion.journey })
+                }
+                model.selectedLetterID = companion.journey.letters.last { $0.kind == .daily }?.id
+                main(.mail, name: "mail-numbered", update: { $0 = companion.journey })
+                model.collectionTab = .memories
+                main(.collection, name: "collection-memory-citations", size: CGSize(width: 760, height: 1240), update: { $0 = companion.journey })
+            }
             model.selectedLetterID = nil
         }
         model.collectionTab = .passport
@@ -319,6 +330,19 @@ enum Snapshots {
         return (journey, care)
     }
 
+    static func companionMailExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
+        let opened = Calendar.current.date(byAdding: .day, value: -4, to: now)!
+        var examples = memoryExamples(catalog: catalog, now: opened, petName: petName)
+        CareEngine.open(at: opened, journey: &examples.journey, care: &examples.care, catalog: catalog)
+        let activeDay = Calendar.current.date(byAdding: .day, value: -2, to: now)!
+        examples.journey.sync(today: DayUsage(date: DayKey.string(from: now)), finalized: [
+            DayUsage(date: DayKey.string(from: activeDay), fuel: 100, byClient: ["codex": 100]),
+        ], catalog: catalog)
+        CareEngine.process(journey: &examples.journey, care: &examples.care, stories: catalog.stories, catalog: catalog)
+        CareEngine.open(at: now, journey: &examples.journey, care: &examples.care, catalog: catalog)
+        return examples
+    }
+
     /// The collection and ritual fixtures share acquisitions and their original letters, entirely in memory.
     static func collectionExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
         let start = Calendar.current.date(byAdding: .day, value: -5, to: now)!
@@ -336,7 +360,7 @@ enum Snapshots {
 
         let rarities = ["common", "uncommon", "rare"]
         let souvenirs = rarities.map { rarity in
-            catalog.items.all.first { $0.kind == "souvenir" && $0.cityId == nil && $0.rarity == rarity }!
+            catalog.items.all.first { $0.kind == "souvenir" && $0.source == nil && $0.cityId == nil && $0.rarity == rarity }!
         }
         for index in journey.letters.indices where journey.letters[index].kind == .daily {
             let id = journey.letters[index].id

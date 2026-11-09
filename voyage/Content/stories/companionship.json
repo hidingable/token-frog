@@ -1,0 +1,362 @@
+[
+  {
+    "id": "companionship.postcard.window-seat",
+    "version": 1,
+    "kind": "postcard",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "今天挑了个靠窗的位置歇脚。桌上的光斑慢慢挪过来，刚好把明信片照亮，我便顺着它画了一扇小窗。画到窗台时，光已经走远了，倒留下一个很适合放花盆的空位。花还没想好，先把窗寄给你。",
+      "en": "I chose a seat by the window for a quiet rest. A patch of light reached my postcard, so I traced a little window around it. By the time I drew the sill, the light had moved on, leaving just enough room for a flowerpot. I have not chosen the flowers yet. The window can go ahead."
+    },
+    "memoryLead": {
+      "zh-Hans": "翻开记忆簿，又读到了这一句：“{memory}”。",
+      "en": "I opened the memory book and read this line again: “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.postcard.pencil-rest",
+    "version": 1,
+    "kind": "postcard",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "铅笔太短，放在桌上总爱滚走。我拿一小块折纸给它做了个枕头，它终于安安稳稳躺下了。今天的字写得不多，替铅笔安排住处倒花了好一会儿。现在它在旁边休息，我把这张写完也歇一歇。",
+      "en": "My pencil is so short that it keeps rolling away. I folded a scrap of paper into a pillow, and it finally settled down. I have written very little today, but arranging accommodation for a pencil took some time. It is resting beside me now. I will join it after this postcard."
+    },
+    "memoryLead": {
+      "zh-Hans": "记忆簿翻到“{memory}”这一处，我停了一会儿。",
+      "en": "I paused at this bit of the memory book: “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.postcard.button-company",
+    "version": 1,
+    "kind": "postcard",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "整理口袋，找出三枚配不成对的旧扣子。我把它们排在桌边，大的像一张桌，小的像两把凳子。换个方向，又成了三张等着吃饭的脸。我决定先不收起来，让它们开一场不用说话的小聚会。",
+      "en": "Tidying my pocket turned up three unmatched buttons. Along the edge of the table, they looked like a table and two stools. Turned the other way, they became three faces waiting for lunch. I am leaving them there for a while to enjoy their very quiet gathering."
+    },
+    "memoryLead": {
+      "zh-Hans": "“{memory}”——记忆簿里的这句话，今天又翻到了。",
+      "en": "“{memory}” — that is the line I found in the memory book today."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.postcard.steam-drawing",
+    "version": 1,
+    "kind": "postcard",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "端着热水歇了一会儿，想把杯口冒出的白气画下来。第一笔像面条，第二笔像没打好的结，第三笔还没落下，白气就散了。我把前两笔都留着，题目叫“差一点画到的东西”。水倒是刚好能喝了。",
+      "en": "I sat down with some hot water and tried to draw the steam. The first line looked like a noodle; the second, a badly tied knot. Before the third, the steam had disappeared. I kept both lines and called the drawing “Something I Nearly Caught.” The water was ready to drink by then."
+    },
+    "memoryLead": {
+      "zh-Hans": "写这张之前，我重读了记忆簿里的“{memory}”。",
+      "en": "Before writing this card, I reread “{memory}” in the memory book."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.postcard.unhurried-knot",
+    "version": 1,
+    "kind": "postcard",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "今天给邮包上的结重新打了个蝴蝶结。两只翅膀一大一小，我调整了半天，最后发现歪一点也能扎得很牢。于是它保住了那只大翅膀。我把包放在旁边，看它安安静静地神气了一下午。",
+      "en": "I retied the mailbag cord into a bow today. Its wings came out uneven. After much adjusting, I discovered that a crooked bow holds just as well, so it kept its oversized wing. I set the bag beside me and let it look quietly pleased with itself all afternoon."
+    },
+    "memoryLead": {
+      "zh-Hans": "记忆簿里写着“{memory}”，我把这一页摊在了身边。",
+      "en": "I left the memory book open beside me at the line “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.postcard.rain-race",
+    "version": 1,
+    "kind": "postcard",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "窗上两滴雨水挨得很近，我坐下来等着看谁先滑到底。看了好久，它们反倒合成一滴，慢慢走了。比赛只好取消，我给它们画了一张双人座的小船。明信片晾在窗边，没有被淋湿。",
+      "en": "Two raindrops sat close together on the window. I settled in to see which would reach the bottom first. After a long pause, they joined up and slid away together. With the race called off, I drew them a boat with two seats. This postcard dried beside the window and stayed quite dry."
+    },
+    "memoryLead": {
+      "zh-Hans": "今天随手翻开记忆簿，看到的是“{memory}”。",
+      "en": "The memory book opened today to this: “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.postcard.chair-shadow",
+    "version": 1,
+    "kind": "postcard",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "歇脚的小凳有一条腿短一点，坐下时会轻轻晃。我垫上一张折好的旧纸，它就稳了。起身拿明信片时，地上多了一块四四方方的影子，很像凳子也带了一个小邮包。今天我们两个都坐得挺好。",
+      "en": "One leg of my resting stool is a little short, so it rocks when I sit. A folded scrap of old paper put that right. When I stood to fetch a postcard, the paper made a square shadow, as though the stool had brought its own mailbag. We have both had a comfortable day."
+    },
+    "memoryLead": {
+      "zh-Hans": "我在记忆簿里找到了这一句：“{memory}”。",
+      "en": "Here is the line I found in the memory book: “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.postcard.folded-roof",
+    "version": 1,
+    "kind": "postcard",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "一张用剩的包纸被我折成了小屋顶，下面正好能停两枚扣子。我又剪了个纸门，门太小，谁都进不去，索性把整面墙拿走了。现在是一座四面通风的小亭子，正适合陪我在桌上歇脚。",
+      "en": "I folded leftover wrapping paper into a tiny roof with room for two buttons beneath it. Then I cut a door too small for either button, so I removed the whole wall. It is now an airy little shelter, keeping me company while I rest at the table."
+    },
+    "memoryLead": {
+      "zh-Hans": "摊开记忆簿时，“{memory}”这一句先落进了眼里。",
+      "en": "When I spread out the memory book, this line caught my eye first: “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.postcard.thread-trail",
+    "version": 1,
+    "kind": "postcard",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "清理邮包时，一小段线头挂在了明信片上。我本来要拿掉，发现它弯弯绕绕很像一条散步路线，便在旁边添了几棵树。终点落在一张小凳子前。路线已经画好了，今天先在终点坐坐。",
+      "en": "A loose thread from the mailbag landed on my postcard. I nearly brushed it away, then noticed it looked like a winding walking route. I drew a few trees beside it and a little bench at the end. The route is ready. Today I am simply sitting at its destination."
+    },
+    "memoryLead": {
+      "zh-Hans": "记忆簿留住了“{memory}”，今天我又来看这一页。",
+      "en": "The memory book has kept “{memory}”, and I visited that page again today."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.postcard.page-corner",
+    "version": 1,
+    "kind": "postcard",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "读到书里一段好笑的地方，想夹张纸记住，结果书签比书还宽。我剪去多出的一角，在上面画了一张笑脸。现在一张守着那一页，一张跟明信片出门。等我再翻书时，它们就隔着很远一起笑。",
+      "en": "I reached a funny passage in a book and found that my bookmark was wider than the book itself. I trimmed off a corner and drew a smiling face on it. One piece is keeping the page; the other is traveling with this postcard. Next time I open the book, they can smile from far apart."
+    },
+    "memoryLead": {
+      "zh-Hans": "“{memory}”。这是我今天从记忆簿里重读的一句。",
+      "en": "“{memory}”. That is the line I reread from the memory book today."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.postcard.quiet-sounds",
+    "version": 1,
+    "kind": "postcard",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "今天坐着没挪地方，倒听见了好几种声音：翻纸的沙沙声，杯子放下的轻响，还有我拉开邮包时很长的一声。想把它们写下来，纸上就挤满了“沙”和“嗒”。读起来有点像一支不会唱词的小合唱。",
+      "en": "I stayed in one seat today and collected sounds instead: rustling pages, a cup set down softly, the long zip of my mailbag. I tried writing them down and filled the page with shushes and taps. Read aloud, it sounds like a little choir that has forgotten all the words."
+    },
+    "memoryLead": {
+      "zh-Hans": "休息时翻了翻记忆簿，这一页写着“{memory}”。",
+      "en": "While resting, I browsed the memory book. This page says “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.postcard.envelope-nap",
+    "version": 1,
+    "kind": "postcard",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "空信封的封口翘着，像一床没铺平的小被子。我压了压，它又弹起来，就在底下画了一只睡着的小鸟。这回那点翘起倒正好，像怕把鸟吵醒，特意留着的缝。我也跟着打了个哈欠，今天就写到这里。",
+      "en": "The flap of an empty envelope kept lifting like a rumpled blanket. I pressed it down; it sprang up again. So I drew a sleeping bird beneath it. Now the little gap looks quite deliberate, as though someone is being careful not to wake the bird. That made me yawn too. Enough writing for today."
+    },
+    "memoryLead": {
+      "zh-Hans": "今天带在手边的记忆是这一句：“{memory}”。",
+      "en": "This is the memory I kept beside me today: “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.reunion.clear-table",
+    "version": 1,
+    "kind": "reunion",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "你来啦！我把桌上的纸挪了挪，腾出一块刚好能摊开信的地方。故事有几张，先从哪一张读都行。我原本想按顺序摆好，结果最上面那张画着一只歪歪的杯子，自己先把我逗笑了。就让它开头吧，很高兴又能把这些小事讲给你。",
+      "en": "There you are! I shifted the papers to make room to spread out a letter. There are a few stories here, and any one can come first. I meant to put them in order, but the crooked cup on the top sheet made me laugh. Let us start with that. I am glad to share these little things with you again."
+    },
+    "memoryLead": {
+      "zh-Hans": "记忆簿也翻开了，这里还好好留着“{memory}”。",
+      "en": "The memory book is open too, still keeping this line safe: “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.reunion.pocket-parade",
+    "version": 1,
+    "kind": "reunion",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "见到你真好。我刚把口袋里的小东西倒出来，一截绳、一张纸，还有一枚不知道什么时候躲进去的扣子，滚得比谁都远。我追着它绕了半张桌子，想说的开场白全忘了。那就换一句简单的：欢迎回来，坐一会儿，我给你看看一路留下的东西。",
+      "en": "It is good to see you. I just emptied my pocket: a bit of string, a scrap of paper, and a button that rolled farther than anything else. Chasing it halfway round the table made me forget my carefully prepared greeting. Here is a simpler one: welcome back. Sit a while, and I will show you what came along on the journey."
+    },
+    "memoryLead": {
+      "zh-Hans": "还有记忆簿里的这一句，我也想一起翻给你看：“{memory}”。",
+      "en": "There is a line in the memory book I would like to look at with you too: “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.reunion.two-cup-tray",
+    "version": 1,
+    "kind": "reunion",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "欢迎回来。我给这封信画了两只杯子，刚开始挨得太近，杯把打了个结，只好又画一只大托盘把它们装下。托盘旁边还够放一块点心。今天不急着讲到下一站，先在这张画旁边坐坐，想到哪件小事就说哪件。",
+      "en": "Welcome back. I drew two cups for this letter, but put them so close together that their handles got tangled. A large tray rescued the drawing, with room left for a little cake. There is no rush to reach the next stop in our story. We can sit beside this picture and start with whichever small thing comes to mind."
+    },
+    "memoryLead": {
+      "zh-Hans": "摊开信时，我也翻到了记忆簿中的“{memory}”。",
+      "en": "As I spread out the letter, I also found “{memory}” in the memory book."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.reunion.familiar-page",
+    "version": 1,
+    "kind": "reunion",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "你打开信的时候，我正把一张夹反的书签转过来。它的笑脸朝里藏了好久，现在终于露出来，倒像比我先说了声你好。我给它换了个舒服的位置，也把这封信展开了。很高兴又和你碰面，故事可以从这一页接着读。",
+      "en": "As you opened this letter, I was turning a bookmark the right way round. Its smiling face had been tucked inside the book; now it looks as though it said hello before I could. I found it a comfortable place and unfolded this letter. I am glad we have met again. We can pick up the story right here."
+    },
+    "memoryLead": {
+      "zh-Hans": "熟悉的一页还在，记着的是“{memory}”。",
+      "en": "A familiar page is still here, holding the line “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.reunion.winding-line",
+    "version": 1,
+    "kind": "reunion",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "又见面啦。我想画一条很神气的路线给你看，笔却在纸角绕了个圈，像先找地方坐下了。我便在那个圈里添了张小桌，旁边画两把椅子。路线后面还很长，不过这一小段已经很好：有地方放信，也有地方一起歇脚。",
+      "en": "Hello again. I meant to draw you an impressive route, but my pen made a loop in the corner, as though looking for somewhere to sit first. I added a table inside the loop and two chairs beside it. There is plenty of route left to draw. This bit already has a place for letters and a rest together."
+    },
+    "memoryLead": {
+      "zh-Hans": "记忆簿里的“{memory}”，也和这封信一起摊在桌上。",
+      "en": "This letter shares the table with a line from the memory book: “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  },
+  {
+    "id": "companionship.reunion.paper-greeting",
+    "version": 1,
+    "kind": "reunion",
+    "cityId": null,
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "欢迎回来！我用余纸折了一个小小的招手牌，放在信封口。牌子太轻，开信时一下翻了过去，把背面的歪星星也亮给你看了。这样也好，正反两面都打过招呼。接下来可以慢慢看信，我在这里，把今天的第一句你好说得清清楚楚。",
+      "en": "Welcome back! I folded a tiny waving sign from spare paper and tucked it into the envelope. It is so light that opening the flap flipped it over, showing you the crooked star on its back. Both sides have greeted you now. Take your time with the letters. Here is my first clear hello for today."
+    },
+    "memoryLead": {
+      "zh-Hans": "再把记忆簿翻给你看，这一句仍在原处：“{memory}”。",
+      "en": "Let me open the memory book with you again. This line is right here: “{memory}”."
+    },
+    "replies": [],
+    "rewards": { "itemIds": [], "menuIds": [] }
+  }
+]

@@ -55,7 +55,7 @@ private enum MigrationTestError: Error { case didNotLoad }
         let bytes = try JSONSerialization.data(withJSONObject: original, options: [.sortedKeys])
         try bytes.write(to: box.journeyURL)
         let (state, store) = try box.load()
-        #expect(state.version == 5)
+        #expect(state.version == JourneyState.currentVersion)
         #expect(state.letters.map(\.id) == [0, 7])
         #expect(state.letters.map(\.read) == [true, false])
         #expect(state.letters[1].place == [language: .init(title: title, summary: "Preserved summary", url: "https://en.wikipedia.org/wiki/Shanghai")])
@@ -93,10 +93,10 @@ private enum MigrationTestError: Error { case didNotLoad }
         try original.write(to: box.journeyURL)
         let (state, store) = try box.load()
         var expected = try #require(JSONSerialization.jsonObject(with: original) as? [String: Any])
-        expected["version"] = 5
+        expected["version"] = JourneyState.currentVersion
         let written = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: box.journeyURL)) as? [String: Any])
         #expect(NSDictionary(dictionary: written).isEqual(to: expected))
-        #expect(state.version == 5)
+        #expect(state.version == JourneyState.currentVersion)
         #expect(state.letters.first?.kind == .departure)
         #expect(state.letters.first?.logbook == nil)
         #expect(try Data(contentsOf: #require(store.backups(for: .journey).first).url) == original)
@@ -109,11 +109,11 @@ private enum MigrationTestError: Error { case didNotLoad }
         try original.write(to: box.journeyURL)
         let (state, store) = try box.load()
         var expected = try JSONDecoder().decode(JourneyState.self, from: box.fixture("journey-v3"))
-        expected.version = 5
+        expected.version = JourneyState.currentVersion
         #expect(state == expected)
         var old = try #require(JSONSerialization.jsonObject(with: original) as? [String: Any])
         old.removeValue(forKey: "nextChoiceId")
-        old["version"] = 5
+        old["version"] = JourneyState.currentVersion
         let written = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: box.journeyURL)) as? [String: Any])
         #expect(NSDictionary(dictionary: written).isEqual(to: old))
         #expect(written["nextChoiceId"] == nil)
@@ -135,9 +135,9 @@ private enum MigrationTestError: Error { case didNotLoad }
         try original.write(to: box.journeyURL)
         let (state, store) = try box.load()
         var expected = try JSONDecoder().decode(JourneyState.self, from: box.fixture("journey-v3"))
-        expected.version = 5
+        expected.version = JourneyState.currentVersion
         #expect(state == expected)
-        #expect(state.version == 5)
+        #expect(state.version == JourneyState.currentVersion)
         #expect(state.totalFuel == 123 && state.legFuel == 123)
         #expect(state.route == ["shanghai"])
         #expect(state.letters.map(\.id) == [0, 7])
@@ -220,7 +220,7 @@ private enum MigrationTestError: Error { case didNotLoad }
         var (migrated, _) = try box.load()
         // This fixture freezes the M0 coordinates and exact truncated distance formula.
         var reference = try JSONDecoder().decode(JourneyState.self, from: box.fixture("journey-v3"))
-        reference.version = 5
+        reference.version = JourneyState.currentVersion
         let fuel = reference.remainingFuel + 4_321
         let usage = DayUsage(date: "2026-11-02", fuel: fuel, byClient: ["codex": fuel])
         migrated.sync(today: usage, catalog: testCatalog)

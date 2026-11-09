@@ -124,7 +124,7 @@ final class LetterNotificationService {
             letter.deliverAt <= now && !letter.read && (morningEnabled || !letter.newCountries.isEmpty)
                 && (lastSentID == nil || letter.id > lastSentID!)
         }).max(by: { $0.deliverAt == $1.deliverAt ? $0.id < $1.id : $0.deliverAt < $1.deliverAt }) else { return }
-        let text = LetterComposer.text(for: letter, l10n: l10n, petName: petName, catalog: catalog)
+        let text = LetterComposer.text(for: letter, l10n: l10n, petName: petName, catalog: catalog, letters: state.letters)
         let body = Self.firstSentence(text.lead ?? text.voice)
         // A newly settled letter must be composed before it can supply the promised preview.
         guard !body.isEmpty else { return }

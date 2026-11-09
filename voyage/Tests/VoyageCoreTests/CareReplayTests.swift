@@ -167,7 +167,7 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
         defer { box.cleanUp() }
         try box.edit { $0["rainyMonths"] = [11] }
         let catalog = try CityCatalog.load(directory: box.directory)
-        for story in testCatalog.stories.all {
+        for story in testCatalog.stories.all where !["postcard", "reunion"].contains(story.kind) {
             var (journey, care) = engineState(seed: 1)
             care.petName = "Pip 小信使"
             care.habits.talkative = 10

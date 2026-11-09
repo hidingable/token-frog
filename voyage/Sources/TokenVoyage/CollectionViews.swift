@@ -247,7 +247,7 @@ private struct ItemOrigin: View {
     var body: some View {
         if let letter = model.state?.letters.first(where: { $0.id == letterId }), let catalog = model.catalog {
             Button { model.openCollectionLetter(letterId) } label: {
-                Text(l10n("collection.origin", letterId, l10n.cityName(catalog.city(letter.cityId))))
+                Text(LetterComposer.origin(for: letter, letters: model.state?.letters ?? [], l10n: l10n, catalog: catalog))
                     .font(Theme.pixel()).underline().fixedSize(horizontal: false, vertical: true)
             }
             .buttonStyle(.plain)

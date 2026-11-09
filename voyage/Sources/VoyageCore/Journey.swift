@@ -11,7 +11,7 @@ public struct VehicleShare: Codable, Equatable, Sendable {
 }
 
 public struct Letter: Codable, Equatable, Sendable, Identifiable {
-    public enum Kind: String, Codable, Sendable { case departure, daily, logbook }
+    public enum Kind: String, Codable, Sendable { case departure, daily, logbook, postcard, reunion }
 
     public var id: Int
     public var kind: Kind
@@ -45,6 +45,8 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var itemTriggered: Bool?
     public var facts: [FactSnapshot] = []
     public var rewards = StoryRewards()
+    public var rewardItems: [Item] = []
+    public var memoryReference: CareState.Memory?
     public var weatherCode: Int?
     public var temperatureC: Int?
     public var place: [String: Place] = [:]
@@ -75,6 +77,8 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
 
 public struct DayRecord: Codable, Equatable, Sendable {
     public var fuel = 0
+    /// Only an actual main-window open sets this; old records default to false.
+    public var mainWindowOpened = false
     public var byClient: [String: Int] = [:]
     public var arrivals: [String] = []
     public var newCountries: [String] = []
@@ -89,7 +93,7 @@ public struct Stamp: Codable, Equatable, Sendable {
 }
 
 public struct JourneyState: Codable, Equatable, Sendable {
-    public static let currentVersion = 5
+    public static let currentVersion = 6
     public var version = currentVersion
     public var seed: UInt32
     public var pet: PetID
@@ -107,6 +111,8 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public var days: [String: DayRecord] = [:]
     public var letters: [Letter] = []
     public var totalFuel = 0
+    /// Main-window opens only; absent on pre-M2 saves, so upgrade starts a fresh baseline.
+    public var lastOpenedDate: String?
 
     public init(seed: UInt32, startCityId: String, pet: PetID? = nil, date: String, now: Date = Date(), logbook: Logbook? = nil, catalog: CityCatalog) {
         let pet = pet ?? catalog.pets.defaultID
@@ -168,6 +174,8 @@ public struct JourneyState: Codable, Equatable, Sendable {
         let record = days[openDate] ?? DayRecord()
         var replacement = JourneyState(seed: seed, startCityId: cityId, pet: pet, date: startDate, catalog: catalog)
         replacement.sync(today: DayUsage(date: openDate, fuel: record.fuel, byClient: record.byClient), calendar: calendar, catalog: catalog)
+        replacement.days[openDate]?.mainWindowOpened = record.mainWindowOpened
+        replacement.lastOpenedDate = lastOpenedDate
         if var firstLetter {
             firstLetter.cityId = cityId
             replacement.letters = [firstLetter]
@@ -269,7 +277,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
     }
 
     private mutating func settle(_ date: String, calendar: Calendar, deliveryTime: DeliveryTime) {
-        guard let record = days[date], record.fuel > 0 else { return }
+        guard let record = days[date], record.fuel > 0 || record.mainWindowOpened else { return }
         let median = recentDailyFuel(before: date)
         let hasBaseline = days.filter { $0.value.fuel > 0 && $0.key < date }.count >= 3
         let total = record.byClient.values.reduce(0, +)
@@ -282,6 +290,14 @@ public struct JourneyState: Codable, Equatable, Sendable {
               let nextDay = calendar.date(byAdding: .day, value: 1, to: day),
               let deliverAt = calendar.date(bySettingHour: deliveryTime.hour, minute: deliveryTime.minute, second: 0, of: nextDay) else {
             preconditionFailure("Invalid settled date \(date)")
+        }
+        if record.fuel == 0 {
+            letters.append(Letter(
+                id: (letters.map(\.id).max() ?? 0) + 1, kind: .postcard, date: date,
+                pet: pet, cityId: currentCityId, arrivals: [], newCountries: [], fuel: 0,
+                vehicles: [], isDeepVisit: false, deliverAt: deliverAt, enrichmentDone: true
+            ))
+            return
         }
         letters.append(
             Letter(
@@ -307,6 +323,7 @@ extension JourneyState {
     private enum CodingKeys: String, CodingKey {
         case version, seed, pet, startDate, currentCityId, targetCityId, legFuel
         case route, stamps, openDate, days, letters, totalFuel, legCost, legFrom, legTo, targetCountryCode
+        case lastOpenedDate
     }
 
     public init(from decoder: Decoder) throws {
@@ -331,6 +348,7 @@ extension JourneyState {
         days = try values.decode([String: DayRecord].self, forKey: .days, default: [:])
         letters = try values.decode([Letter].self, forKey: .letters, default: [])
         totalFuel = try values.decode(Int.self, forKey: .totalFuel, default: 0)
+        lastOpenedDate = try values.decodeIfPresent(String.self, forKey: .lastOpenedDate)
     }
 }
 
@@ -340,7 +358,7 @@ extension Letter {
         case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
         case storyId, storyVersion, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
         case carriedItem, itemTriggered
-        case facts, rewards, weatherCode, temperatureC, place, photoFile
+        case facts, rewards, rewardItems, memoryReference, weatherCode, temperatureC, place, photoFile
     }
 
     public init(from decoder: Decoder) throws {
@@ -373,6 +391,8 @@ extension Letter {
         itemTriggered = try values.decodeIfPresent(Bool.self, forKey: .itemTriggered)
         facts = try values.decode([FactSnapshot].self, forKey: .facts, default: [])
         rewards = try values.decode(StoryRewards.self, forKey: .rewards, default: StoryRewards())
+        rewardItems = try values.decode([Item].self, forKey: .rewardItems, default: [])
+        memoryReference = try values.decodeIfPresent(CareState.Memory.self, forKey: .memoryReference)
         weatherCode = try values.decodeIfPresent(Int.self, forKey: .weatherCode)
         temperatureC = try values.decodeIfPresent(Int.self, forKey: .temperatureC)
         place = try values.decode([String: Place].self, forKey: .place, default: [:])
@@ -381,11 +401,12 @@ extension Letter {
 }
 
 extension DayRecord {
-    private enum CodingKeys: String, CodingKey { case fuel, byClient, arrivals, newCountries }
+    private enum CodingKeys: String, CodingKey { case fuel, byClient, arrivals, newCountries, mainWindowOpened }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         fuel = try values.decode(Int.self, forKey: .fuel, default: 0)
+        mainWindowOpened = try values.decode(Bool.self, forKey: .mainWindowOpened, default: false)
         byClient = try values.decode([String: Int].self, forKey: .byClient, default: [:])
         arrivals = try values.decode([String].self, forKey: .arrivals, default: [])
         newCountries = try values.decode([String].self, forKey: .newCountries, default: [])

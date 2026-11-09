@@ -146,6 +146,7 @@ extension SaveMigrations {
             2: { JourneyMigrations.migrateV2($0) },
             3: { $0 },
             4: { JourneyMigrations.migrateV4($0) },
+            5: { $0 }, // Opening history starts now; never infer absence from usage or old mail.
         ])
     }
 }

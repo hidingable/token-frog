@@ -229,7 +229,7 @@ struct MailTab: View {
                                 HStack(spacing: 6) {
                                     Rectangle().fill(letter.read ? Color.clear : theme.newMailFill).frame(width: 6, height: 6)
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text(LetterComposer.text(for: letter, l10n: l10n, petName: model.petName, catalog: catalog).title)
+                                        Text(LetterComposer.text(for: letter, l10n: l10n, petName: model.petName, catalog: catalog, letters: model.state?.letters ?? []).title)
                                             .fixedSize(horizontal: false, vertical: true)
                                         Text(l10n.day(letter.date, full: true)).foregroundStyle(theme.textMuted)
                                     }
@@ -276,7 +276,7 @@ struct LetterView: View {
     var model: AppModel? = nil
 
     var body: some View {
-        let text = LetterComposer.text(for: letter, l10n: l10n, petName: petName, catalog: catalog)
+        let text = LetterComposer.text(for: letter, l10n: l10n, petName: petName, catalog: catalog, letters: model?.state?.letters ?? [])
         let place = LetterComposer.place(for: letter, l10n: l10n)
         let weather = letter.weatherCode.flatMap { code in
             letter.temperatureC.map { "\($0)°C \(Enricher.weatherName(code, l10n: l10n))" }
@@ -303,6 +303,19 @@ struct LetterView: View {
             }
             Text(text.voice).font(.system(size: 14)).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
             Text(text.signature).font(Theme.pixel()).frame(maxWidth: .infinity, alignment: .trailing)
+
+            if let reference = letter.memoryReference, let model {
+                Button { model.openCollection(.memories) } label: {
+                    Text(l10n("letter.openMemory")).font(Theme.pixel()).underline()
+                        .fixedSize(horizontal: false, vertical: true)
+                }.buttonStyle(.plain)
+                if model.letters.contains(where: { $0.id == reference.letterId }) {
+                    Button { model.openCollectionLetter(reference.letterId) } label: {
+                        Text(l10n("memory.openLetter")).font(Theme.pixel()).underline()
+                            .fixedSize(horizontal: false, vertical: true)
+                    }.buttonStyle(.plain)
+                }
+            }
 
             if !letter.facts.isEmpty {
                 divider
@@ -371,7 +384,8 @@ struct LetterView: View {
             Text(l10n("letter.remembered")).font(Theme.pixel()).foregroundStyle(theme.paperCompanionText)
             if let next = model.followUp(for: letter) {
                 Button { model.openFollowUp(next) } label: {
-                    Text(l10n("letter.followUp", next.id)).font(Theme.pixel()).foregroundStyle(theme.paperCompanionText)
+                    Text(l10n("letter.followUp", LetterComposer.number(for: next, letters: model.state?.letters ?? [])!))
+                        .font(Theme.pixel()).foregroundStyle(theme.paperCompanionText)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .buttonStyle(.plain)

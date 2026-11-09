@@ -1,6 +1,40 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "memory.citedCompanion": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在《%@》里又想起"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remembered in “%@”"
+          }
+        }
+      }
+    },
+    "collection.companionOrigin": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "来自《%@》"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From “%@”"
+          }
+        }
+      }
+    },
     "accounts.title": {
       "extractionState": "manual",
       "localizations": {
@@ -7142,6 +7176,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "Read the original reply ›"
+          }
+        }
+      }
+    },
+    "letter.postcardTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "歇脚明信片"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A rest-day postcard"
+          }
+        }
+      }
+    },
+    "letter.reunionTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重逢信"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Together again"
+          }
+        }
+      }
+    },
+    "letter.openMemory": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "翻开这段记忆"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open this memory"
+          }
+        }
+      }
+    },
+    "memory.citedLetter": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在第 %lld 封信里又想起"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remembered in letter %lld"
           }
         }
       }

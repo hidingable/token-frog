@@ -32,6 +32,7 @@ struct MemoryBookDisplay {
         let letterId: Int?
         var cause: String?
         var sourceLetterId: Int?
+        var citedLetterIds: [Int] = []
     }
 
     let entries: [Entry]
@@ -88,6 +89,15 @@ struct MemoryBookDisplay {
             }
             entries.append(Entry(id: "special:\(day.kind.rawValue)", category: .special, date: day.date,
                                  text: text, location: location(letter), letterId: letter?.id))
+        }
+        for index in entries.indices {
+            let entry = entries[index]
+            let kind = entry.category == .replies ? "reply" : "fulfilled"
+            guard entry.category != .special else { continue }
+            entries[index].citedLetterIds = Array(Set(journey.letters.filter {
+                $0.deliverAt <= now && $0.memoryReference?.kind == kind
+                    && $0.memoryReference?.letterId == entry.letterId && $0.memoryReference?.date == entry.date
+            }.map(\.id))).sorted()
         }
         self.entries = entries.sorted {
             if $0.date != $1.date { return $0.date > $1.date }
@@ -150,6 +160,11 @@ struct MemoryBookView: View {
             }
             if let letterId = entry.letterId { letterLink(letterId, title: l10n("memory.openLetter")) }
             if let source = entry.sourceLetterId { letterLink(source, title: l10n("memory.openReply")) }
+            ForEach(entry.citedLetterIds, id: \.self) { id in
+                if let letter = model.state?.letters.first(where: { $0.id == id }) {
+                    letterLink(id, title: LetterComposer.citation(for: letter, letters: model.state?.letters ?? [], l10n: l10n))
+                }
+            }
         }
     }
 

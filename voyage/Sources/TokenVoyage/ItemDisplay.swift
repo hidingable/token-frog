@@ -1,6 +1,6 @@
 import VoyageCore
 
-/// Localized display data is derived from the catalog, never copied into the save.
+/// New companion mail uses saved item snapshots; legacy items resolve through the catalog.
 struct ItemDisplay: Equatable, Identifiable {
     let item: Item
     let name: String
@@ -35,7 +35,7 @@ extension LetterComposer {
     static func brought(for letter: Letter, care: CareState?, catalog: CityCatalog, l10n: L10n) -> BroughtItems? {
         // The rarity stamp distinguishes these rewards from older saved letters.
         guard let rarity = letter.rewards.dropRarity else { return nil }
-        let items = letter.rewards.itemIds.compactMap { catalog.items.find($0) }.map { ItemDisplay($0, l10n: l10n, rarity: rarity) }
+        let items = letter.rewards.itemIds.compactMap { id in letter.rewardItems.first { $0.id == id } ?? catalog.items.find(id) }.map { ItemDisplay($0, l10n: l10n, rarity: rarity) }
         let menus = letter.rewards.menuIds.compactMap { catalog.items.find($0) }.map { ItemDisplay($0, l10n: l10n) }
         let city = letter.rewards.duplicateClueCityId
         return BroughtItems(
