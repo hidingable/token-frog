@@ -34,6 +34,7 @@ extension CareEngine {
             care.weekly.stamps = []
         }
         care.companionDays.append(date)
+        MemoryBook.recordCompanionMilestone(care: &care)
         care.weekly.stamps.append(date)
         if [4, 6].contains(care.weekly.stamps.count) {
             let id = "\(weekStart)#\(care.weekly.stamps.count)"

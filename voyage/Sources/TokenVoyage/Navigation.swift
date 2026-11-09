@@ -13,7 +13,7 @@ enum MailFilter: String, CaseIterable, Identifiable, Sendable {
 }
 
 enum CollectionTab: String, CaseIterable, Identifiable, Sendable {
-    case passport, bag, souvenirs, menus
+    case passport, bag, souvenirs, menus, memories
     var id: String { rawValue }
 }
 

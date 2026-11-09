@@ -343,7 +343,7 @@ private struct ArchiveSandbox {
         #expect(!output.contains("accessToken"))
     }
 
-    @Test(arguments: ["route", "currentCity", "targetCity", "startDate", "openDate", "reversedDates", "dayKey", "stampDate", "letterDate", "careHatched", "careWeek", "careCompanion", "careStamp", "careMemory"])
+    @Test(arguments: ["route", "currentCity", "targetCity", "startDate", "openDate", "reversedDates", "dayKey", "stampDate", "letterDate", "careHatched", "careWeek", "careCompanion", "careStamp", "careMemory", "careSpecialDay"])
     func importRejectsRuntimeInvariantViolationsWithoutChangingSaves(problem: String) throws {
         let box = try ArchiveSandbox()
         defer { box.cleanUp() }
@@ -373,6 +373,7 @@ private struct ArchiveSandbox {
         case "careCompanion": care["companionDays"] = ["2026-13-01"]
         case "careStamp": care["weekly"] = ["weekStart": "2026-11-02", "stamps": ["invalid"]]
         case "careMemory": care["memories"] = [["kind": "reply", "date": "invalid", "letterId": 1]]
+        case "careSpecialDay": care["specialDays"] = [["kind": "hatched", "date": "2026-02-30", "letterId": 0]]
         default: break
         }
         object["journey"] = journey

@@ -6856,6 +6856,295 @@
           }
         }
       }
+    },
+    "collection.memories": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "记忆簿"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Memory book"
+          }
+        }
+      }
+    },
+    "memory.intro": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你说过的话，它一直记着。沿着这些记忆，可以找到当时的信。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The words you shared, and the things that stayed. Follow a memory back to its letter."
+          }
+        }
+      }
+    },
+    "memory.replies": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你说过的话"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Words you shared"
+          }
+        }
+      }
+    },
+    "memory.learned": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "它学会的事"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Things it learned"
+          }
+        }
+      }
+    },
+    "memory.special": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "特别的日子"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Special days"
+          }
+        }
+      }
+    },
+    "memory.repliesEmpty": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还没有留下回应。读信时回应一句，这里就会记下。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No replies yet. Share a reply while reading a letter, and it will find a home here."
+          }
+        }
+      }
+    },
+    "memory.learnedEmpty": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还在攒故事。等它做了你说过的事，会把心得记在这里。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The story is still growing. When it follows your advice, its reflections will appear here."
+          }
+        }
+      }
+    },
+    "memory.specialEmpty": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "特别的日子会留在这里，一起慢慢攒。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is room here for the special days you will share."
+          }
+        }
+      }
+    },
+    "memory.youSaid": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你说：“%@”"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You said: “%@”"
+          }
+        }
+      }
+    },
+    "memory.because": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "因为你在 %@ · %@ 说过：“%@”"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Because on %@, in %@, you said: “%@”"
+          }
+        }
+      }
+    },
+    "memory.unavailable": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这段记忆的原信内容暂时找不到了。记忆还留在这里。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The original letter text is unavailable. This memory is still kept here."
+          }
+        }
+      }
+    },
+    "memory.causeUnavailable": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这件事来自你的一次回应，原来的回应暂时找不到了。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This grew from one of your replies. The original reply is unavailable."
+          }
+        }
+      }
+    },
+    "memory.hatched": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 孵出来了。你们的故事从这一天开始。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ hatched. This is where your story began."
+          }
+        }
+      }
+    },
+    "memory.firstLetter": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 寄出了第一封旅行信。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ sent the first travel letter."
+          }
+        }
+      }
+    },
+    "memory.hundredDays": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你和 %@ 一起度过了 100 个陪伴日。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You and %@ have shared 100 companion days."
+          }
+        }
+      }
+    },
+    "memory.openLetter": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "回看这封信 ›"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read this letter ›"
+          }
+        }
+      }
+    },
+    "memory.openReply": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "回看当时的回应 ›"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read the original reply ›"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

@@ -147,7 +147,14 @@ private func substantialOnboardingHistory() -> [DayDetail] {
                 #expect(model.care?.petName == localizationCatalog.pets.find(PetID(rawValue: "snail"))!.names["zh-Hans"]!)
                 #expect(model.care?.processedLetterIds == [0])
             }
-            if let existingCare { #expect(try Data(contentsOf: fixture.careURL) == existingCare) }
+            if let existingCare {
+                let original = try JSONDecoder().decode(CareState.self, from: existingCare)
+                var saved = try JSONDecoder().decode(CareState.self, from: Data(contentsOf: fixture.careURL))
+                #expect(saved.specialDays.count == 1 && saved.specialDays.first?.kind == .hatched)
+                // Startup may backfill milestone references, preserving every existing care field.
+                saved.specialDays = original.specialDays
+                #expect(saved == original)
+            }
         }
     }
 

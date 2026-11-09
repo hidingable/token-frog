@@ -45,7 +45,7 @@ struct L10n: Sendable {
     // Every key selected at runtime is explicit, so catalog tests can verify the whole table.
     static let tabKeys: [MainTab: String] = [.home: "nav.postOffice", .journey: "nav.journey", .mail: "nav.mail", .collection: "nav.collection", .data: "nav.data"]
     static let mailFilterKeys: [MailFilter: String] = [.all: "mail.all", .travel: "mail.travel"]
-    static let collectionTabKeys: [CollectionTab: String] = [.passport: "nav.passport", .bag: "collection.bag", .souvenirs: "collection.souvenirs", .menus: "collection.menus"]
+    static let collectionTabKeys: [CollectionTab: String] = [.passport: "nav.passport", .bag: "collection.bag", .souvenirs: "collection.souvenirs", .menus: "collection.menus", .memories: "collection.memories"]
     static let dataTabKeys: [DataTab: String] = [.dashboard: "nav.dashboard", .quota: "nav.quota"]
     static let periodKeys: [DashboardPeriod: String] = [.today: "period.today", .week: "period.week", .month: "period.month", .quarter: "period.quarter", .year: "period.year", .all: "period.all"]
     static let metricKeys: [DashboardMetric: String] = [.total: "metric.total", .fuel: "metric.fuel", .cost: "metric.cost", .messages: "metric.messages"]

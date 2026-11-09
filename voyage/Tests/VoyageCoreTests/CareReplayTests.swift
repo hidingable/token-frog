@@ -68,6 +68,7 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
         #expect(normal.letters.map(\.carriedItem) == doubled.letters.map(\.carriedItem))
         #expect(normal.letters.map(\.itemTriggered) == doubled.letters.map(\.itemTriggered))
         #expect(care.memories == doubledCare.memories)
+        #expect(care.specialDays == doubledCare.specialDays)
         #expect(care.pendingPromises == doubledCare.pendingPromises)
         #expect(normal.letters[2].fulfilledReplyId == "ask-next-time")
         #expect(normal.letters.contains { $0.storyId?.hasSuffix(".fulfill") == true })

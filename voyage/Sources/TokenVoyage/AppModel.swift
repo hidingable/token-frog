@@ -864,7 +864,8 @@ final class AppModel {
     }
 
     func completeOnboarding() {
-        guard !isLocked, !isSnapshot, let saves = onboarding?.saves(now: clock()) else { return }
+        guard !isLocked, !isSnapshot, var saves = onboarding?.saves(now: clock()) else { return }
+        MemoryBook.backfill(journey: saves.journey, care: &saves.care)
         do {
             try store.save(saves.journey)
             try store.save(saves.care)

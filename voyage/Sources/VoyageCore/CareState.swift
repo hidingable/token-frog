@@ -18,6 +18,7 @@ public struct CareState: Codable, Equatable, Sendable {
     public var wish: String?
     public var pendingPromises: [Promise] = []
     public var memories: [Memory] = []
+    public var specialDays: [SpecialDay] = []
     public var pity = 0
     public var processedLetterIds: [Int] = []
     public var boxesOpened = 0
@@ -101,6 +102,15 @@ public struct CareState: Codable, Equatable, Sendable {
         public var replyId: String?
     }
 
+    /// References to companion milestones; prose is resolved in the current language.
+    public struct SpecialDay: Codable, Equatable, Sendable, Identifiable {
+        public enum Kind: String, Codable, Sendable { case hatched, firstLetter, hundredDays }
+        public var kind: Kind
+        public var date: String
+        public var letterId: Int?
+        public var id: Kind { kind }
+    }
+
     public init(petName: String, species: PetID, hatchedAt: String, calendar: Calendar = .current) {
         self.petName = petName
         self.species = species
@@ -133,6 +143,7 @@ public struct CareState: Codable, Equatable, Sendable {
         wish = try values.decodeIfPresent(String.self, forKey: .wish)
         pendingPromises = try values.decodeIfMissing([Promise].self, forKey: .pendingPromises, default: [])
         memories = try values.decodeIfMissing([Memory].self, forKey: .memories, default: [])
+        specialDays = try values.decodeIfMissing([SpecialDay].self, forKey: .specialDays, default: [])
         pity = try values.decodeIfMissing(Int.self, forKey: .pity, default: 0)
         processedLetterIds = try values.decodeIfMissing([Int].self, forKey: .processedLetterIds, default: [])
         boxesOpened = try values.decodeIfMissing(Int.self, forKey: .boxesOpened, default: 0)

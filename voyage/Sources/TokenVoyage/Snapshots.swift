@@ -132,6 +132,18 @@ enum Snapshots {
         model.collectionTab = .passport
         main(.collection, name: "collection-passport", size: CGSize(width: 760, height: 400))
         if let catalog = model.catalog {
+            let memories = memoryExamples(catalog: catalog, now: model.now, petName: model.petName)
+            model.collectionTab = .memories
+            model.withSnapshotCare({ $0 = memories.care }) {
+                main(.collection, name: "collection-memories", size: CGSize(width: 760, height: 1040), update: { $0 = memories.journey })
+            }
+            model.withSnapshotCare({ care in
+                care = memories.care
+                care.memories = []
+                care.specialDays = []
+            }) {
+                main(.collection, name: "collection-memories-empty", size: CGSize(width: 760, height: 620), update: { $0 = memories.journey })
+            }
             let examples = collectionExamples(catalog: catalog, now: model.now, petName: model.petName)
             model.withSnapshotCare({ $0 = examples.care }) {
                 for (selection, name) in [
@@ -281,6 +293,10 @@ enum Snapshots {
 
     /// The mail variants compose real content and a payoff entirely in memory.
     static func mailExamples(catalog: CityCatalog, now: Date, petName: String) -> JourneyState {
+        memoryExamples(catalog: catalog, now: now, petName: petName).journey
+    }
+
+    static func memoryExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
         let start = Calendar.current.date(byAdding: .day, value: -3, to: now)!
         var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: start), now: start, catalog: catalog)
         var care = CareState(petName: petName, species: catalog.pets.defaultID, hatchedAt: journey.startDate)
@@ -300,7 +316,7 @@ enum Snapshots {
             journey.letters[index].deliverAt = min(journey.letters[index].deliverAt, now)
             journey.letters[index].enrichmentDone = true
         }
-        return journey
+        return (journey, care)
     }
 
     /// The collection and ritual fixtures share acquisitions and their original letters, entirely in memory.

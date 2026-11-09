@@ -271,7 +271,8 @@ public final class SaveStore {
               care.trailClues.values.allSatisfy({ (0..<Int.max).contains($0) }),
               care.pendingPromises.allSatisfy({ (0..<Int.max).contains($0.attempts) }),
               care.companionDays.allSatisfy(validDay), care.weekly.stamps.allSatisfy(validDay),
-              care.memories.allSatisfy({ validDay($0.date) }) else { throw SaveArchiveError.invalidSave(.care) }
+              care.memories.allSatisfy({ validDay($0.date) }),
+              care.specialDays.allSatisfy({ validDay($0.date) }) else { throw SaveArchiveError.invalidSave(.care) }
         return ValidatedSaveArchive(exportedAt: exportedAt, appVersion: header.appVersion,
                                     journey: journey, care: care, journeyData: journeyData, careData: careData)
     }

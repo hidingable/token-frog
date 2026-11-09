@@ -60,6 +60,7 @@ public enum CareEngine {
             care.bag.todayItem = nil
             care.processedLetterIds.append(letter.id)
         }
+        MemoryBook.backfill(journey: journey, care: &care)
     }
 
     @discardableResult

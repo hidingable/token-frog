@@ -124,6 +124,7 @@ struct MainView: View {
                     case .bag: BagCollectionView(model: model)
                     case .souvenirs: SouvenirsCollectionView(model: model)
                     case .menus: MenusCollectionView(model: model)
+                    case .memories: MemoryBookView(model: model)
                     }
                 }
                 .padding(12)

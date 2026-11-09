@@ -3,10 +3,10 @@ import Testing
 import VoyageCore
 @testable import TokenVoyage
 
-@Test func navigationContainsOnlyTheFiveM1DestinationsAndTheirVisibleChildren() {
+@Test func navigationContainsTheFiveDestinationsAndImplementedChildren() {
     #expect(MainTab.allCases == [.home, .journey, .mail, .collection, .data])
     #expect(MailFilter.allCases == [.all, .travel])
-    #expect(CollectionTab.allCases == [.passport, .bag, .souvenirs, .menus])
+    #expect(CollectionTab.allCases == [.passport, .bag, .souvenirs, .menus, .memories])
     #expect(DataTab.allCases == [.dashboard, .quota])
 }
 
