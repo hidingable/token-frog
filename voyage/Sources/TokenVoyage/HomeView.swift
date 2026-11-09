@@ -58,6 +58,7 @@ struct HomeTab: View {
                             .frame(width: layout.rightWidth)
                         }
                         WeekCard(model: model, care: care)
+                        WishCard(model: model, care: care)
                     }
                     .frame(width: layout.contentWidth)
                     .frame(maxWidth: .infinity, alignment: .top)

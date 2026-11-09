@@ -48,6 +48,8 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var rewardItems: [Item] = []
     public var memoryReference: CareState.Memory?
     public var weeklySummary: WeeklyMailSummary?
+    /// Identifies the saved wish whose one-time explanation is included in this text snapshot.
+    public var wishExplanationAt: Date?
     public var weatherCode: Int?
     public var temperatureC: Int?
     public var place: [String: Place] = [:]
@@ -367,7 +369,7 @@ extension Letter {
         case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
         case storyId, storyVersion, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
         case carriedItem, itemTriggered
-        case facts, rewards, rewardItems, memoryReference, weeklySummary, weatherCode, temperatureC, place, photoFile
+        case facts, rewards, rewardItems, memoryReference, weeklySummary, wishExplanationAt, weatherCode, temperatureC, place, photoFile
     }
 
     public init(from decoder: Decoder) throws {
@@ -403,6 +405,7 @@ extension Letter {
         rewardItems = try values.decode([Item].self, forKey: .rewardItems, default: [])
         memoryReference = try values.decodeIfPresent(CareState.Memory.self, forKey: .memoryReference)
         weeklySummary = try values.decodeIfPresent(WeeklyMailSummary.self, forKey: .weeklySummary)
+        wishExplanationAt = try values.decodeIfPresent(Date.self, forKey: .wishExplanationAt)
         weatherCode = try values.decodeIfPresent(Int.self, forKey: .weatherCode)
         temperatureC = try values.decodeIfPresent(Int.self, forKey: .temperatureC)
         place = try values.decode([String: Place].self, forKey: .place, default: [:])

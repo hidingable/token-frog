@@ -36,7 +36,9 @@ private struct PickerCatalogSandbox {
         let encoder = JSONEncoder()
         let manifest: [String: Any] = ["formatVersion": 1, "packVersion": 1, "minAppVersion": "1.0.0"]
         try JSONSerialization.data(withJSONObject: manifest).write(to: directory.appendingPathComponent("manifest.json"))
-        try encoder.encode(Set(cities.flatMap(\.tags)).sorted()).write(to: directory.appendingPathComponent("tags.json"))
+        for file in ["tags.json", "wish.json"] {
+            try FileManager.default.copyItem(at: contentDirectory.appendingPathComponent(file), to: directory.appendingPathComponent(file))
+        }
         let countries = Dictionary(uniqueKeysWithValues: Set(cities.map(\.countryCode)).map { ($0, ["en": $0, "zh-Hans": $0]) })
         try encoder.encode(countries).write(to: directory.appendingPathComponent("countries.json"))
         try (cities.map(\.id).joined(separator: "\n") + "\n").write(to: directory.appendingPathComponent("published-ids.txt"), atomically: true, encoding: .utf8)

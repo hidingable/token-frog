@@ -16,6 +16,7 @@ public struct CareState: Codable, Equatable, Sendable {
     public var trailClues: [String: Int] = [:]
     public var weekly: Weekly
     public var wish: String?
+    public var wishResolution: WishResolution?
     public var pendingPromises: [Promise] = []
     public var memories: [Memory] = []
     public var specialDays: [SpecialDay] = []
@@ -141,6 +142,7 @@ public struct CareState: Codable, Equatable, Sendable {
         trailClues = try values.decodeIfMissing([String: Int].self, forKey: .trailClues, default: [:])
         weekly = try values.decodeIfMissing(Weekly.self, forKey: .weekly, default: weekly)
         wish = try values.decodeIfPresent(String.self, forKey: .wish)
+        wishResolution = try values.decodeIfPresent(WishResolution.self, forKey: .wishResolution)
         pendingPromises = try values.decodeIfMissing([Promise].self, forKey: .pendingPromises, default: [])
         memories = try values.decodeIfMissing([Memory].self, forKey: .memories, default: [])
         specialDays = try values.decodeIfMissing([SpecialDay].self, forKey: .specialDays, default: [])

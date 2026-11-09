@@ -51,6 +51,10 @@ final class AppModel {
     private(set) var recoveryIssues: [SaveRecoveryIssue] = []
     private(set) var recoveryError: AppError?
     private(set) var care: CareState?
+    private(set) var isSavingWish = false
+    private var wishSaveGeneration = 0
+    private let wishModel: WishContent.Model?
+    private let wishTimeout: Duration
     private(set) var onboarding: OnboardingFlow?
     var tab: MainTab = .home
     private(set) var homePage: HomePage = .room
@@ -165,6 +169,8 @@ final class AppModel {
          usageReader: @escaping @Sendable (String?, String) async throws -> [DayDetail] = UsageSource.fetch,
          hoursReader: @escaping @Sendable (String, String) async throws -> [HourUsage] = UsageSource.fetchHours,
          enrichmentReader: @escaping Enricher.Fetch = { await Enricher.fetch($0) },
+         wishModel: WishContent.Model? = { try await LocalWishModel.selectTags(text: $0, language: $1, allowedTags: $2) },
+         wishTimeout: Duration = .seconds(3),
          runtimeEnabled: Bool = true, watcherRoots: @escaping @Sendable () -> [String] = FileWatcher.existingRoots,
          notificationCenter: (any LetterNotificationCenter)? = nil,
          loginItemManager: (any LoginItemManaging)? = nil,
@@ -179,6 +185,8 @@ final class AppModel {
         self.usageReader = usageReader
         self.hoursReader = hoursReader
         self.enrichmentReader = enrichmentReader
+        self.wishModel = wishModel
+        self.wishTimeout = wishTimeout
         self.runtimeEnabled = runtimeEnabled
         self.watcherRoots = watcherRoots
         self.floatingReactionDuration = floatingReactionDuration
@@ -284,6 +292,40 @@ final class AppModel {
 
     func openPostOffice() { navigate(to: .home) }
 
+    @discardableResult
+    func setWish(_ rawText: String) async -> Bool {
+        // Blank input means no wish, not an unmatched wish that the next letter apologises for.
+        let text = rawText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !isSnapshot, !isLocked, onboarding == nil, let catalog,
+              text.count <= WishEngine.characterLimit else { return false }
+        refreshWishWeek()
+        wishSaveGeneration += 1
+        guard text != (care?.wish ?? "") || (!text.isEmpty && care?.wishResolution == nil) else {
+            isSavingWish = false
+            return true
+        }
+        let request = wishSaveGeneration
+        let generation = backgroundGeneration
+        let writtenAt = clock()
+        isSavingWish = true
+        defer { if request == wishSaveGeneration { isSavingWish = false } }
+        let tags = await catalog.wishes.resolve(text, language: l10n.language, model: wishModel, timeout: wishTimeout)
+        guard !Task.isCancelled, request == wishSaveGeneration, generation == backgroundGeneration,
+              !isLocked, var care else { return false }
+        WishEngine.write(text, tags: tags, at: writtenAt, care: &care)
+        WishEngine.refreshWeek(at: clock(), care: &care)
+        self.care = care
+        persist()
+        return true
+    }
+
+    private func refreshWishWeek() {
+        guard !isSnapshot, !isLocked, var care,
+              WishEngine.refreshWeek(at: clock(), care: &care) else { return }
+        self.care = care
+        persist()
+    }
+
     func activateHomeAction() {
         if let letter = unreadInReadingOrder.first {
             navigate(to: .home)
@@ -381,6 +423,7 @@ final class AppModel {
     }
 
     private func processCompanionMail() {
+        refreshWishWeek()
         guard !isSnapshot, !isLocked, onboarding == nil, var state, var care, let catalog else { return }
         now = clock()
         let previousState = state
@@ -558,6 +601,7 @@ final class AppModel {
     func tick() {
         guard !isLocked else { return }
         now = clock()
+        refreshWishWeek()
         if let lastMovement, now.timeIntervalSince(lastMovement) > 300 { isMoving = false }
         Task { await checkNotifications() }
     }
@@ -577,6 +621,7 @@ final class AppModel {
 
     func scan() async {
         guard !isLocked, onboarding == nil, !isScanning, let state, let catalog else { return }
+        refreshWishWeek()
         let generation = backgroundGeneration
         isScanning = true
         defer { isScanning = false }
@@ -607,7 +652,8 @@ final class AppModel {
                 historyDate = todayKey
             }
             let before = state.totalFuel
-            state.sync(today: today, finalized: finalized, catalog: catalog, deliveryTime: deliveryTime)
+            refreshWishWeek()
+            state.sync(today: today, finalized: finalized, catalog: catalog, wishTags: care.map(WishEngine.tags) ?? [], deliveryTime: deliveryTime)
             self.state = state
             processLetters(persistChanges: false, weeklyMail: true)
             if state.totalFuel > before {
@@ -748,7 +794,9 @@ final class AppModel {
         let previousState = state
         let previousCare = care
         state.enableWeeklyMail(on: DayKey.string(from: clock()))
-        CareEngine.process(journey: &state, care: &care, stories: catalog.stories, catalog: catalog, wishTags: [])
+        WishEngine.refreshWeek(at: clock(), care: &care)
+        let wishTags = WishEngine.tags(in: care)
+        CareEngine.process(journey: &state, care: &care, stories: catalog.stories, catalog: catalog, wishTags: wishTags)
         if weeklyMail {
             CareEngine.writeWeeklyMail(journey: &state, catalog: catalog, deliveryTime: deliveryTime)
         }

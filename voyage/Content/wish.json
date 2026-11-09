@@ -1,0 +1,170 @@
+{
+  "keywords": {
+    "zh-Hans": {
+      "coast": [
+        "靠海",
+        "海边",
+        "海岸",
+        "大海",
+        "沙滩",
+        "海滩",
+        "看海"
+      ],
+      "island": [
+        "海岛",
+        "岛屿",
+        "小岛",
+        "岛上"
+      ],
+      "mountain": [
+        "山",
+        "登山",
+        "爬山"
+      ],
+      "river": [
+        "河",
+        "江",
+        "溪流"
+      ],
+      "lake": [
+        "湖"
+      ],
+      "desert": [
+        "沙漠",
+        "沙丘"
+      ],
+      "capital": [
+        "首都"
+      ],
+      "heritage": [
+        "古城",
+        "古迹",
+        "历史",
+        "遗产",
+        "老街",
+        "寺庙"
+      ],
+      "food": [
+        "美食",
+        "吃",
+        "小吃",
+        "料理",
+        "餐",
+        "饭"
+      ],
+      "art": [
+        "艺术",
+        "画",
+        "美术",
+        "博物馆",
+        "雕塑"
+      ],
+      "market": [
+        "市场",
+        "集市",
+        "夜市",
+        "市集"
+      ],
+      "nature": [
+        "自然",
+        "森林",
+        "公园",
+        "花",
+        "草原",
+        "动物"
+      ]
+    },
+    "en": {
+      "coast": [
+        "coast",
+        "coastal",
+        "sea",
+        "seaside",
+        "ocean",
+        "beach",
+        "beaches",
+        "shore"
+      ],
+      "island": [
+        "island",
+        "islands"
+      ],
+      "mountain": [
+        "mountain",
+        "mountains",
+        "hiking",
+        "hike",
+        "climb"
+      ],
+      "river": [
+        "river",
+        "rivers",
+        "stream",
+        "streams"
+      ],
+      "lake": [
+        "lake",
+        "lakes"
+      ],
+      "desert": [
+        "desert",
+        "dunes"
+      ],
+      "capital": [
+        "capital",
+        "capitals"
+      ],
+      "heritage": [
+        "heritage",
+        "history",
+        "historic",
+        "ancient",
+        "old town",
+        "temple",
+        "temples"
+      ],
+      "food": [
+        "food",
+        "eat",
+        "eating",
+        "cuisine",
+        "meal",
+        "meals",
+        "snack",
+        "snacks"
+      ],
+      "art": [
+        "art",
+        "arts",
+        "painting",
+        "paint",
+        "draw",
+        "drawing",
+        "museum",
+        "museums",
+        "sculpture"
+      ],
+      "market": [
+        "market",
+        "markets",
+        "bazaar",
+        "bazaars"
+      ],
+      "nature": [
+        "nature",
+        "forest",
+        "forests",
+        "park",
+        "parks",
+        "flower",
+        "flowers",
+        "wildlife",
+        "grassland"
+      ]
+    }
+  },
+  "unmatched": {
+    "zh-Hans": "没太听懂，我先随便走走。",
+    "en": "I didn’t quite understand your wish, so I’ll wander for now."
+  }
+}

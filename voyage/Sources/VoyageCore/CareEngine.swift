@@ -50,11 +50,20 @@ public enum CareEngine {
                 if due { letter.fulfilledReplyId = promise!.replyId }
                 letter.itemTriggered = trigger && !due && letter.carriedItem.flatMap { catalog.items.find($0)?.habit } != nil
                 letter.rewards = catalog.items.drop(rewards: story.rewards, letter: letter, care: care, seed: journey.seed)
+                if let wish = care.wishResolution, care.wish != nil, wish.tags.isEmpty, wish.explanationLetterId == nil {
+                    for language in Language.allCases {
+                        letter.texts?[language.rawValue, default: ""] += "\n\n" + catalog.wishes.unmatched[language.rawValue]!
+                    }
+                    letter.wishExplanationAt = wish.parsedAt
+                }
                 journey.letters[index] = letter
             }
 
             // A saved story is authoritative even if the content pack has since changed.
             // Replaying only the care side repairs a crash between the two atomic save writes.
+            if let explainedAt = letter.wishExplanationAt, explainedAt == care.wishResolution?.parsedAt {
+                care.wishResolution?.explanationLetterId = letter.id
+            }
             if let fulfilled = letter.fulfilledReplyId, let promise, promise.replyId == fulfilled {
                 care.pendingPromises.removeFirst()
                 care.memories.append(.init(kind: "fulfilled", date: letter.date, letterId: letter.id, replyId: fulfilled))

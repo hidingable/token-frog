@@ -208,6 +208,23 @@ import Testing
         #expect(a.letters.filter { $0.kind == .weekly }.map(\.fuel) != b.letters.filter { $0.kind == .weekly }.map(\.fuel))
     }
 
+    @Test(arguments: [("", ""), ("。", "."), ("！", "!"), ("？", "?"), ("…", "…")])
+    func fulfilledHighlightCompletesBothLanguagesWithoutRepeatingPunctuation(chineseEnding: String, englishEnding: String) throws {
+        var (journey, _) = settledWeek()
+        var source = engineLetter(1, date: "2026-11-03")
+        source.fulfilledReplyId = "ask-next-time"
+        source.learnedTexts = ["zh-Hans": "多问一句就多半句故事" + chineseEnding,
+                               "en": "One more question can bring another half of a story" + englishEnding]
+        journey.letters = [source]
+        run(&journey)
+        let mail = try #require(journey.letters.last)
+        let chinese = try #require(mail.texts?["zh-Hans"]?.components(separatedBy: "\n\n").first { $0.contains("多问一句") })
+        let english = try #require(mail.texts?["en"]?.components(separatedBy: "\n\n").first { $0.contains("One more question") })
+        #expect(chinese == "这周想留住的一件事，是我真的把你的话放进了旅途：多问一句就多半句故事" + (chineseEnding.isEmpty ? "。" : chineseEnding))
+        #expect(english == "The thing I want to keep from this week is how your words became part of the journey: One more question can bring another half of a story" + (englishEnding.isEmpty ? "." : englishEnding))
+        #expect(journey.letters[0].learnedTexts == source.learnedTexts)
+    }
+
     @Test func highlightPriorityAndSnapshotsSurviveContentChangesAndDuplicateSavedIDs() throws {
         var (journey, care) = settledWeek()
         journey.letters = [engineLetter(1, date: "2026-11-03"), engineLetter(2, date: "2026-11-04")]

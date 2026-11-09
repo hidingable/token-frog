@@ -2,21 +2,22 @@ import Foundation
 import Testing
 @testable import VoyageCore
 
-private func replayCare(seed: UInt32, multiplier: Int, stories: StoryLibrary) -> (JourneyState, CareState) {
+private func replayCare(seed: UInt32, multiplier: Int, stories: StoryLibrary, wish: Bool = false) -> (JourneyState, CareState) {
     var (journey, care) = engineState(seed: seed)
+    if wish { WishEngine.write("看海", tags: ["coast"], at: DayKey.date(from: journey.openDate)!, care: &care) }
     for day in 0..<60 {
         let date = journey.openDate
         let next = DayKey.next(date, calendar: careCalendar)
         let amount = day % 9 == 8 ? 0 : (day % 5 + 1) * 3_000_000 * multiplier
         journey.sync(
             today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount, byClient: ["codex": amount])],
-            calendar: careCalendar, catalog: testCatalog
+            calendar: careCalendar, catalog: testCatalog, wishTags: WishEngine.tags(in: care)
         )
         // The same policy exercises explicit choices, random carry and invalid unowned choices.
         care.bag.owned = ["sketchbook", "note-slip", "raincoat", "old-camera", "lunchbox"]
         care.bag.todayItem = ["sketchbook", "note-slip", "raincoat", "old-camera", "lunchbox", nil, "unowned"][day % 7]
         if day % 6 != 5 { CareEngine.markCompanion(date: next, care: &care) }
-        CareEngine.process(journey: &journey, care: &care, stories: stories, catalog: testCatalog)
+        CareEngine.process(journey: &journey, care: &care, stories: stories, catalog: testCatalog, wishTags: WishEngine.tags(in: care))
         if let letter = journey.letters.last, letter.kind == .daily, letter.id % 4 == 1 {
             // Policy depends only on letter number, including which habit to encourage.
             let replyId = letter.id % 8 == 1 ? "ask-next-time" : "look-closer"
@@ -49,6 +50,23 @@ private let cachedReplayStories: StoryLibrary = {
 private func replayStories() -> StoryLibrary { cachedReplayStories }
 
 @Suite struct CareReplayTests {
+    @Test(arguments: [UInt32(1), 7, 42])
+    func savedWishAndDoubledUsagePreserveRaising(seed: UInt32) {
+        let (normal, care) = replayCare(seed: seed, multiplier: 1, stories: replayStories(), wish: true)
+        let (doubled, doubledCare) = replayCare(seed: seed, multiplier: 2, stories: replayStories(), wish: true)
+        #expect(normal.letters.map(\.date) == doubled.letters.map(\.date))
+        #expect(normal.letters.map(\.fulfilledReplyId) == doubled.letters.map(\.fulfilledReplyId))
+        #expect(normal.letters.map(\.rewards.dropRarity) == doubled.letters.map(\.rewards.dropRarity))
+        #expect(normal.letters.map(\.carriedItem) == doubled.letters.map(\.carriedItem))
+        #expect(normal.letters.map(\.itemTriggered) == doubled.letters.map(\.itemTriggered))
+        #expect(care.habits == doubledCare.habits && care.pity == doubledCare.pity)
+        #expect(care.companionDays == doubledCare.companionDays && care.weekly == doubledCare.weekly)
+        #expect(care.identity == doubledCare.identity && care.pendingPromises == doubledCare.pendingPromises)
+        #expect(care.memories == doubledCare.memories && care.specialDays == doubledCare.specialDays)
+        #expect(Stage.current(companionDays: care.companionDays.count) == Stage.current(companionDays: doubledCare.companionDays.count))
+        #expect(doubled.totalFuel == normal.totalFuel * 2)
+    }
+
     @Test(arguments: Array(UInt32(0)..<32))
     func sixtyDaysOfDoubledUsagePreserveAllCompanionProgress(seed: UInt32) {
         let stories = replayStories()

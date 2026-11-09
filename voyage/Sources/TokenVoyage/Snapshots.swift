@@ -57,7 +57,9 @@ enum Snapshots {
         func main(_ tab: MainTab, name: String, size: CGSize = mainSize, dashboard: DashboardSelection = DashboardSelection(), update: (inout JourneyState) -> Void = { _ in }) {
             model.withSnapshotState({ state in
                 update(&state)
-                if let todayUsage, let catalog = model.catalog { state.sync(today: todayUsage, catalog: catalog) }
+                if let todayUsage, let catalog = model.catalog {
+                    state.sync(today: todayUsage, catalog: catalog, wishTags: model.care.map(WishEngine.tags) ?? [])
+                }
             }) {
                 model.navigate(to: tab)
                 render(MainView(model: model, dashboard: dashboard), size: size, name: name, directory, model: model)
@@ -68,6 +70,13 @@ enum Snapshots {
             let examples = homeExamples(catalog: catalog, now: model.now, petName: model.petName)
             model.withSnapshotCare({ $0 = examples.care }) {
                 main(.home, name: "main-home", update: { $0 = examples.journey })
+                main(.home, name: "home-wish-empty", size: CGSize(width: 760, height: 1000), update: { $0 = examples.journey })
+                model.withSnapshotCare({ care in
+                    let text = model.l10n("snapshot.wishWritten")
+                    WishEngine.write(text, tags: ["coast", "food", "art"], at: model.now, care: &care)
+                }) {
+                    main(.home, name: "home-wish-written", size: CGSize(width: 760, height: 1000), update: { $0 = examples.journey })
+                }
                 model.withSnapshotState({ $0 = examples.journey }) {
                     model.showProfile()
                     render(MainView(model: model), size: mainSize, name: "profile", directory, model: model)
@@ -110,6 +119,11 @@ enum Snapshots {
         main(.mail, name: "main-mail")
         if let catalog = model.catalog {
             let examples = mailExamples(catalog: catalog, now: model.now, petName: model.petName)
+            let unmatched = wishMailExamples(catalog: catalog, now: model.now, petName: model.petName)
+            model.withSnapshotCare({ $0 = unmatched.care }) {
+                model.selectedLetterID = unmatched.journey.letters.last?.id
+                main(.mail, name: "mail-wish-unmatched", size: CGSize(width: 760, height: 1000), update: { $0 = unmatched.journey })
+            }
             model.selectedLetterID = 2
             main(.mail, name: "mail-story", update: { $0 = examples })
             model.selectedLetterID = 1
@@ -322,6 +336,22 @@ enum Snapshots {
         memoryExamples(catalog: catalog, now: now, petName: petName).journey
     }
 
+    static func wishMailExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
+        var example = homeExamples(catalog: catalog, now: now, petName: petName)
+        WishEngine.write("blorble blorble", tags: [], at: now, care: &example.care)
+        var letter = example.journey.letters.last { $0.kind == .daily }!
+        letter.id = (example.journey.letters.map(\.id).max() ?? 0) + 1
+        letter.storyId = nil
+        letter.storyVersion = nil
+        letter.texts = [:]
+        letter.deliverAt = now
+        letter.enrichmentDone = true
+        example.journey.letters.append(letter)
+        CareEngine.process(journey: &example.journey, care: &example.care, stories: catalog.stories, catalog: catalog,
+                           wishTags: WishEngine.tags(in: example.care))
+        return example
+    }
+
     static func memoryExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
         let start = Calendar.current.date(byAdding: .day, value: -3, to: now)!
         var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: start), now: start, catalog: catalog)
@@ -332,7 +362,7 @@ enum Snapshots {
             journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
                 DayUsage(date: day, fuel: 13_400_000, byClient: ["codex": 8_300_000, "claude": 5_100_000]),
             ], catalog: catalog)
-            CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog, wishTags: [])
+            CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
             if offset == 1 {
                 let first = journey.letters.first { $0.id == 1 }!
                 CareEngine.reply(letterId: first.id, replyId: first.replyOptions[0].id, date: first.date, journey: &journey, care: &care)

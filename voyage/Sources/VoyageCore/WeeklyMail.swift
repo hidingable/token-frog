@@ -144,7 +144,11 @@ extension CareEngine {
         letter.storyVersion = content.version
         letter.texts = ["zh-Hans", "en"].reduce(into: [:]) { result, language in
             func line(_ id: String, _ values: [String: String] = [:]) -> String {
-                StorySlots.render(content.lines[id]![language]!, values: values)
+                var text = StorySlots.render(content.lines[id]![language]!, values: values)
+                if id == "fulfilled", let ending = text.last, !"。！？.!?…".contains(ending) {
+                    text += language == "zh-Hans" ? "。" : "."
+                }
+                return text
             }
             var parts = [opening[language]!, line("summary", ["start": letterDay(keys[0], language: language, calendar: calendar), "end": letterDay(keys[5], language: language, calendar: calendar), "distance": Format.km(fuel: fuel)])]
             parts.append(vehicles.isEmpty ? line("noTools") : line("tools", ["tools": vehicles.map { "\(Vehicle.toolName($0.client)) \($0.percent)%" }.joined(separator: " · ")]))
