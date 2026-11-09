@@ -5,7 +5,7 @@ import VoyageCore
 
 @Test func navigationContainsTheFiveDestinationsAndImplementedChildren() {
     #expect(MainTab.allCases == [.home, .journey, .mail, .collection, .data])
-    #expect(MailFilter.allCases == [.all, .travel])
+    #expect(MailFilter.allCases == [.all, .travel, .postcards, .weekly])
     #expect(CollectionTab.allCases == [.passport, .bag, .souvenirs, .menus, .memories])
     #expect(DataTab.allCases == [.dashboard, .quota])
 }

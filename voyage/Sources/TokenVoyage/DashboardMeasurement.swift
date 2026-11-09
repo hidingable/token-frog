@@ -245,20 +245,26 @@ final class DashboardMeasurementFrames {
     enum Outcome: String { case drawn, timeout, unavailable }
 
     private let hostingView: NSView
+    private let now: () -> ContinuousClock.Instant
+    private let waitForNextPass: () async throws -> Void
     private let contentReady: () -> Bool
 
-    init(hostingView: NSView, contentReady: @escaping () -> Bool = { true }) {
+    init(hostingView: NSView, contentReady: @escaping () -> Bool = { true },
+         now: @escaping () -> ContinuousClock.Instant = { .now },
+         waitForNextPass: @escaping () async throws -> Void = { try await Task.sleep(for: .milliseconds(1)) }) {
         self.hostingView = hostingView
+        self.now = now
+        self.waitForNextPass = waitForNextPass
         self.contentReady = contentReady
     }
 
     func drawFrame(timeout: Duration = .seconds(2)) async throws -> Outcome {
-        let deadline = ContinuousClock.now.advanced(by: timeout)
+        let deadline = now().advanced(by: timeout)
         var previousBodies = DashboardMeasurementCounters.snapshot()[.body]?.count ?? 0
         var stablePasses = 0
         repeat {
             // The store publishes on MainActor. A nested RunLoop cannot let that queued work resume.
-            try await Task.sleep(for: .milliseconds(1))
+            try await waitForNextPass()
             let neededLayout = needsLayout(in: hostingView)
             hostingView.layoutSubtreeIfNeeded()
             let bodies = DashboardMeasurementCounters.snapshot()[.body]?.count ?? 0
@@ -268,9 +274,9 @@ final class DashboardMeasurementFrames {
                 stablePasses = 0
             }
             previousBodies = bodies
-        } while stablePasses < 2 && ContinuousClock.now < deadline
+        } while stablePasses < 2 && now() < deadline
 
-        guard stablePasses >= 2, ContinuousClock.now <= deadline else { return .timeout }
+        guard stablePasses >= 2, now() <= deadline else { return .timeout }
         guard let bitmap = hostingView.bitmapImageRepForCachingDisplay(in: hostingView.bounds) else {
             return .unavailable
         }

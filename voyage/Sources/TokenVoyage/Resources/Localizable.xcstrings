@@ -7247,6 +7247,102 @@
           }
         }
       }
+    },
+    "mail.postcards": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Postcards"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "明信片"
+          }
+        }
+      }
+    },
+    "mail.weekly": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Long letters"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "长信"
+          }
+        }
+      }
+    },
+    "mail.travelEmpty": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Travel letters are on their way. After a day of travel, a letter arrives the next day."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "旅行信还在路上。有用量的一天，次日会收到它的信。"
+          }
+        }
+      }
+    },
+    "mail.postcardsEmpty": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No postcards yet. A quiet day visiting the post office is worth remembering too."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这里还没有明信片。打开邮局歇脚的一天，也值得记下来。"
+          }
+        }
+      }
+    },
+    "mail.weeklyEmpty": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A long letter arrives on Sunday, gathering the stories from Monday through Saturday."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "长信会在周日送达，把周一到周六的故事放在一起。"
+          }
+        }
+      }
+    },
+    "letter.weeklyTitle": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunday letter"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "周日长信"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

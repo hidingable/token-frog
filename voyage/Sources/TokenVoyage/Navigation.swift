@@ -6,10 +6,17 @@ enum MainTab: String, CaseIterable, Identifiable, Sendable {
 }
 
 enum MailFilter: String, CaseIterable, Identifiable, Sendable {
-    case all, travel
+    case all, travel, postcards, weekly
     var id: String { rawValue }
 
-    func includes(_ letter: Letter) -> Bool { self == .all || letter.kind == .daily }
+    func includes(_ letter: Letter) -> Bool {
+        switch self {
+        case .all: true
+        case .travel: letter.kind == .daily
+        case .postcards: letter.kind == .postcard
+        case .weekly: letter.kind == .weekly
+        }
+    }
 }
 
 enum CollectionTab: String, CaseIterable, Identifiable, Sendable {

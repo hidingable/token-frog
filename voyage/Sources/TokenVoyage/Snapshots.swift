@@ -139,6 +139,21 @@ enum Snapshots {
                 main(.collection, name: "collection-memory-citations", size: CGSize(width: 760, height: 1240), update: { $0 = companion.journey })
             }
             model.selectedLetterID = nil
+            let weekly = weeklyMailExamples(catalog: catalog, now: model.now, petName: model.petName)
+            model.withSnapshotCare({ $0 = weekly.care }) {
+                for filter in MailFilter.allCases {
+                    model.mailFilter = filter
+                    model.selectedLetterID = nil
+                    let size = CGSize(width: 760, height: filter == .all ? 1600 : filter == .travel ? 1240 : 780)
+                    main(.mail, name: "mail-filter-\(filter.rawValue)", size: size, update: { $0 = weekly.journey })
+                    main(.mail, name: "mail-filter-\(filter.rawValue)-empty", update: { $0.letters = [] })
+                }
+                model.mailFilter = .weekly
+                main(.mail, name: "mail-weekly", update: { $0 = weekly.journey })
+                let quiet = weeklyMailExamples(catalog: catalog, now: model.now, petName: model.petName, quiet: true)
+                main(.mail, name: "mail-weekly-quiet", update: { $0 = quiet.journey })
+            }
+            model.mailFilter = .all
         }
         model.collectionTab = .passport
         main(.collection, name: "collection-passport", size: CGSize(width: 760, height: 400))
@@ -341,6 +356,36 @@ enum Snapshots {
         CareEngine.process(journey: &examples.journey, care: &examples.care, stories: catalog.stories, catalog: catalog)
         CareEngine.open(at: now, journey: &examples.journey, care: &examples.care, catalog: catalog)
         return examples
+    }
+
+    static func weeklyMailExamples(catalog: CityCatalog, now: Date, petName: String, quiet: Bool = false) -> (journey: JourneyState, care: CareState) {
+        let calendar = Calendar.current
+        let sunday = calendar.date(byAdding: .day, value: -(calendar.component(.weekday, from: now) - 1), to: now)!
+        let start = calendar.date(byAdding: .day, value: -13, to: sunday)!
+        var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: start), now: start, catalog: catalog)
+        var care = CareState(petName: petName, species: catalog.pets.defaultID, hatchedAt: journey.startDate)
+        for offset in 1...13 {
+            let day = journey.openDate
+            if offset == 10 { CareEngine.open(at: DayKey.date(from: day)!, journey: &journey, care: &care, catalog: catalog) }
+            let fuel = quiet || offset == 10 ? 0 : (offset <= 7 ? 8_000_000 : 10_000_000)
+            let next = calendar.date(byAdding: .day, value: offset, to: start)!
+            journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
+                DayUsage(date: day, fuel: fuel, byClient: fuel == 0 ? [:] : ["codex": fuel * 3 / 4, "claude": fuel / 4]),
+            ], catalog: catalog)
+            CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
+            if !quiet, offset == 8, let letter = journey.letters.last, let reply = letter.replyOptions.first {
+                CareEngine.reply(letterId: letter.id, replyId: reply.id, date: letter.date, journey: &journey, care: &care)
+            }
+        }
+        CareEngine.open(at: sunday, journey: &journey, care: &care, catalog: catalog)
+        CareEngine.writeWeeklyMail(journey: &journey, catalog: catalog)
+        journey.sync(today: DayUsage(date: DayKey.string(from: now)), catalog: catalog)
+        CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
+        for index in journey.letters.indices {
+            journey.letters[index].deliverAt = min(journey.letters[index].deliverAt, now)
+            journey.letters[index].enrichmentDone = true
+        }
+        return (journey, care)
     }
 
     /// The collection and ritual fixtures share acquisitions and their original letters, entirely in memory.

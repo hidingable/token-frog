@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "openings": [
+    {
+      "zh-Hans": "周日了，我把这六天的信摊在桌上，慢慢写一封长一点的。",
+      "en": "It is Sunday. I have spread six days of letters across the table and am taking my time with a longer one."
+    },
+    {
+      "zh-Hans": "窗边的光正好够写信。这一周的路，我想和你一起再走一遍。",
+      "en": "There is just enough light by the window to write. I would like to walk through this week with you once more."
+    }
+  ],
+  "closings": [
+    {
+      "zh-Hans": "信纸叠好了。下一段路，等明天再说。",
+      "en": "The pages are folded now. Tomorrow can tell us about the next stretch of road."
+    },
+    {
+      "zh-Hans": "我把笔放回邮包。愿你今天也有一小段不用赶路的时间。",
+      "en": "I have put the pen back in my mailbag. I hope there is a little unhurried time in your day too."
+    }
+  ],
+  "lines": {
+    "summary": {
+      "zh-Hans": "周一到周六（{start} 至 {end}），我们走了 {distance}。",
+      "en": "From Monday through Saturday ({start} to {end}), we travelled {distance}."
+    },
+    "tools": {
+      "zh-Hans": "这六天的工具比例：{tools}。",
+      "en": "Our tools over those six days: {tools}."
+    },
+    "noTools": {
+      "zh-Hans": "这六天没有记录工具比例。",
+      "en": "No tool breakdown was recorded for those six days."
+    },
+    "trendUp": {
+      "zh-Hans": "比上一周同样的周一到周六，多走了 {percent}%。",
+      "en": "We travelled {percent}% farther than the same Monday-to-Saturday period last week."
+    },
+    "trendDown": {
+      "zh-Hans": "比上一周同样的周一到周六，少走了 {percent}%。",
+      "en": "We travelled {percent}% less than the same Monday-to-Saturday period last week."
+    },
+    "trendSame": {
+      "zh-Hans": "和上一周同样的周一到周六相比，里程一样。",
+      "en": "Our distance matched the same Monday-to-Saturday period last week."
+    },
+    "trendFromZero": {
+      "zh-Hans": "上一周这六天没有走动，这周又上路了。",
+      "en": "Last week we stayed still over those six days. This week we were on the road again."
+    },
+    "fulfilled": {
+      "zh-Hans": "这周想留住的一件事，是我真的把你的话放进了旅途：{event}",
+      "en": "The thing I want to keep from this week is how your words became part of the journey: {event}"
+    },
+    "rare": {
+      "zh-Hans": "这周想留住的一件事，是带回了稀有的“{event}”。我把它放稳了，留着以后慢慢看。",
+      "en": "The thing I want to keep from this week is the rare souvenir, “{event}”. I have tucked it away safely for another look later."
+    },
+    "country": {
+      "zh-Hans": "这周想留住的一件事，是护照上第一次有了{event}的章。那一页我多翻了两遍。",
+      "en": "The thing I want to keep from this week is our first passport stamp from {event}. I turned back to that page twice."
+    },
+    "longest": {
+      "zh-Hans": "这周走得最远的一天是 {date}，一共 {distance}。走完之后，我找了个有风的地方坐下。",
+      "en": "Our longest day this week was {date}, at {distance}. Afterwards I found a breezy place to sit."
+    },
+    "quiet": {
+      "zh-Hans": "这周没有要圈出来的大事。我还记得邮局有人来的时候，屋子里那一点动静。这样也很好。",
+      "en": "There is no big event to circle this week. I still remember the little sounds when someone visited the post office. That is enough to keep."
+    }
+  }
+}

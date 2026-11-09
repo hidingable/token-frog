@@ -11,7 +11,7 @@ public struct VehicleShare: Codable, Equatable, Sendable {
 }
 
 public struct Letter: Codable, Equatable, Sendable, Identifiable {
-    public enum Kind: String, Codable, Sendable { case departure, daily, logbook, postcard, reunion }
+    public enum Kind: String, Codable, Sendable { case departure, daily, logbook, postcard, reunion, weekly }
 
     public var id: Int
     public var kind: Kind
@@ -47,6 +47,7 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var rewards = StoryRewards()
     public var rewardItems: [Item] = []
     public var memoryReference: CareState.Memory?
+    public var weeklySummary: WeeklyMailSummary?
     public var weatherCode: Int?
     public var temperatureC: Int?
     public var place: [String: Place] = [:]
@@ -113,6 +114,9 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public var totalFuel = 0
     /// Main-window opens only; absent on pre-M2 saves, so upgrade starts a fresh baseline.
     public var lastOpenedDate: String?
+    /// Missing on older saves; activation starts at the next local Sunday without catch-up.
+    public var weeklyMailEligibleFrom: String?
+    public var lastWeeklyMailSunday: String?
 
     public init(seed: UInt32, startCityId: String, pet: PetID? = nil, date: String, now: Date = Date(), logbook: Logbook? = nil, catalog: CityCatalog) {
         let pet = pet ?? catalog.pets.defaultID
@@ -120,6 +124,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         self.seed = seed
         self.pet = pet
         startDate = date
+        weeklyMailEligibleFrom = date
         openDate = date
         currentCityId = start.id
         targetCityId = start.id
@@ -176,6 +181,8 @@ public struct JourneyState: Codable, Equatable, Sendable {
         replacement.sync(today: DayUsage(date: openDate, fuel: record.fuel, byClient: record.byClient), calendar: calendar, catalog: catalog)
         replacement.days[openDate]?.mainWindowOpened = record.mainWindowOpened
         replacement.lastOpenedDate = lastOpenedDate
+        replacement.weeklyMailEligibleFrom = weeklyMailEligibleFrom
+        replacement.lastWeeklyMailSunday = lastWeeklyMailSunday
         if var firstLetter {
             firstLetter.cityId = cityId
             replacement.letters = [firstLetter]
@@ -323,7 +330,7 @@ extension JourneyState {
     private enum CodingKeys: String, CodingKey {
         case version, seed, pet, startDate, currentCityId, targetCityId, legFuel
         case route, stamps, openDate, days, letters, totalFuel, legCost, legFrom, legTo, targetCountryCode
-        case lastOpenedDate
+        case lastOpenedDate, weeklyMailEligibleFrom, lastWeeklyMailSunday
     }
 
     public init(from decoder: Decoder) throws {
@@ -349,6 +356,8 @@ extension JourneyState {
         letters = try values.decode([Letter].self, forKey: .letters, default: [])
         totalFuel = try values.decode(Int.self, forKey: .totalFuel, default: 0)
         lastOpenedDate = try values.decodeIfPresent(String.self, forKey: .lastOpenedDate)
+        weeklyMailEligibleFrom = try values.decodeIfPresent(String.self, forKey: .weeklyMailEligibleFrom)
+        lastWeeklyMailSunday = try values.decodeIfPresent(String.self, forKey: .lastWeeklyMailSunday)
     }
 }
 
@@ -358,7 +367,7 @@ extension Letter {
         case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
         case storyId, storyVersion, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
         case carriedItem, itemTriggered
-        case facts, rewards, rewardItems, memoryReference, weatherCode, temperatureC, place, photoFile
+        case facts, rewards, rewardItems, memoryReference, weeklySummary, weatherCode, temperatureC, place, photoFile
     }
 
     public init(from decoder: Decoder) throws {
@@ -393,6 +402,7 @@ extension Letter {
         rewards = try values.decode(StoryRewards.self, forKey: .rewards, default: StoryRewards())
         rewardItems = try values.decode([Item].self, forKey: .rewardItems, default: [])
         memoryReference = try values.decodeIfPresent(CareState.Memory.self, forKey: .memoryReference)
+        weeklySummary = try values.decodeIfPresent(WeeklyMailSummary.self, forKey: .weeklySummary)
         weatherCode = try values.decodeIfPresent(Int.self, forKey: .weatherCode)
         temperatureC = try values.decodeIfPresent(Int.self, forKey: .temperatureC)
         place = try values.decode([String: Place].self, forKey: .place, default: [:])

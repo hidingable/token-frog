@@ -136,5 +136,7 @@
     "lon": 108.94
   },
   "targetCountryCode": "CN",
-  "lastOpenedDate": "2026-11-02"
+  "lastOpenedDate": "2026-11-02",
+  "weeklyMailEligibleFrom": "2026-11-01",
+  "lastWeeklyMailSunday": "2026-11-01"
 }

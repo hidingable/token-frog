@@ -13,8 +13,8 @@ struct LetterText: Equatable, Sendable {
 enum LetterComposer {
     /// Keep legacy numbering, subtracting only the IDs occupied by companion mail.
     static func number(for letter: Letter, letters: [Letter]) -> Int? {
-        guard ![.postcard, .reunion].contains(letter.kind) else { return nil }
-        let companions = Set(letters.filter { [.postcard, .reunion].contains($0.kind) && $0.id < letter.id }.map(\.id))
+        guard ![.postcard, .reunion, .weekly].contains(letter.kind) else { return nil }
+        let companions = Set(letters.filter { [.postcard, .reunion, .weekly].contains($0.kind) && $0.id < letter.id }.map(\.id))
         return letter.id - companions.count
     }
 
@@ -31,7 +31,11 @@ enum LetterComposer {
     }
 
     private static func companionTitle(_ letter: Letter, l10n: L10n) -> String {
-        letter.kind == .postcard ? l10n("letter.postcardTitle") : l10n("letter.reunionTitle")
+        switch letter.kind {
+        case .postcard: l10n("letter.postcardTitle")
+        case .weekly: l10n("letter.weeklyTitle")
+        default: l10n("letter.reunionTitle")
+        }
     }
 
     static func localized(_ texts: [String: String]?, l10n: L10n) -> String? {
@@ -59,7 +63,7 @@ enum LetterComposer {
                 itinerary: [l10n("letter.mileageRule")]
             )
         }
-        if [.postcard, .reunion].contains(letter.kind) {
+        if [.postcard, .reunion, .weekly].contains(letter.kind) {
             return LetterText(title: companionTitle(letter, l10n: l10n),
                               voice: localized(letter.texts, l10n: l10n) ?? "",
                               lead: localized(letter.leadTexts, l10n: l10n), signature: signature, itinerary: [])

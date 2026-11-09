@@ -82,12 +82,13 @@ public struct CityCatalog: Sendable {
     public let stories: StoryLibrary
     public let pets: PetCatalog
     public let items: ItemLibrary
+    public let weeklyMail: WeeklyMailContent
     public let active: [City]
     private let byId: [String: City]
     private let countries: [String: [String: String]]
     private let lists = CityListCache()
 
-    private init(cities: CityContent, countries: [String: [String: String]], stories: StoryLibrary, items: ItemLibrary, pets: PetCatalog) {
+    private init(cities: CityContent, countries: [String: [String: String]], stories: StoryLibrary, items: ItemLibrary, pets: PetCatalog, weeklyMail: WeeklyMailContent) {
         all = cities.cities.sorted { $0.id < $1.id }
         active = all.filter { $0.status == "active" }
         var index = Dictionary(uniqueKeysWithValues: all.map { ($0.id, $0) })
@@ -97,6 +98,7 @@ public struct CityCatalog: Sendable {
         self.stories = stories
         self.items = items
         self.pets = pets
+        self.weeklyMail = weeklyMail
     }
 
     public static func load(directory: URL) throws -> CityCatalog {
@@ -109,7 +111,8 @@ public struct CityCatalog: Sendable {
                 items: ContentValidator.readItems(directory: directory).flatMap(\.items),
                 boxes: ContentValidator.readBoxes(directory: directory)
             ),
-            pets: PetCatalog.parse(directory: directory)
+            pets: PetCatalog.parse(directory: directory),
+            weeklyMail: WeeklyMailContent.load(directory: directory)
         )
     }
 

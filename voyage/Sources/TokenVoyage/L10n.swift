@@ -44,7 +44,8 @@ struct L10n: Sendable {
 
     // Every key selected at runtime is explicit, so catalog tests can verify the whole table.
     static let tabKeys: [MainTab: String] = [.home: "nav.postOffice", .journey: "nav.journey", .mail: "nav.mail", .collection: "nav.collection", .data: "nav.data"]
-    static let mailFilterKeys: [MailFilter: String] = [.all: "mail.all", .travel: "mail.travel"]
+    static let mailFilterKeys: [MailFilter: String] = [.all: "mail.all", .travel: "mail.travel", .postcards: "mail.postcards", .weekly: "mail.weekly"]
+    static let mailEmptyKeys: [MailFilter: String] = [.all: "mail.empty", .travel: "mail.travelEmpty", .postcards: "mail.postcardsEmpty", .weekly: "mail.weeklyEmpty"]
     static let collectionTabKeys: [CollectionTab: String] = [.passport: "nav.passport", .bag: "collection.bag", .souvenirs: "collection.souvenirs", .menus: "collection.menus", .memories: "collection.memories"]
     static let dataTabKeys: [DataTab: String] = [.dashboard: "nav.dashboard", .quota: "nav.quota"]
     static let periodKeys: [DashboardPeriod: String] = [.today: "period.today", .week: "period.week", .month: "period.month", .quarter: "period.quarter", .year: "period.year", .all: "period.all"]
@@ -63,7 +64,7 @@ struct L10n: Sendable {
     static let floatingKeys = ["floating.line.0", "floating.line.1", "floating.line.2"]
     static let settingsKeys = ["settings.login", "settings.loginFailed", "settings.loginApproval", "settings.loginUnavailable", "settings.notifications", "settings.morningMail", "settings.newCountry", "settings.deliveryTime", "settings.deliveryHint", "settings.openSystemSettings", "settings.authorizationNotRequested", "settings.authorizationGranted", "settings.authorizationDenied", "settings.authorizationUnavailable", "settings.data", "settings.export", "settings.import", "settings.exportHint", "settings.openDataFolder", "settings.about", "settings.version", "settings.licenses", "settings.naturalEarth", "settings.privacy", "usage.noRecords", "usage.recoverableFailure", "settings.language", "settings.interfaceAndLetters", "settings.appearance", "settings.display", "settings.notch", "settings.floating", "settings.home", "accounts.title", "accounts.manage", "onboarding.homeHint"]
     static var dynamicKeys: [String] {
-        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + Array(appearanceKeys.values) + countKeys.values.flatMap { $0 } + Array(onboardingTitleKeys.values) + Enricher.weatherKeys + Array(stageKeys.values) + Array(habitKeys.values) + habitDescriptionKeys.values.flatMap { $0 } + floatingKeys + settingsKeys + ["habit.both", "home.bubble.mail", "home.bubble.reply", "home.bubble.bag", "box.next", "box.keep", "box.open"]
+        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(mailEmptyKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + Array(appearanceKeys.values) + countKeys.values.flatMap { $0 } + Array(onboardingTitleKeys.values) + Enricher.weatherKeys + Array(stageKeys.values) + Array(habitKeys.values) + habitDescriptionKeys.values.flatMap { $0 } + floatingKeys + settingsKeys + ["habit.both", "home.bubble.mail", "home.bubble.reply", "home.bubble.bag", "box.next", "box.keep", "box.open"]
     }
 
     func defaultPetName(_ pet: PetID, catalog: PetCatalog) -> String {

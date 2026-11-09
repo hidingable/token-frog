@@ -609,7 +609,7 @@ final class AppModel {
             let before = state.totalFuel
             state.sync(today: today, finalized: finalized, catalog: catalog, deliveryTime: deliveryTime)
             self.state = state
-            processLetters(persistChanges: false)
+            processLetters(persistChanges: false, weeklyMail: true)
             if state.totalFuel > before {
                 isMoving = true
                 lastMovement = date
@@ -743,11 +743,15 @@ final class AppModel {
     }
 
     /// Saved story snapshots are authoritative; replay repairs the care half of an interrupted write.
-    private func processLetters(persistChanges: Bool = true) {
+    private func processLetters(persistChanges: Bool = true, weeklyMail: Bool = false) {
         guard !isLocked, onboarding == nil, var state, var care, let catalog else { return }
         let previousState = state
         let previousCare = care
+        state.enableWeeklyMail(on: DayKey.string(from: clock()))
         CareEngine.process(journey: &state, care: &care, stories: catalog.stories, catalog: catalog, wishTags: [])
+        if weeklyMail {
+            CareEngine.writeWeeklyMail(journey: &state, catalog: catalog, deliveryTime: deliveryTime)
+        }
         guard state != previousState || care != previousCare else { return }
         self.state = state
         self.care = care
@@ -771,7 +775,7 @@ final class AppModel {
 
     /// Scans proactively enrich only the newest letter, including its current-language place.
     func enrichLatest() async {
-        guard let letter = state?.letters.max(by: { $0.id < $1.id }) else { return }
+        guard let letter = state?.letters.filter({ $0.kind != .weekly }).max(by: { $0.id < $1.id }) else { return }
         await enrich(letterId: letter.id, weatherAndPhoto: true)
     }
 
@@ -784,7 +788,7 @@ final class AppModel {
     private func enrich(letterId: Int, weatherAndPhoto: Bool) async {
         guard !isLocked, onboarding == nil, !isSnapshot, let state, let catalog,
               let letter = state.letters.first(where: { $0.id == letterId }),
-              ![.postcard, .reunion].contains(letter.kind),
+              ![.postcard, .reunion, .weekly].contains(letter.kind),
               let city = catalog.find(letter.subjectCityId), !city.isPlaceholder else { return }
         let generation = backgroundGeneration
         let language = l10n.language

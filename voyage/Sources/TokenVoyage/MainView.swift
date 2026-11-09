@@ -258,7 +258,7 @@ struct MailTab: View {
                                 await model.enrichPlace(letterId: selected.id)
                             }
                     } else {
-                        Text(l10n("mail.empty")).font(Theme.pixel()).foregroundStyle(theme.textMuted).padding()
+                        Text(l10n(L10n.mailEmptyKeys[model.mailFilter]!)).font(Theme.pixel()).foregroundStyle(theme.textMuted).padding()
                     }
                 }
             }

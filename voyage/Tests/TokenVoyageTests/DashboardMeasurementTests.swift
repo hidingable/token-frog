@@ -39,6 +39,17 @@ private struct MeasurementColorView: View {
     }
 }
 
+@MainActor private final class MeasurementPassClock {
+    private(set) var instant = ContinuousClock.now
+    private(set) var passes = 0
+
+    func waitForNextPass() async {
+        await Task.yield()
+        passes += 1
+        instant = instant.advanced(by: .milliseconds(1))
+    }
+}
+
 @Suite(.serialized) @MainActor struct DashboardMeasurementTests {
     @Test func anUnstableViewTimesOutAndTheNextFrameStillDraws() async throws {
         let host = MeasurementHostingView(rootView: MeasurementColorView(color: MeasurementColor()))
@@ -47,11 +58,12 @@ private struct MeasurementColorView: View {
         window.isReleasedWhenClosed = false
         window.contentView = host
         defer { window.close() }
-        let frames = DashboardMeasurementFrames(hostingView: host)
+        let clock = MeasurementPassClock()
+        let frames = DashboardMeasurementFrames(hostingView: host, now: { clock.instant },
+                                                waitForNextPass: { await clock.waitForNextPass() })
         host.keepLayoutPending = true
-        let start = ContinuousClock.now
-        #expect(try await frames.drawFrame() == .timeout)
-        #expect(start.duration(to: .now) < .seconds(3))
+        #expect(try await frames.drawFrame(timeout: .milliseconds(3)) == .timeout)
+        #expect(clock.passes == 3)
         #expect(host.bitmap == nil)
 
         host.keepLayoutPending = false
