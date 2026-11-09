@@ -182,6 +182,10 @@ struct JourneyTab: View {
                 }
                 .font(Theme.pixel())
 
+                RoadClueView(text: model.roadClueText)
+                FootprintsView(footprints: Footprints(journey: state, care: model.care, catalog: catalog, now: model.now), catalog: catalog) {
+                    model.openCollection(.passport)
+                }
                 RecentBars(days: model.recentDays)
             }
         }

@@ -85,6 +85,7 @@ public struct DayRecord: Codable, Equatable, Sendable {
     public var byClient: [String: Int] = [:]
     public var arrivals: [String] = []
     public var newCountries: [String] = []
+    public var roadClueDecision: RoadClueDecision?
 
     public init() {}
 }
@@ -119,6 +120,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
     /// Missing on older saves; activation starts at the next local Sunday without catch-up.
     public var weeklyMailEligibleFrom: String?
     public var lastWeeklyMailSunday: String?
+    public var roadCluesEligibleFrom: String?
 
     public init(seed: UInt32, startCityId: String, pet: PetID? = nil, date: String, now: Date = Date(), logbook: Logbook? = nil, catalog: CityCatalog) {
         let pet = pet ?? catalog.pets.defaultID
@@ -127,6 +129,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         self.pet = pet
         startDate = date
         weeklyMailEligibleFrom = date
+        roadCluesEligibleFrom = date
         openDate = date
         currentCityId = start.id
         targetCityId = start.id
@@ -185,6 +188,8 @@ public struct JourneyState: Codable, Equatable, Sendable {
         replacement.lastOpenedDate = lastOpenedDate
         replacement.weeklyMailEligibleFrom = weeklyMailEligibleFrom
         replacement.lastWeeklyMailSunday = lastWeeklyMailSunday
+        replacement.roadCluesEligibleFrom = roadCluesEligibleFrom
+        replacement.days[openDate]?.roadClueDecision = record.roadClueDecision
         if var firstLetter {
             firstLetter.cityId = cityId
             replacement.letters = [firstLetter]
@@ -196,6 +201,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
     /// but excluding, `today.date`; the caller skips this call when those counts could not be read.
     public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], deliveryTime: DeliveryTime = .standard) {
         guard today.date >= openDate else { return }
+        enableRoadClues(on: today.date)
         let finals = Dictionary(finalized.map { ($0.date, $0) }, uniquingKeysWith: { _, latest in latest })
         while openDate < today.date {
             apply(finals[openDate] ?? DayUsage(date: openDate), catalog: catalog, wishTags: wishTags)
@@ -236,6 +242,9 @@ public struct JourneyState: Codable, Equatable, Sendable {
             record.byClient[client] = max(record.byClient[client] ?? 0, fuel)
         }
         if delta > 0 { record.fuel = usage.fuel }
+        if record.fuel > 0, usage.date >= roadCluesEligibleFrom!, record.roadClueDecision == nil {
+            record.roadClueDecision = catalog.roadClues.draw(seed: seed, date: usage.date)
+        }
         days[usage.date] = record
         if delta > 0 {
             totalFuel += delta
@@ -332,7 +341,7 @@ extension JourneyState {
     private enum CodingKeys: String, CodingKey {
         case version, seed, pet, startDate, currentCityId, targetCityId, legFuel
         case route, stamps, openDate, days, letters, totalFuel, legCost, legFrom, legTo, targetCountryCode
-        case lastOpenedDate, weeklyMailEligibleFrom, lastWeeklyMailSunday
+        case lastOpenedDate, weeklyMailEligibleFrom, lastWeeklyMailSunday, roadCluesEligibleFrom
     }
 
     public init(from decoder: Decoder) throws {
@@ -360,6 +369,7 @@ extension JourneyState {
         lastOpenedDate = try values.decodeIfPresent(String.self, forKey: .lastOpenedDate)
         weeklyMailEligibleFrom = try values.decodeIfPresent(String.self, forKey: .weeklyMailEligibleFrom)
         lastWeeklyMailSunday = try values.decodeIfPresent(String.self, forKey: .lastWeeklyMailSunday)
+        roadCluesEligibleFrom = try values.decodeIfPresent(String.self, forKey: .roadCluesEligibleFrom)
     }
 }
 
@@ -414,7 +424,7 @@ extension Letter {
 }
 
 extension DayRecord {
-    private enum CodingKeys: String, CodingKey { case fuel, byClient, arrivals, newCountries, mainWindowOpened }
+    private enum CodingKeys: String, CodingKey { case fuel, byClient, arrivals, newCountries, mainWindowOpened, roadClueDecision }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -423,6 +433,7 @@ extension DayRecord {
         byClient = try values.decode([String: Int].self, forKey: .byClient, default: [:])
         arrivals = try values.decode([String].self, forKey: .arrivals, default: [])
         newCountries = try values.decode([String].self, forKey: .newCountries, default: [])
+        roadClueDecision = try values.decodeIfPresent(RoadClueDecision.self, forKey: .roadClueDecision)
     }
 }
 

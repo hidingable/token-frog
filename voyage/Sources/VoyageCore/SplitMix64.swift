@@ -4,6 +4,7 @@ struct SplitMix64 {
         case itemTrigger = 0x720E_C7E2_A965_153B
         case dropRarity = 0xD510_B3C1_873A_E629
         case dropItem = 0x3CF9_EA61_0B28_754D
+        case roadClue = 0x6C1B_E342_A859_07DF
     }
 
     var state: UInt64

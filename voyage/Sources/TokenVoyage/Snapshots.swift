@@ -113,7 +113,24 @@ enum Snapshots {
             }
             model.navigate(to: .home)
         }
-        main(.journey, name: "main-journey")
+        main(.journey, name: "main-journey", size: CGSize(width: 760, height: 1080))
+        if let catalog = model.catalog {
+            let example = journeyExamples(catalog: catalog, now: model.now, petName: model.petName)
+            model.withSnapshotCare({ $0 = example.care }) {
+                model.withSnapshotState({ $0 = example.journey }) {
+                    model.navigate(to: .journey)
+                    render(MainView(model: model), size: CGSize(width: 760, height: 1080), name: "journey-footprints", directory, model: model)
+                    render(NotchExpandedView(model: model, metrics: metrics), size: metrics.expandedSize, name: "notch-road-clue", directory, model: model)
+                }
+            }
+            let empty = journeyExamples(catalog: catalog, now: model.now, petName: model.petName, empty: true)
+            model.withSnapshotCare({ $0 = empty.care }) {
+                model.withSnapshotState({ $0 = empty.journey }) {
+                    model.navigate(to: .journey)
+                    render(MainView(model: model), size: CGSize(width: 760, height: 1080), name: "journey-footprints-empty", directory, model: model)
+                }
+            }
+        }
         model.mailFilter = .all
         model.selectedLetterID = nil
         main(.mail, name: "main-mail")
@@ -315,6 +332,41 @@ enum Snapshots {
         return examples
     }
 
+    static func journeyExamples(catalog: CityCatalog, now: Date, petName: String, empty: Bool = false) -> (journey: JourneyState, care: CareState) {
+        if empty {
+            let journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: now), now: now, catalog: catalog)
+            return (journey, CareState(petName: petName, species: journey.pet, hatchedAt: journey.startDate))
+        }
+        var example = memoryExamples(catalog: catalog, now: now, petName: petName)
+        let stops = ["quanzhou", "fukuoka", "quanzhou"]
+        for index in example.journey.letters.indices where example.journey.letters[index].kind == .daily {
+            let city = stops[(example.journey.letters[index].id - 1) % stops.count]
+            example.journey.letters[index].cityId = city
+            example.journey.letters[index].arrivals = [city]
+            example.journey.letters[index].transitTargetId = nil
+        }
+        example.journey.route = ["shanghai"] + stops
+        example.journey.currentCityId = "quanzhou"
+        example.journey.targetCityId = "shanghai"
+        example.journey.legFrom = catalog.city("quanzhou").coordinate
+        example.journey.legTo = catalog.city("shanghai").coordinate
+        example.journey.legCost = JourneyState.cost(from: catalog.city("quanzhou"), to: catalog.city("shanghai"))
+        example.journey.legFuel = 0
+        let key = DayKey.string(from: now)
+        // Use the real engine to obtain a populated observation, independent of the snapshot date.
+        for seed in UInt32(0)..<64 {
+            var probe = JourneyState(seed: seed, startCityId: "shanghai", date: key, now: now, catalog: catalog)
+            probe.sync(today: DayUsage(date: key, fuel: 1), catalog: catalog)
+            if let decision = probe.days[key]?.roadClueDecision, decision.clue != nil {
+                example.journey.seed = seed
+                example.journey.days[key, default: DayRecord()].roadClueDecision = decision
+                example.journey.days[key]?.fuel = 1
+                break
+            }
+        }
+        return example
+    }
+
     enum BoxExample: String, CaseIterable { case souvenir, bag, clue }
 
     static func boxExamples(kind: BoxExample, catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
@@ -460,20 +512,28 @@ enum Snapshots {
     }
 
     private static func render<Content: View>(_ view: Content, size: CGSize, name: String, _ directory: URL, model: AppModel) {
-        let hosting = NSHostingView(rootView: view.localized(using: model))
-        hosting.sizingOptions = []
-        hosting.frame = CGRect(origin: .zero, size: size)
-        let window = NSWindow(contentRect: hosting.frame, styleMask: [.borderless], backing: .buffered, defer: false)
-        window.applyTheme(model.theme)
-        window.contentView = hosting
-        // Lazy stacks need a visible viewport before AppKit caches their display.
-        window.orderFront(nil)
-        defer { window.orderOut(nil) }
-        hosting.layoutSubtreeIfNeeded()
-        RunLoop.main.run(until: Date().addingTimeInterval(0.3))
-        hosting.layoutSubtreeIfNeeded()
-        guard let representation = hosting.bitmapImageRepForCachingDisplay(in: hosting.bounds) else { return }
-        hosting.cacheDisplay(in: hosting.bounds, to: representation)
-        try? representation.representation(using: .png, properties: [:])?.write(to: directory.appendingPathComponent("\(name).png"))
+        autoreleasepool {
+            let hosting = NSHostingView(rootView: view.localized(using: model))
+            hosting.sizingOptions = []
+            hosting.frame = CGRect(origin: .zero, size: size)
+            let window = NSWindow(contentRect: hosting.frame, styleMask: [.borderless], backing: .buffered, defer: false)
+            window.isReleasedWhenClosed = false
+            window.applyTheme(model.theme)
+            window.contentView = hosting
+            // Lazy stacks need a visible viewport before AppKit caches their display.
+            window.orderFront(nil)
+            defer {
+                // Hidden hosting roots must not observe the next snapshot's model and re-enter layout.
+                window.orderOut(nil)
+                window.contentView = nil
+                window.close()
+            }
+            hosting.layoutSubtreeIfNeeded()
+            RunLoop.main.run(until: Date().addingTimeInterval(0.3))
+            hosting.layoutSubtreeIfNeeded()
+            guard let representation = hosting.bitmapImageRepForCachingDisplay(in: hosting.bounds) else { return }
+            hosting.cacheDisplay(in: hosting.bounds, to: representation)
+            try? representation.representation(using: .png, properties: [:])?.write(to: directory.appendingPathComponent("\(name).png"))
+        }
     }
 }

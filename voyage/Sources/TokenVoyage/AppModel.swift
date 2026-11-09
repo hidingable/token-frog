@@ -252,6 +252,10 @@ final class AppModel {
     }
 
     var today: DayRecord { state.flatMap { $0.days[$0.openDate] } ?? DayRecord() }
+    var roadClueText: String? {
+        let key = DayKey.string(from: now)
+        return LetterComposer.localized(state?.days[key]?.roadClueDecision?.clue?.texts, l10n: l10n)
+    }
     var todayFuel: Int { today.fuel }
     var unread: Int { state?.unreadCount(now: now) ?? 0 }
     var letters: [Letter] { state?.deliveredLetters(now: now) ?? [] }
@@ -794,6 +798,7 @@ final class AppModel {
         let previousState = state
         let previousCare = care
         state.enableWeeklyMail(on: DayKey.string(from: clock()))
+        state.enableRoadClues(on: DayKey.string(from: clock()))
         WishEngine.refreshWeek(at: clock(), care: &care)
         let wishTags = WishEngine.tags(in: care)
         CareEngine.process(journey: &state, care: &care, stories: catalog.stories, catalog: catalog, wishTags: wishTags)

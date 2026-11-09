@@ -1,0 +1,257 @@
+{
+  "version": 1,
+  "clues": [
+    {
+      "id": "roof-fan",
+      "texts": {
+        "zh-Hans": "我找到一把屋顶那么大的扇子，风一来，我先替它扇了两下。",
+        "en": "I found a fan as big as a roof. When the breeze came, I fanned it back."
+      }
+    },
+    {
+      "id": "pocket-cloud",
+      "texts": {
+        "zh-Hans": "一朵云跟了我一小段，我给它留了个口袋的位置。",
+        "en": "A cloud followed me for a while. I saved it a place in my pocket."
+      }
+    },
+    {
+      "id": "sleepy-sign",
+      "texts": {
+        "zh-Hans": "我画了一块想打盹的路牌，箭头指向自己的枕头。",
+        "en": "I drew a sleepy sign. Its arrow pointed straight at its own pillow."
+      }
+    },
+    {
+      "id": "button-moon",
+      "texts": {
+        "zh-Hans": "捡到一颗圆纽扣，我先把它当作备用月亮。",
+        "en": "I found a round button and kept it as a spare moon."
+      }
+    },
+    {
+      "id": "shadow-race",
+      "texts": {
+        "zh-Hans": "我和影子赛跑，转了个弯，它居然先到了。",
+        "en": "I raced my shadow. At the next corner, it got there first."
+      }
+    },
+    {
+      "id": "leaf-ticket",
+      "texts": {
+        "zh-Hans": "今天的车票是我画的叶子，检票员也是我。",
+        "en": "My ticket today is a leaf I drew. I am also the ticket inspector."
+      }
+    },
+    {
+      "id": "quiet-bell",
+      "texts": {
+        "zh-Hans": "我给一只画出来的铃铛系上蝴蝶结，它安静得很有礼貌。",
+        "en": "I tied a bow on a bell I drew. It stayed politely quiet."
+      }
+    },
+    {
+      "id": "tiny-door",
+      "texts": {
+        "zh-Hans": "我在纸上开了一扇小门，留给迟到的好主意。",
+        "en": "I drew a tiny door for good ideas that arrive late."
+      }
+    },
+    {
+      "id": "hat-harbour",
+      "texts": {
+        "zh-Hans": "帽檐下面新开了一个港口，只停纸船。",
+        "en": "A harbour opened under my hat brim. Paper boats only."
+      }
+    },
+    {
+      "id": "wind-address",
+      "texts": {
+        "zh-Hans": "我想给风写地址，信封上的字却先跑走了。",
+        "en": "I tried to address a letter to the wind. The words ran off first."
+      }
+    },
+    {
+      "id": "pebble-pillow",
+      "texts": {
+        "zh-Hans": "我替一颗小石头挑了枕头，最后它选了另一颗石头。",
+        "en": "I picked a pillow for a pebble. It chose another pebble instead."
+      }
+    },
+    {
+      "id": "folded-bridge",
+      "texts": {
+        "zh-Hans": "把便签折成桥以后，铅笔终于能过河了。",
+        "en": "I folded a note into a bridge. My pencil could finally cross the river."
+      }
+    },
+    {
+      "id": "crumb-map",
+      "texts": {
+        "zh-Hans": "我画了张面包屑地图，画到一半就想吃点心。",
+        "en": "I drew a map of crumbs. Halfway through, I wanted a snack."
+      }
+    },
+    {
+      "id": "umbrella-boat",
+      "texts": {
+        "zh-Hans": "想象中的雨伞翻了个身，就成了我的小船。",
+        "en": "My imaginary umbrella turned upside down and became a little boat."
+      }
+    },
+    {
+      "id": "slow-arrow",
+      "texts": {
+        "zh-Hans": "我给箭头添了两只慢吞吞的脚，它说这样才看得清风景。",
+        "en": "I gave an arrow two slow feet. It said now it could enjoy the view."
+      }
+    },
+    {
+      "id": "star-envelope",
+      "texts": {
+        "zh-Hans": "空信封鼓起了一角，我猜是昨晚画的星星还没睡醒。",
+        "en": "One corner of my envelope puffed up. Perhaps my drawn star was still asleep."
+      }
+    },
+    {
+      "id": "thread-road",
+      "texts": {
+        "zh-Hans": "一截线在桌上绕了三圈，我替它宣布旅途圆满。",
+        "en": "A thread made three loops on my desk. I declared its journey complete."
+      }
+    },
+    {
+      "id": "lantern-seed",
+      "texts": {
+        "zh-Hans": "我在纸上种了一盏灯，等天黑再看看它有没有发芽。",
+        "en": "I planted a lantern on paper. I will check for sprouts after dark."
+      }
+    },
+    {
+      "id": "teacup-station",
+      "texts": {
+        "zh-Hans": "杯沿上新添了一个站台，乘客是两滴想象的雨。",
+        "en": "A station appeared on my cup rim. Two imaginary raindrops were waiting."
+      }
+    },
+    {
+      "id": "ribbon-horizon",
+      "texts": {
+        "zh-Hans": "我拉直一条丝带，替小纸船做了新的地平线。",
+        "en": "I stretched a ribbon into a new horizon for my paper boat."
+      }
+    },
+    {
+      "id": "yawning-tunnel",
+      "texts": {
+        "zh-Hans": "我画的隧道打了个哈欠，差点把出口也吞进去。",
+        "en": "The tunnel I drew yawned and nearly swallowed its own exit."
+      }
+    },
+    {
+      "id": "acorn-suitcase",
+      "texts": {
+        "zh-Hans": "如果有橡果那么小的行李箱，我只装一个好梦。",
+        "en": "If I had an acorn-sized suitcase, I would pack just one good dream."
+      }
+    },
+    {
+      "id": "paper-footprints",
+      "texts": {
+        "zh-Hans": "我给纸上的路添了脚印，现在它看起来没那么孤单了。",
+        "en": "I added footprints to a road on paper. It looked less lonely afterwards."
+      }
+    },
+    {
+      "id": "soup-compass",
+      "texts": {
+        "zh-Hans": "我画了一碗指南针汤，勺子一直指向点心。",
+        "en": "I drew a bowl of compass soup. The spoon kept pointing towards snacks."
+      }
+    },
+    {
+      "id": "cloud-scarf",
+      "texts": {
+        "zh-Hans": "我想给画里的云织围巾，第一针就绕到了天边。",
+        "en": "I tried knitting a scarf for a drawn cloud. The first stitch reached the horizon."
+      }
+    },
+    {
+      "id": "staircase-song",
+      "texts": {
+        "zh-Hans": "我给画里的楼梯编了首歌，每一级只唱一个音。",
+        "en": "I made a song for a staircase I drew. Each step sang just one note."
+      }
+    },
+    {
+      "id": "window-sea",
+      "texts": {
+        "zh-Hans": "我在空白页上开了扇窗，窗外先画一小片海。",
+        "en": "I opened a window on a blank page and drew a little sea outside."
+      }
+    },
+    {
+      "id": "lantern-snail",
+      "texts": {
+        "zh-Hans": "我画了只背着灯笼的蜗牛，夜路忽然有了慢慢的亮光。",
+        "en": "I drew a snail carrying a lantern. The night road gained a slow little glow."
+      }
+    },
+    {
+      "id": "raincoat-kite",
+      "texts": {
+        "zh-Hans": "我替纸风筝画了雨衣，结果它更想去天上走走了。",
+        "en": "I drew a raincoat for a paper kite. Now it wants to stroll through the sky."
+      }
+    },
+    {
+      "id": "bookmark-camp",
+      "texts": {
+        "zh-Hans": "今天先在书签旁扎营，明天从没读完的那句话出发。",
+        "en": "Tonight I camp beside a bookmark. Tomorrow I will leave from the unfinished sentence."
+      }
+    },
+    {
+      "id": "pencil-lighthouse",
+      "texts": {
+        "zh-Hans": "铅笔尖上亮起了想象的灯塔，给橡皮屑指路。",
+        "en": "An imaginary lighthouse lit up on my pencil tip to guide the eraser crumbs."
+      }
+    },
+    {
+      "id": "spare-sunrise",
+      "texts": {
+        "zh-Hans": "我把一圈橙色画进信封，留作阴天的备用日出。",
+        "en": "I drew an orange circle inside an envelope: a spare sunrise for a grey day."
+      }
+    },
+    {
+      "id": "paper-bench",
+      "texts": {
+        "zh-Hans": "折了一张小纸凳，正好让赶路的句号坐一会儿。",
+        "en": "I folded a paper bench so a travelling full stop could rest."
+      }
+    },
+    {
+      "id": "dream-checkpoint",
+      "texts": {
+        "zh-Hans": "我画的关卡只问一个问题：昨晚的梦带齐了吗？",
+        "en": "My drawn checkpoint asks just one question: did you pack all of last night’s dreams?"
+      }
+    },
+    {
+      "id": "ruler-road",
+      "texts": {
+        "zh-Hans": "尺子上的路太直了，我给它画了一个散步用的弯。",
+        "en": "The road on my ruler was too straight. I added a bend for taking walks."
+      }
+    },
+    {
+      "id": "whisper-bag",
+      "texts": {
+        "zh-Hans": "我给今天的悄悄话缝了个小袋，袋口留给明天的风。",
+        "en": "I sewed a bag for today’s whispers and left it open for tomorrow’s breeze."
+      }
+    }
+  ]
+}

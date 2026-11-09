@@ -117,10 +117,18 @@ struct NotchExpandedView: View {
                 .frame(height: metrics.collapsedSize.height)
 
                 HStack(alignment: .top, spacing: 12) {
-                    PixelMapView(image: PixelMap.image(for: state, catalog: catalog, theme: theme),
-                                 availableWidth: metrics.expandedSize.width - 32 - 12 - 156,
-                                 borderColor: theme.notchControlOff)
-                        .accessibilityLabel(l10n("map.description", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId))))
+                    VStack(alignment: .leading, spacing: 6) {
+                        PixelMapView(image: PixelMap.image(for: state, catalog: catalog, theme: theme),
+                                     availableWidth: min(metrics.expandedSize.width - 32 - 12 - 156, model.roadClueText == nil ? .infinity : 300),
+                                     borderColor: theme.notchControlOff)
+                            .accessibilityLabel(l10n("map.description", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId))))
+                        if let clue = model.roadClueText {
+                            Text(l10n("journey.roadClue")).font(Theme.pixel()).foregroundStyle(theme.notchTextMuted)
+                            Text(clue).font(.system(size: 12)).lineSpacing(2).foregroundStyle(theme.notchText)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                    .frame(width: metrics.expandedSize.width - 32 - 12 - 156, alignment: .leading)
                     VStack(alignment: .leading, spacing: 5) {
                         Text(Format.km(fuel: model.todayFuel))
                             .font(Theme.pixel(24))
