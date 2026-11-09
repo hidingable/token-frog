@@ -305,4 +305,9 @@ final class DashboardStore {
         cached.insert(value, for: request)
         result = value
     }
+
+    /// For snapshots, which render while holding the main actor, so `select` from a view's task cannot finish.
+    func showCached(_ request: DashboardRequest) {
+        if let hit = cached.value(for: request) { result = hit }
+    }
 }

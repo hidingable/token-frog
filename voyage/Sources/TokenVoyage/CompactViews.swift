@@ -37,6 +37,32 @@ struct MailBadge: View {
     }
 }
 
+/// The fullest status that fits the shoulder: text is swapped for a shorter form, never cut off.
+struct NotchShoulderStatus: View {
+    @Environment(\.theme) private var theme
+    var label: String
+    var distance: String
+    var unread: Int
+
+    var body: some View {
+        ViewThatFits(in: .horizontal) {
+            row(label)
+            row(distance)
+            if unread > 0 { MailBadge(count: unread) } else { row(distance) }
+        }
+    }
+
+    private func row(_ text: String) -> some View {
+        HStack(spacing: 6) {
+            Text(text)
+                .font(Theme.pixel())
+                .foregroundStyle(theme.notchText)
+                .lineLimit(1)
+            if unread > 0 { MailBadge(count: unread) }
+        }
+    }
+}
+
 struct NotchCollapsedView: View {
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
@@ -53,15 +79,13 @@ struct NotchCollapsedView: View {
                 }
                 .frame(width: metrics.shoulderWidth, alignment: .center)
                 Color.clear.frame(width: metrics.notchWidth)
-                HStack(spacing: 6) {
-                    Text(NotchStatus.isNearArrival(remainingFuel: state.remainingFuel)
-                         ? l10n("journey.remaining", Format.km(fuel: state.remainingFuel))
-                         : l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))))
-                        .font(Theme.pixel())
-                        .foregroundStyle(theme.notchText)
-                        .lineLimit(1)
-                    if model.unread > 0 { MailBadge(count: model.unread) }
-                }
+                NotchShoulderStatus(
+                    label: NotchStatus.isNearArrival(remainingFuel: state.remainingFuel)
+                        ? l10n("journey.remaining", Format.km(fuel: state.remainingFuel))
+                        : l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))),
+                    distance: Format.km(fuel: state.remainingFuel),
+                    unread: model.unread
+                )
                 .frame(width: metrics.shoulderWidth, alignment: .center)
             }
             .frame(width: metrics.collapsedSize.width, height: metrics.collapsedSize.height)

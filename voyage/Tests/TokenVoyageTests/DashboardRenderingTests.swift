@@ -79,6 +79,21 @@ private final class RenderingDefaults: UserDefaults, @unchecked Sendable {
         return result
     }
 
+    @Test func everySnapshotDashboardPageIsReadyBeforeRenderingStarts() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("dashboard-rendering-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let model = try model(directory: directory, isSnapshot: true)
+        await model.loadDashboard()
+        await Snapshots.prepareDashboards(model: model)
+        let pages = Snapshots.dashboardPages(model: model)
+        #expect(pages.count == 4)
+        for page in pages.reversed() {
+            let request = Snapshots.dashboardRequest(page.selection, model: model)
+            model.dashboardStore.showCached(request)
+            #expect(model.dashboardStore.result?.request == request)
+        }
+    }
+
     @Test func changingRangeDeliversMatchingContentWithoutTheMeasurementTool() async throws {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent("dashboard-rendering-\(UUID().uuidString)")
         defer { try? FileManager.default.removeItem(at: directory) }

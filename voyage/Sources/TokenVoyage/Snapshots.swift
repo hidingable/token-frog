@@ -5,6 +5,28 @@ import VoyageCore
 /// Renders every surface to PNG for offline visual checks: `TokenVoyage --snapshot <dir>`.
 @MainActor
 enum Snapshots {
+    static func dashboardPages(model: AppModel) -> [(name: String, size: CGSize, selection: DashboardSelection)] {
+        let wide = CGSize(width: 940, height: 1240)
+        let peak = model.dashboardDays.map { UsageDashboard(days: $0, start: nil, end: DayKey.string(from: model.now)) }?.peak
+        return [
+            ("dashboard-month", wide, DashboardSelection(period: .month)),
+            ("dashboard-all-codex", wide, DashboardSelection(period: .all, client: "codex")),
+            ("dashboard-today-narrow", CGSize(width: 760, height: 1240), DashboardSelection(period: .today)),
+            ("dashboard-peak-day", wide, DashboardSelection(day: peak?.date ?? DayKey.string(from: model.now), metric: .fuel, showModels: true)),
+        ]
+    }
+
+    static func dashboardRequest(_ selection: DashboardSelection, model: AppModel) -> DashboardRequest {
+        model.dashboardStore.request(selection: selection, seriesLimit: model.theme.series.count)
+    }
+
+    /// `write` holds the main actor, so dashboard results must be computed before it starts.
+    static func prepareDashboards(model: AppModel) async {
+        for page in dashboardPages(model: model) {
+            await model.dashboardStore.select(dashboardRequest(page.selection, model: model))
+        }
+    }
+
     static func write(model: AppModel, to directory: URL) {
         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let metrics = NotchMetrics(notchWidth: 180, barHeight: 37)
@@ -163,12 +185,10 @@ enum Snapshots {
         }
 
         model.dataTab = .dashboard
-        let dashboardSize = CGSize(width: 940, height: 1240)
-        main(.data, name: "dashboard-month", size: dashboardSize, dashboard: DashboardSelection(period: .month))
-        main(.data, name: "dashboard-all-codex", size: dashboardSize, dashboard: DashboardSelection(period: .all, client: "codex"))
-        main(.data, name: "dashboard-today-narrow", size: CGSize(width: 760, height: 1240), dashboard: DashboardSelection(period: .today))
-        let peak = model.dashboardDays.map { UsageDashboard(days: $0, start: nil, end: DayKey.string(from: model.now)) }?.peak
-        main(.data, name: "dashboard-peak-day", size: dashboardSize, dashboard: DashboardSelection(day: peak?.date ?? DayKey.string(from: model.now), metric: .fuel, showModels: true))
+        for page in dashboardPages(model: model) {
+            model.dashboardStore.showCached(dashboardRequest(page.selection, model: model))
+            main(.data, name: page.name, size: page.size, dashboard: page.selection)
+        }
         model.dataTab = .quota
         main(.data, name: "quota-empty", size: CGSize(width: 760, height: 720))
         model.quotaRuntime.withSnapshotAccounts(quotaExamples(now: model.now)) {
@@ -183,6 +203,15 @@ enum Snapshots {
             for index in state.letters.indices { state.letters[index].read = true }
         }) {
             render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-near-arrival", directory, model: model)
+        }
+        if let catalog = model.catalog, let longest = catalog.active.max(by: { model.l10n.cityName($0).count < model.l10n.cityName($1).count }) {
+            model.withSnapshotState({ state in
+                state.targetCityId = longest.id
+                state.legCost = max(state.legCost, 500 * fuelPerKm)
+                state.legFuel = 0
+            }) {
+                render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-long-destination", directory, model: model)
+            }
         }
         render(NotchExpandedView(model: model, metrics: metrics), size: metrics.expandedSize, name: "notch-expanded", directory, model: model)
         render(FloatingView(model: model), size: FloatingController.size, name: "floating", directory, model: model)

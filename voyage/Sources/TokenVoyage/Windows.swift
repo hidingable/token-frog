@@ -356,6 +356,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
             Task {
                 await model.scan()
                 await model.loadDashboard()
+                await Snapshots.prepareDashboards(model: model)
                 Snapshots.write(model: model, to: directory)
                 NSApp.terminate(nil)
             }
