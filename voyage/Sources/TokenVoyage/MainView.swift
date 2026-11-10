@@ -366,16 +366,16 @@ struct LetterView: View {
                 }
             }
 
-            if let brought = LetterComposer.brought(for: letter, care: model?.care, catalog: catalog, l10n: l10n) {
-                divider
-                BroughtItemsView(brought: brought)
-            }
             if !text.itinerary.isEmpty {
                 divider
                 if letter.kind != .logbook {
                     Text(l10n("letter.itinerary")).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
                 }
                 ForEach(text.itinerary, id: \.self) { Text($0).font(Theme.pixel()).fixedSize(horizontal: false, vertical: true) }
+            }
+            if let brought = LetterComposer.brought(for: letter, care: model?.care, catalog: catalog, l10n: l10n) {
+                divider
+                BroughtItemsView(brought: brought)
             }
             if let model { response(model: model) }
         }
@@ -437,29 +437,74 @@ struct PassportTab: View {
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
+    @State private var selectedCountry: String?
 
     var body: some View {
         if let state = model.state, let catalog = model.catalog {
             let laps = state.totalKm / 40_075
+            let passport = PassportDisplay(journey: state, catalog: catalog, now: model.now)
+            let cities = passport.cities.filter { selectedCountry == nil || $0.countryCode == selectedCountry }
             VStack(alignment: .leading, spacing: 12) {
-                Text(l10n("passport.counts", Format.grouped(state.stamps.count), Format.grouped(Set(state.route).count))).font(Theme.pixel(24)).foregroundStyle(theme.text)
+                Text(l10n("passport.counts", Format.grouped(state.stamps.count), Format.grouped(passport.cities.count))).font(Theme.pixel(24)).foregroundStyle(theme.text)
                 Text(l10n("passport.summary", Format.km(state.totalKm), l10n.decimal(laps, places: 2), l10n.day(state.startDate, full: true)))
                     .font(Theme.pixel())
                     .foregroundStyle(theme.textMuted)
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 4), spacing: 8) {
                     ForEach(state.stamps, id: \.countryCode) { stamp in
-                        VStack(spacing: 4) {
-                            Text(l10n.countryName(catalog.countryNames(stamp.countryCode))).font(Theme.pixel())
-                            Text(l10n.cityName(catalog.city(stamp.cityId))).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
-                            Text(l10n.day(stamp.date)).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
+                        let country = l10n.countryName(catalog.countryNames(stamp.countryCode))
+                        Button {
+                            selectedCountry = selectedCountry == stamp.countryCode ? nil : stamp.countryCode
+                        } label: {
+                            VStack(spacing: 4) {
+                                Text(country).font(Theme.pixel())
+                                Text(l10n.cityName(catalog.city(stamp.cityId))).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
+                                Text(l10n.day(stamp.date)).font(Theme.pixel()).foregroundStyle(theme.paperMuted)
+                            }
+                            .foregroundStyle(theme.onNewPlace)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .background(theme.newPlaceFill)
+                            .pixelBorder(selectedCountry == stamp.countryCode ? theme.text : theme.border,
+                                         width: selectedCountry == stamp.countryCode ? 3 : 2)
+                            .contentShape(Rectangle())
                         }
-                        .foregroundStyle(theme.onNewPlace)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .background(theme.newPlaceFill)
-                        .pixelBorder()
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(l10n("passport.showCountry", country))
+                        .accessibilityAddTraits(selectedCountry == stamp.countryCode ? .isSelected : [])
                     }
                 }
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack {
+                        Text(l10n("passport.stayedCities")).font(Theme.pixel(20)).foregroundStyle(theme.text)
+                        Spacer()
+                        if selectedCountry != nil {
+                            Button(l10n("passport.allCountries")) { selectedCountry = nil }
+                                .buttonStyle(.plain).underline()
+                                .accessibilityLabel(l10n("passport.allCountries"))
+                        }
+                    }
+                    Text(l10n("passport.regularHint")).foregroundStyle(theme.textMuted)
+                    if cities.isEmpty {
+                        Text(l10n("passport.empty")).foregroundStyle(theme.textMuted)
+                    }
+                    ForEach(cities) { city in
+                        let name = l10n.cityName(catalog.city(city.id))
+                        Button { model.openCollectionLetter(city.letterID) } label: {
+                            HStack {
+                                Text(name).foregroundStyle(theme.text)
+                                Spacer()
+                                Text(city.summary(l10n: l10n)).foregroundStyle(city.isRegular ? theme.newPlaceText : theme.textMuted)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        .disabled(city.letterID == nil)
+                        .accessibilityLabel(l10n("passport.openCity", name))
+                        .accessibilityValue(city.summary(l10n: l10n))
+                    }
+                }
+                .font(Theme.pixel()).padding(12).background(theme.surfaceRaised).pixelBorder(theme.border)
                 TicketCollection(tickets: state.usageEvents?.tickets ?? [])
             }
             .frame(maxWidth: .infinity, alignment: .leading)

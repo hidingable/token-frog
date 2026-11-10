@@ -5,9 +5,11 @@ import VoyageCore
 
 private final class SettingsDefaults: UserDefaults, @unchecked Sendable {
     var values: [String: Any] = [:]
-    override func object(forKey key: String) -> Any? { values[key] }
-    override func string(forKey key: String) -> String? { values[key] as? String }
-    override func set(_ value: Any?, forKey key: String) { values[key] = value }
+    var readKeys: [String] = []
+    var writtenKeys: [String] = []
+    override func object(forKey key: String) -> Any? { readKeys.append(key); return values[key] }
+    override func string(forKey key: String) -> String? { readKeys.append(key); return values[key] as? String }
+    override func set(_ value: Any?, forKey key: String) { writtenKeys.append(key); values[key] = value }
 }
 
 private actor RecoveringUsage {
@@ -88,17 +90,26 @@ private actor SuspendedSettingsUsage {
 @MainActor @Test func settingsDefaultsPersistDeliveryAndNotificationPreferences() throws {
     let fixture = try SettingsFixture()
     defer { fixture.cleanUp() }
+    fixture.defaults.values["newCountryNotifications"] = true
     let model = fixture.model()
     #expect(model.morningNotificationsEnabled)
-    #expect(!model.newCountryNotificationsEnabled)
     #expect(model.deliveryTime == .standard)
     model.deliveryTime = try #require(DeliveryTime(rawValue: "08:30"))
     model.morningNotificationsEnabled = false
-    model.newCountryNotificationsEnabled = true
     let reloaded = fixture.model()
     #expect(reloaded.deliveryTime.rawValue == "08:30")
     #expect(fixture.defaults.string(forKey: "deliveryTime") == "08:30")
-    #expect(!reloaded.morningNotificationsEnabled && reloaded.newCountryNotificationsEnabled)
+    #expect(!reloaded.morningNotificationsEnabled)
+    #expect(fixture.defaults.values["newCountryNotifications"] as? Bool == true)
+    #expect(!fixture.defaults.readKeys.contains("newCountryNotifications"))
+    #expect(!fixture.defaults.writtenKeys.contains("newCountryNotifications"))
+}
+
+@Test func settingsNoLongerExposeANewCountryNotificationControl() throws {
+    let source = try String(contentsOf: LocalizationTestFiles.appSources.appendingPathComponent("SettingsView.swift"), encoding: .utf8)
+    #expect(!source.contains("settings.newCountry"))
+    #expect(!source.contains("newCountryNotificationsEnabled"))
+    #expect(source.contains("settings.morningMail"))
 }
 
 @MainActor @Test func existingTickDeliversMailWhenRunningBeforeNine() async throws {

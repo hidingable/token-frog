@@ -153,11 +153,13 @@ final class OnboardingFlow {
         JourneyState(seed: seed, startCityId: homeCityId, pet: species ?? catalog.pets.defaultID, date: date, logbook: logbook, catalog: catalog)
     }
 
-    func saves(now: Date) -> (journey: JourneyState, care: CareState)? {
+    func saves(now: Date, l10n: L10n = L10n(language: .en)) -> (journey: JourneyState, care: CareState)? {
         guard step == .depart, let species, nameProblem == nil else { return nil }
         let journey = JourneyState(seed: seed, startCityId: homeCityId, pet: species, date: date, now: now, logbook: logbook, catalog: catalog)
         var care = CareState(petName: trimmedName, species: species, hatchedAt: date, calendar: calendar)
         care.bag.todayItem = todayItem
+        let wish = l10n("wish.first")
+        WishEngine.write(wish, tags: catalog.wishes.keywordTags(for: wish, language: l10n.language), at: now, care: &care, calendar: calendar)
         CareEngine.markCompanion(date: date, care: &care, calendar: calendar)
         return (journey, care)
     }

@@ -38,6 +38,64 @@ private final class ItemDefaults: UserDefaults, @unchecked Sendable {
 }
 
 @Suite @MainActor struct CollectionTests {
+    @Test func passportCountsOnlyStaysAndBecomesRegularAtThree() throws {
+        var journey = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-01", now: .distantPast, catalog: localizationCatalog)
+        let alias = try #require(localizationCatalog.city("xian").wikidata)
+        journey.route = ["xian", "quanzhou", alias, "xian", "fukuoka"]
+        // An in-transit letter, target and home never create a passport stay.
+        journey.targetCityId = "london"
+        journey.letters[0].cityId = "london"
+        journey.letters[0].arrivals = []
+        let before = journey
+        let passport = PassportDisplay(journey: journey, catalog: localizationCatalog, now: .distantFuture)
+        #expect(passport.cities.map(\.id) == ["fukuoka", "xian", "quanzhou"])
+        #expect(passport.cities.map(\.count) == [1, 3, 1])
+        #expect(passport.cities.map(\.isRegular) == [false, true, false])
+        #expect(passport.cities.filter { $0.countryCode == "CN" }.map(\.id) == ["xian", "quanzhou"])
+        for language in Language.allCases {
+            let l10n = L10n(language: language)
+            #expect(passport.cities[0].summary(l10n: l10n) == (language == .zhHans ? "停留 1 次" : "1 stay"))
+            #expect(passport.cities[1].summary(l10n: l10n) == (language == .zhHans ? "停留 3 次 · 熟客" : "3 stays · Regular"))
+        }
+        #expect(journey == before)
+        journey.route = ["xian", "xian"]
+        #expect(!PassportDisplay(journey: journey, catalog: localizationCatalog, now: .distantFuture).cities[0].isRegular)
+        journey.route = []
+        #expect(PassportDisplay(journey: journey, catalog: localizationCatalog, now: .distantFuture).cities.isEmpty)
+    }
+
+    @Test func passportLinksEveryStayedCityToItsLatestDeliveredRelatedLetter() throws {
+        let fixture = try CollectionFixture { journey, _ in
+            journey.route = ["xian", "quanzhou", "fukuoka"]
+            var first = journey.letters[0]
+            first.id = 90
+            first.date = "2026-11-03"
+            first.kind = .daily
+            first.cityId = "quanzhou"
+            first.arrivals = ["xian", "quanzhou"]
+            first.deliverAt = .distantPast
+            var later = first
+            later.id = 91
+            later.date = "2026-11-04"
+            later.cityId = "xian"
+            later.arrivals = ["xian"]
+            var future = later
+            future.id = 92
+            future.date = "2026-11-07"
+            future.deliverAt = .distantFuture
+            journey.letters = [first, later, future]
+        }
+        defer { fixture.remove() }
+        let model = fixture.model()
+        let passport = PassportDisplay(journey: try #require(model.state), catalog: localizationCatalog, now: model.now)
+        #expect(passport.cities.first { $0.id == "fukuoka" }?.letterID == nil)
+        #expect(passport.cities.first { $0.id == "xian" }?.letterID == 91)
+        let quanzhou = try #require(passport.cities.first { $0.id == "quanzhou" })
+        #expect(quanzhou.letterID == 90)
+        #expect(model.openCollectionLetter(quanzhou.letterID))
+        #expect(model.tab == .mail && model.selectedLetterID == 90)
+    }
+
     @Test func todayItemAcceptsOnlyOwnedItemsClearsAndSurvivesReload() throws {
         let fixture = try CollectionFixture()
         defer { fixture.remove() }

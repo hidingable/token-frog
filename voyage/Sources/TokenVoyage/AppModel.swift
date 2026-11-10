@@ -82,9 +82,6 @@ final class AppModel {
     var morningNotificationsEnabled: Bool {
         didSet { if !isSnapshot { defaults.set(morningNotificationsEnabled, forKey: "morningNotifications") } }
     }
-    var newCountryNotificationsEnabled: Bool {
-        didSet { if !isSnapshot { defaults.set(newCountryNotificationsEnabled, forKey: "newCountryNotifications") } }
-    }
     var deliveryTime: DeliveryTime {
         didSet { if !isSnapshot { defaults.set(deliveryTime.rawValue, forKey: "deliveryTime") } }
     }
@@ -195,7 +192,6 @@ final class AppModel {
         self.languageOverride = languageOverride
         self.defaults = defaults
         morningNotificationsEnabled = defaults.object(forKey: "morningNotifications") as? Bool ?? true
-        newCountryNotificationsEnabled = defaults.object(forKey: "newCountryNotifications") as? Bool ?? false
         deliveryTime = defaults.string(forKey: "deliveryTime").flatMap(DeliveryTime.init(rawValue:)) ?? .standard
         notifications = LetterNotificationService(defaults: defaults, center: notificationCenter ?? SystemLetterNotificationCenter(enabled: !isSnapshot && runtimeEnabled))
         loginItem = LoginItemSetting(manager: loginItemManager ?? (!isSnapshot && runtimeEnabled ? SystemLoginItem() : nil))
@@ -325,8 +321,7 @@ final class AppModel {
     func checkNotifications() async {
         guard !isSnapshot, !isLocked, onboarding == nil, let state, let catalog else { return }
         await notifications.evaluate(state: state, now: clock(), l10n: l10n, petName: petName,
-                                     catalog: catalog, morningEnabled: morningNotificationsEnabled,
-                                     newCountryEnabled: newCountryNotificationsEnabled)
+                                     catalog: catalog, morningEnabled: morningNotificationsEnabled)
     }
 
     func navigate(to tab: MainTab) {
@@ -396,6 +391,9 @@ final class AppModel {
 
     var ritualLetter: Letter? { letters.first { $0.id == ritualLetterID } }
     var ritualRemainingCount: Int { unreadInReadingOrder.count }
+    var ritualFinishTitle: String {
+        ritualRemainingCount > 0 ? l10n("ritual.nextLetter", ritualRemainingCount) : l10n("ritual.putAway")
+    }
 
     private func openRitualLetter(_ letter: Letter) {
         ritualLetterID = letter.id
@@ -691,8 +689,10 @@ final class AppModel {
     }
 
     /// The pending preview can call this without another usage scan.
+    var canDepartNow: Bool { !isLocked && !isScanning && onboarding == nil && state?.phase == .pending }
+
     func departNow() {
-        guard !isLocked, !isScanning, onboarding == nil, var state, state.phase == .pending, let catalog else { return }
+        guard canDepartNow, var state, let catalog else { return }
         now = clock()
         refreshWishWeek()
         let before = state.totalKm
@@ -1053,7 +1053,7 @@ final class AppModel {
     }
 
     func completeOnboarding() {
-        guard !isLocked, !isSnapshot, var saves = onboarding?.saves(now: clock()) else { return }
+        guard !isLocked, !isSnapshot, var saves = onboarding?.saves(now: clock(), l10n: l10n) else { return }
         MemoryBook.backfill(journey: saves.journey, care: &saves.care)
         do {
             try store.save(saves.journey)

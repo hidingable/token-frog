@@ -54,6 +54,7 @@ enum Snapshots {
         }
 
         writeHomePhases(model: model, to: directory)
+        writeTripSurfaces(model: model, to: directory)
         writePetForms(model: model, to: directory, metrics: metrics)
         writeRevisits(model: model, to: directory)
 
@@ -260,11 +261,17 @@ enum Snapshots {
                         let id = state.letters[index].id
                         state.letters[index].read = id != 3 && !(multiple && id > 3)
                     }
+                    state.phase = .staying
+                    state.currentCityId = state.targetCityId
+                    state.legFuel = state.legCost
+                    state.phaseSince = model.now.addingTimeInterval(-4 * 3600)
                 }) {
                     model.withSnapshotCare({ $0 = examples.care }) {
                         model.navigate(to: .home)
                         model.activateHomeAction()
                         render(MainView(model: model), size: CGSize(width: 760, height: 1240), name: name, directory, model: model)
+                        render(RitualEndingView(model: model).padding(12).background(model.theme.background),
+                               size: CGSize(width: 760, height: 520), name: "\(name)-ending", directory, model: model)
                         model.navigate(to: .home)
                     }
                 }
@@ -462,6 +469,71 @@ enum Snapshots {
                                name: "home-phase-\(phase.rawValue)-\(width)", directory, model: model)
                     }
                 }
+            }
+        }
+    }
+
+    /// Run with --language zh-Hans/en and --appearance dark/light for the four review sets.
+    private static func writeTripSurfaces(model: AppModel, to directory: URL) {
+        guard let catalog = model.catalog else { return }
+        let metrics = [NotchMetrics(notchWidth: 180, barHeight: 37), NotchMetrics(notchWidth: 0, barHeight: 24)]
+        for phase in [JourneyState.Phase.home, .pending, .outbound, .staying, .returning] {
+            let example = homePhaseExample(phase: phase, catalog: catalog, now: model.now, petName: model.petName)
+            model.withSnapshotCare({ $0 = example.care }) {
+                model.withSnapshotState({ $0 = example.journey }) {
+                    for metric in metrics {
+                        let name = metric.notchWidth == 0 ? "external-bar" : "notch"
+                        render(NotchCollapsedView(model: model, metrics: metric), size: metric.collapsedSize,
+                               name: "\(name)-\(phase.rawValue)-collapsed", directory, model: model)
+                        render(NotchExpandedView(model: model, metrics: metric), size: metric.expandedSize,
+                               name: "\(name)-\(phase.rawValue)-expanded", directory, model: model)
+                    }
+                    if phase == .pending {
+                        model.withSnapshotState({ state in
+                            let city = catalog.city("hangzhou")
+                            state.targetCityId = city.id
+                            state.legTo = city.coordinate
+                            state.legCost = JourneyState.cost(from: catalog.city(state.homeCityId), to: city)
+                        }) {
+                            render(NotchExpandedView(model: model, metrics: metrics[0]), size: metrics[0].expandedSize,
+                                   name: "notch-pending-reachable", directory, model: model)
+                        }
+                        model.withSnapshotCare({ $0.bag.todayItem = "note-slip" }) {
+                            render(NotchExpandedView(model: model, metrics: metrics[0]), size: metrics[0].expandedSize,
+                                   name: "notch-pending-changed-item", directory, model: model)
+                        }
+                    }
+                    if phase == .outbound {
+                        for km in [50, 51] {
+                            model.withSnapshotState({ state in
+                                state.legFuel = state.legCost - km * state.tokensPerKm
+                            }) {
+                                for metric in metrics {
+                                    let name = metric.notchWidth == 0 ? "external-bar" : "notch"
+                                    render(NotchCollapsedView(model: model, metrics: metric), size: metric.collapsedSize,
+                                           name: "\(name)-outbound-\(km)km", directory, model: model)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        var passport = homePhaseExample(phase: .staying, catalog: catalog, now: model.now, petName: model.petName)
+        passport.journey.route = ["hangzhou", "suzhou", "jingdezhen", "suzhou", "jingdezhen", "jingdezhen"]
+        var firstStay = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: model.now), now: model.now, catalog: catalog)
+        firstStay.sync(today: DayUsage(date: firstStay.openDate, fuel: firstStay.legCost), now: model.now, catalog: catalog)
+        passport.journey.stamps = firstStay.stamps
+        for index in passport.journey.letters.indices where passport.journey.letters[index].kind == .daily {
+            let city = passport.journey.route[index % passport.journey.route.count]
+            passport.journey.letters[index].cityId = city
+            passport.journey.letters[index].arrivals = [city]
+        }
+        model.withSnapshotState({ $0 = passport.journey }) {
+            model.openCollection(.passport)
+            render(MainView(model: model), size: CGSize(width: 760, height: 900), name: "passport-stays-regular", directory, model: model)
+            model.withSnapshotState({ state in state.route = []; state.stamps = [] }) {
+                render(MainView(model: model), size: CGSize(width: 760, height: 620), name: "passport-no-stays", directory, model: model)
             }
         }
     }

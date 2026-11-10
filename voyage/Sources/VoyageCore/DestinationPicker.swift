@@ -19,7 +19,7 @@ public enum DestinationPicker {
 
     static let configuration = Configuration()
 
-    enum Band: Int, CaseIterable {
+    public enum Band: Int, CaseIterable {
         case reachableToday, wander
 
         func contains(distanceKm: Double, medianKm: Double) -> Bool {
@@ -31,6 +31,11 @@ public enum DestinationPicker {
                 return distanceKm <= configuration.wanderMaximumMultiplier * median
             }
         }
+    }
+
+    /// Preview the destination's distance band. Wander draws can also land in the reachable band.
+    public static func previewBand(distanceKm: Double, medianKm: Double) -> Band {
+        Band.reachableToday.contains(distanceKm: distanceKm, medianKm: medianKm) ? .reachableToday : .wander
     }
 
     static func bandWeights(for bands: [[City]]) -> [Int] {

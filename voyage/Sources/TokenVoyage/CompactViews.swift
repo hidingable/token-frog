@@ -71,6 +71,7 @@ struct NotchCollapsedView: View {
 
     var body: some View {
         if let state = model.state, let catalog = model.catalog {
+            let display = NotchDisplay(journey: state, care: model.care, now: model.now, catalog: catalog, l10n: l10n)
             HStack(spacing: 0) {
                 HStack(spacing: 6) {
                     SpriteView(pet: state.pet, scale: 1, moving: model.isMoving, nightcap: model.nightcapNote != nil)
@@ -80,16 +81,16 @@ struct NotchCollapsedView: View {
                 .frame(width: metrics.shoulderWidth, alignment: .center)
                 Color.clear.frame(width: metrics.notchWidth)
                 NotchShoulderStatus(
-                    label: NotchStatus.isNearArrival(remainingKm: state.remainingKm)
-                        ? l10n("journey.remaining", Format.km(state.remainingKm))
-                        : l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))),
-                    distance: Format.km(state.remainingKm),
+                    label: display.status,
+                    distance: display.compactStatus,
                     unread: model.unread
                 )
                 .frame(width: metrics.shoulderWidth, alignment: .center)
             }
             .frame(width: metrics.collapsedSize.width, height: metrics.collapsedSize.height)
             .background(theme.notchBackground, in: SteppedBottom(step: 2))
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(display.status)
         }
     }
 }
@@ -99,16 +100,22 @@ struct NotchExpandedView: View {
     @Environment(\.l10n) private var l10n
     let model: AppModel
     var metrics: NotchMetrics
+    var onOpen: () -> Void = {}
 
     var body: some View {
         if let state = model.state, let catalog = model.catalog {
+            let display = NotchDisplay(journey: state, care: model.care, now: model.now, catalog: catalog, l10n: l10n)
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
                     Text(model.petName)
                         .frame(width: metrics.shoulderWidth + (metrics.expandedSize.width - metrics.collapsedSize.width) / 2)
                     Color.clear.frame(width: metrics.notchWidth)
                     Group {
-                        if model.unread > 0 { MailBadge(count: model.unread) } else { Text(l10n("compact.open")) }
+                        Button(action: onOpen) {
+                            if model.unread > 0 { MailBadge(count: model.unread) } else { Text(l10n("compact.open")) }
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(l10n("menu.openPostOffice"))
                     }
                     .frame(width: metrics.shoulderWidth + (metrics.expandedSize.width - metrics.collapsedSize.width) / 2)
                 }
@@ -118,33 +125,75 @@ struct NotchExpandedView: View {
 
                 HStack(alignment: .top, spacing: 12) {
                     VStack(alignment: .leading, spacing: 6) {
-                        PixelMapView(image: PixelMap.image(for: state, catalog: catalog, theme: theme),
-                                     availableWidth: min(metrics.expandedSize.width - 32 - 12 - 156, model.roadClueText == nil ? .infinity : 300),
+                        Button(action: onOpen) {
+                            PixelMapView(image: PixelMap.image(for: state, catalog: catalog, theme: theme),
+                                     availableWidth: min(metrics.expandedSize.width - 32 - 12 - 230, model.roadClueText == nil ? .infinity : 300),
                                      borderColor: theme.notchControlOff)
-                            .accessibilityLabel(l10n("map.description", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId))))
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(l10n("menu.openPostOffice"))
                         if let clue = model.roadClueText {
                             Text(l10n("journey.roadClue")).font(Theme.pixel()).foregroundStyle(theme.notchTextMuted)
                             Text(clue).font(.system(size: 12)).lineSpacing(2).foregroundStyle(theme.notchText)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                     }
-                    .frame(width: metrics.expandedSize.width - 32 - 12 - 156, alignment: .leading)
+                    .frame(width: metrics.expandedSize.width - 32 - 12 - 230, alignment: .leading)
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(Format.km(model.todayKm))
-                            .font(Theme.pixel(24))
-                            .foregroundStyle(theme.notchMileageText)
-                        Text(l10n("compact.fuel", l10n.tokens(model.todayTokens)))
-                        if let totals = model.todayTotals {
-                            Text(l10n("compact.total", Format.tokens(totals.total, language: l10n.language), Format.cost(totals.cost)))
+                        if let pending = display.pending {
+                            Text(l10n("notch.nextStop")).foregroundStyle(theme.notchTextMuted)
+                            Text(pending.destination).font(Theme.pixel(24)).foregroundStyle(theme.notchMileageText)
+                            Text(pending.distanceAndBand)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Text(l10n("notch.carrying")).foregroundStyle(theme.notchTextMuted)
+                            let owned = catalog.items.all.filter { model.care?.bag.owned.contains($0.id) == true }
+                            // The carried item always shows; the notch has room for three chips, the ritual lists the whole bag.
+                            let chips = (owned.filter { $0.id == pending.carriedItemID } + owned.filter { $0.id != pending.carriedItemID }).prefix(3)
+                            if chips.isEmpty {
+                                Text(l10n("home.status.emptyBag"))
+                            } else {
+                                HStack(spacing: 4) {
+                                    ForEach(Array(chips)) { item in
+                                        let selected = item.id == pending.carriedItemID
+                                        Button { model.setTodayItem(item.id) } label: {
+                                            Text(l10n.itemName(item)).lineLimit(1)
+                                                .padding(.horizontal, 5).padding(.vertical, 3)
+                                                .foregroundStyle(selected ? theme.notchBackground : theme.notchTextMuted)
+                                                .background(selected ? theme.notchMileageText : theme.notchControlOff)
+                                        }
+                                        .buttonStyle(.plain)
+                                        .disabled(model.isLocked)
+                                        .accessibilityLabel(l10n("notch.changeItem"))
+                                        .accessibilityValue(l10n.itemName(item))
+                                        .accessibilityAddTraits(selected ? .isSelected : [])
+                                    }
+                                }
+                            }
+                            Button(l10n("notch.departNow")) { model.departNow() }
+                                .buttonStyle(.plain)
+                                .padding(6).background(theme.notchControlOff)
+                                .accessibilityLabel(l10n("notch.departNow"))
+                                .disabled(!model.canDepartNow)
+                            Text(pending.countdown).foregroundStyle(theme.notchTextMuted)
+                                .fixedSize(horizontal: false, vertical: true)
+                        } else {
+                            Text(Format.km(model.todayKm))
+                                .font(Theme.pixel(24))
+                                .foregroundStyle(theme.notchMileageText)
+                            Text(l10n("compact.fuel", l10n.tokens(model.todayTokens)))
+                            if let totals = model.todayTotals {
+                                Text(l10n("compact.total", Format.tokens(totals.total, language: l10n.language), Format.cost(totals.cost)))
+                                    .foregroundStyle(theme.notchTextMuted)
+                            }
+                            Text(display.status).fixedSize(horizontal: false, vertical: true)
+                            BlockProgress(progress: state.legProgress, blocks: 12, size: 6, inactiveColor: theme.notchControlOff)
+                            Text(display.remainingAndFund)
                                 .foregroundStyle(theme.notchTextMuted)
-                        }
-                        Text(l10n("journey.route", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId))))
-                        BlockProgress(progress: state.legProgress, blocks: 12, size: 6, inactiveColor: theme.notchControlOff)
-                        Text(l10n("journey.remaining", Format.km(state.remainingKm)))
-                            .foregroundStyle(theme.notchTextMuted)
-                        ForEach(model.todayVehicles.prefix(1), id: \.client) { share in
-                            Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
-                                .foregroundStyle(theme.notchTextMuted)
+                                .fixedSize(horizontal: false, vertical: true)
+                            ForEach(model.todayVehicles.prefix(1), id: \.client) { share in
+                                Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
+                                    .foregroundStyle(theme.notchTextMuted)
+                            }
                         }
                         Spacer(minLength: 0)
                     }

@@ -61,9 +61,9 @@ private func notificationJourney(ids: [Int] = [1], countries: [String] = []) -> 
 
 @MainActor
 private func evaluate(_ service: LetterNotificationService, _ state: JourneyState, at now: Date = notificationDate(),
-                      language: Language = .en, morning: Bool = true, country: Bool = false) async {
+                      language: Language = .en, morning: Bool = true) async {
     await service.evaluate(state: state, now: now, l10n: L10n(language: language), petName: "Ginkgo", catalog: localizationCatalog,
-                           morningEnabled: morning, newCountryEnabled: country, calendar: notificationCalendar)
+                           morningEnabled: morning, calendar: notificationCalendar)
 }
 
 @Test @MainActor func notificationsRequireAnUnreadDeliveredLetterAndEnabledSetting() async {
@@ -178,34 +178,32 @@ private func evaluate(_ service: LetterNotificationService, _ state: JourneyStat
     #expect(defaults.string(forKey: "notificationLastSentDate") == nil)
 }
 
-@Test @MainActor func newCountryNotificationsAreOptInAndShareTheDailyDeliveryLimit() async {
+@Test @MainActor func newCountriesDoNotNotifyIndependentlyOfMorningMail() async {
     let center = NotificationProbe()
     let service = LetterNotificationService(defaults: NotificationDefaults(), center: center)
     let state = notificationJourney(ids: [1, 2, 3], countries: ["JP"])
     await evaluate(service, state, morning: false)
     #expect(center.sent.isEmpty)
-    await evaluate(service, state, morning: false, country: true)
-    #expect(center.sent.count == 1)
-    #expect(center.sent.first?.title == "Ginkgo arrived in Japan")
-    await evaluate(service, state, at: notificationDate(hour: 10))
-    #expect(center.sent.count == 1)
-    await evaluate(service, state, at: notificationDate(3), morning: false, country: true)
-    #expect(center.sent.map(\.letterID) == [1, 3])
-    await evaluate(service, state, at: notificationDate(4), morning: false, country: true)
-    #expect(center.sent.count == 2)
+    await evaluate(service, state, at: notificationDate(3), morning: false)
+    #expect(center.sent.isEmpty)
+    await evaluate(service, state, at: notificationDate(3))
+    #expect(center.sent.map(\.letterID) == [3])
+    #expect(center.sent.first?.title == "Ginkgo writes from Shanghai")
 }
 
-@Test @MainActor func countrySettingDoesNotResendPreviouslyNotifiedOrReadArrivals() async {
+@Test @MainActor func phaseChangesAndLegacyDepartureLettersDoNotNotify() async {
     let center = NotificationProbe()
     let service = LetterNotificationService(defaults: NotificationDefaults(), center: center)
-    var state = notificationJourney(countries: ["JP"])
+    var state = notificationJourney(ids: [])
+    for phase in [JourneyState.Phase.pending, .outbound, .staying, .returning, .home] {
+        state.phase = phase
+        await evaluate(service, state)
+    }
+    #expect(center.sent.isEmpty)
+    state = notificationJourney(countries: ["JP"])
+    state.letters[0].kind = .departure
     await evaluate(service, state)
-    await evaluate(service, state, at: notificationDate(3), morning: false, country: true)
-    #expect(center.sent.count == 1)
-    state.letters[0].id = 2
-    state.letters[0].read = true
-    await evaluate(service, state, at: notificationDate(3), morning: false, country: true)
-    #expect(center.sent.count == 1)
+    #expect(center.sent.isEmpty)
 }
 
 @Test @MainActor func notificationResponseForwardsRequestedLetterOrMissingIdentifierWithoutCrashing() {

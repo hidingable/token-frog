@@ -43,7 +43,6 @@ struct SettingsTab: View {
             }
             group("settings.notifications") {
                 Toggle(l10n("settings.morningMail"), isOn: $model.morningNotificationsEnabled)
-                Toggle(l10n("settings.newCountry"), isOn: $model.newCountryNotificationsEnabled)
                 row("settings.deliveryTime") {
                     Picker(l10n("settings.deliveryTime"), selection: $model.deliveryTime) {
                         ForEach(DeliveryTime.allCases, id: \.self) { time in Text(time.rawValue).tag(time) }

@@ -45,6 +45,57 @@ private final class CareDefaults: UserDefaults, @unchecked Sendable {
 }
 
 @Suite @MainActor struct PostOfficeTests {
+    @Test(arguments: [JourneyState.Phase.home, .pending, .outbound, .staying, .returning], [LanguagePreference.zhHans, .en])
+    func puttingTheRitualAwayReturnsToTheRoomWithoutStartingOrChangingATrip(phase: JourneyState.Phase, language: LanguagePreference) throws {
+        let fixture = try CareFixture { journey, _ in
+            journey.phase = phase
+            journey.phaseSince = CareClock().date
+            for index in journey.letters.indices { journey.letters[index].read = journey.letters[index].id != 3 }
+        }
+        defer { fixture.remove() }
+        let model = fixture.model()
+        model.languagePreference = language
+        let before = try #require(model.state)
+        model.activateHomeAction()
+        #expect(model.ritualLetterID == 3 && model.ritualRemainingCount == 0)
+        #expect(model.ritualFinishTitle == (language == .zhHans ? "收好" : "Put away"))
+        #expect(model.setTodayItem("raincoat"))
+        model.advanceRitual()
+        let after = try #require(model.state)
+        #expect(model.tab == .home && model.homePage == .room && model.ritualLetterID == nil)
+        #expect(after.phase == before.phase && after.phaseSince == before.phaseSince)
+        #expect(after.targetCityId == before.targetCityId && after.remainingKm == before.remainingKm)
+        #expect(after.totalKm == before.totalKm && after.travelFund == before.travelFund && after.route == before.route)
+        #expect(model.care?.bag.todayItem == "raincoat")
+        #expect(after.letters.first { $0.id == 3 }?.selectedReplyId == nil)
+        #expect(fixture.model().state == after && fixture.model().care?.bag.todayItem == "raincoat")
+    }
+
+    @Test(arguments: [LanguagePreference.zhHans, .en])
+    func multipleLettersStillAdvanceAndCanBeCollectedTogether(language: LanguagePreference) throws {
+        let fixture = try CareFixture(allRead: false) { journey, _ in
+            journey.letters[5].deliverAt = .distantFuture
+        }
+        defer { fixture.remove() }
+        let model = fixture.model()
+        model.languagePreference = language
+        let before = try #require(model.state)
+        let unreadBefore = model.unread
+        model.activateHomeAction()
+        let first = model.ritualLetterID
+        #expect(model.ritualRemainingCount == unreadBefore - 1)
+        #expect(model.ritualFinishTitle == (language == .zhHans ? "下一封（还有 \(unreadBefore - 1) 封）" : "Next letter (\(unreadBefore - 1) more)"))
+        model.advanceRitual()
+        #expect(model.ritualLetterID != first && model.ritualLetterID != nil)
+        #expect(model.ritualRemainingCount == unreadBefore - 2)
+        model.collectAllRitualLetters()
+        #expect(model.unread == 0 && model.ritualLetterID == nil && model.homePage == .room && model.tab == .home)
+        #expect(model.state?.letters.first { $0.id == 5 }?.read == false)
+        #expect(model.state?.phase == before.phase && model.state?.targetCityId == before.targetCityId)
+        #expect(model.state?.totalKm == before.totalKm && model.state?.remainingKm == before.remainingKm)
+        #expect(fixture.model().unread == 0)
+    }
+
     @Test func noMailPresentationRecordsOpensWithoutAwardingCompanionDays() async throws {
         let fixture = try CareFixture()
         defer { fixture.remove() }

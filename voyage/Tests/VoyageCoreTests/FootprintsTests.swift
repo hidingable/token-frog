@@ -49,6 +49,18 @@ import Testing
         #expect(footprints(journey) == result)
     }
 
+    @Test func farthestIgnoresTargetsTransitLettersAndHomeWithoutAStay() {
+        var (journey, care) = engineState()
+        journey.route = ["xian"]
+        journey.targetCityId = "fukuoka"
+        journey.letters = [engineLetter(1, arrivals: [], cityId: "fukuoka")]
+        let result = footprints(journey, care)
+        #expect(result.farthest?.cityId == "xian")
+        #expect(result.mostVisited == .init(cityId: "xian", count: 1))
+        journey.route = []
+        #expect(footprints(journey, care).farthest == nil)
+    }
+
     @Test func memoryBookCountsRepliesFulfillmentsAndLocatedSpecialDaysWithRecentTieBreak() {
         var (journey, care) = engineState()
         journey.letters = [engineLetter(1, cityId: "xian"), engineLetter(2, cityId: "quanzhou")]

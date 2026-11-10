@@ -7,42 +7,54 @@ struct RitualView: View {
     let model: AppModel
 
     var body: some View {
-        if let letter = model.ritualLetter, let catalog = model.catalog, let state = model.state {
+        if let letter = model.ritualLetter, let catalog = model.catalog {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     Text(l10n("ritual.title")).font(Theme.pixel(24)).foregroundStyle(theme.text)
                     LetterView(letter: letter, photoURL: model.photoURL(letter), petName: model.petName, catalog: catalog, model: model)
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text(l10n("ritual.chooseItem")).font(Theme.pixel(24))
-                        BagItemPicker(items: catalog.items.all.filter { model.care?.bag.owned.contains($0.id) == true },
-                                      selection: model.care?.bag.todayItem) { model.setTodayItem($0) }
-                        Text(l10n("item.randomHint")).font(Theme.pixel()).foregroundStyle(theme.textMuted)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                    .foregroundStyle(theme.text).padding(16).background(theme.surfaceRaised).pixelBorder(theme.border)
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(l10n("ritual.nextStop", l10n.cityName(catalog.city(state.targetCityId))))
-                            .font(Theme.pixel(24)).foregroundStyle(theme.text)
-                            .fixedSize(horizontal: false, vertical: true)
-                        Text(l10n("journey.remaining", Format.km(state.remainingKm)))
-                            .font(Theme.pixel()).foregroundStyle(theme.mileageText)
-                    }
-                    .padding(16)
-                    HStack(alignment: .top, spacing: 12) {
-                        CollectionAction(title: model.ritualRemainingCount > 0
-                                         ? l10n("ritual.nextLetter", model.ritualRemainingCount) : l10n("ritual.sendOff")) {
-                            model.advanceRitual()
-                        }
-                        if model.ritualRemainingCount > 0 {
-                            CollectionAction(title: l10n("ritual.collectAll")) { model.collectAllRitualLetters() }
-                        }
-                    }
-                    .disabled(model.isLocked)
+                    RitualEndingView(model: model)
                 }
                 .padding(12)
             }
             .id(letter.id)
             .task(id: "\(letter.id)-\(l10n.language.rawValue)") { await model.enrichPlace(letterId: letter.id) }
+        }
+    }
+}
+
+struct RitualEndingView: View {
+    @Environment(\.theme) private var theme
+    @Environment(\.l10n) private var l10n
+    let model: AppModel
+
+    var body: some View {
+        if let state = model.state, let care = model.care, let catalog = model.catalog {
+            VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(l10n("ritual.now")).font(Theme.pixel(24))
+                    let status = HomeStatusDisplay(journey: state, care: care, now: model.now, catalog: catalog, l10n: l10n)
+                    Text(status.title).font(Theme.pixel())
+                    Text(status.detail).font(Theme.pixel()).foregroundStyle(theme.textMuted)
+                }
+                .foregroundStyle(theme.text).padding(16).background(theme.surfaceRaised).pixelBorder(theme.border)
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(l10n("ritual.chooseItem")).font(Theme.pixel(24))
+                    BagItemPicker(items: catalog.items.all.filter { model.care?.bag.owned.contains($0.id) == true },
+                                  selection: model.care?.bag.todayItem) { model.setTodayItem($0) }
+                    Text(l10n("ritual.itemHint")).font(Theme.pixel()).foregroundStyle(theme.textMuted)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .foregroundStyle(theme.text).padding(16).background(theme.surfaceRaised).pixelBorder(theme.border)
+                HStack(alignment: .top, spacing: 12) {
+                    CollectionAction(title: model.ritualFinishTitle) {
+                        model.advanceRitual()
+                    }
+                    if model.ritualRemainingCount > 0 {
+                        CollectionAction(title: l10n("ritual.collectAll")) { model.collectAllRitualLetters() }
+                    }
+                }
+                .disabled(model.isLocked)
+            }
         }
     }
 }

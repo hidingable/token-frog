@@ -2,8 +2,12 @@ import AppKit
 import SwiftUI
 import VoyageCore
 
+private final class FirstMouseHostingView<Content: View>: NSHostingView<Content> {
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
+}
+
 /// Hosts SwiftUI inside a non-activating panel. It takes all mouse input itself because the app is
-/// usually inactive, where SwiftUI hover and buttons would not respond.
+/// usually inactive; expanded notch controls receive input through a first-mouse hosting view.
 final class PanelHostView<Content: View>: NSView {
     private let hosting: NSHostingView<Content>
     var onHover: ((Bool) -> Void)?
@@ -11,10 +15,11 @@ final class PanelHostView<Content: View>: NSView {
     var onClickCount: ((Int, Bool) -> Void)?
     var onPress: (() -> Void)?
     var draggable = false
+    var interactiveContent = false
     private var dragged = false
 
     init(rootView: Content) {
-        hosting = NSHostingView(rootView: rootView)
+        hosting = FirstMouseHostingView(rootView: rootView)
         hosting.sizingOptions = []
         super.init(frame: .zero)
         hosting.autoresizingMask = [.width, .height]
@@ -32,7 +37,8 @@ final class PanelHostView<Content: View>: NSView {
     }
 
     override func hitTest(_ point: NSPoint) -> NSView? {
-        frame.contains(point) ? self : nil
+        guard frame.contains(point) else { return nil }
+        return interactiveContent ? hosting.hitTest(convert(point, from: superview)) : self
     }
 
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
@@ -74,9 +80,9 @@ private func makePanel(frame: NSRect) -> NSPanel {
 struct NotchMetrics: Equatable {
     var notchWidth: CGFloat
     var barHeight: CGFloat
-    var shoulderWidth: CGFloat = 96
+    var shoulderWidth: CGFloat = 240
     var collapsedSize: CGSize { CGSize(width: notchWidth + shoulderWidth * 2, height: barHeight) }
-    var expandedSize: CGSize { CGSize(width: max(collapsedSize.width, 560), height: barHeight + 176) }
+    var expandedSize: CGSize { CGSize(width: max(collapsedSize.width, 560), height: barHeight + 240) }
 
     @MainActor init(screen: NSScreen) {
         if let left = screen.auxiliaryTopLeftArea, let right = screen.auxiliaryTopRightArea, screen.safeAreaInsets.top > 0 {
@@ -96,29 +102,9 @@ struct NotchMetrics: Equatable {
 
 @MainActor
 final class NotchController {
-    private struct Root: View {
-        let model: AppModel
-        let metrics: NotchMetrics
-        let expanded: Bool
-        var body: some View {
-            VStack(spacing: 0) {
-                if expanded {
-                    NotchExpandedView(model: model, metrics: metrics)
-                } else {
-                    NotchCollapsedView(model: model, metrics: metrics)
-                }
-                Spacer(minLength: 0)
-            }
-            .localized(using: model)
-        }
-    }
-
     private let model: AppModel
     private let onOpen: () -> Void
-    private var panel: NSPanel?
-    private var host: PanelHostView<Root>?
-    private var expanded = false
-    private var collapseTask: Task<Void, Never>?
+    private var surfaces: [NotchSurface] = []
     private var screenObserver: NSObjectProtocol?
 
     init(model: AppModel, onOpen: @escaping () -> Void) {
@@ -127,7 +113,7 @@ final class NotchController {
     }
 
     func show() {
-        guard panel == nil else { return }
+        guard screenObserver == nil else { return }
         rebuild()
         screenObserver = NotificationCenter.default.addObserver(
             forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: .main
@@ -139,53 +125,87 @@ final class NotchController {
     func hide() {
         if let screenObserver { NotificationCenter.default.removeObserver(screenObserver) }
         screenObserver = nil
-        panel?.close()
-        panel = nil
-        host = nil
-    }
-
-    private var targetScreen: NSScreen? {
-        NSScreen.screens.first { $0.safeAreaInsets.top > 0 } ?? NSScreen.main
+        surfaces.forEach { $0.close() }
+        surfaces = []
     }
 
     private func rebuild() {
-        panel?.close()
-        guard let screen = targetScreen else { return }
-        let metrics = NotchMetrics(screen: screen)
-        expanded = false
-        let host = PanelHostView(rootView: Root(model: model, metrics: metrics, expanded: false))
-        host.onClick = { [weak self] in self?.onOpen() }
-        host.onHover = { [weak self] inside in self?.hover(inside, metrics: metrics, screen: screen) }
-        let panel = makePanel(frame: frame(for: metrics.collapsedSize, screen: screen))
+        surfaces.forEach { $0.close() }
+        surfaces = NSScreen.screens.map { NotchSurface(model: model, screen: $0, onOpen: onOpen) }
+    }
+}
+
+/// Each display keeps its own hover state, including the camera-free top bar on external displays.
+@MainActor
+private final class NotchSurface {
+    private struct Root: View {
+        let model: AppModel
+        let metrics: NotchMetrics
+        let expanded: Bool
+        let onOpen: () -> Void
+        var body: some View {
+            VStack(spacing: 0) {
+                if expanded {
+                    NotchExpandedView(model: model, metrics: metrics, onOpen: onOpen)
+                } else {
+                    NotchCollapsedView(model: model, metrics: metrics)
+                }
+                Spacer(minLength: 0)
+            }
+            .localized(using: model)
+        }
+    }
+
+    private let model: AppModel
+    private let screen: NSScreen
+    private let metrics: NotchMetrics
+    private let onOpen: () -> Void
+    private let panel: NSPanel
+    private let host: PanelHostView<Root>
+    private var expanded = false
+    private var collapseTask: Task<Void, Never>?
+
+    init(model: AppModel, screen: NSScreen, onOpen: @escaping () -> Void) {
+        self.model = model
+        self.screen = screen
+        self.onOpen = onOpen
+        metrics = NotchMetrics(screen: screen)
+        host = PanelHostView(rootView: Root(model: model, metrics: metrics, expanded: false, onOpen: onOpen))
+        panel = makePanel(frame: Self.frame(for: metrics.collapsedSize, screen: screen))
+        host.onClick = onOpen
+        host.onHover = { [weak self] inside in self?.hover(inside) }
         panel.level = .statusBar
         panel.contentView = host
         panel.orderFrontRegardless()
-        self.panel = panel
-        self.host = host
     }
 
-    private func frame(for size: CGSize, screen: NSScreen) -> NSRect {
+    func close() {
+        collapseTask?.cancel()
+        panel.close()
+    }
+
+    private static func frame(for size: CGSize, screen: NSScreen) -> NSRect {
         NSRect(x: screen.frame.midX - size.width / 2, y: screen.frame.maxY - size.height, width: size.width, height: size.height)
     }
 
-    private func hover(_ inside: Bool, metrics: NotchMetrics, screen: NSScreen) {
+    private func hover(_ inside: Bool) {
         collapseTask?.cancel()
-        if inside {
-            setExpanded(true, metrics: metrics, screen: screen)
-        } else {
+        if inside { setExpanded(true) }
+        else {
             collapseTask = Task { [weak self] in
                 try? await Task.sleep(for: .milliseconds(250))
                 guard !Task.isCancelled else { return }
-                self?.setExpanded(false, metrics: metrics, screen: screen)
+                self?.setExpanded(false)
             }
         }
     }
 
-    private func setExpanded(_ value: Bool, metrics: NotchMetrics, screen: NSScreen) {
+    private func setExpanded(_ value: Bool) {
         guard value != expanded else { return }
         expanded = value
-        host?.setRootView(Root(model: model, metrics: metrics, expanded: value))
-        panel?.setFrame(frame(for: value ? metrics.expandedSize : metrics.collapsedSize, screen: screen), display: true)
+        host.interactiveContent = value
+        host.setRootView(Root(model: model, metrics: metrics, expanded: value, onOpen: onOpen))
+        panel.setFrame(Self.frame(for: value ? metrics.expandedSize : metrics.collapsedSize, screen: screen), display: true)
     }
 }
 

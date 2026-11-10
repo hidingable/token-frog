@@ -76,7 +76,7 @@ private struct OnboardingFixture {
         AppModel(isSnapshot: isSnapshot, defaults: defaults, directory: directory, catalog: localizationCatalog, themes: testThemes,
                  now: { now }, onboardingSeed: 42,
                  onboardingReader: { since, until in try await reader.read(since: since, until: until) },
-                 quotaReader: { await quota.read() }, enrichmentReader: { _ in Enrichment() }, runtimeEnabled: false)
+                 quotaReader: { await quota.read() }, enrichmentReader: { _ in Enrichment() }, wishModel: nil, runtimeEnabled: false)
     }
 
     func prepare(journey: Bool, care: Bool) throws {
@@ -128,6 +128,51 @@ private func substantialOnboardingHistory() -> [DayDetail] {
 }
 
 @Suite @MainActor struct OnboardingTests {
+    @Test(arguments: [LanguagePreference.zhHans, .en])
+    func firstDepartureStartsImmediatelyWithALocalizedCapitalWish(language: LanguagePreference) async throws {
+        let fixture = try OnboardingFixture()
+        defer { fixture.remove() }
+        let model = fixture.model()
+        model.languagePreference = language
+        let flow = try #require(model.onboarding)
+        advanceToDeparture(flow, language: model.l10n.language)
+        let target = flow.preview.targetCityId
+        model.completeOnboarding()
+        #expect(model.state?.phase == .outbound && model.state?.phaseSince == onboardingToday)
+        #expect(model.state?.targetCityId == target && !model.canDepartNow)
+        let expected = language == .zhHans ? "去看看各国首都" : "Visit capitals around the world"
+        #expect(model.care?.wish == expected)
+        #expect(model.care?.wishResolution?.tags == ["capital"])
+        #expect(model.care?.wishResolution?.parsedAt == onboardingToday)
+        #expect(fixture.model().care?.wish == expected)
+        model.languagePreference = language == .zhHans ? .en : .zhHans
+        #expect(model.care?.wish == expected)
+        #expect(await model.setWish(language == .zhHans ? "sea" : "大海"))
+        #expect(model.care?.wishResolution?.tags.contains("coast") == true)
+        #expect(await model.setWish(""))
+        #expect(model.care?.wish == nil && model.care?.wishResolution == nil)
+        #expect(fixture.model().care?.wish == nil && fixture.model().care?.wishResolution == nil)
+    }
+
+    @Test(arguments: [false, true])
+    func existingJourneysNeverReceiveTheFirstWishPreset(hasWish: Bool) throws {
+        let fixture = try OnboardingFixture()
+        defer { fixture.remove() }
+        try fixture.prepare(journey: true, care: true)
+        let store = SaveStore(directory: fixture.directory, pets: localizationCatalog.pets, journeyMigrations: .journey(catalog: localizationCatalog))
+        store.load()
+        var care = try JSONDecoder().decode(CareState.self, from: Data(contentsOf: fixture.careURL))
+        if hasWish { WishEngine.write("A quiet coast", tags: ["coast"], at: onboardingToday, care: &care) }
+        try store.save(care)
+        let model = fixture.model()
+        #expect(model.onboarding == nil)
+        #expect(model.care?.wish == care.wish && model.care?.wishResolution == care.wishResolution)
+        model.languagePreference = .zhHans
+        model.tick()
+        #expect(fixture.model().care?.wish == care.wish)
+        #expect(fixture.model().care?.wishResolution == care.wishResolution)
+    }
+
     @Test(arguments: [(false, false), (true, false), (false, true), (true, true)])
     func onboardingOnlyAppearsWhenBothSavesAreMissing(hasJourney: Bool, hasCare: Bool) throws {
         let fixture = try OnboardingFixture()

@@ -82,7 +82,7 @@ final class SystemLetterNotificationCenter: NSObject, LetterNotificationCenter, 
     }
 }
 
-/// One delivery gate for both settings. It is called by the existing 30-second tick.
+/// The morning-mail delivery gate, called by the existing 30-second tick.
 @MainActor
 @Observable
 final class LetterNotificationService {
@@ -113,15 +113,15 @@ final class LetterNotificationService {
     }
 
     func evaluate(state: JourneyState, now: Date, l10n: L10n, petName: String, catalog: CityCatalog,
-                  morningEnabled: Bool = true, newCountryEnabled: Bool = false, calendar: Calendar = .current) async {
-        guard !isEvaluating, morningEnabled || newCountryEnabled else { return }
+                  morningEnabled: Bool = true, calendar: Calendar = .current) async {
+        guard !isEvaluating, morningEnabled else { return }
         let today = DayKey.string(from: now, calendar: calendar)
         guard defaults.string(forKey: "notificationLastSentDate") != today else { return }
         let journeyID = "\(state.seed):\(state.startDate)"
         let lastSentID = defaults.string(forKey: "notificationLastSentJourney") == journeyID
             ? defaults.object(forKey: "notificationLastSentLetterID") as? Int : nil
         guard let letter = state.letters.filter({ letter in
-            letter.deliverAt <= now && !letter.read && (morningEnabled || !letter.newCountries.isEmpty)
+            letter.deliverAt <= now && !letter.read && letter.kind != .departure
                 && (lastSentID == nil || letter.id > lastSentID!)
         }).max(by: { $0.deliverAt == $1.deliverAt ? $0.id < $1.id : $0.deliverAt < $1.deliverAt }) else { return }
         let text = LetterComposer.text(for: letter, l10n: l10n, petName: petName, catalog: catalog, letters: state.letters)
@@ -142,12 +142,7 @@ final class LetterNotificationService {
             }
         }
         guard authorization == .authorized else { return }
-        let title: String
-        if !morningEnabled, let country = letter.newCountries.last {
-            title = l10n("notification.newCountryTitle", petName, l10n.countryName(catalog.countryNames(country)))
-        } else {
-            title = l10n("notification.letterTitle", petName, l10n.cityName(catalog.city(letter.cityId)))
-        }
+        let title = l10n("notification.letterTitle", petName, l10n.cityName(catalog.city(letter.cityId)))
         do {
             try await center.send(LetterNotification(letterID: letter.id, title: title, body: body))
             defaults.set(today, forKey: "notificationLastSentDate")

@@ -4638,13 +4638,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "约 %@ · 随机决定"
+            "value": "离家约 %@"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "About %@ · Chosen at random"
+            "value": "About %@ from home"
           }
         }
       }
@@ -4944,13 +4944,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "明早 9 点，它会给你来信。"
+            "value": "第一趟点了就走，不用等半小时。明早 9 点，它会给你来信。"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "A letter will arrive tomorrow morning at 9."
+            "value": "The first trip starts right away—no half-hour wait. A letter arrives tomorrow at 9 a.m."
           }
         }
       }
@@ -5539,13 +5539,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "带回来的"
+            "value": "这一趟带回来的"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Brought home"
+            "value": "Brought back this trip"
           }
         }
       }
@@ -5590,30 +5590,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "带一样东西"
+            "value": "下一趟带什么"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pack one item"
-          }
-        }
-      }
-    },
-    "ritual.nextStop": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "它决定下一站去 %@"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "It has chosen %@ as the next stop"
+            "value": "What to carry next trip"
           }
         }
       }
@@ -5631,23 +5614,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Next letter (%d more)"
-          }
-        }
-      }
-    },
-    "ritual.sendOff": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "送它出发"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Send it on its way"
           }
         }
       }
@@ -6638,23 +6604,6 @@
         }
       }
     },
-    "settings.newCountry": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "到达新国家"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arrival in a new country"
-          }
-        }
-      }
-    },
     "settings.deliveryTime": {
       "extractionState": "manual",
       "localizations": {
@@ -7178,23 +7127,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ writes from %@"
-          }
-        }
-      }
-    },
-    "notification.newCountryTitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ 到达了 %@"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ arrived in %@"
           }
         }
       }
@@ -7743,13 +7675,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "可随时改，下一次抽站生效。周一清空，不算失败。"
+            "value": "它在外面时写的心愿影响下一趟；在家或待发时写的影响下下趟。每周一清空，没听懂就随便走走。"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edit anytime; applies at the next draw. Clears on Monday, with no failure."
+            "value": "A wish written while away guides the next trip; at home or before departure, it guides the trip after that. Wishes clear on Monday. If unclear, it will wander."
           }
         }
       }
@@ -8651,6 +8583,414 @@
           "stringUnit": {
             "state": "translated",
             "value": "我回来了！"
+          }
+        }
+      }
+    },
+    "notch.pending": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "→ %@ · %d 分后出发"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "→ %@ · Leaves in %d min"
+          }
+        }
+      }
+    },
+    "notch.departureCountdown": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d 分后自动出发"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leaves automatically in %d min"
+          }
+        }
+      }
+    },
+    "notch.staying": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在%@ · 还停 %d 时 %d 分"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In %@ · Staying %dh %dm more"
+          }
+        }
+      }
+    },
+    "notch.stayCountdown": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还停 %d 时 %d 分"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Staying %dh %dm more"
+          }
+        }
+      }
+    },
+    "notch.returning": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "← 回家 · 还差 %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "← Home · %@ to go"
+          }
+        }
+      }
+    },
+    "notch.remainingAndFund": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还差 %@ · 路费 %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ to go · Travel fund %@"
+          }
+        }
+      }
+    },
+    "notch.band.reachableToday": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当天能到"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reachable today"
+          }
+        }
+      }
+    },
+    "notch.band.wander": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "随便走"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wander"
+          }
+        }
+      }
+    },
+    "notch.distanceAndBand": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "离家 %@ · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ from home · %@"
+          }
+        }
+      }
+    },
+    "notch.nextStop": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下一站"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next stop"
+          }
+        }
+      }
+    },
+    "notch.carrying": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "带着"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carrying"
+          }
+        }
+      }
+    },
+    "notch.changeItem": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "换一样行囊里的东西"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change the carried bag item"
+          }
+        }
+      }
+    },
+    "notch.departNow": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "立刻出发"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leave now"
+          }
+        }
+      }
+    },
+    "ritual.now": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "它现在"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Where it is now"
+          }
+        }
+      }
+    },
+    "ritual.itemHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不选就随机带一样；待发时还能在刘海里换。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leave it to chance, or pick an item. You can change it in the notch before departure."
+          }
+        }
+      }
+    },
+    "ritual.putAway": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收好"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Put away"
+          }
+        }
+      }
+    },
+    "wish.first": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "去看看各国首都"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visit capitals around the world"
+          }
+        }
+      }
+    },
+    "passport.stayedCities": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "停留过的城市"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cities stayed in"
+          }
+        }
+      }
+    },
+    "passport.regularHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "停留 3 次成为熟客"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Become a regular after 3 stays"
+          }
+        }
+      }
+    },
+    "passport.regularStay": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · 熟客"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · Regular"
+          }
+        }
+      }
+    },
+    "passport.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还没在外面停留过。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No stays away from home yet."
+          }
+        }
+      }
+    },
+    "passport.allCountries": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部国家和地区"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All countries and regions"
+          }
+        }
+      }
+    },
+    "passport.showCountry": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看%@的停留城市"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show stays in %@"
+          }
+        }
+      }
+    },
+    "passport.openCity": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看%@来信"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read a letter from %@"
           }
         }
       }
