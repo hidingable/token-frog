@@ -48,6 +48,14 @@ enum RoomLayout {
         }
     }
 
+    /// The week floor continues below the room art and grows to match the column beside it.
+    static let weekFloorMinRows = 34
+    static let weekTileSize = 24
+
+    static func weekTile(_ index: Int, rows: Int) -> CGRect {
+        CGRect(x: 6 + index * 34, y: (rows - weekTileSize) / 2, width: weekTileSize, height: weekTileSize)
+    }
+
     static func bubbleRegion(scale: Int, souvenir: Bool, form: PetForm = .hatchling) -> CGRect {
         let factor = CGFloat(scale)
         // Larger bodies leave the floor too tight for a wide description; pet speech stays beside the pet.

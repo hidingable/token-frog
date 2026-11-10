@@ -77,4 +77,39 @@ enum RoomArt {
         cache[theme.id] = (key, image)
         return image
     }
+
+    /// Continues the room's planks in phase, with one stepping tile per weekday; a stamped day carries a postmark.
+    static func weekFloor(days: [WeekDisplay.Day], rows: Int, theme: AppTheme) -> CGImage {
+        let width = RoomLayout.width
+        var pixels = [UInt32?](repeating: theme.rgb(.roomFloor), count: width * rows)
+        func rect(_ color: UInt32, _ x: Int, _ y: Int, _ w: Int, _ h: Int) {
+            for row in max(y, 0)..<min(y + h, rows) {
+                for column in x..<(x + w) { pixels[row * width + column] = color }
+            }
+        }
+        for x in stride(from: 0, to: width, by: 20) { rect(theme.rgb(.roomFloorLine), x, 0, 1, rows) }
+        // RoomArt's horizontal planks run every 9 rows from y=104 and its image ends at y=132.
+        for y in stride(from: 8, to: rows, by: 9) { rect(theme.rgb(.roomFloorLine), 0, y, width, 1) }
+        for (index, day) in days.enumerated() {
+            let tile = RoomLayout.weekTile(index, rows: rows)
+            let (x, y, size) = (Int(tile.minX), Int(tile.minY), Int(tile.width))
+            rect(theme.rgb(.roomShadow), x, y + 2, size, size)
+            rect(theme.rgb(day.today ? .text : .roomFloorLine), x, y, size, size)
+            rect(theme.rgb(.background), x + 1, y + 1, size - 2, size - 2)
+            guard day.stamped else { continue }
+            let center = Double(size - 1) / 2
+            for row in 0..<size {
+                for column in 0..<size {
+                    let (dx, dy) = (Double(column) - center, Double(row) - center)
+                    let radius = (dx * dx + dy * dy).squareRoot()
+                    // The dashed outer edge reads as a postmark rather than a colored data cell.
+                    let tooth = Int(floor((atan2(dy, dx) + .pi) * 12 / .pi)) % 2 == 0
+                    guard radius <= (tooth ? 10.6 : 9.6) else { continue }
+                    let ring = radius > 7.4 && radius <= 8.4
+                    pixels[(y + row) * width + x + column] = theme.rgb(ring ? .background : .companionFill)
+                }
+            }
+        }
+        return PixelImage.make(width: width, height: rows, pixels: pixels)
+    }
 }

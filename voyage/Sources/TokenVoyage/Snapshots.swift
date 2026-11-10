@@ -80,6 +80,15 @@ enum Snapshots {
                 }) {
                     main(.home, name: "home-wish-written", size: CGSize(width: 760, height: 1000), update: { $0 = examples.journey })
                 }
+                model.withSnapshotCare({ care in
+                    let calendar = Calendar.current
+                    let monday = calendar.date(byAdding: .day, value: -((calendar.component(.weekday, from: model.now) + 5) % 7), to: model.now)!
+                    care.weekly.stamps = [0, 1, 3, 4].map { DayKey.string(from: calendar.date(byAdding: .day, value: $0, to: monday)!) }
+                    care.weekly.boxes = ["snapshot"]
+                }) {
+                    main(.home, name: "home-week-floor", size: CGSize(width: 940, height: 800), update: { $0 = examples.journey })
+                    main(.home, name: "home-week-floor-wide", size: CGSize(width: 1200, height: 900), update: { $0 = examples.journey })
+                }
                 model.withSnapshotState({ $0 = examples.journey }) {
                     model.showProfile()
                     render(MainView(model: model), size: mainSize, name: "profile", directory, model: model)

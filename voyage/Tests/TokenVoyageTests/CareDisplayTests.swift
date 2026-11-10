@@ -44,6 +44,17 @@ func homeKeepsRoomAtTwoOrThreeTimesWithAWrappingRightColumn(width: Double) {
     #expect(layout.contentWidth == layout.roomWidth + 16 + layout.rightWidth)
 }
 
+@Test(arguments: [RoomLayout.weekFloorMinRows, 58, 120])
+func weekFloorTilesStayInsideAndApart(rows: Int) {
+    let floor = CGRect(x: 0, y: 0, width: RoomLayout.width, height: rows)
+    let tiles = (0..<7).map { RoomLayout.weekTile($0, rows: rows) }
+    for (index, tile) in tiles.enumerated() {
+        // The drop shadow extends two rows below each tile.
+        #expect(floor.contains(tile.insetBy(dx: 0, dy: -2)))
+        if index > 0 { #expect(!tile.intersects(tiles[index - 1])) }
+    }
+}
+
 @Test(arguments: [2, 3])
 func roomBubblesStayInsideWithoutCoveringTheShelfOrPet(scale: Int) {
     let factor = CGFloat(scale)
