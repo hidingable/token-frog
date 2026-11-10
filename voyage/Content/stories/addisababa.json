@@ -1,0 +1,416 @@
+[
+  {
+    "id": "addisababa.arrival.poles-point-down",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "addisababa-entoto"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两根杖到了我手里，各有各的方向。",
+      "en": "The walking poles disagreed about which way to point."
+    },
+    "text": {
+      "zh-Hans": "恩托托公园的桉树林旁，一位旅人腾不出手拉外套拉链，我便替他拿着两根步行杖。杖柄并在一起，杖尖却各朝一边，我小心走半步，它们就晃一下。他拉好衣服，接回去轻轻一拢，两根杖便安静了。我想问问其中的窍门，他正忙着把歪掉的衣领翻出来。",
+      "en": "Beside the eucalyptus woodland at Entoto Park, I held a traveler’s walking poles while he zipped his jacket. I gathered the handles together, but the tips kept swinging apart whenever I moved. He took them back and settled them neatly with one small turn. I wanted to ask how he did it, but he was busy freeing his collar from the zip."
+    },
+    "replies": [
+      {
+        "id": "addisababa.arrival.poles-point-down.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问怎样并着拿杖",
+          "en": "Ask how to carry the poles together"
+        }
+      },
+      {
+        "id": "addisababa.arrival.poles-point-down.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意杖尖的方向",
+          "en": "Notice which way the tips point"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "addisababa.pole-fold"
+      ],
+      "menuIds": []
+    },
+    "cityId": "addisababa"
+  },
+  {
+    "id": "addisababa.arrival.round-building-long-bag",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "addisababa-science"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "圆圈合拢时，眼睛反而没地方看了。",
+      "en": "His circle left no room for looking."
+    },
+    "text": {
+      "zh-Hans": "科学博物馆外的圆顶很显眼，我却先注意到一位小朋友的双手。他把胳膊围成圆圈，要替爸爸框住那座建筑，可惜手一合，眼睛也被挡住了。我把邮包移到身后，让出前面的空位。他慢慢放下手，朝圆顶看了好久，爸爸拍照时，他又把两只胳膊举了起来。",
+      "en": "Outside the Science Museum, a child was making a circle with his arms to frame the dome for his father. Each time his hands met, they blocked his eyes. I moved my mailbag behind me to clear the space in front. He lowered his arms and studied the building. When his father raised the camera, the two arms went straight back up."
+    },
+    "replies": [
+      {
+        "id": "addisababa.arrival.round-building-long-bag.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问圆圈里装了什么",
+          "en": "Ask what fitted inside his circle"
+        }
+      },
+      {
+        "id": "addisababa.arrival.round-building-long-bag.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看圆顶的样子",
+          "en": "Look at the dome with arms lowered"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "addisababa.open-circle"
+      ],
+      "menuIds": []
+    },
+    "cityId": "addisababa"
+  },
+  {
+    "id": "addisababa.arrival.bread-size-test",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "addisababa-injera",
+      "addisababa-shiro"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "薄饼还没包住午饭，先包住了我。",
+      "en": "The bread wrapped the wrong filling first."
+    },
+    "text": {
+      "zh-Hans": "午饭的英吉拉配着希罗，我撕下一大片薄饼，准备把豆粉炖菜包进去。薄饼在手里折来折去，倒把自己的指尖先包住了。我拆开这个没馅的小包，换成小一点的一块，终于顺利送进嘴里。邻座正好抬头，我摊开两只空手给他看，他也举起了已经吃空的手。",
+      "en": "My injera came with shiro at lunch. I tore off such a generous piece that folding it around the stew wrapped up my fingertips first. I opened the empty parcel and tried a smaller piece, which reached my mouth successfully. My neighbour looked up just then. I showed him my empty hands, and he raised his own, equally empty, in reply."
+    },
+    "replies": [
+      {
+        "id": "addisababa.arrival.bread-size-test.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给邻座看看空着的手",
+          "en": "Show my neighbour my empty hands"
+        }
+      },
+      {
+        "id": "addisababa.arrival.bread-size-test.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看小块薄饼怎样合拢",
+          "en": "See how the smaller piece folds"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "addisababa.menu-injera",
+        "addisababa.menu-shiro"
+      ]
+    },
+    "cityId": "addisababa"
+  },
+  {
+    "id": "addisababa.arrival.spoon-trail",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "addisababa-injera",
+      "addisababa-shiro"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "肚子催饭的声音，比我点菜还响。",
+      "en": "My stomach placed a much louder order."
+    },
+    "text": {
+      "zh-Hans": "英吉拉旁的希罗还冒热气，我忍不住先舀了一点，又把勺子放回碗边。浓浓的豆粉炖菜上留下一道浅痕，慢慢又合到一起。我把手收进膝头，决定等那道痕看不清再吃。等着等着，肚子忽然叫了一声，声音比刚才点菜还响。我低头看看它，还是先吹了吹勺里的这一口。",
+      "en": "The shiro beside my injera was still steaming, so I set my spoon back after taking a little. Its shallow trail slowly closed across the thick stew. I put my hands in my lap and decided to wait until the line disappeared. My stomach interrupted with a growl louder than my lunch order. I looked down at it, then blew gently on the waiting spoonful anyway."
+    },
+    "replies": [
+      {
+        "id": "addisababa.arrival.spoon-trail.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉肚子再等一会儿",
+          "en": "Tell my stomach to wait a little longer"
+        }
+      },
+      {
+        "id": "addisababa.arrival.spoon-trail.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "等浅痕慢慢合拢",
+          "en": "Watch the spoon’s trail close"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "addisababa.menu-injera",
+        "addisababa.menu-shiro"
+      ]
+    },
+    "cityId": "addisababa"
+  },
+  {
+    "id": "addisababa.arrival.wave-relay",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "addisababa-science"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我接住的问候，原来还要往后传。",
+      "en": "The first wave was addressed beyond me."
+    },
+    "text": {
+      "zh-Hans": "我站在科学博物馆的圆环形建筑外，一辆婴儿车从身边经过，小宝宝忽然朝我挥手。我赶快挥回去，她却越过我的肩膀笑得更开心。回头才看见，她的家人正从后面走来。我往旁边让出位置，准备收起举酸的手，小宝宝又转过脸来，这次小小的手掌正对着我。",
+      "en": "A baby waved from a passing pushchair outside the Science Museum’s ring-shaped building. I waved back eagerly, but she was smiling past my shoulder at a family member approaching behind me. I stepped aside and began lowering my tired arm. Then she turned towards me and lifted her little palm again. This wave had a clear address."
+    },
+    "replies": [
+      {
+        "id": "addisababa.arrival.wave-relay.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "认真挥回这次问候",
+          "en": "Return the wave meant for me"
+        }
+      },
+      {
+        "id": "addisababa.arrival.wave-relay.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看小手掌朝着谁",
+          "en": "See who the little palm faces"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "addisababa.wave-tab"
+      ],
+      "menuIds": []
+    },
+    "cityId": "addisababa"
+  },
+  {
+    "id": "addisababa.arrival.lunchbox-depth",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "addisababa-injera",
+      "addisababa-shiro"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "盒盖合不上，是因为午饭还站着。",
+      "en": "Lunch was standing too tall for its lid."
+    },
+    "text": {
+      "zh-Hans": "我想把剩下的英吉拉和希罗收进自己的饭盒，先把薄饼卷得高高的，再试着扣盖子。盖子悬在半空，怎么也落不下。我重新打开，把薄饼平放，让炖菜待在另一边。盒盖终于轻轻合上，背带也不用再绷着。临走前我把盒子晃了晃，又赶紧停手，午饭已经躺好，不必再叫醒它。",
+      "en": "I packed my remaining injera and shiro into my lunchbox, rolling the bread upright before trying the lid. It hovered above lunch without closing. I opened everything again, laid the bread flat, and left the stew on the other side. The lid settled with a gentle click. I gave the box a small shake before leaving, then stopped myself. Lunch was lying down comfortably; there was no need to wake it."
+    },
+    "replies": [
+      {
+        "id": "addisababa.arrival.lunchbox-depth.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉饭盒午饭躺好了",
+          "en": "Tell the lunchbox its passenger is settled"
+        }
+      },
+      {
+        "id": "addisababa.arrival.lunchbox-depth.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "检查盒盖是否合好",
+          "en": "Check that the lid closes easily"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "addisababa.menu-injera",
+        "addisababa.menu-shiro"
+      ]
+    },
+    "cityId": "addisababa"
+  },
+  {
+    "id": "addisababa.fulfill.two-tips-together",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "addisababa-entoto"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "addisababa.arrival.poles-point-down.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我趁他理好衣领问清楚了。",
+      "en": "You wrote, “{reply}.” I asked once his collar was free."
+    },
+    "text": {
+      "zh-Hans": "我去问那位旅人怎样并着拿步行杖，他把杖尖朝下，让我先握稳靠近杖柄的地方。我照着试了一小段路，两根杖终于不再向两边摆。正要高兴地转身给他看，自己的邮包先滑到前面。我停下脚，把包推回身后，这次只转脑袋，杖尖仍好好朝着地面。",
+      "en": "I asked the traveler how he kept his walking poles together. He pointed the tips down and showed me where to grip near the handles. They stayed together as I tried a few steps. When I turned to show him, my mailbag swung round in front. I stopped, moved it behind me, and turned only my head this time. Both tips still pointed neatly at the ground."
+    },
+    "replies": [
+      {
+        "id": "addisababa.fulfill.two-tips-together.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢旅人示范拿杖",
+          "en": "Thank him for showing me his grip"
+        }
+      },
+      {
+        "id": "addisababa.fulfill.two-tips-together.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两根杖尖朝哪",
+          "en": "Check that both tips point down"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "addisababa.paired-lines"
+      ],
+      "menuIds": []
+    },
+    "cityId": "addisababa"
+  },
+  {
+    "id": "addisababa.revisit.shade-seat",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "addisababa-entoto"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "先坐下来的，是我们中间那只水壶。",
+      "en": "The bottle settled between us before we did."
+    },
+    "text": {
+      "zh-Hans": "桉树林的气味让我认出了恩托托公园，这次回来，我挑了树影边的一处地方坐下。一位旅人也来歇脚，我们的邮包先在脚边碰了头。我把自己的包挪近，空出中间的位置，他却把水壶放在那里，问它能不能也坐坐。我点点头，抬脚时才发现鞋带松了，便低头系好，水壶已经稳稳坐在我们中间。",
+      "en": "The eucalyptus woodland was familiar when I returned to Entoto Park. I sat at the edge of some shade, where another traveler stopped to rest. Our bags bumped before we had said hello. I moved mine closer to make room between us. He put his bottle there and asked whether it could have a seat too. I nodded, bent to tie a loose shoelace, and looked up to find the bottle comfortably settled between us."
+    },
+    "replies": [
+      {
+        "id": "addisababa.revisit.shade-seat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请水壶也坐一会儿",
+          "en": "Welcome the bottle to its seat"
+        }
+      },
+      {
+        "id": "addisababa.revisit.shade-seat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看脚边两个包",
+          "en": "Check the space between our bags"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "addisababa"
+  }
+]

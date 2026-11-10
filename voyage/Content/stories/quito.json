@@ -1,0 +1,416 @@
+[
+  {
+    "id": "quito.arrival.coat-with-wings",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "quito-cruz-loma"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "衣角翘起来以后，我被问会不会飞。",
+      "en": "A lifted coat corner earned me a question about flying."
+    },
+    "text": {
+      "zh-Hans": "到了克鲁斯洛马的休息区，我把外套搭在肩上，坐下让脚歇一会儿。衣角被手肘带得翘起来，旁边的小朋友问我是不是准备飞走。我把手收回，衣角落下去，他竟有点失望。我答应走之前给他看个稳当的收翅膀办法，可低头找系带时，先摸到了邮包上多余的那一截。",
+      "en": "At a rest area in Cruz Loma, I draped my coat over my shoulders and sat down. My elbow lifted a corner, and a child asked whether I was about to fly away. I lowered my arm; he looked rather disappointed. I promised to demonstrate a reliable way of folding my wings before leaving. Searching for the coat ties, I first found the loose end of my mailbag strap."
+    },
+    "replies": [
+      {
+        "id": "quito.arrival.coat-with-wings.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "系好外套给孩子看",
+          "en": "Show him the coat with both sides tied"
+        }
+      },
+      {
+        "id": "quito.arrival.coat-with-wings.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "分清衣带和邮包带",
+          "en": "Tell the coat ties from the bag strap"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "quito.wing-fold"
+      ],
+      "menuIds": []
+    },
+    "cityId": "quito"
+  },
+  {
+    "id": "quito.arrival.glove-colour",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "quito-orchids"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两只手套同一双，颜色却对不上。",
+      "en": "A matching pair of gloves refused to match."
+    },
+    "text": {
+      "zh-Hans": "兰花园里，一位旅人把手套举在身前，想比较它和花朵的颜色。我停在步道上等他看完，他却把另一只手套递给我，请我站远一点。我们没有靠近花，只隔着空处举着各自那只手套。等他点头，我把手套还回去，他忽然笑了，原来我举的那只是里面朝外，比另一只浅得多。",
+      "en": "In the orchid gardens, a visitor held up a glove to compare its colour with a flower. I waited on the path while he handed me its partner and asked me to stand a little farther away. We compared them without moving closer to the plants. When I returned mine, he laughed: I had held it inside out, making it much paler than the other glove."
+    },
+    "replies": [
+      {
+        "id": "quito.arrival.glove-colour.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问要比手套哪一面",
+          "en": "Ask which side of the glove to compare"
+        }
+      },
+      {
+        "id": "quito.arrival.glove-colour.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看手套有没翻面",
+          "en": "Check whether the glove is inside out"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "quito.two-colours"
+      ],
+      "menuIds": []
+    },
+    "cityId": "quito"
+  },
+  {
+    "id": "quito.arrival.puffed-pastry",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "quito-locro",
+      "quito-empanada"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "面皮先落下去，奶酪还得再找一口。",
+      "en": "The pastry settled before the cheese came into reach."
+    },
+    "text": {
+      "zh-Hans": "土豆浓汤吃好后，我拿起刚做好的奶酪炸馅饼，想从鼓鼓的中间咬一口。面皮先轻轻塌下来，奶酪还在远一点的地方。我换个角度再咬，终于碰到馅，脸上也沾了一点糖。对面的旅人正要说话，我先举手按住嘴边，等咽完再开口，他笑着指了指我的另一边脸颊。",
+      "en": "After my locro, I bit into the puffed centre of an empanada de viento. The pastry settled before I reached the cheese. A second bite from another angle found it and left sugar on my cheek. My companion began to speak, but I raised a hand to wipe my mouth first. Once I had swallowed, he smiled and pointed to my other cheek."
+    },
+    "replies": [
+      {
+        "id": "quito.arrival.puffed-pastry.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问另一边脸上有糖没",
+          "en": "Ask whether the other cheek has sugar too"
+        }
+      },
+      {
+        "id": "quito.arrival.puffed-pastry.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看塌下的那块面皮",
+          "en": "Look at the little patch of settled pastry"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "quito.menu-locro",
+        "quito.menu-empanada"
+      ]
+    },
+    "cityId": "quito"
+  },
+  {
+    "id": "quito.arrival.avocado-island",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "quito-locro",
+      "quito-empanada"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "另一只手忙了半天，其实没碰到碗。",
+      "en": "My free hand worked hard without touching anything."
+    },
+    "text": {
+      "zh-Hans": "我把奶酪炸馅饼留在一旁，先喝土豆浓汤。牛油果片浮在勺子前头，我每次轻轻往下舀，它都跟着退一点。我放下勺子，端正坐好，才从碗边慢慢绕过去，连汤带那一片一起舀起。吃到嘴里才发现，刚才一直绷着的另一只手，还悬在半空替勺子保持平衡，根本没碰到碗。",
+      "en": "I left my empanada aside and began the locro. An avocado slice drifted away whenever I lowered my spoon. I sat upright and approached gently from the edge, finally lifting both soup and avocado together. Only after eating it did I notice my other hand hovering in the air. It had been balancing the expedition without ever touching the bowl."
+    },
+    "replies": [
+      {
+        "id": "quito.arrival.avocado-island.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说那只忙碌的空手",
+          "en": "Describe my unnecessary balancing hand"
+        }
+      },
+      {
+        "id": "quito.arrival.avocado-island.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看牛油果怎样上勺",
+          "en": "See which side let the avocado aboard"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "quito.menu-locro",
+        "quito.menu-empanada"
+      ]
+    },
+    "cityId": "quito"
+  },
+  {
+    "id": "quito.arrival.steadying-a-cup",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "quito-locro",
+      "quito-empanada"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "杯盖拧开了，他却又认真盖了回去。",
+      "en": "He carefully replaced the lid he had just removed."
+    },
+    "text": {
+      "zh-Hans": "邻座的小朋友一手拿奶酪炸馅饼，一手想拧水杯，怎么也腾不出空。我先把自己的土豆浓汤放稳，问他要不要我扶住杯身。他点头，轻轻把杯盖拧开，又很认真地盖回去。我以为他不想喝了，他却说先放下点心才好端杯。我收回手，看着他把两件事分开做完，再低头喝自己的汤。",
+      "en": "A child beside me held an empanada while trying to unscrew his water cup. I settled my locro and asked whether I could steady the cup. He nodded, removed the lid, and carefully replaced it. I wondered if he had changed his mind about drinking. He explained that he needed to put down his pastry first. I watched him finish the two separate jobs, then returned to my soup."
+    },
+    "replies": [
+      {
+        "id": "quito.arrival.steadying-a-cup.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问要不要扶住杯子",
+          "en": "Ask whether I should steady the cup"
+        }
+      },
+      {
+        "id": "quito.arrival.steadying-a-cup.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看放下点心后怎样喝水",
+          "en": "Watch him lift the cup after setting down his pastry"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "quito.menu-locro",
+        "quito.menu-empanada"
+      ]
+    },
+    "cityId": "quito"
+  },
+  {
+    "id": "quito.arrival.small-quiet-audience",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "quito-orchids"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "花没动，排队给它看的我们先动了。",
+      "en": "The flowers outlasted their restless little audience."
+    },
+    "text": {
+      "zh-Hans": "兰花园的步道上，一个小朋友忽然停住，伸着双手一动不动。他的家人问怎么了，他小声说想让花看清自己。我也停下，免得挡住他。过了一会儿，他先忍不住揉了揉鼻子，随后家人打了个哈欠。我把嘴闭紧，偏偏肚子响了一声，大家才一起慢慢往前走，孩子那双手终于也放了下来。",
+      "en": "A child stopped on the orchid garden path and held his hands out, perfectly still. Asked why, he whispered that he wanted the flowers to get a good look at him. I paused to avoid blocking their view. He eventually rubbed his nose; a family member yawned. I kept my mouth shut, only for my stomach to growl. We moved along together, and the child finally lowered his hands."
+    },
+    "replies": [
+      {
+        "id": "quito.arrival.small-quiet-audience.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说谁最先动了",
+          "en": "Tell who moved first"
+        }
+      },
+      {
+        "id": "quito.arrival.small-quiet-audience.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看我们站的步道",
+          "en": "Notice how we stayed on the path"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "quito.clear-view-tab"
+      ],
+      "menuIds": []
+    },
+    "cityId": "quito"
+  },
+  {
+    "id": "quito.fulfill.folded-wings-walk",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "quito-cruz-loma"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "quito.arrival.coat-with-wings.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我先找对了真正的衣带。",
+      "en": "You wrote, “{reply}.” I found the actual coat ties first."
+    },
+    "text": {
+      "zh-Hans": "我找准外套的系带，把两边衣角收好，再走到那个问我会不会飞的小朋友面前。他绕着我看了半圈，点头说现在可以走路了。我认真迈出一步，外套没有再翘起，邮包却轻轻碰到腿侧。我把包带提好，等他也站回家人身边，我们才从休息区各自往前走，衣角一直好好垂着。",
+      "en": "I found the coat ties and secured both corners before showing the child who had asked about flying. He inspected half a circle around me and declared me ready for walking. My first careful step left the coat in place, though the mailbag bumped my leg. I shortened its strap and waited for him to rejoin his family. We left the rest area with my coat hanging neatly down."
+    },
+    "replies": [
+      {
+        "id": "quito.fulfill.folded-wings-walk.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向小检查员道别",
+          "en": "Say goodbye to my young inspector"
+        }
+      },
+      {
+        "id": "quito.fulfill.folded-wings-walk.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看衣角有没有翘起",
+          "en": "Check that the coat corners stay down"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "quito.closed-wings"
+      ],
+      "menuIds": []
+    },
+    "cityId": "quito"
+  },
+  {
+    "id": "quito.revisit.bag-off-path",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "quito-orchids"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "抱起邮包以后，花重新露了出来。",
+      "en": "Lifting my mailbag restored someone else’s view."
+    },
+    "text": {
+      "zh-Hans": "我认得基多植物园兰花园里的那种温暖气息，重来时便放慢脚步。一位旅人蹲在步道上看花，我从后面绕过去，发现自己的邮包正好遮住他的视线。我没有催他起身，只把包抱到胸前，侧着走完那一小段。他抬头朝我点点头，我也回头点了一下，转回来时才看见自己已经走到同伴后面，正好不用再让路。",
+      "en": "The warmth of the orchid gardens was familiar when I returned to Quito Botanical Garden. A visitor crouched on the path to look at a flower. Passing behind him, I noticed that my mailbag blocked his view. I held it against my chest and moved sideways through the narrow space. He looked up and nodded; I nodded back. Facing forward again, I found myself behind my companion, with no further passing manoeuvre required."
+    },
+    "replies": [
+      {
+        "id": "quito.revisit.bag-off-path.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向看花的旅人道别",
+          "en": "Nod goodbye to the visitor"
+        }
+      },
+      {
+        "id": "quito.revisit.bag-off-path.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看邮包挡没挡视线",
+          "en": "Check whether the bag blocks the view"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "quito"
+  }
+]

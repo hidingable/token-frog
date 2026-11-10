@@ -1,0 +1,416 @@
+[
+  {
+    "id": "neworleans.arrival.fish-with-mailbag",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "neworleans-aquarium"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "鱼游过去了，小朋友还在替信纸担心。",
+      "en": "The fish moved on; the child worried about its letters."
+    },
+    "text": {
+      "zh-Hans": "水下隧道里，一条鱼正好从我的邮包上方游过，旁边的小朋友说它像是把我的包背走了。我赶紧摸摸肩膀，包还在，鱼也还在继续游。他问鱼送信会不会把纸弄湿，我说得先给它想个干一点的办法。离开隧道时，他还惦记着这件事，我答应给他折一条自己带邮包的纸鱼。",
+      "en": "A fish passed above my mailbag in the aquarium tunnel, and a child said it looked as though the fish had taken my bag. I checked my shoulder. The bag was still there, while the fish kept swimming. He wondered whether a fish delivering letters would soak the paper. I promised to work out a drier arrangement and fold him a paper fish with a bag of its own."
+    },
+    "replies": [
+      {
+        "id": "neworleans.arrival.fish-with-mailbag.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "折条自己背邮包的纸鱼",
+          "en": "Fold a paper fish with its own mailbag"
+        }
+      },
+      {
+        "id": "neworleans.arrival.fish-with-mailbag.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看鱼和包怎样重叠",
+          "en": "Notice where fish and bag line up"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "neworleans.tunnel-tab"
+      ],
+      "menuIds": []
+    },
+    "cityId": "neworleans"
+  },
+  {
+    "id": "neworleans.arrival.dog-and-unopened-bag",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "neworleans-audubon-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "邮包换了肩，小狗的鼻子也换了方向。",
+      "en": "The dog’s nose followed my mailbag to its new shoulder."
+    },
+    "text": {
+      "zh-Hans": "奥杜邦公园的步道旁，一只牵着绳的小狗望着我的邮包。我换了个肩膀背，它也跟着换了朝向，鼻子认真得像在检查来信。主人轻轻叫它，它才坐回身边。我没有掏吃的，只把包扣好，蹲下来隔着距离朝它挥手。小狗把头歪向另一边，我也跟着歪，主人笑着把牵绳收短一点。",
+      "en": "A dog on a lead watched my mailbag beside an Audubon Park path. When I changed shoulders, its nose followed as if inspecting the post. Its owner called it back to sit. I offered no food, just crouched at a distance and waved after fastening my bag. The dog tilted its head. I tilted mine too, while its laughing owner gathered the lead a little closer."
+    },
+    "replies": [
+      {
+        "id": "neworleans.arrival.dog-and-unopened-bag.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向歪头的小狗挥手",
+          "en": "Wave to the head-tilting dog"
+        }
+      },
+      {
+        "id": "neworleans.arrival.dog-and-unopened-bag.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "检查邮包是否扣好",
+          "en": "Check that the mailbag is fastened"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "neworleans.tilted-ear"
+      ],
+      "menuIds": []
+    },
+    "cityId": "neworleans"
+  },
+  {
+    "id": "neworleans.arrival.rice-disappears",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "neworleans-gumbo",
+      "neworleans-beignet"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "米饭躲进汤里，我还在原处找它。",
+      "en": "I searched the surface after the rice went under."
+    },
+    "text": {
+      "zh-Hans": "我把糖粉炸面饼留到饭后，先尝那碗配米饭的甘博。勺子下去时，白米饭像藏起来一样，转眼只看见浓浓的汤。邻座问我是不是在找什么，我说刚才那口饭明明还站着。他笑着让我舀起来看看，我照做，米饭和鸡肉都好好躺在勺里。我把这一口吃完，才发现自己一直睁着很大的眼睛。",
+      "en": "I saved my beignet until after the gumbo. Lowering my spoon, I watched the white rice disappear beneath the stew. My neighbour asked whether I had lost something. I explained that the rice had been visible a moment before. He suggested lifting a spoonful. Rice and chicken were both there. I ate them, then realised how wide I had kept my eyes throughout the search."
+    },
+    "replies": [
+      {
+        "id": "neworleans.arrival.rice-disappears.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉邻座米饭找到了",
+          "en": "Tell my neighbour the rice is accounted for"
+        }
+      },
+      {
+        "id": "neworleans.arrival.rice-disappears.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看勺里的饭和鸡肉",
+          "en": "Look at the rice and chicken on the spoon"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "neworleans.menu-gumbo",
+        "neworleans.menu-beignet"
+      ]
+    },
+    "cityId": "neworleans"
+  },
+  {
+    "id": "neworleans.arrival.sugar-lower-breath",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "neworleans-gumbo",
+      "neworleans-beignet"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我及时停住了那口准备吹出去的气。",
+      "en": "I stopped the breath before it reached the sugar."
+    },
+    "text": {
+      "zh-Hans": "甘博吃完以后，我把糖粉炸面饼端近，差点照着刚才吹汤的办法吹一口。白白的糖粉就在鼻子下面，我赶紧闭上嘴，先把盘子放回桌上。停了一会儿才捏住边角，慢慢咬下去，糖粉只落在盘里。我低头检查衣襟，发现本来已经很干净，却还郑重地掸了两下，像在替空气收尾。",
+      "en": "After the gumbo, I nearly blew on my beignet as I had on the soup. Powdered sugar sat directly beneath my nose. I closed my mouth and returned the plate to the table before taking a slow bite by the edge. Sugar fell onto the plate. My shirt was already clean, but I gave it two solemn brushes anyway, tidying up an entirely imaginary spill."
+    },
+    "replies": [
+      {
+        "id": "neworleans.arrival.sugar-lower-breath.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说替空气掸了什么",
+          "en": "Describe the imaginary crumbs I brushed away"
+        }
+      },
+      {
+        "id": "neworleans.arrival.sugar-lower-breath.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看糖粉落在哪里",
+          "en": "See where the powdered sugar landed"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "neworleans.menu-gumbo",
+        "neworleans.menu-beignet"
+      ]
+    },
+    "cityId": "neworleans"
+  },
+  {
+    "id": "neworleans.arrival.space-for-elbows",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "neworleans-gumbo",
+      "neworleans-beignet"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "挪开椅子没用，碗也得跟过来。",
+      "en": "Moving the chairs required moving lunch too."
+    },
+    "text": {
+      "zh-Hans": "我和旅伴挨着吃甘博，桌中间还摆着一份糖粉炸面饼。两个人同时抬勺，手肘便轻轻碰了一下。我们各往外挪，结果都离自己的碗远了。我先把碗端近，他也照着做，手肘终于不必在中间争位置。吃完准备拿点心时，我们又同时伸手，这次只笑了笑，一人先拿一块，谁也没挪椅子。",
+      "en": "My companion and I sat side by side over gumbo, with beignets in the middle. Our elbows touched when we lifted our spoons together. Moving our chairs apart left us too far from our bowls, so I brought mine closer and he did the same. Later, we reached for the pastries at once. We smiled, took turns picking one up, and left our chairs where they were."
+    },
+    "replies": [
+      {
+        "id": "neworleans.arrival.space-for-elbows.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旅伴先拿点心",
+          "en": "Let my companion choose a pastry first"
+        }
+      },
+      {
+        "id": "neworleans.arrival.space-for-elbows.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看碗与手肘的距离",
+          "en": "Notice the space between elbows and bowls"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "neworleans.menu-gumbo",
+        "neworleans.menu-beignet"
+      ]
+    },
+    "cityId": "neworleans"
+  },
+  {
+    "id": "neworleans.arrival.low-branch-scarf",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "neworleans-audubon-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我们转了一圈，还没找到围巾的末端。",
+      "en": "We made a complete turn around a loose scarf end."
+    },
+    "text": {
+      "zh-Hans": "公园橡树旁，一位旅人正在把长围巾往外套里收，末端却从另一边滑了出来。我没替他扯，只提醒他背后也露着一截。他转身找时，我便跟着转，转到两个人都笑起来，才各自停好。他把围巾整条取下，重新绕短一点，这回走动时两边都没有垂出来，我也终于不用再跟着转圈。",
+      "en": "Beside the park’s oaks, a traveler tucked his long scarf into his coat only to have it emerge at the back. I pointed out the loose end without tugging it. As he turned to find it, I turned with him until we both laughed and stopped. He took the scarf off and wrapped it more compactly. No ends dangled when he walked, and I could stop orbiting him."
+    },
+    "replies": [
+      {
+        "id": "neworleans.arrival.low-branch-scarf.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉他围巾已收好",
+          "en": "Tell him the loose end is tucked away"
+        }
+      },
+      {
+        "id": "neworleans.arrival.low-branch-scarf.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看围巾有没垂下来",
+          "en": "Check for any dangling scarf ends"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "neworleans.scarf-loop"
+      ],
+      "menuIds": []
+    },
+    "cityId": "neworleans"
+  },
+  {
+    "id": "neworleans.fulfill.dry-paper-postfish",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "neworleans-aquarium"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "neworleans.arrival.fish-with-mailbag.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我给纸鱼留好了自己的包。",
+      "en": "You wrote, “{reply}.” I gave the paper fish a bag of its own."
+    },
+    "text": {
+      "zh-Hans": "我用自己的纸折好一条小鱼，把多余的折角扣到身侧，算作它的邮包，再拿给隧道里遇见的小朋友看。他双手托着它，问这回是不是不会弄湿信了。我说纸鱼先留在干地方，他便把它举到胸前，沿着空处慢慢走了几步。鱼没下水，包也没掉，倒是他走得比真正的信使还端正。",
+      "en": "I folded a fish from my own paper and tucked an extra corner against its side for a mailbag. The child from the tunnel cupped it carefully and asked whether its letters would stay dry now. I suggested keeping this fish on land. He held it at his chest and took a few measured steps through a clear space. The fish stayed dry and its bag stayed attached. Its carrier walked straighter than I did."
+    },
+    "replies": [
+      {
+        "id": "neworleans.fulfill.dry-paper-postfish.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "提醒纸鱼要留在干处",
+          "en": "Remind its carrier to keep the paper fish dry"
+        }
+      },
+      {
+        "id": "neworleans.fulfill.dry-paper-postfish.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看鱼侧面的折角",
+          "en": "Check the folded corner at the fish’s side"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "neworleans.postfish-fold"
+      ],
+      "menuIds": []
+    },
+    "cityId": "neworleans"
+  },
+  {
+    "id": "neworleans.revisit.not-my-sit",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "neworleans-audubon-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "那声“坐下”，差点多叫住一个信使。",
+      "en": "One instruction nearly seated an extra messenger."
+    },
+    "text": {
+      "zh-Hans": "奥杜邦公园橡树下的步道我还认得，回到新奥尔良便又来走走。旁边有人轻轻说“坐下”，我正好走累了，差点也跟着蹲下去。低头才发现，人家是在对牵绳边的小狗说话。我慢慢站直，小狗已经坐好，主人看见我的动作，忍不住笑了。我也笑着抬抬脚，继续往前走，小狗仍规规矩矩坐在原来的位置。",
+      "en": "The path beneath Audubon Park’s oaks was familiar on my return to New Orleans. Someone nearby said “Sit,” and my tired legs nearly accepted the invitation. Looking down, I found that the instruction belonged to a dog on a lead. I straightened slowly. The dog was already sitting, and its owner laughed at my half-finished crouch. I lifted a foot in farewell and continued walking. The dog remained exactly where it had been asked to stay."
+    },
+    "replies": [
+      {
+        "id": "neworleans.revisit.not-my-sit.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "解释谁差点坐下",
+          "en": "Explain my nearly completed sit"
+        }
+      },
+      {
+        "id": "neworleans.revisit.not-my-sit.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看小狗还坐着没",
+          "en": "See whether the dog is still sitting"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "neworleans"
+  }
+]

@@ -10,7 +10,7 @@
     "capital",
     "food"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "雅加达",
     "en": "Jakarta"
@@ -19,5 +19,68 @@
     "zh-Hans": "雅加达",
     "en": "Jakarta"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "jakarta-tebet",
+      "type": "place",
+      "names": {
+        "zh-Hans": "特贝特生态公园",
+        "en": "Tebet Eco Park"
+      },
+      "summary": {
+        "zh-Hans": "特贝特生态公园位于雅加达南部，连接原先分开的南北两片公园。Infinity Link Bridge穿行于树木之间，连接两区。",
+        "en": "Tebet Eco Park in South Jakarta unites formerly separate northern and southern parks. Its Infinity Link Bridge connects the two areas among existing trees."
+      },
+      "sources": [
+        "https://tebetecopark.id/tentang"
+      ]
+    },
+    {
+      "id": "jakarta-macan",
+      "type": "place",
+      "names": {
+        "zh-Hans": "MACAN博物馆",
+        "en": "Museum MACAN"
+      },
+      "summary": {
+        "zh-Hans": "MACAN博物馆位于雅加达西部，馆内规划了公共区、展览区和儿童艺术空间。",
+        "en": "Museum MACAN is in West Jakarta. Its visitor layout includes a public area, an exhibition area and a children’s art space."
+      },
+      "sources": [
+        "https://ticket.museummacan.org/plan-visit"
+      ]
+    },
+    {
+      "id": "jakarta-kerak-telor",
+      "type": "food",
+      "names": {
+        "zh-Hans": "椰丝糯米蛋饼",
+        "en": "Kerak Telor"
+      },
+      "summary": {
+        "zh-Hans": "这种雅加达可见的贝塔维食物用蛋、白糯米、虾米、烤椰蓉和香料制作，在锅中烹至底部干熟。",
+        "en": "Kerak telor is a Betawi food served in Jakarta, made with egg, white glutinous rice, dried shrimp, toasted coconut and spices, cooked in a pan until the base is set and dry."
+      },
+      "sources": [
+        "https://www.indonesia.travel/id/id/destination/java/jakarta/dki-jakarta",
+        "https://www.jakarta.go.id/wisata-kuliner-jakarta"
+      ]
+    },
+    {
+      "id": "jakarta-soto-betawi",
+      "type": "food",
+      "names": {
+        "zh-Hans": "贝塔维牛肉汤",
+        "en": "Soto Betawi"
+      },
+      "summary": {
+        "zh-Hans": "贝塔维牛肉汤常用牛肉，也可含内脏；汤底可用椰奶、牛奶或两者混合，做法并不只有一种。",
+        "en": "Soto Betawi commonly contains beef and may include offal. Its broth can use coconut milk, dairy milk or a mixture of both, with more than one preparation in use."
+      },
+      "sources": [
+        "https://www.indonesia.travel/id/id/destination/java/jakarta/dki-jakarta",
+        "https://www.jakarta.go.id/wisata-kuliner-jakarta"
+      ]
+    }
+  ]
 }

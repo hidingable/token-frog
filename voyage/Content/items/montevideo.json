@@ -1,0 +1,98 @@
+[
+  {
+    "id": "montevideo.menu-chivito",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "奇维托小菜单",
+      "en": "Chivito Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使做的纸菜单，三明治两边各有一只正忙着的小手。",
+      "en": "My handmade menu gives the sandwich two occupied little hands."
+    },
+    "cityId": "montevideo"
+  },
+  {
+    "id": "montevideo.menu-torta-frita",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "炸面饼小菜单",
+      "en": "Torta Frita Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我的纸菜单记着一张没能规整留半的面饼，糖只在一边。",
+      "en": "My paper menu remembers an unevenly saved pastry with sugar on one side."
+    },
+    "cityId": "montevideo"
+  },
+  {
+    "id": "montevideo.two-beat-tab",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两拍纸签",
+      "en": "Two-Beat Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "我在纸签上压了两个小凹点，记着邮包搭扣的问候。",
+      "en": "I pressed two small dents into my paper tab for the mailbag’s greeting."
+    },
+    "cityId": "montevideo"
+  },
+  {
+    "id": "montevideo.low-step-fold",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "低步折纸",
+      "en": "Low Step Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使将一张纸折得矮矮的，纪念蹲着多迈出的那一步。",
+      "en": "My low paper fold recalls the extra step I took while still crouching."
+    },
+    "cityId": "montevideo"
+  },
+  {
+    "id": "montevideo.long-name-fold",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "慢读折卡",
+      "en": "Read Slowly Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我做的折卡要展开才看得全，只记一段停顿，不复制标本标签。",
+      "en": "My card unfolds slowly to remember a pause, without copying a herbarium label."
+    },
+    "cityId": "montevideo"
+  },
+  {
+    "id": "montevideo.quiet-after-two",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两响后的空白卡",
+      "en": "Quiet After Two Card"
+    },
+    "descriptions": {
+      "zh-Hans": "两道自压短痕后面留着宽宽的空白，是我给那段安静步路做的纸品。",
+      "en": "I left a broad blank space after two short pressed lines to recall the quiet walk afterwards."
+    },
+    "cityId": "montevideo"
+  }
+]

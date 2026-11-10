@@ -10,7 +10,7 @@
     "coast",
     "capital"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "达喀尔",
     "en": "Dakar"
@@ -19,5 +19,66 @@
     "zh-Hans": "达喀尔",
     "en": "Dakar"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "dakar-mamelles",
+      "type": "place",
+      "names": {
+        "zh-Hans": "马梅勒灯塔",
+        "en": "Phare des Mamelles"
+      },
+      "summary": {
+        "zh-Hans": "马梅勒灯塔坐落在达喀尔马梅勒的一座山丘上，从这里可以眺望佛得角半岛。",
+        "en": "The Phare des Mamelles stands on a hill in Dakar’s Mamelles area and offers views over the Cap-Vert peninsula."
+      },
+      "sources": [
+        "https://www.visitezlesenegal.com/destinations/dakar/phare-des-mamelles/"
+      ]
+    },
+    {
+      "id": "dakar-hann",
+      "type": "place",
+      "names": {
+        "zh-Hans": "汉恩森林与动物公园",
+        "en": "Hann Forest and Zoological Park"
+      },
+      "summary": {
+        "zh-Hans": "汉恩森林与动物公园位于达喀尔的汉恩贝莱尔区，是城中的自然保护空间。",
+        "en": "Hann Forest and Zoological Park is a natural reserve in Dakar’s Hann Bel-Air district."
+      },
+      "sources": [
+        "https://mairiedehann.org/Hann_Bel_Air"
+      ]
+    },
+    {
+      "id": "dakar-ceebu-jen",
+      "type": "food",
+      "names": {
+        "zh-Hans": "塞内加尔鱼饭",
+        "en": "Ceebu Jën"
+      },
+      "summary": {
+        "zh-Hans": "这道鱼饭将米饭与鱼和蔬菜搭配。所核实的食谱用煮过鱼和蔬菜的汤汁煮米饭，再一起装盘。",
+        "en": "Ceebu jën combines rice, fish and vegetables. In the documented recipe, the rice cooks in the broth left by the fish and vegetables before they are served together."
+      },
+      "sources": [
+        "https://www.au-senegal.com/IMG/article_PDF/Recettes-de-cuisine.pdf"
+      ]
+    },
+    {
+      "id": "dakar-yassa",
+      "type": "food",
+      "names": {
+        "zh-Hans": "亚萨鸡",
+        "en": "Poulet Yassa"
+      },
+      "summary": {
+        "zh-Hans": "亚萨鸡可将鸡块用柠檬汁、洋葱和调味料腌过，再烤制和炖煮。它常与白米饭搭配。",
+        "en": "Poulet yassa can be made by marinating chicken with lemon juice, onions and seasonings before grilling and simmering it. It is commonly served with white rice."
+      },
+      "sources": [
+        "https://www.au-senegal.com/poulet-au-yassa,3445.html?lang=fr"
+      ]
+    }
+  ]
 }

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "delhi.menu-chole-bhature",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "鹰嘴豆炸饼小菜单",
+      "en": "Chole Bhature Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我做的纸菜单记着两块大小不一的炸饼，都各有位置。",
+      "en": "My paper menu leaves room for both uneven pieces of fried bread."
+    },
+    "cityId": "delhi"
+  },
+  {
+    "id": "delhi.menu-paratha",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "帕拉塔小菜单",
+      "en": "Paratha Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使饭后自制纸菜单，把这一份土豆馅与薄边分开记下。",
+      "en": "My handmade menu records the potato filling and thin edge of this particular paratha."
+    },
+    "cityId": "delhi"
+  },
+  {
+    "id": "delhi.little-line",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小队伍纸签",
+      "en": "Little Line Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "我在纸签上压出几道错开的短痕，记着通道里停住的队伍。",
+      "en": "Staggered little marks I pressed into a tab recall our halted group."
+    },
+    "cityId": "delhi"
+  },
+  {
+    "id": "delhi.pause-fold",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "等半句话折卡",
+      "en": "Half-Sentence Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折出一段空白，记着风铃间互相等候的半句话。",
+      "en": "A blank fold in my card recalls a sentence waiting between the chimes."
+    },
+    "cityId": "delhi"
+  },
+  {
+    "id": "delhi.short-step-train",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "短步领队纸列车",
+      "en": "Short-Step Paper Train"
+    },
+    "descriptions": {
+      "zh-Hans": "我自己折的小列车，前端特意短一点，只纪念虚构领队游戏，不复制馆藏。",
+      "en": "My own paper train has a short front for our make-believe leader, without copying a museum vehicle."
+    },
+    "cityId": "delhi"
+  },
+  {
+    "id": "delhi.edge-hand",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "移到边上的手形卡",
+      "en": "Hand at the Edge Card"
+    },
+    "descriptions": {
+      "zh-Hans": "信使将自剪手形挪到纸边，中间空处留给别人看模型。",
+      "en": "I moved my own cut-paper hand to the edge to leave a clear view in the middle."
+    },
+    "cityId": "delhi"
+  }
+]

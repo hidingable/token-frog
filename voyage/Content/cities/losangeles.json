@@ -10,7 +10,7 @@
     "coast",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "洛杉矶",
     "en": "Los Angeles"
@@ -19,5 +19,67 @@
     "zh-Hans": "洛杉矶",
     "en": "Los Angeles"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "losangeles-getty-garden",
+      "type": "place",
+      "names": {
+        "zh-Hans": "盖蒂中心中央花园",
+        "en": "Getty Center Central Garden"
+      },
+      "summary": {
+        "zh-Hans": "中央花园的步道跨过溪流，沿植物间向下延伸。溪流越过石瀑落入水池，池中有杜鹃花组成的迷宫图案。",
+        "en": "A path crosses a stream and descends through the Central Garden. The stream flows over a stone waterfall into a pool containing a maze of azaleas."
+      },
+      "sources": [
+        "https://www.getty.edu/visit/center/top-things-to-do/gardens/"
+      ]
+    },
+    {
+      "id": "losangeles-pendulum",
+      "type": "place",
+      "names": {
+        "zh-Hans": "格里菲斯天文台傅科摆",
+        "en": "Foucault Pendulum at Griffith Observatory"
+      },
+      "summary": {
+        "zh-Hans": "格里菲斯天文台中央圆厅里的傅科摆演示地球自转。摆球摆动，随地球转动逐渐碰倒摆坑内设置的小柱。",
+        "en": "The Foucault pendulum in Griffith Observatory’s central rotunda demonstrates Earth’s rotation. As Earth turns beneath the swinging bob, it gradually knocks over pegs set in the pendulum pit."
+      },
+      "sources": [
+        "https://griffithobservatory.lacity.gov/exhibits/w-m-keck-foundation-central-rotunda/foucault-pendulum/"
+      ]
+    },
+    {
+      "id": "losangeles-taco",
+      "type": "food",
+      "names": {
+        "zh-Hans": "塔可夹饼",
+        "en": "Taco"
+      },
+      "summary": {
+        "zh-Hans": "洛杉矶的塔可有多种做法，例如用面饼包烤牛肉或鸡肉。所核实的本地菜单也有使用小麦面饼的版本。",
+        "en": "Los Angeles tacos come in many forms, including tortillas filled with grilled beef or chicken. The documented local offerings include versions made with flour tortillas."
+      },
+      "sources": [
+        "https://www.discoverlosangeles.com/tacotrek"
+      ]
+    },
+    {
+      "id": "losangeles-french-dip",
+      "type": "food",
+      "names": {
+        "zh-Hans": "肉汁浸面包三明治",
+        "en": "French Dip Sandwich"
+      },
+      "summary": {
+        "zh-Hans": "这种三明治用法式小面包夹烤肉，面包浸过烤肉汁。烤肉和是否加入奶酪都有不同选择。",
+        "en": "A French dip sandwich serves roasted meat in a French roll dipped in roasting juices. Meat choices and optional cheeses vary."
+      },
+      "sources": [
+        "https://philippes.com/",
+        "https://www.discoverlosangeles.com/eat-drink/philippe-the-original"
+      ]
+    }
+  ]
 }

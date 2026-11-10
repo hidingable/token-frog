@@ -10,7 +10,7 @@
     "capital",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "亚的斯亚贝巴",
     "en": "Addis Ababa"
@@ -19,5 +19,66 @@
     "zh-Hans": "亚的斯亚贝巴",
     "en": "Addis Ababa"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "addisababa-entoto",
+      "type": "place",
+      "names": {
+        "zh-Hans": "恩托托公园",
+        "en": "Entoto Park"
+      },
+      "summary": {
+        "zh-Hans": "恩托托公园位于亚的斯亚贝巴的山地，周围有桉树林，是城中可进行户外休闲的空间。",
+        "en": "Entoto Park occupies mountain terrain in Addis Ababa, surrounded by eucalyptus woodland, with spaces for outdoor recreation."
+      },
+      "sources": [
+        "https://www.visitethiopia.et/space/ethiopia"
+      ]
+    },
+    {
+      "id": "addisababa-science",
+      "type": "place",
+      "names": {
+        "zh-Hans": "埃塞俄比亚科学博物馆",
+        "en": "Ethiopia Science Museum"
+      },
+      "summary": {
+        "zh-Hans": "亚的斯亚贝巴科学博物馆的建筑外形包含圆环与圆顶。馆内设有常设展与临时展览。",
+        "en": "The Science Museum in Addis Ababa has ring-shaped and domed buildings, with permanent and temporary exhibitions."
+      },
+      "sources": [
+        "https://www.ena.et/web/eng/w/en_38788"
+      ]
+    },
+    {
+      "id": "addisababa-injera",
+      "type": "food",
+      "names": {
+        "zh-Hans": "英吉拉薄饼",
+        "en": "Injera"
+      },
+      "summary": {
+        "zh-Hans": "英吉拉是埃塞俄比亚的发酵薄饼，可用苔麸粉制作。制作中的发酵和烘烤会影响成品。",
+        "en": "Injera is an Ethiopian fermented flatbread that can be made with teff flour. Fermentation and baking affect the finished bread."
+      },
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11077180/"
+      ]
+    },
+    {
+      "id": "addisababa-shiro",
+      "type": "food",
+      "names": {
+        "zh-Hans": "希罗豆粉炖菜",
+        "en": "Shiro"
+      },
+      "summary": {
+        "zh-Hans": "希罗可用鹰嘴豆或豌豆磨成的粉与香料制作，配英吉拉薄饼食用。豆粉种类并非只有一种。",
+        "en": "Shiro can be prepared with flour made from chickpeas or peas and mixed with spices. It is served with injera, and more than one kind of pulse flour is used."
+      },
+      "sources": [
+        "https://www.ccrp.org/wp-content/uploads/2020/06/Edwards-et-al-2019_A-Guide-to-Edible-Legumes-of-Ethiopia_lowres.pdf"
+      ]
+    }
+  ]
 }

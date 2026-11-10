@@ -1,0 +1,416 @@
+[
+  {
+    "id": "losangeles.arrival.eyes-follow-bob",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "losangeles-pendulum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "摆球还在动，帽子先替我关了灯。",
+      "en": "The bob kept swinging after my hat cut off the view."
+    },
+    "text": {
+      "zh-Hans": "傅科摆在圆厅里来回摆，我站在观看区，脑袋也跟着左右转。帽檐慢慢滑到眼前，摆球便从我的视线里不见了。旁边的小朋友问我是不是看累了，我赶紧把帽子扶好，说只是帽子先想休息。他指着自己的眼睛，示意可以只让眼睛动，我答应等帽子戴稳了就试给他看。",
+      "en": "Watching the Foucault pendulum from the viewing area, I turned my head with every swing until my hat slipped over my eyes. A child asked whether I was tired. I adjusted the brim and explained that only my hat needed a rest. He pointed to his eyes, suggesting that they could follow the bob without the rest of my head. I promised to try once my hat was secure."
+    },
+    "replies": [
+      {
+        "id": "losangeles.arrival.eyes-follow-bob.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "戴稳帽子只用眼睛看",
+          "en": "Secure the hat and follow with my eyes"
+        }
+      },
+      {
+        "id": "losangeles.arrival.eyes-follow-bob.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "检查帽檐挡没挡眼睛",
+          "en": "Check whether the brim blocks my eyes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "losangeles.swing-lines"
+      ],
+      "menuIds": []
+    },
+    "cityId": "losangeles"
+  },
+  {
+    "id": "losangeles.arrival.stream-in-two-ears",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "losangeles-getty-garden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我转身听水，旁边的人正好看水。",
+      "en": "My listening turn made room for someone else to look."
+    },
+    "text": {
+      "zh-Hans": "盖蒂中央花园的溪水从步道下经过，我站好听了一会儿，又转过身，想试试两边耳朵听到的是不是一样。身后的旅人见我让开，便从旁边走过去，我这才发现自己原本占着看水的位置。我把包往身边收，让她看完再走，轮到我重新望向溪流时，水声已经从身后转到了面前。",
+      "en": "I paused where the stream passed beneath the Central Garden path, then turned around to compare what each ear heard. A visitor took the opening beside me, revealing that I had occupied a good place to look at the water. I tucked my bag closer and let her finish. When I faced the stream again, the sound had moved from behind me to the space in front."
+    },
+    "replies": [
+      {
+        "id": "losangeles.arrival.stream-in-two-ears.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问她看见了什么",
+          "en": "Ask what she saw from this spot"
+        }
+      },
+      {
+        "id": "losangeles.arrival.stream-in-two-ears.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听水声在前还是在后",
+          "en": "Listen for the water in front or behind"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "losangeles.two-ear-fold"
+      ],
+      "menuIds": []
+    },
+    "cityId": "losangeles"
+  },
+  {
+    "id": "losangeles.arrival.dipped-cuff",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "losangeles-taco",
+      "losangeles-french-dip"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "卷起一边袖子，另一边还在等。",
+      "en": "One rolled cuff left another waiting."
+    },
+    "text": {
+      "zh-Hans": "在洛杉矶吃肉汁三明治，我把袖口卷好，才敢拿起浸过汁的面包。邻座正吃塔可，看到我的动作，也认真卷了一边袖子。等他拿起夹饼，另一边袖口又垂到盘边。我没有伸手替他卷，只抬起自己已经收好的两只手腕给他看。他低头补好另一边，我们才一起开始吃午饭。",
+      "en": "Before picking up my French dip, I rolled back both cuffs. My neighbour, eating tacos, copied me with one sleeve. As he lifted a taco, the other cuff drooped towards his plate. I held up my two neatly rolled wrists for comparison. He rolled the second sleeve too, and we finally began lunch with four cuffs out of the way."
+    },
+    "replies": [
+      {
+        "id": "losangeles.arrival.dipped-cuff.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "提醒还有另一边袖子",
+          "en": "Mention the sleeve still waiting"
+        }
+      },
+      {
+        "id": "losangeles.arrival.dipped-cuff.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看四只袖口",
+          "en": "Check our four rolled cuffs"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "losangeles.menu-taco",
+        "losangeles.menu-french-dip"
+      ]
+    },
+    "cityId": "losangeles"
+  },
+  {
+    "id": "losangeles.arrival.tortilla-support",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "losangeles-taco",
+      "losangeles-french-dip"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "塔可放回盘里，手却还保持着原样。",
+      "en": "The taco went down before my hands relaxed."
+    },
+    "text": {
+      "zh-Hans": "我把肉汁三明治留在盘里，先试着拿起一只烤牛肉塔可。面饼两头软软垂下来，我便用两只手一起托着，结果鼻子先碰到了饼边。我把它放低一点，转过来找好下口的地方，终于吃到一口。放下时肉馅还好好待在里面，自己的手掌倒始终弯着，像还捧着一只看不见的夹饼。",
+      "en": "I left the French dip on its plate and lifted a grilled-beef taco. Its soft ends drooped, so I supported it with both hands and brought an edge straight to my nose. Lowering it a little helped me find an actual bite. The filling remained inside when I put it down. My palms stayed curved for a moment, still holding an invisible second taco."
+    },
+    "replies": [
+      {
+        "id": "losangeles.arrival.tortilla-support.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说鼻子先尝的那口",
+          "en": "Tell how my nose reached lunch first"
+        }
+      },
+      {
+        "id": "losangeles.arrival.tortilla-support.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看手掌何时放松",
+          "en": "Watch my palms finally relax"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "losangeles.menu-taco",
+        "losangeles.menu-french-dip"
+      ]
+    },
+    "cityId": "losangeles"
+  },
+  {
+    "id": "losangeles.arrival.lunch-order-echo",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "losangeles-taco",
+      "losangeles-french-dip"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午饭被重复点了一遍，手套却忘了放下。",
+      "en": "We repeated lunch and forgot to put down a glove."
+    },
+    "text": {
+      "zh-Hans": "柜台前，我和旅伴一人点塔可，一人点肉汁三明治，约好端好盘子再找座位。我报完自己的那份，他也替我又报了一遍，原来没听见我已经说过。我赶紧说明只要原来约好的份数，随后退到旁边等他点完。坐下分好各自的午饭，他才发现自己还攥着手套，便把它从叉子底下抽出来。",
+      "en": "At a counter, my companion and I ordered tacos and a French dip, planning to find seats afterwards. He repeated my order because he had not heard me place it. I clarified that we wanted only the portions already agreed, then stepped aside while he finished. Once seated with our lunches, he discovered he was still gripping a glove underneath his fork and carefully pulled it free."
+    },
+    "replies": [
+      {
+        "id": "losangeles.arrival.lunch-order-echo.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说清约好的份数",
+          "en": "Clarify the portions we agreed on"
+        }
+      },
+      {
+        "id": "losangeles.arrival.lunch-order-echo.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看叉子下的手套",
+          "en": "Look beneath the fork for the glove"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "losangeles.menu-taco",
+        "losangeles.menu-french-dip"
+      ]
+    },
+    "cityId": "losangeles"
+  },
+  {
+    "id": "losangeles.arrival.ball-before-water",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "losangeles-getty-garden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小球停在脚边，跑来的脚步也慢了。",
+      "en": "The rolling ball stopped, and the running feet slowed."
+    },
+    "text": {
+      "zh-Hans": "花园步道上，一个小球从前面的孩子脚边滚过来。我站在离水池远一点的位置，脚尖轻轻挡住它，没有把球踢回去。孩子跑到一半慢下来，走近把球抱好，朝我点头。我等他回到家人身边才继续走，身后传来一阵笑，原来他抱得太紧，球把外套前面顶成了圆圆的一块。",
+      "en": "A child’s ball rolled towards me on the garden path. Staying well away from the pool, I stopped it gently with my toe instead of kicking it back. The child slowed on the approach, picked it up, and nodded. I waited until he rejoined his family before moving on. Their laughter followed: he was hugging it so tightly that his coat bulged in a large round bump."
+    },
+    "replies": [
+      {
+        "id": "losangeles.arrival.ball-before-water.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问抱球的外套变胖没",
+          "en": "Ask about the coat’s new round bump"
+        }
+      },
+      {
+        "id": "losangeles.arrival.ball-before-water.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看孩子慢下来拿球",
+          "en": "Notice the slower steps towards the ball"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "losangeles.round-coat"
+      ],
+      "menuIds": []
+    },
+    "cityId": "losangeles"
+  },
+  {
+    "id": "losangeles.fulfill.still-brim-moving-eyes",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "losangeles-pendulum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "losangeles.arrival.eyes-follow-bob.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，这回帽檐和脑袋都站稳了。",
+      "en": "You wrote, “{reply}.” My brim and my head stayed put."
+    },
+    "text": {
+      "zh-Hans": "我照小朋友的办法站稳，把帽檐往上推好，只用眼睛跟着傅科摆来回走。他站在旁边认真检查，忽然抬手碰了碰自己的帽子，原来他的帽檐也在慢慢往下滑。我忍着笑等他理好，再一起看向摆坑。他的脑袋这次没动，我的帽子也没有动，只有摆球继续从我们眼前稳稳经过。",
+      "en": "I planted my feet, raised the brim, and followed the pendulum with my eyes alone. The child inspected my effort, then reached for his own hat: its brim had begun slipping too. I waited while he fixed it before we looked towards the pit together. His head stayed still and so did my hat. The bob carried on swinging past both pairs of eyes."
+    },
+    "replies": [
+      {
+        "id": "losangeles.fulfill.still-brim-moving-eyes.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问小检查员看清没",
+          "en": "Ask whether my young inspector can see"
+        }
+      },
+      {
+        "id": "losangeles.fulfill.still-brim-moving-eyes.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "让眼睛跟着摆球走",
+          "en": "Let only my eyes follow the bob"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "losangeles.steady-brim"
+      ],
+      "menuIds": []
+    },
+    "cityId": "losangeles"
+  },
+  {
+    "id": "losangeles.revisit.water-sound-pause",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "losangeles-getty-garden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "溪水有了两份，我一时找错了方向。",
+      "en": "Two versions of the stream confused my sense of direction."
+    },
+    "text": {
+      "zh-Hans": "重来洛杉矶，盖蒂中央花园的溪水声让我放慢了脚步。一位旅人坐在步道旁，正听手机里刚录好的水声。我从他身边走过，忽然分不清声音从哪边来，便停下转了转脑袋。他看明白，笑着把播放暂停，真正的溪流便一下回到耳边。我朝他点头，继续往石瀑那边走，这次没有再跟着手机里的水声拐弯。",
+      "en": "On my return to Los Angeles, I slowed at the stream in the Getty Center’s Central Garden. A visitor beside the path was playing a recording he had just made of the water. Passing him, I could no longer place the sound and turned my head in both directions. He understood and paused the playback. The real stream became clear again. I nodded and continued towards the stone waterfall, following the water rather than its recording."
+    },
+    "replies": [
+      {
+        "id": "losangeles.revisit.water-sound-pause.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢他暂停录音",
+          "en": "Thank the visitor for pausing the recording"
+        }
+      },
+      {
+        "id": "losangeles.revisit.water-sound-pause.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "分清溪流与录音",
+          "en": "Tell the real stream from its recording"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "losangeles"
+  }
+]

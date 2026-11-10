@@ -1,0 +1,416 @@
+[
+  {
+    "id": "dakar.arrival.panorama-turn",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "dakar-mamelles"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "换了位置，我们仍没看向同一边。",
+      "en": "Changing places did not quite align our views."
+    },
+    "text": {
+      "zh-Hans": "山丘上的马梅勒灯塔旁，我和一位旅人各往一个方向看。他说看完这一边就换，我便抱着邮包原地等，等到脚趾都在鞋里动起来。换好位置，他忽然笑着说，我刚才一直背对着他要指的半岛。我索性把包放到脚边，空出两只手，请他待会儿慢慢指给我看。",
+      "en": "Beside the Phare des Mamelles, a traveler and I took turns looking in different directions. I waited with my bag until my toes began wriggling inside my shoes. When we exchanged places, he laughed: I had been facing away from the peninsula he wanted to point out. I set my bag by my feet and asked whether he would show me once we had both settled."
+    },
+    "replies": [
+      {
+        "id": "dakar.arrival.panorama-turn.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请他慢慢指出半岛",
+          "en": "Ask him to point out the peninsula slowly"
+        }
+      },
+      {
+        "id": "dakar.arrival.panorama-turn.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看换位以后朝哪边",
+          "en": "Notice which way we face now"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "dakar.turning-fold"
+      ],
+      "menuIds": []
+    },
+    "cityId": "dakar"
+  },
+  {
+    "id": "dakar.arrival.one-step-back",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "dakar-hann"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "让来让去，原来是在陪人学走路。",
+      "en": "We had accidentally begun a walking game."
+    },
+    "text": {
+      "zh-Hans": "在汉恩公园，我停下整理包带，旁边一个小朋友也跟着停了。他迈一步，我便让一步，还以为自己挡住了路。等我们挪了好一段，他的家人才笑着告诉我，他只是在学我的小步子。我站好，认真做了一个很慢的抬脚动作，他也照做，两只脚竟同时悬着，谁都不肯先落地。",
+      "en": "I stopped to adjust my strap at Hann Park, and a child stopped beside me. Whenever he took a step, I made room, thinking I was blocking his way. His family eventually explained that he was copying my short steps. I lifted one foot very slowly for him to follow. He did. We stood with our feet in the air, neither willing to be the first to put one down."
+    },
+    "replies": [
+      {
+        "id": "dakar.arrival.one-step-back.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问谁先把脚放下",
+          "en": "Ask who will put a foot down first"
+        }
+      },
+      {
+        "id": "dakar.arrival.one-step-back.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两只悬着的脚",
+          "en": "Look at our two hovering feet"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "dakar.raised-foot"
+      ],
+      "menuIds": []
+    },
+    "cityId": "dakar"
+  },
+  {
+    "id": "dakar.arrival.onion-exchange",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "dakar-ceebu-jen",
+      "dakar-yassa"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我们都把喜欢的那一口留错了嫌疑。",
+      "en": "We misread each other’s last mouthful."
+    },
+    "text": {
+      "zh-Hans": "我吃亚萨鸡时，把一大勺洋葱送到了白米饭上，邻座却正把鱼饭里的胡萝卜留到最后。我们互相看了看，都以为对方不喜欢那一口。我还没开口，他就把胡萝卜吃掉，笑着拍了拍肚子。我也把洋葱拌进饭里，慢慢嚼完，空盘上只剩各自没来得及放下的勺子。",
+      "en": "I spooned onions from my yassa onto the rice while my neighbour saved a carrot from his ceebu jën. We glanced at each other, each apparently suspecting the other had rejected something. Before I could ask, he ate the carrot and patted his stomach. I mixed my onions into the rice and finished them too. Our spoons hovered over two empty plates."
+    },
+    "replies": [
+      {
+        "id": "dakar.arrival.onion-exchange.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问为何留着胡萝卜",
+          "en": "Ask why he saved the carrot"
+        }
+      },
+      {
+        "id": "dakar.arrival.onion-exchange.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看洋葱怎样拌进饭",
+          "en": "Watch the onions mix into the rice"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "dakar.menu-ceebu-jen",
+        "dakar.menu-yassa"
+      ]
+    },
+    "cityId": "dakar"
+  },
+  {
+    "id": "dakar.arrival.small-sauce-route",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "dakar-ceebu-jen",
+      "dakar-yassa"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一块胡萝卜，暂时拦住了午饭。",
+      "en": "A carrot briefly held up lunch."
+    },
+    "text": {
+      "zh-Hans": "鱼饭和亚萨鸡摆好以后，我想让自己这份米饭沾一点洋葱汁，便从盘边挖出一道小沟。汁慢慢流过来，却在一块胡萝卜前停住。我移开胡萝卜，沟里的饭跟着塌了一点，刚好拌匀。试吃一口再抬头，才发现自己把勺子握得很低，鼻尖离盘子比离杯子还近。",
+      "en": "With ceebu jën and yassa on the table, I made a little channel to bring some onion sauce into my rice. It stopped at a piece of carrot. Moving the carrot loosened the rice, which mixed neatly into the sauce. I tasted it and looked up. I had been leaning so closely over the plate that my nose was nearer to lunch than to my drinking cup."
+    },
+    "replies": [
+      {
+        "id": "dakar.arrival.small-sauce-route.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "介绍盘里的小路",
+          "en": "Describe the little channel on my plate"
+        }
+      },
+      {
+        "id": "dakar.arrival.small-sauce-route.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看汁停在哪里",
+          "en": "See where the sauce stopped"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "dakar.menu-ceebu-jen",
+        "dakar.menu-yassa"
+      ]
+    },
+    "cityId": "dakar"
+  },
+  {
+    "id": "dakar.arrival.two-clean-spoons",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "dakar-ceebu-jen",
+      "dakar-yassa"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两道午饭，都想抢着自我介绍。",
+      "en": "Both lunches tried to introduce themselves at once."
+    },
+    "text": {
+      "zh-Hans": "达喀尔的午饭桌上，旅伴点了鱼饭，我点了亚萨鸡。我们想各尝一点，便先找来两只干净小勺，谁知一开口，两人都在介绍自己的盘子。我们停下来同时笑了，又同时请对方先说。我干脆把小勺轻轻放下，先认真听完他的介绍，再把自己的鸡肉和洋葱挪出一小份。",
+      "en": "My companion ordered ceebu jën and I chose yassa. We fetched two clean spoons to exchange small tastes, then began introducing our lunches at exactly the same time. We laughed, stopped, and both invited the other to speak first. I finally set my spoon down and listened through his introduction. Only then did I separate a little chicken and onion from my plate."
+    },
+    "replies": [
+      {
+        "id": "dakar.arrival.two-clean-spoons.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旅伴先介绍鱼饭",
+          "en": "Let my companion finish describing his rice"
+        }
+      },
+      {
+        "id": "dakar.arrival.two-clean-spoons.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看各自留的一小份",
+          "en": "Look at the small portions we set aside"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "dakar.paired-spoon-tab"
+      ],
+      "menuIds": [
+        "dakar.menu-ceebu-jen",
+        "dakar.menu-yassa"
+      ]
+    },
+    "cityId": "dakar"
+  },
+  {
+    "id": "dakar.arrival.bird-takes-path",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "dakar-hann"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小鸟没决定方向，我们先都停了脚。",
+      "en": "The bird’s uncertain route paused two walkers."
+    },
+    "text": {
+      "zh-Hans": "汉恩公园里，一只小鸟忽然落到前面的路上，低头啄了一下。我停住脚，正想从旁边绕，它又往那边跳了两步。我便等在原处，不再替它猜方向。身后的旅人也停下来，伸出一只脚又收回去。小鸟终于飞走，我们同时迈步，又同时停了停，笑着一前一后走过刚才那段空路。",
+      "en": "A little bird landed on the path at Hann Park and pecked at the ground. I paused, then considered passing to one side. It hopped that way first. I waited instead of guessing its route. A traveler behind me also stopped, extending a foot before drawing it back. When the bird flew off, we both started, paused again, and laughed before walking through one at a time."
+    },
+    "replies": [
+      {
+        "id": "dakar.arrival.bird-takes-path.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请身后旅人先走",
+          "en": "Invite the traveler behind me to go first"
+        }
+      },
+      {
+        "id": "dakar.arrival.bird-takes-path.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "等小鸟飞开再走",
+          "en": "Wait for the bird to leave before continuing"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "dakar"
+  },
+  {
+    "id": "dakar.fulfill.same-horizon",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "dakar-mamelles"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "dakar.arrival.panorama-turn.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我们先站到了同一边。",
+      "en": "You wrote, “{reply}.” We stood side by side first."
+    },
+    "text": {
+      "zh-Hans": "我请那位旅人慢慢指出半岛的方向，这次先和他并排站好，邮包安安稳稳放在脚边。他抬手，我就顺着看，不再急着换位置。等我终于点头，他问看清了没有，我却忙着把刚才憋住的喷嚏打完。他收回手等着，我擦好鼻子，重新抬头，这回我们一起看向了远处。",
+      "en": "I asked the traveler to point out the peninsula slowly. This time we stood side by side with my mailbag at our feet, and I followed his hand without changing places. When I finally nodded, he asked whether I could see it. A sneeze I had been holding back answered first. He waited while I wiped my nose. Then we both looked towards the same stretch of distance."
+    },
+    "replies": [
+      {
+        "id": "dakar.fulfill.same-horizon.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢他等我打喷嚏",
+          "en": "Thank him for waiting through my sneeze"
+        }
+      },
+      {
+        "id": "dakar.fulfill.same-horizon.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看是否望向同边",
+          "en": "Check that we face the same way"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "dakar.shared-horizon"
+      ],
+      "menuIds": []
+    },
+    "cityId": "dakar"
+  },
+  {
+    "id": "dakar.revisit.matching-pace",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "dakar-hann"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "他以为我在热身，我只是刚伸懒腰。",
+      "en": "He saw a warm-up where I had only begun a stretch."
+    },
+    "text": {
+      "zh-Hans": "重新走进达喀尔的汉恩公园，我的脚步先慢了下来。一位慢跑的人从旁边经过，回头看见我也抬着胳膊，便朝我竖了竖拇指。其实我只是在伸个懒腰。我还没来得及解释，他已经跑远。我索性把另一边也伸完，再背好邮包继续走，刚才绷紧的肩膀松下来，鞋底却还是照自己的节奏落地。",
+      "en": "Back at Hann Park in Dakar, I slowed down and stretched an arm. A passing jogger looked back and gave me an encouraging thumbs-up, apparently taking the pose for exercise. Before I could explain, he was farther along the path. I stretched the other side too, then settled my mailbag on my shoulder. My shoulders felt looser, though my shoes continued landing at their own unhurried pace."
+    },
+    "replies": [
+      {
+        "id": "dakar.revisit.matching-pace.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "朝跑远的人挥挥手",
+          "en": "Wave to the departing jogger"
+        }
+      },
+      {
+        "id": "dakar.revisit.matching-pace.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看肩膀松开的步子",
+          "en": "Notice my pace after the stretch"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "dakar"
+  }
+]

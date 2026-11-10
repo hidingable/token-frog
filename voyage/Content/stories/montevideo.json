@@ -1,0 +1,416 @@
+[
+  {
+    "id": "montevideo.arrival.buckle-answer",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "montevideo-rambla"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "车铃响过以后，邮包碰巧答了一声。",
+      "en": "My mailbag happened to answer the bicycle bell."
+    },
+    "text": {
+      "zh-Hans": "沿着滨水大道走，一位骑车人从旁边经过，轻按车铃向我示意。我慢慢让到一边，邮包搭扣恰好也响了，他回头笑着挥手。我想回个同样清楚的问候，手指碰了碰搭扣，它却不肯再响。等他停下来喝水，我赶上去说明，他让我慢慢试，自己的手还搭在车铃上。",
+      "en": "A cyclist gave a light ring as he passed me on the Rambla. I stepped aside and my mailbag buckle happened to click. He looked back, smiling and waving. I tried to answer deliberately, but the buckle went quiet. When he stopped for water, I caught up and explained. He waited while I tried again, with his own hand resting on the bell."
+    },
+    "replies": [
+      {
+        "id": "montevideo.arrival.buckle-answer.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "试着回两声搭扣响",
+          "en": "Try answering with two buckle clicks"
+        }
+      },
+      {
+        "id": "montevideo.arrival.buckle-answer.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找搭扣发声的地方",
+          "en": "See where the buckle makes its click"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "montevideo.two-beat-tab"
+      ],
+      "menuIds": []
+    },
+    "cityId": "montevideo"
+  },
+  {
+    "id": "montevideo.arrival.paper-corner-chase",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "montevideo-botanical"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我换了个方向，等废纸自己过来。",
+      "en": "I changed position and let the scrap come to me."
+    },
+    "text": {
+      "zh-Hans": "植物园外，一张废纸贴着地面翻了个跟头。我弯腰去捡，它又从指尖旁边溜开。我没有跟着扑，先把邮包放稳，绕到纸片前头蹲下来等。纸终于碰到鞋边，我捡起来收进装废物的小袋，再把袋口扎好。起身时才发觉自己还蹲着迈了一步，像要把脚下的路也折起来。",
+      "en": "Outside the botanical garden, a scrap of litter turned over and slipped past my fingers. Instead of lunging after it, I put my bag down and crouched a little farther along its path. It reached my shoe, and I tucked it into my rubbish pouch and tied the top. Getting up, I accidentally took a crouching step, as if the path needed folding too."
+    },
+    "replies": [
+      {
+        "id": "montevideo.arrival.paper-corner-chase.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说那一步有多矮",
+          "en": "Describe my very low last step"
+        }
+      },
+      {
+        "id": "montevideo.arrival.paper-corner-chase.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "检查小袋是否扎好",
+          "en": "Check the knot on the rubbish pouch"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "montevideo.low-step-fold"
+      ],
+      "menuIds": []
+    },
+    "cityId": "montevideo"
+  },
+  {
+    "id": "montevideo.arrival.sandwich-handshake",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "montevideo-chivito",
+      "montevideo-torta-frita"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "打招呼的手，暂时都被午饭占了。",
+      "en": "Our hands were fully booked at lunchtime."
+    },
+    "text": {
+      "zh-Hans": "奇维托刚端来，我还惦记着饭后的炸面饼。一位旅伴伸手想和我打招呼，我却两手捧着牛肉三明治，忙得只能点头。他索性也点了点头，端起自己的杯子。等我咽完放下三明治，他又正喝着水。我们各自等了一会儿，终于腾出手，郑重地补上了一个比午饭还慢的握手。",
+      "en": "When my chivito arrived, I was already thinking about a torta frita afterwards. A companion offered a greeting, but both my hands were occupied with the sandwich. He nodded back and lifted his cup. By the time I had swallowed and put lunch down, he was drinking. We waited through one more turn and finally managed a handshake considerably slower than either meal."
+    },
+    "replies": [
+      {
+        "id": "montevideo.arrival.sandwich-handshake.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "补上迟到的握手",
+          "en": "Finish our delayed handshake"
+        }
+      },
+      {
+        "id": "montevideo.arrival.sandwich-handshake.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看谁的手空出来",
+          "en": "See whose hand is finally free"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "montevideo.menu-chivito",
+        "montevideo.menu-torta-frita"
+      ]
+    },
+    "cityId": "montevideo"
+  },
+  {
+    "id": "montevideo.arrival.crisp-edge-listener",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "montevideo-torta-frita",
+      "montevideo-chivito"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "饼边响了一声，旁边的眉毛动了。",
+      "en": "A crisp bite made a nearby eyebrow twitch."
+    },
+    "text": {
+      "zh-Hans": "我吃完奇维托，拿起一块炸面饼，轻轻掰下一点边。脆脆的一声，让旁边正在打盹的旅伴睁开眼睛。我停住，他又闭上眼，我再咬一口，他的眉毛却动了动。我把剩下的饼放低，等咽完才问是不是吵醒了他。他摇头笑起来，原来一直醒着，只想猜我什么时候会开口。",
+      "en": "After my chivito, I broke a small crisp edge from a torta frita. My apparently sleeping companion opened his eyes at the crack. I paused; he closed them again. Another bite made his eyebrows twitch. After swallowing, I asked whether I had woken him. He laughed and shook his head. He had been awake, waiting to see when I would say something."
+    },
+    "replies": [
+      {
+        "id": "montevideo.arrival.crisp-edge-listener.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问旅伴刚才睡着没",
+          "en": "Ask whether my companion was asleep"
+        }
+      },
+      {
+        "id": "montevideo.arrival.crisp-edge-listener.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看眉毛有没有动",
+          "en": "Watch for another eyebrow twitch"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "montevideo.menu-chivito",
+        "montevideo.menu-torta-frita"
+      ]
+    },
+    "cityId": "montevideo"
+  },
+  {
+    "id": "montevideo.arrival.sugar-on-one-side",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "montevideo-chivito",
+      "montevideo-torta-frita"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "留半张饼的计划，被我咬出了两边。",
+      "en": "My plan for half a pastry acquired two bite marks."
+    },
+    "text": {
+      "zh-Hans": "午饭的奇维托吃得很饱，炸面饼便想留一半带走。我只给要吃的那半边加糖，谁知转着找位置下口时，没加糖的半边先到了嘴边。我咬完才发现，便把另一半重新转回来，认真补尝了一口。收起剩下的饼，袋子左右各鼓一点，原先打算整齐留下的半圆已经不见了。",
+      "en": "The chivito made a substantial lunch, so I planned to save half my torta frita. I sugared the half I meant to eat, turned it to find a good starting point, and bit the unsugared side instead. I turned it back for a careful second taste. What went into the bag bulged on both sides. The tidy semicircle I had planned to save was nowhere to be seen."
+    },
+    "replies": [
+      {
+        "id": "montevideo.arrival.sugar-on-one-side.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说哪口先吃到糖",
+          "en": "Tell which bite reached the sugar"
+        }
+      },
+      {
+        "id": "montevideo.arrival.sugar-on-one-side.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看袋里剩下的饼",
+          "en": "Look at the shape left in the bag"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "montevideo.menu-chivito",
+        "montevideo.menu-torta-frita"
+      ]
+    },
+    "cityId": "montevideo"
+  },
+  {
+    "id": "montevideo.arrival.two-names-one-plant",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "montevideo-botanical"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "名字还没念完，我的下巴先点了头。",
+      "en": "My nod arrived before the name was finished."
+    },
+    "text": {
+      "zh-Hans": "我在植物园外听见两位旅人讨论植物标本的名字，一人念一段，另一人接着念，谁都不敢说已经念完。我也凑过去听，却把他们中间的停顿当成了结束，提前点了头。三个人顿了一下，一起笑了。等他们重新慢慢读好，我这次把下巴收住，直到最后一个音落下才跟着点头。",
+      "en": "Outside the botanical garden, two visitors were sounding out a plant name they had seen in its herbarium material. One read a part, the other continued, and neither seemed sure where it ended. I mistook their pause for the finish and nodded too early. We all laughed. They began again, slowly. I kept my chin firmly still until the last syllable arrived."
+    },
+    "replies": [
+      {
+        "id": "montevideo.arrival.two-names-one-plant.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请他们慢慢念完名字",
+          "en": "Ask them to finish the name slowly"
+        }
+      },
+      {
+        "id": "montevideo.arrival.two-names-one-plant.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "等最后一声再点头",
+          "en": "Wait for the final syllable to nod"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "montevideo.long-name-fold"
+      ],
+      "menuIds": []
+    },
+    "cityId": "montevideo"
+  },
+  {
+    "id": "montevideo.fulfill.deliberate-two-clicks",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "montevideo-rambla"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "montevideo.arrival.buckle-answer.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我先把发声的位置找准了。",
+      "en": "You wrote, “{reply}.” I found the right spot first."
+    },
+    "text": {
+      "zh-Hans": "我照你的意思，先找到了搭扣能碰响的地方，再向骑车的旅人连着敲了两下。他听明白，轻轻用车铃回了一声，我高兴得差点敲起第三下，赶快收住手。他喝好水推车走了，我沿滨水大道慢慢往前走。包带已经理顺，搭扣贴着布面，接下来一路只剩鞋底和地面轻轻相碰。",
+      "en": "I found the spot where my buckle clicked and tapped it twice for the cyclist. He answered with one gentle ring. I nearly added a third tap in excitement, then caught my hand. He finished his water and wheeled his bicycle away while I continued along the Rambla. With the strap straightened, the buckle rested against the cloth. Only my shoes kept tapping the path."
+    },
+    "replies": [
+      {
+        "id": "montevideo.fulfill.deliberate-two-clicks.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向推车的旅人道别",
+          "en": "Say goodbye as he wheels the bicycle away"
+        }
+      },
+      {
+        "id": "montevideo.fulfill.deliberate-two-clicks.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听搭扣静后的脚步",
+          "en": "Listen to the footsteps after the clicks"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "montevideo.quiet-after-two"
+      ],
+      "menuIds": []
+    },
+    "cityId": "montevideo"
+  },
+  {
+    "id": "montevideo.revisit.dog-sitting-water",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "montevideo-rambla"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小狗停下来时，我们也都停了一会儿。",
+      "en": "The dog’s pause became ours too."
+    },
+    "text": {
+      "zh-Hans": "拉普拉塔河还在滨水大道旁铺开，我回到蒙得维的亚，走到半途被一只牵着绳的小狗留住了。它坐下来望着水，主人喊它的名字，它只动了一下耳朵。我也停下看了一会儿，正准备继续走，小狗却忽然站起来，抢先走到了前面。它的主人跟上去，我再出发，自己的影子刚好落在那段空出来的路上。",
+      "en": "The Río de la Plata opened beside the Rambla on my return to Montevideo. Partway along, a dog on a lead sat down to look at the water. Its owner called its name; only one ear moved. I stopped to look too. Just as I prepared to leave, the dog stood and set off ahead of us. Its owner followed. When I began walking again, my shadow fell across the stretch they had just cleared."
+    },
+    "replies": [
+      {
+        "id": "montevideo.revisit.dog-sitting-water.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向停步的小狗道别",
+          "en": "Say goodbye to the dog that paused"
+        }
+      },
+      {
+        "id": "montevideo.revisit.dog-sitting-water.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看刚空出的那段路",
+          "en": "Look at the newly empty path"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "montevideo"
+  }
+]

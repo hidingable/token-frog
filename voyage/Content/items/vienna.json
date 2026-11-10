@@ -1,0 +1,98 @@
+[
+  {
+    "id": "vienna.menu-schnitzel",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "炸小牛排小菜单",
+      "en": "Wiener Schnitzel Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自己做的纸菜单在盘边留了几粒跑远的面包屑。",
+      "en": "My homemade menu leaves a few travelling crumbs at the plate’s edge."
+    },
+    "cityId": "vienna"
+  },
+  {
+    "id": "vienna.menu-apple-strudel",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "苹果卷小菜单",
+      "en": "Apple Strudel Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我做的纸菜单记着两份苹果卷，一份先尝苹果，一份先尝面皮。",
+      "en": "My handmade menu remembers two portions of strudel, started with apple and pastry respectively."
+    },
+    "cityId": "vienna"
+  },
+  {
+    "id": "vienna.two-step-tab",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两步纸签",
+      "en": "Two-Step Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "我在纸签上压出错开的两个小阶，不抄录任何现成乐谱。",
+      "en": "Two staggered folds I pressed into a tab recall our steps without copying a score."
+    },
+    "cityId": "vienna"
+  },
+  {
+    "id": "vienna.near-far-fold",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "远近折卡",
+      "en": "Near and Far Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使剪的两个大小方框，记着望远镜拿反后的远景。",
+      "en": "Two differently sized paper frames I cut recall the view through reversed binoculars."
+    },
+    "cityId": "vienna"
+  },
+  {
+    "id": "vienna.turn-taking-card",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "轮流响的折卡",
+      "en": "Taking Turns Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我自折的长卡在每道短痕间留空，记着大家没有抢下一步的声音。",
+      "en": "My original folded card leaves room between short marks for sounds that waited their turn."
+    },
+    "cityId": "vienna"
+  },
+  {
+    "id": "vienna.tilted-wave",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "斜斜的挥手纸人",
+      "en": "Leaning Wave Cutout"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自己剪的小纸人连背包都歪着，记着摩天轮旁的问候。",
+      "en": "My original paper figure leans with its bag, recalling a wave beside the Ferris wheel."
+    },
+    "cityId": "vienna"
+  }
+]

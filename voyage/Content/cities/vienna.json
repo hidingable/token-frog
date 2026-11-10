@@ -11,7 +11,7 @@
     "heritage",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "维也纳",
     "en": "Vienna"
@@ -20,5 +20,66 @@
     "zh-Hans": "维也纳",
     "en": "Vienna"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "vienna-sound-stairs",
+      "type": "place",
+      "names": {
+        "zh-Hans": "音乐之家互动音阶楼梯",
+        "en": "Sound Staircase at Haus der Musik"
+      },
+      "summary": {
+        "zh-Hans": "维也纳音乐之家设有可互动的音阶楼梯。访客可以通过台阶探索钢琴音符和声音。",
+        "en": "Haus der Musik in Vienna has an interactive sound staircase where visitors can explore piano notes and sounds through its steps."
+      },
+      "sources": [
+        "https://www.hdm.at/wp-content/uploads/2024/09/Stairplay-Einfuehrung.pdf"
+      ]
+    },
+    {
+      "id": "vienna-ferris-wheel",
+      "type": "place",
+      "names": {
+        "zh-Hans": "普拉特大摩天轮",
+        "en": "Giant Ferris Wheel in the Prater"
+      },
+      "summary": {
+        "zh-Hans": "普拉特的大摩天轮靠近游乐园入口。乘坐车厢可以眺望维也纳城市与普拉特的景色。",
+        "en": "The Giant Ferris Wheel stands near the entrance to the Prater amusement park. Its cabins offer views across Vienna and the Prater."
+      },
+      "sources": [
+        "https://www.wien.info/en/see-do/prater/giant-ferris-wheel-346994"
+      ]
+    },
+    {
+      "id": "vienna-schnitzel",
+      "type": "food",
+      "names": {
+        "zh-Hans": "维也纳炸小牛排",
+        "en": "Wiener Schnitzel"
+      },
+      "summary": {
+        "zh-Hans": "维也纳炸小牛排把小牛肉拍薄，依次裹面粉、蛋液与面包屑，再煎炸。",
+        "en": "Wiener schnitzel uses veal pounded thin, coated in flour, egg and breadcrumbs, then fried."
+      },
+      "sources": [
+        "https://www.wien.info/en/dine-drink/viennese-cuisine/recipes/meat-fish/schnitzel-357484"
+      ]
+    },
+    {
+      "id": "vienna-apple-strudel",
+      "type": "food",
+      "names": {
+        "zh-Hans": "苹果卷",
+        "en": "Apfelstrudel"
+      },
+      "summary": {
+        "zh-Hans": "苹果卷用很薄的面皮包住苹果馅并烘烤。馅中可有葡萄干和肉桂，做法对是否加入面包屑有不同选择。",
+        "en": "Apfelstrudel wraps an apple filling in very thin pastry and is baked. The filling may include raisins and cinnamon, with versions differing over the use of breadcrumbs."
+      },
+      "sources": [
+        "https://www.wien.info/en/dine-drink/viennese-cuisine/recipes/sweets-desserts/apple-strudel-339140"
+      ]
+    }
+  ]
 }

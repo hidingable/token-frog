@@ -1,0 +1,98 @@
+[
+  {
+    "id": "addisababa.menu-injera",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "英吉拉小菜单",
+      "en": "Injera Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使饭后自制的纸菜单，画着一大一小两块薄饼，指尖不在配料里。",
+      "en": "A paper menu I made after lunch, with two sizes of injera and no fingertips among the ingredients."
+    },
+    "cityId": "addisababa"
+  },
+  {
+    "id": "addisababa.menu-shiro",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "希罗小菜单",
+      "en": "Shiro Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的纸菜单，碗边留着一道快要合拢的勺痕。",
+      "en": "My homemade paper menu preserves a spoon’s disappearing trail through shiro."
+    },
+    "cityId": "addisababa"
+  },
+  {
+    "id": "addisababa.pole-fold",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "双杖折角",
+      "en": "Two-Pole Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "我把拿杖的小插曲折成了一张窄纸片，尖角都朝同一边。",
+      "en": "A narrow paper fold I made after holding the poles, with both points facing one way."
+    },
+    "cityId": "addisababa"
+  },
+  {
+    "id": "addisababa.open-circle",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "敞口圆环卡",
+      "en": "Open Circle Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我剪的圆环留了个缺口，专门让眼睛能往外看。",
+      "en": "I cut a gap in this paper circle so there would be somewhere to look through."
+    },
+    "cityId": "addisababa"
+  },
+  {
+    "id": "addisababa.wave-tab",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两边挥手纸签",
+      "en": "Two-Way Wave Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自己做的双面纸签，两只小手掌朝着不同方向。",
+      "en": "My own two-sided paper tab has a little waving hand facing each way."
+    },
+    "cityId": "addisababa"
+  },
+  {
+    "id": "addisababa.paired-lines",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "并拢的杖尖纸卡",
+      "en": "Tips Together Card"
+    },
+    "descriptions": {
+      "zh-Hans": "学会并着拿杖后，我在折卡上压出两道朝下的线，没有借用任何展品图样。",
+      "en": "After learning the grip, I pressed two downward lines into my own folded card; no museum design is copied."
+    },
+    "cityId": "addisababa"
+  }
+]

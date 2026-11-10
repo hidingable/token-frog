@@ -1051,3 +1051,153 @@ CLANG_MODULE_CACHE_PATH="$PWD/.build/codex-cache/clang" SWIFTPM_MODULECACHE_OVER
   - https://www.choosechicago.com/blog/dining/italian-beef-chicago/
 
 缩窄/弃用：不写披萨发明人、牛肉三明治婚宴起源、商家最早称号、餐馆榜单、“真正当地人”或不准加某种酱的规训；不借影视作品角色与设定。学校指南含学生推荐且未背书商家，只用于基础食物组成，与旅游机构结构描述核对。soft-hello 兑现更小声问候，cup-sleeve-mixup 是本城唯一以纸制品为主要动作的故事；纪念品全为原创纸品。
+
+
+## M2 补全城市资料第三批
+
+核实日期：2026-11-10。下列来源均实际打开并读取支持内容；同机构网页不计独立交叉核对。路人、事件和信使自制纸品为原创虚构，不代表当地习俗、文物或官方商品。未核实气候月份，不填 rainyMonths。
+
+
+### 亚的斯亚贝巴 addisababa
+
+- `addisababa.addisababa-entoto`：旅游部 Visit Ethiopia 的 Description 支持山地位置、桉树林及户外休闲。不采“城市之肺”等宣传比喻，不保证具体设施状态。
+  - https://www.visitethiopia.et/space/ethiopia
+- `addisababa.addisababa-science`：ENA 正文明确馆址在亚的斯亚贝巴、常设与临时展、圆环与圆顶外形。只在建筑外发生虚构小事，不推断展品操作权限。
+  - https://www.ena.et/web/eng/w/en_38788
+- `addisababa.addisababa-injera`：Jimma University 团队原始研究摘要与方法支持发酵薄饼、苔麸与加工影响；不将实验参数作为家常食谱。
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC11077180/
+- `addisababa.addisababa-shiro`：多所埃塞俄比亚大学合著的豆类研究手册印刷页 51、54 支持鹰嘴豆/豌豆粉、香料及配 injera。不同豆类是变体，不声称只用鹰嘴豆。
+  - https://www.ccrp.org/wp-content/uploads/2020/06/Edwards-et-al-2019_A-Guide-to-Edible-Legumes-of-Ethiopia_lowres.pdf
+
+缩窄/弃用：公园、科学馆官网超时，未列作支持来源；美联社市场报道无法打开，放弃市场选题。不写咖啡仪式、宗教场所、营养功效、薄饼起源争议、精确高度或气候月份。四条各为单一机构证据，未冒称交叉核实。two-tips-together 兑现问同一旅人如何并着拿杖；纸品均为信使原创。
+
+
+### 达喀尔 dakar
+
+- `dakar.dakar-mamelles`：ASPT 国家旅游推广机构地点页明确山丘与佛得角半岛视野；不采用高度、灯光射程、最古老或排名。
+  - https://www.visitezlesenegal.com/destinations/dakar/phare-des-mamelles/
+- `dakar.dakar-hann`：Hann Bel-Air 市镇网站明确公园属于本区、位于达喀尔的自然保护空间。只取位置和性质，虚构事件在普通步行区域，不保证动物展示或设施状态。
+  - https://mairiedehann.org/Hann_Bel_Air
+- `dakar.dakar-ceebu-jen`：Au Sénégal 食谱 PDF 第 3 页明确鱼、米饭、胡萝卜等蔬菜及用余汤煮饭的做法。只称“所核实的食谱”，不规定所有版本。
+  - https://www.au-senegal.com/IMG/article_PDF/Recettes-de-cuisine.pdf
+- `dakar.dakar-yassa`：本地专业旅游文化媒体 Au Sénégal 的食谱正文支持柠檬、洋葱、腌制、烤/炖与白饭。属于饮食编辑来源，比学术专论弱，不写营养或起源。
+  - https://www.au-senegal.com/poulet-au-yassa,3445.html?lang=fr
+
+缩窄/弃用：UNESCO 词条、决议和 PDF 实际返回验证码，不将搜索摘要充当已读原文，未列入应用来源。弃用鱼饭具体起源人物、城市归属竞争、食物国家称号、固定碎米品种、灯塔纪录与营业节目；两食物同属 Au Sénégal，不算独立交叉核对。避开戈雷岛、仪式与宗教地情节。same-horizon 兑现请同一旅人慢慢指方向；纪念品全为个人原创纸品。
+
+
+### 蒙得维的亚 montevideo
+
+- `montevideo.montevideo-rambla`：市旅游平台 Playas y rambla 支持拉普拉塔河岸、海滩及散步运动。只在普通步道发生小事，不进入文中伤痛纪念地，也不把河写成大西洋。
+  - https://www.descubrimontevideo.uy/playas-y-rambla
+- `montevideo.montevideo-botanical`：植物园市政府官网 Herbario 段支持植物识别、名字、分布与生境。故事只写园外虚构旅人的讨论，不声称可触摸标本或进入温室。
+  - https://jardinbotanico.montevideo.gub.uy/
+- `montevideo.montevideo-chivito`：国家旅游部门家庭指南印刷页 40–41 明确牛肉、面包及蛋/蔬菜/奶酪/蛋黄酱等可变配料。只取组成，不采用人物与起源轶事。
+  - https://uruguaynatural.com/wp-content/uploads/2023/02/guia-familia.pdf
+- `montevideo.montevideo-torta-frita`：同指南明确小麦面团、牛脂油炸、可加糖或 dulce de leche；将牛脂限定为所核实版本，不声称所有食谱一致。
+  - https://uruguaynatural.com/wp-content/uploads/2023/02/guia-familia.pdf
+
+缩窄/弃用：旅游 Plus 的植物园页面同时有卫生紧急停园旧提示和开放时段，不用其营业状态，改读园方。弃用唯一/首座植物园、滨水道长度差异、三明治发明人和“下雨人人吃炸饼”等概括；不写气候月份。市旅游与植物园同属市政府，食物同属国家旅游部门，未冒称相互独立交叉核实。deliberate-two-clicks 兑现同一骑车旅人面前的两声搭扣问候；纸品均由信使原创。
+
+
+### 基多 quito
+
+- `quito.quito-cruz-loma`：缆车运营方 FAQ 明确到达 Cruz Loma、观景点、小径、休息及野餐空间。不采价格、时刻、海拔、极限运动或宗教设施信息。
+  - https://teleferico.com.ec/preguntas-frecuentes/
+- `quito.quito-orchids`：园方 Ecosystems and Gardens 的 Orchid Gardens 段明确温控环境和花色、形态、香气。只在步道观察，不触摸植物，不采花，不推断具体花种。
+  - https://jardinbotanicoquito.com/en/ecosystems-and-gardens/
+- `quito.quito-locro`：Primicias 报道第 321–323 行支持土豆释放淀粉形成浓稠质地，以及鲜奶酪块与牛油果。媒体转述市旅游信息，证据弱于配方研究，故不限定土豆品种或必配猪皮。
+  - https://www.primicias.ec/noticias/el-chat/locro-papa-quito-concurso/
+- `quito.quito-empanada`：旅游部存档文章第 98 行明确面团油炸鼓起、少量奶酪馅、可撒糖。不采含推测的名称起源和历史迁移叙事。
+  - https://historicomintur.produccion.gob.ec/empanadas-de-viento/
+
+缩窄/弃用：市旅游 locro 新闻 404，旅游 PDF 网页工具报过大，本机下载未获得有效 PDF；Ecuador Travel 实际打开限流且抓取无支持正文，均未列入来源。省旅游页无可读正文，也未列入。弃用土豆汤年代、词源与排名，未将 Cuenca 的宗教场所售卖习惯移植到基多。各 fact 为单一可读机构证据，未冒称交叉核实。folded-wings-walk 兑现给同一小朋友展示系好的外套；纸品均为信使原创。
+
+
+### 洛杉矶 losangeles
+
+- `losangeles.losangeles-getty-garden`：盖蒂官方 Gardens 页支持步道跨溪、向下延伸、石瀑、水池及杜鹃迷宫。只在步道观看，不进入水池或把景观植物当可穿行迷宫。
+  - https://www.getty.edu/visit/center/top-things-to-do/gardens/
+- `losangeles.losangeles-pendulum`：市属天文台展项页支持傅科摆演示自转及逐渐碰倒小柱。只在观看区，不触碰展品，不承诺某次必定看到柱子倒下，不采用易被误读的轴承机理简述。
+  - https://griffithobservatory.lacity.gov/exhibits/w-m-keck-foundation-central-rotunda/foucault-pendulum/
+- `losangeles.losangeles-taco`：Discover LA Taco Trek 的 Salazar 等正文支持烤牛/鸡肉及本地小麦面饼版本；只写“例如”“有版本”，不把一店做法定为全城标准。
+  - https://www.discoverlosangeles.com/tacotrek
+- `losangeles.losangeles-french-dip`：餐馆官网产品介绍与独立旅游机构条目都支持烤肉、法式面包、浸肉汁及可选肉类；官网另支持可加奶酪。只取产品结构，不复制商业文案或标识。
+  - https://philippes.com/
+  - https://www.discoverlosangeles.com/eat-drink/philippe-the-original
+
+缩窄/弃用：餐馆猜测的菜单子页无法打开，改读其可访问主页；双方涉及的发明人、诞生地、年代和“最好”均不用。塔可不固定玉米或小麦面饼，不移植特定族群习俗；未填气候月份。still-brim-moving-eyes 兑现同一孩子提出的站稳后只转眼睛；全部纪念品为信使自制纸品，未复制艺术家作品。
+
+
+### 新奥尔良 neworleans
+
+- `neworleans.neworleans-aquarium`：奥杜邦机构展览页支持市中心密西西比河畔位置及隧道里的鱼与鳐鱼。故事只观看，不喂食、不触水、不以馆外鱼种补充地方细节。
+  - https://audubonnatureinstitute.org/aquarium-exhibits-and-experiences
+- `neworleans.neworleans-audubon-park`：New Orleans & Company 的橡树页在 Audubon Park 段明确 Uptown、小湿地区、步道、休闲与橡树。原拟 City Park 官网状态异常，改用明确可读的另一个公园，不混用两者。
+  - https://www.neworleans.com/things-to-do/recreation/new-orleans-oak-trees/
+- `neworleans.neworleans-gumbo`：旅游机构专页正文与所载两种食谱支持浓炖汤、米饭、鸡肉/香肠/海鲜及蔬菜变体。只写“可有”，不把所有做法固定为黄油面粉糊。
+  - https://www.neworleans.com/restaurants/traditional-new-orleans-foods/gumbo/
+- `neworleans.neworleans-beignet`：同机构定义明确油炸面团、糖粉，并另列咸味/不同馅料；只写甜版的一般形态，不强制固定份数或时段。
+  - https://www.neworleans.com/restaurants/traditional-new-orleans-foods/beignets/
+
+缩窄/弃用：弃用橡树最大/最古老与树龄、食物殖民起源与唯一正宗配方、名厨原话、排名、营业状态和节庆时段。两个饮食页同属旅游机构，不算交叉核实。不写灾难、丧葬、宗教或仪式情节。dry-paper-postfish 精确兑现给同一孩子折带邮包的纸鱼，是本城唯一以折纸为主要事件的篇目；纸鱼留在干处，纪念品均为原创纸作。
+
+
+### 珀斯 perth
+
+- `perth.perth-dna-tower`：园方说明 DNA 名称、观景性质及双楼梯；ABC 独立报道明确 twin staircases 与双螺旋形态。只取结构，不采用高度、台阶数、最高手段或旧翻修时刻。
+  - https://www.bgpa.wa.gov.au/kings-park/attraction/dna-tower
+  - https://www.abc.net.au/news/2021-07-18/perth-dna-tower-kings-park-restoration/100296518
+- `perth.perth-elizabeth-quay`：市政府 Visit Perth 地点页支持天鹅河、滨水步道、开放空间及桥。只在普通公共空间活动，不把原住民文化叙事、圣地或文化导览当玩笑背景。
+  - https://www.visitperth.com/venues/elizabeth-quay/
+- `perth.perth-fish-chips`：Time Out Perth 实地餐饮介绍明确鱼与薯条供应、手切薯条与蘸酱。只取可见组合，不延用推荐评价、鱼种或营养宣传。
+  - https://www.timeout.com/perth/restaurants/grand-lane-fish-house
+- `perth.perth-rock-lobster`：州旅游文章经 curl 实际抓取并读取正文（网页工具只有导航）支持无大螯及当地海鲜；独立运营方 Rottnest Cruises 菜单支持蒜香黄油煎制。菜单地点在珀斯周边罗特尼斯特岛，未将其写成珀斯市内餐馆，亦不承诺某店长期供应。
+  - https://www.westernaustralia.com/en/plan-my-trip/planning-tools/travel-stories/catch-of-the-day-was-best-seafood-and-where-to-eat-it
+  - https://rottnestcruises.com/cruises/menu/
+
+缩窄/弃用：DevelopmentWA 打开超时，旧 Visit Perth 鱼店页重定向失败，不列入来源。弃用龙虾捕捞活动、原住民文化解释、花期气候、食材最好/最甜和固定菜单供应；只限定蒜香黄油为一种做法。hello-with-resting-feet 兑现同一旅人站稳后的完整问候；自制纸品不复刻官方图案。
+
+
+### 德里 delhi
+
+- `delhi.delhi-rail-museum`：德里旅游局馆页明确 Chanakyapuri、铁路实物、静态/工作模型、信号与历史照片。故事在参观通道，不上轨道、不碰模型，不采用殖民王室车辆作玩笑。
+  - https://www.delhitourism.gov.in/entertainment/national_rail_museum.html
+- `delhi.delhi-five-senses`：德里旅游局原页明确公共休闲、蜿蜒步道、水渠、植物与陶风铃。只取空间和声音，不借文中的祈祷比喻、雕塑文化解释或仪式。
+  - https://delhitourism.gov.in/tourist_place/garden_of_five_senses.html
+- `delhi.delhi-chole-bhature`：印度旅游部 48 Hours In Delhi 饮食段明释 chickpeas with fried bread，支持基础组成与本地供应。不采用该页未经另证的 rice flour 具体面粉说法，亦不采榜单或发源地。
+  - https://www.incredibleindia.gov.in/en/trips/trip-listing/48-hours-in-delhi
+- `delhi.delhi-paratha`：德里旅游局饮食正文支持土豆/花椰菜/豌豆及其他蔬菜或 paneer 馅。只列可变馅料，不把某条街的油炸方式规定为所有 paratha 的烹调法。
+  - https://www.delhitourism.gov.in/eating_out/purani_delhi_food.html
+
+缩窄/弃用：旧 prod 饮食页网页工具超时、curl 证书验证失败，未列入来源；不关闭证书校验。弃用具体面粉种类、王室轶事、街头混乱或“人人如此”刻板描述、宗教场所和食物起源。德里旅游局各页同机构，不算独立交叉核对。front-with-short-steps 兑现让最小孩子领队的回应；游戏远离轨道与展品，纸品为原创。
+
+
+### 雅加达 jakarta
+
+- `jakarta.jakarta-tebet`：园方 About 正文支持南雅加达、南北原园区及连接树间的 Infinity Link Bridge。只用公共空间结构，不借用该页官方卡通角色或赋予树木仪式含义。
+  - https://tebetecopark.id/tentang
+- `jakarta.jakarta-macan`：博物馆自有参观页明确西雅加达地址及公共区、展览区、儿童艺术空间。故事只在公共区，不声称某件作品当期在展，不触摸、模仿或复制作品。
+  - https://ticket.museummacan.org/plan-visit
+- `jakarta.jakarta-kerak-telor`：国家旅游机构印尼文原页第 194 行明确蛋、白糯米、虾米、烤椰蓉、香料和底部干熟；雅加达政府饮食页独立支持本地可见的菜名。后者只用于供应背景，不冒称其支持配方。
+  - https://www.indonesia.travel/id/id/destination/java/jakarta/dki-jakarta
+  - https://www.jakarta.go.id/wisata-kuliner-jakarta
+- `jakarta.jakarta-soto-betawi`：国家旅游原页第 205 行明确牛肉/可有内脏、椰奶/牛奶/混合；市政府页另确认本地菜名。两机构的支持范围不同，不将其算作对全部配方的交叉确认。
+  - https://www.indonesia.travel/id/id/destination/java/jakarta/dki-jakarta
+  - https://www.jakarta.go.id/wisata-kuliner-jakarta
+
+缩窄/弃用：市政府公园子站超时，改读可读园方站点；不写雅加达首都地位、殖民贫困或痛苦叙事、民族起源/仪式、唯一汤底与固定配菜，不填雨季。两种食物国家站各自都有同一句支持，不以移动/桌面页重复充数。umbrella-to-the-end 兑现与同一旅人走到桥另一端；纪念品为信使原创纸作。
+
+
+### 维也纳 vienna
+
+- `vienna.vienna-sound-stairs`：音乐之家自行发布的 Stairplay 教材 PDF 第 5–6 页明确馆内互动 Klangtreppe，可独自或与朋友探索声音，并以钢琴音符卡说明。只取音阶楼梯性质，不保证某种固定音色、台阶数或当期程序，不引用现成曲调/乐谱。
+  - https://www.hdm.at/wp-content/uploads/2024/09/Stairplay-Einfuehrung.pdf
+- `vienna.vienna-ferris-wheel`：维也纳旅游局正文明确普拉特游乐园入口附近、车厢可看城市与普拉特。只在普通乘坐与等候区域，不用高空特殊平台，不承诺时刻或天气视野。
+  - https://www.wien.info/en/see-do/prater/giant-ferris-wheel-346994
+- `vienna.vienna-schnitzel`：旅游局原食谱明确小牛肉拍薄、面粉/蛋/面包屑顺序与煎炸。只写基本做法，不采用国家菜称号、意大利起源或“正宗必须”的评价/规则。
+  - https://www.wien.info/en/dine-drink/viennese-cuisine/recipes/meat-fish/schnitzel-357484
+- `vienna.vienna-apple-strudel`：旅游局原食谱支持薄面皮、苹果馅、卷起烘烤，另说明有/无面包屑差异。葡萄干、肉桂仅为可有，不统一所有配方，不写酒类为必要。
+  - https://www.wien.info/en/dine-drink/viennese-cuisine/recipes/sweets-desserts/apple-strudel-339140
+
+缩窄/弃用：弃用摩天轮年代与帝王纪念背景、影视角色、世界/城市唯一等纪录、苹果卷起源竞争与酒店“解决争论”的轶事，不写现成音乐作品。两种食物及摩天轮同属市旅游局，不算独立交叉核对。one-step-each 兑现同一孩子的一步一人，维持通道与安全扶手；所有纸品均为信使自制，不复制馆方教材、乐谱或商品。

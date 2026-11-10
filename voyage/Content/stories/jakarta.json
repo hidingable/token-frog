@@ -1,0 +1,416 @@
+[
+  {
+    "id": "jakarta.arrival.travelling-shade",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "jakarta-tebet"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "脚边那片阴影，原来跟着一把伞走。",
+      "en": "The moving shade belonged to an umbrella."
+    },
+    "text": {
+      "zh-Hans": "走在特贝特生态公园的连接桥上，一片阴影忽然移到我脚边。我抬头找树叶，才发现是旁边旅人的伞。她见我抬头，便把伞往外挪一点，我赶紧把邮包抱近，免得占去太多地方。我们慢慢并排走了一小段，脚下的阴影时宽时窄。我想问她愿不愿意一起走到桥的另一端，却先让出了胳膊的位置。",
+      "en": "A patch of shade moved beside my feet on Tebet Eco Park’s connecting bridge. I looked for leaves overhead and found a traveler’s umbrella instead. She shifted it slightly outwards, and I hugged my mailbag closer to leave room. We walked together while the shade widened and narrowed below. I wanted to ask whether she would continue to the other end with me; first I made space for our elbows."
+    },
+    "replies": [
+      {
+        "id": "jakarta.arrival.travelling-shade.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问能否同行到桥另一端",
+          "en": "Ask whether she would walk to the other end with me"
+        }
+      },
+      {
+        "id": "jakarta.arrival.travelling-shade.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看阴影怎样跟着走",
+          "en": "Watch the shade move with our steps"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "jakarta.moving-shade"
+      ],
+      "menuIds": []
+    },
+    "cityId": "jakarta"
+  },
+  {
+    "id": "jakarta.arrival.bag-turning-space",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "jakarta-macan"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我让了路，邮包还在原地转弯。",
+      "en": "I made way before my mailbag got the message."
+    },
+    "text": {
+      "zh-Hans": "MACAN博物馆的公共区里，我转身想给旅伴让路，邮包却也跟着转，像比我晚明白半拍。我停下来，把包收在身前，真正让出一块空处。旅伴走过去，没有急着叫我，而是也转过身，把自己的包抱好。我这才笑着跟上，两个人一前一后慢慢走，再没让包替自己决定往哪边转。",
+      "en": "In Museum MACAN’s public area, I turned to make way for my companion, but my mailbag swung into the space a moment behind me. I stopped and held it in front, leaving an actual gap. Once through, my companion turned to settle his own bag too. I laughed and followed. We walked one behind the other without leaving our bags to choose the turns."
+    },
+    "replies": [
+      {
+        "id": "jakarta.arrival.bag-turning-space.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "提醒旅伴先抱稳包",
+          "en": "Suggest settling our bags first"
+        }
+      },
+      {
+        "id": "jakarta.arrival.bag-turning-space.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看转身后有没留空",
+          "en": "Check the space after turning"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "jakarta.turn-clear"
+      ],
+      "menuIds": []
+    },
+    "cityId": "jakarta"
+  },
+  {
+    "id": "jakarta.arrival.crisp-base-surprise",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "jakarta-kerak-telor",
+      "jakarta-soto-betawi"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "响的是饼底，邮包扣并没有动。",
+      "en": "The crisp base clicked while the buckle stayed closed."
+    },
+    "text": {
+      "zh-Hans": "牛肉汤还没喝完，我先从蛋糯米饼边上掰下一点。干熟的底部轻轻一响，旁边的旅伴还以为是我按开了邮包扣。我把两只手举给他看，一边是饼，一边空着，包明明还扣得好好的。他也掰下一点，低头听了一下。我等他咽完再开口，想问哪一声更响，结果自己的肚子先接了一声。",
+      "en": "Before finishing the soto Betawi, I broke an edge from my kerak telor. Its dry base made a small crack, which my companion mistook for my bag opening. I showed him one hand holding the food and one empty hand; the bag was still fastened. He broke a piece to listen too. I waited for him to swallow before asking whose crack was louder. My stomach answered first."
+    },
+    "replies": [
+      {
+        "id": "jakarta.arrival.crisp-base-surprise.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说刚才响的是什么",
+          "en": "Explain what made the sound"
+        }
+      },
+      {
+        "id": "jakarta.arrival.crisp-base-surprise.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看手和没动的搭扣",
+          "en": "Look at my hands and the closed buckle"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "jakarta.menu-kerak-telor",
+        "jakarta.menu-soto-betawi"
+      ]
+    },
+    "cityId": "jakarta"
+  },
+  {
+    "id": "jakarta.arrival.spoon-rest-gap",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "jakarta-kerak-telor",
+      "jakarta-soto-betawi"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "勺子放稳了，才想起另一只手还忙着。",
+      "en": "Securing the spoon revealed another occupied hand."
+    },
+    "text": {
+      "zh-Hans": "我想把蛋糯米饼放在盘里，想先端稳牛肉汤。小勺斜靠在碗边，端起来却慢慢向汤里滑。我先把碗放回桌上，再把勺柄转到手边，让它好好靠住。试了一下不再滑，才发现自己一直捏着饼边没松手。我把饼轻轻放好，终于空出两只手，这回连肩膀都不用跟着端汤使劲了。",
+      "en": "I meant to set down the kerak telor before lifting my soto Betawi, but the spoon began sliding into the bowl. I lowered the soup, turned the handle towards me, and found a steadier resting place. Only then did I notice that my other hand still pinched the pastry’s edge. I put it down properly and lifted the bowl with two free hands. Even my shoulders could stop helping."
+    },
+    "replies": [
+      {
+        "id": "jakarta.arrival.spoon-rest-gap.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说午饭要几只空手",
+          "en": "Describe how many free hands lunch required"
+        }
+      },
+      {
+        "id": "jakarta.arrival.spoon-rest-gap.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看勺柄靠在哪里",
+          "en": "Look at the spoon’s new resting place"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "jakarta.menu-kerak-telor",
+        "jakarta.menu-soto-betawi"
+      ]
+    },
+    "cityId": "jakarta"
+  },
+  {
+    "id": "jakarta.arrival.lunch-without-hurry",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "jakarta-kerak-telor",
+      "jakarta-soto-betawi"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "他扣上邮包，却没有准备马上走。",
+      "en": "Fastening the bag did not mean he was leaving."
+    },
+    "text": {
+      "zh-Hans": "旅伴吃完蛋糯米饼，开始扣自己的包，我却还有半碗牛肉汤。我正想端快一点，他忽然又坐好，说只是把包先整理好。我放慢手里的小勺，他便把两只脚往椅子下面收了收，给经过的人留路。等我也吃完，起身时才发现他并没有把包带套上肩，原来从一开始就打算等我慢慢喝完。",
+      "en": "My companion finished his kerak telor and fastened his bag while I still had half my soto Betawi. I began hurrying, but he settled back and explained that he was merely organising it. I slowed my spoon. He tucked his feet beneath the chair to let someone pass. When I finished, I noticed his strap had never reached his shoulder. He had been ready to wait all along."
+    },
+    "replies": [
+      {
+        "id": "jakarta.arrival.lunch-without-hurry.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢旅伴让我慢慢喝",
+          "en": "Thank my companion for the unhurried meal"
+        }
+      },
+      {
+        "id": "jakarta.arrival.lunch-without-hurry.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看包带是否上肩",
+          "en": "Notice where the waiting bag strap rests"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "jakarta.menu-kerak-telor",
+        "jakarta.menu-soto-betawi"
+      ]
+    },
+    "cityId": "jakarta"
+  },
+  {
+    "id": "jakarta.arrival.too-quiet-shoes",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "jakarta-macan"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "鞋子越想安静，脚步看起来越奇怪。",
+      "en": "My effort to quiet the shoes made my steps peculiar."
+    },
+    "text": {
+      "zh-Hans": "在博物馆公共区等同伴时，我想把鞋底蹭出的响声收小一点，便每一步都抬得很认真。前面的旅人回过头，问我是不是在找掉下的东西。我摇头解释，脚刚放松，鞋底又轻轻响了一声。对方笑着往旁边让出空处，我也站好等人，不再抬着一只脚，装成自己还没走到这里的样子。",
+      "en": "Waiting in the museum’s public area, I lifted each foot carefully to quiet a squeak in my shoes. A visitor turned around and asked whether I was searching for something on the floor. I explained, relaxed my foot, and produced another small squeak. He smiled and made room. I settled down to wait on both feet, no longer pretending that I had not quite arrived."
+    },
+    "replies": [
+      {
+        "id": "jakarta.arrival.too-quiet-shoes.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "解释我没丢东西",
+          "en": "Explain that nothing has been lost"
+        }
+      },
+      {
+        "id": "jakarta.arrival.too-quiet-shoes.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两只脚放稳没有",
+          "en": "Check that both feet have settled"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "jakarta.squeak-step"
+      ],
+      "menuIds": []
+    },
+    "cityId": "jakarta"
+  },
+  {
+    "id": "jakarta.fulfill.umbrella-to-the-end",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "jakarta-tebet"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "jakarta.arrival.travelling-shade.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，她把伞抬高了一点。",
+      "en": "You wrote, “{reply}.” She raised the umbrella a little."
+    },
+    "text": {
+      "zh-Hans": "我问那位撑伞的旅人愿不愿意一起走到连接桥另一端，她点头，把伞抬得稍高。我没有再急着缩成一团，只把邮包收稳，照着她的步子走。到了开阔的地方，我们停下来各自伸伸胳膊，她把伞换到另一只手，我也换肩背包。重新道别时，脚下两片影子分开朝前走，再没有挤着同一个方向。",
+      "en": "I asked the umbrella-carrying traveler to continue to the other end of the connecting bridge with me. She nodded and raised the umbrella a little. I settled my bag and matched her pace instead of scrunching myself smaller. At an open space, we stretched, she changed hands, and I changed shoulders. We said goodbye before setting off separately, with our shadows no longer crowded into the same direction."
+    },
+    "replies": [
+      {
+        "id": "jakarta.fulfill.umbrella-to-the-end.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢一起走完的旅人",
+          "en": "Thank her for the shared walk"
+        }
+      },
+      {
+        "id": "jakarta.fulfill.umbrella-to-the-end.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看分开的两片影子",
+          "en": "Look at our separating shadows"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "jakarta.parting-shadows"
+      ],
+      "menuIds": []
+    },
+    "cityId": "jakarta"
+  },
+  {
+    "id": "jakarta.revisit.leaf-on-sleeve",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "jakarta-tebet"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "袖口落了片叶子，引来一位小检查员。",
+      "en": "A leaf on my cuff attracted a small inspector."
+    },
+    "text": {
+      "zh-Hans": "连接南北两片园子的桥让我认出了特贝特生态公园，我回到雅加达，便沿熟悉的方向重新走走。一片小叶子落在袖口，我没急着拍掉，走到路边才轻轻取下。旁边的小朋友以为我捡到了什么宝贝，凑过来看，我便摊开手让他看清，再把叶子放回树下。我们继续往前，他还回头检查了自己的两边袖子。",
+      "en": "The bridge joining the two park areas was familiar on my return to Tebet Eco Park in Jakarta. A little leaf landed on my cuff. I left it there until I could step aside and lift it off. A child came over, curious about my apparent treasure. I opened my palm for him to see before returning the leaf beneath a tree. As we continued, he looked back to inspect both of his own sleeves."
+    },
+    "replies": [
+      {
+        "id": "jakarta.revisit.leaf-on-sleeve.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉孩子这只是一片叶",
+          "en": "Explain that my treasure was a leaf"
+        }
+      },
+      {
+        "id": "jakarta.revisit.leaf-on-sleeve.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看袖口有没有落叶",
+          "en": "Check my cuffs for another leaf"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "jakarta"
+  }
+]

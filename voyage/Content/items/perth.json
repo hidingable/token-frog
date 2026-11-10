@@ -1,0 +1,98 @@
+[
+  {
+    "id": "perth.menu-fish-chips",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "鱼与薯条小菜单",
+      "en": "Fish and Chips Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的纸菜单，短短薯条旁留着终于够到的蘸酱。",
+      "en": "My handmade menu puts the dipping sauce within reach of a short chip."
+    },
+    "cityId": "perth"
+  },
+  {
+    "id": "perth.menu-rock-lobster",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "岩龙虾小菜单",
+      "en": "Rock Lobster Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我做的菜单只记这份蒜香黄油做法，不把一种配法当成全部。",
+      "en": "My menu records one garlic-butter preparation, without making it the only way to serve lobster."
+    },
+    "cityId": "perth"
+  },
+  {
+    "id": "perth.winding-tab",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "绕行纸签",
+      "en": "Winding Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自己剪的双弧纸签，记着楼梯两边断续露面的问候。",
+      "en": "Two arcs I cut recall the intermittent greetings across the staircases."
+    },
+    "cityId": "perth"
+  },
+  {
+    "id": "perth.bubble-gap",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "泡泡空隙卡",
+      "en": "Bubble Gap Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我在自己的纸卡中间留了个圆缺，像给经过的泡泡让路。",
+      "en": "A round gap in my own paper card leaves space for a passing bubble."
+    },
+    "cityId": "perth"
+  },
+  {
+    "id": "perth.joined-hello",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "合起来的问候卡",
+      "en": "Joined Greetings Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我将几道短折接到一张长折卡上，记着站稳以后送出的问候。",
+      "en": "Several small folds meet in my long paper card for the hello delivered on steady feet."
+    },
+    "cityId": "perth"
+  },
+  {
+    "id": "perth.even-steps",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "齐步折条",
+      "en": "Even Steps Strip"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折的纸条两边恢复一样长，纪念从鞋里找出石子后的几步。",
+      "en": "Both sides of my folded strip are even again, recalling the steps after removing the pebble."
+    },
+    "cityId": "perth"
+  }
+]

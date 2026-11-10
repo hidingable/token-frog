@@ -10,7 +10,7 @@
     "coast",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "珀斯",
     "en": "Perth"
@@ -19,5 +19,68 @@
     "zh-Hans": "珀斯",
     "en": "Perth"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "perth-dna-tower",
+      "type": "place",
+      "names": {
+        "zh-Hans": "国王公园DNA塔",
+        "en": "DNA Tower in Kings Park"
+      },
+      "summary": {
+        "zh-Hans": "国王公园的DNA塔有盘绕而上的两道楼梯，名称与DNA双螺旋有关。塔是公园里的观景地点。",
+        "en": "Kings Park’s DNA Tower has twin winding staircases and takes its name from the DNA double helix. It provides a viewpoint in the park."
+      },
+      "sources": [
+        "https://www.bgpa.wa.gov.au/kings-park/attraction/dna-tower",
+        "https://www.abc.net.au/news/2021-07-18/perth-dna-tower-kings-park-restoration/100296518"
+      ]
+    },
+    {
+      "id": "perth-elizabeth-quay",
+      "type": "place",
+      "names": {
+        "zh-Hans": "伊丽莎白码头",
+        "en": "Elizabeth Quay"
+      },
+      "summary": {
+        "zh-Hans": "伊丽莎白码头位于珀斯天鹅河畔，设有滨水步道、开放空间与桥梁。",
+        "en": "Elizabeth Quay is a waterfront precinct beside Perth’s Swan River, with promenades, open spaces and a bridge."
+      },
+      "sources": [
+        "https://www.visitperth.com/venues/elizabeth-quay/"
+      ]
+    },
+    {
+      "id": "perth-fish-chips",
+      "type": "food",
+      "names": {
+        "zh-Hans": "鱼与薯条",
+        "en": "Fish and Chips"
+      },
+      "summary": {
+        "zh-Hans": "鱼与薯条在珀斯的餐饮店可以吃到。所核实的本地餐饮报道介绍了配手切薯条和蘸酱的做法。",
+        "en": "Fish and chips are served in Perth. The documented local food report describes a serving with hand-cut chips and a dipping sauce."
+      },
+      "sources": [
+        "https://www.timeout.com/perth/restaurants/grand-lane-fish-house"
+      ]
+    },
+    {
+      "id": "perth-rock-lobster",
+      "type": "food",
+      "names": {
+        "zh-Hans": "西澳岩龙虾",
+        "en": "Western Rock Lobster"
+      },
+      "summary": {
+        "zh-Hans": "西澳岩龙虾是当地海鲜食材，没有大螯。烹调方式有变化，所核实的一种菜单用蒜香黄油煎制。",
+        "en": "Western rock lobster is a local seafood ingredient without large claws. Preparations vary; one documented menu sears it in garlic butter."
+      },
+      "sources": [
+        "https://www.westernaustralia.com/en/plan-my-trip/planning-tools/travel-stories/catch-of-the-day-was-best-seafood-and-where-to-eat-it",
+        "https://rottnestcruises.com/cruises/menu/"
+      ]
+    }
+  ]
 }

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "neworleans.menu-gumbo",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "甘博小菜单",
+      "en": "Gumbo Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使做的纸菜单里，米饭从汤下回到小勺上。",
+      "en": "On my handmade menu, the rice resurfaces on the spoon."
+    },
+    "cityId": "neworleans"
+  },
+  {
+    "id": "neworleans.menu-beignet",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "贝涅饼小菜单",
+      "en": "Beignet Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我画的盘子接住了糖粉，衣襟旁只有两道多余的小掸痕。",
+      "en": "My paper menu lets the plate catch the sugar and gives my clean shirt two unnecessary brush marks."
+    },
+    "cityId": "neworleans"
+  },
+  {
+    "id": "neworleans.tunnel-tab",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "叠影纸签",
+      "en": "Overlapping Shapes Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "我剪的两块轮廓短暂重叠，记着隧道里鱼与邮包碰巧遇上的角度。",
+      "en": "Two shapes I cut overlap briefly, recalling a fish passing above the mailbag."
+    },
+    "cityId": "neworleans"
+  },
+  {
+    "id": "neworleans.tilted-ear",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "歪耳折角",
+      "en": "Tilted Ear Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自己折的歪角纸片，记着隔着距离互相歪头的问候。",
+      "en": "My tilted paper corner recalls a greeting exchanged at a respectful distance."
+    },
+    "cityId": "neworleans"
+  },
+  {
+    "id": "neworleans.postfish-fold",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "带邮包的纸鱼",
+      "en": "Paper Postfish"
+    },
+    "descriptions": {
+      "zh-Hans": "我给小朋友另折的一条原创纸鱼，侧面小折角是它自己的包，不放入水里。",
+      "en": "Another original paper fish I folded, with its own little side bag; this fish stays out of water."
+    },
+    "cityId": "neworleans"
+  },
+  {
+    "id": "neworleans.scarf-loop",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "收短的围巾纸环",
+      "en": "Short Scarf Paper Loop"
+    },
+    "descriptions": {
+      "zh-Hans": "信使用纸条折成的短环，两端都收好了，只记那次转圈的小事。",
+      "en": "My short paper loop keeps both ends tucked away, recalling our unhelpful turning."
+    },
+    "cityId": "neworleans"
+  }
+]

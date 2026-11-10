@@ -11,7 +11,7 @@
     "heritage",
     "food"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "新奥尔良",
     "en": "New Orleans"
@@ -20,5 +20,66 @@
     "zh-Hans": "新奥尔良",
     "en": "New Orleans"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "neworleans-aquarium",
+      "type": "place",
+      "names": {
+        "zh-Hans": "奥杜邦水族馆水下隧道",
+        "en": "Audubon Aquarium Undersea Tunnel"
+      },
+      "summary": {
+        "zh-Hans": "奥杜邦水族馆位于新奥尔良市中心密西西比河畔。水下隧道展示鱼类、鳐鱼等礁区生物。",
+        "en": "Audubon Aquarium stands beside the Mississippi River in downtown New Orleans. Its undersea tunnel displays fish, rays and other reef inhabitants."
+      },
+      "sources": [
+        "https://audubonnatureinstitute.org/aquarium-exhibits-and-experiences"
+      ]
+    },
+    {
+      "id": "neworleans-audubon-park",
+      "type": "place",
+      "names": {
+        "zh-Hans": "奥杜邦公园",
+        "en": "Audubon Park"
+      },
+      "summary": {
+        "zh-Hans": "新奥尔良上城区的奥杜邦公园有橡树、步行道与休闲空间，也有小片湿地水域。",
+        "en": "Audubon Park in Uptown New Orleans has oak trees, walking paths, recreational space and small swamp areas."
+      },
+      "sources": [
+        "https://www.neworleans.com/things-to-do/recreation/new-orleans-oak-trees/"
+      ]
+    },
+    {
+      "id": "neworleans-gumbo",
+      "type": "food",
+      "names": {
+        "zh-Hans": "甘博浓汤",
+        "en": "Gumbo"
+      },
+      "summary": {
+        "zh-Hans": "甘博是可配米饭食用的浓炖汤，配料可有鸡肉、香肠或海鲜。不同做法也会使用秋葵、芹菜、甜椒和洋葱等。",
+        "en": "Gumbo is a thick stew served with rice, with versions using chicken, sausage or seafood. Preparations can also include okra, celery, peppers and onions."
+      },
+      "sources": [
+        "https://www.neworleans.com/restaurants/traditional-new-orleans-foods/gumbo/"
+      ]
+    },
+    {
+      "id": "neworleans-beignet",
+      "type": "food",
+      "names": {
+        "zh-Hans": "糖粉炸面饼",
+        "en": "Beignet"
+      },
+      "summary": {
+        "zh-Hans": "新奥尔良常见的甜味贝涅饼用面团油炸，再在表面撒糖粉。也存在其他馅料与咸味做法。",
+        "en": "A familiar sweet New Orleans beignet is fried dough covered with powdered sugar. Other fillings and savoury versions also exist."
+      },
+      "sources": [
+        "https://www.neworleans.com/restaurants/traditional-new-orleans-foods/beignets/"
+      ]
+    }
+  ]
 }

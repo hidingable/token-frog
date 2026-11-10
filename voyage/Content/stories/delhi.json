@@ -1,0 +1,416 @@
+[
+  {
+    "id": "delhi.arrival.small-passenger-line",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "delhi-rail-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我一停脚，身后的慢火车也停了。",
+      "en": "My stop brought a very small train to a halt."
+    },
+    "text": {
+      "zh-Hans": "铁路博物馆里，一家人沿参观通道走，小朋友排在我身后，说这是一列慢慢的火车。我停下来让他们先过，他却跟着刹住了脚，差点把队伍停成一团。我们挪到参观通道旁，抱好各自的包，空出位置重新站好。他问谁来当车头，我看看那个踮脚也看不见前面的孩子，想把第一位让给他。",
+      "en": "On a visitor path at the railway museum, a child behind me announced that our little group was a slow train. I stopped to let his family pass; he stopped too, bunching everyone up. We stepped to the side of the visitor path and settled our bags before lining up again. He asked who would lead. I looked at the smallest child, stretching to see past us, and considered giving him the front position."
+    },
+    "replies": [
+      {
+        "id": "delhi.arrival.small-passenger-line.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "让最小的旅客领队",
+          "en": "Let the smallest passenger lead"
+        }
+      },
+      {
+        "id": "delhi.arrival.small-passenger-line.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看队伍前方的空处",
+          "en": "Check for a clear space ahead"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "delhi.little-line"
+      ],
+      "menuIds": []
+    },
+    "cityId": "delhi"
+  },
+  {
+    "id": "delhi.arrival.chimes-between-words",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "delhi-five-senses"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "等风铃的空当，我们又互相等起了话。",
+      "en": "Waiting for the chimes became waiting for each other."
+    },
+    "text": {
+      "zh-Hans": "五感花园的陶风铃响起来时，我正和旅伴说话。他抬手让我等一下，我便把后半句留住，等声音停了再继续。没想到他说的也是等我先讲，我们面对面安静了一会儿，才明白彼此都在让话。我请他先说，他刚开口，风铃又轻轻响了。这次我们没有停，放低声音把那句话慢慢说完。",
+      "en": "The ceramic chimes sounded while my companion and I were talking in the Garden of Five Senses. He raised a hand, and I saved the rest of my sentence. It turned out he had been inviting me to speak first. After a mutually polite silence, I let him begin. The chimes sounded again. This time we lowered our voices and let his sentence reach its end."
+    },
+    "replies": [
+      {
+        "id": "delhi.arrival.chimes-between-words.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旅伴先说完",
+          "en": "Let my companion finish his sentence"
+        }
+      },
+      {
+        "id": "delhi.arrival.chimes-between-words.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听风铃和人声的空当",
+          "en": "Listen to the spaces between voices and chimes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "delhi.pause-fold"
+      ],
+      "menuIds": []
+    },
+    "cityId": "delhi"
+  },
+  {
+    "id": "delhi.arrival.shared-bread-break",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "delhi-chole-bhature",
+      "delhi-paratha"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "炸饼没分匀，旅伴已经先尝了一口。",
+      "en": "My uneven bread division did not delay my companion."
+    },
+    "text": {
+      "zh-Hans": "我和旅伴点了鹰嘴豆配炸饼，又分一份土豆帕拉塔。分炸饼时，我想一人一半，撕完却是一大一小两块。我正要再撕，他先把小块拿走，舀上一点鹰嘴豆，边吃边等我。我便不再追着面饼找中线，留下一小块给自己试味。等帕拉塔也分好，我们两个人面前都已经摆着不太整齐的午饭。",
+      "en": "My companion and I ordered chole bhature and a potato paratha to share. I tried to split the fried bread evenly and produced two decidedly unequal pieces. He took the smaller one and began eating it with chickpeas while I hesitated. I stopped searching for a perfect dividing line and tried a piece myself. By the time we divided the paratha, both our lunches were comfortably uneven."
+    },
+    "replies": [
+      {
+        "id": "delhi.arrival.shared-bread-break.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问小块配鹰嘴豆怎样",
+          "en": "Ask how the small piece works with chickpeas"
+        }
+      },
+      {
+        "id": "delhi.arrival.shared-bread-break.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看各自留好的午饭",
+          "en": "Look at the portions we have set aside"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "delhi.menu-chole-bhature",
+        "delhi.menu-paratha"
+      ]
+    },
+    "cityId": "delhi"
+  },
+  {
+    "id": "delhi.arrival.folded-bite",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "delhi-chole-bhature",
+      "delhi-paratha"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "把薄边折好了，反倒要重新找下口的地方。",
+      "en": "My careful fold required a new starting point."
+    },
+    "text": {
+      "zh-Hans": "帕拉塔放在鹰嘴豆旁边，我撕开一角，土豆馅跟着露出来。我想留住这一口的馅，便把薄边轻轻折过去，可折好后又不知从哪边先咬。我转着看了一会儿，索性从开口那头开始吃，馅就稳稳留在里面。剩下的小角蘸上一点鹰嘴豆，最后一口送进嘴里，手里那块不太规整的饼也正好吃完。",
+      "en": "I tore a corner from the paratha beside my chickpeas, revealing the potato filling. Folding the thin edge over kept the filling in place but left me uncertain where to begin. After turning it in my hands, I bit into the open end. The filling stayed inside. A little chickpea accompanied the remaining corner, and my oddly folded mouthful disappeared in one last bite."
+    },
+    "replies": [
+      {
+        "id": "delhi.arrival.folded-bite.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说这口饼从哪边吃",
+          "en": "Describe where I began the folded bite"
+        }
+      },
+      {
+        "id": "delhi.arrival.folded-bite.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看薄边怎样护住土豆",
+          "en": "See how the edge holds the potato filling"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "delhi.menu-chole-bhature",
+        "delhi.menu-paratha"
+      ]
+    },
+    "cityId": "delhi"
+  },
+  {
+    "id": "delhi.arrival.lunch-before-question",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "delhi-chole-bhature",
+      "delhi-paratha"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "轮到我说话时，对方又刚咬下一口。",
+      "en": "Our mouthfuls kept taking turns with the conversation."
+    },
+    "text": {
+      "zh-Hans": "旅伴问我刚才在德里看了什么，我正吃着鹰嘴豆和炸饼，便先举手示意等一下。他耐心等我咽完，轮到我开口，他的帕拉塔也刚送到嘴边。我把话留住，让他先吃好，两个人对看一眼都笑了。最后我先放下食物，只用空手比画火车轮子，他一边听一边把盘子往自己面前拉近。",
+      "en": "My companion asked what I had seen in Delhi while I was eating chole bhature. I signalled that I would answer after swallowing. By then, he had just taken a bite of paratha. We laughed at another pause. I finally put my food down and described the railway museum with empty-handed wheel gestures. He listened, drawing his plate a little closer as I spoke."
+    },
+    "replies": [
+      {
+        "id": "delhi.arrival.lunch-before-question.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "等他吃好再讲博物馆",
+          "en": "Let him finish before my museum story"
+        }
+      },
+      {
+        "id": "delhi.arrival.lunch-before-question.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看空手比的轮子",
+          "en": "Watch the wheel shape made by my empty hands"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "delhi.menu-chole-bhature",
+        "delhi.menu-paratha"
+      ]
+    },
+    "cityId": "delhi"
+  },
+  {
+    "id": "delhi.arrival.model-and-thumb",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "delhi-rail-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "拇指一举，车厢就少了一整节。",
+      "en": "One thumb concealed an entire model carriage."
+    },
+    "text": {
+      "zh-Hans": "铁路博物馆的模型旁，一位旅人举起拇指，想在照片里比出自己和车厢的大小。我从旁边看，他的拇指却挡住了一整节模型。我轻声提醒，他便换了个角度，改用张开的手掌。我往后退开，让他自己慢慢试。拍完他给同伴看照片，两个人先看车厢，再看那只终于缩到画面边上的大手。",
+      "en": "Beside a railway model, a visitor held up his thumb to show its scale in a photograph. From my angle, the thumb hid an entire carriage. I mentioned it quietly. He changed position and tried an open palm instead. I stepped back while he experimented. When he showed the result to his companion, they inspected the carriage and then the large hand, finally confined to the edge of the picture."
+    },
+    "replies": [
+      {
+        "id": "delhi.arrival.model-and-thumb.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问车厢有没有露全",
+          "en": "Ask whether the whole carriage is visible"
+        }
+      },
+      {
+        "id": "delhi.arrival.model-and-thumb.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看手移到了哪里",
+          "en": "See where the hand moved in the picture"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "delhi.edge-hand"
+      ],
+      "menuIds": []
+    },
+    "cityId": "delhi"
+  },
+  {
+    "id": "delhi.fulfill.front-with-short-steps",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "delhi-rail-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "delhi.arrival.small-passenger-line.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，队伍前面终于换成了短步子。",
+      "en": "You wrote, “{reply}.” Shorter steps set our pace."
+    },
+    "text": {
+      "zh-Hans": "我请最小的孩子站到队伍前面，再请大家在参观通道里留好距离。他挺直背，慢慢迈第一步，又回头看看我们有没有跟上。我抱稳邮包，跟着他的短步子走，旁边的家人也把步子收小。到了空处，他认真停下，我们也跟着停好。这回没有谁挤成一团，他转过脸笑，大家才一起放松了肩膀。",
+      "en": "I invited the smallest child to the front and asked everyone to leave space along the visitor path. He straightened, took a short step, and checked that we were following. I settled my bag and matched his pace; his family shortened their steps too. At a clear space, he stopped carefully. We all came to rest without bunching up, and his smile released a whole row of waiting shoulders."
+    },
+    "replies": [
+      {
+        "id": "delhi.fulfill.front-with-short-steps.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢小领队带路",
+          "en": "Thank our small leader for setting the pace"
+        }
+      },
+      {
+        "id": "delhi.fulfill.front-with-short-steps.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看停下时的间距",
+          "en": "Check the gaps when everyone stops"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "delhi.short-step-train"
+      ],
+      "menuIds": []
+    },
+    "cityId": "delhi"
+  },
+  {
+    "id": "delhi.revisit.chime-and-cough",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "delhi-five-senses"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "他把咳嗽当成打扰，我先拿出了水壶。",
+      "en": "His apologetic cough prompted a pause for water."
+    },
+    "text": {
+      "zh-Hans": "五感花园的弯路让我认出了德里这处来过的园子，我沿步道重新走进去。陶风铃响时，身边的旅人正好轻轻咳了一声，赶紧向我摆手。我摇头说没关系，把水壶拿出来请他先歇一下。他用自己的杯子喝好水，我们站在路边等了一会儿，再并排走开。下一阵铃声传来时，他的杯子已经收好，我的壶盖也终于拧正了。",
+      "en": "The bending paths were familiar when I returned to the Garden of Five Senses in Delhi. A traveler beside me coughed just as the ceramic chimes sounded and gestured an apology. I reassured him and offered water. He used his own cup while we paused clear of the path. We walked on together afterwards. At the next sound of the chimes, his cup was packed away and my bottle lid was finally screwed on straight."
+    },
+    "replies": [
+      {
+        "id": "delhi.revisit.chime-and-cough.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问他要不要再歇会儿",
+          "en": "Ask whether he would like a longer pause"
+        }
+      },
+      {
+        "id": "delhi.revisit.chime-and-cough.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "检查壶盖是否拧正",
+          "en": "Check that the bottle lid sits straight"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "delhi"
+  }
+]

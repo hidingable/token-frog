@@ -1,0 +1,416 @@
+[
+  {
+    "id": "perth.arrival.two-stairs-hello",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "perth-dna-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "绕着楼梯见了面，问候还没正式送到。",
+      "en": "The winding stairs delivered glimpses before the proper hello."
+    },
+    "text": {
+      "zh-Hans": "我和旅人在DNA塔下各选了一道楼梯，说好走到上面再碰头。我扶着栏杆慢慢爬，他在另一边露出脸，我便停稳朝他点头，没想到再绕一段又见到了。我把这次问候忍住，等到了能一起站好的地方，他却问我是不是忘记打招呼。我说得留一个完整的问候，等脚真正停下来再送。",
+      "en": "A traveler and I chose different staircases at the DNA Tower and agreed to meet above. I climbed slowly, holding the rail. His face appeared on the other side, so I stopped securely and nodded. Another turn brought another glimpse. I saved that greeting, only for him to ask at our meeting place whether I had forgotten him. I explained that I was keeping one complete hello for when our feet had stopped."
+    },
+    "replies": [
+      {
+        "id": "perth.arrival.two-stairs-hello.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "站稳后补声完整问候",
+          "en": "Give him the full hello once we are standing still"
+        }
+      },
+      {
+        "id": "perth.arrival.two-stairs-hello.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看两道楼梯怎样盘绕",
+          "en": "Look at the two winding staircases"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "perth.winding-tab"
+      ],
+      "menuIds": []
+    },
+    "cityId": "perth"
+  },
+  {
+    "id": "perth.arrival.bubble-crossing",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "perth-elizabeth-quay"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "泡泡经过包带，只停了一眨眼。",
+      "en": "A bubble’s stop at my strap lasted less than a blink."
+    },
+    "text": {
+      "zh-Hans": "伊丽莎白码头的步道上，一个小朋友朝空处吹泡泡。我绕开他身边的水杯，停下来让一串泡泡先过去，其中一个却轻轻碰上了我的包带。我低头看，它已经不见了。孩子举着泡泡圈又吹了一口，这回我收起胳膊站在旁边，让出更宽的空处。泡泡从面前飘过，我的鼻子一路跟着转了过去。",
+      "en": "A child blew bubbles into an open space along the Elizabeth Quay promenade. I walked around his cup and let a string of bubbles pass, though one touched my strap and vanished before I could inspect it. He blew again. I tucked my arms in and stood to one side, leaving a wider opening. As the bubbles drifted past, my nose followed them all the way around."
+    },
+    "replies": [
+      {
+        "id": "perth.arrival.bubble-crossing.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问泡泡飘去了哪边",
+          "en": "Ask which way the bubbles went"
+        }
+      },
+      {
+        "id": "perth.arrival.bubble-crossing.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看空出的那段步道",
+          "en": "Look at the space left clear on the promenade"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "perth.bubble-gap"
+      ],
+      "menuIds": []
+    },
+    "cityId": "perth"
+  },
+  {
+    "id": "perth.arrival.chip-dip-distance",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "perth-fish-chips",
+      "perth-rock-lobster"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "薯条不够长，午饭就一起靠近一点。",
+      "en": "The chip stayed short, so lunch moved closer."
+    },
+    "text": {
+      "zh-Hans": "我吃鱼与薯条，旅伴点了蒜香黄油岩龙虾。蘸酱放在中间，我伸过去的薯条太短，手肘还没放稳，便先够不到了。我把自己的盘子移近，不急着抬高手臂，终于让薯条碰到了酱。旅伴看看我，默默把那小碟也往中间推一点。这回两边都够得着，我们各自低头，谁也不用再伸长脖子。",
+      "en": "I had fish and chips while my companion chose rock lobster in garlic butter. My short chip could not reach the sauce between us. I brought my plate closer and kept my elbow settled, finally making contact. My companion quietly shifted the sauce dish towards a better middle. Both lunches were now within reach, and neither of us needed to crane our neck."
+    },
+    "replies": [
+      {
+        "id": "perth.arrival.chip-dip-distance.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢旅伴挪来的蘸酱",
+          "en": "Thank my companion for shifting the sauce"
+        }
+      },
+      {
+        "id": "perth.arrival.chip-dip-distance.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两边能否够到",
+          "en": "Check that both of us can reach"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "perth.menu-fish-chips",
+        "perth.menu-rock-lobster"
+      ]
+    },
+    "cityId": "perth"
+  },
+  {
+    "id": "perth.arrival.washed-hands-return",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "perth-fish-chips",
+      "perth-rock-lobster"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "他拿的是空水杯，我先护住了午饭。",
+      "en": "I defended lunch from someone collecting a water glass."
+    },
+    "text": {
+      "zh-Hans": "吃蒜香黄油岩龙虾时，我先停下来去洗手，盘里还留着鱼与薯条。回到桌边，一位服务员正要收空水杯，我赶紧抬起两只湿手，差点把他也叫停。他看看杯子，我看看午饭，才明白他并没有要收我的盘子。我笑着道谢，先把手擦好，再坐下来继续吃，那杯重新添好的水就放在手边。",
+      "en": "I paused my garlic-butter lobster to wash my hands, leaving some fish and chips. Returning, I saw a server lift my empty water glass and raised both wet hands before I could explain. He looked at the glass; I looked at lunch. He had never intended to clear my plate. I thanked him, dried my hands, and resumed eating with a freshly filled glass within reach."
+    },
+    "replies": [
+      {
+        "id": "perth.arrival.washed-hands-return.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢重新添好的水",
+          "en": "Thank the server for refilling the water"
+        }
+      },
+      {
+        "id": "perth.arrival.washed-hands-return.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪只杯子空了",
+          "en": "Notice which glass had been empty"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "perth.menu-fish-chips",
+        "perth.menu-rock-lobster"
+      ]
+    },
+    "cityId": "perth"
+  },
+  {
+    "id": "perth.arrival.quiet-last-chip",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "perth-fish-chips",
+      "perth-rock-lobster"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我让薯条替我等人，它没等到最后。",
+      "en": "I gave a chip the waiting job and ate it too soon."
+    },
+    "text": {
+      "zh-Hans": "一盘鱼与薯条快吃完时，旅伴还在慢慢吃岩龙虾。我想等他一起走，便把最后一根薯条留在盘边，自己坐得端端正正。他看了看那根薯条，问是不是已经饱了。我摇头，正准备解释，手却先把它拿起来吃掉。他笑着继续吃，我放下空叉子，靠回椅背，这回是真的安安稳稳等他了。",
+      "en": "I saved the last chip while my companion finished his lobster, hoping we could leave together. He asked whether I was full. Before I could explain, I picked up the chip and ate it. He laughed and went on with his meal. I put my fork down and settled back in the chair. This time I was actually waiting, without assigning the job to a potato."
+    },
+    "replies": [
+      {
+        "id": "perth.arrival.quiet-last-chip.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉旅伴我慢慢等",
+          "en": "Tell my companion there is no hurry"
+        }
+      },
+      {
+        "id": "perth.arrival.quiet-last-chip.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看盘边是否吃空",
+          "en": "Check that the plate is truly empty"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "perth.menu-fish-chips",
+        "perth.menu-rock-lobster"
+      ]
+    },
+    "cityId": "perth"
+  },
+  {
+    "id": "perth.arrival.shoe-pebble",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "perth-elizabeth-quay"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小石子藏在鞋垫下，比我还会躲。",
+      "en": "The pebble had chosen an excellent hiding place."
+    },
+    "text": {
+      "zh-Hans": "沿伊丽莎白码头走着，鞋里一点硬硬的东西让我每步都不舒服。我在不挡路的地方停好，先把包放稳，再扶着自己的膝盖脱下鞋。鞋尖朝下晃了两下，什么也没掉，翻开鞋垫才找到一颗小石子。我把它放到路边，不让它再躺在脚下，重新穿好鞋走了几步，两只脚这才肯迈得一样远。",
+      "en": "A hard speck made every step uncomfortable along Elizabeth Quay. I stopped clear of the path, settled my bag, and took off the shoe. Shaking it toe-down produced nothing. Lifting the insole revealed a little pebble. I moved it to the edge, away from anyone’s feet, put the shoe back on, and tried a few steps. Both feet finally agreed on the same stride."
+    },
+    "replies": [
+      {
+        "id": "perth.arrival.shoe-pebble.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说脚步为何走不齐",
+          "en": "Explain my mismatched steps"
+        }
+      },
+      {
+        "id": "perth.arrival.shoe-pebble.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "检查鞋垫下还有什么",
+          "en": "Check beneath the insole"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "perth.even-steps"
+      ],
+      "menuIds": []
+    },
+    "cityId": "perth"
+  },
+  {
+    "id": "perth.fulfill.hello-with-resting-feet",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "perth-dna-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "perth.arrival.two-stairs-hello.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我等两只脚都停好才开口。",
+      "en": "You wrote, “{reply}.” I waited for both feet to stop."
+    },
+    "text": {
+      "zh-Hans": "等两只脚都站稳，我朝那位走另一道楼梯的旅人认真说了声你好。他也郑重回答，随后问我是不是还有很多问候留在半路。我数着刚才碰面的地方，数到一半自己先笑了。他提议剩下的都并进道别，我便把手抬得高一点，稳稳挥过。下楼时各自扶好栏杆，谁也没再追着对方的身影转头。",
+      "en": "With both feet safely at rest, I gave the traveler from the other staircase a proper hello. He returned it solemnly and asked how many greetings I had left on the way up. I began counting our glimpses and laughed before finishing. He suggested adding the rest to goodbye. I gave him a generous wave. On the descent, we held our rails instead of turning to chase each other’s appearances."
+    },
+    "replies": [
+      {
+        "id": "perth.fulfill.hello-with-resting-feet.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把剩下的问候并进道别",
+          "en": "Fold the remaining hellos into goodbye"
+        }
+      },
+      {
+        "id": "perth.fulfill.hello-with-resting-feet.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看下楼时扶稳没有",
+          "en": "Notice our steady hands on the way down"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "perth.joined-hello"
+      ],
+      "menuIds": []
+    },
+    "cityId": "perth"
+  },
+  {
+    "id": "perth.revisit.counting-between-steps",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "perth-dna-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "哈欠一来，楼梯的数就得重新数。",
+      "en": "A yawn sent the step count back to the beginning."
+    },
+    "text": {
+      "zh-Hans": "DNA塔两道盘绕的楼梯我还认得，回到珀斯便来这里慢慢走。一家人在塔下等同伴，小朋友对着楼梯数数，数到一半被自己的哈欠打断。我停在一旁等他重新开口，他却问我有没有替他接着数。我摇摇头，他便从脚边那一级重新开始。这回我也不出声，只等他们一起往前走，再扶好栏杆跟上去。",
+      "en": "The twin winding staircases were familiar when I returned to the DNA Tower in Perth. A family waited below while a child counted steps aloud. A yawn interrupted him. He asked whether I had kept count while he paused. I admitted I had not, so he began again with the step at his feet. I stayed quiet this time, waiting until they moved together before taking the rail and following."
+    },
+    "replies": [
+      {
+        "id": "perth.revisit.counting-between-steps.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "承认我也没接着数",
+          "en": "Admit that I did not keep the count"
+        }
+      },
+      {
+        "id": "perth.revisit.counting-between-steps.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "等前面走好再跟上",
+          "en": "Wait for space before following with the rail"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "perth"
+  }
+]

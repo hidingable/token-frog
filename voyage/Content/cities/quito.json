@@ -11,7 +11,7 @@
     "capital",
     "heritage"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "基多",
     "en": "Quito"
@@ -20,5 +20,66 @@
     "zh-Hans": "基多",
     "en": "Quito"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "quito-cruz-loma",
+      "type": "place",
+      "names": {
+        "zh-Hans": "基多缆车与克鲁斯洛马",
+        "en": "TelefériQo and Cruz Loma"
+      },
+      "summary": {
+        "zh-Hans": "基多缆车到达克鲁斯洛马。这里有观景点、步行小径、休息区和野餐空间。",
+        "en": "Quito’s TelefériQo reaches Cruz Loma, where there are viewpoints, walking trails, rest areas and picnic spaces."
+      },
+      "sources": [
+        "https://teleferico.com.ec/preguntas-frecuentes/"
+      ]
+    },
+    {
+      "id": "quito-orchids",
+      "type": "place",
+      "names": {
+        "zh-Hans": "基多植物园兰花园",
+        "en": "Orchid Gardens at Quito Botanical Garden"
+      },
+      "summary": {
+        "zh-Hans": "基多植物园的兰花园以温度受控的不同环境栽培兰花，展示多样的花色、形态与香气。",
+        "en": "Quito Botanical Garden’s orchid gardens grow orchids in different temperature-controlled environments, displaying varied colours, shapes and scents."
+      },
+      "sources": [
+        "https://jardinbotanicoquito.com/en/ecosystems-and-gardens/"
+      ]
+    },
+    {
+      "id": "quito-locro",
+      "type": "food",
+      "names": {
+        "zh-Hans": "洛克罗土豆浓汤",
+        "en": "Locro de Papa"
+      },
+      "summary": {
+        "zh-Hans": "洛克罗土豆汤可用煮后释放淀粉的土豆形成浓稠质地，配鲜奶酪块和牛油果片。做法与配料可以有变化。",
+        "en": "Locro de papa gets its thickness from potatoes that release starch during cooking. It can be served with fresh cheese and avocado, with variations in preparation and accompaniments."
+      },
+      "sources": [
+        "https://www.primicias.ec/noticias/el-chat/locro-papa-quito-concurso/"
+      ]
+    },
+    {
+      "id": "quito-empanada",
+      "type": "food",
+      "names": {
+        "zh-Hans": "奶酪炸馅饼",
+        "en": "Empanada de Viento"
+      },
+      "summary": {
+        "zh-Hans": "这种炸馅饼的面皮在油炸时鼓起，里面放少量奶酪，表面可以撒糖。",
+        "en": "An empanada de viento puffs up during frying, with a small amount of cheese inside. Sugar can be sprinkled over its surface."
+      },
+      "sources": [
+        "https://historicomintur.produccion.gob.ec/empanadas-de-viento/"
+      ]
+    }
+  ]
 }

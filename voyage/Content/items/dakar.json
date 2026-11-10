@@ -1,0 +1,98 @@
+[
+  {
+    "id": "dakar.menu-ceebu-jen",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "鱼饭小菜单",
+      "en": "Ceebu Jën Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的纸菜单，留着最后才吃的胡萝卜位置。",
+      "en": "My own paper menu marks the carrot saved for the last mouthful."
+    },
+    "cityId": "dakar"
+  },
+  {
+    "id": "dakar.menu-yassa",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "亚萨鸡小菜单",
+      "en": "Yassa Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我做的小菜单上，洋葱与米饭之间留着一条弯弯的线。",
+      "en": "On my handmade menu, a curved line runs between the onions and rice."
+    },
+    "cityId": "dakar"
+  },
+  {
+    "id": "dakar.turning-fold",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "转身折卡",
+      "en": "Turning Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "我用一张纸折出两个朝向，记着灯塔旁那次没对齐的站位。",
+      "en": "I folded two directions into a paper card after our mismatched turns by the lighthouse."
+    },
+    "cityId": "dakar"
+  },
+  {
+    "id": "dakar.raised-foot",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "悬脚纸签",
+      "en": "Hovering Foot Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "信使剪的小脚纸签，下沿故意空了一点，像还没落地。",
+      "en": "I left space beneath this paper foot so it still appears to hover."
+    },
+    "cityId": "dakar"
+  },
+  {
+    "id": "dakar.paired-spoon-tab",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "轮流说话纸卡",
+      "en": "Taking Turns Card"
+    },
+    "descriptions": {
+      "zh-Hans": "信使做的双折纸卡，一边一把小勺，合起来刚好安静。",
+      "en": "My two-fold paper card has a spoon on each side; closing it quiets them both."
+    },
+    "cityId": "dakar"
+  },
+  {
+    "id": "dakar.shared-horizon",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "同向地平线卡",
+      "en": "Same Horizon Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我将两个折角朝向同一条自画横线，纪念一次终于站好的眺望。",
+      "en": "Two folded corners face the same line I drew, recalling the view we finally shared."
+    },
+    "cityId": "dakar"
+  }
+]

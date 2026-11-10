@@ -1,0 +1,416 @@
+[
+  {
+    "id": "vienna.arrival.feet-want-a-turn",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "vienna-sound-stairs"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两双脚都想先说，声音便挤在一起。",
+      "en": "Two pairs of feet tried to speak at once."
+    },
+    "text": {
+      "zh-Hans": "音乐之家的音阶楼梯上，我慢慢踩出一个声音，旁边的小朋友也跟着走了一步。两声挤在一起，我们都停住，想分清刚才哪声是谁的。我抬起手请他先试，他却也正朝我伸手。我们面对面笑了，我提议等会儿照着一步一人的办法慢慢走，先站到旁边，让后面的人好好通过。",
+      "en": "I sounded a step on Haus der Musik’s sound staircase just as a child took one beside me. The notes overlapped, leaving us unsure whose was whose. I gestured for him to try first; he was making the same offer. We laughed. I proposed taking one step each in turn, once we had moved aside to let the people behind us pass."
+    },
+    "replies": [
+      {
+        "id": "vienna.arrival.feet-want-a-turn.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "一步一人轮流听",
+          "en": "Take one step each and listen in turn"
+        }
+      },
+      {
+        "id": "vienna.arrival.feet-want-a-turn.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听哪声是谁踩的",
+          "en": "Listen for the note each person made"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "vienna.two-step-tab"
+      ],
+      "menuIds": []
+    },
+    "cityId": "vienna"
+  },
+  {
+    "id": "vienna.arrival.small-binocular-city",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "vienna-ferris-wheel"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "望远镜一举，城市反而往后退了。",
+      "en": "The binoculars sent the city farther away."
+    },
+    "text": {
+      "zh-Hans": "摩天轮车厢里，我举起小望远镜，看见城市忽然离得更远，连邮包似乎都能装下几栋房子。旅人看了看我的手，提醒我镜头朝反了。我放下望远镜，先用眼睛重新看清窗外，再把它换个方向拿好。景色终于靠近，我却先检查自己的两只手，免得一高兴，又把刚才那端举回眼前。",
+      "en": "In the Ferris wheel cabin, my little binoculars made the city look so distant that several buildings might have fitted in my mailbag. Another passenger noticed I had them backwards. I lowered them to look through the window unaided, then turned them around. The view came closer. Before enjoying it, I checked my hands so excitement would not reverse the whole arrangement again."
+    },
+    "replies": [
+      {
+        "id": "vienna.arrival.small-binocular-city.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢他指出拿反的镜头",
+          "en": "Thank the passenger for noticing the reversed lenses"
+        }
+      },
+      {
+        "id": "vienna.arrival.small-binocular-city.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "分清望远镜的两端",
+          "en": "Check which end belongs near my eyes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "vienna.near-far-fold"
+      ],
+      "menuIds": []
+    },
+    "cityId": "vienna"
+  },
+  {
+    "id": "vienna.arrival.crust-before-story",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "vienna-schnitzel",
+      "vienna-apple-strudel"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "面包屑先出发，我的叉子没拦住它。",
+      "en": "A few crumbs set off before my fork could stop them."
+    },
+    "text": {
+      "zh-Hans": "我吃维也纳炸小牛排，旅伴把苹果卷留作点心。刀尖刚碰开酥脆外层，一点面包屑便跳到盘边，我想夹回来，却被叉子推得更远。旅伴看了一眼，说它似乎还不愿意结束旅行。我笑着把盘子转近，慢慢收好那一点，再切下一小口。这回先把叉子放稳，才继续讲今天在车厢里看的景色。",
+      "en": "I had Wiener schnitzel while my companion saved apple strudel for later. A few crumbs sprang to the plate’s edge as I cut the crisp coating. My fork pushed them farther away. My companion suggested that they had not finished travelling. I turned the plate closer, gathered them carefully, and cut a small bite. This time I settled the fork before continuing my account of the view from the cabin."
+    },
+    "replies": [
+      {
+        "id": "vienna.arrival.crust-before-story.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "接着讲车厢里的小事",
+          "en": "Continue the story from the cabin"
+        }
+      },
+      {
+        "id": "vienna.arrival.crust-before-story.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看盘边的面包屑",
+          "en": "Check the crumbs at the edge of the plate"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "vienna.menu-schnitzel",
+        "vienna.menu-apple-strudel"
+      ]
+    },
+    "cityId": "vienna"
+  },
+  {
+    "id": "vienna.arrival.apple-through-gap",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "vienna-schnitzel",
+      "vienna-apple-strudel"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一个先吃苹果，一个先吃薄面皮。",
+      "en": "We began the same dessert at opposite ends."
+    },
+    "text": {
+      "zh-Hans": "吃完炸小牛排，我和旅伴各取一份苹果卷。他把露在外面的苹果馅先吃掉，我却先尝薄面皮，两个人看对方的盘子都像少了一块。我把自己的盘子转过去，他也转过来，边说边比画剩下那一半。说完发现，介绍得太认真，谁也还没动第二口。我们同时把盘子转回面前，这回谁也没再抬头。",
+      "en": "After the schnitzel, my companion and I each had apple strudel. He ate the exposed apple first; I began with pastry. Our plates looked oddly incomplete to each other. We turned them round and explained what remained, gesturing with considerable care. By the time we finished, neither of us had taken a second bite. We brought our own plates back and finally gave lunch our full attention."
+    },
+    "replies": [
+      {
+        "id": "vienna.arrival.apple-through-gap.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问为何先吃苹果",
+          "en": "Ask why my companion began with apple"
+        }
+      },
+      {
+        "id": "vienna.arrival.apple-through-gap.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两份剩下的点心",
+          "en": "Compare what remains of our two portions"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "vienna.menu-schnitzel",
+        "vienna.menu-apple-strudel"
+      ]
+    },
+    "cityId": "vienna"
+  },
+  {
+    "id": "vienna.arrival.chair-too-far",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "vienna-schnitzel",
+      "vienna-apple-strudel"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "邮包有位置了，我却离午饭太远。",
+      "en": "The bag had room, but lunch was out of reach."
+    },
+    "text": {
+      "zh-Hans": "炸小牛排和苹果卷放到桌上，我先把椅子往后拉，想给邮包留个好位置。拉得太远，坐下以后反而够不着自己的盘子。我起身把包收进脚边，再慢慢把椅子移回去，桌上的杯子终于不用跟着搬。旁边的旅伴等我坐稳，才把餐具递来。我接过道谢，这回让两只脚先安安稳稳落到地面。",
+      "en": "With schnitzel and apple strudel on the table, I moved my chair back to make room for my mailbag. That left me unable to reach the plate. I stood, settled the bag beside my feet, and brought the chair forward again, sparing the cup a move of its own. My companion waited until I was seated to pass the cutlery. I thanked him and put both feet firmly on the floor."
+    },
+    "replies": [
+      {
+        "id": "vienna.arrival.chair-too-far.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢旅伴等我坐稳",
+          "en": "Thank my companion for waiting with the cutlery"
+        }
+      },
+      {
+        "id": "vienna.arrival.chair-too-far.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看桌子与椅子的距离",
+          "en": "Notice the new distance between chair and table"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "vienna.menu-schnitzel",
+        "vienna.menu-apple-strudel"
+      ]
+    },
+    "cityId": "vienna"
+  },
+  {
+    "id": "vienna.arrival.wave-from-waiting",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "vienna-ferris-wheel"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "挥手挥得认真，身体也跟着歪了。",
+      "en": "My enthusiastic wave tilted the rest of me."
+    },
+    "text": {
+      "zh-Hans": "我在摩天轮旁等旅伴，一位孩子从车厢里看向外面，忽然抬起手。我以为在朝我挥，便认真挥回去，他身边的大人也跟着笑着挥手。我正想等他们下来看个清楚，旅伴已经走到背后，叫我快看看这边。我转身时才发现，自己挥得太认真，整个人站成了斜斜的一小条，连邮包也靠向同一边。",
+      "en": "While I waited beside the Ferris wheel, a child in a cabin raised his hand. I took it for a wave and answered enthusiastically. The adult beside him joined in, smiling. Before I could see them come out, my companion arrived behind me and called for my attention. Turning round, I discovered that my wholehearted waving had tilted my whole body, with the mailbag leaning in the same direction."
+    },
+    "replies": [
+      {
+        "id": "vienna.arrival.wave-from-waiting.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向车厢里的人道别",
+          "en": "Say goodbye to the waving passengers"
+        }
+      },
+      {
+        "id": "vienna.arrival.wave-from-waiting.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看邮包歪向哪边",
+          "en": "Check which way the mailbag is leaning"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "vienna.tilted-wave"
+      ],
+      "menuIds": []
+    },
+    "cityId": "vienna"
+  },
+  {
+    "id": "vienna.fulfill.one-step-each",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "vienna-sound-stairs"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "vienna.arrival.feet-want-a-turn.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我们先让前面的声音好好响完。",
+      "en": "You wrote, “{reply}.” We let each sound finish first."
+    },
+    "text": {
+      "zh-Hans": "等通道空下来，我请那个小朋友先踩一步，自己站好听完，再走下一步。他没有急着跟上，等我的声音落下才继续。轮到我时，鞋底忽然轻轻蹭了一声，我们都笑了，便让这一声也好好响完。随后两个人各走各的，不再追着抢下一阶，我的手始终扶着栏杆，他也慢慢跟回家人身边。",
+      "en": "Once the way was clear, I let the child sound a step before taking my own. He waited for my note to finish before continuing. On my next turn, a little shoe scuff joined the sound. We laughed and gave that noise its moment too. Then we continued separately, without competing for the next step. I kept my hand on the rail while he rejoined his family at an easy pace."
+    },
+    "replies": [
+      {
+        "id": "vienna.fulfill.one-step-each.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢轮流走的小朋友",
+          "en": "Thank the child for taking turns"
+        }
+      },
+      {
+        "id": "vienna.fulfill.one-step-each.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听脚步之间的空当",
+          "en": "Listen to the gaps between our steps"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "vienna.turn-taking-card"
+      ],
+      "menuIds": []
+    },
+    "cityId": "vienna"
+  },
+  {
+    "id": "vienna.revisit.two-views-one-window",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "vienna-ferris-wheel"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两只手指向同一边，谁都等对方先说。",
+      "en": "Two pointing hands waited for the other to explain."
+    },
+    "text": {
+      "zh-Hans": "回到维也纳，我又坐进普拉特摩天轮的车厢。身边的孩子请我看远处，我正要伸手指，才发现他的小手指也举在同一个方向。我把手收回来，让他先讲，他却在等我开口。我们一起笑了，他干脆请家人先看，自己往旁边挪出位置。我也让开一点，等他们看清，再站到空处，窗外的城市这才轮到我慢慢看。",
+      "en": "Back in Vienna, I boarded a cabin on the Giant Ferris Wheel. A child asked me to look into the distance, and we both pointed the same way. I lowered my hand to let him explain; he was waiting for me. Laughing, he invited his family to look first and made room. I moved aside too. Once they had finished, I stepped into the clear space and took my own unhurried look across the city."
+    },
+    "replies": [
+      {
+        "id": "vienna.revisit.two-views-one-window.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请孩子先讲看到的东西",
+          "en": "Let the child describe what he saw"
+        }
+      },
+      {
+        "id": "vienna.revisit.two-views-one-window.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看我们怎样轮流看景",
+          "en": "Notice how we take turns making room"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "vienna"
+  }
+]

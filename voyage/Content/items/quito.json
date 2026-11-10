@@ -1,0 +1,98 @@
+[
+  {
+    "id": "quito.menu-locro",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "土豆浓汤小菜单",
+      "en": "Locro Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制纸菜单，碗旁那只悬空小手没有碰到任何东西。",
+      "en": "My handmade menu includes the hovering hand that never touched the soup bowl."
+    },
+    "cityId": "quito"
+  },
+  {
+    "id": "quito.menu-empanada",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "奶酪炸馅饼小菜单",
+      "en": "Empanada Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "这张自制纸菜单记着先塌下面皮、再碰到奶酪的两口。",
+      "en": "My paper menu recalls two bites: one to settle the pastry, another to find the cheese."
+    },
+    "cityId": "quito"
+  },
+  {
+    "id": "quito.wing-fold",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "翘角外套纸片",
+      "en": "Coat Corner Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "我用自己的纸折出翘起的两角，记着休息区那个关于飞行的问题。",
+      "en": "My two-corner paper fold recalls a question about flying at the rest area."
+    },
+    "cityId": "quito"
+  },
+  {
+    "id": "quito.two-colours",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "里外两色签",
+      "en": "Inside-Out Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "信使将纸的两面并排露出，记着颜色没对上的那双手套。",
+      "en": "I folded both sides of the paper into view for the gloves that failed to match."
+    },
+    "cityId": "quito"
+  },
+  {
+    "id": "quito.closed-wings",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "收好翅膀折卡",
+      "en": "Wings Folded Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我给两片纸角加了小扣口，合起来像已经整理好的外套。",
+      "en": "Little slots hold the corners of my original paper card together like a neatly tied coat."
+    },
+    "cityId": "quito"
+  },
+  {
+    "id": "quito.clear-view-tab",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "留出视线纸签",
+      "en": "Clear View Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "信使剪掉纸签一角，给想看花的眼睛留了位置，不复制园内标识。",
+      "en": "I cut a corner from my tab to leave a view for another pair of eyes, without copying garden signs."
+    },
+    "cityId": "quito"
+  }
+]

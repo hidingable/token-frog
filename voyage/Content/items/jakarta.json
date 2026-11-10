@@ -1,0 +1,98 @@
+[
+  {
+    "id": "jakarta.menu-kerak-telor",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "蛋糯米饼小菜单",
+      "en": "Kerak Telor Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自己做的纸菜单，饼边两道小线记着那声脆响。",
+      "en": "Two little lines beside the edge of my homemade menu recall its crisp crack."
+    },
+    "cityId": "jakarta"
+  },
+  {
+    "id": "jakarta.menu-soto-betawi",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "贝塔维牛肉汤小菜单",
+      "en": "Soto Betawi Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我做的纸菜单记着放稳的小勺，不把汤底固定为一种奶。",
+      "en": "My menu records a securely rested spoon without fixing the broth to one kind of milk."
+    },
+    "cityId": "jakarta"
+  },
+  {
+    "id": "jakarta.moving-shade",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "移动阴影纸签",
+      "en": "Moving Shade Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自剪的弧形纸签，记着一把普通雨伞投下的阴影。",
+      "en": "My own curved paper tab recalls the shade cast by an ordinary umbrella."
+    },
+    "cityId": "jakarta"
+  },
+  {
+    "id": "jakarta.turn-clear",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "让开转角纸卡",
+      "en": "Clear Turn Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我在折卡转角留出空处，记着邮包终于跟上转身的时刻。",
+      "en": "A gap in my folded card recalls the moment my mailbag finally followed my turn."
+    },
+    "cityId": "jakarta"
+  },
+  {
+    "id": "jakarta.parting-shadows",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "分开走的影子卡",
+      "en": "Parting Shadows Card"
+    },
+    "descriptions": {
+      "zh-Hans": "两块自剪纸影子从中间分开，记着桥另一端的道别，不复制园方角色。",
+      "en": "Two original cut-paper shadows part at the middle for our goodbye beyond the bridge; no park character is copied."
+    },
+    "cityId": "jakarta"
+  },
+  {
+    "id": "jakarta.squeak-step",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "轻响脚步折条",
+      "en": "Squeaky Step Strip"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在纸条上压出一高一低的短折，记着那双努力安静的鞋。",
+      "en": "A high and a low fold in my paper strip recall shoes trying hard to be quiet."
+    },
+    "cityId": "jakarta"
+  }
+]

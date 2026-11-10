@@ -12,7 +12,7 @@
     "food",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "新德里",
     "en": "New Delhi"
@@ -21,5 +21,66 @@
     "zh-Hans": "新德里",
     "en": "New Delhi"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "delhi-rail-museum",
+      "type": "place",
+      "names": {
+        "zh-Hans": "国家铁路博物馆",
+        "en": "National Rail Museum"
+      },
+      "summary": {
+        "zh-Hans": "新德里查纳基亚普里的国家铁路博物馆展示铁路实物、静态与工作模型、信号设备及历史照片。",
+        "en": "The National Rail Museum in Chanakyapuri, New Delhi, displays full-size railway exhibits, static and working models, signalling equipment and historical photographs."
+      },
+      "sources": [
+        "https://www.delhitourism.gov.in/entertainment/national_rail_museum.html"
+      ]
+    },
+    {
+      "id": "delhi-five-senses",
+      "type": "place",
+      "names": {
+        "zh-Hans": "五感花园",
+        "en": "Garden of Five Senses"
+      },
+      "summary": {
+        "zh-Hans": "五感花园是新德里的公共休闲园林，设有蜿蜒步道、水渠和植物展示；园内也悬有陶制风铃。",
+        "en": "The Garden of Five Senses is a public leisure garden in New Delhi with winding paths, water channels and plant displays. Ceramic chimes also hang in the garden."
+      },
+      "sources": [
+        "https://delhitourism.gov.in/tourist_place/garden_of_five_senses.html"
+      ]
+    },
+    {
+      "id": "delhi-chole-bhature",
+      "type": "food",
+      "names": {
+        "zh-Hans": "鹰嘴豆配炸饼",
+        "en": "Chole Bhature"
+      },
+      "summary": {
+        "zh-Hans": "这道德里可见的餐食把鹰嘴豆与炸面包搭配。",
+        "en": "Chole bhature, served in Delhi, pairs chickpeas with fried bread."
+      },
+      "sources": [
+        "https://www.incredibleindia.gov.in/en/trips/trip-listing/48-hours-in-delhi"
+      ]
+    },
+    {
+      "id": "delhi-paratha",
+      "type": "food",
+      "names": {
+        "zh-Hans": "帕拉塔馅饼",
+        "en": "Paratha"
+      },
+      "summary": {
+        "zh-Hans": "帕拉塔有不同馅料，土豆、花椰菜和豌豆都是德里资料记录的做法，也可有其他蔬菜或奶酪馅。",
+        "en": "Parathas come with different fillings. Delhi’s documented versions include potato, cauliflower and peas, as well as other vegetables or paneer."
+      },
+      "sources": [
+        "https://www.delhitourism.gov.in/eating_out/purani_delhi_food.html"
+      ]
+    }
+  ]
 }

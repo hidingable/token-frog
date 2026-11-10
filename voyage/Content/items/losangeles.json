@@ -1,0 +1,98 @@
+[
+  {
+    "id": "losangeles.menu-taco",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "塔可小菜单",
+      "en": "Taco Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我做的纸菜单里，夹饼已经放下，两只小手还弯着。",
+      "en": "My handmade menu shows the taco down and its two hands still curved."
+    },
+    "cityId": "losangeles"
+  },
+  {
+    "id": "losangeles.menu-french-dip",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "肉汁三明治小菜单",
+      "en": "French Dip Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的纸菜单记着两边收好的袖口，不标店名或商标。",
+      "en": "My own paper menu records two neatly rolled cuffs without a shop name or trademark."
+    },
+    "cityId": "losangeles"
+  },
+  {
+    "id": "losangeles.swing-lines",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "来回摆线卡",
+      "en": "Swing Lines Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我在离馆后用两道弧线记下摆动，没有描摹展厅或复制展品。",
+      "en": "Two arcs I drew after leaving recall the swing without reproducing the exhibit."
+    },
+    "cityId": "losangeles"
+  },
+  {
+    "id": "losangeles.two-ear-fold",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两边听水纸签",
+      "en": "Two-Sided Listening Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "我把纸签两边折向不同方向，记着转过身听水的片刻。",
+      "en": "I folded the sides of my tab in opposite directions for a turn spent listening to water."
+    },
+    "cityId": "losangeles"
+  },
+  {
+    "id": "losangeles.steady-brim",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "不动帽檐折卡",
+      "en": "Steady Brim Card"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自己折的小帽檐卡，下方两道短弧是还在移动的眼睛。",
+      "en": "My folded paper brim sits above two little arcs for eyes that kept moving."
+    },
+    "cityId": "losangeles"
+  },
+  {
+    "id": "losangeles.round-coat",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "slip",
+    "habit": null,
+    "names": {
+      "zh-Hans": "圆外套纸卡",
+      "en": "Round Coat Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我把纸压成鼓鼓的圆角，记着孩子把小球抱进外套的样子。",
+      "en": "A rounded paper corner I shaped recalls the ball bulging beneath a child’s coat."
+    },
+    "cityId": "losangeles"
+  }
+]

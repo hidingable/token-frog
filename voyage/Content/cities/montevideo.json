@@ -10,7 +10,7 @@
     "coast",
     "capital"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "蒙得维的亚",
     "en": "Montevideo"
@@ -19,5 +19,66 @@
     "zh-Hans": "蒙得维的亚",
     "en": "Montevideo"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "montevideo-rambla",
+      "type": "place",
+      "names": {
+        "zh-Hans": "蒙得维的亚滨水大道",
+        "en": "Rambla of Montevideo"
+      },
+      "summary": {
+        "zh-Hans": "蒙得维的亚滨水大道沿拉普拉塔河岸延伸，连接海滩，是散步和运动的公共空间。",
+        "en": "Montevideo’s Rambla follows the Río de la Plata shoreline beside the beaches, providing public space for walking and exercise."
+      },
+      "sources": [
+        "https://www.descubrimontevideo.uy/playas-y-rambla"
+      ]
+    },
+    {
+      "id": "montevideo-botanical",
+      "type": "place",
+      "names": {
+        "zh-Hans": "阿蒂利奥·隆巴多植物园",
+        "en": "Atilio Lombardo Botanical Garden"
+      },
+      "summary": {
+        "zh-Hans": "这座蒙得维的亚植物园设有植物标本馆。其资料可用于识别植物、了解名称、分布与生境。",
+        "en": "Montevideo’s Atilio Lombardo Botanical Garden has a herbarium whose records help identify plants and describe their names, distribution and habitats."
+      },
+      "sources": [
+        "https://jardinbotanico.montevideo.gub.uy/"
+      ]
+    },
+    {
+      "id": "montevideo-chivito",
+      "type": "food",
+      "names": {
+        "zh-Hans": "奇维托牛肉三明治",
+        "en": "Chivito"
+      },
+      "summary": {
+        "zh-Hans": "奇维托以面包夹牛肉，搭配可有鸡蛋、生菜、番茄、奶酪和蛋黄酱。配料有不同组合。",
+        "en": "A chivito puts beef in bread, with additions that can include egg, lettuce, tomato, cheese and mayonnaise. The combination of fillings varies."
+      },
+      "sources": [
+        "https://uruguaynatural.com/wp-content/uploads/2023/02/guia-familia.pdf"
+      ]
+    },
+    {
+      "id": "montevideo-torta-frita",
+      "type": "food",
+      "names": {
+        "zh-Hans": "炸面饼",
+        "en": "Torta Frita"
+      },
+      "summary": {
+        "zh-Hans": "炸面饼以小麦面粉制成的面团油炸而成，所核实的做法使用牛脂。也可加糖或焦糖奶酱。",
+        "en": "Torta frita is fried wheat-flour dough; the documented preparation uses beef fat. Sugar or dulce de leche can be added."
+      },
+      "sources": [
+        "https://uruguaynatural.com/wp-content/uploads/2023/02/guia-familia.pdf"
+      ]
+    }
+  ]
 }
