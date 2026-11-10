@@ -99,6 +99,18 @@ The tiny runner applies numbered `.sql` files in numeric order and records each 
 
 Run one migrator at a time. MySQL DDL commits implicitly: a failed file is not recorded, and already completed DDL is not rolled back. The initial migration is rerunnable (`IF NOT EXISTS`, non-overwriting config seeds). Applied files are immutable; append a numbered file for future changes. The runner accepts simple SQL statements separated by semicolons, not procedures or semicolons inside literals. It never creates a database. No migration was executed against a real database for this step.
 
+## Deploying
+
+Production runs at `https://hub.zctd.tech` on the Alibaba Cloud ECS host (CentOS 7, so Docker rather than a host Node install: glibc 2.17 can't run official Node 22 builds).
+
+- **Image:** build on the server from a context holding this directory plus `voyage/Content/tags.json` copied in as `tags.json` (the Dockerfile bakes it in and sets `HUB_TAGS_FILE`). The configured Docker Hub mirror stalls on `node:22.12.0-alpine`; pull `docker.m.daocloud.io/library/node:22.12.0-alpine` and tag it `node:22.12.0-alpine`. Pass `--build-arg NPM_REGISTRY=https://registry.npmmirror.com`.
+- **Env:** `/opt/voyage-hub/hub.env` (mode 600, Docker `KEY=value` format) holds only `DB_*` with the RDS *internal* host, the `OPENAI_*` keys and `TRUST_PROXY=172.16.0.0/12` (nginx reaches the container through the Docker bridge).
+- **Run:** `docker run -d --name voyage-hub --restart unless-stopped --memory 256m -p 127.0.0.1:7321:7321 --env-file /opt/voyage-hub/hub.env voyage-hub:<version>`.
+- **nginx:** `/www/server/panel/vhost/nginx/hub.zctd.tech.conf` (BT Panel layout) proxies HTTPS to `127.0.0.1:7321` and redirects HTTP, except the ACME webroot `/www/wwwroot/hub.zctd.tech`. The certificate comes from acme.sh and is installed under `/www/server/panel/vhost/cert/hub.zctd.tech/` with an `nginx -s reload` renewal hook.
+- **Migrations** run from a laptop against the RDS external host (see Migrations), never on container start.
+- **Smoke test:** `/healthz`, `/v1/config`, then a signed content request. Node's `fetch` drops a custom `Host` header, so test through the domain or inside the container rather than against the IP.
+- **Known gap:** the OpenAI relay currently returns 403 "Country, region, or territory not supported" for calls from this host, so wish resolution answers `source: "error"` and clients use local keywords until the relay egress changes.
+
 ## Endpoints
 
 All `/v1` response fields are additive. Errors use `{ "error": "code" }`, with no request text or internal error details. Requests have a 32 KiB body limit. GET routes require an empty body. POST wishes require `Content-Type: application/json`.

@@ -561,7 +561,7 @@ Voyage Hub 是 Voyage 自己的服务，和 Token Monitor 的 Hub 没有关系�
 
 ### 部署
 
-- **服务：** `voyage/hub/` 下独立的 TypeScript 服务（Node 22），部署在阿里云 ECS，前面用 nginx 做 HTTPS 反代；不接 Cloudflare，大陆访问延迟更稳。用 systemd 守护，单实例。
+- **服务：** `voyage/hub/` 下独立的 TypeScript 服务（Node 22），以 Docker 容器部署在阿里云 ECS，前面用 nginx 做 HTTPS 反代；不接 Cloudflare，大陆访问延迟更稳。单实例，容器自动重启。
 - **配置：** 只读需要的进程环境变量；仅显式设置 `HUB_ENV_FILE` 时用 Node `process.loadEnvFile` 加载该文件，不自动读取 `voyage/.env`。数据库用 `DB_*`，模型用 `OPENAI_API_KEY`、`OPENAI_MODEL` 和可选 `OPENAI_BASE_URL`；完整列表见 `hub/.env.example`，SMTP 和 OSS 这一步不用。
 - **存储：** 阿里云 RDS MySQL 的 `token` 库是唯一生产库，表名统一 `voyage_` 前缀。库默认字符集是 `utf8mb3`，每张表显式建成 `utf8mb4`、`utf8mb4_0900_ai_ci`。表结构只走版本化的 SQL 迁移文件，手动执行 `npm run migrate` 并记录在 `voyage_schema_migrations`，服务器启动永不执行迁移。自动测试用内存仓库和假模型，不连接真实数据库或 OpenAI；以后若加 MySQL 集成测试，必须显式启用，使用独立临时表前缀并清理。
 - **开关：** `voyage_config` 表保存每项联网功能的开关，`GET /v1/config` 读取，服务内缓存 60 秒；手动改表即可关掉任一项，客户端读到关闭就走本机回退。
@@ -610,7 +610,7 @@ Voyage Hub 是 Voyage 自己的服务，和 Token Monitor 的 Hub 没有关系�
 1. **5a 服务（已实现，未部署）：** `voyage/hub/` 骨架、迁移、配置、健康、限流、签名校验、心愿解析、内容读取，含内存仓库和假模型测试；未对真实数据库执行迁移。
 2. **5b 生成（已实现，未真实生成或发布）：** `voyage-content validate`、生成与发布脚本、双语审核清单及离线测试；生成自动校验，发布重新校验，均支持 dry-run，不自动迁移。真实三城模型试跑、人工检查及数据库发布留待显式执行。
 3. **5c 客户端（已实现，未真实联调）：** Hub 客户端、Keychain 设备密钥、设置开关、配置缓存、心愿服务端解析与本机回退；出发异步拉内容、永久条目库与逐趟固定候选，含注入假传输的离线测试。真实 Hub 未部署；中英深浅色离屏设置快照已验证，窗口 `--snapshot` 尚未执行。
-4. **部署：** 在 ECS 上执行迁移、配置 nginx 和 systemd，需要人工确认后进行。
+4. **部署（已完成）：** `https://hub.zctd.tech`，ECS 上的 Docker 容器加宝塔 nginx 反代，证书由 acme.sh 自动续期；CentOS 7 跑不了官方 Node 22，所以不用 systemd 直装。迁移已在 `token` 库执行，杭州、苏州、泉州的试跑内容已发布。心愿解析暂时不可用：模型中转对这台服务器返回地区不支持，客户端走本机关键词。步骤见 `hub/README.md` 的 Deploying。
 
 ### 原则
 
