@@ -11,7 +11,7 @@ public enum CareEngine {
             if [.postcard, .reunion].contains(letter.kind) {
                 guard !care.processedLetterIds.contains(letter.id) else { continue }
                 if letter.storyId == nil {
-                    snapshotCompanionMail(letter: &letter, journey: journey, care: care, stories: stories, catalog: catalog)
+                    snapshotCompanionMail(letter: &letter, journey: journey, care: care, stories: stories.availableForTrip([]), catalog: catalog)
                     journey.letters[index] = letter
                 }
                 applyRewards(letter, care: &care)
@@ -24,6 +24,10 @@ public enum CareEngine {
                 care.processedLetterIds.append(letter.id)
                 continue
             }
+            // The archive can grow later; each trip's candidate set cannot.
+            let remoteIDs = Set(letter.tripNumber.flatMap { journey.remoteContentByTrip?[$0]?.entryIDs } ?? [])
+            let stories = stories.availableForTrip(remoteIDs)
+            let items = catalog.items.availableForTrip(remoteIDs)
 
             let promise = care.pendingPromises.first.flatMap { $0.letterId < letter.id ? $0 : nil }
             if promise != nil { care.pendingPromises[0].attempts += 1 }
@@ -84,7 +88,7 @@ public enum CareEngine {
                 }
                 if due { letter.fulfilledReplyId = promise!.replyId }
                 letter.itemTriggered = trigger && !due && letter.carriedItem.flatMap { catalog.items.find($0)?.habit } != nil
-                letter.rewards = catalog.items.drop(rewards: story.rewards, letter: letter, care: care, seed: journey.seed)
+                letter.rewards = items.drop(rewards: story.rewards, letter: letter, care: care, seed: journey.seed)
                 if let wish = care.wishResolution, care.wish != nil, wish.tags.isEmpty, wish.explanationLetterId == nil {
                     for language in Language.allCases {
                         letter.texts?[language.rawValue, default: ""] += "\n\n" + catalog.wishes.unmatched[language.rawValue]!

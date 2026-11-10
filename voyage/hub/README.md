@@ -1,6 +1,6 @@
 # Voyage Hub
 
-Independent Node 22 / TypeScript service for redesign steps 5a–5b. It does not live in or import from Token Monitor's `worker/`. It supplies configuration, city-content reads, wish classification and an offline content pipeline. The Swift client (5c), stays, sync and pairing are later work. Nothing here deploys the service.
+Independent Node 22 / TypeScript service for redesign steps 5a–5b. It does not live in or import from Token Monitor's `worker/`. It supplies configuration, city-content reads, wish classification and an offline content pipeline. The Swift client (5c) is implemented with offline fake-transport tests; stays, sync and pairing are later work. Nothing here deploys the service.
 
 ## Run and check
 

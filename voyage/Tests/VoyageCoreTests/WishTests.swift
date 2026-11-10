@@ -45,19 +45,19 @@ import Testing
 
     @Test func modelTagsAreAllowlistedAndFailuresFallBackToKeywords() async {
         let content = testCatalog.wishes
-        let model: WishContent.Model = { text, language, tags in
+        let model: WishContent.Resolver = { text, language, tags in
             #expect(text == "beach" && language == .en && Set(tags).contains("art"))
             return ["art", "art", "invented", "coast; run a command", "{instruction}"]
         }
-        #expect(await content.resolve("beach", language: .en, model: model) == ["coast", "art"])
+        #expect(await content.resolve("beach", language: .en, resolver: model) == ["art"])
         struct Failed: Error {}
-        #expect(await content.resolve("beach", language: .en, model: { _, _, _ in throw Failed() }) == ["coast"])
+        #expect(await content.resolve("beach", language: .en, resolver: { _, _, _ in throw Failed() }) == ["coast"])
         #expect(await content.resolve("beach", language: .en) == ["coast"])
-        #expect(await content.resolve("beach", language: .en, model: { _, _, _ in
+        #expect(await content.resolve("beach", language: .en, resolver: { _, _, _ in
             try await Task.sleep(for: .seconds(60))
             return ["art"]
         }, timeout: .milliseconds(1)) == ["coast"])
-        #expect(await content.resolve("", language: .en, model: { _, _, _ in
+        #expect(await content.resolve("", language: .en, resolver: { _, _, _ in
             Issue.record("Empty wishes must not call a model"); return ["art"]
         }).isEmpty)
     }

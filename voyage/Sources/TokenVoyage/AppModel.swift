@@ -7,7 +7,11 @@ import VoyageCore
 @Observable
 final class AppModel {
     private(set) var state: JourneyState?
-    let catalog: CityCatalog?
+    private(set) var catalog: CityCatalog?
+    private let bundledCatalog: CityCatalog?
+    private let hubClient: HubClient
+    private let remoteContentStore: RemoteContentStore?
+    private(set) var departureContentTasks: [Int: Task<Void, Never>] = [:]
     let themes: ThemeCatalog?
     private(set) var systemScheme: ThemeScheme
     private let appearanceOverride: ThemeScheme?
@@ -53,7 +57,6 @@ final class AppModel {
     private(set) var care: CareState?
     private(set) var isSavingWish = false
     private var wishSaveGeneration = 0
-    private let wishModel: WishContent.Model?
     private let wishTimeout: Duration
     private(set) var onboarding: OnboardingFlow?
     var tab: MainTab = .home
@@ -81,6 +84,12 @@ final class AppModel {
     @ObservationIgnored var onNotificationOpen: (() -> Void)?
     var morningNotificationsEnabled: Bool {
         didSet { if !isSnapshot { defaults.set(morningNotificationsEnabled, forKey: "morningNotifications") } }
+    }
+    var cityContentEnabled: Bool {
+        didSet { if !isSnapshot { defaults.set(cityContentEnabled, forKey: "cityContentEnabled") } }
+    }
+    var wishResolveEnabled: Bool {
+        didSet { if !isSnapshot { defaults.set(wishResolveEnabled, forKey: "wishResolveEnabled") } }
     }
     var deliveryTime: DeliveryTime {
         didSet { if !isSnapshot { defaults.set(deliveryTime.rawValue, forKey: "deliveryTime") } }
@@ -168,7 +177,7 @@ final class AppModel {
          usageReader: @escaping @Sendable (String?, String) async throws -> [DayDetail] = UsageSource.fetch,
          hoursReader: @escaping @Sendable (String, String) async throws -> [HourUsage] = UsageSource.fetchHours,
          enrichmentReader: @escaping Enricher.Fetch = { await Enricher.fetch($0) },
-         wishModel: WishContent.Model? = { try await LocalWishModel.selectTags(text: $0, language: $1, allowedTags: $2) },
+         hubClient: HubClient? = nil,
          wishTimeout: Duration = .seconds(3),
          runtimeEnabled: Bool = true, watcherRoots: @escaping @Sendable () -> [String] = FileWatcher.existingRoots,
          notificationCenter: (any LetterNotificationCenter)? = nil,
@@ -184,13 +193,14 @@ final class AppModel {
         self.usageReader = usageReader
         self.hoursReader = hoursReader
         self.enrichmentReader = enrichmentReader
-        self.wishModel = wishModel
         self.wishTimeout = wishTimeout
         self.runtimeEnabled = runtimeEnabled
         self.watcherRoots = watcherRoots
         self.floatingReactionDuration = floatingReactionDuration
         self.languageOverride = languageOverride
         self.defaults = defaults
+        cityContentEnabled = defaults.object(forKey: "cityContentEnabled") as? Bool ?? true
+        wishResolveEnabled = defaults.object(forKey: "wishResolveEnabled") as? Bool ?? true
         morningNotificationsEnabled = defaults.object(forKey: "morningNotifications") as? Bool ?? true
         deliveryTime = defaults.string(forKey: "deliveryTime").flatMap(DeliveryTime.init(rawValue:)) ?? .standard
         notifications = LetterNotificationService(defaults: defaults, center: notificationCenter ?? SystemLetterNotificationCenter(enabled: !isSnapshot && runtimeEnabled))
@@ -209,15 +219,31 @@ final class AppModel {
             dataDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
                 .appendingPathComponent("TokenVoyage")
         }
+        let configuredHub = isSnapshot ? HubClient(baseURL: nil) : (hubClient ?? HubClient(
+            baseURL: HubClient.configuredBaseURL(),
+            configURL: dataDirectory.appendingPathComponent("hub-config.json")))
+        self.hubClient = configuredHub
         let contentRoot = contentDirectory ?? Bundle.main.resourceURL!.appendingPathComponent("Content")
         let loadedThemes = themes ?? (try? ThemeCatalog.load(directory: contentRoot.appendingPathComponent("themes")))
         self.themes = loadedThemes
         if case .theme(let id) = savedAppearance, loadedThemes?.find(id) == nil { appearancePreference = .system }
         else { appearancePreference = savedAppearance }
         let loadedCatalog = catalog ?? (try? CityCatalog.load(directory: contentRoot))
-        self.catalog = loadedCatalog
+        bundledCatalog = loadedCatalog
+        let appCatalog: CityCatalog?
+        let remoteURL = dataDirectory.appendingPathComponent("remote-content.json")
+        if !isSnapshot, configuredHub.isConfigured || FileManager.default.fileExists(atPath: remoteURL.path),
+           let loadedCatalog, let validator = try? RemoteContentValidator(directory: contentRoot, catalog: loadedCatalog) {
+            let remote = RemoteContentStore.load(url: remoteURL, validator: validator)
+            appCatalog = remote.merging(into: loadedCatalog)
+            remoteContentStore = RemoteContentStore(url: remoteURL, validator: validator, content: remote)
+        } else {
+            appCatalog = loadedCatalog
+            remoteContentStore = nil
+        }
+        self.catalog = appCatalog
         contentFailed = loadedThemes == nil || (loadedCatalog.map { $0.active.count < 2 } ?? true)
-        store = SaveStore(directory: dataDirectory, pets: loadedCatalog?.pets, items: loadedCatalog?.items, journeyMigrations: loadedCatalog.map { .journey(catalog: $0) } ?? SaveMigrations(currentVersion: JourneyState.currentVersion))
+        store = SaveStore(directory: dataDirectory, pets: loadedCatalog?.pets, items: appCatalog?.items, journeyMigrations: loadedCatalog.map { .journey(catalog: $0) } ?? SaveMigrations(currentVersion: JourneyState.currentVersion))
         isLocked = true
         dashboardStore.updateToday(DayKey.string(from: self.now))
         guard !contentFailed, let loadedCatalog else {
@@ -234,6 +260,7 @@ final class AppModel {
         store.load()
         if case .loaded(let saved) = store.journey {
             state = saved
+            if self.hubClient.isConfigured && state?.remoteContentByTrip == nil { state?.remoteContentByTrip = [:] }
         } else if !store.isLocked {
             if case .missing = store.journey, case .missing = store.care {
                 onboarding = OnboardingFlow(catalog: loadedCatalog, seed: onboardingSeed, today: now(), readUsage: onboardingReader)
@@ -241,6 +268,7 @@ final class AppModel {
                 state = Self.newJourney(in: store, catalog: loadedCatalog, now: now())
             }
         }
+        if configuredHub.isConfigured && state?.remoteContentByTrip == nil { state?.remoteContentByTrip = [:] }
         refreshSaveStatus()
         processLetters()
         notifications.onOpenLetter = { [weak self] id in
@@ -355,7 +383,12 @@ final class AppModel {
         let writtenAt = clock()
         isSavingWish = true
         defer { if request == wishSaveGeneration { isSavingWish = false } }
-        let tags = await catalog.wishes.resolve(text, language: l10n.language, model: wishModel, timeout: wishTimeout)
+        let hub = hubClient
+        let enabled = wishResolveEnabled
+        let resolver: WishContent.Resolver = { text, language, tags in
+            try await hub.resolveWish(text: text, language: language, allowedTags: tags, enabled: enabled)
+        }
+        let tags = await catalog.wishes.resolve(text, language: l10n.language, resolver: resolver, timeout: wishTimeout)
         guard !Task.isCancelled, request == wishSaveGeneration, generation == backgroundGeneration,
               !isLocked, var care else { return false }
         WishEngine.write(text, tags: tags, at: writtenAt, care: &care)
@@ -618,6 +651,8 @@ final class AppModel {
 
     func start() {
         guard !isLocked, !isSnapshot else { return }
+        let hub = hubClient
+        Task { await hub.refreshConfig(now: clock()) }
         if let onboarding {
             onboarding.startReading()
             return
@@ -661,6 +696,8 @@ final class AppModel {
     func tick() {
         guard !isLocked else { return }
         now = clock()
+        let hub = hubClient
+        Task { await hub.refreshConfig(now: clock()) }
         refreshWishWeek()
         // Finalize previous days before advancing their saved timeline to the current clock.
         if !isScanning, onboarding == nil, var state, let catalog,
@@ -913,9 +950,58 @@ final class AppModel {
         navigate(to: .mail)
     }
 
+    /// Record the attempt before launching I/O. A restart never refetches or changes this trip's input.
+    private func beginDepartureContent() {
+        guard !isSnapshot, !isLocked, onboarding == nil, var state else { return }
+        let pending = (state.remoteContentByTrip ?? [:]).filter { $0.value.entryIDs == nil }
+        guard !pending.isEmpty else { return }
+        for trip in pending.keys { state.remoteContentByTrip?[trip]?.entryIDs = [] }
+        self.state = state
+        persist()
+        guard !isLocked, hubClient.isConfigured, cityContentEnabled,
+              let remoteContentStore, let bundledCatalog else { return }
+        let generation = backgroundGeneration
+        let language = l10n.language
+        let hub = hubClient
+        let date = clock()
+        for (trip, snapshot) in pending {
+            departureContentTasks[trip] = Task { [weak self] in
+                defer {
+                    if self?.backgroundGeneration == generation { self?.departureContentTasks.removeValue(forKey: trip) }
+                }
+                await hub.refreshConfig(now: date)
+                guard !Task.isCancelled, let self, !self.isLocked,
+                      self.cityContentEnabled, generation == self.backgroundGeneration else { return }
+                do {
+                    let entries = try await hub.cityContent(cityID: snapshot.cityID, language: language, enabled: self.cityContentEnabled)
+                    guard !Task.isCancelled, generation == self.backgroundGeneration else { return }
+                    let accepted = try await remoteContentStore.accept(entries, cityID: snapshot.cityID)
+                    guard !Task.isCancelled, generation == self.backgroundGeneration, !self.isLocked,
+                          var current = self.state else { return }
+                    self.catalog = accepted.content.merging(into: bundledCatalog)
+                    if let catalog = self.catalog { self.store.updateItemLibrary(catalog.items) }
+                    // A late response cannot change any letter's candidate set after settlement started.
+                    let settled = current.letters.contains {
+                        $0.kind == .daily && $0.tripNumber == trip && $0.storyId != nil
+                    }
+                    if !settled, current.remoteContentByTrip?[trip]?.cityID == snapshot.cityID {
+                        current.remoteContentByTrip?[trip]?.entryIDs = accepted.ids
+                    }
+                    self.state = current
+                    self.persist()
+                } catch {
+                    // Bundled-only is already durable. No UI, retry or gameplay side effects.
+                }
+            }
+        }
+    }
+
     /// Saved story snapshots are authoritative; replay repairs the care half of an interrupted write.
     private func processLetters(persistChanges: Bool = true, weeklyMail: Bool = false) {
         guard !isLocked, onboarding == nil, var state, var care, let catalog else { return }
+        beginDepartureContent()
+        guard let latestState = self.state else { return }
+        state = latestState
         let previousState = state
         let previousCare = care
         state.enableWeeklyMail(on: DayKey.string(from: clock()))
@@ -936,8 +1022,12 @@ final class AppModel {
     /// Only available on the first day, when nothing has been settled and today can simply be replayed.
     func setStart(_ cityId: String) {
         guard canChangeStart, var replacement = state, let catalog, catalog.find(cityId)?.status == "active", cityId != replacement.homeCityId else { return }
+        backgroundGeneration += 1
+        departureContentTasks.values.forEach { $0.cancel() }
+        departureContentTasks = [:]
         replacement.setStart(cityId, now: clock(), catalog: catalog)
         self.state = replacement
+        beginDepartureContent()
         enrichAttempts = [:]
         persist()
         Task { await enrichLatest() }
@@ -1059,8 +1149,13 @@ final class AppModel {
             try store.save(saves.journey)
             try store.save(saves.care)
             state = saves.journey
+            if hubClient.isConfigured {
+                state?.remoteContentByTrip = [1: TripContentSnapshot(cityID: saves.journey.targetCityId)]
+            }
             care = saves.care
             onboarding = nil
+            beginDepartureContent()
+            persist()
             lastError = nil
             openPostOffice()
             start()
@@ -1096,6 +1191,8 @@ final class AppModel {
     private func resumeAfterRecovery() {
         // Discard results from reads started against the previous journey.
         backgroundGeneration += 1
+        departureContentTasks.values.forEach { $0.cancel() }
+        departureContentTasks = [:]
         displayedPetMoment = nil
         nightWorkObserver = NightWorkObserver()
         dashboardDays = nil
@@ -1113,6 +1210,7 @@ final class AppModel {
         guard !isLocked, let catalog else { return }
         if case .loaded(let saved) = store.journey {
             state = saved
+            if hubClient.isConfigured && state?.remoteContentByTrip == nil { state?.remoteContentByTrip = [:] }
             onboarding = nil
         } else {
             if case .missing = store.journey, case .missing = store.care {
@@ -1125,6 +1223,7 @@ final class AppModel {
                 state = Self.newJourney(in: store, catalog: catalog, now: clock())
             }
         }
+        if hubClient.isConfigured && state?.remoteContentByTrip == nil { state?.remoteContentByTrip = [:] }
         enrichAttempts = [:]
         placeAttempts = [:]
         selectedLetterID = nil

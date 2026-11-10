@@ -107,7 +107,7 @@ extension ContentValidator {
         return issues
     }
 
-    private static func draftIDs(in value: Any) -> [String] {
+    static func draftIDs(in value: Any) -> [String] {
         if let object = value as? [String: Any] {
             return ((object["id"] as? String).map { [$0] } ?? [])
                 + object.keys.sorted().filter { $0 != "id" }.flatMap { draftIDs(in: object[$0]!) }
@@ -115,7 +115,7 @@ extension ContentValidator {
         return (value as? [Any])?.flatMap { draftIDs(in: $0) } ?? []
     }
 
-    private static func containsSponsor(_ value: Any) -> Bool {
+    static func containsSponsor(_ value: Any) -> Bool {
         if let object = value as? [String: Any] {
             return object["sponsor"] != nil || object.values.contains(where: containsSponsor)
         }

@@ -5,6 +5,14 @@ import VoyageCore
 /// Renders every surface to PNG for offline visual checks: `TokenVoyage --snapshot <dir>`.
 @MainActor
 enum Snapshots {
+    static var settingsNetworkCases: [(language: Language, scheme: ThemeScheme, name: String)] {
+        Language.allCases.flatMap { language in
+            [ThemeScheme.dark, .light].map { scheme in
+                (language, scheme, "settings-network-\(language.rawValue)-\(scheme.rawValue)")
+            }
+        }
+    }
+
     static func dashboardPages(model: AppModel) -> [(name: String, size: CGSize, selection: DashboardSelection)] {
         let wide = CGSize(width: 940, height: 1240)
         let peak = model.dashboardDays.map { UsageDashboard(days: $0, start: nil, end: DayKey.string(from: model.now)) }?.peak
@@ -279,8 +287,17 @@ enum Snapshots {
         }
         model.showingSettings = true
         render(MainView(model: model), size: CGSize(width: 760, height: 620), name: "main-settings", directory, model: model)
-        let settingsSize = CGSize(width: 760, height: 2100)
+        let settingsSize = CGSize(width: 760, height: 2300)
         render(MainView(model: model), size: settingsSize, name: "settings-full", directory, model: model)
+        for example in settingsNetworkCases {
+            let settingsModel = AppModel(isSnapshot: true, languageOverride: example.language,
+                                         appearanceOverride: example.scheme, catalog: model.catalog, themes: model.themes,
+                                         now: { model.now }, runtimeEnabled: false)
+            settingsModel.cityContentEnabled = true
+            settingsModel.wishResolveEnabled = true
+            settingsModel.showingSettings = true
+            render(MainView(model: settingsModel), size: settingsSize, name: example.name, directory, model: settingsModel)
+        }
         if let catalog = model.catalog {
             model.withSnapshotState({ state in
                 state = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: model.now), now: model.now, catalog: catalog)

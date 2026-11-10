@@ -55,8 +55,22 @@ public struct Story: Codable, Equatable, Sendable, Identifiable {
 /// Loaded and validated with CityCatalog; sorted IDs make file order irrelevant to draws.
 public struct StoryLibrary: Sendable {
     public let all: [Story]
+    private var remoteIDs: Set<String> = []
 
     init(stories: [Story]) { all = stories.sorted { $0.id < $1.id } }
+
+    func addingRemote(_ entries: [Story]) -> StoryLibrary {
+        let existing = Set(all.map(\.id))
+        let additions = entries.filter { !existing.contains($0.id) }
+        var result = StoryLibrary(stories: all + additions)
+        result.remoteIDs = remoteIDs.union(additions.map(\.id))
+        return result
+    }
+
+    func availableForTrip(_ ids: Set<String>) -> StoryLibrary {
+        guard !remoteIDs.isEmpty else { return self }
+        return StoryLibrary(stories: all.filter { !remoteIDs.contains($0.id) || ids.contains($0.id) })
+    }
 }
 
 enum StorySlots {

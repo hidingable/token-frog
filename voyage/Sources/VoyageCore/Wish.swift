@@ -40,7 +40,7 @@ public enum WishEngine {
 }
 
 public struct WishContent: Sendable {
-    public typealias Model = @Sendable (_ text: String, _ language: Language, _ allowedTags: [String]) async throws -> [String]
+    public typealias Resolver = @Sendable (_ text: String, _ language: Language, _ allowedTags: [String]) async throws -> [String]
     public let tagIDs: [String]
     public let unmatched: [String: String]
     private let keywords: [String: [String: [String]]]
@@ -79,23 +79,24 @@ public struct WishContent: Sendable {
         })
     }
 
-    public func resolve(_ text: String, language: Language, model: Model? = nil, timeout: Duration = .seconds(3)) async -> Set<String> {
+    public func resolve(_ text: String, language: Language, resolver: Resolver? = nil, timeout: Duration = .seconds(3)) async -> Set<String> {
         guard !text.isEmpty else { return [] }
         let keywords = keywordTags(for: text, language: language)
-        guard let model else { return keywords }
-        let race = WishModelRace()
+        guard let resolver else { return keywords }
+        let race = WishResolverRace()
         let result = await withTaskCancellationHandler {
             await withCheckedContinuation { continuation in
-                race.start(continuation, timeout: timeout) { try? await model(text, language, tagIDs) }
+                race.start(continuation, timeout: timeout) { try? await resolver(text, language, tagIDs) }
             }
         } onCancel: { race.finish(nil) }
-        // Even a structured on-device response is untrusted until checked against the content table.
-        return keywords.union(Set(result ?? []).intersection(tagIDs))
+        // A successful server answer replaces keywords, even when it is empty.
+        guard let result else { return keywords }
+        return Set(result).intersection(tagIDs)
     }
 }
 
-/// Return on timeout even if an injected model ignores cancellation. Late responses cannot mutate saves.
-private final class WishModelRace: @unchecked Sendable {
+/// Return on timeout even if an injected resolver ignores cancellation. Late responses cannot mutate saves.
+private final class WishResolverRace: @unchecked Sendable {
     private let lock = NSLock()
     private var continuation: CheckedContinuation<[String]?, Never>?
     private var tasks: [Task<Void, Never>] = []

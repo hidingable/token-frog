@@ -22,6 +22,7 @@ public struct ItemLibrary: Sendable {
     public let all: [Item]
     public let boxes: BoxContents
     private let byId: [String: Item]
+    private var remoteIDs: Set<String> = []
 
     init(items: [Item], boxes: BoxContents = BoxContents(souvenirIds: [], bagItemIds: [])) {
         all = items.sorted { $0.id < $1.id }
@@ -30,6 +31,18 @@ public struct ItemLibrary: Sendable {
     }
 
     public func find(_ id: String) -> Item? { byId[id] }
+
+    func addingRemote(_ entries: [Item]) -> ItemLibrary {
+        let additions = entries.filter { byId[$0.id] == nil }
+        var result = ItemLibrary(items: all + additions, boxes: boxes)
+        result.remoteIDs = remoteIDs.union(additions.map(\.id))
+        return result
+    }
+
+    func availableForTrip(_ ids: Set<String>) -> ItemLibrary {
+        guard !remoteIDs.isEmpty else { return self }
+        return ItemLibrary(items: all.filter { !remoteIDs.contains($0.id) || ids.contains($0.id) }, boxes: boxes)
+    }
 
     func drop(rewards: StoryRewards, letter: Letter, care: CareState, seed: UInt32) -> StoryRewards {
         let rarity = ItemDropRules.rarity(seed: seed, letterId: letter.id, pity: care.pity)

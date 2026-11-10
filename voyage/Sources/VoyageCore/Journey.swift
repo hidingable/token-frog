@@ -120,6 +120,13 @@ public struct Stamp: Codable, Equatable, Sendable {
     public var date: String
 }
 
+public struct TripContentSnapshot: Codable, Equatable, Sendable {
+    public var cityID: String
+    /// nil = departure recorded, [] = fetch attempted/interrupted or bundled-only.
+    public var entryIDs: [String]?
+    public init(cityID: String, entryIDs: [String]? = nil) { self.cityID = cityID; self.entryIDs = entryIDs }
+}
+
 public struct JourneyState: Codable, Equatable, Sendable {
     public static let currentVersion = 8
     public var version = currentVersion
@@ -156,6 +163,8 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public var lastWeeklyMailSunday: String?
     public var roadCluesEligibleFrom: String?
     public var usageEvents: UsageEvents?
+    /// Frozen at departure: missing/empty means bundled-only, including interrupted fetches.
+    public var remoteContentByTrip: [Int: TripContentSnapshot]?
 
     public init(seed: UInt32, startCityId: String, pet: PetID? = nil, date: String, now: Date? = nil, logbook: Logbook? = nil, catalog: CityCatalog) {
         let now = now ?? DayKey.date(from: date)!
@@ -229,6 +238,9 @@ public struct JourneyState: Codable, Equatable, Sendable {
         let firstLetter = letters.first { $0.id == 0 }
         let record = days[openDate] ?? DayRecord()
         var replacement = JourneyState(seed: seed, startCityId: cityId, pet: pet, date: startDate, now: letters.first?.deliverAt ?? phaseSince, catalog: catalog)
+        if remoteContentByTrip != nil {
+            replacement.remoteContentByTrip = [1: TripContentSnapshot(cityID: replacement.targetCityId)]
+        }
         replacement.sync(today: DayUsage(date: openDate, fuel: record.fuel, byClient: record.byClient, observedTokens: record.tokens ?? 0), now: now, calendar: calendar, catalog: catalog)
         replacement.days[openDate]?.mainWindowOpened = record.mainWindowOpened
         replacement.lastOpenedDate = lastOpenedDate
@@ -273,6 +285,9 @@ public struct JourneyState: Codable, Equatable, Sendable {
     /// Pending usage and saved fund begin the outbound leg at the explicit input time.
     public mutating func departNow(now: Date, calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], revisitCities: Set<String> = []) {
         guard phase == .pending else { return }
+        if remoteContentByTrip != nil {
+            remoteContentByTrip?[tripCount + 1] = TripContentSnapshot(cityID: targetCityId)
+        }
         let pending = legFuel
         legFuel = 0
         phase = .outbound
@@ -515,7 +530,7 @@ extension JourneyState {
         case version, seed, pet, startDate, currentCityId, targetCityId, legFuel
         case route, stamps, openDate, days, letters, totalFuel, totalKm, legCost, legFrom, legTo, targetCountryCode
         case lastOpenedDate, weeklyMailEligibleFrom, lastWeeklyMailSunday, roadCluesEligibleFrom
-        case usageEvents
+        case usageEvents, remoteContentByTrip
         case homeCityId, homeCoordinate, phase, phaseSince, travelFund, tripCount, homecoming
     }
 
@@ -557,6 +572,7 @@ extension JourneyState {
         lastWeeklyMailSunday = try values.decodeIfPresent(String.self, forKey: .lastWeeklyMailSunday)
         roadCluesEligibleFrom = try values.decodeIfPresent(String.self, forKey: .roadCluesEligibleFrom)
         usageEvents = try values.decodeIfPresent(UsageEvents.self, forKey: .usageEvents)
+        remoteContentByTrip = try values.decodeIfPresent([Int: TripContentSnapshot].self, forKey: .remoteContentByTrip)
     }
 }
 

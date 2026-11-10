@@ -61,8 +61,16 @@ struct SettingsTab: View {
                 }
             }
             .task { if !model.isSnapshotMode { await model.notifications.refreshAuthorization() } }
-            group("accounts.title") {
+            group("settings.accountPrivacy") {
                 action("accounts.manage") { model.showingAccounts = true }
+                Toggle(l10n("settings.cityContent"), isOn: $model.cityContentEnabled)
+                    .accessibilityLabel(l10n("settings.cityContent"))
+                    .accessibilityHint(l10n("settings.cityContentHint"))
+                    .accessibilityIdentifier("settings.cityContentEnabled")
+                Toggle(l10n("settings.wishResolve"), isOn: $model.wishResolveEnabled)
+                    .accessibilityLabel(l10n("settings.wishResolve"))
+                    .accessibilityHint(l10n("settings.wishResolveHint"))
+                    .accessibilityIdentifier("settings.wishResolveEnabled")
             }
             if model.canChangeStart, let state = model.state, let catalog = model.catalog {
                 group("settings.home") {

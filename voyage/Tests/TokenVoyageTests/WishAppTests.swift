@@ -32,11 +32,29 @@ private actor WishProbe {
         store.load()
         try store.save(journey); try store.save(care)
     }
-    func model(catalog: CityCatalog = localizationCatalog, clock: (() -> Date)? = nil, wishModel: WishContent.Model? = nil,
+    func model(catalog: CityCatalog = localizationCatalog, clock: (() -> Date)? = nil, wishResolver: WishContent.Resolver? = nil,
                usageReader: @escaping @Sendable (String?, String) async throws -> [DayDetail] = { _, _ in [] }) -> AppModel {
-        AppModel(languageOverride: .en, defaults: WishDefaults(), directory: directory, catalog: catalog, themes: testThemes,
-                 now: clock ?? { now }, usageReader: usageReader, hoursReader: { _, _ in [] }, enrichmentReader: { _ in Enrichment() },
-                 wishModel: wishModel, runtimeEnabled: false)
+        let client = HubClient(baseURL: wishResolver == nil ? nil : URL(string: "https://hub.invalid"), transport: { request in
+            let data: Data
+            if request.url?.path == "/v1/config" {
+                data = try JSONEncoder().encode(HubConfig.defaults)
+            } else {
+                guard request.url?.path == "/v1/wishes/resolve", let wishResolver else { throw URLError(.unsupportedURL) }
+                struct Payload: Decodable { let text: String; let language: String; let allowedTags: [String] }
+                let body = try #require(request.httpBody)
+                let payload = try JSONDecoder().decode(Payload.self, from: body)
+                let language = try #require(Language(rawValue: payload.language))
+                let tags = try await wishResolver(payload.text, language, payload.allowedTags)
+                data = try JSONSerialization.data(withJSONObject: ["tags": tags, "source": "model"])
+            }
+            let url = try #require(request.url)
+            let response = try #require(HTTPURLResponse(url: url, statusCode: 200,
+                                                       httpVersion: nil, headerFields: ["Content-Type": "application/json"]))
+            return (data, response)
+        }, keyLoader: { Data(repeating: 7, count: 32) })
+        return AppModel(languageOverride: .en, defaults: WishDefaults(), directory: directory, catalog: catalog, themes: testThemes,
+                        now: clock ?? { now }, usageReader: usageReader, hoursReader: { _, _ in [] }, enrichmentReader: { _ in Enrichment() },
+                        hubClient: client, runtimeEnabled: false)
     }
     func cleanUp() { try? FileManager.default.removeItem(at: directory) }
 }
@@ -68,7 +86,7 @@ private func wishReturnJourney(seed: UInt32, catalog: CityCatalog, now: Date) ->
         let care = CareState(petName: "Pip", species: journey.pet, hatchedAt: journey.startDate)
         try fixture.save(journey, care)
         let probe = WishProbe()
-        let model = fixture.model(wishModel: { await probe.parse($0, $1, $2) })
+        let model = fixture.model(wishResolver: { await probe.parse($0, $1, $2) })
         let target = model.state?.targetCityId
         #expect(await model.setWish("**Quiet moments**"))
         #expect(model.care?.wish == "**Quiet moments**")
@@ -77,7 +95,7 @@ private func wishReturnJourney(seed: UInt32, catalog: CityCatalog, now: Date) ->
         #expect(model.state?.targetCityId == target)
         #expect(await model.setWish("**Quiet moments**"))
         #expect(await probe.calls == 1)
-        let reloaded = fixture.model(wishModel: { _, _, _ in Issue.record("Reload must not parse"); return [] })
+        let reloaded = fixture.model(wishResolver: { _, _, _ in Issue.record("Reload must not parse"); return [] })
         reloaded.languagePreference = .zhHans
         reloaded.tick()
         await reloaded.scan()
@@ -125,7 +143,7 @@ private func wishReturnJourney(seed: UInt32, catalog: CityCatalog, now: Date) ->
         let reader: @Sendable (String?, String) async throws -> [DayDetail] = { _, _ in
             [DayDetail(date: "2026-11-02", rows: [.init(client: "codex", model: "test", tokens: .init(input: fuel))])]
         }
-        let model = fixture.model(catalog: catalog, clock: { current }, wishModel: { _, _, _ in ["coast"] }, usageReader: reader)
+        let model = fixture.model(catalog: catalog, clock: { current }, wishResolver: { _, _, _ in ["coast"] }, usageReader: reader)
         #expect(await model.setWish("Quiet moments"))
         var expected = journey
         expected.sync(today: DayUsage(date: "2026-11-02", fuel: fuel, byClient: ["codex": fuel]), now: fixture.now, catalog: catalog, wishTags: ["coast"])
@@ -174,7 +192,7 @@ private func wishReturnJourney(seed: UInt32, catalog: CityCatalog, now: Date) ->
         let journey = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-08", catalog: localizationCatalog)
         let care = CareState(petName: "Pip", species: journey.pet, hatchedAt: journey.startDate)
         try fixture.save(journey, care)
-        let model = fixture.model(clock: { clock.date }, wishModel: { _, _, _ in
+        let model = fixture.model(clock: { clock.date }, wishResolver: { _, _, _ in
             await MainActor.run { clock.date = sunday.addingTimeInterval(2) }
             return ["coast"]
         })

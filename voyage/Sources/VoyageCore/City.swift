@@ -79,9 +79,9 @@ extension City {
 /// A parsed content snapshot. Full content validation belongs to the content tests.
 public struct CityCatalog: Sendable {
     public let all: [City]
-    public let stories: StoryLibrary
+    public private(set) var stories: StoryLibrary
     public let pets: PetCatalog
-    public let items: ItemLibrary
+    public private(set) var items: ItemLibrary
     public let weeklyMail: WeeklyMailContent
     public let wishes: WishContent
     public let roadClues: RoadClueContent
@@ -126,6 +126,14 @@ public struct CityCatalog: Sendable {
             usageEvents: UsageEventContent.load(directory: directory),
             petMoments: PetMomentContent.load(directory: directory)
         )
+    }
+
+    /// Bundled entries retain ownership of their IDs; accepted remote entries are immutable additions.
+    public func addingRemoteContent(stories: [Story], items: [Item]) -> CityCatalog {
+        var result = self
+        result.stories = self.stories.addingRemote(stories)
+        result.items = self.items.addingRemote(items)
+        return result
     }
 
     public func find(_ id: String) -> City? { byId[id.lowercased()] }

@@ -90,7 +90,7 @@ public final class SaveStore {
     public var isLocked: Bool { !journey.allowsSaving || !care.allowsSaving }
 
     private let pets: PetCatalog?
-    private let items: ItemLibrary?
+    private var items: ItemLibrary?
     private let now: () -> Date
     private let journeyMigrations: SaveMigrations
     private let careMigrations: SaveMigrations
@@ -142,6 +142,9 @@ public final class SaveStore {
             // atomicWrite records the failing file as unreadable.
         }
     }
+
+    /// Keep room cleanup and archive imports aware of newly accepted souvenirs.
+    public func updateItemLibrary(_ items: ItemLibrary) { self.items = items }
 
     public func save(_ state: JourneyState) throws {
         guard !isLocked else { throw SaveStoreError.locked }

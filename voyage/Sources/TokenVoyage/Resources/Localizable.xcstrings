@@ -6712,13 +6712,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "包含旅程和养成存档，不含凭据或照片。"
+            "value": "包含旅程和养成存档，不含凭据、照片或远端内容库。"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Includes journey and care saves. Credentials and photos are excluded."
+            "value": "Includes journey and care saves. Credentials, photos and the remote content library are excluded."
           }
         }
       }
@@ -6736,6 +6736,91 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open data folder"
+          }
+        }
+      }
+    },
+    "settings.accountPrivacy": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "账号与隐私"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accounts & privacy"
+          }
+        }
+      }
+    },
+    "settings.cityContent": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "城市新内容"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New city content"
+          }
+        }
+      }
+    },
+    "settings.cityContentHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "出发时只发送目的地城市，获取新故事和纪念品。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fetch new stories and souvenirs using only the destination city when a trip starts."
+          }
+        }
+      }
+    },
+    "settings.wishResolve": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "联网解析心愿"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resolve wishes online"
+          }
+        }
+      }
+    },
+    "settings.wishResolveHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存时发送心愿文字；关闭后只用本机关键词解析。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send wish text when saving. When off, use local keywords only."
           }
         }
       }
@@ -6814,13 +6899,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "用量只在本机；只有天气和地点介绍会联网，额度要你关联才读。"
+            "value": "用量留在本机。天气和地点介绍会联网；城市新内容和心愿解析可分别关闭，额度需关联后读取。"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Usage stays on this Mac. Only weather and place introductions use the network; quotas are read only after you link an account."
+            "value": "Usage stays on this Mac. Weather and place introductions use the network. New city content and wish resolution can be turned off separately; quotas are read only after you link an account."
           }
         }
       }
@@ -7658,13 +7743,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "只存在这台 Mac。它会尽量照做，没听懂就随便走走。"
+            "value": "保存时若开启联网解析，会把心愿原文发给 Hub 一次；Hub 不留原文，心愿只在本机存档。"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Stays on this Mac. It will try to follow along, or wander if unsure."
+            "value": "When saved with online parsing on, your wish text is sent once to the Hub. The Hub does not keep it; your wish is saved only on this Mac."
           }
         }
       }
