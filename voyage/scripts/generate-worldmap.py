@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Rasterize world-atlas land-110m TopoJSON into Sources/VoyageCore/WorldMapData.swift.
+"""Rasterize world-atlas land TopoJSON into Sources/VoyageCore/WorldMapData.swift.
 
-Usage: generate-worldmap.py <land-110m.json> <output.swift>
+Usage: generate-worldmap.py <land-50m.json> <output.swift> [--width 480 --height 200]
 """
+import argparse
 import json
-import sys
+from pathlib import Path
 
-WIDTH, HEIGHT = 120, 50
+WIDTH, HEIGHT = 480, 200
 LAT_TOP, LAT_BOTTOM = 84.0, -60.0
 
 
@@ -63,47 +64,88 @@ def unwrap(ring):
     return points
 
 
-def in_ring(lon, lat, ring):
-    hit = False
-    previous = ring[-1]
-    for point in ring:
-        if (point[1] > lat) != (previous[1] > lat):
-            crossing = previous[0] + (lat - previous[1]) * (point[0] - previous[0]) / (point[1] - previous[1])
-            if lon < crossing:
-                hit = not hit
-        previous = point
-    return hit
+def scanline_events(rings, lat):
+    """Return longitude boundaries whose parity determines land along this latitude."""
+    events = []
+    for ring, bottom, top in rings:
+        if not bottom <= lat < top:
+            continue
+        crossings = []
+        previous = ring[-1]
+        for point in ring:
+            if (point[1] > lat) != (previous[1] > lat):
+                crossings.append(previous[0] + (lat - previous[1]) * (point[0] - previous[0]) / (point[1] - previous[1]))
+            previous = point
+        crossings.sort()
+
+        # A point can lie in any wrapped copy of a ring, but counts only once for
+        # that ring. Union its wrapped intervals before toggling polygon parity.
+        intervals = sorted(
+            (left - offset, right - offset)
+            for left, right in zip(crossings[::2], crossings[1::2])
+            for offset in (-360, 0, 360)
+            if right - offset > -180 and left - offset < 180
+        )
+        if not intervals:
+            continue
+        start, end = intervals[0]
+        for left, right in intervals[1:]:
+            if left <= end:
+                end = max(end, right)
+            else:
+                events.extend((start, end))
+                start, end = left, right
+        events.extend((start, end))
+    return sorted(events)
 
 
-def inside(lon, lat, rings):
-    hit = False
-    for ring in rings:
-        if any(in_ring(lon + offset, lat, ring) for offset in (-360, 0, 360)):
-            hit = not hit
-    return hit
+def rasterize(rings, width, height):
+    rings = [(ring, min(lat for _, lat in ring), max(lat for _, lat in ring)) for ring in rings]
+    rows = []
+    for y in range(height):
+        hits = [0] * width
+        # Keep the original five subcell samples and two-hit coastline threshold.
+        # Samples sharing a latitude reuse the same coastline intersections.
+        for sy, sample_xs in ((0.5, (0.5,)), (0.2, (0.2, 0.8)), (0.8, (0.2, 0.8))):
+            lat = LAT_TOP - (y + sy) / height * (LAT_TOP - LAT_BOTTOM)
+            events = scanline_events(rings, lat)
+            for sx in sample_xs:
+                event = 0
+                inside = False
+                for x in range(width):
+                    lon = (x + sx) / width * 360 - 180
+                    # Left boundaries belong to land; right boundaries do not,
+                    # matching the original ray-crossing comparison.
+                    while event < len(events) and events[event] <= lon:
+                        inside = not inside
+                        event += 1
+                    hits[x] += inside
+        rows.append("".join("#" if count >= 2 else "." for count in hits))
+    return rows
+
+
+def positive_int(value):
+    number = int(value)
+    if number <= 0:
+        raise argparse.ArgumentTypeError("must be a positive integer")
+    return number
 
 
 def main():
-    source, output = sys.argv[1], sys.argv[2]
-    with open(source, encoding="utf-8") as handle:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("source", type=Path)
+    parser.add_argument("output", type=Path)
+    parser.add_argument("--width", type=positive_int, default=WIDTH)
+    parser.add_argument("--height", type=positive_int, default=HEIGHT)
+    args = parser.parse_args()
+    with args.source.open(encoding="utf-8") as handle:
         rings = [unwrap(ring) for ring in land_rings(json.load(handle))]
-    samples = [(0.5, 0.5), (0.2, 0.2), (0.8, 0.2), (0.2, 0.8), (0.8, 0.8)]
-    rows = []
-    for y in range(HEIGHT):
-        row = ""
-        for x in range(WIDTH):
-            hits = 0
-            for sx, sy in samples:
-                lon = (x + sx) / WIDTH * 360 - 180
-                lat = LAT_TOP - (y + sy) / HEIGHT * (LAT_TOP - LAT_BOTTOM)
-                hits += inside(lon, lat, rings)
-            row += "#" if hits >= 2 else "."
-        rows.append(row)
+    rows = rasterize(rings, args.width, args.height)
     body = ",\n".join(f'        "{row}"' for row in rows)
-    swift = f"""// Generated by scripts/generate-worldmap.py from world-atlas land-110m (Natural Earth, public domain).
+    swift = f"""// Generated by scripts/generate-worldmap.py from world-atlas {args.source.name} (Natural Earth, public domain).
 public enum WorldMapData {{
-    public static let width = {WIDTH}
-    public static let height = {HEIGHT}
+    public static let width = {args.width}
+    public static let height = {args.height}
     public static let latTop = {LAT_TOP}
     public static let latBottom = {LAT_BOTTOM}
     public static let rows: [String] = [
@@ -111,9 +153,9 @@ public enum WorldMapData {{
     ]
 }}
 """
-    with open(output, "w", encoding="utf-8") as handle:
+    with args.output.open("w", encoding="utf-8") as handle:
         handle.write(swift)
-    print("\n".join(rows))
+    print(f"Generated {args.width}×{args.height} world map: {args.output} ({len(swift.encode('utf-8')):,} bytes)")
 
 
 if __name__ == "__main__":

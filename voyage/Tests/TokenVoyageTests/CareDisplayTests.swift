@@ -23,10 +23,10 @@ func mapsChooseTheLargestIntegerScaleAndCenterAtWholePoints(width: Double) {
         let theme = AppTheme(definition)
         for image in [PixelMap.homeImage(city, theme: theme), PixelMap.image(for: state, catalog: localizationCatalog, theme: theme)] {
             let map = PixelMapView(image: image, availableWidth: width, borderColor: theme.mapBorder)
-            #expect(map.scale == RoomLayout.scale(availableWidth: width, pixelWidth: WorldMapData.width))
-            #expect(map.size.width == CGFloat(map.scale * WorldMapData.width))
-            #expect(map.size.height == CGFloat(map.scale * WorldMapData.height))
-            #expect(map.size.width <= width && map.size.width + CGFloat(WorldMapData.width) > width)
+            #expect(map.scale == RoomLayout.scale(availableWidth: width, pixelWidth: 120))
+            #expect(map.size.width == CGFloat(map.scale * 120))
+            #expect(map.size.height == CGFloat(map.scale * 50))
+            #expect(map.size.width <= width && map.size.width + 120 > width)
             #expect(map.leadingInset >= 0 && map.leadingInset == floor(map.leadingInset))
             let trailingInset = width - map.leadingInset - map.size.width
             #expect(trailingInset >= map.leadingInset && trailingInset - map.leadingInset < 2)

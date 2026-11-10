@@ -69,6 +69,13 @@ struct SettingsTab: View {
                     CitySearchList(catalog: catalog,
                                    selection: Binding(get: { state.homeCityId }, set: { model.setStart($0) }), search: $homeSearch)
                         .frame(height: 300)
+                    let home = catalog.city(state.homeCityId)
+                    GeometryReader { geometry in
+                        PixelMapView(image: PixelMap.homeImage(home, theme: theme), availableWidth: geometry.size.width,
+                                     borderColor: theme.mapBorder)
+                            .accessibilityLabel(l10n("onboarding.homeMap", l10n.cityName(home)))
+                    }
+                    .frame(height: 200)
                     explanation("onboarding.homeHint")
                 }
             }

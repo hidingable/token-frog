@@ -1,6 +1,87 @@
 import SwiftUI
 import VoyageCore
 
+struct JourneyStatusDisplay {
+    let title: String
+    let detail: String
+    let progress: Double?
+
+    init(journey: JourneyState, now: Date, catalog: CityCatalog, l10n: L10n) {
+        let home = l10n.cityName(catalog.city(journey.homeCityId))
+        let target = l10n.cityName(catalog.city(journey.targetCityId))
+        switch journey.phase {
+        case .home:
+            title = l10n("journey.status.home", home)
+            detail = l10n("journey.status.next", target, Format.km(journey.legKm))
+            progress = nil
+        case .pending:
+            title = l10n("journey.status.pending", home, target)
+            let minutes = max(0, Int(ceil(journey.phaseSince.addingTimeInterval(30 * 60).timeIntervalSince(now) / 60)))
+            detail = l10n("journey.status.departure", Format.km(journey.legKm), minutes)
+            progress = nil
+        case .outbound:
+            title = l10n("journey.status.outbound", home, target)
+            detail = l10n("journey.remaining", Format.km(journey.remainingKm))
+            progress = journey.legProgress
+        case .staying:
+            title = l10n("journey.status.staying", l10n.cityName(catalog.city(journey.currentCityId)))
+            let minutes = max(0, Int(ceil(journey.phaseSince.addingTimeInterval(6 * 3600).timeIntervalSince(now) / 60)))
+            detail = l10n("journey.status.stayTime", minutes / 60, minutes % 60)
+            progress = nil
+        case .returning:
+            title = l10n("journey.status.returning", l10n.cityName(catalog.city(journey.currentCityId)), home)
+            detail = l10n("journey.remaining", Format.km(journey.remainingKm))
+            progress = journey.legProgress
+        }
+    }
+}
+
+struct MapLegend: View {
+    @Environment(\.theme) private var theme
+    @Environment(\.l10n) private var l10n
+
+    var body: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 16) { labels }
+            VStack(alignment: .leading, spacing: 6) { labels }
+        }
+        .font(Theme.pixel()).foregroundStyle(theme.textMuted)
+    }
+
+    @ViewBuilder private var labels: some View {
+        label(l10n("map.home"), color: theme.mapMarker, size: 9)
+        label(l10n("map.current"), color: theme.mapPosition, size: 6)
+        label(l10n("map.stayed"), color: theme.mapStayed, size: 3)
+    }
+
+    private func label(_ text: String, color: Color, size: CGFloat) -> some View {
+        HStack(spacing: 6) {
+            Rectangle().fill(color).frame(width: size, height: size).frame(width: 9, height: 9)
+            Text(text)
+        }
+    }
+}
+
+struct JourneyMetric: View {
+    @Environment(\.theme) private var theme
+    let title: String
+    let value: String
+    let detail: String
+    let color: Color
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title).font(Theme.pixel()).foregroundStyle(theme.textMuted)
+            Text(value).font(Theme.pixel(24)).foregroundStyle(color)
+            Text(detail).font(Theme.pixel()).foregroundStyle(theme.textMuted)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer(minLength: 0)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .padding(12).background(theme.surfaceRaised).pixelBorder(theme.border)
+    }
+}
+
 struct FootprintsView: View {
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
@@ -56,6 +137,7 @@ struct RoadClueView: View {
                 .foregroundStyle(theme.text).fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxHeight: .infinity, alignment: .topLeading)
         .padding(12).background(theme.surfaceRaised).pixelBorder(theme.border)
     }
 }

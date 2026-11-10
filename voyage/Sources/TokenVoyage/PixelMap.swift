@@ -3,92 +3,106 @@ import VoyageCore
 
 @MainActor
 enum PixelMap {
-    private struct Point: Hashable { let x: Int; let y: Int }
-    private struct HomeKey: Hashable { let themeID: String; let point: Point }
-    private struct RouteKey: Equatable {
-        let stops: [Point]
-        let here: Point
-        let origin: Point
-        let target: Point
+    private struct FrameKey: Equatable {
+        let viewport: MapViewport
+        let markers: MapMarkers
     }
-    private static var bases: [String: [UInt32?]] = [:]
-    private static var homes: [HomeKey: CGImage] = [:]
-    // Only the latest route frame is retained for each theme; moving never grows the cache.
-    private static var routes: [String: (key: RouteKey, image: CGImage)] = [:]
+    private static let land = WorldMapData.rows.map { Array($0.utf8) }
+    private static var bases: [String: (viewport: MapViewport, pixels: [UInt32?])] = [:]
+    // Keep the latest home choice and both blink frames per theme; movement never grows the cache.
+    private static var homes: [String: (point: MapPoint, image: CGImage)] = [:]
+    private static var frames: [String: (key: FrameKey, visible: CGImage, hidden: CGImage)] = [:]
 
-    private static func base(theme: AppTheme) -> [UInt32?] {
-        if let pixels = bases[theme.id] { return pixels }
-        let pixels: [UInt32?] = WorldMapData.rows.flatMap { row in
-            row.map { theme.rgb($0 == "#" ? .mapLand : .mapSea) }
+    private static func base(viewport: MapViewport, theme: AppTheme) -> [UInt32?] {
+        if let cached = bases[theme.id], cached.viewport == viewport { return cached.pixels }
+        let sea = theme.rgb(.mapSea), ground = theme.rgb(.mapLand)
+        let pixels: [UInt32?] = (0..<MapViewport.height).flatMap { y in
+            (0..<MapViewport.width).map { x in
+                let worldX = viewport.x + (Double(x) + 0.5) / Double(viewport.scale)
+                let worldY = viewport.y + (Double(y) + 0.5) / Double(viewport.scale)
+                let sourceX = Int(floor(worldX / Double(MapViewport.width) * Double(WorldMapData.width)))
+                let wrappedX = (sourceX % WorldMapData.width + WorldMapData.width) % WorldMapData.width
+                let sourceY = min(Int(worldY / Double(MapViewport.height) * Double(WorldMapData.height)), WorldMapData.height - 1)
+                return land[sourceY][wrappedX] == 35 ? ground : sea
+            }
         }
-        bases[theme.id] = pixels
+        bases[theme.id] = (viewport, pixels)
         return pixels
     }
 
-    private static func project(_ point: Coordinate) -> Point {
-        let width = Double(WorldMapData.width)
-        let height = Double(WorldMapData.height)
-        let x = Int((point.lon + 180) / 360 * width)
-        let y = Int((WorldMapData.latTop - point.lat) / (WorldMapData.latTop - WorldMapData.latBottom) * height)
-        return Point(x: min(max(x, 0), WorldMapData.width - 1), y: min(max(y, 0), WorldMapData.height - 1))
+    private static func plot(_ point: MapPoint, color: UInt32, wrapsLongitude: Bool, pixels: inout [UInt32?]) {
+        let x = wrapsLongitude ? (point.x % MapViewport.width + MapViewport.width) % MapViewport.width : point.x
+        guard (0..<MapViewport.width).contains(x), (0..<MapViewport.height).contains(point.y) else { return }
+        pixels[point.y * MapViewport.width + x] = color
+    }
+
+    private static func house(_ point: MapPoint, theme: AppTheme, wrapsLongitude: Bool, pixels: inout [UInt32?]) {
+        // 3×3 silhouette, matching the mockup: one roof pixel over two three-pixel rows.
+        for (dx, dy) in [(0, -1), (-1, 0), (0, 0), (1, 0), (-1, 1), (0, 1), (1, 1)] {
+            plot(MapPoint(x: point.x + dx, y: point.y + dy), color: theme.rgb(.mapMarker), wrapsLongitude: wrapsLongitude, pixels: &pixels)
+        }
+    }
+
+    private static func make(_ pixels: [UInt32?]) -> CGImage {
+        PixelImage.make(width: MapViewport.width, height: MapViewport.height, pixels: pixels)
     }
 
     static func homeImage(_ city: City, theme: AppTheme) -> CGImage {
-        let point = project(city.coordinate)
-        let key = HomeKey(themeID: theme.id, point: point)
-        if let image = homes[key] { return image }
-        var pixels = base(theme: theme)
-        for dy in -1...1 {
-            for dx in -1...1 {
-                let x = min(max(point.x + dx, 0), WorldMapData.width - 1)
-                let y = min(max(point.y + dy, 0), WorldMapData.height - 1)
-                pixels[y * WorldMapData.width + x] = dx == 0 && dy == 0 ? theme.rgb(.mapPosition) : theme.rgb(.mapMarker)
-            }
-        }
-        let image = PixelImage.make(width: WorldMapData.width, height: WorldMapData.height, pixels: pixels)
-        homes[key] = image
+        let point = MapViewport.world.point(city.coordinate)
+        if let cached = homes[theme.id], cached.point == point { return cached.image }
+        var pixels = base(viewport: .world, theme: theme)
+        house(point, theme: theme, wrapsLongitude: true, pixels: &pixels)
+        let image = make(pixels)
+        homes[theme.id] = (point, image)
         return image
     }
 
-    static func image(for state: JourneyState, catalog: CityCatalog, theme: AppTheme) -> CGImage {
-        let key = RouteKey(stops: state.route.compactMap { catalog.find($0) }.map { project($0.coordinate) },
-                           here: project(state.position), origin: project(state.legFrom), target: project(state.legTo))
-        if let cached = routes[theme.id], cached.key == key { return cached.image }
-        var pixels = base(theme: theme)
-        let width = WorldMapData.width
-        let height = WorldMapData.height
-
-        func plot(_ x: Int, _ y: Int, _ color: UInt32) {
-            let wrapped = (x % width + width) % width
-            guard (0..<height).contains(y) else { return }
-            pixels[y * width + wrapped] = color
-        }
-
-        func line(_ from: Point, _ to: Point, _ color: UInt32, dotted: Bool = false) {
-            var endX = to.x
-            if endX - from.x > width / 2 { endX -= width }
-            if from.x - endX > width / 2 { endX += width }
-            let steps = max(abs(endX - from.x), abs(to.y - from.y), 1)
-            for step in 0...steps where !dotted || step % 2 == 0 {
-                let x = from.x + (endX - from.x) * step / steps
-                let y = from.y + (to.y - from.y) * step / steps
-                plot(x, y, color)
+    static func image(for state: JourneyState, catalog: CityCatalog, theme: AppTheme, currentVisible: Bool = true) -> CGImage {
+        let viewport = MapViewport(journey: state, catalog: catalog)
+        let markers = MapMarkers(journey: state, catalog: catalog, viewport: viewport)
+        let key = FrameKey(viewport: viewport, markers: markers)
+        if let cached = frames[theme.id], cached.key == key { return currentVisible ? cached.visible : cached.hidden }
+        var pixels = base(viewport: viewport, theme: theme)
+        for point in markers.stayed { plot(point, color: theme.rgb(.mapStayed), wrapsLongitude: viewport.isWorld, pixels: &pixels) }
+        house(markers.home, theme: theme, wrapsLongitude: viewport.isWorld, pixels: &pixels)
+        let hidden = make(pixels)
+        if let current = markers.current {
+            for (dx, dy) in [(0, 0), (1, 0), (0, 1), (1, 1)] {
+                plot(MapPoint(x: current.x + dx, y: current.y + dy), color: theme.rgb(.mapPosition), wrapsLongitude: viewport.isWorld, pixels: &pixels)
             }
         }
+        let visible = markers.current == nil ? hidden : make(pixels)
+        frames[theme.id] = (key, visible, hidden)
+        return currentVisible ? visible : hidden
+    }
 
-        let stops = key.stops
-        for (from, to) in zip(stops, stops.dropFirst()) { line(from, to, theme.rgb(.mapRoute)) }
-        let here = key.here
-        let origin = key.origin
-        let target = key.target
-        line(here, target, theme.rgb(.mapMarker), dotted: true)
-        line(origin, here, theme.rgb(.mapRoute))
-        for stop in stops { plot(stop.x, stop.y, theme.rgb(.mapMarker)) }
-        plot(target.x, target.y, theme.rgb(.mapDestination))
-        for (dx, dy) in [(0, 0), (1, 0), (0, 1), (1, 1)] { plot(here.x + dx, here.y + dy, theme.rgb(.mapPosition)) }
-        let image = PixelImage.make(width: width, height: height, pixels: pixels)
-        routes[theme.id] = (key, image)
-        return image
+    static func currentVisible(at date: Date) -> Bool {
+        Int(floor(date.timeIntervalSinceReferenceDate / 0.7)) % 2 == 0
+    }
+}
+
+/// Shared by the journey page and expanded notch. Snapshots always show the amber marker.
+struct JourneyMapView: View {
+    @Environment(\.theme) private var theme
+    let state: JourneyState
+    let catalog: CityCatalog
+    let availableWidth: CGFloat
+    let borderColor: Color
+    var animate = true
+
+    var body: some View {
+        if animate && !state.petIsHome {
+            TimelineView(.animation(minimumInterval: 0.7)) { context in
+                map(currentVisible: PixelMap.currentVisible(at: context.date))
+            }
+        } else {
+            map(currentVisible: true)
+        }
+    }
+
+    private func map(currentVisible: Bool) -> some View {
+        PixelMapView(image: PixelMap.image(for: state, catalog: catalog, theme: theme, currentVisible: currentVisible),
+                     availableWidth: availableWidth, borderColor: borderColor)
     }
 }
 

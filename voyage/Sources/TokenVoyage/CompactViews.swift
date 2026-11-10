@@ -126,9 +126,9 @@ struct NotchExpandedView: View {
                 HStack(alignment: .top, spacing: 12) {
                     VStack(alignment: .leading, spacing: 6) {
                         Button(action: onOpen) {
-                            PixelMapView(image: PixelMap.image(for: state, catalog: catalog, theme: theme),
-                                     availableWidth: min(metrics.expandedSize.width - 32 - 12 - 230, model.roadClueText == nil ? .infinity : 300),
-                                     borderColor: theme.notchControlOff)
+                            JourneyMapView(state: state, catalog: catalog,
+                                           availableWidth: min(metrics.expandedSize.width - 32 - 12 - 230, model.roadClueText == nil ? .infinity : 300),
+                                           borderColor: theme.notchControlOff, animate: !model.isSnapshotMode)
                         }
                         .buttonStyle(.plain)
                         .accessibilityLabel(l10n("menu.openPostOffice"))
@@ -182,7 +182,7 @@ struct NotchExpandedView: View {
                                 .foregroundStyle(theme.notchMileageText)
                             Text(l10n("compact.fuel", l10n.tokens(model.todayTokens)))
                             if let totals = model.todayTotals {
-                                Text(l10n("compact.total", Format.tokens(totals.total, language: l10n.language), Format.cost(totals.cost)))
+                                Text(l10n("compact.cost", Format.cost(totals.cost)))
                                     .foregroundStyle(theme.notchTextMuted)
                             }
                             Text(display.status).fixedSize(horizontal: false, vertical: true)

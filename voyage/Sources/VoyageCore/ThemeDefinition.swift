@@ -40,10 +40,9 @@ public enum ThemeToken: String, CaseIterable, Sendable {
     case mapSea
     case mapLand
     case mapBorder
-    case mapRoute
     case mapMarker
     case mapPosition
-    case mapDestination
+    case mapStayed
     case roomWall
     case roomWallLine
     case roomFloor

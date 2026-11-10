@@ -281,6 +281,15 @@ enum Snapshots {
         render(MainView(model: model), size: CGSize(width: 760, height: 620), name: "main-settings", directory, model: model)
         let settingsSize = CGSize(width: 760, height: 2100)
         render(MainView(model: model), size: settingsSize, name: "settings-full", directory, model: model)
+        if let catalog = model.catalog {
+            model.withSnapshotState({ state in
+                state = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: model.now), now: model.now, catalog: catalog)
+                state.phase = .pending
+            }) {
+                render(MainView(model: model), size: CGSize(width: 760, height: 2600),
+                       name: "settings-home-picker", directory, model: model)
+            }
+        }
         model.notifications.withSnapshotAuthorization(.denied) {
             render(MainView(model: model), size: settingsSize, name: "settings-denied", directory, model: model)
         }
@@ -478,9 +487,12 @@ enum Snapshots {
         guard let catalog = model.catalog else { return }
         let metrics = [NotchMetrics(notchWidth: 180, barHeight: 37), NotchMetrics(notchWidth: 0, barHeight: 24)]
         for phase in [JourneyState.Phase.home, .pending, .outbound, .staying, .returning] {
-            let example = homePhaseExample(phase: phase, catalog: catalog, now: model.now, petName: model.petName)
+            let example = journeyPhaseExample(phase: phase, catalog: catalog, now: model.now, petName: model.petName)
             model.withSnapshotCare({ $0 = example.care }) {
                 model.withSnapshotState({ $0 = example.journey }) {
+                    model.navigate(to: .journey)
+                    render(MainView(model: model), size: CGSize(width: 760, height: 900),
+                           name: "journey-phase-\(phase.rawValue)", directory, model: model)
                     for metric in metrics {
                         let name = metric.notchWidth == 0 ? "external-bar" : "notch"
                         render(NotchCollapsedView(model: model, metrics: metric), size: metric.collapsedSize,
@@ -519,6 +531,17 @@ enum Snapshots {
                 }
             }
         }
+        for phase in [JourneyState.Phase.home, .pending] {
+            var firstTrip = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: model.now), now: model.now, catalog: catalog)
+            firstTrip.phase = phase
+            model.withSnapshotState({ $0 = firstTrip }) {
+                model.navigate(to: .journey)
+                render(MainView(model: model), size: CGSize(width: 760, height: 900),
+                       name: "journey-first-\(phase.rawValue)-world", directory, model: model)
+                render(NotchExpandedView(model: model, metrics: metrics[0]), size: metrics[0].expandedSize,
+                       name: "notch-first-\(phase.rawValue)-world", directory, model: model)
+            }
+        }
         var passport = homePhaseExample(phase: .staying, catalog: catalog, now: model.now, petName: model.petName)
         passport.journey.route = ["hangzhou", "suzhou", "jingdezhen", "suzhou", "jingdezhen", "jingdezhen"]
         var firstStay = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: model.now), now: model.now, catalog: catalog)
@@ -536,6 +559,27 @@ enum Snapshots {
                 render(MainView(model: model), size: CGSize(width: 760, height: 620), name: "passport-no-stays", directory, model: model)
             }
         }
+    }
+
+    static func journeyPhaseExample(phase: JourneyState.Phase, catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
+        var example = homePhaseExample(phase: phase, catalog: catalog, now: now, petName: petName)
+        let calendar = Calendar.current, today = DayKey.string(from: now)
+        let clue = journeyExamples(catalog: catalog, now: now, petName: petName).journey.days[today]?.roadClueDecision
+        example.journey.days[today, default: DayRecord()].roadClueDecision = clue
+        example.journey.days[today]?.tokens = 360 * outboundTokensPerKm
+        for offset in 1...14 {
+            let date = DayKey.string(from: calendar.date(byAdding: .day, value: -offset, to: now)!)
+            example.journey.days[date, default: DayRecord()].tokens = 366 * outboundTokensPerKm
+        }
+        example.journey.totalKm = 9820
+        if example.journey.petIsHome {
+            // The preview is for a new destination; the map must keep the previous Jingdezhen region.
+            let next = catalog.city("tokyo")
+            example.journey.targetCityId = next.id
+            example.journey.legTo = next.coordinate
+            example.journey.legCost = JourneyState.cost(from: catalog.city(example.journey.homeCityId), to: next)
+        }
+        return example
     }
 
     static func homePhaseExample(phase: JourneyState.Phase, catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {

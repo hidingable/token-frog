@@ -31,7 +31,15 @@ swift test
 TOKEN_VOYAGE_DATA_DIR=/tmp/voyage-data build/TokenVoyage.app/Contents/MacOS/TokenVoyage --snapshot /tmp/voyage-shots
 ```
 
-世界地图由 `scripts/generate-worldmap.py` 从 world-atlas 的 `land-110m.json` 生成，平时不需要重跑。
+世界地图由 `scripts/generate-worldmap.py` 从 npm 包 `world-atlas@2.0.2` 的 `land-50m.json`（Natural Earth 1:50m 陆地轮廓）生成，平时不需要重跑。网格为 480×200，覆盖北纬 84° 到南纬 60°；每格约 0.75° 经度、0.72° 纬度，比原来的 120×50 在两个方向各细 4 倍。约 99 KB 的内置数据能保留更多海岸线与岛屿细节，区域放大仍会呈现像素格，小于一格的岛屿不保证显示。
+
+将该版本的 `land-50m.json` 放入被忽略的 `.vendor/world-atlas/`，在 `voyage/` 目录运行：
+
+```bash
+python3 scripts/generate-worldmap.py .vendor/world-atlas/land-50m.json Sources/VoyageCore/WorldMapData.swift
+```
+
+生成器只使用 Python 标准库；需要比较其他网格密度时可附加 `--width` 和 `--height`，输出路径可另选，避免覆盖内置地图。
 
 重新生成城市数据：将 Natural Earth 的 `ne_10m_populated_places.dbf` 放入被忽略的 `.vendor/natural-earth/`，在项目目录运行 `swift scripts/generate-world-cities.swift`。
 

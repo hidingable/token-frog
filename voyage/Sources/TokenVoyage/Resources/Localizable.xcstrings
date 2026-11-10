@@ -1333,13 +1333,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "计入里程 %@"
+            "value": "今天 %@"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mileage: %@"
+            "value": "Today %@"
           }
         }
       }
@@ -1374,23 +1374,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Click to open"
-          }
-        }
-      }
-    },
-    "compact.total": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "总量 %@ · %@"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Total %@ · %@"
           }
         }
       }
@@ -2092,40 +2075,6 @@
         }
       }
     },
-    "journey.todayFuel": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "今天计入里程 %@"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Counted toward mileage today: %@"
-          }
-        }
-      }
-    },
-    "journey.total": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "累计 %@ · 100 万 token = 1 km"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Total %@ · 1,000,000 tokens = 1 km"
-          }
-        }
-      }
-    },
     "language.en": {
       "extractionState": "manual",
       "localizations": {
@@ -2556,13 +2505,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "世界地图，宠物正从%@前往%@"
+            "value": "旅行地图，%@，%@"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "World map. Your pet is traveling from %@ to %@."
+            "value": "Journey map. %@. %@."
           }
         }
       }
@@ -3876,23 +3825,6 @@
         }
       }
     },
-    "journey.route": {
-      "extractionState": "manual",
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ → %@"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ → %@"
-          }
-        }
-      }
-    },
     "compact.destination": {
       "extractionState": "manual",
       "localizations": {
@@ -3981,64 +3913,64 @@
     "snapshot.exampleDirectory": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/example"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "/示例"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "/example"
           }
         }
       }
     },
     "city.unknown": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unknown city"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "未知城市"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown city"
           }
         }
       }
     },
     "country.unknown": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unknown country"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "未知国家"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown country"
           }
         }
       }
     },
     "recovery.content": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Content files are damaged. Please reinstall the app."
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "内容文件损坏，请重新安装应用"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Content files are damaged. Please reinstall the app."
           }
         }
       }
@@ -7490,96 +7422,96 @@
     },
     "mail.postcards": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Postcards"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "明信片"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Postcards"
           }
         }
       }
     },
     "mail.weekly": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Long letters"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "长信"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Long letters"
           }
         }
       }
     },
     "mail.travelEmpty": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Travel letters are on their way. After a day of travel, a letter arrives the next day."
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "旅行信还在路上。有用量的一天，次日会收到它的信。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Travel letters are on their way. After a day of travel, a letter arrives the next day."
           }
         }
       }
     },
     "mail.postcardsEmpty": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No postcards yet. A quiet day visiting the post office is worth remembering too."
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "这里还没有明信片。打开邮局歇脚的一天，也值得记下来。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No postcards yet. A quiet day visiting the post office is worth remembering too."
           }
         }
       }
     },
     "mail.weeklyEmpty": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A long letter arrives on Sunday, gathering the stories from Monday through Saturday."
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "长信会在周日送达，把周一到周六的故事放在一起。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A long letter arrives on Sunday, gathering the stories from Monday through Saturday."
           }
         }
       }
     },
     "letter.weeklyTitle": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sunday letter"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "周日长信"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunday letter"
           }
         }
       }
@@ -8164,16 +8096,16 @@
     },
     "home.status.fund": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Travel fund %@"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "路费 %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Travel fund %@"
           }
         }
       },
@@ -8181,16 +8113,16 @@
     },
     "home.status.home": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "At home"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "在家"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "At home"
           }
         }
       },
@@ -8198,16 +8130,16 @@
     },
     "home.status.returned": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "At home · Just back from %@"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "在家 · 刚从%@回来"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "At home · Just back from %@"
           }
         }
       },
@@ -8215,16 +8147,16 @@
     },
     "home.status.brought": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Brought back %d items, now in the post office"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "带回 %d 件，已放进邮局"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brought back %d items, now in the post office"
           }
         }
       },
@@ -8232,16 +8164,16 @@
     },
     "home.status.nextTrip": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "It will plan the next trip when you start work"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "你一开工，它就准备下一趟"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "It will plan the next trip when you start work"
           }
         }
       },
@@ -8249,16 +8181,16 @@
     },
     "home.status.pending": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Getting ready → %@"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "准备出门 → %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Getting ready → %@"
           }
         }
       },
@@ -8266,16 +8198,16 @@
     },
     "home.status.departure": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Leaving in %d min · Carrying %@"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "%d 分后出发 · 带着%@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leaving in %d min · Carrying %@"
           }
         }
       },
@@ -8283,16 +8215,16 @@
     },
     "home.status.emptyBag": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "an empty bag"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "空行囊"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "an empty bag"
           }
         }
       },
@@ -8300,16 +8232,16 @@
     },
     "home.status.outbound": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "On the way to %@"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "前往%@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On the way to %@"
           }
         }
       },
@@ -8317,16 +8249,16 @@
     },
     "home.status.staying": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "In %@ · Staying %d h %d min more"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "在%@ · 还停 %d 时 %d 分"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In %@ · Staying %d h %d min more"
           }
         }
       },
@@ -8334,16 +8266,16 @@
     },
     "home.status.returning": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Heading home · %@ to go"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "回家 · 还差 %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heading home · %@ to go"
           }
         }
       },
@@ -8351,16 +8283,16 @@
     },
     "home.status.pendingBubble": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Off to %@"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "我去趟%@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off to %@"
           }
         }
       },
@@ -8368,16 +8300,16 @@
     },
     "floor.parcel.open": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unwrap parcel: %@"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "拆包裹：%@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unwrap parcel: %@"
           }
         }
       },
@@ -8385,16 +8317,16 @@
     },
     "floor.parcel.collected": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Put away · %@"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "收好了 · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Put away · %@"
           }
         }
       },
@@ -8402,16 +8334,16 @@
     },
     "floor.rug.patch": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Travel rug: %@ · First stay %@"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "旅行地毯：%@ · 第一次停留 %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Travel rug: %@ · First stay %@"
           }
         }
       },
@@ -8419,16 +8351,16 @@
     },
     "floor.rug.firstStay": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "First stay: %@"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "第一次停留：%@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First stay: %@"
           }
         }
       },
@@ -8436,16 +8368,16 @@
     },
     "floor.board.open": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lift the loose floorboard to revisit an old memory"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "掀开松动的地板，看看旧事"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lift the loose floorboard to revisit an old memory"
           }
         }
       },
@@ -8453,16 +8385,16 @@
     },
     "floor.crate.nailed": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d more stamps"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "还差 %d 章"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d more stamps"
           }
         }
       },
@@ -8470,16 +8402,16 @@
     },
     "floor.crate.ready": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Open gift box"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "打开礼盒"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open gift box"
           }
         }
       },
@@ -8487,16 +8419,16 @@
     },
     "floor.crate.opened": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Opened this week"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "本周已打开"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opened this week"
           }
         }
       },
@@ -8504,16 +8436,16 @@
     },
     "floor.crate.label": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Weekly crate: %@"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "本周木箱：%@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weekly crate: %@"
           }
         }
       },
@@ -8521,16 +8453,16 @@
     },
     "floor.crate.title": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Weekly crate"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "本周木箱"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weekly crate"
           }
         }
       },
@@ -8539,16 +8471,16 @@
     "home.status.broughtOne": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Brought back %d item, now in the post office"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "带回 %d 件，已放进邮局"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brought back %d item, now in the post office"
           }
         }
       }
@@ -8556,16 +8488,16 @@
     "floor.crate.nailedOne": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d more stamp"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "还差 %d 章"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d more stamp"
           }
         }
       }
@@ -8573,16 +8505,16 @@
     "home.bubble.returned": {
       "extractionState": "manual",
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "I'm home!"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "我回来了！"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I'm home!"
           }
         }
       }
@@ -8991,6 +8923,295 @@
           "stringUnit": {
             "state": "translated",
             "value": "Read a letter from %@"
+          }
+        }
+      }
+    },
+    "compact.cost": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "费用 %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cost %@"
+          }
+        }
+      }
+    },
+    "journey.cumulative": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "累计"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total"
+          }
+        }
+      }
+    },
+    "journey.earth": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "绕地球 %d%%"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d%% around Earth"
+          }
+        }
+      }
+    },
+    "journey.fund": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "路费"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Travel fund"
+          }
+        }
+      }
+    },
+    "journey.fundCap": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上限 %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cap %@"
+          }
+        }
+      }
+    },
+    "journey.status.departure": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "离家 %@ · %d 分后出发"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ from home · Leaves in %d min"
+          }
+        }
+      }
+    },
+    "journey.status.home": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在家 · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "At home · %@"
+          }
+        }
+      }
+    },
+    "journey.status.next": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下一站 %@ · 离家 %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next: %@ · %@ from home"
+          }
+        }
+      }
+    },
+    "journey.status.outbound": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "去程 · %@ → %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outbound · %@ → %@"
+          }
+        }
+      }
+    },
+    "journey.status.pending": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "待发 · %@ → %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pending · %@ → %@"
+          }
+        }
+      }
+    },
+    "journey.status.returning": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "回程 · %@ → %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Returning · %@ → %@"
+          }
+        }
+      }
+    },
+    "journey.status.stayTime": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还停 %d 时 %d 分"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Staying %d h %d min more"
+          }
+        }
+      }
+    },
+    "journey.status.staying": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "停留 · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Staying · %@"
+          }
+        }
+      }
+    },
+    "journey.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今天"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today"
+          }
+        }
+      }
+    },
+    "map.current": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "现在位置（闪烁，在家时不显示）"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Current (blinks; hidden at home)"
+          }
+        }
+      }
+    },
+    "map.home": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "家"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Home"
+          }
+        }
+      }
+    },
+    "map.stayed": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "停留过的城市"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cities stayed in"
           }
         }
       }

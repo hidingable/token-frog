@@ -22,6 +22,56 @@ private final class JourneyDetailsDefaults: UserDefaults, @unchecked Sendable {
     private var now: Date { Calendar.current.date(from: DateComponents(year: 2026, month: 11, day: 9, hour: 12))! }
 
     @Test(arguments: [Language.zhHans, .en])
+    func journeyStatusNamesTheRightEndpointsAndRemainingDistanceForEachPhase(language: Language) {
+        let catalog = localizationCatalog, l10n = L10n(language: language)
+        var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: now), now: now, catalog: catalog)
+        journey.targetCityId = "jingdezhen"
+        journey.legTo = catalog.city("jingdezhen").coordinate
+        journey.legCost = 440 * outboundTokensPerKm
+        journey.legFuel = 360 * outboundTokensPerKm
+        let cases: [(JourneyState.Phase, String, String)] = language == .zhHans ? [
+            (.home, "在家 · 上海", "下一站 景德镇 · 离家 440 km"),
+            (.pending, "待发 · 上海 → 景德镇", "离家 440 km · 28 分后出发"),
+            (.outbound, "去程 · 上海 → 景德镇", "还差 80 km"),
+            (.staying, "停留 · 景德镇", "还停 2 时 17 分"),
+            (.returning, "回程 · 景德镇 → 上海", "还差 80 km"),
+        ] : [
+            (.home, "At home · Shanghai", "Next: Jingdezhen · 440 km from home"),
+            (.pending, "Pending · Shanghai → Jingdezhen", "440 km from home · Leaves in 28 min"),
+            (.outbound, "Outbound · Shanghai → Jingdezhen", "80 km to go"),
+            (.staying, "Staying · Jingdezhen", "Staying 2 h 17 min more"),
+            (.returning, "Returning · Jingdezhen → Shanghai", "80 km to go"),
+        ]
+        for (phase, title, detail) in cases {
+            journey.phase = phase
+            journey.phaseSince = now.addingTimeInterval(phase == .staying ? -(3 * 3600 + 43 * 60) : -120)
+            journey.currentCityId = phase == .staying || phase == .returning ? "jingdezhen" : "shanghai"
+            if phase == .returning {
+                journey.targetCityId = journey.homeCityId
+                journey.legFrom = catalog.city("jingdezhen").coordinate
+                journey.legTo = journey.homeCoordinate
+                journey.legCost = 440 * returnTokensPerKm
+                journey.legFuel = 360 * returnTokensPerKm
+            }
+            let display = JourneyStatusDisplay(journey: journey, now: now, catalog: catalog, l10n: l10n)
+            #expect(display.title == title && display.detail == detail)
+            #expect((display.progress != nil) == (phase == .outbound || phase == .returning))
+        }
+    }
+
+    @Test(arguments: [JourneyState.Phase.pending, .staying])
+    func journeyCountdownRoundsUpAndStopsAtZero(phase: JourneyState.Phase) {
+        var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: now), now: now, catalog: localizationCatalog)
+        journey.phase = phase
+        let duration = phase == .pending ? 30 * 60 : 6 * 3600
+        journey.phaseSince = now.addingTimeInterval(-Double(duration) + 1)
+        let one = JourneyStatusDisplay(journey: journey, now: now, catalog: localizationCatalog, l10n: L10n(language: .en))
+        #expect(one.detail.hasSuffix(phase == .pending ? "Leaves in 1 min" : "0 h 1 min more"))
+        let zero = JourneyStatusDisplay(journey: journey, now: now.addingTimeInterval(2), catalog: localizationCatalog, l10n: L10n(language: .en))
+        #expect(zero.detail.hasSuffix(phase == .pending ? "Leaves in 0 min" : "0 h 0 min more"))
+    }
+
+    @Test(arguments: [Language.zhHans, .en])
     func snapshotExamplesCoverFootprintsEmptyStatesAndBilingualClues(language: Language) throws {
         let l10n = L10n(language: language)
         let example = Snapshots.journeyExamples(catalog: localizationCatalog, now: now, petName: "Pip")

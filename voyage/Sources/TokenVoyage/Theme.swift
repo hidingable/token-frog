@@ -75,10 +75,9 @@ struct AppTheme: Equatable, Sendable {
     var mapSea: Color { color(.mapSea) }
     var mapLand: Color { color(.mapLand) }
     var mapBorder: Color { color(.mapBorder) }
-    var mapRoute: Color { color(.mapRoute) }
     var mapMarker: Color { color(.mapMarker) }
     var mapPosition: Color { color(.mapPosition) }
-    var mapDestination: Color { color(.mapDestination) }
+    var mapStayed: Color { color(.mapStayed) }
     var roomWall: Color { color(.roomWall) }
     var roomWallLine: Color { color(.roomWallLine) }
     var roomFloor: Color { color(.roomFloor) }

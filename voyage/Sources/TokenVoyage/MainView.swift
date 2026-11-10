@@ -151,71 +151,47 @@ struct JourneyTab: View {
 
     var body: some View {
         if let state = model.state, let catalog = model.catalog {
+            let display = JourneyStatusDisplay(journey: state, now: model.now, catalog: catalog, l10n: l10n)
             VStack(alignment: .leading, spacing: 12) {
-                HStack(alignment: .center, spacing: 12) {
-                    SpriteView(pet: state.pet, scale: 4, form: model.petForm, moving: model.isMoving)
-                        .padding(6)
-                        .background(theme.paper)
-                        .pixelBorder(theme.border)
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(Format.km(model.todayKm)).font(Theme.pixel(24)).foregroundStyle(theme.mileageText)
-                        Text(l10n("journey.todayFuel", l10n.tokens(model.todayTokens))).font(Theme.pixel()).foregroundStyle(theme.text)
-                        Text(l10n("journey.total", Format.km(state.totalKm)))
-                            .font(Theme.pixel()).foregroundStyle(theme.textMuted)
+                JourneyMapView(state: state, catalog: catalog, availableWidth: availableWidth,
+                               borderColor: theme.mapBorder, animate: !model.isSnapshotMode)
+                    .accessibilityLabel(l10n("map.description", display.title, display.detail))
+                MapLegend()
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 12) {
+                        statusTitle(display)
+                        Spacer(minLength: 0)
+                        Text(display.detail).foregroundStyle(theme.textMuted)
                     }
-                    Spacer()
-                    VStack(alignment: .trailing, spacing: 4) {
-                        ForEach(model.todayVehicles, id: \.client) { share in
-                            Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
-                        }
+                    VStack(alignment: .leading, spacing: 8) {
+                        statusTitle(display)
+                        Text(display.detail).foregroundStyle(theme.textMuted)
                     }
-                    .font(Theme.pixel())
-                    .foregroundStyle(theme.text)
-                }
-
-                PixelMapView(image: PixelMap.image(for: state, catalog: catalog, theme: theme),
-                             availableWidth: availableWidth, borderColor: theme.mapBorder)
-                    .accessibilityLabel(l10n("map.description", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId))))
-
-                HStack(spacing: 12) {
-                    Text(l10n("journey.route", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId)))).foregroundStyle(theme.text)
-                    BlockProgress(progress: state.legProgress, blocks: 20, size: 8)
-                    Spacer()
-                    Text(l10n("journey.remaining", Format.km(state.remainingKm))).foregroundStyle(theme.textMuted)
                 }
                 .font(Theme.pixel())
-
-                RoadClueView(text: model.roadClueText)
+                HStack(alignment: .top, spacing: 8) {
+                    JourneyMetric(title: l10n("journey.today"), value: Format.km(model.todayKm),
+                                  detail: l10n.tokens(model.todayTokens), color: theme.mileageText)
+                    JourneyMetric(title: l10n("journey.cumulative"), value: Format.km(state.totalKm),
+                                  detail: l10n("journey.earth", Int(state.totalKm / 40_075 * 100)), color: theme.mileageText)
+                    JourneyMetric(title: l10n("journey.fund"), value: Format.km(state.travelFundKm),
+                                  detail: l10n("journey.fundCap", Format.km(state.recentDailyKm(before: DayKey.string(from: model.now)))),
+                                  color: theme.newPlaceText)
+                    RoadClueView(text: model.roadClueText)
+                }
+                .fixedSize(horizontal: false, vertical: true)
                 FootprintsView(footprints: Footprints(journey: state, care: model.care, catalog: catalog, now: model.now), catalog: catalog) {
                     model.openCollection(.passport)
                 }
-                RecentBars(days: model.recentDays)
             }
         }
     }
-}
 
-struct RecentBars: View {
-    @Environment(\.theme) private var theme
-    @Environment(\.l10n) private var l10n
-    var days: [(date: String, km: Double)]
-
-    var body: some View {
-        let top = max(days.map(\.km).max() ?? 1, 1)
-        HStack(alignment: .bottom, spacing: 8) {
-            ForEach(days, id: \.date) { day in
-                VStack(spacing: 4) {
-                    Text(day.km > 0 ? Format.km(day.km) : "-").foregroundStyle(theme.textMuted)
-                    Rectangle()
-                        .fill(day.date == days.last?.date ? theme.mileageFill : theme.textMuted)
-                        .frame(height: max(2, (CGFloat(day.km) / CGFloat(top) * 48).rounded()))
-                    Text(l10n.day(day.date)).foregroundStyle(theme.textMuted)
-                }
-                .frame(maxWidth: .infinity)
-            }
+    private func statusTitle(_ display: JourneyStatusDisplay) -> some View {
+        HStack(spacing: 12) {
+            Text(display.title).foregroundStyle(theme.text)
+            if let progress = display.progress { BlockProgress(progress: progress, blocks: 20, size: 6) }
         }
-        .font(Theme.pixel())
-        .frame(height: 88, alignment: .bottom)
     }
 }
 
