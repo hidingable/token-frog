@@ -36,6 +36,7 @@ export interface Repository {
   getFeatures(): Promise<Features>;
   touchDevice(publicKey: Buffer, seenAt: Date): Promise<void>;
   getApprovedCityContent(cityId: string): Promise<CityContentRow[]>;
+  putCityContent(row: CityContentRow): Promise<void>;
   getWish(hash: string): Promise<WishCacheRow | null>;
   putWish(row: WishCacheRow): Promise<void>;
 }

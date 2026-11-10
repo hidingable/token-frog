@@ -1,0 +1,280 @@
+[
+  {
+    "id": "generic.arrival",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.transit",
+    "version": 1,
+    "kind": "transit",
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.postcard",
+    "version": 1,
+    "kind": "postcard",
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "memoryLead": {
+      "zh-Hans": "记得{memory}",
+      "en": "I remember {memory}"
+    }
+  },
+  {
+    "id": "generic.reunion",
+    "version": 1,
+    "kind": "reunion",
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "memoryLead": {
+      "zh-Hans": "记得{memory}",
+      "en": "I remember {memory}"
+    }
+  },
+  {
+    "id": "generic.fulfill.talkative",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "fulfillsHabit": "talkative"
+  },
+  {
+    "id": "generic.fulfill.observant",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "fulfillsHabit": "observant"
+  },
+  {
+    "id": "generic.sketchbook.arrival",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "item": "sketchbook"
+    },
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.sketchbook.transit",
+    "version": 1,
+    "kind": "transit",
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "item": "sketchbook"
+    },
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.note-slip.arrival",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "item": "note-slip"
+    },
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.note-slip.transit",
+    "version": 1,
+    "kind": "transit",
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "item": "note-slip"
+    },
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.old-camera.arrival",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "item": "old-camera"
+    },
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.old-camera.transit",
+    "version": 1,
+    "kind": "transit",
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "item": "old-camera"
+    },
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.lunchbox.arrival",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "item": "lunchbox"
+    },
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "generic.lunchbox.transit",
+    "version": 1,
+    "kind": "transit",
+    "factIds": [],
+    "tags": [],
+    "requires": {
+      "item": "lunchbox"
+    },
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

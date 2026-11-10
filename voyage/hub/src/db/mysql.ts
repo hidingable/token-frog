@@ -12,6 +12,20 @@ export function createDatabase(config: ReturnType<typeof readDbConfig>): Pool {
   });
 }
 
+/** Shared by the publisher's SQL preview and the actual parameterized write. */
+export function cityContentUpsert(row: CityContentRow) {
+  const values = [row.cityId, row.kind, JSON.stringify(row.content), row.schemaVersion,
+    row.status, row.source, row.generatedAt];
+  return {
+    sql: `INSERT INTO voyage_city_content
+      (id, city_id, kind, content, schema_version, status, source, generated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      ON DUPLICATE KEY UPDATE city_id = ?, kind = ?, content = ?, schema_version = ?,
+      status = ?, source = ?, generated_at = ?`,
+    values: [row.id, ...values, ...values],
+  };
+}
+
 export class MySQLRepository implements Repository {
   constructor(private pool: Pool) {}
 
@@ -48,6 +62,11 @@ export class MySQLRepository implements Repository {
       id: row.id, cityId: row.city_id, kind: row.kind, content: row.content,
       schemaVersion: row.schema_version, status: row.status, source: row.source, generatedAt: row.generated_at,
     }));
+  }
+
+  async putCityContent(row: CityContentRow): Promise<void> {
+    const operation = cityContentUpsert(row);
+    await this.pool.execute(operation.sql, operation.values);
   }
 
   async getWish(hash: string): Promise<WishCacheRow | null> {

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "harbor.arrival",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "harbor-river"
+    ],
+    "tags": [],
+    "requires": {},
+    "fulfills": [],
+    "text": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "replies": [
+      {
+        "id": "harbor.arrival.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "河边的手记",
+          "en": "A riverside note"
+        }
+      },
+      {
+        "id": "harbor.arrival.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "河边的手记",
+          "en": "A riverside note"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "harbor",
+    "lead": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    }
+  }
+]

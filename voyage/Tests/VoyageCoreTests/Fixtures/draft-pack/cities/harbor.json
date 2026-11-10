@@ -1,0 +1,37 @@
+{
+  "id": "harbor",
+  "status": "active",
+  "lat": 31,
+  "lon": 121,
+  "countryCode": "CN",
+  "continent": "asia",
+  "tags": [
+    "river"
+  ],
+  "level": "facts",
+  "names": {
+    "zh-Hans": "小港",
+    "en": "Harbor"
+  },
+  "wikipedia": {
+    "zh-Hans": "小港",
+    "en": "Harbor"
+  },
+  "facts": [
+    {
+      "id": "harbor-river",
+      "type": "place",
+      "names": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      },
+      "summary": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      },
+      "sources": [
+        "https://en.wikipedia.org/wiki/River"
+      ]
+    }
+  ]
+}

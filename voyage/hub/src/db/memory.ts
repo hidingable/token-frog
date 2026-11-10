@@ -22,6 +22,12 @@ export class MemoryRepository implements Repository {
       .sort((a, b) => a.id.localeCompare(b.id)));
   }
 
+  async putCityContent(row: CityContentRow): Promise<void> {
+    const index = this.content.findIndex(existing => existing.id === row.id);
+    if (index < 0) this.content.push(structuredClone(row));
+    else this.content[index] = structuredClone(row);
+  }
+
   async getWish(hash: string): Promise<WishCacheRow | null> {
     return structuredClone(this.wishes.get(hash) ?? null);
   }

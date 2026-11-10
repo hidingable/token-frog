@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "tea": [
+    {
+      "id": "tea.0",
+      "texts": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      }
+    },
+    {
+      "id": "tea.1",
+      "texts": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      }
+    },
+    {
+      "id": "tea.2",
+      "texts": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      }
+    },
+    {
+      "id": "tea.3",
+      "texts": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      }
+    }
+  ],
+  "nightcap": [
+    {
+      "id": "nightcap.0",
+      "texts": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      }
+    },
+    {
+      "id": "nightcap.1",
+      "texts": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      }
+    },
+    {
+      "id": "nightcap.2",
+      "texts": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      }
+    },
+    {
+      "id": "nightcap.3",
+      "texts": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      }
+    }
+  ],
+  "firstVoyage": [
+    {
+      "id": "firstVoyage.0",
+      "texts": {
+        "zh-Hans": "首航 {tool}",
+        "en": "First voyage {tool}"
+      }
+    },
+    {
+      "id": "firstVoyage.1",
+      "texts": {
+        "zh-Hans": "首航 {tool}",
+        "en": "First voyage {tool}"
+      }
+    },
+    {
+      "id": "firstVoyage.2",
+      "texts": {
+        "zh-Hans": "首航 {tool}",
+        "en": "First voyage {tool}"
+      }
+    },
+    {
+      "id": "firstVoyage.3",
+      "texts": {
+        "zh-Hans": "首航 {tool}",
+        "en": "First voyage {tool}"
+      }
+    }
+  ]
+}

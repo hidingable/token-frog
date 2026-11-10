@@ -1,0 +1,173 @@
+[
+  {
+    "id": "sketchbook",
+    "kind": "bag",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "habit": "observant"
+  },
+  {
+    "id": "note-slip",
+    "kind": "bag",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "habit": "talkative"
+  },
+  {
+    "id": "raincoat",
+    "kind": "bag",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    }
+  },
+  {
+    "id": "old-camera",
+    "kind": "bag",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "habit": "observant"
+  },
+  {
+    "id": "lunchbox",
+    "kind": "bag",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "habit": "talkative"
+  },
+  {
+    "id": "generic.common",
+    "kind": "souvenir",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "rarity": "common"
+  },
+  {
+    "id": "generic.uncommon",
+    "kind": "souvenir",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "generic.rare",
+    "kind": "souvenir",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "rarity": "rare"
+  },
+  {
+    "id": "postcard.common",
+    "kind": "souvenir",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "rarity": "common",
+    "source": "postcard"
+  },
+  {
+    "id": "postcard.uncommon",
+    "kind": "souvenir",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "rarity": "uncommon",
+    "source": "postcard"
+  },
+  {
+    "id": "postcard.rare",
+    "kind": "souvenir",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "rarity": "rare",
+    "source": "postcard"
+  },
+  {
+    "id": "reunion.gift",
+    "kind": "souvenir",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "rarity": "common",
+    "source": "reunion"
+  }
+]

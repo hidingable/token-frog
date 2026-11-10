@@ -1,0 +1,18 @@
+{
+  "keywords": {
+    "zh-Hans": {
+      "river": [
+        "河"
+      ]
+    },
+    "en": {
+      "river": [
+        "river"
+      ]
+    }
+  },
+  "unmatched": {
+    "zh-Hans": "河边的手记",
+    "en": "A riverside note"
+  }
+}

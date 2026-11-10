@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "openings": [
+    {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    }
+  ],
+  "closings": [
+    {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    }
+  ],
+  "lines": {
+    "summary": {
+      "zh-Hans": "文字 {start} {end} {distance}",
+      "en": "Text {start} {end} {distance}"
+    },
+    "tools": {
+      "zh-Hans": "文字 {tools}",
+      "en": "Text {tools}"
+    },
+    "noTools": {
+      "zh-Hans": "文字 ",
+      "en": "Text "
+    },
+    "trendUp": {
+      "zh-Hans": "文字 {percent}",
+      "en": "Text {percent}"
+    },
+    "trendDown": {
+      "zh-Hans": "文字 {percent}",
+      "en": "Text {percent}"
+    },
+    "trendSame": {
+      "zh-Hans": "文字 ",
+      "en": "Text "
+    },
+    "trendFromZero": {
+      "zh-Hans": "文字 ",
+      "en": "Text "
+    },
+    "fulfilled": {
+      "zh-Hans": "文字 {event}",
+      "en": "Text {event}"
+    },
+    "rare": {
+      "zh-Hans": "文字 {event}",
+      "en": "Text {event}"
+    },
+    "country": {
+      "zh-Hans": "文字 {event}",
+      "en": "Text {event}"
+    },
+    "longest": {
+      "zh-Hans": "文字 {date} {distance}",
+      "en": "Text {date} {distance}"
+    },
+    "quiet": {
+      "zh-Hans": "文字 ",
+      "en": "Text "
+    }
+  }
+}

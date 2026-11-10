@@ -1,0 +1,134 @@
+{
+  "id": "pet",
+  "order": 1,
+  "names": {
+    "zh-Hans": "小旅",
+    "en": "Pet"
+  },
+  "eggNames": {
+    "zh-Hans": "河边的手记",
+    "en": "A riverside note"
+  },
+  "egg": {
+    "recolor": {}
+  },
+  "sprite": {
+    "size": [
+      16,
+      16
+    ],
+    "rows": [
+      "................",
+      "................",
+      "................",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx"
+    ]
+  },
+  "juvenile": {
+    "size": [
+      20,
+      20
+    ],
+    "rows": [
+      "....................",
+      "....................",
+      "....................",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxxxxxx"
+    ]
+  },
+  "hatchlingMotion": {
+    "footRows": [
+      14,
+      15
+    ],
+    "nightcapAnchor": [
+      0,
+      0
+    ]
+  },
+  "juvenileMotion": {
+    "footRows": [
+      18,
+      19
+    ],
+    "nightcapAnchor": [
+      0,
+      0
+    ]
+  },
+  "accessories": [
+    {
+      "id": "ribbon",
+      "sprite": {
+        "size": [
+          20,
+          20
+        ],
+        "rows": [
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxxxxxx"
+        ]
+      }
+    }
+  ],
+  "quirks": [
+    {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    }
+  ]
+}

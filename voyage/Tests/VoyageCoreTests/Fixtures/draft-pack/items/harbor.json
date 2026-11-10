@@ -1,0 +1,17 @@
+[
+  {
+    "id": "harbor.note",
+    "kind": "souvenir",
+    "icon": "note",
+    "names": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "descriptions": {
+      "zh-Hans": "河边的手记",
+      "en": "A riverside note"
+    },
+    "rarity": "common",
+    "cityId": "harbor"
+  }
+]

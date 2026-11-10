@@ -1,0 +1,74 @@
+{
+  "base": {
+    "size": [
+      16,
+      16
+    ],
+    "rows": [
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx"
+    ]
+  },
+  "cracked": {
+    "size": [
+      16,
+      16
+    ],
+    "rows": [
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx"
+    ]
+  },
+  "placeholder": {
+    "size": [
+      16,
+      16
+    ],
+    "rows": [
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx",
+      "xxxxxxxxxxxxxxxx"
+    ]
+  }
+}

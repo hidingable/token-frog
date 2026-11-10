@@ -1,6 +1,6 @@
 # Voyage Hub
 
-Independent Node 22 / TypeScript service for redesign step 5a. It does not live in or import from Token Monitor's `worker/`. This step supplies configuration, city-content reads and wish classification. Content generation/publishing (5b), the Swift client (5c), stays, sync and pairing are later work. Nothing here deploys the service.
+Independent Node 22 / TypeScript service for redesign steps 5a–5b. It does not live in or import from Token Monitor's `worker/`. It supplies configuration, city-content reads, wish classification and an offline content pipeline. The Swift client (5c), stays, sync and pairing are later work. Nothing here deploys the service.
 
 ## Run and check
 
@@ -16,6 +16,48 @@ npm run dev
 ```
 
 `build` emits `dist/src/server.js`. The server does not create tables or run migrations. Tests use `Fastify.inject`, `MemoryRepository` and fake models, with no database or OpenAI calls. MySQL integration is not part of `npm test`.
+
+## Generating content
+
+`HUB_ENV_FILE` is read with Node's `process.loadEnvFile`: when a key appears twice the last value wins, and variables already set in the shell are never overridden. The shared `voyage/.env` lists the RDS internal host last, which only resolves on the ECS server, so export the external `DB_HOST` before running `publish.ts` from a laptop. `OPENAI_MODEL` must also be set (in the shell or the env file) before `generate.ts` calls the model.
+
+Run from `voyage/hub/` with the existing dependencies and Swift available. Generation only calls the model when `--dry-run` is absent. Environment loading is the same as the server: explicit `HUB_ENV_FILE` or process variables, never an implicit `voyage/.env`. The private env file needs `OPENAI_MODEL`, `OPENAI_API_KEY` and optionally `OPENAI_BASE_URL`; only the later real publish needs `DB_*`.
+
+```sh
+# Review prompts first: no model, database or Swift invocation.
+HUB_ENV_FILE=/absolute/path/to/private.env node --import tsx scripts/generate.ts \
+  --cities hangzhou,suzhou,quanzhou --count 2 --out /tmp/voyage-prompts-5b --dry-run
+
+# A real three-city trial: calls the configured model, then runs Swift validation.
+HUB_ENV_FILE=/absolute/path/to/private.env node --import tsx scripts/generate.ts \
+  --cities hangzhou,suzhou,quanzhou --count 2 --out /tmp/voyage-drafts-5b
+
+# Human review: read every entry in both languages, check against Content/cities/*.json,
+# and edit the stories/items JSON (review.md is a generated reading aid).
+open /tmp/voyage-drafts-5b/review.md
+
+# Revalidate edited drafts, then inspect parameterized SQL without connecting.
+node --import tsx scripts/validate.ts --pack ../Content --drafts /tmp/voyage-drafts-5b
+node --import tsx scripts/publish.ts --drafts /tmp/voyage-drafts-5b --dry-run
+
+# Only after human review, explicitly publish to the already migrated database.
+HUB_ENV_FILE=/absolute/path/to/private.env node --import tsx scripts/publish.ts \
+  --drafts /tmp/voyage-drafts-5b
+```
+
+Use an empty output directory each time; existing outputs are never overwritten. `--count N` defaults to 2 and requests N stories and N souvenirs per city. Prompts live in [scripts/content-prompt.txt](scripts/content-prompt.txt); dry-run records the exact messages and JSON schema in `prompts/<city>.json`. Model calls use structured JSON output, with SDK retries disabled. Invalid JSON, shape or city references get at most one retry; a second failure skips the city. Transport errors skip immediately. Skipped cities are reported and make the generator CLI exit nonzero, while successful cities remain available for review. Cities without verified facts or item examples are skipped. No usage, user data, environment values or secrets are included in prompts. Factual accuracy and originality still require human review.
+
+Successful generation writes pack-shaped arrays to `stories/<city>.json` and `items/<city>.json`, bilingual `review.md`, and `generation.json` with model and generation time per city. Keep that metadata with edited drafts. The generator runs validation automatically unless `--no-validate` is supplied; publishing always revalidates and requires generation metadata. A dry-run generation writes only prompts, so it cannot be published.
+
+The direct Swift command, from `voyage/`, is:
+
+```sh
+swift run voyage-content validate --pack Content --drafts /tmp/voyage-drafts-5b
+```
+
+It copies the pack to a temporary directory, **appends** drafts to the corresponding city arrays, and runs the app's `ContentValidator`. The bundled pack is unchanged. Issues are JSON lines `{file,rule,message}`, and only a clean run exits 0. Extra draft rules reject collisions with any bundled ID or `Content/published-ids.txt` (including reply IDs), cross-draft duplicates, foreign city/fact references and any nested `sponsor` field. Generated stories use arrival/transit kinds with two habit replies; generated items are ordinary souvenirs. Brand cooperation stays absent.
+
+In the database, every story is `kind='play'`, including stories with replies. Questions remain embedded in `Story.replies`; `question` is unused. Items are `kind='souvenir'`. Publishing upserts by entry ID with `status='approved'`, schema version 1 and a source JSON string containing model, generation time and relative draft file. Content JSON itself retains the exact app shape. Generated IDs use a fresh `hub.<city>.<UUID>.` namespace, including replies. Server IDs live **only in the DB**; publishing never appends to the bundled pack's `published-ids.txt`. Re-publishing the same edited drafts updates the same rows; after an interrupted publish it is safe to rerun. No script runs migrations. `--dry-run` validates and prints the exact bound SQL operations without constructing a database pool.
 
 ## Environment
 

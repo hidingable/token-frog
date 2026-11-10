@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "cards": [
+    {
+      "stage": "juvenile",
+      "title": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      },
+      "body": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      }
+    },
+    {
+      "stage": "teen",
+      "title": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      },
+      "body": {
+        "zh-Hans": "河边的手记",
+        "en": "A riverside note"
+      }
+    }
+  ]
+}

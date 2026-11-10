@@ -573,8 +573,9 @@ Voyage Hub 是 Voyage 自己的服务，和 Token Monitor 的 Hub 没有关系�
 
 - **按城市，不按用户：** 城市玩法、问题和纪念品由离线任务批量生成后入库，所有用户共用；同类已有就复用，没有才新增。
 - **不在请求路径上调模型：** 出发和到站的请求只读库。心愿解析是唯一在线调用模型的接口，结果按“规范化心愿文字 + 语言 + 有效标签白名单版本”的 SHA-256 缓存在 `voyage_wish_cache`，不存原文。标签版本取去重排序后列表的哈希；默认直接读取 `Content/tags.json`，请求可用 `allowedTags` 替换白名单。
-- **进库前校验：** 生成结果按内容包的同一套结构和 `ContentValidator` 规则校验，双语完整才可用；模型输出一律当不可信数据，文字按纯文本显示。校验复用 Swift 代码：`VoyageCore` 新增一个命令行入口 `voyage-content validate <目录>`，生成脚本先写草稿 JSON，再调用它，通过的才能发布。
+- **进库前校验：** 生成结果按内容包的同一套结构和 `ContentValidator` 规则校验，双语完整才可用；模型输出一律当不可信数据，文字按纯文本显示。`swift run voyage-content validate --pack Content --drafts <目录>` 在临时副本中将草稿追加到对应城市的故事和物品数组后复用 Swift 校验，输出 `{file,rule,message}` JSON 行。草稿只生成 arrival/transit 故事和 souvenir；事实引用限本城 `facts[].id`，拒绝任何 `sponsor` 字段。
 - **流程：** `hub/scripts/generate` 按城市生成草稿 → `voyage-content validate` → 人工抽查 → `hub/scripts/publish` 写入 `voyage_city_content`（状态 `approved`）。客户端拿到内容后仍按同一规则再校验一次，不通过就丢弃、用内置内容。
+- **种类和 ID：** 故事统一入库为 `play`，问题保留在 `Story.replies`，不另写 `question`；纪念品为 `souvenir`。草稿含回应在内的 ID 使用 `hub.<city>.<UUID>.` 前缀，校验拒绝与内置包任一 ID、`Content/published-ids.txt` 或其他草稿 ID 冲突。服务端 ID 只存数据库，不追加到内置包的 `published-ids.txt`；按条目 ID 幂等 upsert。来源记录模型、生成时间和相对草稿文件，见 `generation.json`；命令与人工审核步骤见 [Hub README](../hub/README.md#generating-content)。
 
 ### 表
 
@@ -602,7 +603,7 @@ Voyage Hub 是 Voyage 自己的服务，和 Token Monitor 的 Hub 没有关系�
 ### 实施顺序
 
 1. **5a 服务（已实现，未部署）：** `voyage/hub/` 骨架、迁移、配置、健康、限流、签名校验、心愿解析、内容读取，含内存仓库和假模型测试；未对真实数据库执行迁移。
-2. **5b 生成：** `voyage-content validate` 命令、生成和发布脚本，先用三座城试跑并人工检查。
+2. **5b 生成（已实现，未真实生成或发布）：** `voyage-content validate`、生成与发布脚本、双语审核清单及离线测试；生成自动校验，发布重新校验，均支持 dry-run，不自动迁移。真实三城模型试跑、人工检查及数据库发布留待显式执行。
 3. **5c 客户端：** Hub 客户端、设备密钥、设置开关、心愿走服务端、出发时拉内容。
 4. **部署：** 在 ECS 上执行迁移、配置 nginx 和 systemd，需要人工确认后进行。
 
