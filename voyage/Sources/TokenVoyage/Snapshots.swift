@@ -311,8 +311,8 @@ enum Snapshots {
 
         render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-collapsed", directory, model: model)
         model.withSnapshotState({ state in
-            state.legCost = max(state.legCost, 12 * fuelPerKm)
-            state.legFuel = state.legCost - 12 * fuelPerKm
+            state.legCost = max(state.legCost, 12 * outboundTokensPerKm)
+            state.legFuel = state.legCost - 12 * outboundTokensPerKm
             for index in state.letters.indices { state.letters[index].read = true }
         }) {
             render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-near-arrival", directory, model: model)
@@ -320,7 +320,7 @@ enum Snapshots {
         if let catalog = model.catalog, let longest = catalog.active.max(by: { model.l10n.cityName($0).count < model.l10n.cityName($1).count }) {
             model.withSnapshotState({ state in
                 state.targetCityId = longest.id
-                state.legCost = max(state.legCost, 500 * fuelPerKm)
+                state.legCost = max(state.legCost, 500 * outboundTokensPerKm)
                 state.legFuel = 0
             }) {
                 render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-long-destination", directory, model: model)
@@ -373,7 +373,7 @@ enum Snapshots {
         for id in 1...2 {
             let next = DayKey.string(from: calendar.date(byAdding: .day, value: id, to: start)!)
             journey.sync(today: DayUsage(date: next), finalized: [
-                DayUsage(date: journey.openDate, fuel: fuelPerKm, byClient: ["codex": fuelPerKm]),
+                DayUsage(date: journey.openDate, fuel: outboundTokensPerKm, byClient: ["codex": outboundTokensPerKm]),
             ], catalog: catalog)
             let index = journey.letters.count - 1
             journey.letters[index].cityId = "hangzhou"
@@ -552,7 +552,7 @@ enum Snapshots {
             let tool = !tea && offset == 15 ? "claude-code" : "codex"
             let next = Calendar.current.date(byAdding: .day, value: offset, to: start)!
             journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
-                DayUsage(date: journey.openDate, fuel: fuel, byClient: [tool: fuel]),
+                DayUsage(date: journey.openDate, fuel: fuel, byClient: [tool: fuel], observedTokens: fuel * 100),
             ], catalog: catalog)
             CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
         }
@@ -571,7 +571,7 @@ enum Snapshots {
             let next = Calendar.current.date(byAdding: .day, value: offset, to: start)!
             let day = journey.openDate
             journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
-                DayUsage(date: day, fuel: 13_400_000, byClient: ["codex": 8_300_000, "claude": 5_100_000]),
+                DayUsage(date: day, fuel: 13_400_000, byClient: ["codex": 8_300_000, "claude": 5_100_000], observedTokens: 1_340_000_000),
             ], catalog: catalog)
             CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
             if offset == 1 {
@@ -611,7 +611,7 @@ enum Snapshots {
             let fuel = quiet || offset == 10 ? 0 : (offset <= 7 ? 8_000_000 : 10_000_000)
             let next = calendar.date(byAdding: .day, value: offset, to: start)!
             journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
-                DayUsage(date: day, fuel: fuel, byClient: fuel == 0 ? [:] : ["codex": fuel * 3 / 4, "claude": fuel / 4]),
+                DayUsage(date: day, fuel: fuel, byClient: fuel == 0 ? [:] : ["codex": fuel * 3 / 4, "claude": fuel / 4], observedTokens: fuel * 100),
             ], catalog: catalog)
             CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
             if !quiet, offset == 8, let letter = journey.letters.last, let reply = letter.replyOptions.first {
@@ -639,7 +639,7 @@ enum Snapshots {
             let day = journey.openDate
             care.bag.todayItem = "sketchbook"
             journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
-                DayUsage(date: day, fuel: fuelPerKm, byClient: ["codex": fuelPerKm]),
+                DayUsage(date: day, fuel: outboundTokensPerKm, byClient: ["codex": outboundTokensPerKm]),
             ], catalog: catalog)
             CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
         }

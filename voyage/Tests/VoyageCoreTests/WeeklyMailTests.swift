@@ -133,7 +133,8 @@ import Testing
         var (journey, care) = settledWeek()
         for day in 26...31 { journey.days["2026-10-\(day)"] = DayRecord() }
         journey.days["2026-10-26"]?.fuel = previous
-        journey.days["2026-11-01"]?.fuel = 50_000_000 // Prior Sunday is excluded too.
+        journey.days["2026-10-26"]?.tokens = previous
+        journey.days["2026-11-01"]?.tokens = 50_000_000 // Prior Sunday is excluded too.
         run(&journey)
         let mail = try #require(journey.letters.last)
         #expect(mail.weeklySummary?.previousFuel == previous)

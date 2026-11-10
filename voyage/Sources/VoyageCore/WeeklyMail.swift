@@ -87,14 +87,17 @@ extension CareEngine {
         }
         let keys = (-6 ... -1).map(key)
         let records = keys.compactMap { journey.days[$0] }
-        guard records.contains(where: { $0.fuel > 0 || $0.mainWindowOpened }) else { return }
+        guard records.contains(where: { ($0.tokens ?? $0.fuel) > 0 || $0.mainWindowOpened }) else { return }
         let fuel = records.reduce(0) { $0 + $1.fuel }
+        let km = records.reduce(0.0) { $0 + $1.km }
         let clients = records.reduce(into: [String: Int]()) { total, record in
             for (client, value) in record.byClient where value > 0 { total[client, default: 0] += value }
         }
         let previousKeys = (-13 ... -8).map(key)
         let previousFuel = previousKeys.allSatisfy { journey.days[$0] != nil }
             ? previousKeys.reduce(0) { $0 + journey.fuel(on: $1) } : nil
+        let previousKm = previousKeys.allSatisfy { journey.days[$0] != nil }
+            ? previousKeys.reduce(0.0) { $0 + journey.days[$1]!.km } : nil
         let events = journey.letters.filter {
             $0.date >= keys[0] && $0.date <= keys[5] && $0.deliverAt <= deliverAt && $0.kind != .weekly
         }.sorted { $0.date == $1.date ? $0.id < $1.id : $0.date < $1.date }
@@ -122,8 +125,8 @@ extension CareEngine {
             highlight = .init(kind: "country", date: date, letterId: nil)
             eventTexts = names
             eventKey = "country"
-        } else if let date = keys.filter({ journey.fuel(on: $0) > 0 }).sorted(by: {
-            journey.fuel(on: $0) == journey.fuel(on: $1) ? $0 < $1 : journey.fuel(on: $0) > journey.fuel(on: $1)
+        } else if let date = keys.filter({ (journey.days[$0]?.km ?? 0) > 0 }).sorted(by: {
+            journey.days[$0]!.km == journey.days[$1]!.km ? $0 < $1 : journey.days[$0]!.km > journey.days[$1]!.km
         }).first {
             highlight = .init(kind: "longest", date: date, letterId: nil)
             eventKey = "longest"
@@ -138,6 +141,7 @@ extension CareEngine {
         var letter = Letter(
             id: (journey.letters.map(\.id).max() ?? 0) + 1, kind: .weekly, date: sundayKey,
             pet: journey.pet, cityId: journey.currentCityId, arrivals: [], newCountries: [], fuel: fuel,
+            tokens: records.reduce(0) { $0 + ($1.tokens ?? 0) },
             vehicles: vehicles, isDeepVisit: false, deliverAt: deliverAt, enrichmentDone: true
         )
         letter.weeklySummary = .init(weekStart: keys[0], weekEnd: keys[5], fuel: fuel, byClient: clients, previousFuel: previousFuel, highlight: highlight)
@@ -150,18 +154,18 @@ extension CareEngine {
                 }
                 return text
             }
-            var parts = [opening[language]!, line("summary", ["start": letterDay(keys[0], language: language, calendar: calendar), "end": letterDay(keys[5], language: language, calendar: calendar), "distance": Format.km(fuel: fuel)])]
+            var parts = [opening[language]!, line("summary", ["start": letterDay(keys[0], language: language, calendar: calendar), "end": letterDay(keys[5], language: language, calendar: calendar), "distance": Format.km(km)])]
             parts.append(vehicles.isEmpty ? line("noTools") : line("tools", ["tools": vehicles.map { "\(Vehicle.toolName($0.client)) \($0.percent)%" }.joined(separator: " · ")]))
-            if let previousFuel {
-                if previousFuel == fuel { parts.append(line("trendSame")) }
-                else if previousFuel == 0 { parts.append(line("trendFromZero")) }
+            if let previousKm {
+                if previousKm == km { parts.append(line("trendSame")) }
+                else if previousKm == 0 { parts.append(line("trendFromZero")) }
                 else {
-                    let percent = Int((abs(Double(fuel) / Double(previousFuel) - 1) * 100).rounded())
-                    parts.append(line(fuel > previousFuel ? "trendUp" : "trendDown", ["percent": String(percent)]))
+                    let percent = Int((abs(km / previousKm - 1) * 100).rounded())
+                    parts.append(line(km > previousKm ? "trendUp" : "trendDown", ["percent": String(percent)]))
                 }
             }
             if eventKey == "longest", let highlight {
-                parts.append(line(eventKey, ["date": letterDay(highlight.date, language: language, calendar: calendar), "distance": Format.km(fuel: journey.fuel(on: highlight.date))]))
+                parts.append(line(eventKey, ["date": letterDay(highlight.date, language: language, calendar: calendar), "distance": Format.km(journey.days[highlight.date]!.km)]))
             } else {
                 parts.append(line(eventKey, ["event": eventTexts[language] ?? ""]))
             }

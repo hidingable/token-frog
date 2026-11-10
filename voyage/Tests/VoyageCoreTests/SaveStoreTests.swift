@@ -14,7 +14,7 @@ private struct SaveSandbox {
 
     func cleanUp() { try? FileManager.default.removeItem(at: directory) }
 
-    func fixture(_ name: String = "journey-v6") throws -> Data {
+    func fixture(_ name: String = "journey-v7") throws -> Data {
         let url = try #require(Bundle.module.url(forResource: name, withExtension: "json", subdirectory: "Fixtures"))
         return try Data(contentsOf: url)
     }
@@ -77,15 +77,15 @@ private struct SaveSandbox {
         try #require(FileManager.default.attributesOfItem(atPath: url.path)[.posixPermissions] as? Int) & 0o777
     }
 
-    @Test func frozenV6LoadsWithoutRewritingOrBackingUp() throws {
+    @Test func frozenV7LoadsWithoutRewritingOrBackingUp() throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
         let original = try box.fixture()
         try original.write(to: box.journeyURL)
         let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
-        guard case .loaded(let journey) = store.journey else { Issue.record("v6 must load"); return }
-        #expect(journey.version == 6)
+        guard case .loaded(let journey) = store.journey else { Issue.record("v7 must load"); return }
+        #expect(journey.version == 7)
         #expect(journey.seed == 42)
         #expect(journey.pet == PetID(rawValue: "snail"))
         #expect(journey.targetCityId == "xian")
@@ -120,7 +120,9 @@ private struct SaveSandbox {
         guard case .loaded(let state) = store.journey else { Issue.record("Defaults must decode"); return }
         #expect(state.legFuel == 0 && state.totalFuel == 0)
         #expect(state.stamps.isEmpty)
-        #expect(state.days["2026-11-01"] == DayRecord())
+        var oldRecord = DayRecord()
+        oldRecord.tokens = nil
+        #expect(state.days["2026-11-01"] == oldRecord)
         #expect(state.letters.allSatisfy { !$0.read && !$0.enrichmentDone && $0.transitTargetId == nil })
         for key in ["days", "letters"] { json.removeValue(forKey: key) }
         let stateWithoutCollections = try JSONDecoder().decode(JourneyState.self, from: JSONSerialization.data(withJSONObject: json))

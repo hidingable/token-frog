@@ -23,6 +23,9 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var arrivals: [String]
     public var newCountries: [String]
     public var fuel: Int
+    /// Absent on legacy letters, whose fuel used the old mileage rate.
+    public var tokens: Int?
+    public var km: Double { Double(tokens ?? fuel) / Double(tokens == nil ? legacyTokensPerKm : outboundTokensPerKm) }
     public var compareToMedianPercent: Int?
     public var vehicles: [VehicleShare]
     public var isDeepVisit: Bool
@@ -83,6 +86,9 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
 
 public struct DayRecord: Codable, Equatable, Sendable {
     public var fuel = 0
+    /// All-token high-water mark. Missing in old saves until a successful history scan.
+    public var tokens: Int? = 0
+    public var km: Double { Double(tokens ?? fuel) / Double(tokens == nil ? legacyTokensPerKm : outboundTokensPerKm) }
     /// Only an actual main-window open sets this; old records default to false.
     public var mainWindowOpened = false
     public var byClient: [String: Int] = [:]
@@ -102,7 +108,7 @@ public struct Stamp: Codable, Equatable, Sendable {
 }
 
 public struct JourneyState: Codable, Equatable, Sendable {
-    public static let currentVersion = 6
+    public static let currentVersion = 7
     public var version = currentVersion
     public var seed: UInt32
     public var pet: PetID
@@ -119,7 +125,9 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public var openDate: String
     public var days: [String: DayRecord] = [:]
     public var letters: [Letter] = []
+    /// Legacy uncached counter; mileage displays and progression use totalKm instead.
     public var totalFuel = 0
+    public var totalKm = 0.0
     /// Main-window opens only; absent on pre-M2 saves, so upgrade starts a fresh baseline.
     public var lastOpenedDate: String?
     /// Missing on older saves; activation starts at the next local Sunday without catch-up.
@@ -144,7 +152,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         stamps = start.isPlaceholder ? [] : [Stamp(countryCode: start.countryCode, cityId: start.id, date: date)]
         legFrom = start.coordinate
         legTo = start.coordinate
-        legCost = fuelPerKm
+        legCost = outboundTokensPerKm
         let first = DestinationPicker.first(
             from: start.coordinate, currentCityId: start.id, route: route,
             stampedCountries: Set(stamps.map(\.countryCode)), catalog: catalog, seed: seed
@@ -161,6 +169,8 @@ public struct JourneyState: Codable, Equatable, Sendable {
 
     public var legProgress: Double { Double(legFuel) / Double(legCost) }
     public var remainingFuel: Int { legCost - legFuel }
+    public var remainingKm: Double { Double(remainingFuel) / Double(outboundTokensPerKm) }
+    public var legKm: Double { Double(legCost) / Double(outboundTokensPerKm) }
 
     public var position: Coordinate {
         let from = legFrom
@@ -179,7 +189,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
     }
 
     static func cost(from: Coordinate, to: Coordinate) -> Int {
-        max(fuelPerKm, Int(from.distanceKm(to: to) * Double(fuelPerKm)))
+        max(outboundTokensPerKm, Int(from.distanceKm(to: to) * Double(outboundTokensPerKm)))
     }
 
     public func fuel(on date: String) -> Int { days[date]?.fuel ?? 0 }
@@ -190,7 +200,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         let firstLetter = letters.first { $0.id == 0 }
         let record = days[openDate] ?? DayRecord()
         var replacement = JourneyState(seed: seed, startCityId: cityId, pet: pet, date: startDate, catalog: catalog)
-        replacement.sync(today: DayUsage(date: openDate, fuel: record.fuel, byClient: record.byClient), calendar: calendar, catalog: catalog)
+        replacement.sync(today: DayUsage(date: openDate, fuel: record.fuel, byClient: record.byClient, observedTokens: record.tokens ?? 0), calendar: calendar, catalog: catalog)
         replacement.days[openDate]?.mainWindowOpened = record.mainWindowOpened
         replacement.lastOpenedDate = lastOpenedDate
         replacement.weeklyMailEligibleFrom = weeklyMailEligibleFrom
@@ -236,30 +246,40 @@ public struct JourneyState: Codable, Equatable, Sendable {
     }
 
     /// Median of the most recent active days, used to compare today against "usual".
-    public func recentDailyFuel(before date: String? = nil, limit: Int = 14) -> Int {
+    public func recentDailyKm(before date: String? = nil, limit: Int = 14) -> Double {
         let values = days
-            .filter { $0.value.fuel > 0 && (date == nil || $0.key < date!) }
+            .filter { ($0.value.tokens ?? 0) > 0 && (date == nil || $0.key < date!) }
             .sorted { $0.key > $1.key }
             .prefix(limit)
-            .map(\.value.fuel)
+            .map { Double($0.value.tokens!) / Double(outboundTokensPerKm) }
             .sorted()
         return values.isEmpty ? 0 : values[values.count / 2]
+    }
+
+    /// Fill missing observations without replaying already credited mileage or rewriting settled mail.
+    public mutating func backfillTokens(_ history: [DayUsage]) {
+        for usage in history where days[usage.date] != nil && days[usage.date]?.tokens == nil {
+            days[usage.date]?.tokens = usage.observedTokens
+        }
     }
 
     private mutating func apply(_ usage: DayUsage, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
         recordFirstVoyages(usage, content: catalog.usageEvents)
         var record = days[usage.date] ?? DayRecord()
-        let delta = usage.fuel - record.fuel
+        let delta = usage.observedTokens - (record.tokens ?? 0)
         for (client, fuel) in usage.byClient {
             record.byClient[client] = max(record.byClient[client] ?? 0, fuel)
         }
-        if delta > 0 { record.fuel = usage.fuel }
-        if record.fuel > 0, usage.date >= roadCluesEligibleFrom!, record.roadClueDecision == nil {
+        totalFuel += max(0, usage.fuel - record.fuel)
+        record.fuel = max(record.fuel, usage.fuel)
+        record.tokens = max(record.tokens ?? 0, usage.observedTokens)
+        if record.tokens! > 0, usage.date >= roadCluesEligibleFrom!, record.roadClueDecision == nil {
             record.roadClueDecision = catalog.roadClues.draw(seed: seed, date: usage.date)
         }
         days[usage.date] = record
         if delta > 0 {
-            totalFuel += delta
+            // Round at token resolution so sliced scans and a single final scan agree.
+            totalKm = (totalKm * Double(outboundTokensPerKm) + Double(delta)).rounded() / Double(outboundTokensPerKm)
             advance(delta, date: usage.date, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
         }
     }
@@ -300,16 +320,16 @@ public struct JourneyState: Codable, Equatable, Sendable {
         let next = DestinationPicker.pick(
             from: arrivedCoordinate, currentCityId: arrivedId, route: route,
             stampedCountries: Set(stamps.map(\.countryCode)),
-            medianFuel: recentDailyFuel(before: date, limit: DestinationPicker.configuration.recentActiveDays),
+            medianKm: recentDailyKm(before: date, limit: DestinationPicker.configuration.recentActiveDays),
             wishTags: wishTags, revisitCities: revisitCities, catalog: catalog, seed: seed
         )
         setTarget(next, from: arrivedCoordinate, catalog: catalog)
     }
 
     private mutating func settle(_ date: String, calendar: Calendar, deliveryTime: DeliveryTime) {
-        guard let record = days[date], record.fuel > 0 || record.mainWindowOpened else { return }
-        let median = recentDailyFuel(before: date)
-        let hasBaseline = days.filter { $0.value.fuel > 0 && $0.key < date }.count >= 3
+        guard let record = days[date], (record.tokens ?? 0) > 0 || record.mainWindowOpened else { return }
+        let median = recentDailyKm(before: date)
+        let hasBaseline = days.filter { ($0.value.tokens ?? 0) > 0 && $0.key < date }.count >= 3
         let total = record.byClient.values.reduce(0, +)
         let vehicles = record.byClient
             .sorted { $0.value == $1.value ? $0.key < $1.key : $0.value > $1.value }
@@ -321,7 +341,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
               let deliverAt = calendar.date(bySettingHour: deliveryTime.hour, minute: deliveryTime.minute, second: 0, of: nextDay) else {
             preconditionFailure("Invalid settled date \(date)")
         }
-        if record.fuel == 0 {
+        if (record.tokens ?? 0) == 0 {
             letters.append(Letter(
                 id: (letters.map(\.id).max() ?? 0) + 1, kind: .postcard, date: date,
                 pet: pet, cityId: currentCityId, arrivals: [], newCountries: [], fuel: 0,
@@ -340,9 +360,10 @@ public struct JourneyState: Codable, Equatable, Sendable {
                 arrivals: record.arrivals,
                 newCountries: record.newCountries,
                 fuel: record.fuel,
-                compareToMedianPercent: hasBaseline && median > 0 ? Int(((Double(record.fuel) / Double(median) - 1) * 100).rounded()) : nil,
+                tokens: record.tokens,
+                compareToMedianPercent: hasBaseline && median > 0 ? Int(((record.km / median - 1) * 100).rounded()) : nil,
                 vehicles: vehicles,
-                isDeepVisit: hasBaseline && record.fuel * 2 < median,
+                isDeepVisit: hasBaseline && record.km * 2 < median,
                 deliverAt: deliverAt, usageEventNotes: takeUsageEventNotes()
             )
         )
@@ -352,7 +373,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
 extension JourneyState {
     private enum CodingKeys: String, CodingKey {
         case version, seed, pet, startDate, currentCityId, targetCityId, legFuel
-        case route, stamps, openDate, days, letters, totalFuel, legCost, legFrom, legTo, targetCountryCode
+        case route, stamps, openDate, days, letters, totalFuel, totalKm, legCost, legFrom, legTo, targetCountryCode
         case lastOpenedDate, weeklyMailEligibleFrom, lastWeeklyMailSunday, roadCluesEligibleFrom
         case usageEvents
     }
@@ -379,6 +400,7 @@ extension JourneyState {
         days = try values.decode([String: DayRecord].self, forKey: .days, default: [:])
         letters = try values.decode([Letter].self, forKey: .letters, default: [])
         totalFuel = try values.decode(Int.self, forKey: .totalFuel, default: 0)
+        totalKm = try values.decode(Double.self, forKey: .totalKm, default: 0)
         lastOpenedDate = try values.decodeIfPresent(String.self, forKey: .lastOpenedDate)
         weeklyMailEligibleFrom = try values.decodeIfPresent(String.self, forKey: .weeklyMailEligibleFrom)
         lastWeeklyMailSunday = try values.decodeIfPresent(String.self, forKey: .lastWeeklyMailSunday)
@@ -389,7 +411,7 @@ extension JourneyState {
 
 extension Letter {
     private enum CodingKeys: String, CodingKey {
-        case id, kind, date, pet, cityId, transitTargetId, arrivals, newCountries, fuel
+        case id, kind, date, pet, cityId, transitTargetId, arrivals, newCountries, fuel, tokens
         case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
         case storyId, storyVersion, isRevisit, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
         case carriedItem, itemTriggered
@@ -407,6 +429,7 @@ extension Letter {
         arrivals = try values.decode([String].self, forKey: .arrivals)
         newCountries = try values.decode([String].self, forKey: .newCountries)
         fuel = try values.decode(Int.self, forKey: .fuel)
+        tokens = try values.decodeIfPresent(Int.self, forKey: .tokens)
         compareToMedianPercent = try values.decodeIfPresent(Int.self, forKey: .compareToMedianPercent)
         vehicles = try values.decode([VehicleShare].self, forKey: .vehicles)
         isDeepVisit = try values.decode(Bool.self, forKey: .isDeepVisit)
@@ -440,11 +463,12 @@ extension Letter {
 }
 
 extension DayRecord {
-    private enum CodingKeys: String, CodingKey { case fuel, byClient, arrivals, newCountries, mainWindowOpened, roadClueDecision, finalUsageFuel }
+    private enum CodingKeys: String, CodingKey { case fuel, tokens, byClient, arrivals, newCountries, mainWindowOpened, roadClueDecision, finalUsageFuel }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         fuel = try values.decode(Int.self, forKey: .fuel, default: 0)
+        tokens = try values.decodeIfPresent(Int.self, forKey: .tokens)
         mainWindowOpened = try values.decode(Bool.self, forKey: .mainWindowOpened, default: false)
         byClient = try values.decode([String: Int].self, forKey: .byClient, default: [:])
         arrivals = try values.decode([String].self, forKey: .arrivals, default: [])

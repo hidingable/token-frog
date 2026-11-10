@@ -47,16 +47,16 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     )
     state.letters[0].read = false
     state.letters[0].weatherCode = 0
-    state.sync(today: usage("2026-11-01", 400_000_000), calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-01", 40_000_000_000), calendar: calendar, catalog: testCatalog)
     var expectedLetter = state.letters[0]
     expectedLetter.cityId = "xian"
     var expected = JourneyState(seed: 42, startCityId: "xian", pet: PetID(rawValue: "snail"), date: "2026-11-01", catalog: testCatalog)
-    expected.sync(today: usage("2026-11-01", 400_000_000), calendar: calendar, catalog: testCatalog)
+    expected.sync(today: usage("2026-11-01", 40_000_000_000), calendar: calendar, catalog: testCatalog)
     expected.letters = [expectedLetter]
     state.setStart("xian", calendar: calendar, catalog: testCatalog)
     #expect(state == expected)
     #expect(state.letters[0].kind == .logbook && state.letters[0].logbook == logbook && !state.letters[0].read)
-    #expect(state.totalFuel == 400_000_000 && state.route.first == "xian")
+    #expect(state.totalFuel == 40_000_000_000 && state.route.first == "xian")
 }
 
 @Test func changingHomeKeepsLegacyDepartureAndRejectsLaterDays() throws {
@@ -82,6 +82,54 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     state.sync(today: usage("2026-11-01", 8_001), calendar: calendar, catalog: testCatalog)
     #expect(state.legFuel == 8_001)
     #expect(state.totalFuel == 8_001)
+}
+
+@Test func mileageCountsEveryTokenKindAndKeepsAnIndependentKmTotal() {
+    var state = fresh()
+    state.totalKm = 123.5
+    func scan(cacheRead: Int) -> DayUsage {
+        DayDetail(date: state.openDate, rows: [UsageRow(client: "codex", model: "test", tokens: UsageTotals(
+            input: 100_000, output: 200_000, cacheRead: cacheRead, cacheWrite: 300_000, reasoning: 400_000
+        ))]).usage
+    }
+    state.sync(today: scan(cacheRead: 1_000_000), calendar: calendar, catalog: testCatalog)
+    #expect(state.legFuel == 2_000_000 && state.totalKm == 125.5)
+    #expect(state.days[state.openDate]?.tokens == 2_000_000)
+    #expect(state.days[state.openDate]?.fuel == 600_000)
+    state.sync(today: scan(cacheRead: 500_000), calendar: calendar, catalog: testCatalog)
+    #expect(state.legFuel == 2_000_000 && state.totalKm == 125.5)
+    state.sync(today: scan(cacheRead: 1_500_000), calendar: calendar, catalog: testCatalog)
+    #expect(state.legFuel == 2_500_000 && state.totalKm == 126)
+    #expect(outboundTokensPerKm == 1_000_000 && returnTokensPerKm == 100_000)
+}
+
+@Test func letterBaselineAndDeepVisitReadAllTokensRatherThanFuel() throws {
+    var state = fresh()
+    for tokens in [800_000_000, 900_000_000, 1_000_000_000, 100_000_000] {
+        let day = state.openDate
+        state.sync(today: DayUsage(date: DayKey.next(day, calendar: calendar)), finalized: [
+            DayUsage(date: day, fuel: 1, byClient: ["codex": 1], observedTokens: tokens),
+        ], calendar: calendar, catalog: testCatalog)
+    }
+    let letter = try #require(state.letters.last)
+    #expect(letter.compareToMedianPercent == -89 && letter.isDeepVisit)
+    #expect(letter.tokens == 100_000_000 && letter.km == 100)
+    #expect(state.recentDailyKm(before: letter.date) == 900)
+}
+
+@Test func historyBackfillLeavesMileageAndSettledLettersAlone() {
+    var state = fresh()
+    state.days["2026-10-31", default: DayRecord()].tokens = nil
+    state.days["2026-10-30", default: DayRecord()].tokens = nil
+    state.days[state.openDate, default: DayRecord()].tokens = nil
+    let original = state
+    state.backfillTokens([DayUsage(date: "2026-10-31", observedTokens: 400_000_000),
+                          DayUsage(date: state.openDate, observedTokens: 600_000_000)])
+    #expect(state.days["2026-10-30"]?.tokens == nil)
+    #expect(state.recentDailyKm(before: state.openDate) == 400)
+    #expect(state.totalKm == original.totalKm && state.legFuel == original.legFuel && state.letters == original.letters)
+    state.sync(today: DayUsage(date: state.openDate, observedTokens: 601_000_000), calendar: calendar, catalog: testCatalog)
+    #expect(state.legFuel == 1_000_000 && state.totalKm == 1)
 }
 
 @Test func arrivalsConsumeExactlyTheLegCost() {
@@ -120,8 +168,8 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
 
 @Test func heavyDayPassesManyCitiesButWritesOneLetter() {
     var state = fresh()
-    state.sync(today: usage("2026-11-01", 400_000_000), calendar: calendar, catalog: testCatalog)
-    state.sync(today: usage("2026-11-02", 0), finalized: [usage("2026-11-01", 400_000_000)], calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-01", 40_000_000_000), calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-02", 0), finalized: [usage("2026-11-01", 40_000_000_000)], calendar: calendar, catalog: testCatalog)
     let daily = state.letters.filter { $0.kind == .daily }
     #expect(daily.count == 1)
     #expect(daily[0].arrivals.count > 3)
@@ -186,10 +234,10 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     #expect(decoded == state)
 }
 
-@Test func kilometresAndTokensRoundTheSameWay() {
+@Test func kilometresFormatWithoutTokenConversion() {
     #expect(Format.tokens(8_997_637, language: .zhHans) == "900 万")
-    #expect(Format.km(fuel: 8_997_637) == "900 km")
-    #expect(Format.km(fuel: 13_400_000) == "1,340 km")
+    #expect(Format.km(899.7637) == "900 km")
+    #expect(Format.km(1340) == "1,340 km")
     #expect(Format.tokens(400_000_000, language: .zhHans) == "4.0 亿")
 }
 

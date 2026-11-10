@@ -116,7 +116,7 @@ enum LetterComposer {
     }
 
     private static func itinerary(_ letter: Letter, l10n: L10n, catalog: CityCatalog) -> [String] {
-        var lines = [l10n("letter.fuel", l10n.tokens(letter.fuel), Format.km(fuel: letter.fuel))]
+        var lines = [l10n("letter.fuel", l10n.tokens(letter.tokens ?? letter.fuel), Format.km(letter.km))]
         if let percent = letter.compareToMedianPercent {
             if percent == 0 { lines.append(l10n("letter.usual")) }
             else if percent > 0 { lines.append(l10n("letter.more", percent)) }

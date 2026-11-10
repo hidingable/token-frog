@@ -250,6 +250,7 @@ public final class SaveStore {
         let maximumDailyFuel = Int(Double(Int.max).nextDown / 100)
         func validRecord(_ record: DayRecord) -> Bool {
             guard (0...maximumDailyFuel).contains(record.fuel) else { return false }
+            if let tokens = record.tokens, !(0...maximumDailyFuel).contains(tokens) { return false }
             var total = 0
             for fuel in record.byClient.values {
                 guard fuel >= 0 else { return false }
@@ -266,6 +267,7 @@ public final class SaveStore {
               !journey.currentCityId.isEmpty, !journey.targetCityId.isEmpty,
               (0..<journey.legCost).contains(journey.legFuel),
               (0...(Int.max - maximumDailyFuel)).contains(journey.totalFuel),
+              journey.totalKm.isFinite, journey.totalKm >= 0, journey.totalKm < Double(Int.max),
               validCoordinate(journey.legFrom), validCoordinate(journey.legTo),
               validDay(journey.startDate), validDay(journey.openDate), journey.startDate <= journey.openDate,
               journey.days.keys.allSatisfy(validDay), journey.days.values.allSatisfy(validRecord),
@@ -273,6 +275,7 @@ public final class SaveStore {
               journey.letters.allSatisfy({ letter in
                   guard validDay(letter.date), (0..<Int.max).contains(letter.id), letter.fuel >= 0,
                         letter.compareToMedianPercent != Int.min else { return false }
+                  if let tokens = letter.tokens, !(0...maximumDailyFuel).contains(tokens) { return false }
                   guard let name = letter.photoFile else { return true }
                   return !name.isEmpty && name != "." && name != ".."
                       && !name.contains("/") && !name.contains("\\") && !name.contains("\0")

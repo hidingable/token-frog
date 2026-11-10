@@ -241,7 +241,7 @@ private final class CareDefaults: UserDefaults, @unchecked Sendable {
         await model.loadQuotas()
         await model.loadDashboard()
         #expect(model.lastScan == fixture.clock.date && model.lastError == nil)
-        #expect(model.todayFuel == detail.usage.fuel)
+        #expect(model.todayTokens == detail.usage.fuel)
         #expect(model.todayTotals?.total == detail.rows[0].tokens.total)
         #expect(model.dashboardDays == [detail] && model.quotas.isEmpty)
         #expect(model.dashboardHours == hours)

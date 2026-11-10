@@ -76,10 +76,10 @@ import VoyageCore
 
 @Test func nearArrivalUsesTheFiftyKilometreBoundary() {
     #expect(NotchStatus.nearArrivalKilometers == 50)
-    #expect(NotchStatus.isNearArrival(remainingFuel: 50 * fuelPerKm))
-    #expect(!NotchStatus.isNearArrival(remainingFuel: 50 * fuelPerKm + 1))
-    #expect(!NotchStatus.isNearArrival(remainingFuel: 51 * fuelPerKm))
-    #expect(NotchStatus.isNearArrival(remainingFuel: 0))
+    #expect(NotchStatus.isNearArrival(remainingKm: 50))
+    #expect(!NotchStatus.isNearArrival(remainingKm: 50.000001))
+    #expect(!NotchStatus.isNearArrival(remainingKm: 51))
+    #expect(NotchStatus.isNearArrival(remainingKm: 0))
 }
 
 @MainActor
@@ -162,7 +162,7 @@ import VoyageCore
     var rendered = false
 
     model.withSnapshotState({ state in
-        state.legFuel = max(0, state.legCost - 12 * fuelPerKm)
+        state.legFuel = max(0, state.legCost - 12 * outboundTokensPerKm)
         for index in state.letters.indices { state.letters[index].read = true }
     }, render: {
         rendered = true

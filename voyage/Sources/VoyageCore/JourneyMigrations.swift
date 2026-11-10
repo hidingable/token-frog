@@ -1,6 +1,21 @@
 import Foundation
 
 public enum JourneyMigrations {
+    static func migrateV6(_ original: [String: Any]) throws -> [String: Any] {
+        var json = original
+        let scale = outboundTokensPerKm / legacyTokensPerKm
+        for key in ["legCost", "legFuel"] {
+            if let value = json[key] as? Int {
+                let scaled = value.multipliedReportingOverflow(by: scale)
+                guard !scaled.overflow else { throw SaveStoreError.invalidJSON }
+                json[key] = scaled.partialValue
+            }
+        }
+        json["totalKm"] = Double(json["totalFuel"] as? Int ?? 0) / Double(legacyTokensPerKm)
+        // Old daily fuel cannot reconstruct all tokens; the scanner backfills observations later.
+        return json
+    }
+
     // Persisted M0 country names are a permanent migration contract.
     public static let legacyCountryCodes: [String: String] = [
         "中国": "CN",
@@ -130,9 +145,9 @@ public enum JourneyMigrations {
         json["legFrom"] = ["lat": origin.lat, "lon": origin.lon]
         json["legTo"] = ["lat": destination.lat, "lon": destination.lon]
         if let current, let target {
-            json["legCost"] = JourneyState.cost(from: current, to: target)
+            json["legCost"] = max(legacyTokensPerKm, Int(current.coordinate.distanceKm(to: target.coordinate) * Double(legacyTokensPerKm)))
         } else {
-            json["legCost"] = max((json["legFuel"] as? Int ?? 0) + fuelPerKm, fuelPerKm)
+            json["legCost"] = max((json["legFuel"] as? Int ?? 0) + legacyTokensPerKm, legacyTokensPerKm)
         }
         json["targetCountryCode"] = target?.countryCode
         return json
@@ -147,6 +162,7 @@ extension SaveMigrations {
             3: { $0 },
             4: { JourneyMigrations.migrateV4($0) },
             5: { $0 }, // Opening history starts now; never infer absence from usage or old mail.
+            6: { try JourneyMigrations.migrateV6($0) },
         ])
     }
 }

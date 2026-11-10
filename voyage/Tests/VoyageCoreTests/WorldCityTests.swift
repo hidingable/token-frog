@@ -185,7 +185,7 @@ private func residentMemory() throws -> UInt64 {
     let after = try residentMemory()
     let pickStart = ContinuousClock.now
     let selected = DestinationPicker.pick(from: catalog.city("shanghai").coordinate, currentCityId: "shanghai",
-        route: ["shanghai"], stampedCountries: ["CN"], medianFuel: 300 * fuelPerKm, catalog: catalog, seed: 42)
+        route: ["shanghai"], stampedCountries: ["CN"], medianKm: 300, catalog: catalog, seed: 42)
     let pick = pickStart.duration(to: .now)
     #expect(catalog.find(selected) != nil)
     print("WORLD cities=\(catalog.active.count) load=\(load) pick=\(pick) memoryDelta=\(Int64(after) - Int64(before)) bytes")

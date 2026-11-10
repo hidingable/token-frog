@@ -278,7 +278,7 @@ private func visit(_ day: Int, journey: inout JourneyState, care: inout CareStat
         #expect(journey.days.values.allSatisfy { !$0.mainWindowOpened })
         journey.sync(today: DayUsage(date: "2026-11-20"), calendar: careCalendar, catalog: testCatalog)
         let oldLetters = journey.letters
-        #expect(journey.version == 6 && journey.lastOpenedDate == nil)
+        #expect(journey.version == JourneyState.currentVersion && journey.lastOpenedDate == nil)
         #expect(journey.letters.allSatisfy { $0.rewardItems.isEmpty && $0.memoryReference == nil })
         CareEngine.process(journey: &journey, care: &care, stories: testCatalog.stories, catalog: testCatalog)
         visit(20, journey: &journey, care: &care)

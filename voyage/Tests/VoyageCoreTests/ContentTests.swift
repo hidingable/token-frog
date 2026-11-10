@@ -204,7 +204,7 @@ func removedCitiesLoadAndReachTheirSavedTarget(endpoint: String) throws {
     let picks = (0..<200).map { seed in
         DestinationPicker.pick(
             from: state.legTo, currentCityId: state.targetCityId, route: state.route + [state.targetCityId],
-            stampedCountries: Set(state.stamps.map(\.countryCode)), medianFuel: 0, catalog: catalog, seed: UInt32(seed)
+            stampedCountries: Set(state.stamps.map(\.countryCode)), medianKm: 0, catalog: catalog, seed: UInt32(seed)
         )
     }
     #expect(picks.contains("test-harbor"))

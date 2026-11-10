@@ -22,7 +22,7 @@ struct FootprintsView: View {
                         : footprints.mostVisited.count == 1 ? l10n("footprints.stay", "1")
                         : l10n("footprints.stays", Format.grouped(footprints.mostVisited.count)))
                 tile(l10n("footprints.farthest"), city: footprints.farthest?.cityId,
-                     detail: footprints.farthest.map { l10n("footprints.distance", Format.km(fuel: Int($0.km * Double(fuelPerKm)))) },
+                     detail: footprints.farthest.map { l10n("footprints.distance", Format.km($0.km)) },
                      empty: l10n("footprints.farthestEmpty"))
                 tile(l10n("footprints.mostMemorable"), city: footprints.mostMemorable?.cityId,
                      detail: footprints.mostMemorable.map { $0.count == 1 ? l10n("footprints.memory", "1") : l10n("footprints.memories", Format.grouped($0.count)) },

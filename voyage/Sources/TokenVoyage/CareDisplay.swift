@@ -134,7 +134,7 @@ struct ProfileDisplay {
         days = care.companionDays.count
         stage = Stage.current(companionDays: days)
         cityCount = Set(journey.route).count
-        kilometers = Format.km(fuel: journey.totalFuel)
+        kilometers = Format.km(journey.totalKm)
         learned = CareEngine.recentLearned(journey: journey, limit: 5).compactMap {
             guard let text = LetterComposer.localized($0.learnedTexts, l10n: l10n) else { return nil }
             return Learned(id: $0.letterId, text: text)

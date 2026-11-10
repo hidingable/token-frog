@@ -38,7 +38,12 @@ func optimizedDashboardMatchesOriginalCalculations(timeZone: String) throws {
                 #expect(actual.change(metric) == original.change(metric))
                 #expect(actual.trend(metric, series: ["codex", "claude"]) == original.trend(metric, series: ["codex", "claude"]))
                 #expect(actual.heatCells(metric: metric) == original.heatCells(metric: metric))
-                #expect(actual.weekdayProfile(metric) == original.weekdayProfile(metric))
+                if metric == .fuel {
+                    // Fractional km sums can differ by floating-point addition order.
+                    #expect(zip(actual.weekdayProfile(metric), original.weekdayProfile(metric)).allSatisfy { abs($0 - $1) < 1e-12 })
+                } else {
+                    #expect(actual.weekdayProfile(metric) == original.weekdayProfile(metric))
+                }
             }
         }
     }

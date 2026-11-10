@@ -185,7 +185,7 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
         #expect(incremental.letters.map(\.usageEventNotes) == together.letters.map(\.usageEventNotes))
     }
 
-    @Test func cacheOnlyToolUsageWaitsForATravelLetterAndCanBeObservedAtNight() {
+    @Test func cacheOnlyToolUsageTravelsAndCanBeObservedAtNight() {
         var journey = usageEventJourney()
         let date = journey.openDate
         let first = DayDetail(date: date, rows: [.init(client: "claude-code", model: "test", tokens: .init(cacheRead: 100))]).usage
@@ -199,11 +199,13 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
         observer.observe(next, at: usageEventDate(1, hour: 23, minute: 1), journey: &journey, content: testCatalog.usageEvents, calendar: usageEventCalendar)
         #expect(journey.usageEvents?.nightcap?.date == date)
         journey.sync(today: .init(date: "2026-11-02"), finalized: [next], calendar: usageEventCalendar, catalog: testCatalog)
-        #expect(journey.letters.count == 1 && journey.usageEvents?.pendingFirstVoyage == pending)
+        #expect(journey.letters.count == 2 && journey.usageEvents?.pendingFirstVoyage == nil)
+        #expect(journey.letters.last?.usageEventNotes == [pending!])
+        #expect(journey.totalKm == 0.000101)
         usageEventSettle(0, journey: &journey)
         usageEventSettle(100, clients: ["claude": 100], journey: &journey)
         #expect(journey.usageEvents?.tickets.count == 1)
-        #expect(journey.letters.last?.usageEventNotes == [pending!])
+        #expect(journey.letters.filter { $0.usageEventNotes == [pending!] }.count == 1)
     }
 
     @Test func upgradeBaselinesToolsInDayRecordsAndLettersWithoutIssuingTickets() {
@@ -240,7 +242,7 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
         ]
         journey.sync(today: .init(date: "2026-11-04"), finalized: finals, calendar: usageEventCalendar, catalog: testCatalog)
         #expect(journey.usageEvents?.tickets == [.init(toolID: "claude", date: "2026-11-02")])
-        #expect(journey.letters.filter { $0.usageEventNotes != nil }.map(\.date) == ["2026-11-03"])
+        #expect(journey.letters.filter { $0.usageEventNotes != nil }.map(\.date) == ["2026-11-02"])
         let saved = journey
         journey.sync(today: .init(date: "2026-11-04"), finalized: finals, calendar: usageEventCalendar, catalog: testCatalog)
         #expect(journey == saved)

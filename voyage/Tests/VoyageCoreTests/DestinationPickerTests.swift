@@ -51,10 +51,10 @@ struct PickerCatalogSandbox {
     func cleanUp() { try? FileManager.default.removeItem(at: directory) }
 }
 
-private func pick(_ catalog: CityCatalog, seed: UInt32, currentCityId: String = "home", route: [String] = ["home"], medianFuel: Int = 0) -> String {
+private func pick(_ catalog: CityCatalog, seed: UInt32, currentCityId: String = "home", route: [String] = ["home"], medianKm: Double = 0) -> String {
     DestinationPicker.pick(
         from: Coordinate(lat: 0, lon: 0), currentCityId: currentCityId, route: route,
-        stampedCountries: ["CN"], medianFuel: medianFuel, catalog: catalog, seed: seed
+        stampedCountries: ["CN"], medianKm: medianKm, catalog: catalog, seed: seed
     )
 }
 
@@ -105,14 +105,14 @@ private func pick(_ catalog: CityCatalog, seed: UInt32, currentCityId: String = 
         #expect(Set((0..<200).map { pick(box.catalog, seed: UInt32($0), route: route) }) == ["a", "b"])
     }
 
-    @Test func distanceBandsUseInclusiveIntegerBoundariesAndTheMinimumMedian() {
-        let minimum = 300 * fuelPerKm
+    @Test func distanceBandsUseInclusiveKilometerBoundariesAndTheMinimumMedian() {
+        let minimum = 300.0
         for median in [0, 1, minimum - 1, minimum, minimum * 2] {
             let m = max(minimum, median)
-            #expect(DestinationPicker.band(distanceFuel: m, medianFuel: median) == .near)
-            #expect(DestinationPicker.band(distanceFuel: m + 1, medianFuel: median) == .middle)
-            #expect(DestinationPicker.band(distanceFuel: m * 3, medianFuel: median) == .middle)
-            #expect(DestinationPicker.band(distanceFuel: m * 3 + 1, medianFuel: median) == .far)
+            #expect(DestinationPicker.band(distanceKm: m, medianKm: median) == .near)
+            #expect(DestinationPicker.band(distanceKm: m + 1, medianKm: median) == .middle)
+            #expect(DestinationPicker.band(distanceKm: m * 3, medianKm: median) == .middle)
+            #expect(DestinationPicker.band(distanceKm: m * 3 + 1, medianKm: median) == .far)
         }
     }
 
@@ -220,10 +220,10 @@ private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multipl
         let fuel = (day % 7 == 0 ? 0 : (day * 7_919_147) % 120_000_000 + 1_000_000) * multiplier
         for slice in 1...slices {
             let value = fuel * slice / slices
-            state.sync(today: DayUsage(date: date, fuel: value, byClient: ["codex": value]), calendar: pickerCalendar, catalog: catalog, wishTags: ["coast"])
+            state.sync(today: DayUsage(date: date, fuel: value, byClient: ["codex": value], observedTokens: value * 100), calendar: pickerCalendar, catalog: catalog, wishTags: ["coast"])
         }
         let next = DayKey.next(date, calendar: pickerCalendar)
-        state.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: fuel, byClient: ["codex": fuel])], calendar: pickerCalendar, catalog: catalog, wishTags: ["coast"])
+        state.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: fuel, byClient: ["codex": fuel], observedTokens: fuel * 100)], calendar: pickerCalendar, catalog: catalog, wishTags: ["coast"])
         date = next
     }
     return state
@@ -260,16 +260,16 @@ private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multipl
         var state = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-02-01", catalog: testCatalog)
         for day in 1...20 {
             var record = DayRecord()
-            record.fuel = day * fuelPerKm
+            record.tokens = day * outboundTokensPerKm
             state.days[String(format: "2026-01-%02d", day)] = record
         }
         state.days["2026-01-31"] = DayRecord()
         var today = DayRecord()
-        today.fuel = 1_000_000_000
+        today.tokens = 1_000_000_000
         state.days["2026-02-01"] = today
-        #expect(state.recentDailyFuel(before: "2026-02-01") == 14 * fuelPerKm)
-        #expect(state.recentDailyFuel(before: "2026-01-01") == 0)
-        #expect(DestinationPicker.band(distanceFuel: 300 * fuelPerKm, medianFuel: state.recentDailyFuel(before: "2026-01-01")) == .near)
+        #expect(state.recentDailyKm(before: "2026-02-01") == 14)
+        #expect(state.recentDailyKm(before: "2026-01-01") == 0)
+        #expect(DestinationPicker.band(distanceKm: 300, medianKm: state.recentDailyKm(before: "2026-01-01")) == .near)
     }
 
     @Test func arrivalDayFuelCannotChangeItsNextDestination() {
@@ -284,28 +284,28 @@ private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multipl
             #expect(high.targetCityId == low.targetCityId)
             #expect(high.legCost == low.legCost)
             #expect(high.legFuel == extra)
-            #expect(low.recentDailyFuel(before: "2026-01-01") == 0)
-            #expect(high.recentDailyFuel(before: "2026-01-01") == 0)
+            #expect(low.recentDailyKm(before: "2026-01-01") == 0)
+            #expect(high.recentDailyKm(before: "2026-01-01") == 0)
         }
     }
 
-    @Test func arrivalDrawUsesHistoricalFuelRatherThanAlwaysUsingTheMinimum() {
+    @Test func arrivalDrawUsesHistoricalTokensRatherThanAlwaysUsingTheMinimum() {
         var differsFromMinimum = false
         for seed: UInt32 in 0..<100 {
             var state = JourneyState(seed: seed, startCityId: "shanghai", date: "2026-02-01", catalog: testCatalog)
             var previous = DayRecord()
-            previous.fuel = 10_000_000
+            previous.tokens = 1_000 * outboundTokensPerKm
             state.days["2026-01-31"] = previous
             state.sync(today: DayUsage(date: "2026-02-01", fuel: state.legCost), catalog: testCatalog)
             let stamped = Set(state.stamps.map(\.countryCode))
             let expected = DestinationPicker.pick(
                 from: state.legFrom, currentCityId: state.currentCityId, route: state.route,
-                stampedCountries: stamped, medianFuel: previous.fuel, catalog: testCatalog, seed: seed
+                stampedCountries: stamped, medianKm: previous.km, catalog: testCatalog, seed: seed
             )
             #expect(state.targetCityId == expected)
             let minimum = DestinationPicker.pick(
                 from: state.legFrom, currentCityId: state.currentCityId, route: state.route,
-                stampedCountries: stamped, medianFuel: 0, catalog: testCatalog, seed: seed
+                stampedCountries: stamped, medianKm: 0, catalog: testCatalog, seed: seed
             )
             if expected != minimum { differsFromMinimum = true }
         }
@@ -322,7 +322,7 @@ private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multipl
         live.sync(today: usage, catalog: testCatalog, wishTags: wishes)
         let expected = DestinationPicker.pick(
             from: initial.legTo, currentCityId: initial.targetCityId, route: live.route,
-            stampedCountries: Set(live.stamps.map(\.countryCode)), medianFuel: 0, wishTags: wishes, catalog: testCatalog, seed: initial.seed
+            stampedCountries: Set(live.stamps.map(\.countryCode)), medianKm: 0, wishTags: wishes, catalog: testCatalog, seed: initial.seed
         )
         #expect(live.targetCityId == expected)
         live.sync(today: DayUsage(date: "2026-01-02"), finalized: [usage], calendar: pickerCalendar, catalog: testCatalog, wishTags: wishes)
@@ -343,7 +343,7 @@ private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multipl
         for day in 0..<365 {
             let fuel = day % 9 == 0 ? 0 : (day * 7_919_147) % 180_000_000 + 1_000_000
             let oldCount = state.route.count
-            state.sync(today: DayUsage(date: date, fuel: fuel), calendar: pickerCalendar, catalog: catalog)
+            state.sync(today: DayUsage(date: date, fuel: fuel, observedTokens: fuel * 100), calendar: pickerCalendar, catalog: catalog)
             // Check every intermediate arrival, including multiple arrivals in a single sync.
             for index in oldCount..<state.route.count {
                 let arrived = state.route[index]
@@ -375,5 +375,6 @@ private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multipl
         #expect(doubled.letters.map(\.deliverAt) == normal.letters.map(\.deliverAt))
         #expect(doubled.letters.map(\.kind) == normal.letters.map(\.kind))
         #expect(doubled.totalFuel == normal.totalFuel * 2)
+        #expect(doubled.totalKm == normal.totalKm * 2)
     }
 }

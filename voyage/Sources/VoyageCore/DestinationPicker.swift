@@ -2,7 +2,7 @@ public enum DestinationPicker {
     struct Configuration: Sendable {
         let recentActiveDays = 14
         let excludedStops = 3
-        let minimumMedianFuel = 300 * fuelPerKm
+        let minimumMedianKm = 300.0
         let middleDistanceMultiplier = 3
         let bandWeights = [5, 4, 1]
         let baseCityWeight = 1
@@ -18,11 +18,10 @@ public enum DestinationPicker {
 
     enum Band: Int, CaseIterable { case near, middle, far }
 
-    static func band(distanceFuel: Int, medianFuel: Int) -> Band {
-        let median = max(configuration.minimumMedianFuel, medianFuel)
-        if distanceFuel <= median { return .near }
-        // Division keeps the integer comparison exact without overflowing 3 * median.
-        if (distanceFuel - 1) / configuration.middleDistanceMultiplier < median { return .middle }
+    static func band(distanceKm: Double, medianKm: Double) -> Band {
+        let median = max(configuration.minimumMedianKm, medianKm)
+        if distanceKm <= median { return .near }
+        if distanceKm <= Double(configuration.middleDistanceMultiplier) * median { return .middle }
         return .far
     }
 
@@ -55,12 +54,12 @@ public enum DestinationPicker {
 
     public static func pick(
         from coordinate: Coordinate, currentCityId: String, route: [String], stampedCountries: Set<String>,
-        medianFuel: Int, wishTags: Set<String> = [], revisitCities: Set<String> = [], catalog: CityCatalog, seed: UInt32
+        medianKm: Double, wishTags: Set<String> = [], revisitCities: Set<String> = [], catalog: CityCatalog, seed: UInt32
     ) -> String {
         var bands = Array(repeating: [City](), count: Band.allCases.count)
         let route = route.map { catalog.city($0).id }
         for city in candidates(currentCityId: currentCityId, route: route, catalog: catalog) {
-            let band = band(distanceFuel: JourneyState.cost(from: coordinate, to: city.coordinate), medianFuel: medianFuel)
+            let band = band(distanceKm: coordinate.distanceKm(to: city.coordinate), medianKm: medianKm)
             bands[band.rawValue].append(city)
         }
         var random = SplitMix64(seed: seed, stopCount: route.count)
@@ -76,7 +75,7 @@ public enum DestinationPicker {
         let cities = candidates(currentCityId: currentCityId, route: route, catalog: catalog)
         let withContent = cities.filter { $0.level != "basic" }
         let near = withContent.filter {
-            JourneyState.cost(from: coordinate, to: $0.coordinate) <= configuration.minimumMedianFuel
+            coordinate.distanceKm(to: $0.coordinate) <= configuration.minimumMedianKm
         }
         if !near.isEmpty {
             var random = SplitMix64(seed: seed, stopCount: route.count)

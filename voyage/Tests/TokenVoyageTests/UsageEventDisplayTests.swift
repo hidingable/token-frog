@@ -52,6 +52,8 @@ private actor UsageEventReader {
         let note = try #require(reloaded.nightcapNote)
         #expect(reloaded.care == careBeforeNight)
         #expect(reloaded.state?.totalFuel == (cacheOnly ? 0 : 501))
+        #expect(reloaded.state?.totalKm == 0.000501)
+        #expect(reloaded.todayTokens == 501)
         reloaded.languagePreference = .zhHans
         #expect(reloaded.nightcapText == note.texts["zh-Hans"])
         reloaded.languagePreference = .en

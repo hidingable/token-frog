@@ -90,7 +90,7 @@ let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCity
             selected.insert(journey.targetCityId)
             #expect(["hangzhou", "suzhou"].contains(journey.targetCityId))
             #expect(testCatalog.city(journey.targetCityId).level == "full")
-            #expect(journey.legCost <= DestinationPicker.configuration.minimumMedianFuel)
+            #expect(journey.legKm <= DestinationPicker.configuration.minimumMedianKm)
         }
         #expect(selected == ["hangzhou", "suzhou"])
         #expect(testCatalog.find("q4970")?.id == "hangzhou")

@@ -17,7 +17,7 @@ private struct ArchiveSandbox {
     }
     func store(populated: Bool = true) throws -> SaveStore {
         if populated {
-            try fixture("journey-v6").write(to: url(.journey))
+            try fixture("journey-v7").write(to: url(.journey))
             try fixture("care-v1").write(to: url(.care))
         }
         let store = SaveStore(directory: directory, now: { Date(timeIntervalSince1970: 0) },
@@ -31,7 +31,7 @@ private struct ArchiveSandbox {
     func temporaryFiles() throws -> [String] {
         try FileManager.default.contentsOfDirectory(atPath: directory.path).filter { $0.hasPrefix(".voyage-import-") }
     }
-    func archive(journey: String = "journey-v6", care: String = "care-v1") throws -> Data {
+    func archive(journey: String = "journey-v7", care: String = "care-v1") throws -> Data {
         try JSONSerialization.data(withJSONObject: [
             "format": 1, "exportedAt": "2026-11-06T01:00:00Z", "appVersion": "1.0",
             "journey": JSONSerialization.jsonObject(with: fixture(journey)),
@@ -406,7 +406,7 @@ private struct ArchiveSandbox {
         #expect(!FileManager.default.fileExists(atPath: box.directory.appendingPathComponent("photos").path))
     }
 
-    @Test(arguments: ["negativeLetter", "maximumLetter", "minimumComparison", "negativeLeg", "finishedLeg", "negativeTotal", "maximumTotal", "negativeDaily", "maximumDaily", "negativeClient", "clientSumOverflow", "badCoordinate", "careHabit", "careNegativeHabit", "carePity", "careBoxes", "careClue", "careAttempts"])
+    @Test(arguments: ["negativeLetter", "maximumLetter", "minimumComparison", "negativeLeg", "finishedLeg", "negativeTotal", "maximumTotal", "negativeKm", "maximumKm", "negativeDaily", "maximumDaily", "negativeTokens", "maximumTokens", "negativeClient", "clientSumOverflow", "badCoordinate", "careHabit", "careNegativeHabit", "carePity", "careBoxes", "careClue", "careAttempts"])
     func importRejectsValuesThatWouldTrapInRuntimeArithmetic(problem: String) throws {
         let box = try ArchiveSandbox()
         defer { box.cleanUp() }
@@ -425,8 +425,12 @@ private struct ArchiveSandbox {
         case "finishedLeg": journey["legFuel"] = journey["legCost"]
         case "negativeTotal": journey["totalFuel"] = -1
         case "maximumTotal": journey["totalFuel"] = Int.max
+        case "negativeKm": journey["totalKm"] = -1
+        case "maximumKm": journey["totalKm"] = Double(Int.max)
         case "negativeDaily": journey["days"] = ["2026-11-01": ["fuel": -1]]
         case "maximumDaily": journey["days"] = ["2026-11-01": ["fuel": Int.max]]
+        case "negativeTokens": journey["days"] = ["2026-11-01": ["tokens": -1]]
+        case "maximumTokens": journey["days"] = ["2026-11-01": ["tokens": Int.max]]
         case "negativeClient": journey["days"] = ["2026-11-01": ["fuel": 1, "byClient": ["fake": -1]]] as [String: Any]
         case "clientSumOverflow": journey["days"] = ["2026-11-01": ["fuel": 1, "byClient": ["fakeA": Int.max, "fakeB": 1]]] as [String: Any]
         case "badCoordinate": journey["legTo"] = ["lat": 1e300, "lon": 0]

@@ -389,7 +389,7 @@ private struct QuotaModelFixture {
     for _ in 0..<3 { await model.scan() }
     #expect(await probe.scans == 3)
     #expect(model.lastError == nil)
-    #expect(model.todayFuel == 3100)
+    #expect(model.todayTokens == 3100)
     #expect(await probe.calls == 1)
     #expect(await probe.otherCalls == 0)
     model.quotaTimerFired()

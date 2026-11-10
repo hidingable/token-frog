@@ -14,8 +14,8 @@ import Testing
             let date = normal.openDate
             let next = DayKey.next(date, calendar: careCalendar)
             let amount = day % 9 == 8 ? 0 : (day % 5 + 1) * 3_000_000
-            normal.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount, byClient: ["codex": amount])], calendar: careCalendar, catalog: testCatalog)
-            doubled.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount * 2, byClient: ["codex": amount * 2])], calendar: careCalendar, catalog: testCatalog)
+            normal.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount, byClient: ["codex": amount], observedTokens: amount * 100)], calendar: careCalendar, catalog: testCatalog)
+            doubled.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount * 2, byClient: ["codex": amount * 2], observedTokens: amount * 200)], calendar: careCalendar, catalog: testCatalog)
             let chosen: String? = day % 6 == 5 ? nil : bag[day % 5]
             care.bag.todayItem = chosen
             doubledCare.bag.todayItem = chosen
@@ -62,6 +62,7 @@ import Testing
         #expect(normal.letters.map(\.date) == doubled.letters.map(\.date))
         #expect(normal.letters.count == doubled.letters.count)
         #expect(doubled.totalFuel == normal.totalFuel * 2)
+        #expect(doubled.totalKm == normal.totalKm * 2)
     }
 
     @Test(arguments: [UInt32(0), 42, 314])
@@ -73,8 +74,8 @@ import Testing
             let date = normal.openDate
             let next = DayKey.next(date, calendar: careCalendar)
             let amount = day % 9 == 8 ? 0 : (day % 5 + 1) * 3_000_000
-            normal.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount)], calendar: careCalendar, catalog: testCatalog)
-            doubled.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount * 2)], calendar: careCalendar, catalog: testCatalog)
+            normal.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount, observedTokens: amount * 100)], calendar: careCalendar, catalog: testCatalog)
+            doubled.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount * 2, observedTokens: amount * 200)], calendar: careCalendar, catalog: testCatalog)
             let chosen = ["sketchbook", "note-slip", "raincoat"][day % 3]
             care.bag.todayItem = chosen
             doubledCare.bag.todayItem = chosen
@@ -105,6 +106,7 @@ import Testing
         #expect(opened.contains(.item(id: "old-camera", kind: "bag")))
         #expect(opened.contains(.item(id: "lunchbox", kind: "bag")))
         #expect(doubled.totalFuel == normal.totalFuel * 2)
+        #expect(doubled.totalKm == normal.totalKm * 2)
     }
 
     @Test func catchUpAndOneLetterAtATimeGiveIdenticalResultsWithUnchosenBags() {

@@ -10,7 +10,7 @@ private func replayCare(seed: UInt32, multiplier: Int, stories: StoryLibrary, wi
         let next = DayKey.next(date, calendar: careCalendar)
         let amount = day % 9 == 8 ? 0 : (day % 5 + 1) * 3_000_000 * multiplier
         journey.sync(
-            today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount, byClient: ["codex": amount])],
+            today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount, byClient: ["codex": amount], observedTokens: amount * 100)],
             calendar: careCalendar, catalog: testCatalog, wishTags: WishEngine.tags(in: care)
         )
         // The same policy exercises explicit choices, random carry and invalid unowned choices.
@@ -65,6 +65,7 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
         #expect(care.memories == doubledCare.memories && care.specialDays == doubledCare.specialDays)
         #expect(Stage.current(companionDays: care.companionDays.count) == Stage.current(companionDays: doubledCare.companionDays.count))
         #expect(doubled.totalFuel == normal.totalFuel * 2)
+        #expect(doubled.totalKm == normal.totalKm * 2)
     }
 
     @Test(arguments: Array(UInt32(0)..<32))
@@ -91,6 +92,7 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
         #expect(normal.letters[2].fulfilledReplyId == "ask-next-time")
         #expect(normal.letters.contains { $0.storyId?.hasSuffix(".fulfill") == true })
         #expect(doubled.totalFuel == normal.totalFuel * 2)
+        #expect(doubled.totalKm == normal.totalKm * 2)
     }
 
     @Test func everySeedFulfillsTheFirstReplyNextLetterAndLaterRepliesWithinThreeHeadLetters() throws {

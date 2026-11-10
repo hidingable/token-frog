@@ -102,14 +102,14 @@ func passportStampDoesNotRequireACountryArticle(country: String) {
     var state = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-01", now: Date(timeIntervalSince1970: 0), catalog: localizationCatalog)
     state.sync(
         today: DayUsage(date: "2026-11-02"),
-        finalized: [DayUsage(date: "2026-11-01", fuel: 8_880_000, byClient: ["codex": 8_880_000])],
+        finalized: [DayUsage(date: "2026-11-01", fuel: 8_880_000, byClient: ["codex": 8_880_000], observedTokens: 888_000_000)],
         calendar: calendar, catalog: localizationCatalog
     )
     var care = CareState(petName: "Ginkgo", species: PetID(rawValue: "pigeon"), hatchedAt: state.startDate)
     CareEngine.process(journey: &state, care: &care, stories: localizationCatalog.stories, catalog: localizationCatalog)
     let letter = try #require(state.letters.last)
     let text = LetterComposer.text(for: letter, l10n: L10n(language: .zhHans), petName: "Ginkgo", catalog: localizationCatalog)
-    #expect(text.itinerary.first == "888 万 token = 888 km")
+    #expect(text.itinerary.first == "8.9 亿 token = 888 km")
     #expect(!text.voice.isEmpty)
 }
 
@@ -184,8 +184,8 @@ func chineseCharacterVoicesPreserveAllTwelveOriginalLines(pet: PetID, index: Int
     letter.kind = .departure
     let departure = LetterComposer.text(for: letter, l10n: l10n, petName: "银杏", catalog: localizationCatalog)
     #expect(departure.title == "出发信 · 上海")
-    #expect(departure.voice == "行李收好了，我从上海出发。你的每 1 万 token，都会变成我路上的 1 公里。到了地方就写信给你。")
-    #expect(departure.itinerary == ["里程规则：1 万 token = 1 km"])
+    #expect(departure.voice == "行李收好了，我从上海出发。你的每 100 万 token，都会变成我路上的 1 公里。到了地方就写信给你。")
+    #expect(departure.itinerary == ["里程规则：100 万 token = 1 km"])
     #expect(departure.signature == "—— 银杏")
     letter.kind = .daily
     letter.id = 3

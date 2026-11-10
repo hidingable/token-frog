@@ -1,13 +1,15 @@
 import Foundation
 
-/// 1 km of travel costs this many fuel tokens. Fixed on purpose so km and tokens stay interchangeable.
-public let fuelPerKm = 10_000
+/// All token kinds count toward mileage. Return travel will use its own rate.
+public let outboundTokensPerKm = 1_000_000
+public let returnTokensPerKm = 100_000
+let legacyTokensPerKm = 10_000
 
 public struct DayUsage: Equatable, Sendable {
     public var date: String
     public var fuel: Int
     public var byClient: [String: Int]
-    /// All tokens observed by the scanner, including cache reads and reasoning; never mileage.
+    /// All tokens observed by the scanner, including cache reads and reasoning; the mileage basis.
     public var observedTokens: Int
     public var usedToolIDs: [String]
 
@@ -54,7 +56,7 @@ public struct UsageTotals: Equatable, Sendable {
 
     /// Same definition as tokscale's own total, including cache reads and reasoning.
     public var total: Int { input + output + cacheRead + cacheWrite + reasoning }
-    /// The part that becomes mileage.
+    /// Legacy uncached subtotal, retained for tool shares and usage events.
     public var fuel: Int { input + output + cacheWrite }
     /// Share of prompt tokens served from cache, counting cache writes as misses like Token Monitor; nil without input.
     public var cacheHitPercent: Double? {
@@ -273,8 +275,8 @@ public enum Format {
         return grouped(value)
     }
 
-    public static func km(fuel: Int) -> String {
-        "\(grouped(Int((Double(fuel) / Double(fuelPerKm)).rounded()))) km"
+    public static func km(_ value: Double) -> String {
+        "\(grouped(Int(value.rounded()))) km"
     }
 
     public static func cost(_ value: Double) -> String {

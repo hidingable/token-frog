@@ -55,8 +55,8 @@ struct HomeTab: View {
                                     } else {
                                         Text(l10n("home.onRoad", l10n.cityName(catalog.city(state.targetCityId))))
                                         BlockProgress(progress: state.legProgress, blocks: 16, size: 8)
-                                        Text(l10n("home.today", Format.km(fuel: model.todayFuel))).foregroundStyle(theme.mileageText)
-                                        Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel))).foregroundStyle(theme.textMuted)
+                                        Text(l10n("home.today", Format.km(model.todayKm))).foregroundStyle(theme.mileageText)
+                                        Text(l10n("journey.remaining", Format.km(state.remainingKm))).foregroundStyle(theme.textMuted)
                                     }
                                 }
                                 WeekCard(model: model, care: care)

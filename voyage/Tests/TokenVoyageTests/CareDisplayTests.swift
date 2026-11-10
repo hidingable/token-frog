@@ -253,7 +253,7 @@ func habitsUseDistinctNaturalDescriptionsWithoutNumbers(value: Int, band: Int) {
 @MainActor @Test func profileDeduplicatesCitiesConvertsMileageLimitsLessonsAndComputesRemainingDays() {
     var journey = Snapshots.mailExamples(catalog: localizationCatalog, now: careDisplayDate, petName: "银杏 Ginkgo")
     journey.route = ["shanghai", "beijing", "shanghai", "xian", "beijing"]
-    journey.totalFuel = 9820 * fuelPerKm
+    journey.totalKm = 9820
     let first = journey.letters[0]
     journey.letters = (1...7).map { id in
         var letter = first

@@ -143,7 +143,7 @@ struct OnboardingView: View {
             Text(l10n("onboarding.firstStop", l10n.cityName(flow.catalog.city(preview.targetCityId))))
                 .font(Theme.pixel(24)).foregroundStyle(theme.text)
                 .fixedSize(horizontal: false, vertical: true)
-            Text(l10n("onboarding.distance", Format.km(fuel: preview.legCost)))
+            Text(l10n("onboarding.distance", Format.km(preview.legKm)))
                 .font(Theme.pixel()).foregroundStyle(theme.mileageText)
             hint(l10n("item.randomHint"))
             BagItemPicker(items: flow.catalog.items.all.filter { CareState.Bag().owned.contains($0.id) }, selection: flow.todayItem) { selected in

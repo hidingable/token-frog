@@ -95,7 +95,7 @@ import Testing
             journey.sync(today: DayUsage(date: journey.openDate, fuel: cost), catalog: testCatalog, wishTags: savedTags)
             plain.sync(today: DayUsage(date: plain.openDate, fuel: cost), catalog: testCatalog)
             let expected = DestinationPicker.pick(from: to, currentCityId: target, route: journey.route,
-                stampedCountries: Set(journey.stamps.map(\.countryCode)), medianFuel: 0,
+                stampedCountries: Set(journey.stamps.map(\.countryCode)), medianKm: 0,
                 wishTags: savedTags, catalog: testCatalog, seed: seed)
             #expect(journey.targetCityId == expected)
             if journey.targetCityId != plain.targetCityId { foundDifference = true }

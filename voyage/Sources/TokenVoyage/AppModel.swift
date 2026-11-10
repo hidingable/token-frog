@@ -36,8 +36,8 @@ final class AppModel {
     private(set) var lastError: (any Error)?
     private var usageFailed = false
     private(set) var isMoving = false
-    /// Display-only daily fuel for the trend bars. Days before the journey started never add mileage.
-    private(set) var history: [String: Int] = [:]
+    /// Display-only daily km for the trend bars. Days before the journey started never add mileage.
+    private(set) var history: [String: Double] = [:]
     /// Display-only usage detail, kept apart from the journey.
     private(set) var todayTotals: UsageTotals?
     private(set) var dashboardDays: [DayDetail]? {
@@ -301,7 +301,8 @@ final class AppModel {
         let key = DayKey.string(from: now)
         return LetterComposer.localized(state?.days[key]?.roadClueDecision?.clue?.texts, l10n: l10n)
     }
-    var todayFuel: Int { today.fuel }
+    var todayTokens: Int { today.tokens ?? 0 }
+    var todayKm: Double { Double(todayTokens) / Double(outboundTokensPerKm) }
     var unread: Int { state?.unreadCount(now: now) ?? 0 }
     var letters: [Letter] { state?.deliveredLetters(now: now) ?? [] }
     var filteredLetters: [Letter] { letters.filter(mailFilter.includes) }
@@ -309,7 +310,7 @@ final class AppModel {
     var usageDisplayState: UsageDisplayState {
         if usageFailed || lastError is UsageError { return .failed }
         if todayTotals == nil && dashboardDays == nil && history.isEmpty && lastScan == nil { return .loading }
-        let hasUsage = (state?.totalFuel ?? 0) > 0 || history.values.contains { $0 > 0 }
+        let hasUsage = (state?.totalKm ?? 0) > 0 || history.values.contains { $0 > 0 }
             || (todayTotals?.total ?? 0) > 0 || dashboardDays?.contains { $0.rows.contains { $0.tokens.total > 0 } } == true
         return hasUsage ? .ready : .noUsage
     }
@@ -596,7 +597,7 @@ final class AppModel {
         return shares.filter { $0.percent > 0 }
     }
 
-    var recentDays: [(date: String, fuel: Int)] {
+    var recentDays: [(date: String, km: Double)] {
         guard let state else { return [] }
         var keys = [state.openDate]
         let calendar = Calendar.current
@@ -605,7 +606,7 @@ final class AppModel {
             cursor = calendar.date(byAdding: .day, value: -1, to: cursor) ?? cursor
             keys.append(DayKey.string(from: cursor))
         }
-        return keys.reversed().map { key in (key, max(state.fuel(on: key), history[key] ?? 0)) }
+        return keys.reversed().map { key in (key, max(state.days[key]?.km ?? 0, history[key] ?? 0)) }
     }
 
     func start() {
@@ -684,10 +685,18 @@ final class AppModel {
         if needsHistory, let start = Calendar.current.date(byAdding: .day, value: -6, to: date) {
             since = min(since, DayKey.string(from: start))
         }
+        if historyDate == nil {
+            let recent = state.days.filter { $0.key < todayKey && ($0.value.tokens ?? $0.value.fuel) > 0 }
+                .sorted { $0.key > $1.key }.prefix(14)
+            if recent.contains(where: { $0.value.tokens == nil }) || (recent.isEmpty && state.days.values.contains { $0.tokens == nil }) {
+                since = min(since, recent.count < 14 ? state.startDate : recent.last!.key)
+            }
+        }
         do {
             let details = try await usageReader(isSnapshot ? nil : since, todayKey)
             guard !isLocked, generation == backgroundGeneration, var state = self.state else { return }
             let days = details.map(\.usage)
+            state.backfillTokens(days)
             let todayDetail = details.first { $0.date == todayKey }
             todayTotals = UsageLedger(days: todayDetail.map { [$0] } ?? []).totals
             if isSnapshot {
@@ -700,10 +709,10 @@ final class AppModel {
             let today = days.first { $0.date == todayKey } ?? DayUsage(date: todayKey)
             let finalized = days.filter { $0.date < todayKey && $0.date >= state.openDate }
             if needsHistory {
-                history = Dictionary(days.map { ($0.date, $0.fuel) }, uniquingKeysWith: { _, latest in latest })
+                history = Dictionary(days.map { ($0.date, Double($0.observedTokens) / Double(outboundTokensPerKm)) }, uniquingKeysWith: { _, latest in latest })
                 historyDate = todayKey
             }
-            let before = state.totalFuel
+            let before = state.totalKm
             refreshWishWeek()
             let revisitCities = care.map { RevisitStories.unlockedCities(care: $0, library: catalog.stories) } ?? []
             state.sync(today: today, finalized: finalized, catalog: catalog, wishTags: care.map(WishEngine.tags) ?? [],
@@ -711,7 +720,7 @@ final class AppModel {
             nightWorkObserver.observe(today, at: clock(), journey: &state, content: catalog.usageEvents)
             self.state = state
             processLetters(persistChanges: false, weeklyMail: true)
-            if state.totalFuel > before {
+            if state.totalKm > before {
                 isMoving = true
                 lastMovement = date
             }

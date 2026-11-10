@@ -158,9 +158,9 @@ struct JourneyTab: View {
                         .background(theme.paper)
                         .pixelBorder(theme.border)
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(Format.km(fuel: model.todayFuel)).font(Theme.pixel(24)).foregroundStyle(theme.mileageText)
-                        Text(l10n("journey.todayFuel", l10n.tokens(model.todayFuel))).font(Theme.pixel()).foregroundStyle(theme.text)
-                        Text(l10n("journey.total", Format.km(fuel: state.totalFuel)))
+                        Text(Format.km(model.todayKm)).font(Theme.pixel(24)).foregroundStyle(theme.mileageText)
+                        Text(l10n("journey.todayFuel", l10n.tokens(model.todayTokens))).font(Theme.pixel()).foregroundStyle(theme.text)
+                        Text(l10n("journey.total", Format.km(state.totalKm)))
                             .font(Theme.pixel()).foregroundStyle(theme.textMuted)
                     }
                     Spacer()
@@ -181,7 +181,7 @@ struct JourneyTab: View {
                     Text(l10n("journey.route", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId)))).foregroundStyle(theme.text)
                     BlockProgress(progress: state.legProgress, blocks: 20, size: 8)
                     Spacer()
-                    Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel))).foregroundStyle(theme.textMuted)
+                    Text(l10n("journey.remaining", Format.km(state.remainingKm))).foregroundStyle(theme.textMuted)
                 }
                 .font(Theme.pixel())
 
@@ -198,17 +198,17 @@ struct JourneyTab: View {
 struct RecentBars: View {
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
-    var days: [(date: String, fuel: Int)]
+    var days: [(date: String, km: Double)]
 
     var body: some View {
-        let top = max(days.map(\.fuel).max() ?? 1, 1)
+        let top = max(days.map(\.km).max() ?? 1, 1)
         HStack(alignment: .bottom, spacing: 8) {
             ForEach(days, id: \.date) { day in
                 VStack(spacing: 4) {
-                    Text(day.fuel > 0 ? Format.km(fuel: day.fuel) : "-").foregroundStyle(theme.textMuted)
+                    Text(day.km > 0 ? Format.km(day.km) : "-").foregroundStyle(theme.textMuted)
                     Rectangle()
                         .fill(day.date == days.last?.date ? theme.mileageFill : theme.textMuted)
-                        .frame(height: max(2, (CGFloat(day.fuel) / CGFloat(top) * 48).rounded()))
+                        .frame(height: max(2, (CGFloat(day.km) / CGFloat(top) * 48).rounded()))
                     Text(l10n.day(day.date)).foregroundStyle(theme.textMuted)
                 }
                 .frame(maxWidth: .infinity)
@@ -440,10 +440,10 @@ struct PassportTab: View {
 
     var body: some View {
         if let state = model.state, let catalog = model.catalog {
-            let laps = Double(state.totalFuel) / Double(fuelPerKm) / 40_075
+            let laps = state.totalKm / 40_075
             VStack(alignment: .leading, spacing: 12) {
                 Text(l10n("passport.counts", Format.grouped(state.stamps.count), Format.grouped(Set(state.route).count))).font(Theme.pixel(24)).foregroundStyle(theme.text)
-                Text(l10n("passport.summary", Format.km(fuel: state.totalFuel), l10n.decimal(laps, places: 2), l10n.day(state.startDate, full: true)))
+                Text(l10n("passport.summary", Format.km(state.totalKm), l10n.decimal(laps, places: 2), l10n.day(state.startDate, full: true)))
                     .font(Theme.pixel())
                     .foregroundStyle(theme.textMuted)
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 4), spacing: 8) {

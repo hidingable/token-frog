@@ -80,10 +80,10 @@ struct NotchCollapsedView: View {
                 .frame(width: metrics.shoulderWidth, alignment: .center)
                 Color.clear.frame(width: metrics.notchWidth)
                 NotchShoulderStatus(
-                    label: NotchStatus.isNearArrival(remainingFuel: state.remainingFuel)
-                        ? l10n("journey.remaining", Format.km(fuel: state.remainingFuel))
+                    label: NotchStatus.isNearArrival(remainingKm: state.remainingKm)
+                        ? l10n("journey.remaining", Format.km(state.remainingKm))
                         : l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))),
-                    distance: Format.km(fuel: state.remainingFuel),
+                    distance: Format.km(state.remainingKm),
                     unread: model.unread
                 )
                 .frame(width: metrics.shoulderWidth, alignment: .center)
@@ -130,17 +130,17 @@ struct NotchExpandedView: View {
                     }
                     .frame(width: metrics.expandedSize.width - 32 - 12 - 156, alignment: .leading)
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(Format.km(fuel: model.todayFuel))
+                        Text(Format.km(model.todayKm))
                             .font(Theme.pixel(24))
                             .foregroundStyle(theme.notchMileageText)
-                        Text(l10n("compact.fuel", l10n.tokens(model.todayFuel)))
+                        Text(l10n("compact.fuel", l10n.tokens(model.todayTokens)))
                         if let totals = model.todayTotals {
                             Text(l10n("compact.total", Format.tokens(totals.total, language: l10n.language), Format.cost(totals.cost)))
                                 .foregroundStyle(theme.notchTextMuted)
                         }
                         Text(l10n("journey.route", l10n.cityName(catalog.city(state.currentCityId)), l10n.cityName(catalog.city(state.targetCityId))))
                         BlockProgress(progress: state.legProgress, blocks: 12, size: 6, inactiveColor: theme.notchControlOff)
-                        Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel)))
+                        Text(l10n("journey.remaining", Format.km(state.remainingKm)))
                             .foregroundStyle(theme.notchTextMuted)
                         ForEach(model.todayVehicles.prefix(1), id: \.client) { share in
                             Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
@@ -221,7 +221,7 @@ struct FloatingView: View {
                         .frame(width: surfaceSize.width - (model.petForm == .hatchling ? 50 : 58), alignment: .leading)
                 } else {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(Format.km(fuel: model.todayFuel)).foregroundStyle(theme.mileageText)
+                        Text(Format.km(model.todayKm)).foregroundStyle(theme.mileageText)
                         HStack(spacing: 4) {
                             Text(l10n("compact.destination", l10n.cityName(catalog.city(state.targetCityId))))
                                 .foregroundStyle(theme.text)

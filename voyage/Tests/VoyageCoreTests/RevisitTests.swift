@@ -198,7 +198,7 @@ private func process(_ journey: inout JourneyState, _ care: inout CareState, _ s
         let letters = journey.letters
         process(&journey, &care, stories)
         #expect(journey.letters == letters)
-        #expect(JourneyState.currentVersion == 6 && CareState.currentVersion == 1)
+        #expect(JourneyState.currentVersion == 7 && CareState.currentVersion == 1)
         let journeyURL = try #require(Bundle.module.url(forResource: "journey-v6", withExtension: "json", subdirectory: "Fixtures"))
         let legacyJourney = try JSONDecoder().decode(JourneyState.self, from: Data(contentsOf: journeyURL))
         #expect(legacyJourney.letters.allSatisfy { $0.isRevisit == nil })
@@ -228,7 +228,7 @@ private func process(_ journey: inout JourneyState, _ care: inout CareState, _ s
         var catchUp = initial
         live.sync(today: usage, calendar: careCalendar, catalog: testCatalog, revisitCities: cities)
         let expected = DestinationPicker.pick(from: initial.legTo, currentCityId: initial.targetCityId, route: live.route,
-                                              stampedCountries: Set(live.stamps.map(\.countryCode)), medianFuel: 0,
+                                              stampedCountries: Set(live.stamps.map(\.countryCode)), medianKm: 0,
                                               revisitCities: cities, catalog: testCatalog, seed: initial.seed)
         #expect(live.targetCityId == expected)
         live.sync(today: DayUsage(date: "2026-11-02"), finalized: [usage], calendar: careCalendar, catalog: testCatalog, revisitCities: cities)
@@ -297,12 +297,12 @@ private func revisitReplay(seed: UInt32, multiplier: Int, slices: Int = 1, catal
         let cities = RevisitStories.unlockedCities(care: care, library: stories)
         for slice in 1...slices {
             let usage = amount * slice / slices
-            journey.sync(today: DayUsage(date: date, fuel: usage, byClient: ["codex": usage]), calendar: careCalendar,
+            journey.sync(today: DayUsage(date: date, fuel: usage, byClient: ["codex": usage], observedTokens: usage * 100), calendar: careCalendar,
                          catalog: catalog, revisitCities: cities)
             CareEngine.process(journey: &journey, care: &care, stories: stories, catalog: catalog)
         }
         care.bag.todayItem = ["sketchbook", "note-slip", "raincoat", "old-camera", "lunchbox"][offset % 5]
-        journey.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount, byClient: ["codex": amount])],
+        journey.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount, byClient: ["codex": amount], observedTokens: amount * 100)],
                      calendar: careCalendar, catalog: catalog, revisitCities: cities)
         CareEngine.markCompanion(date: next, care: &care)
         CareEngine.process(journey: &journey, care: &care, stories: stories, catalog: catalog)
@@ -345,5 +345,6 @@ private func revisitReplay(seed: UInt32, multiplier: Int, slices: Int = 1, catal
         #expect(care.companionDays == doubledCare.companionDays && care.weekly == doubledCare.weekly)
         #expect(care.identity == doubledCare.identity)
         #expect(doubled.totalFuel == journey.totalFuel * 2)
+        #expect(doubled.totalKm == journey.totalKm * 2)
     }
 }

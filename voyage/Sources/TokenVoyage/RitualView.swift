@@ -24,7 +24,7 @@ struct RitualView: View {
                         Text(l10n("ritual.nextStop", l10n.cityName(catalog.city(state.targetCityId))))
                             .font(Theme.pixel(24)).foregroundStyle(theme.text)
                             .fixedSize(horizontal: false, vertical: true)
-                        Text(l10n("journey.remaining", Format.km(fuel: state.remainingFuel)))
+                        Text(l10n("journey.remaining", Format.km(state.remainingKm)))
                             .font(Theme.pixel()).foregroundStyle(theme.mileageText)
                     }
                     .padding(16)

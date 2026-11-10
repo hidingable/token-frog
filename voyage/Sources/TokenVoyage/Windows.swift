@@ -432,7 +432,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWind
         menu.removeAllItems()
         menu.addItem(makeItem(model.isLocked || model.onboarding != nil ? l10n("menu.open") : l10n("menu.openPostOffice"), #selector(openMainAction)))
         if !model.isLocked && model.onboarding == nil {
-            var summary = l10n("menu.today", Format.km(fuel: model.todayFuel))
+            var summary = l10n("menu.today", Format.km(model.todayKm))
             if model.unread > 0 { summary += " · " + l10n("menu.newMail", Format.grouped(model.unread)) }
             addInformation(summary, to: menu)
             if let error = model.lastError { addInformation(l10n("menu.usageFailed", l10n.error(error)), to: menu) }

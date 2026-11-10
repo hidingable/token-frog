@@ -30,9 +30,9 @@ enum DataTab: String, CaseIterable, Identifiable, Sendable {
 }
 
 enum NotchStatus {
-    static let nearArrivalKilometers = 50
+    static let nearArrivalKilometers = 50.0
 
-    static func isNearArrival(remainingFuel: Int) -> Bool {
-        remainingFuel <= nearArrivalKilometers * fuelPerKm
+    static func isNearArrival(remainingKm: Double) -> Bool {
+        remainingKm <= nearArrivalKilometers
     }
 }

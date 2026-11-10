@@ -187,7 +187,7 @@ struct MetricsGrid: View, Equatable {
             GridRow {
                 tile(l10n("metric.total"), Format.tokens(totals.total, language: l10n.language), delta(.total))
                 tile(l10n("dashboard.estimatedCost"), Format.cost(totals.cost), delta(.cost))
-                tile(l10n("dashboard.counted"), Format.km(fuel: totals.fuel), delta(.fuel), theme.mileageText)
+                tile(l10n("dashboard.counted"), Format.km(DashboardMetric.fuel.value(totals)), delta(.fuel), theme.mileageText)
                 tile(l10n("dashboard.cacheHits"), Format.percent(totals.cacheHitPercent), nil)
                 tile(l10n("metric.messages"), Format.grouped(totals.messages), delta(.messages))
             }

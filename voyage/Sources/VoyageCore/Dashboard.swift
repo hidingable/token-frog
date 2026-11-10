@@ -7,7 +7,7 @@ public enum DashboardMetric: String, CaseIterable, Identifiable, Sendable {
     public func value(_ tokens: UsageTotals) -> Double {
         switch self {
         case .total: Double(tokens.total)
-        case .fuel: Double(tokens.fuel)
+        case .fuel: Double(tokens.total) / Double(outboundTokensPerKm)
         case .cost: tokens.cost
         case .messages: Double(tokens.messages)
         }
@@ -16,7 +16,7 @@ public enum DashboardMetric: String, CaseIterable, Identifiable, Sendable {
     public func format(_ value: Double, language: Language) -> String {
         switch self {
         case .total: Format.tokens(Int(value.rounded()), language: language)
-        case .fuel: Format.km(fuel: Int(value.rounded()))
+        case .fuel: Format.km(value)
         case .cost: Format.cost(value)
         case .messages: Format.grouped(Int(value.rounded()))
         }
