@@ -72,8 +72,9 @@ public struct ValidatedSaveArchive: Sendable {
     public let appVersion: String
     public let journey: JourneyState
     public let care: CareState
+    /// Optional, untrusted content. The app revalidates and merges it before importing the saves.
+    public let remoteContent: Data?
     fileprivate let journeyData: Data
-    fileprivate let careData: Data
 }
 
 enum SaveArchiveOperation: Equatable, Sendable {
@@ -167,23 +168,28 @@ public final class SaveStore {
         return String(format: "voyage-save-%04d-%02d-%02d.json", parts.year ?? 0, parts.month ?? 0, parts.day ?? 0)
     }
 
-    /// Exports only the two typed game states. Credentials, settings and photo files are not read.
-    public func exportArchive(appVersion: String) throws -> Data {
+    /// Exports typed game states and optional remote content. Credentials, settings and photos are not read.
+    public func exportArchive(appVersion: String, remoteContent: Data? = nil) throws -> Data {
         guard case .loaded(let journey) = journey, case .loaded(let care) = care, !isLocked else {
             throw SaveArchiveError.unavailable
         }
         // Journey's dates use its existing numeric encoding, independently of envelope metadata.
         let journeyJSON = try JSONSerialization.jsonObject(with: JSONEncoder().encode(journey))
         let careJSON = try JSONSerialization.jsonObject(with: JSONEncoder().encode(care))
-        let json: [String: Any] = [
+        var json: [String: Any] = [
             "format": 1, "exportedAt": ISO8601DateFormatter().string(from: now()), "appVersion": appVersion,
             "journey": journeyJSON, "care": careJSON,
         ]
-        return try JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted, .sortedKeys])
+        if let remoteContent {
+            json["remote-content.json"] = try JSONSerialization.jsonObject(with: remoteContent)
+        }
+        let data = try JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted, .sortedKeys])
+        guard data.count <= Self.maximumArchiveBytes else { throw SaveArchiveError.tooLarge }
+        return data
     }
 
-    public func exportArchive(to destination: URL, appVersion: String) throws {
-        let data = try exportArchive(appVersion: appVersion)
+    public func exportArchive(to destination: URL, appVersion: String, remoteContent: Data? = nil) throws {
+        let data = try exportArchive(appVersion: appVersion, remoteContent: remoteContent)
         do { try PrivateStorage.write(data, to: destination) }
         catch { throw SaveArchiveError.writeFailed }
     }
@@ -233,9 +239,7 @@ public final class SaveStore {
             json["care"], file: .care, as: CareState.self, migrations: careMigrations
         )
         var care = decodedCare
-        RoomDecor.clean(care: &care, library: items)
         PetMilestones.establishBaseline(care: &care)
-        let careData = try JSONEncoder().encode(care)
         // Imported files cross a trust boundary. These are runtime invariants assumed by the trip engine,
         // day settlement and the photo loader; the existing version decoders only check the JSON shape.
         let dayParser = DateFormatter()
@@ -293,8 +297,11 @@ public final class SaveStore {
               care.companionDays.allSatisfy(validDay), care.weekly.stamps.allSatisfy(validDay),
               care.memories.allSatisfy({ validDay($0.date) }),
               care.specialDays.allSatisfy({ validDay($0.date) }) else { throw SaveArchiveError.invalidSave(.care) }
+        let remoteContent = json["remote-content.json"].flatMap {
+            try? JSONSerialization.data(withJSONObject: $0, options: [.fragmentsAllowed])
+        }
         return ValidatedSaveArchive(exportedAt: exportedAt, appVersion: header.appVersion,
-                                    journey: journey, care: care, journeyData: journeyData, careData: careData)
+                                    journey: journey, care: care, remoteContent: remoteContent, journeyData: journeyData)
     }
 
     private func validatedArchiveState<State: Codable>(
@@ -327,6 +334,10 @@ public final class SaveStore {
         if case .tooNew(let version) = journey { throw SaveArchiveError.newerSave(file: .journey, version: version) }
         if case .tooNew(let version) = care { throw SaveArchiveError.newerSave(file: .care, version: version) }
 
+        // The app has now merged remote content and updated the library. Validation must preserve placements.
+        var importedCare = archive.care
+        RoomDecor.clean(care: &importedCare, library: items)
+        let careData = try JSONEncoder().encode(importedCare)
         let transactionID = UUID().uuidString
         let staged = Dictionary(uniqueKeysWithValues: SaveFile.allCases.map {
             ($0, directory.appendingPathComponent(".voyage-import-\(transactionID)-\($0.rawValue).pending"))
@@ -347,7 +358,7 @@ public final class SaveStore {
                 do { current[file] = try Data(contentsOf: url(for: file)) }
                 catch { if !Self.isMissing(error) { throw error } }
                 try archiveOperation?(.stage(file))
-                try PrivateStorage.write(file == .journey ? archive.journeyData : archive.careData, to: staged[file]!, options: .withoutOverwriting)
+                try PrivateStorage.write(file == .journey ? archive.journeyData : careData, to: staged[file]!, options: .withoutOverwriting)
                 if let original = current[file] {
                     let rollback = directory.appendingPathComponent(".voyage-import-\(transactionID)-\(file.rawValue).rollback")
                     rollbackFiles[file] = rollback

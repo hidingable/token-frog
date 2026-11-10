@@ -232,8 +232,8 @@ final class AppModel {
         bundledCatalog = loadedCatalog
         let appCatalog: CityCatalog?
         let remoteURL = dataDirectory.appendingPathComponent("remote-content.json")
-        if !isSnapshot, configuredHub.isConfigured || FileManager.default.fileExists(atPath: remoteURL.path),
-           let loadedCatalog, let validator = try? RemoteContentValidator(directory: contentRoot, catalog: loadedCatalog) {
+        if !isSnapshot, let loadedCatalog,
+           let validator = try? RemoteContentValidator(directory: contentRoot, catalog: loadedCatalog) {
             let remote = RemoteContentStore.load(url: remoteURL, validator: validator)
             appCatalog = remote.merging(into: loadedCatalog)
             remoteContentStore = RemoteContentStore(url: remoteURL, validator: validator, content: remote)
@@ -1237,9 +1237,12 @@ final class AppModel {
 
     static var appVersion: String { Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.1.0" }
 
-    func exportSave(to url: URL) {
-        do { try store.exportArchive(to: url, appVersion: Self.appVersion); archiveError = nil }
-        catch { archiveError = error }
+    func exportSave(to url: URL) async {
+        do {
+            let remoteContent = try await remoteContentStore?.exportArchiveData()
+            try store.exportArchive(to: url, appVersion: Self.appVersion, remoteContent: remoteContent)
+            archiveError = nil
+        } catch { archiveError = error }
     }
 
     func validateImport(at url: URL) throws -> ValidatedSaveArchive { try store.validateArchive(at: url) }
@@ -1250,7 +1253,15 @@ final class AppModel {
     }
 
     @discardableResult
-    func importSave(_ candidate: ValidatedSaveArchive) -> Bool {
+    func importSave(_ candidate: ValidatedSaveArchive) async -> Bool {
+        backgroundGeneration += 1
+        departureContentTasks.values.forEach { $0.cancel() }
+        departureContentTasks = [:]
+        if let data = candidate.remoteContent, let remoteContentStore, let bundledCatalog,
+           let remote = try? await remoteContentStore.mergeArchive(data) {
+            catalog = remote.merging(into: bundledCatalog)
+            if let catalog { store.updateItemLibrary(catalog.items) }
+        }
         do {
             try store.importArchive(candidate)
             archiveError = nil

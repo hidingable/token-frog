@@ -233,7 +233,7 @@ func usageFailureRetainsJourneyAndShowsRecoverableExplanation(mode: String) asyn
     await model.loadDashboard()
     let candidate = try fixture.store.validateArchive(source.store.exportArchive(appVersion: "test"))
     model.selectedLetterID = 99
-    #expect(model.importSave(candidate))
+    #expect(await model.importSave(candidate))
     #expect(model.state == candidate.journey && model.care == candidate.care)
     #expect(model.dashboardDays == nil && model.todayTotals == nil && model.history.isEmpty)
     #expect(model.selectedLetterID == nil && model.onboarding == nil && !model.isLocked)
@@ -251,7 +251,7 @@ func usageFailureRetainsJourneyAndShowsRecoverableExplanation(mode: String) asyn
     let running = Task { await model.scan() }
     while !(await reader.started) { await Task.yield() }
     let candidate = try fixture.store.validateArchive(source.store.exportArchive(appVersion: "test"))
-    #expect(model.importSave(candidate))
+    #expect(await model.importSave(candidate))
     await reader.release()
     await running.value
     #expect(model.state == candidate.journey && model.care == candidate.care)
@@ -268,4 +268,11 @@ func usageFailureRetainsJourneyAndShowsRecoverableExplanation(mode: String) asyn
     let injected = NSError(domain: "private", code: 1, userInfo: [NSLocalizedDescriptionKey: "PRIVATE FILE CONTENT"])
     #expect(!l10n.archiveError(injected).contains("PRIVATE FILE CONTENT"))
     #expect(!l10n("settings.privacy").hasPrefix("settings."))
+}
+
+@Test(arguments: Language.allCases) func archiveExportHintExcludesOnlyCredentialsAndPhotos(language: Language) {
+    let hint = L10n(language: language)("settings.exportHint")
+    #expect(hint.contains(language == .en ? "Credentials" : "凭据"))
+    #expect(hint.contains(language == .en ? "photos" : "照片"))
+    #expect(!hint.contains(language == .en ? "remote content library" : "远端内容库"))
 }

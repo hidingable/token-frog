@@ -292,6 +292,215 @@ private final class RemoteSettingsDefaults: UserDefaults, @unchecked Sendable {
     override func set(_ value: Any?, forKey defaultName: String) {}
 }
 
+@Suite @MainActor struct RemoteSaveArchiveTests {
+    private let archiveDate = Date(timeIntervalSince1970: 1_794_276_000)
+
+    private func model(at directory: URL) -> AppModel {
+        AppModel(defaults: RemoteSettingsDefaults(), directory: directory, catalog: localizationCatalog,
+                 contentDirectory: remotePack, themes: testThemes, now: { archiveDate },
+                 usageReader: { _, _ in [] }, hoursReader: { _, _ in [] },
+                 enrichmentReader: { _ in Enrichment() }, hubClient: HubClient(baseURL: nil), runtimeEnabled: false)
+    }
+
+    private func seedSaves(at directory: URL, content: RemoteCityContent = RemoteCityContent()) throws {
+        let catalog = content.merging(into: localizationCatalog)
+        let store = SaveStore(directory: directory, pets: catalog.pets, items: catalog.items,
+                              journeyMigrations: .journey(catalog: catalog))
+        store.load()
+        let journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: archiveDate),
+                                   now: archiveDate, catalog: catalog)
+        var care = CareState(petName: "Pip", species: journey.pet, hatchedAt: journey.startDate)
+        care.souvenirs = content.items.keys.sorted().enumerated().map {
+            .init(id: $0.element, letterId: $0.offset + 1, shelved: $0.offset == 0)
+        }
+        care.roomPlacements = content.items.keys.sorted().dropFirst().map { .init(slot: "wall", itemID: $0) }
+        try store.save(journey)
+        try store.save(care)
+    }
+
+    private func archive(at directory: URL, member: Any? = nil) async throws -> URL {
+        try seedSaves(at: directory)
+        let app = model(at: directory)
+        let file = directory.appendingPathComponent("export.json")
+        await app.exportSave(to: file)
+        #expect(app.archiveError == nil)
+        var document = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: file)) as? [String: Any])
+        document["remote-content.json"] = member
+        try remoteJSON(document).write(to: file)
+        return file
+    }
+
+    @Test func roundTripKeepsServerItemsOnShelfInRoomAndInCollectionsAfterRestart() async throws {
+        let source = remoteTestDirectory(), target = remoteTestDirectory()
+        defer { try? FileManager.default.removeItem(at: source); try? FileManager.default.removeItem(at: target) }
+        let validator = try RemoteContentValidator(directory: remotePack, catalog: localizationCatalog)
+        let remote = RemoteContentStore(url: source.appendingPathComponent("remote-content.json"),
+                                        validator: validator, content: RemoteCityContent())
+        let secondID = remoteItemID + ".wall"
+        let accepted = try await remote.accept([remoteJSON(remoteStory()), remoteJSON(remoteItem()),
+                                                remoteJSON(remoteItem(id: secondID))], cityID: "hangzhou")
+        try seedSaves(at: source, content: accepted.content)
+        let original = model(at: source)
+        let file = source.appendingPathComponent("export.json")
+        await original.exportSave(to: file)
+        #expect(original.archiveError == nil)
+        let document = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: file)) as? [String: Any])
+        #expect(document["format"] as? Int == 1)
+        let member = try #require(document["remote-content.json"] as? [String: Any])
+        #expect(member["schemaVersion"] as? Int == 1)
+        #expect(Set((member["entries"] as? [String: Any] ?? [:]).keys) == accepted.content.ids)
+
+        #expect(!FileManager.default.fileExists(atPath: target.path))
+        let imported = model(at: target)
+        let candidate = try imported.validateImport(at: file)
+        #expect(candidate.care.roomPlacements == original.care?.roomPlacements)
+        #expect(await imported.importSave(candidate))
+        for app in [imported, model(at: target)] {
+            let care = try #require(app.care)
+            let catalog = try #require(app.catalog)
+            #expect(care.souvenirs == original.care?.souvenirs)
+            #expect(care.roomPlacements == original.care?.roomPlacements)
+            #expect(RoomLayout.shelf(care).map(\.id) == [remoteItemID])
+            #expect(RoomDecor.item(in: .wall, care: care) == secondID)
+            #expect(catalog.stories.all.first { $0.id == remoteStoryID } == accepted.content.stories[remoteStoryID])
+            for souvenir in care.souvenirs {
+                let item = try #require(catalog.items.find(souvenir.id))
+                #expect(item == accepted.content.items[souvenir.id])
+                for language in Language.allCases {
+                    #expect(ItemDisplay(item, l10n: L10n(language: language)).name == item.names[language.rawValue])
+                }
+            }
+        }
+        #expect(RemoteContentStore.load(url: target.appendingPathComponent("remote-content.json"), validator: validator).ids == accepted.content.ids)
+    }
+
+    @Test func oldArchiveWithoutRemoteMemberStillImports() async throws {
+        let source = remoteTestDirectory(), target = remoteTestDirectory()
+        defer { try? FileManager.default.removeItem(at: source); try? FileManager.default.removeItem(at: target) }
+        let file = try await archive(at: source)
+        let document = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: file)) as? [String: Any])
+        #expect(document["remote-content.json"] == nil)
+        let app = model(at: target)
+        let candidate = try app.validateImport(at: file)
+        #expect(candidate.remoteContent == nil)
+        #expect(await app.importSave(candidate))
+        #expect(app.state == candidate.journey && app.care == candidate.care)
+        #expect(!app.isLocked && app.archiveError == nil)
+        #expect(!FileManager.default.fileExists(atPath: target.appendingPathComponent("remote-content.json").path))
+    }
+
+    @Test func importRevalidatesEachEntryAndKeepsValidNeighbors() async throws {
+        let source = remoteTestDirectory(), target = remoteTestDirectory()
+        defer { try? FileManager.default.removeItem(at: source); try? FileManager.default.removeItem(at: target) }
+        var story = try remoteStory()
+        story["rewards"] = ["itemIds": [remoteItemID], "menuIds": [String]()]
+        var entries: [String: Any] = [remoteStoryID: story, remoteItemID: try remoteItem()]
+        let otherCityID = "hub.suzhou.archive.souvenir"
+        entries[otherCityID] = try remoteItem(cityID: "suzhou", id: otherCityID)
+        for failure in ["city", "facts", "bundledID", "replyID", "sponsor", "nestedSponsor", "keyMismatch", "malformed"] {
+            let id = "hub.hangzhou.archive." + failure
+            var invalid = try remoteStory(id: id)
+            switch failure {
+            case "city": invalid["cityId"] = "unknown-city"
+            case "facts": invalid["factIds"] = ["unknown-fact"]
+            case "bundledID": invalid["id"] = try #require(localizationCatalog.stories.all.first?.id)
+            case "replyID":
+                var replies = try #require(invalid["replies"] as? [[String: Any]])
+                replies[0]["id"] = try #require(localizationCatalog.stories.all.first { !$0.replies.isEmpty }?.replies.first?.id)
+                invalid["replies"] = replies
+            case "sponsor": invalid["sponsor"] = NSNull()
+            case "nestedSponsor": invalid["extra"] = ["sponsor": false]
+            case "keyMismatch": invalid["id"] = id + ".different"
+            default: invalid.removeValue(forKey: "text")
+            }
+            entries[invalid["id"] as? String ?? id] = invalid
+            if failure == "keyMismatch" { entries[id] = entries.removeValue(forKey: id + ".different") }
+        }
+        entries["invalid-scalar"] = 42
+        let file = try await archive(at: source, member: ["schemaVersion": 1, "entries": entries])
+        let app = model(at: target)
+        let candidate = try app.validateImport(at: file)
+        // Preview validation does not install content before the user confirms.
+        #expect(app.catalog?.items.find(remoteItemID) == nil)
+        #expect(!FileManager.default.fileExists(atPath: target.appendingPathComponent("remote-content.json").path))
+        #expect(await app.importSave(candidate))
+        #expect(app.archiveError == nil)
+        let validator = try RemoteContentValidator(directory: remotePack, catalog: localizationCatalog)
+        let loaded = RemoteContentStore.load(url: target.appendingPathComponent("remote-content.json"), validator: validator)
+        #expect(loaded.ids == [remoteStoryID, remoteItemID, otherCityID])
+        #expect(loaded.stories[remoteStoryID]?.rewards.itemIds == [remoteItemID])
+        #expect(app.catalog?.items.find(otherCityID) == loaded.items[otherCityID])
+    }
+
+    @Test func localVersionsWinWhileNewArchivedEntriesMergeAndSurviveRestart() async throws {
+        let source = remoteTestDirectory(), target = remoteTestDirectory()
+        defer { try? FileManager.default.removeItem(at: source); try? FileManager.default.removeItem(at: target) }
+        let validator = try RemoteContentValidator(directory: remotePack, catalog: localizationCatalog)
+        let remote = RemoteContentStore(url: target.appendingPathComponent("remote-content.json"),
+                                        validator: validator, content: RemoteCityContent())
+        let localOnlyID = remoteItemID + ".local"
+        let local = try await remote.accept([remoteJSON(remoteStory()), remoteJSON(remoteItem()),
+                                             remoteJSON(remoteItem(id: localOnlyID))], cityID: "hangzhou")
+        var editedItem = try remoteItem()
+        editedItem["names"] = ["en": "Archive replacement", "zh-Hans": "归档里的替换名字"]
+        var editedStory = try remoteStory()
+        editedStory["text"] = ["en": "Archive replacement", "zh-Hans": "归档里的替换情节"]
+        let newID = remoteItemID + ".imported"
+        let entries = [remoteStoryID: editedStory, remoteItemID: editedItem, newID: try remoteItem(id: newID)]
+        let file = try await archive(at: source, member: ["schemaVersion": 1, "entries": entries])
+        let app = model(at: target)
+        #expect(await app.importSave(try app.validateImport(at: file)))
+        for current in [app, model(at: target)] {
+            #expect(current.catalog?.items.find(remoteItemID) == local.content.items[remoteItemID])
+            #expect(current.catalog?.stories.all.first { $0.id == remoteStoryID } == local.content.stories[remoteStoryID])
+            #expect(current.catalog?.items.find(localOnlyID) == local.content.items[localOnlyID])
+            #expect(current.catalog?.items.find(newID) != nil)
+        }
+        #expect(RemoteContentStore.load(url: target.appendingPathComponent("remote-content.json"), validator: validator).ids == local.content.ids.union([newID]))
+    }
+
+    @Test(arguments: ["broken", "futureVersion", "missingVersion", "badEntries", "null"])
+    func corruptRemoteMemberIsIgnoredWithoutFailingImport(problem: String) async throws {
+        let source = remoteTestDirectory(), target = remoteTestDirectory()
+        defer { try? FileManager.default.removeItem(at: source); try? FileManager.default.removeItem(at: target) }
+        let member: Any
+        switch problem {
+        case "futureVersion": member = ["schemaVersion": 999, "entries": [remoteItemID: try remoteItem()]]
+        case "missingVersion": member = ["entries": [remoteItemID: try remoteItem()]]
+        case "badEntries": member = ["schemaVersion": 1, "entries": []] as [String: Any]
+        case "null": member = NSNull()
+        default: member = "{broken JSON"
+        }
+        let file = try await archive(at: source, member: member)
+        let app = model(at: target)
+        let candidate = try app.validateImport(at: file)
+        #expect(await app.importSave(candidate))
+        #expect(app.state == candidate.journey && app.care == candidate.care)
+        #expect(!app.isLocked && app.archiveError == nil)
+        #expect(app.catalog?.items.find(remoteItemID) == nil)
+        #expect(!FileManager.default.fileExists(atPath: target.appendingPathComponent("remote-content.json").path))
+    }
+
+    @Test(arguments: [false, true])
+    func remoteStoreFailureDoesNotBlockSaveImport(corruptLocalStore: Bool) async throws {
+        let source = remoteTestDirectory(), target = remoteTestDirectory()
+        defer { try? FileManager.default.removeItem(at: source); try? FileManager.default.removeItem(at: target) }
+        let file = try await archive(at: source, member: ["schemaVersion": 1, "entries": [remoteItemID: try remoteItem()]])
+        try FileManager.default.createDirectory(at: target, withIntermediateDirectories: true)
+        let remoteURL = target.appendingPathComponent("remote-content.json")
+        let corrupt = Data("preserve corrupt local store".utf8)
+        if corruptLocalStore { try corrupt.write(to: remoteURL) }
+        let app = model(at: target)
+        if !corruptLocalStore { try FileManager.default.createDirectory(at: remoteURL, withIntermediateDirectories: false) }
+        let candidate = try app.validateImport(at: file)
+        #expect(await app.importSave(candidate))
+        #expect(!app.isLocked && app.archiveError == nil)
+        #expect(app.state == candidate.journey && app.care == candidate.care)
+        #expect(app.catalog?.items.find(remoteItemID) == nil)
+        if corruptLocalStore { #expect(try Data(contentsOf: remoteURL) == corrupt) }
+    }
+}
+
 @MainActor private final class RemoteDepartureClock {
     var now: Date
     init(_ now: Date) { self.now = now }

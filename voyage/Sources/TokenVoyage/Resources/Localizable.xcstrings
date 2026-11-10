@@ -6712,13 +6712,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "包含旅程和养成存档，不含凭据、照片或远端内容库。"
+            "value": "包含旅程和养成存档，不含凭据或照片。"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Includes journey and care saves. Credentials, photos and the remote content library are excluded."
+            "value": "Includes journey and care saves. Credentials and photos are excluded."
           }
         }
       }

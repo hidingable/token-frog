@@ -11,7 +11,7 @@ enum SaveArchivePanels {
         panel.allowedContentTypes = [.json]
         panel.message = model.l10n("settings.exportHint")
         guard panel.runModal() == .OK, let url = panel.url else { return }
-        model.exportSave(to: url)
+        Task { await model.exportSave(to: url) }
     }
 
     static func importSave(model: AppModel, legacyFile: SaveFile? = nil) {
@@ -29,7 +29,7 @@ enum SaveArchivePanels {
             alert.addButton(withTitle: model.l10n("settings.import"))
             alert.addButton(withTitle: model.l10n("action.cancel"))
             guard alert.runModal() == .alertFirstButtonReturn else { return }
-            _ = model.importSave(candidate)
+            Task { await model.importSave(candidate) }
         } catch {
             // The recovery page also accepts the original individual-file backups.
             if let legacyFile, error as? SaveArchiveError == .invalidArchive {

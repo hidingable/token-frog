@@ -334,7 +334,7 @@ private struct QuotaModelFixture {
     #expect(await probe.credentialCalls == 1)
     #expect(await probe.calls == 1)
     let destination = fixture.directory.appendingPathComponent("export.json")
-    model.exportSave(to: destination)
+    await model.exportSave(to: destination)
     #expect(model.archiveError == nil)
     let bytes = try Data(contentsOf: destination)
     let text = try #require(String(data: bytes, encoding: .utf8))

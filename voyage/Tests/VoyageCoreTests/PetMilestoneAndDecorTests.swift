@@ -126,7 +126,8 @@ private func decorCare(days: Int = 20) -> CareState {
             "care": JSONSerialization.jsonObject(with: JSONEncoder().encode(care)),
         ])
         let validated = try store.validateArchive(archive)
-        #expect(validated.care == loaded)
+        #expect(validated.care.roomPlacements == care.roomPlacements)
+        #expect(validated.care.seenPetStages == loaded.seenPetStages)
         try store.importArchive(validated)
         #expect(try JSONDecoder().decode(CareState.self, from: Data(contentsOf: directory.appendingPathComponent("care.json"))) == loaded)
     }

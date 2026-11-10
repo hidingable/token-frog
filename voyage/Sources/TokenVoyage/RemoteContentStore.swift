@@ -17,6 +17,12 @@ actor RemoteContentStore {
 
     nonisolated static func load(url: URL, validator: RemoteContentValidator) -> RemoteCityContent {
         guard let entries = try? readArchive(url: url) else { return RemoteCityContent() }
+        return validatedContent(entries, validator: validator, into: RemoteCityContent())
+    }
+
+    private nonisolated static func validatedContent(
+        _ entries: [String: Data], validator: RemoteContentValidator, into existing: RemoteCityContent
+    ) -> RemoteCityContent {
         var byCity: [String: [Data]] = [:]
         for id in entries.keys.sorted() {
             let data = entries[id]!
@@ -24,7 +30,7 @@ actor RemoteContentStore {
                   entry["id"] as? String == id, let city = entry["cityId"] as? String else { continue }
             byCity[city, default: []].append(data)
         }
-        return byCity.keys.sorted().reduce(into: RemoteCityContent()) { result, city in
+        return byCity.keys.sorted().reduce(into: existing) { result, city in
             result = validator.accepting(byCity[city]!, cityID: city, into: result)
         }
     }
@@ -38,24 +44,49 @@ actor RemoteContentStore {
         let additions = fresh.keys.sorted().filter { archive[$0] == nil }.map { fresh[$0]! }
         let next = validator.accepting(additions, cityID: cityID, into: content)
         for (id, data) in try encodedEntries(next) where archive[id] == nil { archive[id] = data }
-        var json: [String: Any] = [:]
-        for (id, data) in archive { json[id] = try JSONSerialization.jsonObject(with: data, options: [.fragmentsAllowed]) }
-        let document: [String: Any] = ["schemaVersion": 1, "entries": json]
+        try persist(next, archive: archive)
+        return (next, accepted.ids.intersection(next.ids).sorted())
+    }
+
+    func exportArchiveData() throws -> Data? {
+        guard !content.ids.isEmpty else { return nil }
+        return try Self.encodeArchive(encodedEntries(content))
+    }
+
+    /// Same validation as startup/fetch; local entries win. Callers ignore optional-content failures.
+    func mergeArchive(_ data: Data) throws -> RemoteCityContent {
+        guard var archive else { throw CocoaError(.fileReadCorruptFile) }
+        let incoming = try Self.decodeArchive(data).filter { archive[$0.key] == nil }
+        let next = Self.validatedContent(incoming, validator: validator, into: content)
+        guard next.ids != content.ids else { return content }
+        for (id, entry) in try encodedEntries(next) where archive[id] == nil { archive[id] = entry }
+        try persist(next, archive: archive)
+        return next
+    }
+
+    private func persist(_ next: RemoteCityContent, archive: [String: Data]) throws {
         try PrivateStorage.createDirectory(at: url.deletingLastPathComponent())
-        try PrivateStorage.write(JSONSerialization.data(withJSONObject: document, options: [.sortedKeys]), to: url)
+        try PrivateStorage.write(Self.encodeArchive(archive), to: url)
         content = next
         self.archive = archive
-        return (next, accepted.ids.intersection(next.ids).sorted())
     }
 
     private nonisolated static func readArchive(url: URL) throws -> [String: Data] {
         guard FileManager.default.fileExists(atPath: url.path) else { return [:] }
-        let data = try Data(contentsOf: url)
+        return try decodeArchive(Data(contentsOf: url))
+    }
+
+    private nonisolated static func decodeArchive(_ data: Data) throws -> [String: Data] {
         guard let document = try JSONSerialization.jsonObject(with: data) as? [String: Any],
               document["schemaVersion"] as? Int == 1, let entries = document["entries"] as? [String: Any] else {
             throw CocoaError(.fileReadCorruptFile)
         }
         return try entries.mapValues { try JSONSerialization.data(withJSONObject: $0, options: [.sortedKeys, .fragmentsAllowed]) }
+    }
+
+    private nonisolated static func encodeArchive(_ entries: [String: Data]) throws -> Data {
+        let json = try entries.mapValues { try JSONSerialization.jsonObject(with: $0, options: [.fragmentsAllowed]) }
+        return try JSONSerialization.data(withJSONObject: ["schemaVersion": 1, "entries": json], options: [.sortedKeys])
     }
 
     private func encodedEntries(_ content: RemoteCityContent) throws -> [String: Data] {

@@ -153,6 +153,43 @@ private struct ArchiveSandbox {
         #expect(!text.contains("FAKE_PHOTO_BYTES"))
     }
 
+    @Test func unknownArchiveMembersAreTolerated() throws {
+        let box = try ArchiveSandbox()
+        defer { box.cleanUp() }
+        let store = try box.store()
+        var document = try #require(JSONSerialization.jsonObject(with: box.archive()) as? [String: Any])
+        document["future-member.json"] = ["schemaVersion": 99, "data": [1, 2, 3]] as [String: Any]
+        let candidate = try store.validateArchive(JSONSerialization.data(withJSONObject: document))
+        try store.importArchive(candidate)
+        #expect(!store.isLocked)
+        #expect(candidate.remoteContent == nil)
+        #expect(!FileManager.default.fileExists(atPath: box.directory.appendingPathComponent("future-member.json").path))
+    }
+
+    @Test func remoteMemberCountsTowardArchiveSizeLimitOnExportAndImport() throws {
+        let box = try ArchiveSandbox()
+        defer { box.cleanUp() }
+        let store = try box.store()
+        let remote = try JSONSerialization.data(withJSONObject: [
+            "schemaVersion": 1, "entries": ["oversized": String(repeating: "x", count: SaveStore.maximumArchiveBytes)],
+        ] as [String: Any])
+        let destination = box.directory.appendingPathComponent("export.json")
+        let original = Data("keep existing export".utf8)
+        try original.write(to: destination)
+        #expect(throws: SaveArchiveError.tooLarge) {
+            try store.exportArchive(to: destination, appVersion: "test", remoteContent: remote)
+        }
+        #expect(try Data(contentsOf: destination) == original)
+        var document = try #require(JSONSerialization.jsonObject(with: box.archive()) as? [String: Any])
+        document["remote-content.json"] = try JSONSerialization.jsonObject(with: remote)
+        let oversized = try JSONSerialization.data(withJSONObject: document)
+        #expect(throws: SaveArchiveError.tooLarge) { try store.validateArchive(oversized) }
+        try oversized.write(to: destination)
+        #expect(throws: SaveArchiveError.tooLarge) { try store.validateArchive(at: destination) }
+        #expect(try box.temporaryFiles().isEmpty)
+        #expect(try store.backups(for: .journey).isEmpty)
+    }
+
     @Test func exportUsesAtomicFileReplacementAndDatedFilename() throws {
         let box = try ArchiveSandbox()
         defer { box.cleanUp() }
