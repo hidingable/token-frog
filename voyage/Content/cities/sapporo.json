@@ -10,7 +10,7 @@
     "food",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "札幌",
     "en": "Sapporo"
@@ -19,5 +19,66 @@
     "zh-Hans": "札幌市",
     "en": "Sapporo"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "sapporo-odori",
+      "type": "place",
+      "names": {
+        "zh-Hans": "大通公园",
+        "en": "Odori Park"
+      },
+      "summary": {
+        "zh-Hans": "大通公园在札幌市中心东西延伸，有草坪、树木、花坛和喷泉。",
+        "en": "Odori Park runs east to west through central Sapporo, with lawns, trees, flowerbeds and fountains."
+      },
+      "sources": [
+        "https://www.sapporo.travel/en/spot/facility/odori_park/"
+      ]
+    },
+    {
+      "id": "sapporo-moere",
+      "type": "place",
+      "names": {
+        "zh-Hans": "莫埃来沼公园",
+        "en": "Moerenuma Park"
+      },
+      "summary": {
+        "zh-Hans": "莫埃来沼公园是札幌的艺术公园，设有三角轮廓的莫埃来山和名为Hidamari的玻璃金字塔。",
+        "en": "Moerenuma is an art park in Sapporo with the triangular silhouette of Mount Moere and a glass pyramid called Hidamari."
+      },
+      "sources": [
+        "https://www.sapporo.travel/en/spot/facility/moerenuma_park/"
+      ]
+    },
+    {
+      "id": "sapporo-ramen",
+      "type": "food",
+      "names": {
+        "zh-Hans": "味噌拉面",
+        "en": "Miso Ramen"
+      },
+      "summary": {
+        "zh-Hans": "札幌味噌拉面以味噌汤配中粗卷面，配料可有豆芽和洋葱。",
+        "en": "Sapporo miso ramen combines miso broth with medium-thick curly noodles. Toppings can include bean sprouts and onion."
+      },
+      "sources": [
+        "https://www.sapporo.travel/en/gourmet/feature/ramen/"
+      ]
+    },
+    {
+      "id": "sapporo-curry",
+      "type": "food",
+      "names": {
+        "zh-Hans": "汤咖喱",
+        "en": "Soup Curry"
+      },
+      "summary": {
+        "zh-Hans": "汤咖喱是札幌可见的料理，将蔬菜放入带有香料的汤底。",
+        "en": "Soup curry is found in Sapporo and combines vegetables with a spiced soup base."
+      },
+      "sources": [
+        "https://www.sapporo.travel/en/atws-restaurant/"
+      ]
+    }
+  ]
 }

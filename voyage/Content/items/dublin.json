@@ -1,0 +1,98 @@
+[
+  {
+    "id": "dublin.menu-coddle",
+    "kind": "menu",
+    "cityId": "dublin",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "炖香肠小菜单",
+      "en": "Coddle Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使饭后画的土豆与勺子，土豆终于没有掉队。",
+      "en": "The messenger’s after-lunch sketch gives the potato a secure place on its spoon."
+    }
+  },
+  {
+    "id": "dublin.menu-bread",
+    "kind": "menu",
+    "cityId": "dublin",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "苏打面包小菜单",
+      "en": "Soda Bread Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "旅途中自绘的面包菜单，黄油旁留了传递的空当。",
+      "en": "A handmade bread menu with room beside the butter for passing hands."
+    }
+  },
+  {
+    "id": "dublin.sleeve-wave",
+    "kind": "souvenir",
+    "cityId": "dublin",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "袖口问候折页",
+      "en": "Sleeve Greeting Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自折的长袖纸页，展开才看得见小手。",
+      "en": "The messenger folded a paper sleeve with a hand hidden inside."
+    }
+  },
+  {
+    "id": "dublin.shade-fold",
+    "kind": "souvenir",
+    "cityId": "dublin",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "退进树影的纸鞋",
+      "en": "Shoes in Paper Shade"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折的两只纸鞋，都收在阴影色的小口袋里。",
+      "en": "Two paper shoes made by the messenger tuck into a shaded paper pocket."
+    }
+  },
+  {
+    "id": "dublin.bread-weight",
+    "kind": "souvenir",
+    "cityId": "dublin",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "一口重量折卡",
+      "en": "Weight of a Bite"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的纸勺托住一片纸面包，展开才看见碗沿的小弧线。",
+      "en": "The messenger’s paper spoon supports a piece of paper bread above a curved bowl rim."
+    }
+  },
+  {
+    "id": "dublin.ten-fingers",
+    "kind": "souvenir",
+    "cityId": "dublin",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "十指问候翻卡",
+      "en": "Ten-Finger Greeting Card"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的翻卡，翻开袖口，两边各露出一只手。",
+      "en": "The messenger’s original folding card reveals hands when its paper cuffs turn back."
+    }
+  }
+]

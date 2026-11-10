@@ -1,0 +1,98 @@
+[
+  {
+    "id": "panama.menu-raspao",
+    "kind": "menu",
+    "cityId": "panama",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "刨冰小菜单",
+      "en": "Raspa’o Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自绘的刨冰杯，水果色沿杯子慢慢展开。",
+      "en": "The messenger’s hand-drawn shaved ice cup has fruit-colored streaks along its sides."
+    }
+  },
+  {
+    "id": "panama.menu-patacon",
+    "kind": "menu",
+    "cityId": "panama",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "炸大蕉小菜单",
+      "en": "Patacón Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使饭后画的炸大蕉，一小一大两片在纸上换了位置。",
+      "en": "In the messenger’s after-lunch sketch, a small and a large piece of fried plantain have exchanged places."
+    }
+  },
+  {
+    "id": "panama.slow-finish",
+    "kind": "souvenir",
+    "cityId": "panama",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "慢走终点折条",
+      "en": "Slow Finish Strip"
+    },
+    "descriptions": {
+      "zh-Hans": "信使做的纸终点可以展开，给慢慢走的人多留一点路。",
+      "en": "The messenger’s paper finish unfolds to leave slow walkers a little more path."
+    }
+  },
+  {
+    "id": "panama.unmatched-patch",
+    "kind": "souvenir",
+    "cityId": "panama",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "没配成的色块纸",
+      "en": "Unmatched Color Patch"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自己拼的色纸，一块故意没有找同色伙伴。",
+      "en": "The messenger’s own paper collage leaves one color without a matching partner."
+    }
+  },
+  {
+    "id": "panama.waiting-shoe",
+    "kind": "souvenir",
+    "cityId": "panama",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "等传球的纸鞋",
+      "en": "Waiting Shoe Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折的纸鞋抬起一点，又轻轻放回纸路上。",
+      "en": "The messenger’s folded paper shoe lifts slightly before settling on its paper path."
+    }
+  },
+  {
+    "id": "panama.shared-start",
+    "kind": "souvenir",
+    "cityId": "panama",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "一起出发拉卡",
+      "en": "Shared Start Pull Card"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的纸拉卡，拉开后小脚印才一同向前。",
+      "en": "The messenger’s original pull card sends its little footprints forward together."
+    }
+  }
+]

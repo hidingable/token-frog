@@ -10,7 +10,7 @@
     "coast",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "拉各斯",
     "en": "Lagos"
@@ -19,5 +19,69 @@
     "zh-Hans": "拉各斯",
     "en": "Lagos"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "lagos-lekki",
+      "type": "place",
+      "names": {
+        "zh-Hans": "莱基保护中心",
+        "en": "Lekki Conservation Centre"
+      },
+      "summary": {
+        "zh-Hans": "莱基保护中心位于拉各斯，由尼日利亚保护基金会管理，有林地、自然步道和栈道，可见猴类等野生动物。",
+        "en": "Lekki Conservation Centre in Lagos is managed by the Nigerian Conservation Foundation. It has forest, nature trails and a boardwalk, with wildlife including monkeys."
+      },
+      "sources": [
+        "https://ncfnigeria.org/lekki-conservation-centre-the-green-soul-of-lagos-metropolis/",
+        "https://ncfnigeria.org/ncf-board-of-trustees-and-national-executive-council-experience-lekki-conservation-centre/"
+      ]
+    },
+    {
+      "id": "lagos-gallery",
+      "type": "place",
+      "names": {
+        "zh-Hans": "妮凯艺术画廊",
+        "en": "Nike Art Gallery"
+      },
+      "summary": {
+        "zh-Hans": "妮凯艺术画廊位于拉各斯，展示尼日利亚及其他非洲国家的艺术作品。",
+        "en": "Nike Art Gallery in Lagos displays works from Nigeria and other African countries."
+      },
+      "sources": [
+        "https://www.artxlagos.com/exhibitors/nike-art-gallery-2025"
+      ]
+    },
+    {
+      "id": "lagos-jollof",
+      "type": "food",
+      "names": {
+        "zh-Hans": "乔洛夫饭",
+        "en": "Jollof Rice"
+      },
+      "summary": {
+        "zh-Hans": "拉各斯可见乔洛夫饭。一种做法将米与番茄、红椒、洋葱和香料一起烹调。",
+        "en": "Jollof rice is found in Lagos. One preparation cooks rice with tomato, red pepper, onion and spices."
+      },
+      "sources": [
+        "https://ouidalagos.com/cafe/menu/",
+        "https://www.bbcgoodfood.com/recipes/jollof-rice"
+      ]
+    },
+    {
+      "id": "lagos-puff",
+      "type": "food",
+      "names": {
+        "zh-Hans": "炸面团球",
+        "en": "Puff-puff"
+      },
+      "summary": {
+        "zh-Hans": "Puff-puff是油炸面团球，可做成甜味。做法可使用面粉、酵母、糖和水，让面团发起后炸制。",
+        "en": "Puff-puff are deep-fried dough balls that can be sweet. One preparation uses flour, yeast, sugar and water, letting the dough rise before frying."
+      },
+      "sources": [
+        "https://ouidalagos.com/cafe/menu/",
+        "https://www.bbcgoodfood.com/recipes/puff-puff"
+      ]
+    }
+  ]
 }

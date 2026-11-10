@@ -1,0 +1,98 @@
+[
+  {
+    "id": "queenstown.menu-pie",
+    "kind": "menu",
+    "cityId": "queenstown",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "牛肉派小菜单",
+      "en": "Beef Pie Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使饭后画的酥皮与肉汁，盘边留着一个转向箭头。",
+      "en": "A turn arrow sits beside the messenger’s after-meal pastry-and-gravy sketch."
+    }
+  },
+  {
+    "id": "queenstown.menu-icecream",
+    "kind": "menu",
+    "cityId": "queenstown",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "蜂窝糖冰淇淋小菜单",
+      "en": "Hokey Pokey Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自绘的香草冰淇淋里，脆糖块旁多了小小的响声线。",
+      "en": "The messenger’s vanilla ice cream sketch gives its crunchy honeycomb tiny sound lines."
+    }
+  },
+  {
+    "id": "queenstown.camera-sides",
+    "kind": "souvenir",
+    "cityId": "queenstown",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "相机两面翻卡",
+      "en": "Two Sides of a Camera"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的纸相机翻开后，笑脸终于站到另一边。",
+      "en": "The messenger’s paper camera opens to put a smile on the other side."
+    }
+  },
+  {
+    "id": "queenstown.proper-seat",
+    "kind": "souvenir",
+    "cityId": "queenstown",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "端坐纸椅",
+      "en": "Properly Seated Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折的小纸椅旁边，坐着一个肩膀放松的小身影。",
+      "en": "The messenger’s folded paper seat holds a little figure with relaxed shoulders."
+    }
+  },
+  {
+    "id": "queenstown.lunch-pause",
+    "kind": "souvenir",
+    "cityId": "queenstown",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "半步等饭纸条",
+      "en": "Lunch Waiting Strip"
+    },
+    "descriptions": {
+      "zh-Hans": "信使裁下的纸脚印把抢出去的半步收了回来。",
+      "en": "The messenger’s cut paper footprint brings an impatient half step back into line."
+    }
+  },
+  {
+    "id": "queenstown.open-eyed-smile",
+    "kind": "souvenir",
+    "cityId": "queenstown",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "歪笑脸拉片",
+      "en": "Crooked Smile Pull Card"
+    },
+    "descriptions": {
+      "zh-Hans": "信使做的原创拉片让纸眼睛睁开，笑脸留着一点歪。",
+      "en": "The messenger’s original pull card opens paper eyes above a deliberately uneven grin."
+    }
+  }
+]

@@ -1201,3 +1201,160 @@ CLANG_MODULE_CACHE_PATH="$PWD/.build/codex-cache/clang" SWIFTPM_MODULECACHE_OVER
   - https://www.wien.info/en/dine-drink/viennese-cuisine/recipes/sweets-desserts/apple-strudel-339140
 
 缩窄/弃用：弃用摩天轮年代与帝王纪念背景、影视角色、世界/城市唯一等纪录、苹果卷起源竞争与酒店“解决争论”的轶事，不写现成音乐作品。两种食物及摩天轮同属市旅游局，不算独立交叉核对。one-step-each 兑现同一孩子的一步一人，维持通道与安全扶手；所有纸品均为信使自制，不复制馆方教材、乐谱或商品。
+
+
+## M2 补全城市资料第四批
+
+核实日期：2026-11-10。以下网址均实际搜索、打开并读取支持段落；同机构页面不算独立交叉核实。虚构路人与事件不代表真实店铺或地方习俗，纸品均为信使自制。不填未经核实的雨季月份。
+
+### 都柏林 dublin
+
+- `dublin.dublin-bridge`：Visit Dublin 正文支持利菲河、步行用途与铸铁结构；不采用最古老、早期结构排名或收费年代。
+  - https://www.visitdublin.com/ha-penny-bridge
+- `dublin.dublin-green`：Heritage Ireland 园方页支持市中心、维多利亚式布局、步道和树木灌木；故事停留普通步道，不带动物去禁狗的湖边、喷泉或游乐场。
+  - https://heritageireland.ie/visit/places-to-visit/st-stephens-green/
+- `dublin.dublin-coddle`：Visit Dublin 饮食指南在肉食段明确 potato-based casserole with sausages, rashers and onion；Tourism Ireland 的 coddle 食谱独立确认这些组成及汤汁中炖煮，支持蘸面包的小事。不采用食谱旁的作家喜好、年代或贫困叙事。
+  - https://www.visitdublin.com/guides/irish-food
+  - https://www.ireland.com/en-us/magazine/food-and-drink/traditional-irish-recipes/
+- `dublin.dublin-bread`：Visit Dublin 支持当地饮食中有棕色苏打面包；Tourism Ireland 的 Brown bread 食谱支持全麦粉、面粉、小苏打、酪乳与烘烤，两机构分别支持供应背景和一种配方，不冒称全部配方交叉确认。
+  - https://www.visitdublin.com/guides/irish-food
+  - https://www.ireland.com/en-us/magazine/food-and-drink/traditional-irish-recipes/
+
+缩窄/弃用：弃用桥梁纪录、收费起止年（搜索所见同机构页面叙述不一）、面包仙子传说、爱尔兰饮食的贫困/饥荒叙事，不写固定供应店铺。whole-face-wave 精确兑现同一旅人的对岸视线问题；八篇没有以写信、画画或菜单为主要事件。
+
+
+### 斯德哥尔摩 stockholm
+
+- `stockholm.stockholm-vasa`：馆方 About 正文明确木雕装饰与瓦萨号展示，保存时间线明确船体木材；只写船和材质，不写沉船事故、遇难者或军事玩笑，人物不登船、不触摸展品。
+  - https://www.vasamuseet.se/en/about-the-vasa-museum
+  - https://www.vasamuseet.se/en/explore/research/how-we-preserve-vasa/preservation-timeline
+- `stockholm.stockholm-djurgarden`：Visit Stockholm 的散步路线在 Djurgården 段明确岛屿、大绿地和多种步行路线；不把作者个人路线当唯一道路。
+  - https://www.visitstockholm.com/live-work/your-life-stockholm/my-five-favourite-walk-and-talk-routes-in-stockholm/
+- `stockholm.stockholm-bun`：Visit Stockholm 的糕点定义支持软面包、黄油、糖和肉桂；只取食品形态，不使用发明归属或节日日期。
+  - https://www.visitstockholm.com/eat-drink/cafes/fika-in-stockholm/
+- `stockholm.stockholm-meatballs`：Visit Stockholm 配方段支持肉末、土豆泥、肉汁、越橘酱和腌黄瓜；配菜写“可搭配”，不要求所有餐馆固定相同。
+  - https://www.visitstockholm.com/eat-drink/restaurants/meatball-places-stockholm/
+
+缩窄/弃用：弃用船舶保存程度排名、具体维护工程进度、肉丸起源竞争、名人喜好、fika 的全民行为概括与食物最好评价。三条旅游页面同机构，不算独立交叉核对。leader-with-short-steps 延续同一旅伴轮流领路，纸品仅为信使自制纪念，不复刻官方商品。
+
+
+### 雷克雅未克 reykjavik
+
+- `reykjavik.reykjavik-harpa`：Harpa 自有参观页支持音乐厅、会议用途与玻璃立面；Visit Reykjavík 的步行路线独立确认该建筑及立面，不使用灯光时刻、演出或当期活动。
+  - https://www.harpa.is/en/welcome
+  - https://visitreykjavik.is/relaxed-reykjavik-walking-tour
+- `reykjavik.reykjavik-pond`：Visit Reykjavík 家庭路线的 Tjörnin 段支持市中心、环湖步道、鸭与天鹅；只远观，不喂鸟、不追逐、不走冰面。
+  - https://visitreykjavik.is/trip-ideas/family-itinerary
+- `reykjavik.reykjavik-skyr`：Visit Iceland 两篇饮食介绍分别支持乳制品、类似酸奶的浓稠质地和浆果/奶油搭配。两页同机构，不算独立交叉核对；只写一般食品，不宣称某店常年供应。
+  - https://www.visiticeland.com/article/enjoy-icelandic-food/
+  - https://www.visiticeland.com/article/traditional-icelandic-food-guide/
+- `reykjavik.reykjavik-hotdog`：Visit Reykjavík 家庭路线明确市区热狗和五类可选配料；未把“全部加”变成必须的点法。
+  - https://visitreykjavik.is/trip-ideas/family-itinerary
+
+缩窄/弃用：放弃没有在首轮城市官方搜索中得到充分定义的 kleinur，改用配料明确的热狗；弃用营养/超级食物宣传、发明传说、鲸或海鸟食用、湖面冬季安全假设、对居民喂鸟行为的概括。head-beyond-rings 延续同一孩子等鸭子露头的回应，不将虚构水鸟行为写进 facts。
+
+
+### 札幌 sapporo
+
+- `sapporo.sapporo-odori`：札幌观光协会地点页支持市中心东西延伸、草坪、树木、花坛和喷泉；不采用距离、步行耗时或季节活动表。
+  - https://www.sapporo.travel/en/spot/facility/odori_park/
+- `sapporo.sapporo-moere`：同机构公园专页明确艺术公园、莫埃来山三角轮廓和 Hidamari 玻璃金字塔。故事使用普通空地，不复制艺术家的作品图案，也不触摸艺术设施。
+  - https://www.sapporo.travel/en/spot/facility/moerenuma_park/
+- `sapporo.sapporo-ramen`：拉面介绍正文支持味噌汤、中粗卷面、豆芽和洋葱；不采用起源年份（搜索所见日英页面年份不一）或发明者。
+  - https://www.sapporo.travel/en/gourmet/feature/ramen/
+- `sapporo.sapporo-curry`：面向国际访客的餐饮分类页明释蔬菜与香料汤底，只写这个最小共同组成。专门汤咖喱页网页工具超时、直接请求返回403，未列为支持来源；不补写鸡腿、米饭或固定食法。
+  - https://www.sapporo.travel/en/atws-restaurant/
+
+缩窄/弃用：弃用味噌拉面发明归属/年份、汤咖喱固定配料、公园景观纪录、雪季气候和每年活动时段。所有应用来源同属札幌观光协会，不算独立交叉核对。roll-with-a-pause 兑现同一个孩子的滚球邀请；纸品为旅途中原创，故事无画画或写信主线。
+
+
+### 胡志明市 hochiminh
+
+- `hochiminh.hochiminh-postoffice`：Vietnam Tourism 景点指南明确大厅、两侧木制电话亭和墙上历史地图。只取公开室内形态，不采用建筑师归属、殖民轶事、政治肖像或真实邮政办理承诺。
+  - https://vietnam.travel/things-to-do/7-must-see-attractions-hcmc/
+- `hochiminh.hochiminh-nguyenhue`：同一指南阮惠街段明确步行性质和市政厅至白藤码头方向；人物只在步行空间，不进市政厅，不写固定活动。
+  - https://vietnam.travel/things-to-do/7-must-see-attractions-hcmc/
+- `hochiminh.hochiminh-banhmi`：城市饮食指南支持夹馅面包在本城有多种馅料；国家旅游食谱 PDF 第4页的胡志明市烤猪肉版本支持剖开的面包、猪肉、黄瓜、香菜、腌胡萝卜。只写“一种版本”，不固定全部配方。
+  - https://vietnam.travel/things-to-do/explore-delicious-dishes-ho-chi-minh-city/
+  - https://www.vietnam.travel/sites/default/files/2020-10/Recipes%20from%20Vietnam%20Tourism%20Board.pdf
+- `hochiminh.hochiminh-comtam`：城市饮食指南 Broken rice 段明确碎米、黄瓜、腌菜、烤猪排与甜味鱼露；缩为可选搭配，不要求加全部猪肉配菜。
+  - https://vietnam.travel/things-to-do/explore-delicious-dishes-ho-chi-minh-city/
+
+缩窄/弃用：弃用战争遗址、宗教传说、殖民经历作幽默素材、面包发明争论与排名、居民每日饮食概括。旧周末指南打开失败，未列入来源；食谱和指南同属国家旅游机构，不算独立交叉核对。waiting-with-a-name 延续同一举手旅人等同伴的事情；故事无写信或绘画主线。
+
+
+### 拉各斯 lagos
+
+- `lagos.lagos-lekki`：NCF 管理机构的中心介绍支持拉各斯、管理归属、林地和猴类；其理事会访问原文支持自然步道与 boardwalk。两页同机构，不算独立交叉核对。只用普通步道，人物不逗弄、喂食或靠近野生动物，不走高空树冠桥。
+  - https://ncfnigeria.org/lekki-conservation-centre-the-green-soul-of-lagos-metropolis/
+  - https://ncfnigeria.org/ncf-board-of-trustees-and-national-executive-council-experience-lekki-conservation-centre/
+- `lagos.lagos-gallery`：ART X Lagos 主办机构的参展画廊资料支持拉各斯及尼日利亚/其他非洲国家艺术作品。馆方链接不可达，改用艺术博览会的一手机构资料；不描述未经另证的具体作品和当期陈列，也不复制作品。
+  - https://www.artxlagos.com/exhibitors/nike-art-gallery-2025
+- `lagos.lagos-jollof`：Ouida Lagos 自营菜单支持本地可见该菜；Good Food 刊载食谱（署名 Elizabeth Uwaifo，页注明出自2020年9月杂志）支持米、番茄、红椒、洋葱和香料共烹。只称“一种做法”，不将该食谱当全城标准或起源证明。
+  - https://ouidalagos.com/cafe/menu/
+  - https://www.bbcgoodfood.com/recipes/jollof-rice
+- `lagos.lagos-puff`：本地 Ouida 自营菜单明释甜味油炸面团球；Good Food 的 Olive Ezike 食谱独立支持面粉、酵母、糖、水、发起与油炸流程。配方只作一种做法，不承诺某店长期供应。
+  - https://ouidalagos.com/cafe/menu/
+  - https://www.bbcgoodfood.com/recipes/puff-puff
+
+缩窄/弃用：弃用树冠桥最长纪录、画廊作品和楼层数量、起源国竞争、派对/民族风俗概括、饮食营养与地域刻板印象。未采用不可达的 AP 纪录报道、nikeartgallery.ng 页面或馆方旧站。食物的本地存在与配方由不同机构分别支持，不冒称所有句子双源一致。same-side-looking 兑现同一旅人共同观看邀请，纪念品不复刻艺术作品。
+
+
+### 西雅图 seattle
+
+- `seattle.seattle-library`：西雅图公共图书馆建筑说明支持玻璃与钢材的菱形网格外表、Books Spiral 与非虚构藏书连续路线；不采用游客数量、奖项或作品引文。
+  - https://www.spl.org/hours-and-locations/central-library/central-library-highlights/central-library-architecture
+- `seattle.seattle-locks`：Visit Seattle 新闻资料的 Hiram M. Chittenden Locks 段支持升降船只、淡水与普吉特海湾咸水通行。故事只在允许观看的位置，不攀栏、不靠近闸门机械。
+  - https://visitseattle.org/press/press-kit/seattles-major-attractions/
+- `seattle.seattle-chowder`：派克市场管理方餐饮专题明确新英格兰式蛤蜊浓汤及杯装/酸种面包碗。只写这些形态，不把某店奶油、土豆或培根配方统一到全部浓汤。
+  - https://www.pikeplacemarket.org/12-must-try-clam-chowder-restaurants-in-pike-place-market/
+- `seattle.seattle-salmon`：市场管理方经营者介绍明列 grilled salmon，仅取西雅图可见和烤制三文鱼，不增加鱼种、产地或固定配菜。
+  - https://www.pikeplacemarket.org/vendor/jacks-fish-and-chips/
+
+缩窄/弃用：弃用三文鱼熏制文化归属与原住民配方宣传、鱼市场抛鱼表演、船闸高度和固定通行时刻、食物排名、影视角色及名句。两条食物来源同属市场管理方，不算独立交叉核对。route-at-his-pace 兑现同一旅伴沿连续路线多走一段；纸品为原创，不复制馆内艺术或书中文字。
+
+
+### 巴拿马城 panama
+
+- `panama.panama-cinta`：Visit Panamá 滨海带专页支持巴拿马湾、公共休闲区、花园、自行车道、运动场、步行和观景处；只取用途与空间，不写长度和交通时刻。
+  - https://www.tourismpanama.com/places-to-visit/panama-city/places-to-stay/cinta-costera/
+- `panama.panama-biomuseo`：馆方首页明确生物多样性主题；国家旅游机构专页独立确认阿马多堤道、彩色建筑与展览主题。不描述原住民展项、民族艺术或具体临展，也不复制建筑师作品作商品。
+  - https://biomuseo.org/en/
+  - https://www.tourismpanama.com/culture-cuisine/historical-sites/biomuseo/
+- `panama.panama-raspao`：Visit Panamá 滨海带正文明确 crushed ice、condensed milk、fruit flavors 与本地可见；只写形态，不写固定口味、价格或摊主。
+  - https://www.tourismpanama.com/places-to-visit/panama-city/places-to-stay/cinta-costera/
+- `panama.panama-patacon`：同页末段明释 patacón 为 fried plantains，且可与炸鱼同食。未据记忆增加二次油炸或唯一配方。
+  - https://www.tourismpanama.com/places-to-visit/panama-city/places-to-stay/cinta-costera/
+
+缩窄/弃用：初选 sancocho、carimañolas 在已读旅游页没有充分配方定义，改用同城来源直接解释的刨冰和炸大蕉；弃用地峡地质年代、世界唯一建筑纪录、殖民/运河伤痛、原住民仪式和手艺复制、固定活动。三条滨海带事实共用一个来源，明确为单一旅游机构支持，不充作交叉核实。child-calls-the-start 精确兑现同一孩子宣布慢走规则，纸品为原创。
+
+
+### 皇后镇 queenstown
+
+- `queenstown.queenstown-lake`：Destination Queenstown 景观正文支持临湖山景和深蓝湖色；不将某次入湖泥沙变色事件扩大成一般机理，只写自然景观，不用毛利传说或湖名起源故事。
+  - https://www.queenstownnz.co.nz/stories/post/landscapes-of-queenstown/
+- `queenstown.queenstown-gardens`：官方轻松游文章支持小半岛、近镇中心、树木草坪花坛与湖山景观；专门 listing 的打开结果只有框架，因此不用该页证明环线距离、具体设施或花种。
+  - https://www.queenstownnz.co.nz/stories/post/queenstowns-easy-adventures/
+- `queenstown.queenstown-pie`：Destination Queenstown 餐饮站 Fergbaker 详情的正文与菜单明确本城牛肉块/肉汁派；Tourism New Zealand 独立支持派的酥皮形态。摘要写可用馅料，不承诺命名店铺永久供应；故事中无真实店员。
+  - https://eatdrink.queenstownnz.co.nz/cafes/fergbaker/
+  - https://www.newzealand.com/int/feature/favourite-new-zealand-foods/
+- `queenstown.queenstown-icecream`：官方餐饮站 Mrs Ferg 详情支持本城有 Hokey Pokey；Tourism New Zealand 定义香草冰淇淋与脆蜂窝糖。分别支持本地存在和一般组成，不将两页当全部配方重复核实。
+  - https://eatdrink.queenstownnz.co.nz/desserts/mrs-ferg/
+  - https://www.newzealand.com/int/feature/favourite-new-zealand-foods/
+
+缩窄/弃用：弃用湖泊排名、深度和具体颜色变化年份、巨人传说、原住民仪式/传统食法、淘金与殖民经历、影视世界设定。www 站的餐饮 listing 正文无法读取，改用其实际可读的餐饮子站详情，不重复列两个版本。eyes-before-shutter 兑现同一拍照旅人的睁眼等待；纸品为信使原创。
+
+
+### 迪拜 dubai
+
+- `dubai.dubai-frame`：网页工具仅返回导航框架，已用 curl 实际取得并读取两页 HTML 内的正文数据；Visit Dubai 地点页与 highlights 正文支持金色相框外观、两座竖直塔楼、顶部玻璃桥和城市视野；两页同一旅游机构，不算独立交叉核对。不写最高/最大、尺寸、绝对防裂安全保证或玻璃感应程序，人物不奔跑、不攀爬。
+  - https://www.visitdubai.com/en/places-to-visit/dubai-frame
+  - https://www.visitdubai.com/en/articles/dubai-frame-highlights
+- `dubai.dubai-creek`：已用 curl 实际读取 HTML 正文数据；Visit Dubai 水上游览正文明确咸水水道与 abra 公共交通；只写方式，不采用票价、班次、耗时或具体运营者。
+  - https://www.visitdubai.com/en/articles/discover-dubai-from-the-water
+- `dubai.dubai-luqaimat`：已用 curl 实际读取 HTML 正文数据；Visit Dubai 食物定义支持油炸面团球、椰枣糖浆和芝麻；不写节庆食用或宗教背景，不将可选做法规定为唯一配方。
+  - https://www.visitdubai.com/en/articles/top-arabic-food-to-try-in-dubai
+- `dubai.dubai-machboos`：官方 Hungry Foodie PDF 的 EAT 页明确 rice cooked in spices and meat，只取共烹组成；不从相邻菜品移入配料，不采用宗教节期或某店永久供应承诺。
+  - https://www.visitdubai.com/en/-/media/Files/guides/dubai-mini-guide-04-hungry-foodie.pdf
+
+缩窄/弃用：弃用建筑纪录与绝对安全宣传、未来城市预测、传统交通起源年代、节庆/待客/宗教仪式、沙漠气候月份和食物发源争论。全部页面出自 Visit Dubai，明确为单机构支持。pace-after-second-foot 延续同一旅伴等待慢步的回应；纸品使用原创几何形，不仿建筑纹样或官方商品。

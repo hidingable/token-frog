@@ -11,7 +11,7 @@
     "capital",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "雷克雅未克",
     "en": "Reykjavík"
@@ -20,5 +20,68 @@
     "zh-Hans": "雷克雅未克",
     "en": "Reykjavík"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "reykjavik-harpa",
+      "type": "place",
+      "names": {
+        "zh-Hans": "哈帕音乐厅",
+        "en": "Harpa Concert Hall"
+      },
+      "summary": {
+        "zh-Hans": "哈帕是雷克雅未克的音乐厅与会议中心，带有玻璃外立面。",
+        "en": "Harpa is a concert hall and conference centre in Reykjavík with a glass façade."
+      },
+      "sources": [
+        "https://www.harpa.is/en/welcome",
+        "https://visitreykjavik.is/relaxed-reykjavik-walking-tour"
+      ]
+    },
+    {
+      "id": "reykjavik-pond",
+      "type": "place",
+      "names": {
+        "zh-Hans": "特约宁湖",
+        "en": "Tjörnin"
+      },
+      "summary": {
+        "zh-Hans": "特约宁湖位于雷克雅未克市中心，湖畔有步道，可以看到鸭、天鹅等水鸟。",
+        "en": "Tjörnin is a pond in central Reykjavík with a walking path around it and waterbirds including ducks and swans."
+      },
+      "sources": [
+        "https://visitreykjavik.is/trip-ideas/family-itinerary"
+      ]
+    },
+    {
+      "id": "reykjavik-skyr",
+      "type": "food",
+      "names": {
+        "zh-Hans": "冰岛乳酪",
+        "en": "Skyr"
+      },
+      "summary": {
+        "zh-Hans": "Skyr是冰岛的乳制品，质地浓稠，形似酸奶，可配浆果与奶油食用。",
+        "en": "Skyr is an Icelandic dairy product with a thick, yogurt-like texture. It can be served with berries and cream."
+      },
+      "sources": [
+        "https://www.visiticeland.com/article/enjoy-icelandic-food/",
+        "https://www.visiticeland.com/article/traditional-icelandic-food-guide/"
+      ]
+    },
+    {
+      "id": "reykjavik-hotdog",
+      "type": "food",
+      "names": {
+        "zh-Hans": "冰岛热狗",
+        "en": "Icelandic Hot Dog"
+      },
+      "summary": {
+        "zh-Hans": "雷克雅未克可尝到热狗，配料可选番茄酱、芥末酱、雷莫拉酱以及生洋葱和脆洋葱。",
+        "en": "Hot dogs in Reykjavík can come with ketchup, mustard, remoulade, fresh onion and crispy onion."
+      },
+      "sources": [
+        "https://visitreykjavik.is/trip-ideas/family-itinerary"
+      ]
+    }
+  ]
 }

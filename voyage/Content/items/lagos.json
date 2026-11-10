@@ -1,0 +1,98 @@
+[
+  {
+    "id": "lagos.menu-jollof",
+    "kind": "menu",
+    "cityId": "lagos",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "乔洛夫饭小菜单",
+      "en": "Jollof Rice Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使饭后画的米饭与勺子，旁边的小帽子画正了。",
+      "en": "The messenger’s after-meal rice sketch includes a hat with its brim facing forward."
+    }
+  },
+  {
+    "id": "lagos.menu-puff",
+    "kind": "menu",
+    "cityId": "lagos",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "炸面团球小菜单",
+      "en": "Puff-puff Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自绘的圆点心旁留着一个空碟，给下一口腾出位置。",
+      "en": "A handmade menu leaves a clear side plate beside the round dough treats."
+    }
+  },
+  {
+    "id": "lagos.two-ends",
+    "kind": "souvenir",
+    "cityId": "lagos",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两头相遇折纸",
+      "en": "Meeting Ends Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折的纸条把两个小箭头轻轻接在中间。",
+      "en": "The messenger’s paper strip joins two little arrows in its middle."
+    }
+  },
+  {
+    "id": "lagos.paused-zip",
+    "kind": "souvenir",
+    "cityId": "lagos",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "停半程纸拉链",
+      "en": "Paused Paper Zip"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的纸拉链停在一半，里头没有装食物。",
+      "en": "The messenger’s handmade paper zip pauses halfway around an empty pocket."
+    }
+  },
+  {
+    "id": "lagos.delayed-drop",
+    "kind": "souvenir",
+    "cityId": "lagos",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "晚到水滴翻页",
+      "en": "Late Drop Flap"
+    },
+    "descriptions": {
+      "zh-Hans": "信使剪的纸水滴藏在帽檐形翻页下面。",
+      "en": "A paper drop cut by the messenger hides beneath a brim-shaped flap."
+    }
+  },
+  {
+    "id": "lagos.shared-gap",
+    "kind": "souvenir",
+    "cityId": "lagos",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "并肩留空立卡",
+      "en": "Room Between Shoulders"
+    },
+    "descriptions": {
+      "zh-Hans": "信使做的立体纸卡让两个小身影并排，中间留着空隙。",
+      "en": "The messenger’s original pop-up figures stand side by side with a clear gap between them."
+    }
+  }
+]

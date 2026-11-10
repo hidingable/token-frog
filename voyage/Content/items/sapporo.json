@@ -1,0 +1,98 @@
+[
+  {
+    "id": "sapporo.menu-ramen",
+    "kind": "menu",
+    "cityId": "sapporo",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "味噌拉面小菜单",
+      "en": "Miso Ramen Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使饭后画的卷面靠在勺里，给热气留了上升的空处。",
+      "en": "The messenger’s after-meal noodles rest in a spoon beneath room for rising steam."
+    }
+  },
+  {
+    "id": "sapporo.menu-curry",
+    "kind": "menu",
+    "cityId": "sapporo",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "汤咖喱小菜单",
+      "en": "Soup Curry Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自绘的蔬菜汤碗，勺里的那块已经分好。",
+      "en": "In the messenger’s soup sketch, the vegetable on the spoon is neatly divided."
+    }
+  },
+  {
+    "id": "sapporo.three-shoes",
+    "kind": "souvenir",
+    "cityId": "sapporo",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "三双鞋纸环",
+      "en": "Three Pairs of Shoes"
+    },
+    "descriptions": {
+      "zh-Hans": "信使剪纸围成的小圈，给滚动的球留了中央。",
+      "en": "A ring of paper shoes cut by the messenger leaves its centre clear for a ball."
+    }
+  },
+  {
+    "id": "sapporo.mist-window",
+    "kind": "souvenir",
+    "cityId": "sapporo",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "雾散小窗纸",
+      "en": "Clearing Mist Window"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的薄纸窗，边缘留着细细的点孔。",
+      "en": "A thin paper window made by the messenger has small dotted openings around its edge."
+    }
+  },
+  {
+    "id": "sapporo.paired-noodles",
+    "kind": "souvenir",
+    "cityId": "sapporo",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "双面条纸环",
+      "en": "Paired Noodle Loops"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的两根纸面条轻轻搭在一起，不必拉扯就能分开。",
+      "en": "Two paper noodles made by the messenger overlap gently and separate without pulling."
+    }
+  },
+  {
+    "id": "sapporo.rolling-circle",
+    "kind": "souvenir",
+    "cityId": "sapporo",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "等你接球转盘",
+      "en": "Ready to Catch Wheel"
+    },
+    "descriptions": {
+      "zh-Hans": "信使做的纸转盘，让小球依次走到三双张开的手前。",
+      "en": "The messenger’s original paper wheel moves a ball between three pairs of waiting hands."
+    }
+  }
+]

@@ -1,0 +1,416 @@
+[
+  {
+    "id": "sapporo.arrival.ball-between-boots",
+    "version": 1,
+    "cityId": "sapporo",
+    "kind": "arrival",
+    "factIds": [
+      "sapporo-moere"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "球到了我的脚边，还没决定下一程。",
+      "en": "The ball paused between my shoes."
+    },
+    "text": {
+      "zh-Hans": "莫埃来山的三角轮廓前，一个孩子把球轻轻滚给大人，球却绕过了那双鞋，滚到我脚边。我把两脚并拢挡住，没有一脚踢回去，先问他们要不要继续。孩子点头，张开双手蹲好，我便把球放低慢慢送过去。他接稳后又望向大人，这回大人也蹲下来，三个人围出的空处，刚好够球安稳走完一程。",
+      "en": "In front of Mount Moere’s triangular silhouette, a child rolled a ball toward an adult. It passed their shoes and reached mine. I brought my feet together to stop it and asked before sending it back. The child crouched with open hands. I lowered the ball and rolled it gently over. Once he had caught it, the adult crouched too. Our small circle now gave the ball somewhere reliable to go."
+    },
+    "replies": [
+      {
+        "id": "sapporo.arrival.ball-between-boots.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问能否一起滚一回",
+          "en": "Ask to join one round of rolling"
+        }
+      },
+      {
+        "id": "sapporo.arrival.ball-between-boots.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看球经过的空处",
+          "en": "Watch the clear space between us"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "sapporo.three-shoes"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "sapporo.arrival.fountain-sleeve",
+    "version": 1,
+    "cityId": "sapporo",
+    "kind": "arrival",
+    "factIds": [
+      "sapporo-odori"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我想接一滴水，接到的是自己的袖口。",
+      "en": "My cuff arrived before the water did."
+    },
+    "text": {
+      "zh-Hans": "大通公园的喷泉旁，我站在干燥的步道上看水落下。一阵细细的水雾飘近，我抬手想看看有没有落到手背，袖口却先盖住了整只手。旁边的旅人提醒我只看到一团布，我便把胳膊收回来，向后退远一点。等水雾重新落下，我们都没有伸手，阳光里细亮的一小片，完整地从眼前慢慢散开。",
+      "en": "From a dry path beside an Odori Park fountain, I watched the water fall. Fine mist drifted closer. I raised a hand to inspect it, but my cuff covered the entire hand first. A traveler remarked that all he could see was fabric. I drew my arm back and stepped farther away. When the mist returned, neither of us reached out. The bright patch dispersed undisturbed in front of us."
+    },
+    "replies": [
+      {
+        "id": "sapporo.arrival.fountain-sleeve.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉旅人袖口先到了",
+          "en": "Explain that my cuff got there first"
+        }
+      },
+      {
+        "id": "sapporo.arrival.fountain-sleeve.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看水雾散开的方向",
+          "en": "Watch the mist disperse"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "sapporo.mist-window"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "sapporo.arrival.noodle-cooling-turn",
+    "version": 1,
+    "cityId": "sapporo",
+    "kind": "arrival",
+    "factIds": [
+      "sapporo-ramen",
+      "sapporo-curry"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "先轮到面凉一凉，再轮到我说话。",
+      "en": "The noodles had their pause before I spoke."
+    },
+    "text": {
+      "zh-Hans": "我吃味噌拉面，旅伴点了汤咖喱，还分给我一点蔬菜。想问他的汤是什么味道，我却刚夹起一束卷面，只好先放回勺里。他看着我等，我指指嘴边的热气，示意再缓一缓。等终于尝好那口，问题已经在舌尖排了好一会儿。他先问我面凉了没有，我点点头，这才把原先的问题稳稳说完。",
+      "en": "I had miso ramen while my companion shared some vegetables from his soup curry. I wanted to ask about his broth, but had just lifted a bundle of curly noodles. I rested them in my spoon and gestured at the steam while he waited. By the time I had tasted them, my question had formed quite a queue. He asked whether the noodles had cooled. I nodded, then finally delivered my own question."
+    },
+    "replies": [
+      {
+        "id": "sapporo.arrival.noodle-cooling-turn.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "等吃好再问汤的味道",
+          "en": "Ask about the broth after swallowing"
+        }
+      },
+      {
+        "id": "sapporo.arrival.noodle-cooling-turn.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看勺里的卷面",
+          "en": "Look at the noodles resting in the spoon"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "sapporo.menu-ramen",
+        "sapporo.menu-curry"
+      ]
+    }
+  },
+  {
+    "id": "sapporo.arrival.vegetable-bridge",
+    "version": 1,
+    "cityId": "sapporo",
+    "kind": "arrival",
+    "factIds": [
+      "sapporo-curry",
+      "sapporo-ramen"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "蔬菜架起了桥，我先让它躺平。",
+      "en": "A vegetable tried building a bridge across my spoon."
+    },
+    "text": {
+      "zh-Hans": "尝过味噌拉面，下一顿我点了汤咖喱。碗里一块蔬菜横在勺上，两端都露着，我一抬手它就开始摇晃。我停住，把勺放回碗里，先分成小块再舀。邻座本来一直看着自己的饭，听见我轻轻松了口气，也跟着笑了。我说这座小桥终于拆好了，他低头看我勺里安稳的一口，举起自己的勺子遥遥碰了个空。",
+      "en": "After trying miso ramen, I chose soup curry for another meal. A vegetable balanced across my spoon with both ends sticking out. I lowered it before it could wobble off and divided it into smaller pieces. My relieved breath made my neighbor smile. I explained that the little bridge had finally been dismantled. He looked at the secure spoonful and raised his own spoon in a distant, contactless toast."
+    },
+    "replies": [
+      {
+        "id": "sapporo.arrival.vegetable-bridge.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向邻座回一个举勺礼",
+          "en": "Return the little spoon toast"
+        }
+      },
+      {
+        "id": "sapporo.arrival.vegetable-bridge.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看勺里的蔬菜是否放稳",
+          "en": "Check that the vegetables sit securely"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "sapporo.menu-ramen",
+        "sapporo.menu-curry"
+      ]
+    }
+  },
+  {
+    "id": "sapporo.arrival.two-noodles-one-spoon",
+    "version": 1,
+    "cityId": "sapporo",
+    "kind": "arrival",
+    "factIds": [
+      "sapporo-ramen",
+      "sapporo-curry"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我以为是一根长面，勺子接到的是一对。",
+      "en": "My single noodle turned out to have company."
+    },
+    "text": {
+      "zh-Hans": "卷面被我轻轻提起来，底下还连着长长一段，我以为今天碰上了特别长的一根。沿着勺子慢慢放低，才发现是两根贴在一起，谁也不肯先松开。我没有硬扯，把它们一同放回汤里，用筷子轻轻拨散，再分两口吃好。下一顿尝汤咖喱，我先放稳勺子，忽然又低头看看，这回勺边只有自己的手指陪着。",
+      "en": "Lifting some curly ramen, I found a long stretch still hanging below and thought I had met an unusually ambitious noodle. Lowering it toward my spoon revealed two strands clinging together. I returned both to the broth and gently separated them with my chopsticks before eating. At a later soup-curry meal, I settled my spoon and looked down again. This time, only my own fingers were keeping it company."
+    },
+    "replies": [
+      {
+        "id": "sapporo.arrival.two-noodles-one-spoon.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说原来有两根面",
+          "en": "Report that the noodle had a companion"
+        }
+      },
+      {
+        "id": "sapporo.arrival.two-noodles-one-spoon.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看筷子怎样把面分开",
+          "en": "Watch the chopsticks separate the strands"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "sapporo.paired-noodles"
+      ],
+      "menuIds": [
+        "sapporo.menu-ramen",
+        "sapporo.menu-curry"
+      ]
+    }
+  },
+  {
+    "id": "sapporo.arrival.yawn-goes-round",
+    "version": 1,
+    "cityId": "sapporo",
+    "kind": "arrival",
+    "factIds": [
+      "sapporo-odori"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "哈欠传过来时，我正准备认真问路。",
+      "en": "A yawn arrived before my very serious question."
+    },
+    "text": {
+      "zh-Hans": "大通公园的树下，一位旅人伸了个长长的懒腰。我正准备问他往哪边走，嘴却先张开，跟着打了个哈欠。他看着我也笑，旁边的同伴刚要开口，竟也没忍住。三个人安静了一会儿，我才把问题从头说起。他指着公园东西延伸的方向慢慢回答，我点头记好，临走又抿紧嘴巴，免得把下一个哈欠也带上路。",
+      "en": "Under the trees in Odori Park, a traveler stretched. I approached with a question about directions, but a yawn escaped before the question did. He laughed. His companion opened her mouth to speak and yawned too. After a quiet moment, I began again. He indicated the park’s east–west line as he answered. I nodded and set off with my lips firmly together, trying not to take another yawn along."
+    },
+    "replies": [
+      {
+        "id": "sapporo.arrival.yawn-goes-round.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "笑着把问题重新说完",
+          "en": "Laugh and finish the original question"
+        }
+      },
+      {
+        "id": "sapporo.arrival.yawn-goes-round.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哈欠传到了谁那里",
+          "en": "Notice who catches the yawn"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "sapporo.fulfill.roll-with-a-pause",
+    "version": 1,
+    "cityId": "sapporo",
+    "kind": "fulfill",
+    "factIds": [
+      "sapporo-moere"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "sapporo.arrival.ball-between-boots.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我先等那双手张开。",
+      "en": "You wrote, “{reply}.” I waited for open hands."
+    },
+    "text": {
+      "zh-Hans": "孩子答应让我加入滚球，我们仍站在莫埃来山前的空处。我先等他把双手张开，才贴着地面轻轻送球。他没有急着滚回来，先看大人站稳没有，再把球朝另一边送过去。轮到我接球时，邮包恰好晃到膝前，我用手背挪开，球稳稳停在脚边。孩子伸出双手等下一轮，我把球托在掌心，等他站稳才慢慢放低。",
+      "en": "The child agreed to let me join the rolling game in the open space before Mount Moere. I waited for his hands to open before sending the ball along the ground. He checked that the adult was ready before passing it onward. On my turn to receive it, my mailbag swung in front of my knees. I nudged it aside with my wrist and caught the ball by my feet. Across from me, the child opened his hands for the next round."
+    },
+    "replies": [
+      {
+        "id": "sapporo.fulfill.roll-with-a-pause.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问大家准备好了没有",
+          "en": "Ask whether everyone is ready"
+        }
+      },
+      {
+        "id": "sapporo.fulfill.roll-with-a-pause.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看球在三个人之间走",
+          "en": "Watch the ball travel between us"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "sapporo.rolling-circle"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "sapporo.revisit.fountain-or-wheel",
+    "version": 1,
+    "cityId": "sapporo",
+    "kind": "revisit",
+    "factIds": [
+      "sapporo-odori"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "推车停了，水声还在往前走。",
+      "en": "The wheels stopped; the water kept sounding."
+    },
+    "text": {
+      "zh-Hans": "还没看见大通公园的喷泉，我就先听到了水声，札幌这处散步的地方仍然认得。身后一辆小推车吱吱响，我转头时，推车的人也停下来听。他低头转了转轮子，那阵吱声断了，水声却还从树后传来。我指给他看，我们一起往前走，直到喷泉露出来。他把车停在干处，我也放慢脚步，让水声把刚才的空当填满。",
+      "en": "The sound of water reached me before the fountain did. Back in Sapporo’s Odori Park, I recognized what lay beyond the trees. A small cart squeaked behind me. Its owner stopped to listen as I turned. He tested a wheel; the squeak ceased, but water still sounded beyond the trees. I pointed, and we walked until the fountain appeared. He left the cart in a dry spot. I slowed beside him while the water filled the pause left by the wheel."
+    },
+    "replies": [
+      {
+        "id": "sapporo.revisit.fountain-or-wheel.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉他两种声音的分别",
+          "en": "Point out the two different sounds"
+        }
+      },
+      {
+        "id": "sapporo.revisit.fountain-or-wheel.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听轮子停下以后",
+          "en": "Listen after the wheel stops"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

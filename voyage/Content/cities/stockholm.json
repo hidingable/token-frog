@@ -10,7 +10,7 @@
     "coast",
     "capital"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "斯德哥尔摩",
     "en": "Stockholm"
@@ -19,5 +19,67 @@
     "zh-Hans": "斯德哥尔摩",
     "en": "Stockholm"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "stockholm-vasa",
+      "type": "place",
+      "names": {
+        "zh-Hans": "瓦萨博物馆",
+        "en": "Vasa Museum"
+      },
+      "summary": {
+        "zh-Hans": "斯德哥尔摩的瓦萨博物馆展示木制战舰瓦萨号，船身带有木雕装饰。",
+        "en": "Stockholm’s Vasa Museum displays the wooden warship Vasa, decorated with wooden sculptures."
+      },
+      "sources": [
+        "https://www.vasamuseet.se/en/about-the-vasa-museum",
+        "https://www.vasamuseet.se/en/explore/research/how-we-preserve-vasa/preservation-timeline"
+      ]
+    },
+    {
+      "id": "stockholm-djurgarden",
+      "type": "place",
+      "names": {
+        "zh-Hans": "尤尔加登岛",
+        "en": "Djurgården"
+      },
+      "summary": {
+        "zh-Hans": "尤尔加登是斯德哥尔摩的岛屿，有大片绿地和多条散步路线。",
+        "en": "Djurgården is an island in Stockholm with extensive green spaces and a choice of walking routes."
+      },
+      "sources": [
+        "https://www.visitstockholm.com/live-work/your-life-stockholm/my-five-favourite-walk-and-talk-routes-in-stockholm/"
+      ]
+    },
+    {
+      "id": "stockholm-bun",
+      "type": "food",
+      "names": {
+        "zh-Hans": "肉桂卷",
+        "en": "Kanelbulle"
+      },
+      "summary": {
+        "zh-Hans": "肉桂卷是斯德哥尔摩咖啡馆可见的软面包，以黄油、糖和肉桂调味。",
+        "en": "Kanelbulle is a soft bun found in Stockholm cafés, flavored with butter, sugar and cinnamon."
+      },
+      "sources": [
+        "https://www.visitstockholm.com/eat-drink/cafes/fika-in-stockholm/"
+      ]
+    },
+    {
+      "id": "stockholm-meatballs",
+      "type": "food",
+      "names": {
+        "zh-Hans": "瑞典肉丸",
+        "en": "Swedish Meatballs"
+      },
+      "summary": {
+        "zh-Hans": "瑞典肉丸以肉末制成，在斯德哥尔摩可搭配土豆泥、肉汁、越橘酱和腌黄瓜食用。",
+        "en": "Swedish meatballs are made from minced meat. In Stockholm they can be served with mashed potatoes, gravy, lingonberry jam and pickled cucumber."
+      },
+      "sources": [
+        "https://www.visitstockholm.com/eat-drink/restaurants/meatball-places-stockholm/"
+      ]
+    }
+  ]
 }

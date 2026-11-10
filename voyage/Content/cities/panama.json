@@ -11,7 +11,7 @@
     "capital",
     "heritage"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "巴拿马城",
     "en": "Panama City"
@@ -20,5 +20,67 @@
     "zh-Hans": "巴拿马城",
     "en": "Panama City"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "panama-cinta",
+      "type": "place",
+      "names": {
+        "zh-Hans": "滨海带",
+        "en": "Cinta Costera"
+      },
+      "summary": {
+        "zh-Hans": "巴拿马城的滨海带沿巴拿马湾延伸，是设有花园、步行空间、自行车道和观景处的公共休闲区。",
+        "en": "Cinta Costera is a public recreation area along Panama Bay in Panama City, with gardens, walking space, bike lanes and lookouts."
+      },
+      "sources": [
+        "https://www.tourismpanama.com/places-to-visit/panama-city/places-to-stay/cinta-costera/"
+      ]
+    },
+    {
+      "id": "panama-biomuseo",
+      "type": "place",
+      "names": {
+        "zh-Hans": "生物多样性博物馆",
+        "en": "Biomuseo"
+      },
+      "summary": {
+        "zh-Hans": "生物多样性博物馆位于巴拿马城阿马多堤道，建筑色彩鲜明，展览介绍巴拿马的生物多样性。",
+        "en": "Biomuseo stands on Panama City’s Amador Causeway in a colorful building. Its exhibitions explore Panama’s biodiversity."
+      },
+      "sources": [
+        "https://biomuseo.org/en/",
+        "https://www.tourismpanama.com/culture-cuisine/historical-sites/biomuseo/"
+      ]
+    },
+    {
+      "id": "panama-raspao",
+      "type": "food",
+      "names": {
+        "zh-Hans": "巴拿马刨冰",
+        "en": "Raspa’o Panameño"
+      },
+      "summary": {
+        "zh-Hans": "巴拿马刨冰以碎冰搭配炼乳和水果风味配料，在巴拿马城滨海带的餐饮中可见。",
+        "en": "Raspa’o panameño combines crushed ice with condensed milk and fruit flavors. It is found along Panama City’s Cinta Costera."
+      },
+      "sources": [
+        "https://www.tourismpanama.com/places-to-visit/panama-city/places-to-stay/cinta-costera/"
+      ]
+    },
+    {
+      "id": "panama-patacon",
+      "type": "food",
+      "names": {
+        "zh-Hans": "炸大蕉",
+        "en": "Patacón"
+      },
+      "summary": {
+        "zh-Hans": "Patacón是炸大蕉。巴拿马城滨海一带的餐饮可将它与炸鱼搭配。",
+        "en": "Patacón is fried plantain. Along Panama City’s waterfront it can be served with fried fish."
+      },
+      "sources": [
+        "https://www.tourismpanama.com/places-to-visit/panama-city/places-to-stay/cinta-costera/"
+      ]
+    }
+  ]
 }

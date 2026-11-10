@@ -1,0 +1,416 @@
+[
+  {
+    "id": "seattle.arrival.boat-and-chin",
+    "version": 1,
+    "cityId": "seattle",
+    "kind": "arrival",
+    "factIds": [
+      "seattle-locks"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "船在慢慢升，我的下巴也跟着抬。",
+      "en": "The boat rose, and my chin followed."
+    },
+    "text": {
+      "zh-Hans": "巴拉德船闸里一条船慢慢升高，我站在允许观看的位置，不知不觉也把下巴往上抬。旁边的小朋友说我的个子没有一起长，我低头一看，脚跟倒已经悄悄踮起来了。我把两只脚放平，请他替我看看是不是还在往上长。他一本正经地盯了一会儿，摇头。船继续升，我的帽檐终于不再指着天上。",
+      "en": "A boat rose slowly in the Ballard Locks. From the designated viewing area, my chin followed it upward. A child pointed out that I was not getting any taller. Looking down, I discovered my heels had crept off the ground. I planted both feet and asked him to check whether I was still growing. He studied me seriously, then shook his head. The boat continued rising while my brim stopped aiming at the sky."
+    },
+    "replies": [
+      {
+        "id": "seattle.arrival.boat-and-chin.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问孩子船停稳没有",
+          "en": "Ask whether the boat has settled"
+        }
+      },
+      {
+        "id": "seattle.arrival.boat-and-chin.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看自己的脚跟",
+          "en": "Check my heels"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "seattle.level-heels"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "seattle.arrival.spiral-without-stairs",
+    "version": 1,
+    "cityId": "seattle",
+    "kind": "arrival",
+    "factIds": [
+      "seattle-library"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "他在等楼梯，我已经走到了另一段。",
+      "en": "He was waiting for stairs while I kept walking."
+    },
+    "text": {
+      "zh-Hans": "沿中央图书馆的Books Spiral走，旅伴停下问楼梯在哪儿。我指指脚下连续的路，告诉他我们一直在往前走。他有些不信，低头看了一会儿，又抬头看前面的书架。我也停下来陪他确认，没有拉他赶路。等他重新迈步，我们不再找还没出现的楼梯，只让脚下这段路把两个人缓缓带到更前面。",
+      "en": "Along the Central Library’s Books Spiral, my companion stopped to ask where the stairs were. I indicated the continuous route under our feet. He looked down, then toward the shelves ahead, unconvinced. I waited while he checked for himself instead of hurrying him along. When he resumed, we stopped searching for stairs that had not appeared. The route was already carrying both of us onward."
+    },
+    "replies": [
+      {
+        "id": "seattle.arrival.spiral-without-stairs.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请他沿这段路再走一会儿",
+          "en": "Invite him to follow the route a little longer"
+        }
+      },
+      {
+        "id": "seattle.arrival.spiral-without-stairs.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看脚下连续的坡道",
+          "en": "Notice the continuous path"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "seattle.unbroken-route"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "seattle.arrival.bowl-stays-down",
+    "version": 1,
+    "cityId": "seattle",
+    "kind": "arrival",
+    "factIds": [
+      "seattle-chowder",
+      "seattle-salmon"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "面包能吃，碗暂时还是先放在桌上。",
+      "en": "The bread was edible; the bowl still belonged on the table."
+    },
+    "text": {
+      "zh-Hans": "吃烤三文鱼时，我又尝了一份盛在酸种面包碗里的蛤蜊浓汤。我想把碗挪近一点，两只手却都沾到了面包边，迟疑着不知道先放哪只。旅伴伸手拿自己的杯子，我赶紧把碗稳稳放下，给他让出位置。等汤少了一些，我才掰下一小块面包蘸着吃，缺口越来越明显，桌上的碗却还端端正正地站着。",
+      "en": "With grilled salmon, I tried clam chowder in a sourdough bowl. Bringing it closer left both hands on the bread edge, and I hesitated over which to release. My companion reached for his own glass. I set the bowl down securely to clear his way. Once the soup was lower, I broke off a small piece of bread to dip. The gap in the rim grew, but the bowl remained standing squarely on the table."
+    },
+    "replies": [
+      {
+        "id": "seattle.arrival.bowl-stays-down.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉旅伴杯子可以拿了",
+          "en": "Tell my companion the glass is clear"
+        }
+      },
+      {
+        "id": "seattle.arrival.bowl-stays-down.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看面包碗的缺口",
+          "en": "Look at the gap in the bread rim"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "seattle.menu-chowder",
+        "seattle.menu-salmon"
+      ]
+    }
+  },
+  {
+    "id": "seattle.arrival.fork-face-down",
+    "version": 1,
+    "cityId": "seattle",
+    "kind": "arrival",
+    "factIds": [
+      "seattle-salmon",
+      "seattle-chowder"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "叉子放平以后，我终于能用两只手说话。",
+      "en": "Resting the fork gave both hands to the story."
+    },
+    "text": {
+      "zh-Hans": "三文鱼被我用叉子分成小块，旁边一杯蛤蜊浓汤还温温的。旅伴问起路上见闻，我兴奋地抬手比划，才发觉叉子还握着，赶紧放回盘边。他把自己的杯子也放下，认真等我从头讲。我这次先把嘴里那口吃好，空着两手重新比划，讲到一条船升起来时，他也跟着把头抬高，桌上两把叉子都安静地躺好了。",
+      "en": "I separated my salmon into small pieces, with a cup of clam chowder alongside. Asked about the journey, I began gesturing before noticing the fork still in my hand. I laid it by the plate. My companion put his glass down to listen. After swallowing, I restarted with empty hands. When I described a boat rising, he lifted his head with it. Both forks remained peacefully on the table."
+    },
+    "replies": [
+      {
+        "id": "seattle.arrival.fork-face-down.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "空着手讲船闸里的见闻",
+          "en": "Tell the lock story with empty hands"
+        }
+      },
+      {
+        "id": "seattle.arrival.fork-face-down.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看叉子有没有放稳",
+          "en": "Check where the fork is resting"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "seattle.menu-chowder",
+        "seattle.menu-salmon"
+      ]
+    }
+  },
+  {
+    "id": "seattle.arrival.diamond-on-sleeve",
+    "version": 1,
+    "cityId": "seattle",
+    "kind": "arrival",
+    "factIds": [
+      "seattle-library"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "格子的影子爬上了袖子，我把胳膊轻轻转过来。",
+      "en": "A diamond of light changed shape on my sleeve."
+    },
+    "text": {
+      "zh-Hans": "中央图书馆的玻璃与钢材网格前，日光把一小片格影投到我的袖子上。我站在不挡人的位置，轻轻转胳膊，看那一格慢慢变窄。经过的孩子停下来，也把袖子伸到亮处，结果只照到指尖。他没有再追着光跑，先把胳膊放低，终于接到一小段斜线。我把自己的手也放下来，两段斜线便安安静静挨在了一起。",
+      "en": "Near the Central Library’s glass-and-steel diamonds, a patch of light crossed my sleeve. Standing clear of the path, I turned my arm and watched the shape narrow. A passing child offered his own sleeve to the light and caught it only on his fingertips. He lowered his arm instead of chasing it and found a short diagonal line. I lowered mine too. For a moment, our two sloping lines sat quietly together."
+    },
+    "replies": [
+      {
+        "id": "seattle.arrival.diamond-on-sleeve.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问孩子接到了什么形状",
+          "en": "Ask which shape reached his sleeve"
+        }
+      },
+      {
+        "id": "seattle.arrival.diamond-on-sleeve.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看转动后的格影",
+          "en": "Watch the shape change as an arm turns"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "seattle.sleeve-diamond"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "seattle.arrival.glasses-above-the-steam",
+    "version": 1,
+    "cityId": "seattle",
+    "kind": "arrival",
+    "factIds": [
+      "seattle-chowder",
+      "seattle-salmon"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "镜片上的雾散开，午饭重新出现了。",
+      "en": "Clearing glasses brought lunch back into view."
+    },
+    "text": {
+      "zh-Hans": "一杯蛤蜊浓汤端到面前，我低头太近，眼镜上立刻蒙了一层薄雾，盘里的烤三文鱼也变得模模糊糊。我先把叉子放好，坐直一点，摘下眼镜慢慢擦。邻座问我是不是换了个风景，我笑着说午饭刚才临时藏起来了。等镜片清楚，再戴回鼻梁，我先看准杯子的位置，隔着一小段距离让热气自己往上走。",
+      "en": "I leaned too close to my cup of clam chowder, fogging my glasses until even the grilled salmon became indistinct. I put my fork down, sat back and wiped the lenses. My neighbor asked whether I had found a different view. I explained that lunch had briefly hidden itself. Once the glasses were clear, I replaced them, located the cup and left a little distance for the steam to rise on its own."
+    },
+    "replies": [
+      {
+        "id": "seattle.arrival.glasses-above-the-steam.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉邻座午饭找回来了",
+          "en": "Tell my neighbor lunch is visible again"
+        }
+      },
+      {
+        "id": "seattle.arrival.glasses-above-the-steam.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看镜片上的雾散了没有",
+          "en": "Check that the lenses have cleared"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "seattle.menu-chowder",
+        "seattle.menu-salmon"
+      ]
+    }
+  },
+  {
+    "id": "seattle.fulfill.route-at-his-pace",
+    "version": 1,
+    "cityId": "seattle",
+    "kind": "fulfill",
+    "factIds": [
+      "seattle-library"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "seattle.arrival.spiral-without-stairs.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我们沿连续的路又走了一段。",
+      "en": "You wrote, “{reply}.” We followed the continuous route a little farther."
+    },
+    "text": {
+      "zh-Hans": "我请那位一直找楼梯的旅伴沿Books Spiral再走一会儿。他这回不急着停，先看看前面的书架，再低头看看自己的脚。走着走着，他忽然轻轻拍我肩膀，指向已经换过的一排书。我点头，没有大声宣布我们到了哪层。他也笑着收回手，两个人在不挡人的地方停住，轮到我把刚才没看完的书架慢慢看清楚。",
+      "en": "I invited my stair-searching companion farther along the Books Spiral. This time he looked between the shelves ahead and his feet without stopping immediately. Eventually he tapped my shoulder and indicated the changed row of books. I nodded without making a grand announcement about floors. He smiled and lowered his hand. We paused clear of others so I could finally examine the shelves I had passed while watching his feet."
+    },
+    "replies": [
+      {
+        "id": "seattle.fulfill.route-at-his-pace.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢他陪我停下来看看",
+          "en": "Thank him for pausing with me"
+        }
+      },
+      {
+        "id": "seattle.fulfill.route-at-his-pace.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意前后不同的书架",
+          "en": "Notice the shelves along the route"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "seattle.shelf-turn"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "seattle.revisit.boat-leaves-gap",
+    "version": 1,
+    "cityId": "seattle",
+    "kind": "revisit",
+    "factIds": [
+      "seattle-locks"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "船往前走了，原来被挡住的水面露出来。",
+      "en": "The departing boat uncovered the water."
+    },
+    "text": {
+      "zh-Hans": "巴拉德船闸再次出现在西雅图这段路上，我认得船会怎样慢慢升降，便安稳站着看。身旁的旅人一直举着手，我以为他在向船上招呼，仔细看才知道他想替眼睛遮光。我把自己挡在他视线前的帽檐往下收好，他朝我点头，继续看船驶开。船尾走远，水面那片原本被挡住的亮光忽然宽了，两个人都眯起了眼睛。",
+      "en": "The Ballard Locks appeared along my Seattle route again. Recognizing the boats’ slow rise and fall, I settled to watch. A visitor beside me held a hand up. I mistook it for a wave until I saw that he was shading his eyes. I drew my brim out of his line of sight; he nodded and watched the boat depart. Its stern uncovered a broader patch of bright water, and both of us narrowed our eyes."
+    },
+    "replies": [
+      {
+        "id": "seattle.revisit.boat-leaves-gap.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问旅人还能看清吗",
+          "en": "Ask whether the traveler can still see clearly"
+        }
+      },
+      {
+        "id": "seattle.revisit.boat-leaves-gap.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看船尾露出的水面",
+          "en": "Watch the water uncovered by the stern"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

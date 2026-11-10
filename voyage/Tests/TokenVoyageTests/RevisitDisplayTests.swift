@@ -29,8 +29,10 @@ private final class RevisitDefaults: UserDefaults, @unchecked Sendable {
         care.toldRevisitStoryIds = [story.id]
         let told = try #require(TrailClueDisplay(cityId: "shanghai", care: care, library: library, l10n: l10n))
         #expect(told.summary == unlocked.summary && told.status == l10n("collection.revisitTold"))
-        care.trailClues["dublin"] = 8
-        let unavailable = try #require(TrailClueDisplay(cityId: "dublin", care: care, library: library, l10n: l10n))
+        let basicCity = try #require(localizationCatalog.all.first { $0.level == "basic" })
+        #expect(!library.all.contains { $0.kind == "revisit" && $0.cityId == basicCity.id })
+        care.trailClues[basicCity.id] = 8
+        let unavailable = try #require(TrailClueDisplay(cityId: basicCity.id, care: care, library: library, l10n: l10n))
         #expect(unavailable.summary == l10n("collection.clueCount", 8) && unavailable.status == nil)
         #expect(!unavailable.summary.contains("/"))
         for value in [collecting.summary, unlocked.status!, told.status!, l10n("letter.revisit")] {

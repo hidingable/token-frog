@@ -11,7 +11,7 @@
     "lake",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "皇后镇",
     "en": "Queenstown"
@@ -20,5 +20,68 @@
     "zh-Hans": "皇后镇",
     "en": "Queenstown, New Zealand"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "queenstown-lake",
+      "type": "place",
+      "names": {
+        "zh-Hans": "瓦卡蒂普湖",
+        "en": "Lake Whakatipu"
+      },
+      "summary": {
+        "zh-Hans": "皇后镇临着瓦卡蒂普湖，湖畔可见山地景观，湖水可呈深蓝色。",
+        "en": "Queenstown stands beside Lake Whakatipu, with mountains rising around it and water that can appear deep blue."
+      },
+      "sources": [
+        "https://www.queenstownnz.co.nz/stories/post/landscapes-of-queenstown/"
+      ]
+    },
+    {
+      "id": "queenstown-gardens",
+      "type": "place",
+      "names": {
+        "zh-Hans": "皇后镇花园",
+        "en": "Queenstown Gardens"
+      },
+      "summary": {
+        "zh-Hans": "皇后镇花园位于靠近镇中心的小半岛，有树木、草坪和花坛，可散步并眺望瓦卡蒂普湖与山景。",
+        "en": "Queenstown Gardens occupies a small peninsula near the town centre, with trees, lawns and flowerbeds, and views of Lake Whakatipu and the mountains."
+      },
+      "sources": [
+        "https://www.queenstownnz.co.nz/stories/post/queenstowns-easy-adventures/"
+      ]
+    },
+    {
+      "id": "queenstown-pie",
+      "type": "food",
+      "names": {
+        "zh-Hans": "牛肉派",
+        "en": "Beef Pie"
+      },
+      "summary": {
+        "zh-Hans": "皇后镇可见牛肉派，内馅可为牛肉块和肉汁，外层是酥皮。",
+        "en": "Beef pies are found in Queenstown. A filling of beef pieces and gravy is enclosed in flaky pastry."
+      },
+      "sources": [
+        "https://eatdrink.queenstownnz.co.nz/cafes/fergbaker/",
+        "https://www.newzealand.com/int/feature/favourite-new-zealand-foods/"
+      ]
+    },
+    {
+      "id": "queenstown-icecream",
+      "type": "food",
+      "names": {
+        "zh-Hans": "蜂窝糖冰淇淋",
+        "en": "Hokey Pokey Ice Cream"
+      },
+      "summary": {
+        "zh-Hans": "Hokey pokey冰淇淋可在皇后镇尝到，通常以香草冰淇淋搭配脆蜂窝糖块。",
+        "en": "Hokey pokey ice cream is found in Queenstown. It combines creamy vanilla ice cream with crunchy honeycomb pieces."
+      },
+      "sources": [
+        "https://eatdrink.queenstownnz.co.nz/desserts/mrs-ferg/",
+        "https://www.newzealand.com/int/feature/favourite-new-zealand-foods/"
+      ]
+    }
+  ]
 }

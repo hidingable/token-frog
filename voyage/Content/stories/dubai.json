@@ -1,0 +1,416 @@
+[
+  {
+    "id": "dubai.arrival.shore-keeps-moving",
+    "version": 1,
+    "cityId": "dubai",
+    "kind": "arrival",
+    "factIds": [
+      "dubai-creek"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "船已经停稳，我还在替岸边慢慢挪位置。",
+      "en": "The boat had stopped before I did."
+    },
+    "text": {
+      "zh-Hans": "坐abra横渡迪拜湾，我看着岸边慢慢换位置。等船靠稳，前面的人已经准备下去，我还捧着邮包坐得端正，以为那片岸会继续挪。我听见脚步，便抬头看清，等轮到自己再稳稳起身。他先下去，站在允许等候的地方朝我点头。我走到岸上又回头看了一眼，这回动的是船，脚下的路终于没有再跟着走。",
+      "en": "Crossing Dubai Creek by abra, I watched the shore shift past. Once we were securely docked, others prepared to leave while I remained solemnly seated with my bag, still expecting the bank to move. Hearing footsteps, I looked up, waited my turn and stood. He stepped ashore first and nodded from the waiting area. From land, I looked back. This time the boat moved, and the path beneath my feet stayed put."
+    },
+    "replies": [
+      {
+        "id": "dubai.arrival.shore-keeps-moving.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉旅伴我已经上岸",
+          "en": "Tell my companion I am safely ashore"
+        }
+      },
+      {
+        "id": "dubai.arrival.shore-keeps-moving.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看这次到底哪边在动",
+          "en": "Notice which side is moving now"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "dubai.still-shore"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "dubai.arrival.small-step-wide-view",
+    "version": 1,
+    "cityId": "dubai",
+    "kind": "arrival",
+    "factIds": [
+      "dubai-frame"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我只迈了一小步，眼睛已经走得很远。",
+      "en": "One small step gave my eyes a much longer journey."
+    },
+    "text": {
+      "zh-Hans": "迪拜相框的玻璃桥前，我站稳看城市，旅伴慢慢往前走。我以为自己也跟上了，低头却发现两只脚还挨在一起。他没有拉我，只在前面停住等。我把视线从脚下抬起来，先找好前面能站稳的位置，再慢慢迈过去。他说这一步够认真，我点点头，没有急着回答，等另一只脚也站好，才轻轻松开握紧的包带。",
+      "en": "At Dubai Frame’s glass bridge, I paused to look at the city while my companion walked ahead. I thought I had followed until I noticed both feet still together. He waited without pulling me. Looking forward rather than down, I chose a place to stand and took a careful step. He called it a very conscientious one. I waited for the second foot to settle before releasing my tightly held strap."
+    },
+    "replies": [
+      {
+        "id": "dubai.arrival.small-step-wide-view.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉他我会慢慢跟上",
+          "en": "Tell him I will follow at my own pace"
+        }
+      },
+      {
+        "id": "dubai.arrival.small-step-wide-view.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看下一步站在哪里",
+          "en": "Choose the next secure place to stand"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "dubai.careful-step"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "dubai.arrival.syrup-handed-answer",
+    "version": 1,
+    "cityId": "dubai",
+    "kind": "arrival",
+    "factIds": [
+      "dubai-luqaimat",
+      "dubai-machboos"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我说不黏，手指很快提出了不同意见。",
+      "en": "My fingers disagreed with my answer."
+    },
+    "text": {
+      "zh-Hans": "吃过香料肉饭，我尝了淋椰枣糖浆、撒芝麻的炸面团球。旅伴问手上会不会黏，我刚说还好，拿杯子时却发现一根手指舍不得离开杯壁。我先把杯子放稳，笑着改口，再去把手洗净。他等我回来，特意把杯子往我这边推了一点。我用干净的手拿起来又放下，这回它规规矩矩站住，没有带着我的手指一起走。",
+      "en": "After machboos, I tried luqaimat with date syrup and sesame. My companion asked whether my hands were sticky. I said they were fine, then found a finger reluctant to leave my water glass. I set it down, revised my answer with a laugh and washed my hands. On my return, he moved the glass closer. With clean fingers, I lifted and replaced it. This time it stood obediently without trying to retain a passenger."
+    },
+    "replies": [
+      {
+        "id": "dubai.arrival.syrup-handed-answer.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "承认糖浆有一点黏",
+          "en": "Admit that the syrup is a little sticky"
+        }
+      },
+      {
+        "id": "dubai.arrival.syrup-handed-answer.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看杯子有没有放稳",
+          "en": "Check that the glass is settled"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "dubai.menu-luqaimat",
+        "dubai.menu-machboos"
+      ]
+    }
+  },
+  {
+    "id": "dubai.arrival.spoon-for-the-story",
+    "version": 1,
+    "cityId": "dubai",
+    "kind": "arrival",
+    "factIds": [
+      "dubai-machboos",
+      "dubai-luqaimat"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "他问的是味道，我先把饭吃完再回答。",
+      "en": "He asked about the flavor; I gave the mouthful priority."
+    },
+    "text": {
+      "zh-Hans": "香料肉饭端来，我先尝一小勺，旅伴立刻问是什么味道。我指指嘴巴，请他等一下，他便郑重看着自己的手指计时。我咽好刚要回答，他却忙着数到哪里，忘了原先的问题。两个人对看一会儿，笑着重新开头。饭后又尝炸面团球，这次他等我把勺子放下才开口，我也不用举着空勺在半空中替回答占位置。",
+      "en": "When the machboos arrived, I tasted a small spoonful. My companion immediately asked about the flavor. I pointed to my mouth, and he began solemnly counting on his fingers while I finished. When I was ready, he had lost the question in his count. We looked at each other, laughed and began again. Over luqaimat afterwards, he waited until my spoon was down before asking anything, sparing it the job of holding a place for my answer."
+    },
+    "replies": [
+      {
+        "id": "dubai.arrival.spoon-for-the-story.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请他把问题再说一次",
+          "en": "Ask him to repeat the original question"
+        }
+      },
+      {
+        "id": "dubai.arrival.spoon-for-the-story.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看他数到了哪根手指",
+          "en": "Notice which finger he has reached"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "dubai.menu-luqaimat",
+        "dubai.menu-machboos"
+      ]
+    }
+  },
+  {
+    "id": "dubai.arrival.boat-to-boat-nod",
+    "version": 1,
+    "cityId": "dubai",
+    "kind": "arrival",
+    "factIds": [
+      "dubai-creek"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两条船错身时，问候也换了方向。",
+      "en": "The greetings changed direction as the boats passed."
+    },
+    "text": {
+      "zh-Hans": "迪拜湾上，另一条abra慢慢经过，有个小朋友朝这边挥手。我轻轻点头，没站起来，他又把手举高一点，像是担心我没有收到。我便空出一只手，把问候挥回去。他满意地坐好，刚一转头，两条船已经错开。我也转身收回手，才发现身旁的旅伴一直看着另一边，只好把刚才那声小小的招呼又讲给他听。",
+      "en": "Another abra passed ours on Dubai Creek, carrying a child who waved across. I nodded without standing. He raised his hand higher, apparently worried that the greeting had not arrived. I freed a hand and waved back. Satisfied, he sat properly again as the boats passed. My companion had been looking the other way throughout. I lowered my hand and delivered an account of the greeting to him instead."
+    },
+    "replies": [
+      {
+        "id": "dubai.arrival.boat-to-boat-nod.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲刚才收到的问候",
+          "en": "Tell my companion about the greeting"
+        }
+      },
+      {
+        "id": "dubai.arrival.boat-to-boat-nod.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两条船怎样错开",
+          "en": "Watch the boats pass each other"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "dubai.arrival.sesame-without-a-pattern",
+    "version": 1,
+    "cityId": "dubai",
+    "kind": "arrival",
+    "factIds": [
+      "dubai-luqaimat",
+      "dubai-machboos"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "芝麻停在哪里，我就先从另一边咬。",
+      "en": "I chose a bite from the other side of the sesame."
+    },
+    "text": {
+      "zh-Hans": "香料肉饭之后，我把撒着芝麻的炸面团球转在叉尖上，想找个糖浆少一点的位置。旅伴低头看了半天，提醒我这样转也不会少一粒芝麻。我说自己只是在找下口的地方，他便郑重把空碟挪到下面，像给点心铺好落脚处。我终于咬下一小口，芝麻落在碟里，他却说刚才那一口找得很准，正好让圆球少了个边。",
+      "en": "After machboos, I turned a sesame-covered luqaimat on my fork, seeking a less syrupy place to bite. My companion observed that turning it would not remove a single seed. I explained that I was only choosing an approach. He solemnly moved a clean side plate beneath it. I finally took a bite, dropping sesame onto the plate. He complimented my accuracy: the round ball now had one decidedly missing edge."
+    },
+    "replies": [
+      {
+        "id": "dubai.arrival.sesame-without-a-pattern.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉旅伴已经找到下口处",
+          "en": "Report that I have found a place to bite"
+        }
+      },
+      {
+        "id": "dubai.arrival.sesame-without-a-pattern.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看落在小碟里的芝麻",
+          "en": "Look at the sesame on the side plate"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "dubai.sesame-gaps"
+      ],
+      "menuIds": [
+        "dubai.menu-luqaimat",
+        "dubai.menu-machboos"
+      ]
+    }
+  },
+  {
+    "id": "dubai.fulfill.pace-after-second-foot",
+    "version": 1,
+    "cityId": "dubai",
+    "kind": "fulfill",
+    "factIds": [
+      "dubai-frame"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "dubai.arrival.small-step-wide-view.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我按自己的步子跟过去。",
+      "en": "You wrote, “{reply}.” I followed at my own pace."
+    },
+    "text": {
+      "zh-Hans": "我告诉前面等着的旅伴，自己会慢慢跟上。他点头，把身子转向城市，给我留出从容走近的时间。我先放松包带，眼睛看前面，每一步都等两只脚各自落稳。走到他旁边时，他问要不要继续，我说先站一会儿。于是两个人并排看远处的建筑，谁也没再数脚步，我握得发热的手掌终于安安稳稳摊在了自己身前。",
+      "en": "I told my waiting companion that I would follow at my own pace. He turned toward the city, leaving me time to approach. I loosened my grip, looked forward and let each foot settle securely. Reaching him, I asked for a pause before going farther. We stood side by side, looking at the buildings without counting steps. My warm, tightly held palm finally opened in front of me."
+    },
+    "replies": [
+      {
+        "id": "dubai.fulfill.pace-after-second-foot.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢他留给我的时间",
+          "en": "Thank him for leaving me time"
+        }
+      },
+      {
+        "id": "dubai.fulfill.pace-after-second-foot.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看手掌有没有松开",
+          "en": "Notice my hand opening"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "dubai.open-palm"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "dubai.revisit.water-before-departure",
+    "version": 1,
+    "cityId": "dubai",
+    "kind": "revisit",
+    "factIds": [
+      "dubai-creek"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "认得水道以后，我先认清自己的水杯。",
+      "en": "After recognizing the waterway, I checked my own cup."
+    },
+    "text": {
+      "zh-Hans": "重来迪拜，我认得abra在迪拜湾两岸往返，便坐在岸边允许歇脚的地方等旅伴。他带来两杯水，一杯递给我，一杯放在自己旁边。我们都转头看船，回来时却同时伸向中间那杯。我停手问清，他把自己的杯子提起来，我才发现递到手里的那杯始终握着。两个人笑着各喝一口，湾上的船已经慢慢走到更远一点。",
+      "en": "Returning to Dubai, I recognized the abras crossing Dubai Creek and waited in a permitted resting place by the bank. My companion brought two cups of water. We turned to watch a boat, then both reached toward the cup between us. I paused to ask. He lifted his own, and I discovered that mine had remained in my other hand throughout. We each drank, laughing, while the boat continued farther along the creek."
+    },
+    "replies": [
+      {
+        "id": "dubai.revisit.water-before-departure.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "承认自己的水一直拿着",
+          "en": "Admit that I was holding my water all along"
+        }
+      },
+      {
+        "id": "dubai.revisit.water-before-departure.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两只杯子各在哪里",
+          "en": "Locate both cups"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

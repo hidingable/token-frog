@@ -1,0 +1,98 @@
+[
+  {
+    "id": "hochiminh.menu-banhmi",
+    "kind": "menu",
+    "cityId": "hochiminh",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "夹馅面包小菜单",
+      "en": "Bánh Mì Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自绘的面包稍稍转了方向，黄瓜只探出小小一角。",
+      "en": "The messenger’s sandwich sketch turns slightly, with one small edge of cucumber showing."
+    }
+  },
+  {
+    "id": "hochiminh.menu-comtam",
+    "kind": "menu",
+    "cityId": "hochiminh",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "碎米饭小菜单",
+      "en": "Cơm Tấm Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使饭后画的小勺没有堆满，盘边留着黄瓜和烤猪肉。",
+      "en": "The messenger’s after-lunch spoon is modestly filled beside cucumber and grilled pork."
+    }
+  },
+  {
+    "id": "hochiminh.arm-and-map",
+    "kind": "souvenir",
+    "cityId": "hochiminh",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "举手小翻片",
+      "en": "Raised Arm Flap"
+    },
+    "descriptions": {
+      "zh-Hans": "信使用纸做的小胳膊可以放下，底下是自己留的空白。",
+      "en": "The messenger’s paper arm folds down over a space of their own making."
+    }
+  },
+  {
+    "id": "hochiminh.wheel-and-step",
+    "kind": "souvenir",
+    "cityId": "hochiminh",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "轮子脚步折条",
+      "en": "Wheel and Foot Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折条上的纸轮与脚印各占一边，谁也不挤谁。",
+      "en": "Paper wheels and footprints share opposite sides of the messenger’s folded strip."
+    }
+  },
+  {
+    "id": "hochiminh.quiet-buckle",
+    "kind": "souvenir",
+    "cityId": "hochiminh",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "安静搭扣纸套",
+      "en": "Quiet Buckle Sleeve"
+    },
+    "descriptions": {
+      "zh-Hans": "信使裁的纸套裹住一枚纸扣，只记那声轻轻的碰响。",
+      "en": "A paper sleeve cut by the messenger encloses a drawn buckle and recalls one little tap."
+    }
+  },
+  {
+    "id": "hochiminh.three-stretches",
+    "kind": "souvenir",
+    "cityId": "hochiminh",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "伸腰小立卡",
+      "en": "Three Stretches Card"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的立体纸卡，三个小身影向不同方向舒展开。",
+      "en": "The messenger’s original pop-up card lets three little figures stretch in different directions."
+    }
+  }
+]

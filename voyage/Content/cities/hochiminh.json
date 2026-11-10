@@ -10,7 +10,7 @@
     "food",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "胡志明市",
     "en": "Ho Chi Minh City"
@@ -19,5 +19,67 @@
     "zh-Hans": "胡志明市",
     "en": "Ho Chi Minh City"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "hochiminh-postoffice",
+      "type": "place",
+      "names": {
+        "zh-Hans": "西贡中央邮局",
+        "en": "Saigon Central Post Office"
+      },
+      "summary": {
+        "zh-Hans": "西贡中央邮局的大厅两旁设有木制电话亭，墙上展示历史地图。",
+        "en": "The foyer of Saigon Central Post Office has wooden telephone booths along its sides and historic maps on the walls."
+      },
+      "sources": [
+        "https://vietnam.travel/things-to-do/7-must-see-attractions-hcmc/"
+      ]
+    },
+    {
+      "id": "hochiminh-nguyenhue",
+      "type": "place",
+      "names": {
+        "zh-Hans": "阮惠步行街",
+        "en": "Nguyễn Huệ Walking Street"
+      },
+      "summary": {
+        "zh-Hans": "阮惠步行街位于胡志明市，从市政厅一侧延伸至白藤码头一侧。",
+        "en": "Nguyễn Huệ is a walking street in Ho Chi Minh City, extending from City Hall toward Bạch Đằng Wharf."
+      },
+      "sources": [
+        "https://vietnam.travel/things-to-do/7-must-see-attractions-hcmc/"
+      ]
+    },
+    {
+      "id": "hochiminh-banhmi",
+      "type": "food",
+      "names": {
+        "zh-Hans": "越南夹馅面包",
+        "en": "Bánh Mì"
+      },
+      "summary": {
+        "zh-Hans": "胡志明市的越南夹馅面包有多种馅料。一种烤猪肉版本将面包剖开，放入猪肉、黄瓜、香菜和腌胡萝卜。",
+        "en": "Bánh mì in Ho Chi Minh City comes with different fillings. One roast-pork version fills a split baguette with pork, cucumber, coriander and pickled carrot."
+      },
+      "sources": [
+        "https://vietnam.travel/things-to-do/explore-delicious-dishes-ho-chi-minh-city/",
+        "https://www.vietnam.travel/sites/default/files/2020-10/Recipes%20from%20Vietnam%20Tourism%20Board.pdf"
+      ]
+    },
+    {
+      "id": "hochiminh-comtam",
+      "type": "food",
+      "names": {
+        "zh-Hans": "碎米饭",
+        "en": "Cơm Tấm"
+      },
+      "summary": {
+        "zh-Hans": "碎米饭是胡志明市可见的米饭料理，可配烤猪排、黄瓜、腌菜和甜味鱼露。",
+        "en": "Cơm tấm is a broken-rice dish found in Ho Chi Minh City. It can be served with grilled pork, cucumber, pickles and sweetened fish sauce."
+      },
+      "sources": [
+        "https://vietnam.travel/things-to-do/explore-delicious-dishes-ho-chi-minh-city/"
+      ]
+    }
+  ]
 }

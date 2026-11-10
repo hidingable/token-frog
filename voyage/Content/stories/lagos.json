@@ -1,0 +1,416 @@
+[
+  {
+    "id": "lagos.arrival.two-ends-one-room",
+    "version": 1,
+    "cityId": "lagos",
+    "kind": "arrival",
+    "factIds": [
+      "lagos-gallery"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我们各让了一边，结果还是走到了一起。",
+      "en": "We chose opposite sides and still met in the middle."
+    },
+    "text": {
+      "zh-Hans": "妮凯艺术画廊里，我和一位旅人同时往旁边让，结果又站到同一侧。他笑着指向另一头，我点头，以为这回能分开慢慢看。没走多久，我们却在同一处作品前碰面。他先收回准备指路的手，我也把脚摆正，让中间留出不必躲让的空处。刚才各向一边的两双鞋，这回终于并排站定，谁也没有先走。",
+      "en": "In Nike Art Gallery, a traveler and I both stepped aside and landed on the same side again. He indicated the other end, and I nodded, expecting to browse separately. A little later, we met before the same work. He lowered his pointing hand while I straightened my feet, leaving enough space between us. The shoes that had kept choosing opposite directions were finally standing side by side. Neither pair moved away."
+    },
+    "replies": [
+      {
+        "id": "lagos.arrival.two-ends-one-room.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "邀请他一起看眼前的作品",
+          "en": "Invite him to look at this work together"
+        }
+      },
+      {
+        "id": "lagos.arrival.two-ends-one-room.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看我们各自往哪边让",
+          "en": "Notice which way each of us steps"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "lagos.two-ends"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "lagos.arrival.monkey-listening",
+    "version": 1,
+    "cityId": "lagos",
+    "kind": "arrival",
+    "factIds": [
+      "lagos-lekki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "它转头看了一眼，我把拉链停住了。",
+      "en": "One look was enough to pause the zip."
+    },
+    "text": {
+      "zh-Hans": "莱基保护中心的步道旁，树间一只猴子正动来动去。我想把水壶放回包里，拉链刚响，它便转头望过来。我立刻停手，没有靠近，也没有拿食物。旁边的旅人同样安静下来，等猴子沿树枝移远，我才把包口慢慢合好。他问我是不是忘了喝水，我举起已经空的水壶，两个人压低声音笑了一下。",
+      "en": "A monkey moved among the trees beside the nature trail at Lekki Conservation Centre. As I put my bottle away, my zip sounded and the monkey turned. I stopped without approaching or taking out food. A traveler beside me grew quiet too. Once the monkey moved farther along the branches, I closed the bag slowly. Had I forgotten to drink, he asked? I showed him the empty bottle, and we shared a subdued laugh."
+    },
+    "replies": [
+      {
+        "id": "lagos.arrival.monkey-listening.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "轻声告诉他水喝完了",
+          "en": "Quietly explain that the bottle is empty"
+        }
+      },
+      {
+        "id": "lagos.arrival.monkey-listening.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "远远看猴子移到哪边",
+          "en": "Watch the monkey from a distance"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "lagos.paused-zip"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "lagos.arrival.puff-round-cheeks",
+    "version": 1,
+    "cityId": "lagos",
+    "kind": "arrival",
+    "factIds": [
+      "lagos-puff",
+      "lagos-jollof"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "点心是圆的，我的回答暂时也是。",
+      "en": "My answer had to wait behind a round mouthful."
+    },
+    "text": {
+      "zh-Hans": "乔洛夫饭吃完，旅伴拿起一颗甜味炸面团球，问我想不想再尝一个。我刚咬下一口，不能马上回答，便点头，他却误会成我已经够了。我先咽好再说想尝，他看着手里还没吃的那颗，笑着放回干净的小碟。我没有急着伸手，先喝口水，让两边鼓起的脸颊慢慢恢复，才郑重接过第二颗圆圆的点心。",
+      "en": "After jollof rice, my companion lifted a sweet puff-puff and asked whether I wanted another. With a bite already in my mouth, I nodded. He took that to mean I had enough. Once I had swallowed, I clarified. Laughing, he put the untouched piece on a clean side plate. I drank some water and let my cheeks return to their ordinary shape before accepting the second round treat."
+    },
+    "replies": [
+      {
+        "id": "lagos.arrival.puff-round-cheeks.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "吃好再把回答说清楚",
+          "en": "Finish the mouthful before answering clearly"
+        }
+      },
+      {
+        "id": "lagos.arrival.puff-round-cheeks.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两边脸颊鼓不鼓",
+          "en": "Check whether my cheeks are still full"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "lagos.menu-jollof",
+        "lagos.menu-puff"
+      ]
+    }
+  },
+  {
+    "id": "lagos.arrival.rice-pause-story",
+    "version": 1,
+    "cityId": "lagos",
+    "kind": "arrival",
+    "factIds": [
+      "lagos-jollof",
+      "lagos-puff"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "他的故事停在半句，我的午饭也停在半勺。",
+      "en": "His story paused halfway, and so did my spoon."
+    },
+    "text": {
+      "zh-Hans": "我尝着番茄香的乔洛夫饭，旅伴讲起自己一路上把帽子戴反的事。他讲到最可笑的一段忽然停下来，低头又检查了一遍自己的帽子。我举着半勺饭等他，看见帽檐这回朝前，便用空着的手指了指。他摸摸帽子，放心接着讲。我把那勺吃好，饭后又尝了炸面团球，讲故事的人总算能两只手都拿来比划。",
+      "en": "Over tomato-flavored jollof rice, my companion told me about traveling with his hat on backwards. At the funniest point, he stopped to check it again. I waited with half a spoonful, then used my free hand to indicate that the brim was correctly forward. Reassured, he continued. I finished the spoonful and later tried puff-puff while he finally gave both hands to illustrating his tale."
+    },
+    "replies": [
+      {
+        "id": "lagos.arrival.rice-pause-story.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请他放心继续讲帽子",
+          "en": "Encourage him to finish the hat story"
+        }
+      },
+      {
+        "id": "lagos.arrival.rice-pause-story.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看帽檐这回朝哪里",
+          "en": "Check which way the brim points"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "lagos.menu-jollof",
+        "lagos.menu-puff"
+      ]
+    }
+  },
+  {
+    "id": "lagos.arrival.brim-drip",
+    "version": 1,
+    "cityId": "lagos",
+    "kind": "arrival",
+    "factIds": [
+      "lagos-lekki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "树上掉下来一滴，我的帽子多留了一会儿。",
+      "en": "One drop stayed with my hat longer than expected."
+    },
+    "text": {
+      "zh-Hans": "沿着莱基保护中心的栈道走，一滴水从树叶落到帽檐上。我听见轻轻的一声，抬头没找见下一滴，便继续往前。等停到不挡人的地方擦额头，我把帽子往前一倾，那滴水才顺着边缘滑下来，落到自己的鞋面。我没有再抬头找树叶，只把帽檐晾开一点，慢慢等鞋上那个深色的小点变浅再往前走。",
+      "en": "A drop fell from a leaf onto my hat brim as I followed Lekki’s boardwalk. Hearing the little tap, I looked up for another, then walked on. Later, in a clear place, I tipped the hat to wipe my forehead. The waiting drop slid onto my shoe. This time I left the leaves out of the investigation, opened the brim a little and watched the dark spot on my shoe begin to fade."
+    },
+    "replies": [
+      {
+        "id": "lagos.arrival.brim-drip.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说晚到的那滴水",
+          "en": "Describe the drop’s delayed arrival"
+        }
+      },
+      {
+        "id": "lagos.arrival.brim-drip.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意鞋面水点的颜色",
+          "en": "Watch the spot on my shoe lighten"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "lagos.delayed-drop"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "lagos.arrival.chair-turns-toward-lunch",
+    "version": 1,
+    "cityId": "lagos",
+    "kind": "arrival",
+    "factIds": [
+      "lagos-jollof",
+      "lagos-puff"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我先转好空椅子，端饭的人就有了落脚处。",
+      "en": "Turning the empty chair gave lunch somewhere to settle."
+    },
+    "text": {
+      "zh-Hans": "我正吃乔洛夫饭，邻桌的旅人端着盘子找地方坐，身后的椅子却朝着另一边。我问过他，帮忙把空椅转好，再退开让他坐稳。他的同伴随后带来甜味炸面团球，也分给我尝了一颗。我把自己的盘子挪出一点空处接好，三个人这才都不用再站着。他笑着试了试椅背，我也靠回去，两边的肩膀一同落了下来。",
+      "en": "While I ate jollof rice, a traveler at the next table tried to settle with his plate, but the empty chair faced the wrong way. With his permission, I turned it and stepped back. His companion arrived with sweet puff-puff and offered me one. I made room beside my plate to receive it. Now all three of us could sit. He tested his chair back, I leaned into mine, and our shoulders lowered together."
+    },
+    "replies": [
+      {
+        "id": "lagos.arrival.chair-turns-toward-lunch.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢同伴分来的点心",
+          "en": "Thank the companion for sharing the treat"
+        }
+      },
+      {
+        "id": "lagos.arrival.chair-turns-toward-lunch.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看椅子转好了没有",
+          "en": "Check the chair’s direction"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "lagos.menu-jollof",
+        "lagos.menu-puff"
+      ]
+    }
+  },
+  {
+    "id": "lagos.fulfill.same-side-looking",
+    "version": 1,
+    "cityId": "lagos",
+    "kind": "fulfill",
+    "factIds": [
+      "lagos-gallery"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "lagos.arrival.two-ends-one-room.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我们这回不再分头走。",
+      "en": "You wrote, “{reply}.” This time we stayed together."
+    },
+    "text": {
+      "zh-Hans": "我邀请那位总与我走到同一侧的旅人，一起看眼前的作品。他站好后，我也留出一小段空处，不再忙着给他指另一头。我们各自看了一会儿，他忽然小声问我是不是还打算让路。我摇头，两个人便笑起来。随后他先往旁边移一步，我等他停稳才跟上，肩膀之间始终留着舒服的距离，没有谁再把谁让回原处。",
+      "en": "I invited the traveler who kept choosing the same side to look at the work together. We settled with comfortable space between us, without pointing toward opposite ends. After a while he quietly asked whether I was planning another evasive maneuver. I shook my head, and we laughed. When he moved to the next spot, I waited before following. The distance between our shoulders stayed easy, and neither of us sent the other back to the start."
+    },
+    "replies": [
+      {
+        "id": "lagos.fulfill.same-side-looking.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉他不用再让到另一头",
+          "en": "Tell him there is no need to retreat again"
+        }
+      },
+      {
+        "id": "lagos.fulfill.same-side-looking.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看肩膀之间的空处",
+          "en": "Notice the space between our shoulders"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "lagos.shared-gap"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "lagos.revisit.forest-before-whisper",
+    "version": 1,
+    "cityId": "lagos",
+    "kind": "revisit",
+    "factIds": [
+      "lagos-lekki"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "这条路还认得，耳边的声响先走了一步。",
+      "en": "The trail was familiar, but the sound arrived first."
+    },
+    "text": {
+      "zh-Hans": "拉各斯的莱基保护中心又迎来我这双小脚，林间步道仍然认得。前面的旅人忽然停下，侧着头听，我也跟着把脚放轻。他以为我看见了什么，转过来问，我说自己只是在跟着他听。两个人一同静下来，才发现那阵沙沙声来自他衣袖擦过包带。他把胳膊挪开，声音停了，林子深处细细的动静这才慢慢浮上来。",
+      "en": "My feet found Lekki Conservation Centre again in Lagos, recognizing the trail through the trees. A traveler ahead stopped and tilted his head, so I softened my steps too. Had I spotted something, he asked? I was only listening because he was. In the shared pause, we traced a rustle to his sleeve brushing his strap. He moved his arm. With that sound gone, quieter movements deeper among the trees gradually became audible."
+    },
+    "replies": [
+      {
+        "id": "lagos.revisit.forest-before-whisper.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "承认自己跟着他听",
+          "en": "Admit that I was following his listening"
+        }
+      },
+      {
+        "id": "lagos.revisit.forest-before-whisper.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "分辨衣袖停下后的声音",
+          "en": "Listen after the sleeve stops rustling"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

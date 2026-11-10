@@ -1,0 +1,98 @@
+[
+  {
+    "id": "dubai.menu-luqaimat",
+    "kind": "menu",
+    "cityId": "dubai",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "糖浆面团球小菜单",
+      "en": "Luqaimat Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使饭后画的面团球带着芝麻，杯子画在留有间隔的旁边。",
+      "en": "The messenger’s after-meal dough balls carry sesame, with a glass drawn at a sensible distance."
+    }
+  },
+  {
+    "id": "dubai.menu-machboos",
+    "kind": "menu",
+    "cityId": "dubai",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "香料肉饭小菜单",
+      "en": "Machboos Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自绘的肉饭与香料，勺子平放着等问题说完。",
+      "en": "The messenger’s rice-and-meat sketch leaves the spoon resting while a question is finished."
+    }
+  },
+  {
+    "id": "dubai.still-shore",
+    "kind": "souvenir",
+    "cityId": "dubai",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "不动岸边折页",
+      "en": "Still Shore Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的纸船会移开，纸岸稳稳留在原处。",
+      "en": "The messenger’s little paper boat slides away while its paper bank stays still."
+    }
+  },
+  {
+    "id": "dubai.careful-step",
+    "kind": "souvenir",
+    "cityId": "dubai",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "认真一步纸条",
+      "en": "Careful Step Strip"
+    },
+    "descriptions": {
+      "zh-Hans": "信使剪的小脚印一前一后，留着能站稳的空处。",
+      "en": "Small footprints cut by the messenger leave room for each foot to settle."
+    }
+  },
+  {
+    "id": "dubai.sesame-gaps",
+    "kind": "souvenir",
+    "cityId": "dubai",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "芝麻空隙纸窗",
+      "en": "Sesame Gaps Window"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自裁的点孔纸窗，记着点心小碟里散开的芝麻。",
+      "en": "The messenger’s own dotted paper window recalls sesame scattered on a side plate."
+    }
+  },
+  {
+    "id": "dubai.open-palm",
+    "kind": "souvenir",
+    "cityId": "dubai",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "摊开手掌翻卡",
+      "en": "Open Palm Flap"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折的纸手掌能轻轻展开，里面没有藏奖章。",
+      "en": "The messenger’s folded paper palm opens gently with nothing hidden inside."
+    }
+  }
+]

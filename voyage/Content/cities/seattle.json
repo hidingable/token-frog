@@ -11,7 +11,7 @@
     "lake",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "西雅图",
     "en": "Seattle"
@@ -20,5 +20,66 @@
     "zh-Hans": "西雅图",
     "en": "Seattle"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "seattle-library",
+      "type": "place",
+      "names": {
+        "zh-Hans": "西雅图中央图书馆",
+        "en": "Seattle Central Library"
+      },
+      "summary": {
+        "zh-Hans": "西雅图中央图书馆的外表以玻璃和钢材构成菱形网格。馆内的Books Spiral以连续路线连接非虚构类藏书区域。",
+        "en": "Seattle Central Library has a diamond-shaped glass-and-steel exterior. Inside, the Books Spiral provides a continuous route through the nonfiction collection."
+      },
+      "sources": [
+        "https://www.spl.org/hours-and-locations/central-library/central-library-highlights/central-library-architecture"
+      ]
+    },
+    {
+      "id": "seattle-locks",
+      "type": "place",
+      "names": {
+        "zh-Hans": "巴拉德船闸",
+        "en": "Ballard Locks"
+      },
+      "summary": {
+        "zh-Hans": "巴拉德船闸通过升降船只，让船在西雅图的淡水水域与普吉特海湾咸水水域之间通行。",
+        "en": "The Ballard Locks raise and lower boats to let them pass between Seattle’s freshwater waterways and the salt water of Puget Sound."
+      },
+      "sources": [
+        "https://visitseattle.org/press/press-kit/seattles-major-attractions/"
+      ]
+    },
+    {
+      "id": "seattle-chowder",
+      "type": "food",
+      "names": {
+        "zh-Hans": "蛤蜊浓汤",
+        "en": "Clam Chowder"
+      },
+      "summary": {
+        "zh-Hans": "西雅图派克市场可见新英格兰式蛤蜊浓汤，可盛在杯中或酸种面包碗中。",
+        "en": "New England-style clam chowder is found at Seattle’s Pike Place Market, served in a cup or a sourdough bread bowl."
+      },
+      "sources": [
+        "https://www.pikeplacemarket.org/12-must-try-clam-chowder-restaurants-in-pike-place-market/"
+      ]
+    },
+    {
+      "id": "seattle-salmon",
+      "type": "food",
+      "names": {
+        "zh-Hans": "烤三文鱼",
+        "en": "Grilled Salmon"
+      },
+      "summary": {
+        "zh-Hans": "烤三文鱼是西雅图派克市场可见的海鲜菜品，以烤制方式烹调三文鱼。",
+        "en": "Grilled salmon is among the seafood dishes found at Seattle’s Pike Place Market. The salmon is prepared by grilling."
+      },
+      "sources": [
+        "https://www.pikeplacemarket.org/vendor/jacks-fish-and-chips/"
+      ]
+    }
+  ]
 }

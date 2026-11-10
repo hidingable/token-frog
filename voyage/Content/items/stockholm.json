@@ -1,0 +1,98 @@
+[
+  {
+    "id": "stockholm.menu-bun",
+    "kind": "menu",
+    "cityId": "stockholm",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "肉桂卷小菜单",
+      "en": "Cinnamon Bun Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使吃过点心后补画的旋圈，末端留着一口的空白。",
+      "en": "The messenger’s pastry sketch leaves a bite-sized gap at the end of the coil."
+    }
+  },
+  {
+    "id": "stockholm.menu-meatballs",
+    "kind": "menu",
+    "cityId": "stockholm",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "肉丸小菜单",
+      "en": "Meatball Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自绘的午饭盘，肉汁已经越过了他画的分隔线。",
+      "en": "The messenger’s lunch sketch lets gravy cross the divisions on the plate."
+    }
+  },
+  {
+    "id": "stockholm.clear-view",
+    "kind": "souvenir",
+    "cityId": "stockholm",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "让开视线翻页",
+      "en": "Clear View Flap"
+    },
+    "descriptions": {
+      "zh-Hans": "信使做的纸包可以翻到旁边，露出背后的空白窗。",
+      "en": "The messenger’s paper mailbag folds aside to reveal an open viewing window."
+    }
+  },
+  {
+    "id": "stockholm.alternating-steps",
+    "kind": "souvenir",
+    "cityId": "stockholm",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "换人领路折条",
+      "en": "Taking Turns Strip"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折的纸条上，长短两行脚印轮流走在前面。",
+      "en": "On the messenger’s folded strip, long and short paper footprints take turns leading."
+    }
+  },
+  {
+    "id": "stockholm.unequal-halves",
+    "kind": "souvenir",
+    "cityId": "stockholm",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "不等分折卡",
+      "en": "Unequal Halves Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自折的两片纸卷一大一小，合起来刚好成为一只圆面包。",
+      "en": "Two unequal paper pieces folded by the messenger close into one round bun."
+    }
+  },
+  {
+    "id": "stockholm.paired-heels",
+    "kind": "souvenir",
+    "cityId": "stockholm",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "并步弹起卡",
+      "en": "Together-Step Pop-Up"
+    },
+    "descriptions": {
+      "zh-Hans": "信使做的立体纸卡，一展开，两只纸鞋同时落稳。",
+      "en": "The messenger’s original pop-up card settles two paper shoes side by side."
+    }
+  }
+]

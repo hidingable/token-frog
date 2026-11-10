@@ -10,7 +10,7 @@
     "capital",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "都柏林",
     "en": "Dublin"
@@ -19,5 +19,68 @@
     "zh-Hans": "都柏林",
     "en": "Dublin"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "dublin-bridge",
+      "type": "place",
+      "names": {
+        "zh-Hans": "半便士桥",
+        "en": "Ha’penny Bridge"
+      },
+      "summary": {
+        "zh-Hans": "半便士桥是都柏林利菲河上的铸铁步行桥。",
+        "en": "The Ha’penny Bridge is a cast-iron pedestrian bridge across the River Liffey in Dublin."
+      },
+      "sources": [
+        "https://www.visitdublin.com/ha-penny-bridge"
+      ]
+    },
+    {
+      "id": "dublin-green",
+      "type": "place",
+      "names": {
+        "zh-Hans": "圣斯蒂芬绿地",
+        "en": "St Stephen’s Green"
+      },
+      "summary": {
+        "zh-Hans": "圣斯蒂芬绿地是都柏林市中心的公园，保留维多利亚式布局，设有步道、树木和灌木。",
+        "en": "St Stephen’s Green is a central Dublin park with a Victorian layout, paths, trees and shrubs."
+      },
+      "sources": [
+        "https://heritageireland.ie/visit/places-to-visit/st-stephens-green/"
+      ]
+    },
+    {
+      "id": "dublin-coddle",
+      "type": "food",
+      "names": {
+        "zh-Hans": "都柏林炖香肠",
+        "en": "Dublin Coddle"
+      },
+      "summary": {
+        "zh-Hans": "都柏林炖香肠以土豆为基础，配有香肠、培根和洋葱，食材在汤汁中炖煮。",
+        "en": "Dublin coddle is a potato-based casserole with sausages, bacon and onion, simmered in broth."
+      },
+      "sources": [
+        "https://www.visitdublin.com/guides/irish-food",
+        "https://www.ireland.com/en-us/magazine/food-and-drink/traditional-irish-recipes/"
+      ]
+    },
+    {
+      "id": "dublin-bread",
+      "type": "food",
+      "names": {
+        "zh-Hans": "棕色苏打面包",
+        "en": "Brown Soda Bread"
+      },
+      "summary": {
+        "zh-Hans": "棕色苏打面包在都柏林的饮食中可见。其做法可将全麦粉、面粉、小苏打和酪乳混合后烘烤。",
+        "en": "Brown soda bread is found in Dublin’s food scene. One preparation mixes wholemeal flour, plain flour, baking soda and buttermilk before baking."
+      },
+      "sources": [
+        "https://www.visitdublin.com/guides/irish-food",
+        "https://www.ireland.com/en-us/magazine/food-and-drink/traditional-irish-recipes/"
+      ]
+    }
+  ]
 }

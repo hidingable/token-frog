@@ -1,0 +1,98 @@
+[
+  {
+    "id": "reykjavik.menu-hotdog",
+    "kind": "menu",
+    "cityId": "reykjavik",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "热狗小菜单",
+      "en": "Hot Dog Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自绘的热狗下方添了餐盘，洋葱碎全留在纸上的盘里。",
+      "en": "The messenger’s hot dog sketch has a plate beneath it to catch the drawn onion."
+    }
+  },
+  {
+    "id": "reykjavik.menu-skyr",
+    "kind": "menu",
+    "cityId": "reykjavik",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "冰岛乳酪小菜单",
+      "en": "Skyr Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使饭后画的乳酪碗，浆果留着半圈浅红。",
+      "en": "The messenger drew the dairy bowl after eating, with half a berry-colored circle."
+    }
+  },
+  {
+    "id": "reykjavik.spreading-rings",
+    "kind": "souvenir",
+    "cityId": "reykjavik",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "散开的圆圈折页",
+      "en": "Spreading Rings Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折出的层层纸圈，展开时中心空着。",
+      "en": "The messenger’s nested paper rings open around an empty centre."
+    }
+  },
+  {
+    "id": "reykjavik.paired-straps",
+    "kind": "souvenir",
+    "cityId": "reykjavik",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "双包带小剪纸",
+      "en": "Twin Straps Cutout"
+    },
+    "descriptions": {
+      "zh-Hans": "信使剪的两条纸包带，一条端正，一条故意有点歪。",
+      "en": "Two straps cut from paper by the messenger, one neat and one deliberately crooked."
+    }
+  },
+  {
+    "id": "reykjavik.curved-wake",
+    "kind": "souvenir",
+    "cityId": "reykjavik",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "水纹纸带",
+      "en": "Curved Wake Strip"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的弯纸带，只记录远远看水鸟的一段水纹。",
+      "en": "A curved strip made by the messenger recalls a wake watched from the path."
+    }
+  },
+  {
+    "id": "reykjavik.head-and-rings",
+    "kind": "souvenir",
+    "cityId": "reykjavik",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "圈外小鸭翻卡",
+      "en": "Duck Beyond the Rings"
+    },
+    "descriptions": {
+      "zh-Hans": "信使做的翻卡，纸鸭从圆圈外面露头。",
+      "en": "On the messenger’s original flap card, a paper duck appears outside the rings."
+    }
+  }
+]

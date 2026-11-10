@@ -1,0 +1,416 @@
+[
+  {
+    "id": "reykjavik.arrival.duck-waiting-spot",
+    "version": 1,
+    "cityId": "reykjavik",
+    "kind": "arrival",
+    "factIds": [
+      "reykjavik-pond"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "鸭子潜下去了，观众还没商量好站哪边。",
+      "en": "The duck submerged before its audience settled."
+    },
+    "text": {
+      "zh-Hans": "特约宁湖上一只鸭子把头扎进水里，我停在步道上等它抬头，身旁的孩子却已经转向另一边。我问他要不要多等一下，他说鸭子未必从原地出来。我不肯立刻认输，认真盯着水面的小圈，结果小圈越散越大，连我也说不清原来盯的是哪一处。孩子的帽檐转了回来，我的鼻尖还朝着水面。",
+      "en": "A duck dipped beneath the surface of Tjörnin. I waited on the path while a child beside me turned away. When I suggested waiting, he said it might surface somewhere else. Unwilling to concede immediately, I watched the little rings spread. They widened until I could no longer identify my original spot. The child’s cap turned back toward me, but my nose remained firmly directed at the water."
+    },
+    "replies": [
+      {
+        "id": "reykjavik.arrival.duck-waiting-spot.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "等它重新露出头",
+          "en": "Wait for its head to reappear"
+        }
+      },
+      {
+        "id": "reykjavik.arrival.duck-waiting-spot.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看水圈往哪边散",
+          "en": "Follow the widening rings"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "reykjavik.spreading-rings"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "reykjavik.arrival.glass-shoulder",
+    "version": 1,
+    "cityId": "reykjavik",
+    "kind": "arrival",
+    "factIds": [
+      "reykjavik-harpa"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "玻璃里的人先让了半步。",
+      "en": "The figure in the glass gave way too."
+    },
+    "text": {
+      "zh-Hans": "走到哈帕的玻璃外墙旁，我看见一个挎包的身影，便侧身让路。那身影也侧了过来，我又退半步，才认出它包上那条歪歪的带子。身后有人轻轻笑出声，我回头朝他摊手，原来他也正等着看我什么时候发现。我把包带捋直再走，玻璃里的那位这回也收拾妥当，没有再和我抢同一条路。",
+      "en": "Beside Harpa’s glass façade, I stepped aside for a figure carrying a bag. It stepped aside too. Half a pace later, I recognized its crooked strap. Someone behind me laughed softly; he had been waiting for the discovery. I turned with both hands open in surrender, straightened my strap and moved on. The figure in the glass tidied itself at the same moment and made no further claim on my path."
+    },
+    "replies": [
+      {
+        "id": "reykjavik.arrival.glass-shoulder.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "承认自己给倒影让路",
+          "en": "Admit that I gave way to my reflection"
+        }
+      },
+      {
+        "id": "reykjavik.arrival.glass-shoulder.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪条带子是歪的",
+          "en": "Find the crooked strap"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "reykjavik.paired-straps"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "reykjavik.arrival.onion-landing",
+    "version": 1,
+    "cityId": "reykjavik",
+    "kind": "arrival",
+    "factIds": [
+      "reykjavik-hotdog",
+      "reykjavik-skyr"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我给洋葱留了落脚处，没让它旅行。",
+      "en": "The onion was allowed a landing, not a journey."
+    },
+    "text": {
+      "zh-Hans": "热狗里的脆洋葱刚碰到嘴边，就有一小片落下来。我把食物移到自己的餐盘上方，第二口终于不用急着接住什么。旁边的旅人也跟着低头看了看自己的衣服，我们都确认干净，才继续吃。饭后端来的Skyr配着浆果，我先把勺子拿稳，吃到最后，盘里的洋葱和碗边的一点奶油各守住了自己的地方。",
+      "en": "A crisp onion fragment fell from my hot dog just before the first bite. I held the food over my plate for the next one, removing the need for midair catching. A nearby traveler checked his clothes as I checked mine. With both clear, we resumed lunch. My skyr arrived with berries afterwards. By the end, fallen onion on the plate and a dab of cream by the bowl had stayed in their separate territories."
+    },
+    "replies": [
+      {
+        "id": "reykjavik.arrival.onion-landing.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问旅人的衣服还好吗",
+          "en": "Ask whether the traveler’s clothes escaped"
+        }
+      },
+      {
+        "id": "reykjavik.arrival.onion-landing.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看餐盘接住了什么",
+          "en": "Inspect what landed on my plate"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "reykjavik.menu-hotdog",
+        "reykjavik.menu-skyr"
+      ]
+    }
+  },
+  {
+    "id": "reykjavik.arrival.berry-red-track",
+    "version": 1,
+    "cityId": "reykjavik",
+    "kind": "arrival",
+    "factIds": [
+      "reykjavik-skyr",
+      "reykjavik-hotdog"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "红色只绕了半圈，我就先吃到了。",
+      "en": "The red trail lasted only half a circle."
+    },
+    "text": {
+      "zh-Hans": "热狗吃完，我用勺子在浓稠的Skyr里拌浆果，想让红色绕碗一圈。旅伴正在说话，见我盯得认真，也放慢了声音。我赶紧抬头告诉他不用等我，勺子却顺手送进嘴里，把那条红线吃断了。他笑着继续刚才的话，我没有重新画圈，安稳听完，再把剩下的浆果一点点拌匀，碗里慢慢变成同一种浅红。",
+      "en": "After my hot dog, I stirred berries into thick skyr, trying to carry their red trail around the bowl. My companion slowed his story when he saw my concentration. I looked up to tell him not to wait and promptly ate a spoonful that broke the trail. He resumed, laughing. I listened without starting another circle, then mixed the remaining berries until the bowl had turned a gentle, even pink."
+    },
+    "replies": [
+      {
+        "id": "reykjavik.arrival.berry-red-track.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旅伴接着讲下去",
+          "en": "Ask my companion to continue"
+        }
+      },
+      {
+        "id": "reykjavik.arrival.berry-red-track.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看浆果怎样拌开",
+          "en": "Watch the berries blend into the skyr"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "reykjavik.menu-hotdog",
+        "reykjavik.menu-skyr"
+      ]
+    }
+  },
+  {
+    "id": "reykjavik.arrival.closed-bag-audience",
+    "version": 1,
+    "cityId": "reykjavik",
+    "kind": "arrival",
+    "factIds": [
+      "reykjavik-pond"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "水鸟看了看我，改去看别的水纹了。",
+      "en": "The bird considered me and chose the ripples."
+    },
+    "text": {
+      "zh-Hans": "我沿特约宁湖的步道走，一只鸭子从水里朝这边游来。我停下脚步看它，伸手只把邮包扣好，没有取出吃的。它在水上轻轻转了个弯，朝另一串波纹游过去。我也转身继续走，却被自己的鞋带绊住了下一步，只好先在安全的地方蹲下系好。等站起来，鸭子已经离得远了，水面还留着一条弯弯的尾迹。",
+      "en": "A duck swam toward my side of Tjörnin as I walked along the path. I stopped to watch and fastened my mailbag without taking out any food. The duck curved away toward another patch of ripples. Turning to continue, I caught my next step on a loose lace and crouched safely aside to tie it. By the time I stood, the duck was farther away, leaving a curved wake behind."
+    },
+    "replies": [
+      {
+        "id": "reykjavik.arrival.closed-bag-audience.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说声慢慢游",
+          "en": "Wish the duck a gentle swim"
+        }
+      },
+      {
+        "id": "reykjavik.arrival.closed-bag-audience.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意水面弯过的尾迹",
+          "en": "Follow the curved wake"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "reykjavik.curved-wake"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "reykjavik.arrival.wrapper-finds-a-cuff",
+    "version": 1,
+    "cityId": "reykjavik",
+    "kind": "arrival",
+    "factIds": [
+      "reykjavik-hotdog",
+      "reykjavik-skyr"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "包装纸只卷了一小圈，热狗就肯露面了。",
+      "en": "One small fold let the hot dog emerge."
+    },
+    "text": {
+      "zh-Hans": "我把热狗握得太小心，包装纸也跟着卷得紧紧的，想咬一口时先碰到了纸角。我把它放回自己的餐盘，慢慢松开一圈，再折低一点，两只手总算能稳稳拿住。旅伴看着那道折痕，说热狗像穿了过长的外套。我低头笑了，吃完再尝Skyr，把小勺放在碗边，这顿饭终于没有谁的袖口还遮着脸。",
+      "en": "I held my hot dog so carefully that its wrapper tightened around it. My first attempted bite met a paper corner. Setting it on my plate, I loosened one turn and folded the edge lower. My companion said the hot dog had been wearing an oversized coat. I laughed down at it. Afterwards, I tried skyr and rested the spoon beside the bowl. At last, nobody at lunch had a cuff covering their face."
+    },
+    "replies": [
+      {
+        "id": "reykjavik.arrival.wrapper-finds-a-cuff.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说热狗的长外套",
+          "en": "Describe the hot dog’s oversized coat"
+        }
+      },
+      {
+        "id": "reykjavik.arrival.wrapper-finds-a-cuff.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看包装纸折低了没有",
+          "en": "Check the lowered wrapper"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "reykjavik.menu-hotdog",
+        "reykjavik.menu-skyr"
+      ]
+    }
+  },
+  {
+    "id": "reykjavik.fulfill.head-beyond-rings",
+    "version": 1,
+    "cityId": "reykjavik",
+    "kind": "fulfill",
+    "factIds": [
+      "reykjavik-pond"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "reykjavik.arrival.duck-waiting-spot.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我们都把眼睛抬远了一点。",
+      "en": "You wrote, “{reply}.” We both looked a little farther."
+    },
+    "text": {
+      "zh-Hans": "我继续等那只把头扎下去的鸭子，孩子也留在步道上。他先轻轻碰了碰自己的帽檐，再朝远一点的水面点头。鸭子果然已经在那里，正甩掉头上的水。我原先盯着的圆圈还在慢慢散开，便向孩子认输。他没有欢呼，只把双手背起来，像个很有经验的观众。我们站在原处，看鸭子重新梳齐脖子上的羽毛。",
+      "en": "I kept waiting for the duck while the child stayed on the path. He touched his cap, then nodded toward water a little farther away. There was the duck, shaking droplets from its head. My original rings were still spreading. I conceded defeat. Instead of cheering, the child put both hands behind his back like a very experienced spectator. We watched from our places as the duck arranged its neck feathers."
+    },
+    "replies": [
+      {
+        "id": "reykjavik.fulfill.head-beyond-rings.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉孩子他先找到了",
+          "en": "Tell the child he spotted it first"
+        }
+      },
+      {
+        "id": "reykjavik.fulfill.head-beyond-rings.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看鸭子梳好的羽毛",
+          "en": "Watch the feathers settle"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "reykjavik.head-and-rings"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "reykjavik.revisit.coat-pockets-home",
+    "version": 1,
+    "cityId": "reykjavik",
+    "kind": "revisit",
+    "factIds": [
+      "reykjavik-harpa"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一只手套在找同伴，两只手先握在了一起。",
+      "en": "A missing mitten brought two hands together."
+    },
+    "text": {
+      "zh-Hans": "哈帕的玻璃外墙映着天光，我重来雷克雅未克，在旁边遇见一个找手套的孩子。他翻完左口袋又翻右口袋，大人伸手说先牵着走。他把那只没戴手套的手递过去，另一只手却忽然从袖口抽出两只叠在一起的手套。我和他一起愣住，等他分开戴好，两只手总算一样厚。他重新牵住大人，空袖口在身后摆了一下。",
+      "en": "Daylight shone in Harpa’s glass as I returned to Reykjavík. Nearby, a child searched both coat pockets for a mitten. His adult offered a hand so they could move on. He offered his bare hand, then pulled two nested mittens out of the other sleeve. We stared together before he separated them. Once each hand was equally bundled, he took the adult’s hand again. An empty cuff swung behind them."
+    },
+    "replies": [
+      {
+        "id": "reykjavik.revisit.coat-pockets-home.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问两只手是否暖了",
+          "en": "Ask whether both hands are warm now"
+        }
+      },
+      {
+        "id": "reykjavik.revisit.coat-pockets-home.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看叠在一起的手套",
+          "en": "Notice the nested mittens"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

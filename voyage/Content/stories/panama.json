@@ -1,0 +1,417 @@
+[
+  {
+    "id": "panama.arrival.lace-before-race",
+    "version": 1,
+    "cityId": "panama",
+    "kind": "arrival",
+    "factIds": [
+      "panama-cinta"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "他说比到那边，我先提出把鞋带系好。",
+      "en": "Before accepting the race, I inspected my laces."
+    },
+    "text": {
+      "zh-Hans": "滨海带的步行空间里，一个孩子和大人比谁先走到前面。我刚好走在旁边，孩子便邀请我也来。我低头检查鞋带，系牢才答应，却坚持只比赛慢慢走。孩子一开始迈得很大，听见我说太快的人要等，赶紧把脚缩回来。我们沿着巴拿马湾一步步走，大人最先笑出了声，三个人的终点也跟着往后挪了一点。",
+      "en": "In Cinta Costera’s walking space, a child challenged an adult to reach a point ahead. Passing beside them, I was invited too. I checked my laces before agreeing, on condition that this was a slow-walking race. The child began with huge strides, then shortened them when I said anyone getting ahead must wait. Along Panama Bay, the adult laughed first, and our finish line drifted a little farther away."
+    },
+    "replies": [
+      {
+        "id": "panama.arrival.lace-before-race.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请孩子宣布慢走规则",
+          "en": "Invite the child to announce the slow-race rules"
+        }
+      },
+      {
+        "id": "panama.arrival.lace-before-race.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看谁的步子先变小",
+          "en": "Notice whose steps become smaller"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "panama.slow-finish"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "panama.arrival.yellow-hat-corner",
+    "version": 1,
+    "cityId": "panama",
+    "kind": "arrival",
+    "factIds": [
+      "panama-biomuseo"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "孩子找到了颜色，帽子还在头上。",
+      "en": "The child found the color without removing the hat."
+    },
+    "text": {
+      "zh-Hans": "生物多样性博物馆外，一个孩子举起黄色帽子，想找建筑上相近的颜色。我停下来等他放下胳膊才经过，他却问我的包是什么颜色。我把包转给他看，他认真看了一会儿，摇头，说还没找见一样的。我没有催他，把包放回身旁。他终于戴好帽子，朝建筑指了一下，这回那块黄色和帽檐一起留在了阳光里。",
+      "en": "Outside Biomuseo, a child held up a yellow hat to compare it with the colorful building. I waited until his arm came down before passing. He asked about my bag’s color, so I turned it toward him. After studying it, he admitted he had not found a match. I left him time and let the bag rest again. Finally he put on his hat and pointed. Its yellow brim and a patch on the building shared the sunlight."
+    },
+    "replies": [
+      {
+        "id": "panama.arrival.yellow-hat-corner.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问他找到了哪块颜色",
+          "en": "Ask which color he has matched"
+        }
+      },
+      {
+        "id": "panama.arrival.yellow-hat-corner.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较帽檐与建筑的色块",
+          "en": "Compare the brim with the building"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "panama.unmatched-patch"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "panama.arrival.ice-before-question",
+    "version": 1,
+    "cityId": "panama",
+    "kind": "arrival",
+    "factIds": [
+      "panama-raspao",
+      "panama-patacon"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "刨冰先让我停了一会儿，问题没有融化。",
+      "en": "The shaved ice slowed me down, but the question survived."
+    },
+    "text": {
+      "zh-Hans": "吃过炸大蕉，我拿起淋着炼乳的刨冰，第一口舀得太大，冰得自己缩了一下肩。旅伴刚问好不好吃，见我张着嘴等，便也安静等着。我缓过来先点头，把那句好吃说完整，才换小勺尖继续吃。他故意把自己的肩也缩了一下，我差点笑出来，赶紧先放好杯子，杯里的水果色纹路还在慢慢往下走。",
+      "en": "After fried plantain, I tried raspa’o with condensed milk. My first oversized spoonful made my shoulders contract from the cold. My companion asked how it tasted, then waited with me while I recovered. I nodded, gave a proper answer and tried a smaller amount. He copied my raised shoulders. Nearly laughing, I put the cup down first. The fruit-colored streaks were still working their way through the ice."
+    },
+    "replies": [
+      {
+        "id": "panama.arrival.ice-before-question.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "等缓过来再说好吃",
+          "en": "Wait until I can answer properly"
+        }
+      },
+      {
+        "id": "panama.arrival.ice-before-question.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看杯里往下走的色纹",
+          "en": "Follow the fruit-colored streaks"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "panama.menu-raspao",
+        "panama.menu-patacon"
+      ]
+    }
+  },
+  {
+    "id": "panama.arrival.plantain-size-swap",
+    "version": 1,
+    "cityId": "panama",
+    "kind": "arrival",
+    "factIds": [
+      "panama-patacon",
+      "panama-raspao"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一小片换来一大片，我先看看它有多宽。",
+      "en": "One small piece brought a wider one in return."
+    },
+    "text": {
+      "zh-Hans": "午饭的炸大蕉有大有小，旅伴看着我盘里最小的那片，说正好能一口吃完。我先问他要不要换，再用干净的叉子把那片分到他的小碟，他也递来一片宽些的。我举起来比了比，竟能挡住自己的鼻尖，他已经把那小片吃完了。后来尝刨冰，我们各用自己的勺子，谁也没再商量要把哪一口换到另一边去。",
+      "en": "At lunch, my companion admired the smallest piece of fried plantain on my plate: just right for one bite. I offered a swap, using a clean fork to transfer it to his side plate. He offered a wider piece in return. Mine was large enough to hide my nose; his had already disappeared. Later, over shaved ice, we each kept our own spoon, without negotiating the destination of another bite."
+    },
+    "replies": [
+      {
+        "id": "panama.arrival.plantain-size-swap.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问旅伴要不要换一片",
+          "en": "Ask whether my companion would like to swap"
+        }
+      },
+      {
+        "id": "panama.arrival.plantain-size-swap.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看换来的这一片多宽",
+          "en": "Look at the width of the exchanged piece"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "panama.menu-raspao",
+        "panama.menu-patacon"
+      ]
+    }
+  },
+  {
+    "id": "panama.arrival.garden-football-feint",
+    "version": 1,
+    "cityId": "panama",
+    "kind": "arrival",
+    "factIds": [
+      "panama-cinta"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "球没有传给我，我的脚先准备好了。",
+      "en": "My foot prepared for a pass that never came."
+    },
+    "text": {
+      "zh-Hans": "滨海带的运动场边，一群人慢慢把球传来传去。我在步行道上经过，一个人朝这边转身，我下意识停住脚，以为球要传给自己。他却稳稳把球送给了身后的同伴。我笑着把已经抬起一点的鞋放平，不走进场内，也不打断他们。等球又绕回原处，我只用眼睛跟过去，两只脚老老实实留在属于散步的这一边。",
+      "en": "Beside a sports area on Cinta Costera, people passed a ball between them. As I walked past, one turned toward me. I stopped instinctively, expecting a pass, but he sent the ball to someone behind him. Smiling, I settled the shoe I had begun to lift and stayed outside the game. When the ball returned around the circle, only my eyes followed. Both feet remained firmly on the walking side."
+    },
+    "replies": [
+      {
+        "id": "panama.arrival.garden-football-feint.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "朝传球的人点点头",
+          "en": "Nod to the player making the pass"
+        }
+      },
+      {
+        "id": "panama.arrival.garden-football-feint.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "分辨球真正去的方向",
+          "en": "Follow the ball’s actual direction"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "panama.waiting-shoe"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "panama.arrival.folding-stool-turn",
+    "version": 1,
+    "cityId": "panama",
+    "kind": "arrival",
+    "factIds": [
+      "panama-raspao",
+      "panama-patacon",
+      "panama-cinta"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小凳子折好了，站着的人才发现自己还有一口。",
+      "en": "The stool was folded before its owner remembered the last bite."
+    },
+    "text": {
+      "zh-Hans": "滨海带旁歇脚，旅伴吃完炸大蕉，举着刨冰站起来，想把自带的折凳收好。我放下自己的空杯，问他要不要我来折。他点头，把凳子轻轻递过来，我顺着折痕收拢，拎稳交还。他却看着我发愣，原来最后一口刨冰还举在嘴边。我笑着等他吃完，他才腾出手接好凳子，两个人并肩走回了宽宽的步行道。",
+      "en": "Resting beside Cinta Costera after fried plantain, my companion stood with his shaved ice and tried to pack his folding stool. I set down my empty cup and offered to fold it. Following its joints, I closed it and held it out. He stared for a moment: his final spoonful was still waiting beside his mouth. I smiled and waited. Once he had eaten, he accepted the stool, and we returned together to the broad walking path."
+    },
+    "replies": [
+      {
+        "id": "panama.arrival.folding-stool-turn.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问折凳要放哪一边",
+          "en": "Ask where he wants the folded stool"
+        }
+      },
+      {
+        "id": "panama.arrival.folding-stool-turn.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看最后一口吃好了没有",
+          "en": "Check whether the last spoonful is finished"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "panama.menu-raspao",
+        "panama.menu-patacon"
+      ]
+    }
+  },
+  {
+    "id": "panama.fulfill.child-calls-the-start",
+    "version": 1,
+    "cityId": "panama",
+    "kind": "fulfill",
+    "factIds": [
+      "panama-cinta"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "panama.arrival.lace-before-race.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，这次由孩子喊开始。",
+      "en": "You wrote, “{reply}.” The child called the start."
+    },
+    "text": {
+      "zh-Hans": "我请那个和我们比慢走的孩子宣布规则。他认真说谁先赶远了就要停下等，还要由他喊开始。大人点头，我也站好，孩子却忙着看我们有没有准备齐，忘了自己的口令。我轻轻举手提醒，他笑着把开始补上。三个人沿步行空间慢慢往前，这回不用追终点，谁的鞋刚要多迈半步，另外两个人就一起停下来望着他。",
+      "en": "I invited the child to announce our slow-race rules. Anyone getting ahead had to stop, and he would call the start. The adult and I took our places. Busy checking our readiness, the child forgot his own cue. I raised a hand as a gentle reminder. Laughing, he supplied the missing start. We moved along the walking space, stopping together whenever one pair of shoes tried to gain half a step."
+    },
+    "replies": [
+      {
+        "id": "panama.fulfill.child-calls-the-start.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "夸他把规则讲清楚了",
+          "en": "Praise his clear explanation of the rules"
+        }
+      },
+      {
+        "id": "panama.fulfill.child-calls-the-start.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪双鞋想多迈半步",
+          "en": "Watch for a shoe gaining half a step"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "panama.shared-start"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "panama.revisit.extra-empty-sleeve",
+    "version": 1,
+    "cityId": "panama",
+    "kind": "revisit",
+    "factIds": [
+      "panama-cinta"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "认出海湾时，我先替那只空袖子让了路。",
+      "en": "The bay was familiar; the empty sleeve was unexpected."
+    },
+    "text": {
+      "zh-Hans": "巴拿马湾仍在滨海带旁展开，我重来巴拿马城，沿熟悉的步行道慢慢走。前面的旅人把外套搭在胳膊上，一只空袖子拖下来，远看像还牵着一个小同伴。我绕到旁边提醒，他把外套翻好，笑着说刚才也一直觉得手边有点重。我向他真正同行的人点头，三个人继续向前，那只空袖子这回安稳地躺在他的臂弯里。",
+      "en": "Panama Bay opened beside Cinta Costera as I returned to Panama City. On the familiar walking path, a traveler carried a coat with an empty sleeve hanging low, almost like another small companion. I stepped beside him to mention it. Refolding the coat, he laughed that his arm had felt oddly burdened. I greeted his actual companion. As we continued, the empty sleeve rested securely in the crook of his elbow."
+    },
+    "replies": [
+      {
+        "id": "panama.revisit.extra-empty-sleeve.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉旅人袖子收好了",
+          "en": "Tell the traveler the sleeve is tucked away"
+        }
+      },
+      {
+        "id": "panama.revisit.extra-empty-sleeve.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看外套怎样搭在臂弯",
+          "en": "Notice how the coat rests on his arm"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

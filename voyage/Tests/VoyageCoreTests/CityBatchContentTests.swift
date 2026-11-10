@@ -8,10 +8,11 @@ let thirdBatchCityIds = ["singapore", "istanbul", "rome", "paris", "lisbon", "ba
 let m2BatchCityIds = ["sydney", "melbourne", "auckland", "buenosaires", "rio", "lima", "sanfrancisco", "toronto", "vancouver", "berlin"]
 let m2SecondBatchCityIds = ["capetown", "nairobi", "accra", "santiago", "athens", "prague", "amsterdam", "kualalumpur", "mumbai", "chicago"]
 let m2ThirdBatchCityIds: [String] = ["addisababa", "dakar", "montevideo", "quito", "losangeles", "neworleans", "perth", "delhi", "jakarta", "vienna"]
-let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCityIds + m2BatchCityIds + m2SecondBatchCityIds + m2ThirdBatchCityIds
+let m2FourthBatchCityIds: [String] = ["dublin", "stockholm", "reykjavik", "sapporo", "hochiminh", "lagos", "seattle", "panama", "queenstown", "dubai"]
+let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCityIds + m2BatchCityIds + m2SecondBatchCityIds + m2ThirdBatchCityIds + m2FourthBatchCityIds
 
 @Suite struct CityBatchContentTests {
-    @Test(arguments: m2SecondBatchCityIds + m2ThirdBatchCityIds)
+    @Test(arguments: m2SecondBatchCityIds + m2ThirdBatchCityIds + m2FourthBatchCityIds)
     func recentM2BatchesArrivalAndRevisitLengths(cityId: String) throws {
         let stories = testCatalog.stories.all.filter { $0.cityId == cityId && ["arrival", "revisit"].contains($0.kind) }
         for story in stories {
@@ -42,7 +43,7 @@ let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCity
             let stories = testCatalog.stories.all.filter { $0.cityId == id }
             let arrivals = stories.filter { $0.kind == "arrival" }
             #expect(arrivals.count >= 4)
-            if (m2BatchCityIds + m2SecondBatchCityIds + m2ThirdBatchCityIds).contains(id) {
+            if (m2BatchCityIds + m2SecondBatchCityIds + m2ThirdBatchCityIds + m2FourthBatchCityIds).contains(id) {
                 #expect(arrivals.count >= 6)
                 #expect(arrivals.allSatisfy { !$0.factIds.isEmpty && $0.lead != nil
                     && Set($0.replies.map(\.habit)) == ["talkative", "observant"] })

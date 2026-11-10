@@ -1,0 +1,98 @@
+[
+  {
+    "id": "seattle.menu-chowder",
+    "kind": "menu",
+    "cityId": "seattle",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "蛤蜊浓汤小菜单",
+      "en": "Clam Chowder Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使饭后画的面包碗，边缘缺了一小口。",
+      "en": "The messenger’s after-meal bread bowl has a little bite missing from its rim."
+    }
+  },
+  {
+    "id": "seattle.menu-salmon",
+    "kind": "menu",
+    "cityId": "seattle",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "烤三文鱼小菜单",
+      "en": "Grilled Salmon Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自绘的鱼肉盘旁，两把叉子都放得平平的。",
+      "en": "Both forks lie flat beside the messenger’s hand-drawn salmon plate."
+    }
+  },
+  {
+    "id": "seattle.level-heels",
+    "kind": "souvenir",
+    "cityId": "seattle",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "平脚跟折卡",
+      "en": "Heels on the Ground"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折的两只纸鞋底部齐平，不跟着船往上长。",
+      "en": "The messenger’s paper shoes stay level rather than growing with a rising boat."
+    }
+  },
+  {
+    "id": "seattle.unbroken-route",
+    "kind": "souvenir",
+    "cityId": "seattle",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "不断路折条",
+      "en": "Continuous Path Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自折的纸路连续转弯，没有添一架楼梯。",
+      "en": "A paper route folded by the messenger winds onward without a separate staircase."
+    }
+  },
+  {
+    "id": "seattle.sleeve-diamond",
+    "kind": "souvenir",
+    "cityId": "seattle",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "袖上菱形透纸",
+      "en": "Sleeve Diamond Paper"
+    },
+    "descriptions": {
+      "zh-Hans": "信使裁的菱形小窗透过光就变得窄窄的。",
+      "en": "A diamond window cut by the messenger narrows as its paper is tilted in the light."
+    }
+  },
+  {
+    "id": "seattle.shelf-turn",
+    "kind": "souvenir",
+    "cityId": "seattle",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "书架转角立卡",
+      "en": "Shelf-Turn Pop-Up"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的纸架沿折痕接下去，空白书脊没有印现成文字。",
+      "en": "The messenger’s original paper shelves continue around a fold with unprinted spines."
+    }
+  }
+]

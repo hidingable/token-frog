@@ -1,0 +1,416 @@
+[
+  {
+    "id": "dublin.arrival.wave-under-sleeve",
+    "version": 1,
+    "cityId": "dublin",
+    "kind": "arrival",
+    "factIds": [
+      "dublin-bridge"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "挥手的人还没走远，我先把袖子放下来。",
+      "en": "My sleeve finished its greeting before I did."
+    },
+    "text": {
+      "zh-Hans": "走到半便士桥旁，一位旅人朝河对岸挥手，我以为他在招呼我，也使劲挥了起来。他身旁的小朋友顺着我的方向看，忽然也挥起手。对岸的人这下不知道该回谁，索性把两只手都举高。我赶紧把长袖往上卷好，免得挡住脸，站在利菲河这边，补了一个终于看得清楚的笑。",
+      "en": "Beside the Ha’penny Bridge, I answered a traveler’s wave before noticing that it was meant for someone across the Liffey. A child beside him joined in, following my gaze. Across the water, the puzzled recipient raised both hands to include everyone. I rolled up the sleeve that had been flapping in front of my face and contributed a smile they could actually see."
+    },
+    "replies": [
+      {
+        "id": "dublin.arrival.wave-under-sleeve.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问对岸看得清吗",
+          "en": "Ask whether they can see us across the river"
+        }
+      },
+      {
+        "id": "dublin.arrival.wave-under-sleeve.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看长袖遮住哪里",
+          "en": "See how far my sleeve reaches"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "dublin.sleeve-wave"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "dublin.arrival.tree-shadow-room",
+    "version": 1,
+    "cityId": "dublin",
+    "kind": "arrival",
+    "factIds": [
+      "dublin-green"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "影子挪了位置，午睡还在原地。",
+      "en": "The shade moved, but the sleeper stayed put."
+    },
+    "text": {
+      "zh-Hans": "圣斯蒂芬绿地的树影落在步道旁，我挑了阴凉处坐下，替邮包松一松带子。旁边的旅人靠着椅背打盹，太阳慢慢照上他的鞋尖。他醒来先把脚往回缩，又低头找自己的包。我把包带提起来让他看清，原来他的包一直枕在自己胳膊下面。他笑着抱好，我的两只鞋便一起退进了树影。",
+      "en": "I sat beside a path in St Stephen’s Green to loosen my mailbag strap. A traveler dozed nearby while sunlight crept onto his shoes. Waking, he drew his feet back and looked around for his bag. I lifted my strap out of his view. His own bag was tucked beneath his elbow all along. He hugged it with a grin, and I withdrew both shoes into the shade."
+    },
+    "replies": [
+      {
+        "id": "dublin.arrival.tree-shadow-room.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉他包一直在怀里",
+          "en": "Point out the bag beneath his arm"
+        }
+      },
+      {
+        "id": "dublin.arrival.tree-shadow-room.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看鞋尖上的树影",
+          "en": "Watch the shade around our shoes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "dublin.shade-fold"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "dublin.arrival.potato-waiting",
+    "version": 1,
+    "cityId": "dublin",
+    "kind": "arrival",
+    "factIds": [
+      "dublin-coddle",
+      "dublin-bread"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "土豆已经坐稳，勺子还在追它。",
+      "en": "The potato settled down before my spoon did."
+    },
+    "text": {
+      "zh-Hans": "午饭的炖香肠里有土豆、培根和洋葱，旁边还放着棕色苏打面包。我舀起一块土豆，它却滑回碗里，让勺子单独出来见我。我没有再追，把面包放到干净的小碟上，先让勺子贴着碗底慢慢往上走。土豆终于安稳坐好，我屏住气送到嘴边，咽完才发现自己把另一只手也握成了小拳头。",
+      "en": "My coddle came with potatoes, bacon and onion, and brown soda bread alongside. A potato slipped off my spoon and returned to the bowl, leaving the spoon to greet me alone. I set the bread on a clean side plate and slid the spoon slowly up from the bottom. With the potato finally aboard, I held my breath until I had swallowed. My free hand had clenched into a tiny fist."
+    },
+    "replies": [
+      {
+        "id": "dublin.arrival.potato-waiting.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说这一勺有多稳",
+          "en": "Report the successful spoonful"
+        }
+      },
+      {
+        "id": "dublin.arrival.potato-waiting.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看空着的那只手",
+          "en": "Notice what my free hand is doing"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "dublin.menu-coddle",
+        "dublin.menu-bread"
+      ]
+    }
+  },
+  {
+    "id": "dublin.arrival.butter-passing",
+    "version": 1,
+    "cityId": "dublin",
+    "kind": "arrival",
+    "factIds": [
+      "dublin-bread",
+      "dublin-coddle"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "黄油绕桌一周，找到了原来的手。",
+      "en": "The butter completed a very small journey."
+    },
+    "text": {
+      "zh-Hans": "吃完炖香肠，我掰开一片棕色苏打面包。邻座把黄油递来，我又递给另一边正在伸手的旅人，结果他只是在找水杯。黄油绕了半圈重新回到我这里，原先的邻座举着半片面包，还没来得及抹。我先把黄油送回去，等他用好才接过，三个人的手这才各自找对了午饭剩下的位置。",
+      "en": "After my coddle, I broke a slice of brown soda bread. My neighbor passed the butter; I passed it onward to a traveler who was reaching for his water. The butter returned to me while its original owner waited with an unbuttered half slice. I sent it back before taking my turn. At last, all three pairs of hands found the parts of lunch they had actually wanted."
+    },
+    "replies": [
+      {
+        "id": "dublin.arrival.butter-passing.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问清谁还要黄油",
+          "en": "Ask who still needs the butter"
+        }
+      },
+      {
+        "id": "dublin.arrival.butter-passing.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看一看水杯在哪边",
+          "en": "Locate the water glass"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "dublin.menu-coddle",
+        "dublin.menu-bread"
+      ]
+    }
+  },
+  {
+    "id": "dublin.arrival.bread-grows-heavier",
+    "version": 1,
+    "cityId": "dublin",
+    "kind": "arrival",
+    "factIds": [
+      "dublin-bread",
+      "dublin-coddle"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "面包吸足了汤，我的勺子临时多了份差事。",
+      "en": "The bread soaked up broth and gave the spoon another job."
+    },
+    "text": {
+      "zh-Hans": "我把苏打面包掰成小块，蘸进炖香肠剩下的汤里，抬起来才发现它比刚才沉了一点。我没急着送到嘴边，先用勺子从下面托住，让多余的汤落回碗里。邻座的小朋友看见，问面包是不是也需要坐车。我点头，把那辆小车稳稳送到嘴边。吃完放下勺子，碗沿只留着一点面包碰过的浅浅汤痕。",
+      "en": "I dipped a piece of soda bread into the broth left from my coddle. It came back a little heavier, so I slid my spoon beneath it and let the extra broth return to the bowl. A child nearby asked whether the bread needed a ride. I nodded and delivered the small vehicle to my mouth. When I put the spoon down, a faint mark on the bowl’s rim showed where the bread had passed."
+    },
+    "replies": [
+      {
+        "id": "dublin.arrival.bread-grows-heavier.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉孩子面包坐稳了",
+          "en": "Tell the child the bread is safely aboard"
+        }
+      },
+      {
+        "id": "dublin.arrival.bread-grows-heavier.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看勺子怎样托住面包",
+          "en": "Watch the spoon support the bread"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "dublin.bread-weight"
+      ],
+      "menuIds": [
+        "dublin.menu-coddle",
+        "dublin.menu-bread"
+      ]
+    }
+  },
+  {
+    "id": "dublin.arrival.quiet-path-clap",
+    "version": 1,
+    "cityId": "dublin",
+    "kind": "arrival",
+    "factIds": [
+      "dublin-green"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我没有鼓掌，孩子也知道自己成功了。",
+      "en": "The child knew it had worked without any applause."
+    },
+    "text": {
+      "zh-Hans": "公园步道旁，一个孩子试着用一只脚站稳，旁边的大人也学着抬脚。我走进圣斯蒂芬绿地时正赶上两个人一起摇晃，便停下来做个不出声的观众。孩子先稳住，大人却忍不住笑，把脚落了地。我刚想拍手，孩子竖起一根手指，还想再多站一会儿。我把两手收进袖口，他的那只脚又慢慢抬高了一点。",
+      "en": "Beside a path in St Stephen’s Green, a child balanced on one foot while an adult tried the same. I arrived during a particularly wobbly moment and became a silent spectator. The child steadied; the adult laughed and put a foot down. As I prepared to clap, the child raised one finger, asking for a little longer. I tucked my hands into my sleeves. The lifted foot rose a fraction higher."
+    },
+    "replies": [
+      {
+        "id": "dublin.arrival.quiet-path-clap.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "等他落脚再道声好",
+          "en": "Congratulate him when both feet are down"
+        }
+      },
+      {
+        "id": "dublin.arrival.quiet-path-clap.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看谁先站稳",
+          "en": "Watch who finds their balance first"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "dublin.fulfill.whole-face-wave",
+    "version": 1,
+    "cityId": "dublin",
+    "kind": "fulfill",
+    "factIds": [
+      "dublin-bridge"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "dublin.arrival.wave-under-sleeve.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把袖口卷好才招手。",
+      "en": "You wrote, “{reply}.” I rolled up my sleeves before waving."
+    },
+    "text": {
+      "zh-Hans": "我问那位旅人，刚才对岸能不能看清我们。他说我的袖子很热情，脸却出场得太晚。于是我先露出整张脸，站在不挡路的位置朝对岸招手。那边的人也把袖口往上拉，郑重挥了两下。孩子看看我们，干脆把双手伸出袖子，在身前一开一合。利菲河两边的问候，这回全都长出了手指。",
+      "en": "I asked the traveler whether the people across the Liffey had seen us clearly. He said my sleeve had been enthusiastic, but my face had arrived late. I stepped clear of the path, uncovered my face and waved. Across the water, someone deliberately pushed up their own sleeves and waved twice. The child stretched both hands out of his cuffs, opening and closing his fingers. Our greetings now had fingers on both banks."
+    },
+    "replies": [
+      {
+        "id": "dublin.fulfill.whole-face-wave.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向对岸说声再见",
+          "en": "Call goodbye across the water"
+        }
+      },
+      {
+        "id": "dublin.fulfill.whole-face-wave.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看露出的手指",
+          "en": "Look at the fingers beyond the cuffs"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "dublin.ten-fingers"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "dublin.revisit.opposite-bench",
+    "version": 1,
+    "cityId": "dublin",
+    "kind": "revisit",
+    "factIds": [
+      "dublin-green"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "熟悉的树影里，空位要从另一边进去。",
+      "en": "The familiar shade had room by the other end."
+    },
+    "text": {
+      "zh-Hans": "认出圣斯蒂芬绿地的步道，我便知道自己回到都柏林了。椅子那头坐着一位旅人，旁边整齐放着外套。我从有外套的一侧绕近，他抬起外套，我也同时后退，结果我们又一起停住。他指了指另一头的空位，我这才绕过去坐好。刚把邮包放在膝上，他的外套滑下去一点，我们各自伸手按住自己的东西。",
+      "en": "Recognizing the paths of St Stephen’s Green told me I was back in Dublin. A traveler sat at one end of a bench with his coat neatly beside him. I approached from the coat’s side. He lifted it as I stepped back, and we both stopped again. He pointed to the empty end instead. Once seated, I settled my mailbag on my knees just as his coat slipped. We each caught our own belongings."
+    },
+    "replies": [
+      {
+        "id": "dublin.revisit.opposite-bench.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "笑着说明自己想坐哪边",
+          "en": "Laugh and explain which seat I meant"
+        }
+      },
+      {
+        "id": "dublin.revisit.opposite-bench.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两头各放着什么",
+          "en": "Notice what occupies each end"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

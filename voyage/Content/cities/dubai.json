@@ -11,7 +11,7 @@
     "desert",
     "market"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "迪拜",
     "en": "Dubai"
@@ -20,5 +20,67 @@
     "zh-Hans": "迪拜",
     "en": "Dubai"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "dubai-frame",
+      "type": "place",
+      "names": {
+        "zh-Hans": "迪拜相框",
+        "en": "Dubai Frame"
+      },
+      "summary": {
+        "zh-Hans": "迪拜相框是金色外观的相框形建筑，上部玻璃桥连接两座竖直塔楼，可以眺望城市。",
+        "en": "Dubai Frame is a gold-colored, frame-shaped structure. A glass bridge links its two upright towers and offers views of the city."
+      },
+      "sources": [
+        "https://www.visitdubai.com/en/places-to-visit/dubai-frame",
+        "https://www.visitdubai.com/en/articles/dubai-frame-highlights"
+      ]
+    },
+    {
+      "id": "dubai-creek",
+      "type": "place",
+      "names": {
+        "zh-Hans": "迪拜湾",
+        "en": "Dubai Creek"
+      },
+      "summary": {
+        "zh-Hans": "迪拜湾是咸水水道，abra渡船是横渡水道的一种公共交通方式。",
+        "en": "Dubai Creek is a saltwater waterway crossed by abra boats as a form of public transport."
+      },
+      "sources": [
+        "https://www.visitdubai.com/en/articles/discover-dubai-from-the-water"
+      ]
+    },
+    {
+      "id": "dubai-luqaimat",
+      "type": "food",
+      "names": {
+        "zh-Hans": "椰枣糖浆炸面团球",
+        "en": "Luqaimat"
+      },
+      "summary": {
+        "zh-Hans": "Luqaimat是油炸面团球，食用时可淋椰枣糖浆并撒芝麻。",
+        "en": "Luqaimat are fried dough balls that can be served with date syrup and sesame seeds."
+      },
+      "sources": [
+        "https://www.visitdubai.com/en/articles/top-arabic-food-to-try-in-dubai"
+      ]
+    },
+    {
+      "id": "dubai-machboos",
+      "type": "food",
+      "names": {
+        "zh-Hans": "香料肉饭",
+        "en": "Machboos"
+      },
+      "summary": {
+        "zh-Hans": "Machboos将米与肉和多种香料一起烹调，是迪拜可见的米饭料理。",
+        "en": "Machboos is a rice dish found in Dubai, with rice cooked together with meat and a mixture of spices."
+      },
+      "sources": [
+        "https://www.visitdubai.com/en/-/media/Files/guides/dubai-mini-guide-04-hungry-foodie.pdf"
+      ]
+    }
+  ]
 }

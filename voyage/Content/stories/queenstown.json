@@ -1,0 +1,416 @@
+[
+  {
+    "id": "queenstown.arrival.camera-backwards-smile",
+    "version": 1,
+    "cityId": "queenstown",
+    "kind": "arrival",
+    "factIds": [
+      "queenstown-lake"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我替他按快门，先对着相机笑了。",
+      "en": "I smiled at the camera before taking the picture."
+    },
+    "text": {
+      "zh-Hans": "瓦卡蒂普湖畔，一位旅人请我替他和同伴拍照。我接过相机，很认真地先朝镜头笑了一下，他提醒我这回该站在后面。我转好相机，等两个人站稳才按下去。画面里有湖和远处的山，也总算有了两张该出现的脸。他看完问要不要换他帮我拍，我把邮包理好，决定先请他等我把眼睛睁大再开始。",
+      "en": "By Lake Whakatipu, a traveler asked me to photograph him and his companion. Accepting the camera, I solemnly smiled into its lens before he reminded me which side I belonged on. I turned it around and waited for them to settle. The picture contained the lake, mountains and finally the intended faces. He offered to return the favor. I straightened my mailbag and prepared to request enough time to open my eyes properly."
+    },
+    "replies": [
+      {
+        "id": "queenstown.arrival.camera-backwards-smile.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请他等我睁好眼再拍",
+          "en": "Ask him to wait until my eyes are open"
+        }
+      },
+      {
+        "id": "queenstown.arrival.camera-backwards-smile.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看相机该朝哪边",
+          "en": "Check which way the camera faces"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "queenstown.camera-sides"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "queenstown.arrival.dog-sits-first",
+    "version": 1,
+    "cityId": "queenstown",
+    "kind": "arrival",
+    "factIds": [
+      "queenstown-gardens"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我还没坐稳，小狗已经替自己选好了位置。",
+      "en": "The dog chose its place before I settled."
+    },
+    "text": {
+      "zh-Hans": "皇后镇花园的树下，一只牵着绳的小狗跟着主人经过，忽然坐下来望着我。我刚把邮包放到膝上，便也坐正，不伸手去摸它。主人轻轻叫它，它转头看一眼，又把鼻子转回来。我试着把自己坐得再端正些，它却站起来继续走了。主人朝我挥手，我这才松开绷着的肩膀，树影里的椅子一下显得宽了很多。",
+      "en": "Under the trees in Queenstown Gardens, a dog on a lead sat down to look at me. I straightened over the mailbag on my knees without reaching to touch it. Called by its owner, the dog glanced back, then returned its nose to me. I tried sitting even more properly. It stood and continued its walk. Its owner waved. Once my shoulders relaxed, the shaded seat seemed considerably wider."
+    },
+    "replies": [
+      {
+        "id": "queenstown.arrival.dog-sits-first.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向小狗主人道个别",
+          "en": "Say goodbye to the dog’s owner"
+        }
+      },
+      {
+        "id": "queenstown.arrival.dog-sits-first.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看小狗怎样转鼻子",
+          "en": "Watch the dog turn its nose"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "queenstown.proper-seat"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "queenstown.arrival.pie-turns-the-plate",
+    "version": 1,
+    "cityId": "queenstown",
+    "kind": "arrival",
+    "factIds": [
+      "queenstown-pie",
+      "queenstown-icecream"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我转的是盘子，午饭却好像自己换了座位。",
+      "en": "Lunch seemed to change seats as I turned the plate."
+    },
+    "text": {
+      "zh-Hans": "牛肉派剖开后，肉汁留在盘子一侧。我把盘子转过来，想让叉子先碰到酥皮，旅伴却以为我要和他换午饭，伸手端起自己的那份。我赶紧说明，只是在给自己的叉子找近路。他笑着把盘子放回，我们各自慢慢吃好，饭后又尝了蜂窝糖冰淇淋。这次两只杯子都放在正前方，没有谁再猜午饭要搬到哪一边。",
+      "en": "Gravy gathered on one side of my opened beef pie. I turned the plate to bring pastry closer to my fork, prompting my companion to lift his own lunch, thinking I wanted to swap. I explained that I was only shortening the fork’s journey. We ate our respective meals, then tried hokey pokey ice cream. Both cups stayed directly in front of their owners, sparing lunch any further speculation about moving house."
+    },
+    "replies": [
+      {
+        "id": "queenstown.arrival.pie-turns-the-plate.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "解释叉子为什么想走近路",
+          "en": "Explain the fork’s proposed shortcut"
+        }
+      },
+      {
+        "id": "queenstown.arrival.pie-turns-the-plate.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看盘子转过的方向",
+          "en": "Notice which way the plate turned"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "queenstown.menu-pie",
+        "queenstown.menu-icecream"
+      ]
+    }
+  },
+  {
+    "id": "queenstown.arrival.honeycomb-crunch",
+    "version": 1,
+    "cityId": "queenstown",
+    "kind": "arrival",
+    "factIds": [
+      "queenstown-icecream",
+      "queenstown-pie"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "冰淇淋很软，里面那一口却有自己的声音。",
+      "en": "The soft ice cream contained a much louder bite."
+    },
+    "text": {
+      "zh-Hans": "吃完牛肉派，我慢慢舀蜂窝糖冰淇淋，嘴里忽然咔嚓一声。旅伴正在找自己的钥匙，听到声音便转头望我，我赶紧张开空着的手，证明钥匙没有走到我这里。他看见勺里剩下的蜂窝糖，才明白那声音来自点心。我等他从衣袋摸出钥匙，才放心吃下一口，软软的香草味过去，细小的脆响又在嘴里接了上来。",
+      "en": "After my beef pie, a spoonful of hokey pokey ice cream gave an unexpected crunch. My companion, searching for his keys, turned toward the sound. I displayed empty hands to establish that the keys had not traveled to me. A honeycomb piece in my spoon explained matters. I waited until he found the keys in his pocket before continuing. Soft vanilla gave way to another small, unmistakably edible crackle."
+    },
+    "replies": [
+      {
+        "id": "queenstown.arrival.honeycomb-crunch.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉旅伴声音来自蜂窝糖",
+          "en": "Explain that the honeycomb made the sound"
+        }
+      },
+      {
+        "id": "queenstown.arrival.honeycomb-crunch.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看勺里的脆糖块",
+          "en": "Look at the crunchy pieces in the spoon"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "queenstown.menu-pie",
+        "queenstown.menu-icecream"
+      ]
+    }
+  },
+  {
+    "id": "queenstown.arrival.stomach-by-water",
+    "version": 1,
+    "cityId": "queenstown",
+    "kind": "arrival",
+    "factIds": [
+      "queenstown-lake"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "湖水没有回答，我的肚子先说了一句。",
+      "en": "The lake stayed quiet about lunch; my stomach did not."
+    },
+    "text": {
+      "zh-Hans": "沿瓦卡蒂普湖畔走，我和旅伴说好到了前面再找地方吃饭。他还在望山，我已经悄悄把步子加快，肚子也很配合地叫了一声。他转头问是不是我在催，我装作认真看水，下一声却又响了。我只好承认，包里的信都不急，是午饭在催我们。两个人笑着重新并排走，他收回看山的目光，我把快出来的半步放慢。",
+      "en": "My companion and I agreed to find lunch farther along Lake Whakatipu. He kept looking at the mountains while my steps quietly lengthened. Then my stomach made a contribution. Was I hurrying him, he asked? I studied the water until a second rumble defeated the disguise. I admitted that the letters in my bag were patient; lunch was less so. We resumed side by side, his gaze returning from the hills as I gave back my extra half step."
+    },
+    "replies": [
+      {
+        "id": "queenstown.arrival.stomach-by-water.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "承认是午饭在催促",
+          "en": "Admit that lunch is doing the hurrying"
+        }
+      },
+      {
+        "id": "queenstown.arrival.stomach-by-water.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听肚子安静没有",
+          "en": "Listen for a quieter stomach"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "queenstown.lunch-pause"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "queenstown.arrival.spare-napkin-stays-dry",
+    "version": 1,
+    "cityId": "queenstown",
+    "kind": "arrival",
+    "factIds": [
+      "queenstown-pie",
+      "queenstown-icecream"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我递过去的是干净餐巾，自己的那张另有差事。",
+      "en": "I passed the clean napkin; mine already had a job."
+    },
+    "text": {
+      "zh-Hans": "牛肉派吃完，旁边的孩子正尝蜂窝糖冰淇淋，伸手想擦杯边，却找不到餐巾。我把自己没用的那张递过去，他擦好后又认真叠起来，想还给我。我笑着请他留下，举起另一张给他看，上面还留着我吃派时的一点肉汁。他看看两张不同的痕迹，终于把自己的那张收在杯旁，吃下一口时，杯边已经干干净净。",
+      "en": "After my beef pie, a child nearby needed a napkin for the edge of his hokey pokey cup. I passed him my unused one. Once he had wiped the cup, he carefully folded it to return it. I asked him to keep it and showed him my other napkin, still marked with a little pie gravy. Comparing the two, he finally set his own beside the cup. Its rim was clean when he took another bite."
+    },
+    "replies": [
+      {
+        "id": "queenstown.arrival.spare-napkin-stays-dry.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请孩子把餐巾留在杯旁",
+          "en": "Ask the child to keep the napkin by his cup"
+        }
+      },
+      {
+        "id": "queenstown.arrival.spare-napkin-stays-dry.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张餐巾的不同痕迹",
+          "en": "Compare the marks on the two napkins"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "queenstown.menu-pie",
+        "queenstown.menu-icecream"
+      ]
+    }
+  },
+  {
+    "id": "queenstown.fulfill.eyes-before-shutter",
+    "version": 1,
+    "cityId": "queenstown",
+    "kind": "fulfill",
+    "factIds": [
+      "queenstown-lake"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "queenstown.arrival.camera-backwards-smile.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我先认真眨完眼再站好。",
+      "en": "You wrote, “{reply}.” I finished blinking before taking my place."
+    },
+    "text": {
+      "zh-Hans": "我请那位替我们换着拍照的旅人，等我睁好眼再按快门。他点头，我先眨了两下，站稳后很用力地睁大眼睛。他还没拍，我已经因为太认真而想笑，索性张开嘴笑了出来。他这才按下，给我看湖与山前那个笑得有点歪的自己。我没有要求重拍，把相机还到他手里，照片中的包带也跟着笑脸斜向了一边。",
+      "en": "I asked the traveler taking our turn of photographs to wait until my eyes were open. I blinked twice, settled my feet and opened them with tremendous concentration. Before he could press the shutter, the effort made me laugh. He caught that instead. On the screen, I stood before lake and mountains with an uneven grin. I requested no second attempt. My crooked mailbag strap appeared to be leaning into the smile."
+    },
+    "replies": [
+      {
+        "id": "queenstown.fulfill.eyes-before-shutter.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢他等我站好",
+          "en": "Thank him for waiting until I was ready"
+        }
+      },
+      {
+        "id": "queenstown.fulfill.eyes-before-shutter.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看照片里的眼睛",
+          "en": "Check my eyes in the picture"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "queenstown.open-eyed-smile"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "queenstown.revisit.bench-without-counting",
+    "version": 1,
+    "cityId": "queenstown",
+    "kind": "revisit",
+    "factIds": [
+      "queenstown-gardens"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "熟悉的半岛上，椅子边还有一双没穿好的鞋。",
+      "en": "On the familiar peninsula, one pair of shoes was still arriving."
+    },
+    "text": {
+      "zh-Hans": "小半岛上的花园和湖景都认得，回到皇后镇，我沿树下散步，经过一位正给孩子穿鞋的大人。孩子只穿好一只，就想从椅子上下来。我停在旁边，轻轻抬起自己的两只鞋给他看，他低头数了数，总算把另一只脚递过去。等两只都穿好，他郑重踩了踩地面，我也跟着踏了一下，随后让他们先沿着花坛边的路走过去。",
+      "en": "The peninsula gardens and lake view were familiar on my return to Queenstown. Along the shaded walk, an adult was helping a child with his shoes. With only one on, the child tried to leave the seat. I paused nearby and lifted each of my own shoes in turn. He counted them, then offered his other foot. Once properly shod, he tested the ground with two solemn stamps. I answered with one and let them lead along the flowerbeds."
+    },
+    "replies": [
+      {
+        "id": "queenstown.revisit.bench-without-counting.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "夸他两只鞋都准备好了",
+          "en": "Congratulate him on having both shoes ready"
+        }
+      },
+      {
+        "id": "queenstown.revisit.bench-without-counting.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看脚有没有穿稳",
+          "en": "Check that each shoe is secure"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

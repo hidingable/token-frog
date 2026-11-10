@@ -1,0 +1,416 @@
+[
+  {
+    "id": "stockholm.arrival.lower-the-chin",
+    "version": 1,
+    "cityId": "stockholm",
+    "kind": "arrival",
+    "factIds": [
+      "stockholm-vasa"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "大船在上面，小观众需要一点空处。",
+      "en": "The ship was tall; its small spectator needed room."
+    },
+    "text": {
+      "zh-Hans": "瓦萨号的木雕装饰让我仰着头看了好久，旁边一个孩子也踮起脚。我以为他在学我的样子，刚笑着低头，才发现自己的邮包挡住了他的视线。我把包移到身侧，再往旁边让开，他终于把脚跟放平。孩子的大人向我点头，我回礼时下巴酸了一下，便老老实实先看眼前那段船身。",
+      "en": "I spent so long looking up at Vasa’s wooden sculptures that I noticed a child on tiptoe beside me. I thought he was copying me, until I lowered my head and saw my mailbag blocking his view. I moved it aside and stepped over. His heels returned to the floor. His adult nodded thanks. My neck protested as I nodded back, so I gave the lower hull my attention for a while."
+    },
+    "replies": [
+      {
+        "id": "stockholm.arrival.lower-the-chin.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问孩子现在看见了吗",
+          "en": "Ask whether he has a clear view now"
+        }
+      },
+      {
+        "id": "stockholm.arrival.lower-the-chin.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看邮包挡住哪里",
+          "en": "Check the space behind my bag"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "stockholm.clear-view"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "stockholm.arrival.borrowed-pace",
+    "version": 1,
+    "cityId": "stockholm",
+    "kind": "arrival",
+    "factIds": [
+      "stockholm-djurgarden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我们换了领路的人，脚步也跟着换了。",
+      "en": "Changing the leader changed the walk."
+    },
+    "text": {
+      "zh-Hans": "在尤尔加登散步，一位旅伴总走到前面，又停下来等我。我请他试试跟在后面，把自己的小步子放到路中央领路。他起初忍不住超过去，发现身旁没人，才笑着退回来。后来我们轮流带一小段，轮到他时我把步子放大，轮到我时他放慢。两个人终于一同走过了那片绿地，谁也没有站着等。",
+      "en": "On Djurgården, my companion kept getting ahead and waiting. I suggested we swap places and led with my shorter stride. He overtook me by accident, looked around for his companion and laughed his way back. We began taking turns. I stretched my steps when he led; he shortened his when I did. By the end of that stretch of green, neither of us had spent any more time standing still."
+    },
+    "replies": [
+      {
+        "id": "stockholm.arrival.borrowed-pace.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "提议轮流领一段路",
+          "en": "Suggest taking turns at the front"
+        }
+      },
+      {
+        "id": "stockholm.arrival.borrowed-pace.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意两个人的步幅",
+          "en": "Compare our strides"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "stockholm.alternating-steps"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "stockholm.arrival.cinnamon-middle",
+    "version": 1,
+    "cityId": "stockholm",
+    "kind": "arrival",
+    "factIds": [
+      "stockholm-bun",
+      "stockholm-meatballs"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "点心还没分好，手指已经选了方向。",
+      "en": "Our fingers chose before the bun was divided."
+    },
+    "text": {
+      "zh-Hans": "吃过肉丸午饭，我和旅伴各拿了一只肉桂卷。我的那只中间卷得紧，我沿着一圈慢慢掰开，他却先吃外边。我问是不是把中间留到最后，他举起手里已经很小的那一块，说自己刚刚转错了方向。我低头看，自己的面包也少了一大圈。我们各自咬完剩下的一口，两个人的手指同时空了下来。",
+      "en": "After a meatball lunch, my companion and I each had a cinnamon bun. I followed the tight coil in mine while he started at the outside. Was he saving the middle? He lifted the very small piece remaining and admitted he had lost his direction. My own bun had also lost a considerable circumference. We finished our last bites together and were left comparing empty fingers."
+    },
+    "replies": [
+      {
+        "id": "stockholm.arrival.cinnamon-middle.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问哪一口先吃掉了",
+          "en": "Ask which bite disappeared first"
+        }
+      },
+      {
+        "id": "stockholm.arrival.cinnamon-middle.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看肉桂卷还剩哪一圈",
+          "en": "Look for the remaining coil"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "stockholm.menu-bun",
+        "stockholm.menu-meatballs"
+      ]
+    }
+  },
+  {
+    "id": "stockholm.arrival.separate-sauce",
+    "version": 1,
+    "cityId": "stockholm",
+    "kind": "arrival",
+    "factIds": [
+      "stockholm-meatballs",
+      "stockholm-bun"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "盘里的边界，是我自己划出来的。",
+      "en": "I was responsible for the borders on my plate."
+    },
+    "text": {
+      "zh-Hans": "我把肉丸、土豆泥和越橘酱分得很开，准备每样先尝一口。叉子挖起土豆泥时却带上了肉汁，我停住想了一下，索性把那口送进嘴里。邻座见我盯着盘子，问是不是少了什么。我说没有，是我的午饭比我先决定要一起吃。饭后肉桂卷端来，我把盘子推到面前，卷边正好挨着叉柄。",
+      "en": "I kept my meatballs, mashed potatoes and lingonberry jam carefully apart to taste each first. Then my forkful of potato picked up gravy. After a pause, I ate it anyway. My neighbor asked whether something was missing from the plate. Nothing was missing; lunch had simply decided to mix before I had. When my cinnamon bun arrived afterwards, I drew the plate closer until the bun’s edge rested against my fork."
+    },
+    "replies": [
+      {
+        "id": "stockholm.arrival.separate-sauce.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说午饭先做的决定",
+          "en": "Explain the decision lunch made first"
+        }
+      },
+      {
+        "id": "stockholm.arrival.separate-sauce.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看肉汁走到了哪边",
+          "en": "Follow the gravy on the plate"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "stockholm.menu-bun",
+        "stockholm.menu-meatballs"
+      ]
+    }
+  },
+  {
+    "id": "stockholm.arrival.unequal-bun-halves",
+    "version": 1,
+    "cityId": "stockholm",
+    "kind": "arrival",
+    "factIds": [
+      "stockholm-bun",
+      "stockholm-meatballs"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "分出来的两半不一样，我们倒很快选好了。",
+      "en": "The unequal halves were surprisingly easy to choose."
+    },
+    "text": {
+      "zh-Hans": "肉丸午饭后，旅伴想和我分一只肉桂卷。我两手掰开，才发现一边大一边小，便把盘子转给他先挑。他指着小的那块，说自己还想留点肚子。我拿起大的，认真比了一下，问是不是把我的那份也留出来了。他笑着端起水杯，我也不再重新分。盘里两处空白很不一样，端着面包的两个人却都吃得慢慢的。",
+      "en": "After a meatball lunch, my companion suggested sharing a cinnamon bun. I broke it into notably unequal halves and offered him first choice. He wanted the smaller one to save room. Inspecting the larger half, I asked whether he had saved some room for me as well. He laughed into his water. We left the division alone. The plate had two differently sized gaps while both of us ate at an equally unhurried pace."
+    },
+    "replies": [
+      {
+        "id": "stockholm.arrival.unequal-bun-halves.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旅伴先挑一半",
+          "en": "Offer my companion first choice"
+        }
+      },
+      {
+        "id": "stockholm.arrival.unequal-bun-halves.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较盘里留下的两处空白",
+          "en": "Compare the two gaps on the plate"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "stockholm.unequal-halves"
+      ],
+      "menuIds": [
+        "stockholm.menu-bun",
+        "stockholm.menu-meatballs"
+      ]
+    }
+  },
+  {
+    "id": "stockholm.arrival.looking-without-pointing",
+    "version": 1,
+    "cityId": "stockholm",
+    "kind": "arrival",
+    "factIds": [
+      "stockholm-vasa"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "谁也没指方向，我们还是找到了同一处。",
+      "en": "We found the same detail without pointing."
+    },
+    "text": {
+      "zh-Hans": "博物馆里，一位旅人要同伴看看瓦萨号上的木雕，手一抬却指得太宽，对方连连转头。我站在旁边听他解释，自己也跟着看错了地方。他终于放下手，改说从船身哪一端慢慢看过去，我们便一起找到了。他的同伴点点头，我也点点头，随后才想起自己没有被邀请，赶紧把点到一半的头稳稳收回来。",
+      "en": "A visitor at the museum tried directing his companion toward one of Vasa’s wooden sculptures. His broad gesture sent both his companion and me looking in the wrong direction. He lowered his hand and described where to start along the hull. We found the same detail together. His companion nodded, and so did I, before remembering that I had joined the conversation without an invitation. I recovered midway through a second nod."
+    },
+    "replies": [
+      {
+        "id": "stockholm.arrival.looking-without-pointing.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "承认自己也跟着找了",
+          "en": "Admit that I was following along too"
+        }
+      },
+      {
+        "id": "stockholm.arrival.looking-without-pointing.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "顺着船身慢慢看过去",
+          "en": "Look slowly along the hull"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "stockholm.fulfill.leader-with-short-steps",
+    "version": 1,
+    "cityId": "stockholm",
+    "kind": "fulfill",
+    "factIds": [
+      "stockholm-djurgarden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "stockholm.arrival.borrowed-pace.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我们把领路分成了小段。",
+      "en": "You wrote, “{reply}.” We divided up the leading."
+    },
+    "text": {
+      "zh-Hans": "我向那位旅伴提议，每走到一处方便停步的空地就换人领路。他答应了，刚走一段便转身等我接上。我接过前面的位置，故意把脚步放得自然一些，他也没再偷偷超过。后来他要系鞋带，我就停在旁边，等他站好再换。绿地那头，我们一起迈出最后一步，鞋跟落地的声音挨得很近。",
+      "en": "I suggested changing leaders whenever we reached a convenient clear spot. My companion agreed and turned after the first stretch to let me take over. I used my ordinary stride, and he resisted overtaking. Later, when he needed to tie a lace, I waited before handing the lead back. At the far side of the green, our last steps landed close enough for the heels to sound almost together."
+    },
+    "replies": [
+      {
+        "id": "stockholm.fulfill.leader-with-short-steps.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢他跟上小步子",
+          "en": "Thank him for following the shorter stride"
+        }
+      },
+      {
+        "id": "stockholm.fulfill.leader-with-short-steps.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听一同落下的脚步",
+          "en": "Listen to our steps land together"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "stockholm.paired-heels"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "stockholm.revisit.moving-group-gap",
+    "version": 1,
+    "cityId": "stockholm",
+    "kind": "revisit",
+    "factIds": [
+      "stockholm-vasa"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "大船还认得，队伍却多留了一段空处。",
+      "en": "The ship was familiar; the gap was new."
+    },
+    "text": {
+      "zh-Hans": "重到斯德哥尔摩，我在瓦萨号前认出了熟悉的木雕船身。一队旅人慢慢往前走，末尾的人停下整理背带，前面却还在替他留空。我以为那是让我过去的位置，刚迈半步，他就笑着追上同伴。我收回脚，顺势让这队人先走完。等船身前重新空出来，我两只手放在背后，终于不用隔着别人的肩膀看了。",
+      "en": "Back in Stockholm, I recognized Vasa’s wooden hull and carvings. A group moved slowly along it while the last visitor paused to adjust his straps. The others left a gap for him. I mistook it for an invitation to pass and began half a step, just as he hurried back to his companions with a grin. I withdrew my foot and let the group finish. With my hands behind my back, I finally had an uninterrupted view."
+    },
+    "replies": [
+      {
+        "id": "stockholm.revisit.moving-group-gap.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向末尾的旅人点点头",
+          "en": "Nod to the visitor at the back"
+        }
+      },
+      {
+        "id": "stockholm.revisit.moving-group-gap.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看队伍留下的空处",
+          "en": "Watch the space within the group"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

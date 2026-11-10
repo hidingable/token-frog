@@ -1,0 +1,414 @@
+[
+  {
+    "id": "hochiminh.arrival.arms-below-map",
+    "version": 1,
+    "cityId": "hochiminh",
+    "kind": "arrival",
+    "factIds": [
+      "hochiminh-postoffice"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "他举着胳膊，我先跟着看了墙。",
+      "en": "I followed his arm to the wrong destination."
+    },
+    "text": {
+      "zh-Hans": "中央邮局的历史地图前，一位旅人举着胳膊，眼睛却总往入口瞟。我顺着他的手看了半天，没找到他指的是哪一处，便也抬起头认真找。后来他朝我摇摇手，我才知道那条胳膊是在招呼别人。他看我一直仰着头，忍不住笑了。我把踮起的脚跟放下，站到他身旁，入口终于从我的帽檐底下露了出来。",
+      "en": "A traveler held an arm up before the Central Post Office’s historic maps, but kept glancing at the entrance. I followed his hand along the wall, trying to find the place he meant. When he waved at me, I realized the raised arm was meant to attract someone, not indicate a map. He laughed at my upward gaze. I lowered my heels and stood beside him. The entrance finally came into view beneath my brim."
+    },
+    "replies": [
+      {
+        "id": "hochiminh.arrival.arms-below-map.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问他在等谁",
+          "en": "Ask whom he is waiting for"
+        }
+      },
+      {
+        "id": "hochiminh.arrival.arms-below-map.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看眼神朝着哪边",
+          "en": "Notice where he keeps looking"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hochiminh.arm-and-map"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "hochiminh.arrival.suitcase-overtake",
+    "version": 1,
+    "cityId": "hochiminh",
+    "kind": "arrival",
+    "factIds": [
+      "hochiminh-nguyenhue"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "他的箱子走得快，人却没有超过我。",
+      "en": "His suitcase overtook me without him."
+    },
+    "text": {
+      "zh-Hans": "阮惠步行街上，旅伴拉着的小箱子总比他先走一点。我好奇地低头看，他便把箱子停在身旁，让我试着拉一小段。我握住把手，小箱子顺顺地跟过来，自己的邮包却在另一边一下一下碰腿。我没有再加快，把箱子送回他手里。他重新迈步，我跟在旁边，两个包终于不再争着抢我同一条腿。",
+      "en": "My companion’s small suitcase kept traveling a little ahead of him on Nguyễn Huệ. Seeing my curiosity, he let me pull it for a short stretch. The wheels followed easily, but my mailbag began bumping the other leg. I slowed and returned the handle. When we resumed side by side, the two bags were no longer competing for possession of my knees."
+    },
+    "replies": [
+      {
+        "id": "hochiminh.arrival.suitcase-overtake.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢他借我拉一小段",
+          "en": "Thank him for letting me try the case"
+        }
+      },
+      {
+        "id": "hochiminh.arrival.suitcase-overtake.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看箱子与脚步的距离",
+          "en": "Watch the space between wheels and feet"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hochiminh.wheel-and-step"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "hochiminh.arrival.cucumber-turn",
+    "version": 1,
+    "cityId": "hochiminh",
+    "kind": "arrival",
+    "factIds": [
+      "hochiminh-banhmi",
+      "hochiminh-comtam"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午饭先转了个方向，我的手才腾得开。",
+      "en": "Turning lunch made room for my hands."
+    },
+    "text": {
+      "zh-Hans": "夹馅面包里的黄瓜从一头探出来，我捧着转了半圈，才找到不让馅料滑出去的吃法。旅伴吃碎米饭，见我终于咬稳第一口，便把自己的小碟挪近，分给我尝一点米饭。我先把面包放下才接勺子，等尝完再重新拿起来。两样午饭各自回到原位，黄瓜那一头已经短了，露在外面的只剩一点绿色。",
+      "en": "Cucumber protruded from one end of my bánh mì. Turning the sandwich helped me take a bite without losing its filling. My companion, eating cơm tấm, offered a little rice from his side plate. I put the bread down before taking the spoon, tasted it, then returned to the sandwich. Both lunches regained their places. The cucumber’s ambitious end had been reduced to a small green edge."
+    },
+    "replies": [
+      {
+        "id": "hochiminh.arrival.cucumber-turn.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉旅伴两样都尝好了",
+          "en": "Tell my companion I have tried both lunches"
+        }
+      },
+      {
+        "id": "hochiminh.arrival.cucumber-turn.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看面包哪一端更稳",
+          "en": "Check which end of the bread is secure"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "hochiminh.menu-banhmi",
+        "hochiminh.menu-comtam"
+      ]
+    }
+  },
+  {
+    "id": "hochiminh.arrival.rice-on-spoon",
+    "version": 1,
+    "cityId": "hochiminh",
+    "kind": "arrival",
+    "factIds": [
+      "hochiminh-comtam",
+      "hochiminh-banhmi"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "米粒很小，勺子不必堆得像山。",
+      "en": "Small grains did not require a mountain on the spoon."
+    },
+    "text": {
+      "zh-Hans": "吃过夹馅面包，我想换一盘碎米饭。第一勺被我堆得很高，刚拿起就有几粒落回盘里。我索性减掉一半，添上一点鱼露，慢慢吃好。邻座还以为我在等什么，抬头看了我两回，我便举起空勺给他看，说这趟已经送到了。他点点头继续吃，自己的勺子比我那把大些，我们倒差不多同时放了下来。",
+      "en": "Having tried bánh mì, I chose cơm tấm for another meal. I heaped the first spoonful so high that a few grains returned to the plate. Halving it and adding a little fish sauce worked better. My neighbor kept glancing up, apparently wondering what I was waiting for. I showed him the empty spoon and reported a completed delivery. His spoon was larger, but we set them down at almost the same moment."
+    },
+    "replies": [
+      {
+        "id": "hochiminh.arrival.rice-on-spoon.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "报告这一勺已经送到",
+          "en": "Report a safely delivered spoonful"
+        }
+      },
+      {
+        "id": "hochiminh.arrival.rice-on-spoon.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看勺里的分量",
+          "en": "Check the size of each spoonful"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "hochiminh.menu-banhmi",
+        "hochiminh.menu-comtam"
+      ]
+    }
+  },
+  {
+    "id": "hochiminh.arrival.photo-with-space",
+    "version": 1,
+    "cityId": "hochiminh",
+    "kind": "arrival",
+    "factIds": [
+      "hochiminh-nguyenhue"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我退到镜头后面，照片里反而站得下了。",
+      "en": "Stepping behind the camera made room in the picture."
+    },
+    "text": {
+      "zh-Hans": "步行街上，一家人挤在一起等拍照，拿相机的旅人往旁边挪了几次，还是摇头。我停在远处，问能不能替他们拍一张，让他也进去。他高兴地教我按哪里，自己跑回人群，又认真把肩膀缩窄。我两手拿稳，等他们站好才拍。相机还回去时，小朋友先凑来看，刚才缩起来的肩膀在照片里终于松开了。",
+      "en": "A family squeezed together for a picture on the walking street. The traveler holding the camera kept shifting and shaking his head. I offered to take it so he could join them. After showing me the button, he hurried into the group and carefully narrowed his shoulders. I held the camera with both hands and waited until everyone settled. When I handed it back, a child leaned in first. In the picture, those tight shoulders had finally relaxed."
+    },
+    "replies": [
+      {
+        "id": "hochiminh.arrival.photo-with-space.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请大家站好再拍",
+          "en": "Ask everyone to settle before the photo"
+        }
+      },
+      {
+        "id": "hochiminh.arrival.photo-with-space.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看镜头里是否都站下了",
+          "en": "Check that everyone fits in the frame"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "hochiminh.arrival.toy-under-the-table",
+    "version": 1,
+    "cityId": "hochiminh",
+    "kind": "arrival",
+    "factIds": [
+      "hochiminh-comtam",
+      "hochiminh-banhmi"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小玩具先出发，我替它走完桌底这一段。",
+      "en": "The toy began its journey beneath the table."
+    },
+    "text": {
+      "zh-Hans": "碎米饭吃好，旁边的孩子把一只布玩具掉到桌下，弯腰却只够得到它的一只脚。我先问能不能帮他捡，再把自己的椅子往后挪，稳稳蹲下递回去。他抱好玩具，郑重替它向我道谢。我说这趟只走到桌底，不必带那么多行李。先前尝过的夹馅面包已经吃完，桌上空出的位置正好让那只玩具坐得直直的。",
+      "en": "After my cơm tấm, a child dropped a cloth toy beneath the neighboring table and could reach only one foot. I asked before moving my chair back, crouching and returning it. Hugging the toy, he solemnly thanked me on its behalf. I explained that a journey only as far as the table needed very little luggage. My earlier bánh mì was finished too, leaving a clear place where the toy could sit perfectly upright."
+    },
+    "replies": [
+      {
+        "id": "hochiminh.arrival.toy-under-the-table.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向玩具的主人说声不客气",
+          "en": "Tell the toy’s owner he is welcome"
+        }
+      },
+      {
+        "id": "hochiminh.arrival.toy-under-the-table.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看桌下有没有别的东西",
+          "en": "Check beneath the table"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "hochiminh.menu-banhmi",
+        "hochiminh.menu-comtam"
+      ]
+    }
+  },
+  {
+    "id": "hochiminh.fulfill.waiting-with-a-name",
+    "version": 1,
+    "cityId": "hochiminh",
+    "kind": "fulfill",
+    "factIds": [
+      "hochiminh-postoffice"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "hochiminh.arrival.arms-below-map.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我先问了举手的旅人。",
+      "en": "You wrote, “{reply}.” I asked the traveler with the raised arm."
+    },
+    "text": {
+      "zh-Hans": "我问举着胳膊的旅人在等谁。他说同伴带着一只小箱子，怕对方看不见，才一直举着手。我指指旁边空一点的位置，我们一起移开几步，让入口那边看得更清楚。小箱子终于出现，同伴先挥手，随后才拉着箱子走近。旅人放下胳膊时揉了揉肩，我也把自己的包换到另一边，大厅里三个人各自舒展了一下。",
+      "en": "I asked whom the traveler was waiting for. His companion had a small suitcase, and he had kept his arm raised so they would spot him. We moved a few steps into a clearer position. At last the little case appeared. Its owner waved before approaching. The traveler lowered his arm and rubbed his shoulder. I shifted my own bag to the other side, and all three of us took a moment to stretch in the foyer."
+    },
+    "replies": [
+      {
+        "id": "hochiminh.fulfill.waiting-with-a-name.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向拉箱子的同伴问好",
+          "en": "Greet the companion with the case"
+        }
+      },
+      {
+        "id": "hochiminh.fulfill.waiting-with-a-name.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看放下胳膊的肩膀",
+          "en": "Notice the shoulder finally at rest"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "hochiminh.three-stretches"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "hochiminh.revisit.two-shadows-one-step",
+    "version": 1,
+    "cityId": "hochiminh",
+    "kind": "revisit",
+    "factIds": [
+      "hochiminh-nguyenhue"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "影子挨在一起，脚步还各有自己的长短。",
+      "en": "Our shadows met before our strides agreed."
+    },
+    "text": {
+      "zh-Hans": "回到胡志明市，阮惠步行街宽宽的路面让我认出了方向。一个孩子想把自己的影子接到大人的影子上，总往旁边挪，大人便停下来等。我走近时，邮包的影子也凑了进去，孩子笑着跳开，又站回来给它留位置。我把包提稳，没有跟着追。等他们一起往前走，三道影子在地上短短接上，随后各自拉开了一点。",
+      "en": "Returning to Ho Chi Minh City, I recognized Nguyễn Huệ’s broad walking space. A child kept sidling over to join his shadow to an adult’s, who stopped to wait. My mailbag’s shadow entered their arrangement as I passed. The child hopped aside, laughed and returned with room for it. I held the bag steady rather than chasing him. As they moved on, our three shadows briefly joined, then opened out again."
+    },
+    "replies": [
+      {
+        "id": "hochiminh.revisit.two-shadows-one-step.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问孩子要留多宽的位置",
+          "en": "Ask how much space the child wants"
+        }
+      },
+      {
+        "id": "hochiminh.revisit.two-shadows-one-step.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看三道影子如何分开",
+          "en": "Watch the shadows separate"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]
