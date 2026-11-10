@@ -10,7 +10,7 @@
     "capital",
     "food"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "吉隆坡",
     "en": "Kuala Lumpur"
@@ -19,5 +19,66 @@
     "zh-Hans": "吉隆坡",
     "en": "Kuala Lumpur"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "kualalumpur-twin-towers",
+      "type": "place",
+      "names": {
+        "zh-Hans": "吉隆坡双子塔",
+        "en": "PETRONAS Twin Towers"
+      },
+      "summary": {
+        "zh-Hans": "吉隆坡双子塔以一座双层空中连桥连接两座塔楼。",
+        "en": "A double-decker skybridge connects the two PETRONAS Twin Towers in Kuala Lumpur."
+      },
+      "sources": [
+        "https://www.petronastwintowers.com.my/the-towers/design-structure/"
+      ]
+    },
+    {
+      "id": "kualalumpur-klcc-park",
+      "type": "place",
+      "names": {
+        "zh-Hans": "KLCC 公园",
+        "en": "KLCC Park"
+      },
+      "summary": {
+        "zh-Hans": "KLCC 公园有绿地、带图案的步道、长椅和遮蔽休息处，也设有跑步道与儿童游乐区。",
+        "en": "KLCC Park has greenery, patterned footpaths, benches and shelters, as well as a jogging track and a children’s play area."
+      },
+      "sources": [
+        "https://www.suriaklcc.com.my/attractions/klcc-park/"
+      ]
+    },
+    {
+      "id": "kualalumpur-nasi-lemak",
+      "type": "food",
+      "names": {
+        "zh-Hans": "椰浆饭",
+        "en": "Nasi Lemak"
+      },
+      "summary": {
+        "zh-Hans": "椰浆饭用椰奶和香兰叶煮饭，常搭配参巴酱、黄瓜、炸小鱼、花生和蛋。",
+        "en": "Nasi lemak uses rice cooked with coconut milk and pandan leaves, often served with sambal, cucumber, fried anchovies, peanuts and egg."
+      },
+      "sources": [
+        "https://www.klccconventioncentre.com/visitors/experience-kuala-lumpur/unique-taste-of-malaysia"
+      ]
+    },
+    {
+      "id": "kualalumpur-roti",
+      "type": "food",
+      "names": {
+        "zh-Hans": "Roti Canai 面饼",
+        "en": "Roti Canai"
+      },
+      "summary": {
+        "zh-Hans": "Roti canai 是马来西亚的面饼，可以搭配咖喱，也有加入香蕉等甜馅的版本。",
+        "en": "Roti canai is a Malaysian bread that can accompany curry, with sweet versions including banana fillings as well."
+      },
+      "sources": [
+        "https://www.klccconventioncentre.com/visitors/experience-kuala-lumpur/unique-taste-of-malaysia"
+      ]
+    }
+  ]
 }

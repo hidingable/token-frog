@@ -1,0 +1,418 @@
+[
+  {
+    "id": "athens.arrival.duck-sneeze",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "athens-national-garden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "那声喷嚏，把我和鸭子都打断了。",
+      "en": "A sneeze interrupted both me and the duck."
+    },
+    "text": {
+      "zh-Hans": "国家花园的鸭池边，我蹲下看一只鸭子整理羽毛，鼻子却忽然痒起来。刚想忍住，喷嚏已经打了出来，鸭子抬头看我，旁边的小朋友也抬头看我。我赶紧轻声道歉，孩子说等它忙完再打招呼。我点点头，退到不挡路的地方，鼻尖还留着刚才揉出来的一点红。",
+      "en": "By the National Garden's duck pond, I crouched to watch a duck tidy its feathers. My nose began to tickle. Before I could stop it, I sneezed. Both the duck and a nearby child looked up. I apologised quietly. The child suggested waiting until the duck was finished before saying hello. I nodded and moved clear of the path, still rubbing a slightly pink nose."
+    },
+    "replies": [
+      {
+        "id": "athens.arrival.duck-sneeze.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "等鸭子理好羽毛再问候",
+          "en": "Wait until the duck finishes before saying hello"
+        }
+      },
+      {
+        "id": "athens.arrival.duck-sneeze.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看鸭子怎样收拢羽毛",
+          "en": "Watch the duck settle its feathers"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "athens.small-beak-fold"
+      ],
+      "menuIds": []
+    },
+    "cityId": "athens"
+  },
+  {
+    "id": "athens.arrival.wagon-wheel",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "athens-niarchos-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小车停住了，轮子前只有一颗石子。",
+      "en": "One little stone had stopped the wagon."
+    },
+    "text": {
+      "zh-Hans": "在尼亚尔霍斯公园的橄榄树旁，一个孩子拉着玩具小车经过，轮子忽然卡住了。我帮他扶着车身，他用手指拨开轮前的小石子，车子立刻往前一动，我却还握着后边。他回头提醒我松手，我才赶紧放开。小车又跑起来，里面那只绒布熊始终坐得比我稳。",
+      "en": "Near the olive trees in Stavros Niarchos Park, a child's toy wagon came to a stop. I steadied its side while the child moved a small stone from in front of a wheel. The wagon shifted forward, but I was still holding the back. A glance over their shoulder reminded me to let go. Off it went, with its stuffed bear seated much more steadily than I had managed."
+    },
+    "replies": [
+      {
+        "id": "athens.arrival.wagon-wheel.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问小车里的熊坐稳没有",
+          "en": "Ask whether the bear has a steady seat"
+        }
+      },
+      {
+        "id": "athens.arrival.wagon-wheel.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看轮子前还有没有石子",
+          "en": "Check the way ahead of the wheel"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "athens.wagon-wheel-tab"
+      ],
+      "menuIds": []
+    },
+    "cityId": "athens"
+  },
+  {
+    "id": "athens.arrival.spinach-thread",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "athens-spanakopita"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我放下叉子，午饭却还牵着它。",
+      "en": "I put down the fork, but lunch had not let go."
+    },
+    "text": {
+      "zh-Hans": "切开菠菜派，我用叉子卷起一口，放下时却带出一条长长的菜叶。它一头留在馅里，一头绕着叉齿，我转一下，它也跟着转一下。邻座递来小刀，我先把盘子稳稳扶住，轻轻把菜叶分开。叉子终于能放平，那一小段绿色的馅还留在盘沿，等我把别的部分吃完。",
+      "en": "I cut into my spanakopita and wound up a forkful, but a long piece of greens remained attached. One end stayed in the filling while the other followed each turn of my fork. My neighbour offered a knife. I steadied the plate and gently separated them. The fork could lie flat at last, leaving a small green piece by the rim for a later bite."
+    },
+    "replies": [
+      {
+        "id": "athens.arrival.spinach-thread.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢借来分开菜叶的小刀",
+          "en": "Thank my neighbour for the knife"
+        }
+      },
+      {
+        "id": "athens.arrival.spinach-thread.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看叉齿上还缠着什么",
+          "en": "Check what remains around the fork"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "athens.menu-spanakopita"
+      ]
+    },
+    "cityId": "athens"
+  },
+  {
+    "id": "athens.arrival.honey-thumb",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "athens-loukoumades"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "杯子放下了，拇指却还粘在杯柄上。",
+      "en": "The cup went down while my thumb stayed attached."
+    },
+    "text": {
+      "zh-Hans": "蜂蜜炸面团球吃到一半，我伸手去拿水杯，才发现拇指上沾了蜂蜜。喝完水把杯子放下，手指却还粘在杯柄上，杯子又被带起一点。我只好重新坐稳，用另一只手扶住杯底，慢慢松开。店员看见，给我送来温湿的布巾，拇指擦干净以后，终于能独自抬起来了。",
+      "en": "Halfway through my honey-covered loukoumades, I reached for water without noticing the honey on my thumb. When I set down the cup, my thumb stayed on the handle and lifted it again. I settled back, steadied the base with my other hand, and slowly peeled away. A server brought a warm damp cloth. Once wiped clean, my thumb could rise without bringing the cup along."
+    },
+    "replies": [
+      {
+        "id": "athens.arrival.honey-thumb.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢送来湿布巾的店员",
+          "en": "Thank the server for the damp cloth"
+        }
+      },
+      {
+        "id": "athens.arrival.honey-thumb.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看杯柄上有没有蜂蜜",
+          "en": "Check the handle for honey"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "athens.menu-loukoumades"
+      ]
+    },
+    "cityId": "athens"
+  },
+  {
+    "id": "athens.arrival.wrapped-up-greeting",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "athens-spanakopita",
+      "athens-loukoumades",
+      "athens-national-garden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我说可以搭话，围巾却先替我点了头。",
+      "en": "I tried to answer while my scarf nodded for me."
+    },
+    "text": {
+      "zh-Hans": "围巾刚绕到脖子上，一位旅人便问旁边能不能坐。我在国家花园歇脚，吃过菠菜派和蜂蜜炸球的肚子还鼓鼓的，手上却忙着理结。我低头答应，声音全闷在围巾里，他以为没听见，又问一遍。我赶紧拉低围巾，露出嘴巴请他坐下，松开的那一头刚好搭到了自己的膝盖。",
+      "en": "A visitor asked about the empty seat just as I wrapped my scarf around my neck. I was resting in the National Garden after spanakopita and loukoumades, with my hands busy fixing the knot. I looked down to answer and muffled every word. They asked again. I lowered the scarf and invited them to sit, leaving its loosened end across my knees."
+    },
+    "replies": [
+      {
+        "id": "athens.arrival.wrapped-up-greeting.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把邀请坐下的话说清楚",
+          "en": "Make my invitation audible"
+        }
+      },
+      {
+        "id": "athens.arrival.wrapped-up-greeting.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看围巾有没有遮住嘴",
+          "en": "Check that the scarf clears my mouth"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "athens.menu-spanakopita",
+        "athens.menu-loukoumades"
+      ]
+    },
+    "cityId": "athens"
+  },
+  {
+    "id": "athens.arrival.shoe-sand",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "athens-spanakopita",
+      "athens-loukoumades",
+      "athens-niarchos-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小石子倒出来了，鞋垫也跟着出来。",
+      "en": "The pebble came out, followed by the insole."
+    },
+    "text": {
+      "zh-Hans": "菠菜派和蜂蜜炸球的盘子已经收走，我在尼亚尔霍斯公园走了一会儿，鞋里忽然硌得慌。我坐下脱鞋，轻轻一倒，小石子出来了，鞋垫却也滑出半截。路过的孩子停下看，我想把它塞回去，先把脚趾顶成了一小包。重新脱鞋铺平以后，脚终于稳稳踩到了鞋底。",
+      "en": "After the spanakopita and loukoumades plates were cleared, I walked in Stavros Niarchos Park until something pressed inside my shoe. Sitting down, I shook out a pebble and half the insole as well. A passing child stopped to watch. I tried pushing my foot back in too soon and bunched the lining under my toes. One more removal let me flatten it properly and put my foot on a smooth sole."
+    },
+    "replies": [
+      {
+        "id": "athens.arrival.shoe-sand.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说鞋垫为什么也跟了出来",
+          "en": "Explain the insole’s unexpected appearance"
+        }
+      },
+      {
+        "id": "athens.arrival.shoe-sand.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把鞋垫铺平再穿鞋",
+          "en": "Flatten the insole before putting the shoe on"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "athens.flat-sole"
+      ],
+      "menuIds": [
+        "athens.menu-spanakopita",
+        "athens.menu-loukoumades"
+      ]
+    },
+    "cityId": "athens"
+  },
+  {
+    "id": "athens.fulfill.after-preening",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "athens-national-garden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "athens.arrival.duck-sneeze.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把问候放轻了。",
+      "en": "You wrote, “{reply}.” I made my greeting quieter."
+    },
+    "text": {
+      "zh-Hans": "我照你的话，在国家花园鸭池旁站远一点，等那只忙着理羽毛的鸭子停下来。它终于把头抬起，我便轻轻说你好。鸭子朝水面走去，一摇一摆，旁边的孩子也跟着摇了一下。我忍不住照做，邮包却拍到了腿上。孩子站稳后指指我，两条包带已经晃成了不同的方向。",
+      "en": "Following your suggestion, I stood farther back at the National Garden's duck pond and waited for the preening duck to stop. When it raised its head, I said a quiet hello. It waddled towards the water. The child beside me swayed once, and I copied the movement, making my mailbag bump my leg. The child stopped and pointed. My two straps were still swinging in opposite directions."
+    },
+    "replies": [
+      {
+        "id": "athens.fulfill.after-preening.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和孩子轻声说再见",
+          "en": "Say a quiet goodbye to the child"
+        }
+      },
+      {
+        "id": "athens.fulfill.after-preening.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "等两条包带停下来",
+          "en": "Wait for both straps to stop moving"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "athens.swing-straps-card"
+      ],
+      "menuIds": []
+    },
+    "cityId": "athens"
+  },
+  {
+    "id": "athens.revisit.sleeve-wave",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "athens-niarchos-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "打招呼的衣袖，比手先伸出来了。",
+      "en": "An empty sleeve reached out before my hand did."
+    },
+    "text": {
+      "zh-Hans": "橄榄树和柏树还在熟悉的位置，我回到雅典，又到尼亚尔霍斯公园散步。刚把外套披上，一位迎面走来的旅人向我点头。我急着挥手，手臂还没穿进袖子，只有空空的那一截袖口甩了出去。他笑着也抖抖自己的衣袖，我才找到袖管，把手送出来。这回抬起的手掌，终于露在袖口外面。",
+      "en": "Olive trees and cypresses looked familiar when I returned to Stavros Niarchos Park in Athens. I was putting on my coat as a walker nodded hello. I tried to wave before my arm had found the sleeve, so only the empty cuff flapped towards them. They smiled and shook a sleeve in reply. I worked my hand through the right opening. The next greeting came from a palm finally visible beyond the cuff."
+    },
+    "replies": [
+      {
+        "id": "athens.revisit.sleeve-wave.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向旅人补一个完整的招呼",
+          "en": "Give the walker a proper wave"
+        }
+      },
+      {
+        "id": "athens.revisit.sleeve-wave.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看手有没有穿对袖口",
+          "en": "Check that my hand has found its sleeve"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "athens"
+  }
+]

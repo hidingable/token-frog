@@ -11,7 +11,7 @@
     "lake",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "芝加哥",
     "en": "Chicago"
@@ -20,5 +20,66 @@
     "zh-Hans": "芝加哥",
     "en": "Chicago"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "chicago-riverwalk",
+      "type": "place",
+      "names": {
+        "zh-Hans": "芝加哥河滨步道",
+        "en": "Chicago Riverwalk"
+      },
+      "summary": {
+        "zh-Hans": "芝加哥河滨步道沿芝加哥河主支的南岸延伸，以连续的步行空间连接不同滨水区段。",
+        "en": "The Chicago Riverwalk follows the south bank of the Chicago River’s main branch, linking waterfront sections with a continuous promenade."
+      },
+      "sources": [
+        "https://www.tclf.org/chicago-riverwalk"
+      ]
+    },
+    {
+      "id": "chicago-whispering-gallery",
+      "type": "place",
+      "names": {
+        "zh-Hans": "科学与工业博物馆耳语展厅",
+        "en": "Whispering Gallery at Griffin MSI"
+      },
+      "summary": {
+        "zh-Hans": "耳语展厅两端有弧形声盘和站位标记，利用展厅形状反射声音，让两端的人听见彼此的轻声说话。",
+        "en": "The Whispering Gallery has curved dishes and standing markers at opposite ends. Its shape reflects sound so visitors can hear a partner’s quiet voice across the room."
+      },
+      "sources": [
+        "https://www.griffinmsi.org/exhibits/whispering-gallery"
+      ]
+    },
+    {
+      "id": "chicago-deep-dish",
+      "type": "food",
+      "names": {
+        "zh-Hans": "芝加哥深盘披萨",
+        "en": "Chicago Deep Dish Pizza"
+      },
+      "summary": {
+        "zh-Hans": "深盘披萨有较高的饼边，容纳奶酪等配料，番茄酱铺在上方。",
+        "en": "Chicago deep dish pizza has a tall crust holding cheese and other fillings, with tomato sauce on top."
+      },
+      "sources": [
+        "https://www.choosechicago.com/articles/food-drink/20-things-to-eat-in-chicago/"
+      ]
+    },
+    {
+      "id": "chicago-italian-beef",
+      "type": "food",
+      "names": {
+        "zh-Hans": "意式牛肉三明治",
+        "en": "Italian Beef Sandwich"
+      },
+      "summary": {
+        "zh-Hans": "芝加哥的意式牛肉三明治以面包夹薄切烤牛肉，配牛肉汁，可选甜椒或辣腌菜。",
+        "en": "Chicago’s Italian beef sandwich puts thin-sliced roast beef in bread with beef jus, with sweet peppers or hot pickled vegetables as options."
+      },
+      "sources": [
+        "https://www.choosechicago.com/blog/dining/italian-beef-chicago/"
+      ]
+    }
+  ]
 }

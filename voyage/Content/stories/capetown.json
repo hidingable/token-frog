@@ -1,0 +1,416 @@
+[
+  {
+    "id": "capetown.arrival.turning-view",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "capetown-cableway"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "镜头还没抬稳，背景已经换了。",
+      "en": "The background changed before I had the camera ready."
+    },
+    "text": {
+      "zh-Hans": "桌山缆车的车厢转动时，我正请旁边的旅人替我拍照。我把邮包抱到胸前，刚认真摆好姿势，他却朝另一边笑了。原来我一直跟着窗外的开普敦转头，照片里只剩下后脑勺。他把相机还给我，说邮包倒是很上相。我约他到站后再试，把包带先理到了前面。",
+      "en": "As the cable car turned above Cape Town, I asked a fellow passenger for a photo. I hugged my mailbag to my chest and arranged my feet, then followed the changing view with my head. My photographer laughed. The picture showed the back of my head and a very presentable bag. We agreed to try again after getting out, and I brought the strap round to the front."
+    },
+    "replies": [
+      {
+        "id": "capetown.arrival.turning-view.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请旅人到站后再拍一张",
+          "en": "Ask for another photo after getting out"
+        }
+      },
+      {
+        "id": "capetown.arrival.turning-view.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看照片里的邮包朝哪边",
+          "en": "See which way the mailbag faces"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "capetown.turning-tab"
+      ],
+      "menuIds": []
+    },
+    "cityId": "capetown"
+  },
+  {
+    "id": "capetown.arrival.lace-and-slope",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "capetown-kirstenbosch"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "系好鞋带，才能继续抬头。",
+      "en": "My shoelace needed attention before the mountain did."
+    },
+    "text": {
+      "zh-Hans": "在桌山东坡脚下的克斯滕博斯植物园，我抬头看山，差点踩到自己的鞋带。身后的小朋友喊了一声，我便蹲下系好，还认真打了两个结。站起来时，他也蹲了下去，我以为轮到我提醒，才发现他在系自己的鞋。我们让开路，各自慢慢提了提已经绑稳的脚。",
+      "en": "At Kirstenbosch, beneath Table Mountain's eastern slopes, I looked up and nearly stepped on my loose shoelace. A child behind me called out. I crouched down and tied two careful knots. When I stood, the child crouched too. I was ready to return the warning, but their own lace needed tying. We moved aside and each gave a firmly fastened foot a small test."
+    },
+    "replies": [
+      {
+        "id": "capetown.arrival.lace-and-slope.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢及时的提醒",
+          "en": "Thank the child for the warning"
+        }
+      },
+      {
+        "id": "capetown.arrival.lace-and-slope.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "检查另一只鞋的结",
+          "en": "Check the knot on my other shoe"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "capetown.double-knot"
+      ],
+      "menuIds": []
+    },
+    "cityId": "capetown"
+  },
+  {
+    "id": "capetown.arrival.custard-roof",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "capetown-bobotie",
+      "capetown-malva"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午饭的屋顶，先塌了一小角。",
+      "en": "Lunch lost a small corner of its roof."
+    },
+    "text": {
+      "zh-Hans": "吃波波提时，我想把蛋奶层和肉糜一起舀起来。勺子伸得太浅，只带走一块金黄色的顶。邻座问我是不是在给午饭修屋顶，我笑得差点放错餐具，重新往下舀了一勺。饭后的玛尔瓦布丁也端来了，我赶紧换了把干净勺子，肉糜稳稳留在了原来的盘里。",
+      "en": "I tried to scoop up both the egg custard and beef in my bobotie, but took only a golden piece of the top. My neighbour asked whether I was repairing lunch's roof. I laughed and tried a deeper scoop. When my malva pudding arrived afterwards, I fetched a clean spoon. The minced beef stayed safely on its own plate."
+    },
+    "replies": [
+      {
+        "id": "capetown.arrival.custard-roof.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给邻座看看完整的一勺",
+          "en": "Show my neighbour the complete spoonful"
+        }
+      },
+      {
+        "id": "capetown.arrival.custard-roof.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意蛋奶层下面的肉糜",
+          "en": "Notice the beef beneath the custard"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "capetown.menu-bobotie",
+        "capetown.menu-malva"
+      ]
+    },
+    "cityId": "capetown"
+  },
+  {
+    "id": "capetown.arrival.pudding-dent",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "capetown-malva",
+      "capetown-bobotie"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "勺子倒下了，甜点接住了它。",
+      "en": "The pudding caught my falling spoon."
+    },
+    "text": {
+      "zh-Hans": "吃完波波提，玛尔瓦布丁端来了。我把小勺直直插在旁边，想腾出手把邮包放好。包刚落地，勺柄也慢慢倒下来，在软软的布丁上压出一道浅沟。我扶起它，把盘边的蛋奶酱舀进沟里，那一块便比别处湿润。等邮包终于站稳，我已经先吃掉了自己修好的那一口。",
+      "en": "After my bobotie, the malva pudding arrived. I balanced my spoon beside it while settling my mailbag. As the bag reached the floor, the spoon tipped over and pressed a shallow groove into the soft sponge. I lifted it out and spooned some custard into the dent. That patch became especially moist. By the time my bag was standing properly, I had eaten the small repair."
+    },
+    "replies": [
+      {
+        "id": "capetown.arrival.pudding-dent.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说勺子怎样先吃了一口",
+          "en": "Tell how the spoon got to the pudding first"
+        }
+      },
+      {
+        "id": "capetown.arrival.pudding-dent.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看浅沟里装的蛋奶酱",
+          "en": "Look at the custard in the little groove"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "capetown.menu-bobotie",
+        "capetown.menu-malva"
+      ]
+    },
+    "cityId": "capetown"
+  },
+  {
+    "id": "capetown.arrival.hat-rescue",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "capetown-kirstenbosch"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "帽子停在了别人脚边。",
+      "en": "My hat stopped beside somebody else’s shoes."
+    },
+    "text": {
+      "zh-Hans": "我在克斯滕博斯植物园整理包带，摘下的帽子忽然从膝头滑走。它沿路翻了两下，停在一位旅人的鞋边。我伸手比画自己的脑袋，他却先把帽子翻过来，倒出了里面那根刚脱落的线头。拿回帽子后，我把松线收进包里，帽檐扣低了一点，才重新朝山那边望。",
+      "en": "While I adjusted my strap at Kirstenbosch, my hat slipped off my knees. It tumbled along the path and stopped by a visitor's shoes. I gestured at my head. Before handing it over, they turned the hat upside down and shook out a loose thread. I tucked the thread into my bag, pulled the brim a little lower, and looked towards the mountain again."
+    },
+    "replies": [
+      {
+        "id": "capetown.arrival.hat-rescue.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "向帮忙捡帽子的人道谢",
+          "en": "Thank the visitor who rescued my hat"
+        }
+      },
+      {
+        "id": "capetown.arrival.hat-rescue.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看帽檐哪里松了线",
+          "en": "Find the loose stitching on the brim"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "capetown.hat-brim-fold"
+      ],
+      "menuIds": []
+    },
+    "cityId": "capetown"
+  },
+  {
+    "id": "capetown.arrival.tray-tilt",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "capetown-bobotie",
+      "capetown-malva"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "托盘端平以后，肚子才有空叫。",
+      "en": "Once the tray was level, my stomach could speak."
+    },
+    "text": {
+      "zh-Hans": "午饭后加点的玛尔瓦布丁来了，我急着把波波提的空盘挪开，托盘便斜向自己。服务员赶紧扶住另一头，让我先把两只手都放上来。我一路走得很慢，连邮包的铃扣都没响。到了桌边才发现，小勺还留在原处。对方跟过来把它放好，勺柄正好指着我的圆肚子。",
+      "en": "My malva pudding arrived while I was moving the empty bobotie plate. I tilted the tray towards myself, and the server caught its far edge before asking me to use both hands. I walked so slowly that even the buckle on my mailbag stayed quiet. At the table, I discovered the spoon was still behind. The server brought it over and set its handle pointing at my well-fed middle."
+    },
+    "replies": [
+      {
+        "id": "capetown.arrival.tray-tilt.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢替我扶住托盘",
+          "en": "Thank the server for steadying the tray"
+        }
+      },
+      {
+        "id": "capetown.arrival.tray-tilt.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看小勺指向哪里",
+          "en": "See where the spoon handle points"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "capetown.menu-bobotie",
+        "capetown.menu-malva"
+      ]
+    },
+    "cityId": "capetown"
+  },
+  {
+    "id": "capetown.fulfill.front-facing-bag",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "capetown-cableway"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "capetown.arrival.turning-view.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，这回连包也准备好了。",
+      "en": "You wrote, “{reply}.” This time the bag was ready too."
+    },
+    "text": {
+      "zh-Hans": "出了桌山缆车，我请那位旅人兑现重拍的约定。他抬起相机，我便把邮包转到前面，自己也站得端正，牢牢盯住镜头。拍完一看，脸终于在画面里了，包却被我抱反，扣子朝着胸口。他指指那块空白布面，我只好再转一次。最后的照片里，我和邮包都露出了正面。",
+      "en": "Outside the Table Mountain cable car, I asked my fellow passenger for the promised second photo. I brought my mailbag forward and kept my eyes firmly on the camera. My face made it into the picture, but I was hugging the bag backwards, its buckle against my chest. They pointed at the blank cloth. I turned it once more. In the last picture, both the messenger and the bag finally faced the camera."
+    },
+    "replies": [
+      {
+        "id": "capetown.fulfill.front-facing-bag.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢耐心重拍的旅人",
+          "en": "Thank my patient photographer"
+        }
+      },
+      {
+        "id": "capetown.fulfill.front-facing-bag.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "检查照片里邮包的扣子",
+          "en": "Check the buckle in the photograph"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "capetown.front-pocket-card"
+      ],
+      "menuIds": []
+    },
+    "cityId": "capetown"
+  },
+  {
+    "id": "capetown.revisit.caught-strap",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "capetown-kirstenbosch"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "山还在那儿，包带先把我留住了。",
+      "en": "The mountain was familiar; my strap had other plans."
+    },
+    "text": {
+      "zh-Hans": "克斯滕博斯植物园背后的山坡让我认出了开普敦。我重新来这里走走，刚脱下外套，邮包却跟着抬了起来，原来包带夹在了袖口里。我转了一圈找出口，一位路过的阿姨看明白，帮我按住衣袖，让我把手慢慢抽出来。外套终于落在臂弯，邮包也回到肩上，只剩一只翻出来的袖口。",
+      "en": "The mountain slopes behind Kirstenbosch were familiar on my return to Cape Town. I stopped to take off my coat, only to lift my mailbag along with it. The strap had caught inside a cuff. After watching me turn in an unhelpful circle, a passing woman held the sleeve steady while I eased my hand out. The coat settled over my arm and the bag returned to my shoulder. One cuff was left turned inside out."
+    },
+    "replies": [
+      {
+        "id": "capetown.revisit.caught-strap.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢帮我解开衣袖的阿姨",
+          "en": "Thank the woman who freed my sleeve"
+        }
+      },
+      {
+        "id": "capetown.revisit.caught-strap.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把翻出来的袖口理平",
+          "en": "Straighten the inside-out cuff"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "capetown"
+  }
+]

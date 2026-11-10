@@ -901,3 +901,153 @@ CLANG_MODULE_CACHE_PATH="$PWD/.build/codex-cache/clang" SWIFTPM_MODULECACHE_OVER
   - https://www.berlin.de/en/tourism/insider-tips/5150899-5766508-berlin-specialties-must-try.en.html
 
 缩窄/弃用：visitBerlin 英文新闻把面点写成 boiled pastry，未采用该不可靠翻译，改用 Berlin.de 明确的 deep-fried 说明。美联社咖喱香肠文章无法实际打开，未列为应用来源。咖喱香肠发明者、日期、城市起源竞争和政治人物的面包球笑话均不用。电视塔不写观景台旋转；公园不写战时/纪念地情节。river-unfolding 精确兑现沿河线展开纸张，全部纪念品为个人纸作。
+
+
+## M2 补全城市资料第二批
+
+核实日期：2026-11-10。以下网址均实际打开并读取支持段落；同机构页面不计独立交叉核对。故事中的路人、小事和纸品为原创虚构，未核实气候月份，不填 rainyMonths。
+
+
+### 开普敦 capetown
+
+- `capetown.capetown-cableway`：Cape Town Tourism 运营项目页明确山下至山顶的缆车和车厢转动，可观城市；只写这些结构特征，不把班次、时长、高度或天气条件作长期保证。
+  - https://www.capetown.travel/listing/d_table-mountain-aerial-cableway/
+- `capetown.capetown-kirstenbosch`：SANBI 园方首页明确植物园靠桌山东坡，支持地点与山坡背景。未把园区独立称为一项 UNESCO 遗产。
+  - https://www.sanbi.org/gardens/kirstenbosch/
+- `capetown.capetown-bobotie`：Visit SA Winelands 的饮食页支持香料牛肉糜、蛋奶烘烤；KLM 开普敦目的地饮食页支持本城可品尝肉糜菜。机构独立，后者为航空旅行编辑资料，限用于本地供应佐证。
+  - https://visitwinelands.co.za/local-is-lekker-traditional-south-african-food/
+  - https://www.klm.co.za/travel-guide/inspiration/taste-the-colours-of-the-rainbow
+- `capetown.capetown-malva`：Visit SA Winelands 支持甜海绵甜点、温热与蛋奶酱；KLM 开普敦页支持当地菜单出现，不用其“杏酱搭配”推断全部配方。
+  - https://visitwinelands.co.za/local-is-lekker-traditional-south-african-food/
+  - https://www.klm.co.za/travel-guide/inspiration/taste-the-colours-of-the-rainbow
+
+缩窄/弃用：旅游部缆车 PDF 打开超时，未列入来源，故不另写旋转地板机理。弃用高度、行车分钟数、国家菜称号、食物迁移起源与排名；未写配方必含葡萄干或杏酱。玛尔瓦本城供应的航空编辑来源相对较弱，只作非店名、非实时承诺。front-facing-bag 兑现同一旅人的重拍约定，所有纪念品均为信使自制纸品。
+
+
+### 内罗毕 nairobi
+
+- `nairobi.nairobi-karura`：Friends of Karura Forest 管理协会地图页明确主要岔路口编号、步跑路线颜色标记。故事不写具体号码或里程路线，不保证某段永远开放；牵狗场景遵守该页的牵绳提示。
+  - https://friendsofkarura.org/forest-maps/
+- `nairobi.nairobi-bird-gallery`：National Museums of Kenya 本馆页支持东非鸟类、按类群排列以及猛禽、水鸟、太阳鸟。只用自然展陈，不取仪式、祖先或殖民苦难展览作笑料。
+  - https://museums.or.ke/nairobi-national-museum/
+- `nairobi.nairobi-ugali`：World Relief 肯尼亚驻地工作手册第 19 页 Food & Diet 明确玉米粉加水煮至结实、配蔬菜或肉菜；African Journal of Food Science 原始研究确认多种谷物与复合粉，故用“可用”而不排除其他做法。
+  - https://worldrelief.org/content/uploads/2020/07/KenyaOrientationManualJan2019.pdf
+  - https://academicjournals.org/journal/AJFS/article-full-text/FD60ABC61629
+- `nairobi.nairobi-choma`：同一驻地机构手册 Food & Diet 明确明火烤 goat/sheep/beef。摘要只定义做法，不声称内罗毕独有或所有店都卖哪种肉；这是机构生活手册，证据等级弱于食品专论。
+  - https://worldrelief.org/content/uploads/2020/07/KenyaOrientationManualJan2019.pdf
+
+缩窄/弃用：Kenya Forest Service、Invest Kenya PDF 超时；Lonely Planet 拒绝访问；Ascott 正文未读出，均未用搜索摘要顶替原文。放弃铁路博物馆的机车细节，改用可读的鸟类展厅。未采国家菜称号、乌伽黎唯一配方、固定吃法、民族归属与贫困刻板印象。number-before-turn 兑现先报路口编号，纪念品仅为个人纸作。
+
+
+### 阿克拉 accra
+
+- `accra.accra-nubuke`：基金会 FAQ 支持 East Legon, Accra 地址，以及展览、电影、艺术讲座的工作范围。只写机构长期性质，不杜撰正在展出的作品或可触摸装置。
+  - https://nubukefoundation.com/FAQ
+- `accra.accra-balme`：加纳大学音乐系设施页称 Balme 为本校主图书馆；本校国际学生手册支持书刊与线上资源。两页同属大学，不算独立机构交叉核对，未采用旧手册藏书量。故事在馆外，不推导随意入馆权限。
+  - https://www.ug.edu.gh/music/about/facilities
+  - https://www.ipo.ug.edu.gh/sites/ipo.ug.edu.gh/files/documents/Int_Students_Handbook.pdf
+- `accra.accra-kelewele`：大学手册 Ghanaian Foods 支持成熟大蕉切块、姜等香料、油炸、可配花生；Ghana News Agency 独立报道支持阿克拉街头供应与基本制作。
+  - https://www.ipo.ug.edu.gh/sites/ipo.ug.edu.gh/files/documents/Int_Students_Handbook.pdf
+  - https://gna.org.gh/2026/04/kelewele-a-spicy-heartbeat-ghanaian-street-cuisine-often-loyal-to-night-travelers-and-wanderers/
+- `accra.accra-waakye`：GNA 的街头餐食报道明确 rice & beans dish 和外带形式。采访在 Tema，不把 Tema 写作阿克拉市内地点；只定义加纳菜，不承诺具体摊点。单篇权威媒体证据，未增加叶材、颜色或配菜细节。
+  - https://gna.org.gh/2026/02/early-morning-food-vendors-power-ghanas-workforce/
+
+缩窄/弃用：植物园运营曾变动，未用旧旅游介绍补写现行设施，换成大学图书馆；Nubuke 扩建专页返回 404，IRRI 食谱 PDF 超时，均未列为事实来源。弃用大蕉小吃的族群起源、词源、健康功效，以及豆饭必含高粱叶、配固定小菜等说法。feet-together 兑现同一旅人面前站稳让路，纪念品为信使原创纸品。
+
+
+### 圣地亚哥 santiago
+
+- `santiago.santiago-forestal`：圣地亚哥市旅游页支持公园在马波乔河南侧、草地与林荫散步空间。只在普通步道与草地边发生虚构小事，不写入河或采集树木。
+  - https://www.santiagoturismo.cl/es/parque-forestal/
+- `santiago.santiago-oasis`：缆车运营方 Oasis 页支持 Pedro de Valdivia 线起点、Parquemet 对应入口及休息空间；明确限定线路，不沿用“全城只有一条缆车线”的旧说法。
+  - https://telefericosantiago.cl/linea-pedro-de-valdivia/estacion-oasis/
+- `santiago.santiago-empanada`：国家旅游平台 Chile Travel 西班牙文原页支持包馅面皮、肉与洋葱、蛋和葡萄干以及烤制；只写配料可有，不强制每只都相同。
+  - https://chile.travel/blog/la-empanada-sabor-unico-de-la-tradicion-chilena/
+- `santiago.santiago-choclo`：文化部门公开的《La Olla Deleitosa》饮食研究中 recubre el pino 段落支持玉米糊盖在馅上、可有鸡肉熟蛋、入烤箱。只取制作形态，不借用书中族群叙事或仪式比喻。
+  - https://obra-gruesa.cultura.gob.cl/wp-content/uploads/2024/10/Corazon_de_Cocina_MAP.pdf
+
+缩窄/弃用：圣卢西亚山相关资料涉及原住民圣地，改用普通公园。旅游部门菜品大 PDF 无法读取全文，驻外使馆食谱仅嵌入视频，均未作为原料依据。弃用 empanada 与 pino 的词源、殖民起源、食物冠军与最大公园等排名，不限定玉米派必用陶碗、糖或固定配菜。low-rolling-ball 兑现贴地滚球；纸品为信使自作。
+
+
+### 雅典 athens
+
+- `athens.athens-national-garden`：雅典市电影办公室地点页明确公共花园、鸭池、植物博物馆及儿童图书馆。只写园内普通空间，未采古物、纪念雕像或王室历史作玩笑。
+  - https://athensfilmoffice.com/national-garden/
+- `athens.athens-niarchos-park`：由 SNFCC 自行发布的 Google Arts & Culture 数字植物展支持橄榄树、月桂、柏树及地中海园区，属于机构自述而非 Google 独立核实。不采植物药效、数量和特定月份花期。
+  - https://artsandculture.google.com/story/dAWBT4SnUWIiwQ
+- `athens.athens-spanakopita`：雅典官方旅游指南季节饮食页将 spanakopita 明释 spinach pie，受访厨师列出鲜奶酪、绿叶菜和香草。只说“可加入”，不将一个厨师的做法统一为所有店配方，也不限定只能春天吃。
+  - https://www.thisisathens.org/restaurants/greek-food/where-how-eat-shop-seasonally
+- `athens.athens-loukoumades`：官方家庭旅行指南 Eat 段落明确油炸面团球淋蜂蜜；取基本形态，不采“孩子都爱”等评价，不写奥运起源。
+  - https://www.thisisathens.org/itineraries/family-itinerary
+
+缩窄/弃用：未采神庙、祭礼、古物戏仿、最大地中海公园、蜂蜜营养宣传或食物最早年代。菠菜派不强制 feta、固定形状或层数，蜂蜜炸球不固定撒粉。两条食物来自同一旅游机构，未充作交叉来源。after-preening 兑现等鸭子理羽毛再问候，不喂食、不追赶、不采羽毛；纪念品全为原创纸品。
+
+
+### 布拉格 prague
+
+- `prague.prague-letna`：Prague City Tourism 无障碍路线页支持林荫步道、部分路段可见伏尔塔瓦河与桥梁。未采纪念碑的政治历史或夏季活动，亦不承诺每处都能看到所有桥。
+  - https://prague.eu/en/home/information/practical-information/accessible-prague/letna-without-barriers/
+- `prague.prague-transport-hall`：原 plasy.ntm.cz 链接实际重定向到馆方 muzeum-plasy.cz；正文明确标记 Main Building in Prague，并列汽车、摩托、铁路及悬吊飞机。虽在另一分馆站点，条目所指展览为布拉格主馆，未混为 Plasy 的展厅。
+  - https://www.muzeum-plasy.cz/en/about-our-museum/ntm-museums/museum-of-transportation/transportation
+- `prague.prague-chlebicky`：VisitCzechia 原页支持小片 veka 白面包、火腿/奶酪/腌菜/蛋等配料和布拉格供应，未将配料清单定为每份必含。
+  - https://www.visitczechia.com/en-us/news/2022/12/n-chlebicky-open-sandwich
+- `prague.prague-svickova`：VisitCzechia What Is 段落支持牛肉、根菜、奶油酱及 bread/Carlsbad dumplings。不把菜名解释为一定用昂贵里脊，也不限定佐料。
+  - https://www.visitczechia.com/en-us/things-to-do/places/gastronomic-tourism/czech-cuisine-and-regional-products/g-svickova-na-smetane
+
+缩窄/弃用：弃用最早汽车、首次飞行、国家菜排名、三明治发明者和跨年必吃等断言。两种食物同属国家旅游机构来源，不算独立交叉核对。交通展厅只观看，不摸机器、不跨围栏；bridges-with-free-hands兑现放好邮包再数桥，原创纸品不复制馆藏或官方商品。
+
+
+### 阿姆斯特丹 amsterdam
+
+- `amsterdam.amsterdam-nemo-roof`：NEMO 馆方 Rooftop Square 页支持屋顶种植空间与城市视野。只取长期空间性质，不写翻新日期、免费、开放时段或临时仪器状态。
+  - https://www.nemosciencemuseum.nl/en/to-do/exhibition/rooftop-square
+- `amsterdam.amsterdam-rijks-atrium`：国立博物馆原页在网页工具超时后，使用 curl 成功读取实际 HTML，正文明确 glass roofs、polished Portuguese stone floors、reflect daylight，支持中庭摘要。未凭搜索摘要或图片推导建筑尺寸。
+  - https://www.rijksmuseum.nl/en/visit/inside-the-museum/the-atrium
+- `amsterdam.amsterdam-stroopwafel`：I amsterdam 的 Dutch foods 页明确两片薄饼与甜糖浆夹层、市场/面包店可见。只写组成，不采用“最好趁热”“必须试”等评价。
+  - https://www.iamsterdam.com/en/see-and-do/restaurant-and-bars/dutch-foods-to-try
+- `amsterdam.amsterdam-poffertjes`：I amsterdam 松饼页明确 mini pancakes、黄油与糖粉版本。不同配料确实存在，故不固定所有店的配料或面粉种类。
+  - https://www.iamsterdam.com/en/see-and-do/restaurant-and-bars/best-pancake-houses-in-amsterdam
+
+缩窄/弃用：未采最大/最高屋顶、店铺排行、烤饼发明地和固定的杯上加热吃法。两种食物来源同属旅游推广机构，不冒称交叉核实。屋顶故事均在普通观看与休息区域，不投掷物件或翻越边缘；two-open-lenses 兑现检查两个镜盖。全部纸品为个人原创，不借用画作角色、文字或构图。
+
+
+### 吉隆坡 kualalumpur
+
+- `kualalumpur.kualalumpur-twin-towers`：双塔官网 Design + Structure 的 Sky Bridge 段落在 curl 实际抓取正文中明确 double-decker 与连接两塔；网页工具 502 不作成功证据。只保留结构，不写楼层、尺寸、排名、宗教图案解释或风中移动机理。
+  - https://www.petronastwintowers.com.my/the-towers/design-structure/
+- `kualalumpur.kualalumpur-klcc-park`：Suria KLCC 官方景点页明确绿地、patterned footpaths、长椅、遮蔽处、跑步道及儿童区。只取这些空间，不写面积、戏水或喷泉时刻。
+  - https://www.suriaklcc.com.my/attractions/klcc-park/
+- `kualalumpur.kualalumpur-nasi-lemak`：KLCC 会展中心官方城市饮食页支持椰奶香兰饭、sambal、黄瓜、炸小鱼、花生及蛋；用“常搭配”保留变体。
+  - https://www.klccconventioncentre.com/visitors/experience-kuala-lumpur/unique-taste-of-malaysia
+- `kualalumpur.kualalumpur-roti`：同页明确 roti bread，可配咖喱，也有香蕉甜版。只写面饼和搭配，不从照片推导面皮层数、锅具或所有店都配 dhal。
+  - https://www.klccconventioncentre.com/visitors/experience-kuala-lumpur/unique-taste-of-malaysia
+
+缩窄/弃用：旅游局网页、电子册及 PDF 返回 403，未使用搜索摘要补证。会展中心、商场、双塔的关联机构页面不算三份独立交叉核实。弃用 roti 的迁移起源、TasteAtlas 面包排名、椰浆饭国家菜称号、固定早餐时段与宗教归属。hat-then-hello 兑现先戴稳帽子再问候；paper-span 是本城唯一以折纸为主要动作的故事，纪念品均为原创纸作。
+
+
+### 孟买 mumbai
+
+- `mumbai.mumbai-marine-drive`：旅游部 Incredible India 地点页正文支持 South Mumbai、C 形海滨大道、阿拉伯海视野及散步休息。只留岸边公共空间，不写海堤攀爬、入海、填海年份或“女王项链”由来。
+  - https://www.incredibleindia.gov.in/en/maharashtra/mumbai/marine-drive
+- `mumbai.mumbai-science-park`：科学中心 Science Park 正文明确互动滑轮、跷跷板、Giant Lever。只取展项类别，未写重量、保证可用、演示场次、人数或儿童独有权限。跷跷板小事为虚构，有家长扶稳。
+  - https://nehrusciencecentre.gov.in/shows/science-park/
+- `mumbai.mumbai-vada-pav`：Incredible India 新饮食页 Street Food Bliss 明确 potato fritter、soft bread roll、chutneys，支持土豆夹包组成及本城供应。
+  - https://www.incredibleindia.gov.in/en/maharashtra/mumbai/a-gastronomic-odyssey
+- `mumbai.mumbai-pav-bhaji`：同段明确蔬菜咖喱、buttery toasts；摘要只写蔬菜配黄油烤面包，不添加未核实的固定蔬菜清单或搅拌工具。
+  - https://www.incredibleindia.gov.in/en/maharashtra/mumbai/a-gastronomic-odyssey
+
+缩窄/弃用：旧 prod 饮食页超时，邦旅游页未读出支持海滨具体描述的正文，均未列入应用来源。科学园旧搜索摘要的展项数量不用，以实际新页正文为准。弃用纺织工人午夜餐、发明者、唯一原产地、“每个街角都有”和旅游宣传中的健康/排名说法；不涉及仪式或神庙。shortened-tassel 精确兑现折短围巾；纪念品全为信使自制纸品。
+
+
+### 芝加哥 chicago
+
+- `chicago.chicago-riverwalk`：文化景观基金会 TCLF 的设计景观档案支持河主支南岸、连续步道与区段相连。市政府和旅游步道页实际 403，未列为应用来源。故事只在普通步道，不涉及文中越战纪念区，不靠近或进入水面。
+  - https://www.tclf.org/chicago-riverwalk
+- `chicago.chicago-whispering-gallery`：Griffin MSI 馆方展项页明确两端弧形声盘、背向站立、地面脚印标记和展厅形状反射声音。未把椭球展厅说成抛物面镜，也不写距离、历史年份或电子放大。
+  - https://www.griffinmsi.org/exhibits/whispering-gallery
+- `chicago.chicago-deep-dish`：Choose Chicago 明确高饼边、奶酪及上方番茄酱，只取基本结构。原列的 Northwestern 新生指南 PDF 复核时已 404，已移除，现为单一旅游机构来源。
+  - https://www.choosechicago.com/articles/food-drink/20-things-to-eat-in-chicago/
+- `chicago.chicago-italian-beef`：Choose Chicago 专文支持薄切烤牛肉、面包、牛肉汁，以及甜椒与辣腌菜可选、肉汁用量有变化；不把一种点单方式说成必须。原列的 Northwestern 新生指南 PDF 复核时已 404，已移除。
+  - https://www.choosechicago.com/blog/dining/italian-beef-chicago/
+
+缩窄/弃用：不写披萨发明人、牛肉三明治婚宴起源、商家最早称号、餐馆榜单、“真正当地人”或不准加某种酱的规训；不借影视作品角色与设定。学校指南含学生推荐且未背书商家，只用于基础食物组成，与旅游机构结构描述核对。soft-hello 兑现更小声问候，cup-sleeve-mixup 是本城唯一以纸制品为主要动作的故事；纪念品全为原创纸品。

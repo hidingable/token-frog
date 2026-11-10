@@ -10,7 +10,7 @@
     "capital",
     "heritage"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "雅典",
     "en": "Athens"
@@ -19,5 +19,66 @@
     "zh-Hans": "雅典",
     "en": "Athens"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "athens-national-garden",
+      "type": "place",
+      "names": {
+        "zh-Hans": "雅典国家花园",
+        "en": "National Garden of Athens"
+      },
+      "summary": {
+        "zh-Hans": "雅典国家花园有鸭池、植物博物馆和儿童图书馆，是城市里的公共花园。",
+        "en": "Athens’ National Garden is a public garden with a duck pond, a botanical museum and a children’s library."
+      },
+      "sources": [
+        "https://athensfilmoffice.com/national-garden/"
+      ]
+    },
+    {
+      "id": "athens-niarchos-park",
+      "type": "place",
+      "names": {
+        "zh-Hans": "斯塔夫罗斯尼亚尔霍斯公园",
+        "en": "Stavros Niarchos Park"
+      },
+      "summary": {
+        "zh-Hans": "斯塔夫罗斯尼亚尔霍斯文化中心的公园种有橄榄树、月桂和柏树，也有地中海植物园区。",
+        "en": "The park at the Stavros Niarchos Foundation Cultural Center has olive trees, laurels and cypresses, as well as a Mediterranean Garden."
+      },
+      "sources": [
+        "https://artsandculture.google.com/story/dAWBT4SnUWIiwQ"
+      ]
+    },
+    {
+      "id": "athens-spanakopita",
+      "type": "food",
+      "names": {
+        "zh-Hans": "菠菜派",
+        "en": "Spanakopita"
+      },
+      "summary": {
+        "zh-Hans": "Spanakopita 是希腊菠菜派；在雅典的做法中，也可加入鲜奶酪、其他绿叶菜和香草。",
+        "en": "Spanakopita is a Greek spinach pie; versions in Athens can include fresh cheese, other greens and herbs."
+      },
+      "sources": [
+        "https://www.thisisathens.org/restaurants/greek-food/where-how-eat-shop-seasonally"
+      ]
+    },
+    {
+      "id": "athens-loukoumades",
+      "type": "food",
+      "names": {
+        "zh-Hans": "蜂蜜炸面团球",
+        "en": "Loukoumades"
+      },
+      "summary": {
+        "zh-Hans": "Loukoumades 是油炸的小面团球，在雅典可以吃到淋蜂蜜的版本。",
+        "en": "Loukoumades are small deep-fried dough balls, served in Athens in a version drenched with honey."
+      },
+      "sources": [
+        "https://www.thisisathens.org/itineraries/family-itinerary"
+      ]
+    }
+  ]
 }

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "prague.menu-chlebicky",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "开放式三明治小菜单",
+      "en": "Chlebíčky Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在布拉格做的纸菜单，蛋片和火腿都有稳稳的位置。",
+      "en": "My Prague paper menu gives the egg and ham secure places on their bread."
+    },
+    "cityId": "prague"
+  },
+  {
+    "id": "prague.menu-svickova",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "奶油酱牛肉小菜单",
+      "en": "Svíčková Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "吃过牛肉与团子后做的菜单，酱汁只留在纸盘里。",
+      "en": "My menu after beef and dumplings keeps all the sauce inside its paper plate."
+    },
+    "cityId": "prague"
+  },
+  {
+    "id": "prague.counting-fingers",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "数桥小纸手",
+      "en": "Bridge-Counting Paper Hand"
+    },
+    "descriptions": {
+      "zh-Hans": "我在莱特纳看桥后剪的小纸手，拇指折起来就少数一枚包扣。",
+      "en": "My little paper hand from Letná folds its thumb to keep a mailbag buckle out of the bridge count."
+    },
+    "cityId": "prague"
+  },
+  {
+    "id": "prague.clear-wing",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "机翼小纸窗",
+      "en": "Paper Wing Window"
+    },
+    "descriptions": {
+      "zh-Hans": "离开交通展厅后做的小窗纸卡，只画了自己的看展角度。",
+      "en": "A paper window made after the transport hall visit, recording my own viewing angle."
+    },
+    "cityId": "prague"
+  },
+  {
+    "id": "prague.rope-loop-fold",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "跳绳圈圈折纸",
+      "en": "Skipping-Loop Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "在布拉格自制的折纸，两只纸脚旁边绕着一条纸绳。",
+      "en": "My homemade Prague fold puts a paper rope beside two stationary paper feet."
+    },
+    "cityId": "prague"
+  },
+  {
+    "id": "prague.overlap-bridges",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "重叠桥影拉页",
+      "en": "Overlapping Bridge Pullout"
+    },
+    "descriptions": {
+      "zh-Hans": "我做的双层拉页，把看桥时前后遮挡的样子留在纸上，不是实测图。",
+      "en": "My two-layer pullout keeps the overlapping view of the bridges on paper; it is not a measured map."
+    },
+    "cityId": "prague"
+  }
+]

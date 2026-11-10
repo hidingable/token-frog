@@ -6,9 +6,23 @@ let firstBatchCityIds = ["shanghai", "hangzhou", "suzhou", "quanzhou", "jingdezh
 let secondBatchCityIds = ["beijing", "chengdu", "xian", "tokyo", "osaka", "fukuoka", "seoul", "busan", "taipei", "hongkong", "bangkok", "hanoi"]
 let thirdBatchCityIds = ["singapore", "istanbul", "rome", "paris", "lisbon", "barcelona", "london", "newyork", "mexicocity", "cairo", "marrakesh", "chiangmai"]
 let m2BatchCityIds = ["sydney", "melbourne", "auckland", "buenosaires", "rio", "lima", "sanfrancisco", "toronto", "vancouver", "berlin"]
-let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCityIds + m2BatchCityIds
+let m2SecondBatchCityIds = ["capetown", "nairobi", "accra", "santiago", "athens", "prague", "amsterdam", "kualalumpur", "mumbai", "chicago"]
+let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCityIds + m2BatchCityIds + m2SecondBatchCityIds
 
 @Suite struct CityBatchContentTests {
+    @Test(arguments: m2SecondBatchCityIds)
+    func secondM2BatchArrivalAndRevisitLengths(cityId: String) throws {
+        let stories = testCatalog.stories.all.filter { $0.cityId == cityId && ["arrival", "revisit"].contains($0.kind) }
+        for story in stories {
+            let chinese = try #require(story.text["zh-Hans"])
+            let han = chinese.replacingOccurrences(of: #"[^\p{Han}]"#, with: "", options: .regularExpression)
+            let minimum = story.kind == "revisit" ? 110 : 100
+            let maximum = story.kind == "revisit" ? 140 : 135
+            #expect(han.count >= minimum, "\(story.id) needs at least \(minimum) Chinese characters")
+            #expect(chinese.count <= maximum, "\(story.id) exceeds \(maximum) characters including punctuation")
+        }
+    }
+
     @Test func fullCitiesHaveSourcedFactsStoriesMenusAndLocalSouvenirs() throws {
         #expect(ContentValidator.validate(directory: contentDirectory).isEmpty)
         #expect(Set(testCatalog.all.filter { $0.level == "full" }.map(\.id)) == Set(fullContentCityIds))
@@ -27,7 +41,7 @@ let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCity
             let stories = testCatalog.stories.all.filter { $0.cityId == id }
             let arrivals = stories.filter { $0.kind == "arrival" }
             #expect(arrivals.count >= 4)
-            if m2BatchCityIds.contains(id) {
+            if (m2BatchCityIds + m2SecondBatchCityIds).contains(id) {
                 #expect(arrivals.count >= 6)
                 #expect(arrivals.allSatisfy { !$0.factIds.isEmpty && $0.lead != nil
                     && Set($0.replies.map(\.habit)) == ["talkative", "observant"] })

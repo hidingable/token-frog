@@ -1,0 +1,416 @@
+[
+  {
+    "id": "accra.arrival.sideways-meeting",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "accra-nubuke"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我们都让路，反倒一起堵住了门。",
+      "en": "We both made room and blocked the way together."
+    },
+    "text": {
+      "zh-Hans": "走到阿克拉东莱贡的努布克艺术空间，一位背宽布包的旅人正迎面过来。我向左让，他也向同一边让，换到右边又碰上了。我们停下来笑，我把脚并拢，请他先过。布包终于从身旁走远，他回头说待会儿出来再见。我答应这次站好，手指悄悄捏住了自己的裤缝。",
+      "en": "At Nubuke in East Legon, a visitor with a wide cloth bag came towards me. I stepped aside; they chose the same side. We tried the other way and met again. We stopped, laughed, and I planted both feet so they could pass. They suggested meeting again on the way out. I promised to stay put, quietly gripping the seam of my trousers."
+    },
+    "replies": [
+      {
+        "id": "accra.arrival.sideways-meeting.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "碰面时先站稳让对方走",
+          "en": "Stay still and let the other person pass"
+        }
+      },
+      {
+        "id": "accra.arrival.sideways-meeting.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看宽布包需要多少空间",
+          "en": "Notice how much room the wide bag needs"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "accra.two-side-flaps"
+      ],
+      "menuIds": []
+    },
+    "cityId": "accra"
+  },
+  {
+    "id": "accra.arrival.book-bag-bottom",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "accra-balme"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我捡起的书，比我想的重一点。",
+      "en": "The book was heavier than I expected."
+    },
+    "text": {
+      "zh-Hans": "巴尔梅图书馆外，一位学生抱着几本书腾手开包，最下面一本滑到了地上。我赶紧帮他捡起，站直时才发现自己把书抱得太高，只露出一双眼睛。他笑着接过去，把书分装进两个袋子。我替他撑开一个袋口，等厚厚的书放稳，里面恰好还留着给水瓶的空隙。",
+      "en": "Outside Balme Library, a student reached for a bag and let the bottom book in their stack slip to the ground. I picked it up and rose with it held so high that only my eyes showed above the cover. They accepted it with a smile and divided the books between two bags. I held one bag open. Once the thick volume was settled, there was just room beside it for a water bottle."
+    },
+    "replies": [
+      {
+        "id": "accra.arrival.book-bag-bottom.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问哪只袋子需要我扶着",
+          "en": "Ask which bag needs holding open"
+        }
+      },
+      {
+        "id": "accra.arrival.book-bag-bottom.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看书有没有放到袋底",
+          "en": "Check that the book reaches the bottom"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "accra.bag-bottom-tab"
+      ],
+      "menuIds": []
+    },
+    "cityId": "accra"
+  },
+  {
+    "id": "accra.arrival.plantain-fork",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "accra-kelewele"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "叉子举起来，另一块也跟着来了。",
+      "en": "My fork brought an extra piece along."
+    },
+    "text": {
+      "zh-Hans": "我在阿克拉吃香料炸大蕉块，叉起一块时，旁边那块也粘着跟上来。我把叉子停在碗上，等它自己松开，结果两块都待得很牢。卖小吃的人递来另一把干净叉子，我轻轻分开，才得到合适的一口。碗边的几颗花生滚到一起，像在给这场小小的拆分留位置。",
+      "en": "Eating kelewele in Accra, I lifted one piece of fried plantain and found another attached beneath it. I held the fork over my bowl, waiting for the second piece to let go. Both stayed firmly together. The vendor offered a clean extra fork. With a gentle nudge I separated them into manageable bites, while a few peanuts rolled together at the edge of my bowl."
+    },
+    "replies": [
+      {
+        "id": "accra.arrival.plantain-fork.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢多递来的那把叉子",
+          "en": "Thank the vendor for the extra fork"
+        }
+      },
+      {
+        "id": "accra.arrival.plantain-fork.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两块大蕉在哪里贴住",
+          "en": "Find where the two pieces joined"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "accra.menu-kelewele"
+      ]
+    },
+    "cityId": "accra"
+  },
+  {
+    "id": "accra.arrival.bean-on-cuff",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "accra-waakye"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "豆子没掉在地上，躲进了袖口。",
+      "en": "The bean missed the floor and found my cuff."
+    },
+    "text": {
+      "zh-Hans": "吃瓦切豆饭时，一粒豆子从勺边滚走，我低头找了半天，桌上地上都没有。抬手喝水，袖口忽然鼓起一个小点。我小心把手臂放平，豆子便滚回空碟，发出一声轻响。邻座忍着笑，把碟子往我这边推近。我把袖口卷高，剩下的豆饭终于都从勺子走进了嘴里。",
+      "en": "A bean escaped from my spoonful of waakye, but I could find it neither on the table nor on the floor. When I lifted my water, a small bump appeared inside my cuff. I levelled my arm carefully, and the bean rolled into an empty dish. My neighbour pushed the dish closer with a suppressed smile. I rolled up the cuff before returning to the rice and beans."
+    },
+    "replies": [
+      {
+        "id": "accra.arrival.bean-on-cuff.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉邻座豆子藏去了哪里",
+          "en": "Tell my neighbour where the bean hid"
+        }
+      },
+      {
+        "id": "accra.arrival.bean-on-cuff.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "检查卷好的袖口",
+          "en": "Check my rolled-up cuff"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "accra.menu-waakye"
+      ]
+    },
+    "cityId": "accra"
+  },
+  {
+    "id": "accra.arrival.pause-before-bite",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "accra-kelewele",
+      "accra-waakye"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我问完了话，才记起还没吃。",
+      "en": "I finished my question and remembered my waiting lunch."
+    },
+    "text": {
+      "zh-Hans": "瓦切豆饭和炸大蕉块都摆好了，我却和邻座聊起自己的邮包。他问里面有没有午饭，我连忙摇头，想解释自己已经点了两样，手里的勺子便一直举着。对方轻轻指了指勺里，我才看见那一口饭还没入口。我请他等我咽下再说，放下的勺子在碗边碰出很轻的一声。",
+      "en": "My waakye and kelewele were ready, but I was telling my neighbour about my mailbag. They asked whether it carried lunch. I shook my head and began explaining the two dishes I had ordered, keeping my spoon raised throughout. A small gesture towards it reminded me of the uneaten mouthful. I asked for a moment to swallow. The spoon made a quiet tap as I set it beside the bowl."
+    },
+    "replies": [
+      {
+        "id": "accra.arrival.pause-before-bite.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "咽下这一口再继续聊",
+          "en": "Finish the mouthful before continuing"
+        }
+      },
+      {
+        "id": "accra.arrival.pause-before-bite.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看一直举着的勺子",
+          "en": "Notice the spoon I kept raised"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "accra.menu-kelewele",
+        "accra.menu-waakye"
+      ]
+    },
+    "cityId": "accra"
+  },
+  {
+    "id": "accra.arrival.lid-under-bowl",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "accra-kelewele",
+      "accra-waakye"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "碗底翘着，原来底下藏了盖子。",
+      "en": "The bowl was tilted by its own lid."
+    },
+    "text": {
+      "zh-Hans": "我把外带的瓦切豆饭放上桌，又把炸大蕉块摆到旁边，发现饭碗总向自己歪。我用手扶住，换个方向还是歪，只好端起来看。原来刚才掀开的盖子压在碗底，翘出一个角。把盖子拿开以后，两碗终于站平。我把空盖扣在一旁，凹面里正好接住一颗滑落的花生。",
+      "en": "I set down my takeaway waakye with kelewele beside it, but the rice bowl kept tilting towards me. Turning it did not help. When I finally lifted it, I found its removed lid caught underneath. With that out of the way, both bowls stood level. I placed the empty lid beside them. Its hollow caught a peanut that had slipped from the other bowl."
+    },
+    "replies": [
+      {
+        "id": "accra.arrival.lid-under-bowl.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说碗底藏着的小盖子",
+          "en": "Tell how the lid hid under the bowl"
+        }
+      },
+      {
+        "id": "accra.arrival.lid-under-bowl.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两只碗是否放平",
+          "en": "Check that both bowls sit level"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "accra.level-bowl-disc"
+      ],
+      "menuIds": [
+        "accra.menu-kelewele",
+        "accra.menu-waakye"
+      ]
+    },
+    "cityId": "accra"
+  },
+  {
+    "id": "accra.fulfill.feet-together",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "accra-nubuke"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "accra.arrival.sideways-meeting.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把双脚牢牢并好了。",
+      "en": "You wrote, “{reply}.” I kept my feet together."
+    },
+    "text": {
+      "zh-Hans": "从努布克艺术空间出来，那位背宽布包的旅人果然还在。我照约定站好，请他先走，这回两个人没有再一起左右挪动。可我为让路把邮包抱到肚子前，宽布包经过时，两个包的圆扣还是轻轻碰了一下。我们同时低头检查，布包没事，邮包上多挂了一根细细的蓝线。",
+      "en": "Leaving Nubuke, I found the visitor with the wide bag waiting as arranged. I kept my feet together and let them pass, without our previous sideways dance. I had hugged my own bag against my middle, though, and the two round buckles touched. We both looked down to check. Their bag was fine; a fine blue thread had caught on mine."
+    },
+    "replies": [
+      {
+        "id": "accra.fulfill.feet-together.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说明这次只是包扣碰了面",
+          "en": "Explain that only our buckles met this time"
+        }
+      },
+      {
+        "id": "accra.fulfill.feet-together.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把包扣上的细线取下来",
+          "en": "Remove the thread from my buckle"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "accra.still-feet-card"
+      ],
+      "menuIds": []
+    },
+    "cityId": "accra"
+  },
+  {
+    "id": "accra.revisit.closed-umbrella",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "accra-balme"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "伞收好了，我却还握着伞套。",
+      "en": "The umbrella was packed, but I still held its sleeve."
+    },
+    "text": {
+      "zh-Hans": "回阿克拉的路上，我又绕到巴尔梅图书馆外，想在这里歇歇脚。一位学生正把收好的伞塞进袋里，伞套却从手边滑落。我递过去时，他已经把拉链拉到底，只好再开一次。谁知我还牢牢捏着套子的另一端，袋子被扯出一条皱纹。我们一起松手，细长的伞套终于整个落进了袋子。",
+      "en": "On returning to Accra, I stopped outside Balme Library for a rest. A student was packing a closed umbrella, but its sleeve slipped from their hand. I passed it over just after they zipped the bag shut, so they opened it again. I was still holding the far end when they tried to put it away, pulling a crease in the bag. We both relaxed our hands, and the long sleeve finally slid right inside."
+    },
+    "replies": [
+      {
+        "id": "accra.revisit.closed-umbrella.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说我一直没松开的手",
+          "en": "Explain that I forgot to let go"
+        }
+      },
+      {
+        "id": "accra.revisit.closed-umbrella.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看伞套是否完全收好",
+          "en": "Check that the sleeve is fully packed"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "accra"
+  }
+]

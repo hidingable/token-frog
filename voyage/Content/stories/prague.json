@@ -1,0 +1,418 @@
+[
+  {
+    "id": "prague.arrival.bridge-count",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "prague-letna"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我数到第三座桥，又把手里的扣子算进去了。",
+      "en": "My bridge count somehow included a buckle."
+    },
+    "text": {
+      "zh-Hans": "在莱特纳公园看伏尔塔瓦河上的桥，我用手指帮忙计数。刚数到一半，邮包的扣子碰了手背，我低头扣好，抬头便忘了数到哪里。同行旅人问我看见几座，我竟把那枚圆扣也算进去，多报了一个。他笑着请我重新指给他看，我答应先放好邮包，空出手再数。",
+      "en": "Looking over the Vltava bridges from Letná, I counted on my fingers. Partway through, my mailbag buckle tapped my hand. I stopped to fasten it and lost my place. When a fellow visitor asked how many bridges I could see, I somehow included the buckle and added one. They laughed and asked me to point them out again. I promised to put the bag down before the next count."
+    },
+    "replies": [
+      {
+        "id": "prague.arrival.bridge-count.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "放好邮包再一起数桥",
+          "en": "Set the bag down and count the bridges together"
+        }
+      },
+      {
+        "id": "prague.arrival.bridge-count.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪些桥被前面的遮住",
+          "en": "Notice which bridges overlap in the view"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "prague.counting-fingers"
+      ],
+      "menuIds": []
+    },
+    "cityId": "prague"
+  },
+  {
+    "id": "prague.arrival.upward-footsteps",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "prague-transport-hall"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "飞机在上面，我的脚却停在了下面。",
+      "en": "The plane was above me; my feet had stayed behind."
+    },
+    "text": {
+      "zh-Hans": "交通展厅的飞机悬在上方，我抬头跟着机翼看，脚却忘了往前走。旁边的孩子已经走出去几步，又回头等我。我赶紧跟上，邮包在腰间晃了一下，他伸手做了个平稳飞行的姿势。我学着把双手放平，走到空处才停，包底在两只手掌之间，像一架太重的小飞机。",
+      "en": "Aircraft hung above the transport hall, and I followed a wing with my eyes while forgetting to move my feet. A child beside me walked ahead, then turned to wait. As I caught up, my mailbag swayed. They held out a hand like a level wing. I copied the gesture and stopped in a clear space, balancing my bag between my palms like a rather heavy little aircraft."
+    },
+    "replies": [
+      {
+        "id": "prague.arrival.upward-footsteps.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问邮包怎样才能飞平",
+          "en": "Ask how the mailbag might fly level"
+        }
+      },
+      {
+        "id": "prague.arrival.upward-footsteps.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看机翼和包底的方向",
+          "en": "Compare the wing with the bottom of my bag"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "prague.clear-wing"
+      ],
+      "menuIds": []
+    },
+    "cityId": "prague"
+  },
+  {
+    "id": "prague.arrival.sandwich-slide",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "prague-chlebicky"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "面包抬起来了，蛋片还想留在盘里。",
+      "en": "The bread rose while the egg wanted to stay behind."
+    },
+    "text": {
+      "zh-Hans": "吃开放式三明治，我只托住面包的一端，另一端便往下沉，顶上的蛋片也慢慢滑向盘边。我赶紧把面包放回去，先坐正，再小心换成两只手托底。邻座看我端得像搬小桌子，笑着把自己的盘子让开一点。第一口终于咬下去时，火腿仍好好折在蛋片旁边。",
+      "en": "I lifted my chlebíček by one end, tipping the other down and sending its egg slice slowly towards the plate. I lowered it, sat straight, and supported the bread with both hands. My neighbour moved their plate aside, smiling at the care I was taking with this miniature table. When I finally managed a bite, the folded ham was still tucked beside the egg."
+    },
+    "replies": [
+      {
+        "id": "prague.arrival.sandwich-slide.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢邻座替我腾出的空间",
+          "en": "Thank my neighbour for making room"
+        }
+      },
+      {
+        "id": "prague.arrival.sandwich-slide.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看蛋片有没有滑到边缘",
+          "en": "Check the egg slice near the edge"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "prague.menu-chlebicky"
+      ]
+    },
+    "cityId": "prague"
+  },
+  {
+    "id": "prague.arrival.dumpling-dip",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "prague-svickova"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "团子蘸得太认真，叉子差点被酱盖住。",
+      "en": "My dumpling dipped deeply enough to hide the fork."
+    },
+    "text": {
+      "zh-Hans": "牛肉配奶油蔬菜酱端来，我先用一块面包团子蘸酱，压得太深，叉齿也一起埋了进去。抬起来时，那一口忽然变得沉甸甸，我赶紧挪回盘上。服务员瞧见，替我放下一把勺子。我把团子分小一点，舀些酱淋上，叉子露出来的尖端终于不再挂着长长的一滴。",
+      "en": "With my beef and creamy vegetable sauce, I pressed a piece of bread dumpling so deeply into the sauce that my fork disappeared too. The lifted mouthful felt unexpectedly heavy, so I lowered it over the plate. A server set down a spoon. I divided the dumpling into smaller pieces and spooned sauce over them. The fork emerged without its long, dangling drop."
+    },
+    "replies": [
+      {
+        "id": "prague.arrival.dumpling-dip.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢替我送来勺子的服务员",
+          "en": "Thank the server for the spoon"
+        }
+      },
+      {
+        "id": "prague.arrival.dumpling-dip.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看团子吸住了多少酱",
+          "en": "Notice the sauce held by the dumpling"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "prague.menu-svickova"
+      ]
+    },
+    "cityId": "prague"
+  },
+  {
+    "id": "prague.arrival.skipping-count",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "prague-chlebicky",
+      "prague-svickova",
+      "prague-letna"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我数着数着，数到了自己的鞋。",
+      "en": "My counting got as far as my own shoes."
+    },
+    "text": {
+      "zh-Hans": "尝过开放式三明治和奶油酱牛肉，我到莱特纳树下歇脚，替一个跳绳的孩子数数。数到后面，我的脚也跟着抬起来，孩子停了，我还在原地小步跳。他指着我的鞋笑，我才把脚放平，主动请他再来一次。这回我握紧包带，只动嘴巴，绳子在地上画出一个个短短的圈。",
+      "en": "After chlebíčky and beef in creamy sauce, I rested under the Letná trees and counted for a child skipping rope. My feet began joining in. The child stopped, but I kept bouncing until they pointed at my shoes and laughed. I planted them and offered another count. This time I held my strap and moved only my mouth, watching the rope touch the ground in short loops."
+    },
+    "replies": [
+      {
+        "id": "prague.arrival.skipping-count.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请孩子再跳一小段给我数",
+          "en": "Offer to count another short round"
+        }
+      },
+      {
+        "id": "prague.arrival.skipping-count.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看我的脚是否还在跟着跳",
+          "en": "Check whether my feet are still joining in"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "prague.rope-loop-fold"
+      ],
+      "menuIds": [
+        "prague.menu-chlebicky",
+        "prague.menu-svickova"
+      ]
+    },
+    "cityId": "prague"
+  },
+  {
+    "id": "prague.arrival.missing-glasses",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "prague-chlebicky",
+      "prague-svickova",
+      "prague-transport-hall"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "眼镜没在盒里，正在我头顶上歇脚。",
+      "en": "My glasses had left their case for the top of my head."
+    },
+    "text": {
+      "zh-Hans": "眼镜盒一打开，里面竟空空的。我刚吃过三明治和奶油酱牛肉，来到交通展厅看飞机，想读说明才发现眼镜没了。我翻过口袋，又摸邮包，越找越着急。一个小朋友指指我的头顶，我伸手一碰，两条镜腿正稳稳架在帽子上。把眼镜戴好，空盒扣起来，那片机翼终于看清了。",
+      "en": "My glasses case was empty. After lunching on chlebíčky and beef in cream sauce, I had come to the transport hall and wanted to read a label by an aircraft. I searched my pockets and bag until a child pointed at my head. The frames were resting on my hat. I put them on and closed the empty case. The wing above me became considerably clearer."
+    },
+    "replies": [
+      {
+        "id": "prague.arrival.missing-glasses.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢指出眼镜的孩子",
+          "en": "Thank the child who found my glasses"
+        }
+      },
+      {
+        "id": "prague.arrival.missing-glasses.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看镜腿是不是架稳了",
+          "en": "Check that the frames are properly seated"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "prague.menu-chlebicky",
+        "prague.menu-svickova"
+      ]
+    },
+    "cityId": "prague"
+  },
+  {
+    "id": "prague.fulfill.bridges-with-free-hands",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "prague-letna"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "prague.arrival.bridge-count.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，邮包这回留在脚边。",
+      "en": "You wrote, “{reply}.” The bag stayed by my feet."
+    },
+    "text": {
+      "zh-Hans": "我在莱特纳重新和那位旅人看桥，先把邮包放在脚边，照你的话腾出双手。我们沿着河面一座座指过去，有一座被前面挡住一点，我便踮脚看，差点又忘了刚才的数。他伸出手指留住位置，等我站稳再继续。数完低头，邮包的圆扣朝上，幸好这回没有算进去。",
+      "en": "Back beside my fellow visitor in Letná, I put my mailbag by my feet as suggested. We pointed along the river from bridge to bridge. One was partly hidden, so I rose on my toes and nearly lost the count again. They held up a finger to keep our place until I was settled. Looking down afterwards, I saw the round buckle facing upward. This time it had stayed out of the total."
+    },
+    "replies": [
+      {
+        "id": "prague.fulfill.bridges-with-free-hands.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢替我记住位置的手指",
+          "en": "Thank my companion for keeping our place"
+        }
+      },
+      {
+        "id": "prague.fulfill.bridges-with-free-hands.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两座桥重叠的部分",
+          "en": "Look at the overlapping bridges"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "prague.overlap-bridges"
+      ],
+      "menuIds": []
+    },
+    "cityId": "prague"
+  },
+  {
+    "id": "prague.revisit.button-at-rest",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "prague-letna"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "坐下前，长椅先碰响了我的扣子。",
+      "en": "The bench rang my buckle before I sat down."
+    },
+    "text": {
+      "zh-Hans": "莱特纳的河景还认得，我回布拉格时便又来这里慢慢走。想坐下歇脚，邮包的金属扣先碰到椅边，响了一声，旁边睡着的小狗抬起了头。我停住动作，主人轻轻拍拍自己的膝盖，小狗又趴了回去。我慢慢把邮包抱到胸前，重新坐下，这次没有动静，圆扣安静地贴在我的整个掌心里。",
+      "en": "The river view from Letná was familiar on my return to Prague. As I sat down to rest, my metal buckle struck the bench with a clink. A sleeping dog beside its owner raised its head. I paused. The owner tapped a knee gently, and the dog settled again. I brought the bag against my chest before sitting properly. This time there was no sound, and the round buckle rested in my palm."
+    },
+    "replies": [
+      {
+        "id": "prague.revisit.button-at-rest.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "轻声向狗主人道个歉",
+          "en": "Apologise quietly to the dog’s owner"
+        }
+      },
+      {
+        "id": "prague.revisit.button-at-rest.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把圆扣握稳再坐下",
+          "en": "Hold the buckle still before sitting"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "prague"
+  }
+]

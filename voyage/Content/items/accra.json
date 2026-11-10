@@ -1,0 +1,98 @@
+[
+  {
+    "id": "accra.menu-kelewele",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "炸大蕉块小菜单",
+      "en": "Kelewele Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在阿克拉做的纸菜单，两块靠在一起的大蕉旁边留着花生的位置。",
+      "en": "My Accra paper menu leaves room for peanuts beside two joined pieces of plantain."
+    },
+    "cityId": "accra"
+  },
+  {
+    "id": "accra.menu-waakye",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "瓦切豆饭小菜单",
+      "en": "Waakye Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "吃过豆饭后做的菜单，袖口里的那一粒豆子也有了自己的小格子。",
+      "en": "A menu after rice and beans, including a tiny space for the bean that visited my cuff."
+    },
+    "cityId": "accra"
+  },
+  {
+    "id": "accra.two-side-flaps",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "左右门翼折纸",
+      "en": "Side-to-Side Paper Flaps"
+    },
+    "descriptions": {
+      "zh-Hans": "我记下努布克门前让路小事的自制纸折页，两扇纸翼可以错开。",
+      "en": "My homemade flaps remember making way at Nubuke; the paper wings can finally pass each other."
+    },
+    "cityId": "accra"
+  },
+  {
+    "id": "accra.bag-bottom-tab",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "袋底小纸角",
+      "en": "Paper Bag-Bottom Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "在图书馆外帮忙托书后折的纸角，折口留得比那本书薄。",
+      "en": "A corner I folded after helping with a book outside the library, much thinner than the volume itself."
+    },
+    "cityId": "accra"
+  },
+  {
+    "id": "accra.level-bowl-disc",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "平碗圆纸卡",
+      "en": "Level-Bowl Paper Disc"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在阿克拉剪的双层圆卡，掀开一层能看见藏在碗底的盖子。",
+      "en": "My two-layer paper disc from Accra reveals the lid that hid beneath my bowl."
+    },
+    "cityId": "accra"
+  },
+  {
+    "id": "accra.still-feet-card",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "站稳小信使立卡",
+      "en": "Steady-Footed Messenger Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我自己折的纸立卡，两只脚并在一起，包扣上没有多余的线。",
+      "en": "My folded standing messenger has feet together and a buckle free of loose thread."
+    },
+    "cityId": "accra"
+  }
+]

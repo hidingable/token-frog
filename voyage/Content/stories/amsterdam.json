@@ -1,0 +1,418 @@
+[
+  {
+    "id": "amsterdam.arrival.one-dark-lens",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "amsterdam-nemo-roof"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "望远镜里，一边是城市，一边还是黑的。",
+      "en": "The binoculars showed a city on one side and darkness on the other."
+    },
+    "text": {
+      "zh-Hans": "在 NEMO 屋顶看阿姆斯特丹，一位旅人借我望远镜。我凑过去，一只眼睛看见城市，另一只却黑漆漆的，便把头歪了又歪。他指指还没取下的镜盖，我才看清挡住镜头的那片黑色圆盖。还回去时，我答应下次先检查两边，把小圆盖交还给他，盖面还留着自己的一枚指印。",
+      "en": "At NEMO’s rooftop viewpoint, a visitor lent me binoculars. One eye saw Amsterdam; the other saw darkness. I tilted my head repeatedly until they pointed to the black circular cap I had left over the lens. When returning the binoculars, I promised to check both sides next time. I handed over the little round cap too, with one of my fingerprints still showing on its surface."
+    },
+    "replies": [
+      {
+        "id": "amsterdam.arrival.one-dark-lens.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "下次先检查两边的镜盖",
+          "en": "Check both lens caps before the next look"
+        }
+      },
+      {
+        "id": "amsterdam.arrival.one-dark-lens.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看没取下的镜盖在哪边",
+          "en": "Find the covered lens"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "amsterdam.one-dark-circle"
+      ],
+      "menuIds": []
+    },
+    "cityId": "amsterdam"
+  },
+  {
+    "id": "amsterdam.arrival.light-square-step",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "amsterdam-rijks-atrium"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我绕开地上的亮格子，它却跟了上来。",
+      "en": "I stepped around a patch of light, which promptly moved."
+    },
+    "text": {
+      "zh-Hans": "国立博物馆中庭的玻璃顶把日光落在浅色地面上。我看见鞋尖前一块亮格子，便下意识绕过去，旁边的孩子也挪了挪。天上云一动，亮格子滑到另一只鞋边，我们都低头重新找位置。他抬头看看屋顶，我便站住不再躲，鞋面上最后留下一条窄窄的亮边。",
+      "en": "Daylight from the Rijksmuseum Atrium's glass roof lay across the pale floor. I stepped around a bright patch by my toes, and a child nearby moved too. A passing cloud shifted the light towards my other shoe. We both looked down for a new place to stand. The child glanced at the roof. I stopped avoiding the light, leaving a narrow bright edge across my shoe."
+    },
+    "replies": [
+      {
+        "id": "amsterdam.arrival.light-square-step.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉孩子我刚才绕着什么走",
+          "en": "Tell the child what I was stepping around"
+        }
+      },
+      {
+        "id": "amsterdam.arrival.light-square-step.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看屋顶和地面上的光",
+          "en": "Compare the light above and below"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "amsterdam.light-edge"
+      ],
+      "menuIds": []
+    },
+    "cityId": "amsterdam"
+  },
+  {
+    "id": "amsterdam.arrival.waffle-box",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "amsterdam-stroopwafel"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小盒子合不上，华夫饼还露着一小截。",
+      "en": "The waffle kept the little box from closing."
+    },
+    "text": {
+      "zh-Hans": "我买了糖浆华夫饼，想留一半慢慢吃，便把它放进随身的小餐盒。盒盖合到一半就停住了，我转个方向，圆饼还是探出一点。卖饼的人看见，笑着提醒我可以先吃掉露出来的那一口。我照做，再把盖子轻轻扣上，这次四周都齐了，指尖却粘着一条细细的糖浆。",
+      "en": "I wanted to save half my stroopwafel, but the small box I carried would not close around it. Turning the waffle left a different edge sticking out. The seller smiled and suggested eating the part that refused to fit. I did, then lowered the lid gently. All the edges finally met, although a thin streak of syrup had stayed behind on my fingertip."
+    },
+    "replies": [
+      {
+        "id": "amsterdam.arrival.waffle-box.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢帮我合上盒盖",
+          "en": "Thank the seller for helping with the lid"
+        }
+      },
+      {
+        "id": "amsterdam.arrival.waffle-box.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看盒盖四周有没有合齐",
+          "en": "Check the edges of the closed lid"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "amsterdam.menu-stroopwafel"
+      ]
+    },
+    "cityId": "amsterdam"
+  },
+  {
+    "id": "amsterdam.arrival.butter-button",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "amsterdam-poffertjes"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一小块黄油，跟着盘子搬了家。",
+      "en": "A little pat of butter moved with the plate."
+    },
+    "text": {
+      "zh-Hans": "迷你松饼端上来，我想把盘子挪到正中，却让那小块黄油滑到了边上。我赶紧用叉子拦住，它又转到另一边，在糖粉里拖出一道浅痕。邻座替我按住盘沿，我才腾出手把松饼移过来接好。黄油慢慢软下去，盘边的白糖粉里，留下一个没有被碰过的小小尖角。",
+      "en": "I moved my plate of poffertjes towards the middle of the table and sent the butter sliding to its edge. Trying to stop it with a fork only steered it through the powdered sugar. My neighbour steadied the plate while I moved a pancake into its path. As the butter softened, a small untouched point of white sugar remained beside the trail."
+    },
+    "replies": [
+      {
+        "id": "amsterdam.arrival.butter-button.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢帮忙按住盘子",
+          "en": "Thank my neighbour for steadying the plate"
+        }
+      },
+      {
+        "id": "amsterdam.arrival.butter-button.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看糖粉里那一道浅痕",
+          "en": "Look at the trail through the sugar"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "amsterdam.menu-poffertjes"
+      ]
+    },
+    "cityId": "amsterdam"
+  },
+  {
+    "id": "amsterdam.arrival.cloud-sized-hat",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "amsterdam-stroopwafel",
+      "amsterdam-poffertjes",
+      "amsterdam-nemo-roof"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "对方指着天，我却先摸了摸帽子。",
+      "en": "They pointed at the sky while I checked my hat."
+    },
+    "text": {
+      "zh-Hans": "旅人指着一片云，说它像我的帽子。我忙伸手摸了摸，以为帽檐已经歪了。糖浆华夫饼和迷你松饼吃过后，我到 NEMO 屋顶歇脚，刚认识了这位爱看云的同伴。他笑着也按低自己的帽檐，我们再一起抬头。云早变了形，我的帽檐倒真的被按低，快要遮住眼睛了。",
+      "en": "My companion pointed to a cloud and said it resembled my hat. I felt for the brim, thinking it had gone crooked. We had met on NEMO's roof, where I was resting after a stroopwafel and poffertjes. They laughed and lowered their own brim. By the time we looked up, the cloud had changed shape. My hat was now almost covering my eyes."
+    },
+    "replies": [
+      {
+        "id": "amsterdam.arrival.cloud-sized-hat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把帽檐抬高再聊那片云",
+          "en": "Raise the brim before discussing the cloud"
+        }
+      },
+      {
+        "id": "amsterdam.arrival.cloud-sized-hat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看云的边缘怎样散开",
+          "en": "Watch the cloud’s edges change"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "amsterdam.menu-stroopwafel",
+        "amsterdam.menu-poffertjes"
+      ]
+    },
+    "cityId": "amsterdam"
+  },
+  {
+    "id": "amsterdam.arrival.two-shadows",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "amsterdam-stroopwafel",
+      "amsterdam-poffertjes",
+      "amsterdam-rijks-atrium"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我停下来了，地上的影子还往前挪。",
+      "en": "I stopped, but a shadow on the floor kept going."
+    },
+    "text": {
+      "zh-Hans": "吃过华夫饼和迷你松饼，再走进国立博物馆中庭，我发现脚边有两个重叠的影子。我往旁边挪一步，另一个影子还在走，才看见身后的旅人也正朝同一边让路。我们各自站好，相互点点头，把中间那块亮地让出来。玻璃顶下，两个影子终于分开，鞋尖之间空了一小段。",
+      "en": "After waffles and poffertjes, I entered the Rijksmuseum Atrium and noticed two overlapping shadows by my feet. I moved aside, but the other shadow kept moving. A visitor behind me was making room in the same direction. We settled into separate places, nodded, and left the bright patch clear. Beneath the glass roof, our shadows finally separated, with a small gap between our toes."
+    },
+    "replies": [
+      {
+        "id": "amsterdam.arrival.two-shadows.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和身后让路的旅人打招呼",
+          "en": "Greet the visitor who was making room"
+        }
+      },
+      {
+        "id": "amsterdam.arrival.two-shadows.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两个影子在哪里分开",
+          "en": "Find where the two shadows separate"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "amsterdam.separate-shadows"
+      ],
+      "menuIds": [
+        "amsterdam.menu-stroopwafel",
+        "amsterdam.menu-poffertjes"
+      ]
+    },
+    "cityId": "amsterdam"
+  },
+  {
+    "id": "amsterdam.fulfill.two-open-lenses",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "amsterdam-nemo-roof"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "amsterdam.arrival.one-dark-lens.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，两只镜盖都到我手里了。",
+      "en": "You wrote, “{reply}.” Both caps were in my hand."
+    },
+    "text": {
+      "zh-Hans": "再借那位旅人的望远镜时，我先在 NEMO 屋顶把两边的镜盖都取下，认真放进自己的掌心。这回两只眼睛都看清了城市，可我举镜子的手一直握着盖子，几根手指绷得很僵。他递来镜盖的小袋，我才把圆盖放进去。望远镜重新端稳，镜带安静地落在我的胸前。",
+      "en": "Borrowing the visitor's binoculars again on NEMO's roof, I removed both caps and kept them carefully in my palm. Both eyes could see the city now, but the hand holding the caps was also trying to hold the binoculars. My fingers grew stiff. They offered the little cap pouch, and I dropped the circles inside. With a proper grip at last, the neck strap rested quietly against my chest."
+    },
+    "replies": [
+      {
+        "id": "amsterdam.fulfill.two-open-lenses.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢旅人借来的镜盖袋",
+          "en": "Thank the visitor for the cap pouch"
+        }
+      },
+      {
+        "id": "amsterdam.fulfill.two-open-lenses.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两个圆盖有没有收好",
+          "en": "Check that both caps are packed"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "amsterdam.twin-lens-card"
+      ],
+      "menuIds": []
+    },
+    "cityId": "amsterdam"
+  },
+  {
+    "id": "amsterdam.revisit.sugar-free-pocket",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "amsterdam-poffertjes"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "口袋翻开时，白糖粉先露了面。",
+      "en": "The pocket opened to reveal a dusting of sugar."
+    },
+    "text": {
+      "zh-Hans": "回阿姆斯特丹，这次我点了一份配糖粉的迷你松饼，想找餐巾时先摸了摸自己的外套口袋。里面竟有一点白粉，我正纳闷，邻座指向我另一只手。刚才用手指扶盘沿，糖粉早沾到袖口，又跟着手进了口袋。我把外套脱下轻轻拍净，桌边放好餐巾，口袋里只剩下一枚干干净净的纽扣。",
+      "en": "Back in Amsterdam, I chose a serving of poffertjes with powdered sugar for this visit. Reaching into my coat for a napkin revealed a little white dust. I was puzzled until my neighbour pointed at my other hand. Sugar from steadying the plate had reached my cuff, then followed my hand into the pocket. I took off the coat and brushed it clean. With a napkin ready beside me, the pocket held only a clean spare button."
+    },
+    "replies": [
+      {
+        "id": "amsterdam.revisit.sugar-free-pocket.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说糖粉怎样跟进了口袋",
+          "en": "Explain how the sugar entered my pocket"
+        }
+      },
+      {
+        "id": "amsterdam.revisit.sugar-free-pocket.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "检查袖口还留着多少白粉",
+          "en": "Check the sugar left on my cuff"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "amsterdam"
+  }
+]

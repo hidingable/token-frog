@@ -1,0 +1,416 @@
+[
+  {
+    "id": "santiago.arrival.ball-in-bag",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "santiago-forestal"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "球找到了邮包，主人还在后面追。",
+      "en": "The ball reached my mailbag before its owner did."
+    },
+    "text": {
+      "zh-Hans": "在森林公园的草地旁，一只小球蹦到我的邮包上，又弹进我张开的双手。追来的孩子刹住脚，我得意地想把球抛回去，却只抛到了自己脚边。他弯腰捡起，笑着让我试试贴地滚。我答应等他站远一点再来，先把邮包挪到路旁，空出两只不太会抛球的手。",
+      "en": "Beside a lawn in Parque Forestal, a ball bounced off my mailbag and landed in my open hands. Its young owner stopped in front of me. I proudly tried to throw it back, but dropped it by my own feet. The child picked it up and suggested rolling instead. I agreed to try once they moved farther away, setting my bag aside to free both unreliable throwing hands."
+    },
+    "replies": [
+      {
+        "id": "santiago.arrival.ball-in-bag.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "试试把球贴着地滚回去",
+          "en": "Try rolling the ball back along the ground"
+        }
+      },
+      {
+        "id": "santiago.arrival.ball-in-bag.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看球碰到邮包的地方",
+          "en": "Look where the ball struck the bag"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "santiago.ball-arc"
+      ],
+      "menuIds": []
+    },
+    "cityId": "santiago"
+  },
+  {
+    "id": "santiago.arrival.balloon-shadow",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "santiago-oasis"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "头顶的小圆影，让我白找了一会儿。",
+      "en": "A round shadow sent me looking in the wrong direction."
+    },
+    "text": {
+      "zh-Hans": "在缆车 Oasis 站附近歇脚，我发现帽子上多了一个圆影，便伸手去摸，以为落了什么东西。帽檐摸遍也没有，旁边的孩子却笑着抬高了气球。影子跟着移走，我才收回手。他把气球稍稍放低，圆影又回来了。这次我没有再拍帽子，只轻轻转头，把圆影留在了肩上。",
+      "en": "Resting near Oasis cable-car station, I noticed a round shadow on my hat and reached up for whatever had landed there. My brim was empty. A child nearby laughed and raised a balloon; the shadow moved away. When they lowered it, the circle returned. This time I kept my hands down and turned my head slightly, leaving the round shadow on my shoulder."
+    },
+    "replies": [
+      {
+        "id": "santiago.arrival.balloon-shadow.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉孩子我刚才在找什么",
+          "en": "Tell the child what I was looking for"
+        }
+      },
+      {
+        "id": "santiago.arrival.balloon-shadow.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看圆影怎样跟着气球移动",
+          "en": "Follow the balloon’s moving shadow"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "santiago.round-shadow"
+      ],
+      "menuIds": []
+    },
+    "cityId": "santiago"
+  },
+  {
+    "id": "santiago.arrival.empanada-end",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "santiago-empanada"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我咬下去的那头，只有厚厚的面皮。",
+      "en": "My first bite found the thick end of the pastry."
+    },
+    "text": {
+      "zh-Hans": "皮诺馅烤饺拿在手里，我小心咬了一个角，却只吃到折叠起来的面皮。再咬一点，还是厚厚的边。我把它转过来，邻座看我认真寻找入口，笑着指向中间。我把饺子放回盘里切开，肉和洋葱馅终于露出来，两半之间还落着刚才那个被咬得很整齐的小角。",
+      "en": "I carefully bit a corner of my baked empanada de pino and found only folded pastry. Another small bite met more of the thick edge. I turned it around, examining possible entrances until my neighbour smiled and pointed towards the middle. I set it on the plate and cut it open. Meat and onion appeared at last, with my neatly nibbled corner resting between the halves."
+    },
+    "replies": [
+      {
+        "id": "santiago.arrival.empanada-end.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问邻座是从哪边开始吃",
+          "en": "Ask where my neighbour starts their empanada"
+        }
+      },
+      {
+        "id": "santiago.arrival.empanada-end.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看面皮折起来的边缘",
+          "en": "Look at the folded pastry edge"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "santiago.menu-empanada"
+      ]
+    },
+    "cityId": "santiago"
+  },
+  {
+    "id": "santiago.arrival.corn-lid-gap",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "santiago-choclo"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "玉米层下面，藏着我还没舀到的午饭。",
+      "en": "Part of lunch was still hiding below the corn."
+    },
+    "text": {
+      "zh-Hans": "玉米派上桌，我沿着边缘舀了一小口，勺子上全是金黄的玉米层。我以为自己已经挖得很深，又探下去一点，才碰到下面的肉馅。正要举起勺子，袖口碰歪了盘边的小碟。我放下这一口，先扶正小碟，再回来找那个缺口，肉馅正安安稳稳露在玉米层下面。",
+      "en": "My first spoonful of pastel de choclo was entirely golden corn. I thought I had dug quite deeply, but another small scoop finally reached the filling. Just as I lifted it, my cuff nudged the little side dish. I put down the spoonful, straightened the dish, and returned to the gap. The meat was still sitting neatly beneath the corn layer."
+    },
+    "replies": [
+      {
+        "id": "santiago.arrival.corn-lid-gap.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说勺子刚才漏掉了哪层",
+          "en": "Explain which layer my spoon missed"
+        }
+      },
+      {
+        "id": "santiago.arrival.corn-lid-gap.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看玉米层下面的馅料",
+          "en": "Look beneath the corn layer"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "santiago.menu-choclo"
+      ]
+    },
+    "cityId": "santiago"
+  },
+  {
+    "id": "santiago.arrival.two-dishes-one-name",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "santiago-empanada",
+      "santiago-choclo"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我介绍午饭时，把两个盘子叫反了。",
+      "en": "I introduced the dishes with their names reversed."
+    },
+    "text": {
+      "zh-Hans": "和邻座聊午饭，我指着烤饺说玉米派，又指着玉米派说烤饺。他看看两只盘子，举起眉毛，我才意识到手指走得比嘴快。我把手收回，先咬一口皮诺馅烤饺，咽下后再说名字。这次对方点了头。我刚想继续介绍另一份，勺子已经从玉米层里托起了一点肉馅。",
+      "en": "Talking about lunch, I called my empanada a corn pie and the pastel de choclo an empanada. My neighbour looked from plate to plate and raised an eyebrow. My pointing hand had outrun my mouth. I lowered it, took a bite of the empanada, swallowed, and tried the name again. They nodded. By the time I introduced the other dish, my spoon had brought some filling up through its corn top."
+    },
+    "replies": [
+      {
+        "id": "santiago.arrival.two-dishes-one-name.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把两道午饭的名字说对",
+          "en": "Give both dishes their proper names"
+        }
+      },
+      {
+        "id": "santiago.arrival.two-dishes-one-name.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "对照外皮和玉米盖的不同",
+          "en": "Compare pastry with the corn topping"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "santiago.menu-empanada",
+        "santiago.menu-choclo"
+      ]
+    },
+    "cityId": "santiago"
+  },
+  {
+    "id": "santiago.arrival.fork-under-plate",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "santiago-empanada",
+      "santiago-choclo"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "找餐具时，我先找到了一声轻响。",
+      "en": "A small clink helped me locate my fork."
+    },
+    "text": {
+      "zh-Hans": "烤饺和玉米派端齐，我却怎么也找不到叉子。桌面没有，包里也没有，我挪开空水杯，盘子下面忽然响了一声。叉柄原来被压在烤饺盘边，我把盘子抬高一点才抽出来。邻座递来的勺子还悬在半空，我笑着谢过，两件餐具一起躺好，刚好分别对着两只盘子。",
+      "en": "My empanada and pastel de choclo were ready, but the fork had vanished. It was neither on the visible tabletop nor in my bag. Moving my empty water glass produced a clink beneath the plate. The fork handle was trapped under its rim. I lifted the plate to free it just as my neighbour offered a spoon. I thanked them and laid both utensils down, one pointing towards each dish."
+    },
+    "replies": [
+      {
+        "id": "santiago.arrival.fork-under-plate.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢邻座借来的勺子",
+          "en": "Thank my neighbour for the offered spoon"
+        }
+      },
+      {
+        "id": "santiago.arrival.fork-under-plate.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看叉柄刚才被压在哪里",
+          "en": "Find where the fork handle was trapped"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "santiago.two-utensil-slots"
+      ],
+      "menuIds": [
+        "santiago.menu-empanada",
+        "santiago.menu-choclo"
+      ]
+    },
+    "cityId": "santiago"
+  },
+  {
+    "id": "santiago.fulfill.low-rolling-ball",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "santiago-forestal"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "santiago.arrival.ball-in-bag.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我这次把手放低了。",
+      "en": "You wrote, “{reply}.” I lowered my hand this time."
+    },
+    "text": {
+      "zh-Hans": "森林公园里，那孩子站到一小段空地的另一头，我照说好的，把球贴着地面滚过去。球慢慢偏向左边，他挪过去接住，又替我滚回来。我张开双脚想拦，球却从中间穿过，轻轻撞上身后放好的邮包。我们都停了一下，我转身捡球时，包上的圆扣还在晃个不停。",
+      "en": "In Parque Forestal, the child moved to the far end of a clear patch. As promised, I sent the ball rolling low. It drifted left, so they stepped over, caught it, and rolled it back. I spread my feet to stop it. The ball went straight between them and bumped my mailbag behind me. We paused together. When I turned to retrieve it, the round buckle was still wobbling."
+    },
+    "replies": [
+      {
+        "id": "santiago.fulfill.low-rolling-ball.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "请孩子再滚慢一点试试",
+          "en": "Ask for an even slower return roll"
+        }
+      },
+      {
+        "id": "santiago.fulfill.low-rolling-ball.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看圆扣还晃不晃",
+          "en": "Watch the buckle settle"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "santiago.rolling-window"
+      ],
+      "menuIds": []
+    },
+    "cityId": "santiago"
+  },
+  {
+    "id": "santiago.revisit.bubble-on-sleeve",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "santiago-forestal"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "袖子上停了一颗摇摇晃晃的泡泡。",
+      "en": "A wobbling bubble came to rest on my sleeve."
+    },
+    "text": {
+      "zh-Hans": "森林公园沿河的树影让我认出了圣地亚哥，这次回来，我在路边让一位推车的家长先过。车里的孩子吹出一串泡泡，其中一颗落在我的袖子上，我便把手臂举得平平的。他指着泡泡笑，我也跟着往下看，还没看清里面的小倒影，它已经轻轻破了。袖口留下一个圆圆的湿印，边缘比中间深一点。",
+      "en": "The riverside shade of Parque Forestal was familiar on my return to Santiago. I stepped aside for a parent pushing a stroller. The child blew some bubbles, and one settled on my sleeve. I held my arm level while they pointed and laughed. I leaned closer for its tiny reflection, but it burst before I could make it out. A round damp mark remained on the cuff, darker at the edge than in the middle."
+    },
+    "replies": [
+      {
+        "id": "santiago.revisit.bubble-on-sleeve.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给孩子看看袖子上的小圆印",
+          "en": "Show the child the circle on my sleeve"
+        }
+      },
+      {
+        "id": "santiago.revisit.bubble-on-sleeve.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看湿印的边缘怎样变浅",
+          "en": "Watch the edge of the damp mark fade"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "santiago"
+  }
+]

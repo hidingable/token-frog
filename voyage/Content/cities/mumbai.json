@@ -10,7 +10,7 @@
     "coast",
     "food"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "孟买",
     "en": "Mumbai"
@@ -19,5 +19,66 @@
     "zh-Hans": "孟买",
     "en": "Mumbai"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "mumbai-marine-drive",
+      "type": "place",
+      "names": {
+        "zh-Hans": "孟买海滨大道",
+        "en": "Marine Drive"
+      },
+      "summary": {
+        "zh-Hans": "海滨大道位于孟买南部，沿阿拉伯海岸弯曲延伸，设有供人散步和休息的海滨空间。",
+        "en": "Marine Drive curves along the Arabian Sea in South Mumbai, with a promenade where people walk and rest."
+      },
+      "sources": [
+        "https://www.incredibleindia.gov.in/en/maharashtra/mumbai/marine-drive"
+      ]
+    },
+    {
+      "id": "mumbai-science-park",
+      "type": "place",
+      "names": {
+        "zh-Hans": "尼赫鲁科学中心科学园",
+        "en": "Science Park at Nehru Science Centre"
+      },
+      "summary": {
+        "zh-Hans": "尼赫鲁科学中心的科学园设有滑轮、跷跷板等互动展品，也有展示杠杆的装置。",
+        "en": "The Science Park at Nehru Science Centre has interactive exhibits including pulleys and seesaws, as well as a giant lever exhibit."
+      },
+      "sources": [
+        "https://nehrusciencecentre.gov.in/shows/science-park/"
+      ]
+    },
+    {
+      "id": "mumbai-vada-pav",
+      "type": "food",
+      "names": {
+        "zh-Hans": "瓦达帕夫土豆夹包",
+        "en": "Vada Pav"
+      },
+      "summary": {
+        "zh-Hans": "Vada pav 在柔软的小面包里夹入炸土豆团，搭配 chutney 调味酱，是孟买的街头食物。",
+        "en": "Vada pav is a Mumbai street food with a potato fritter inside a soft bread roll, accompanied by chutneys."
+      },
+      "sources": [
+        "https://www.incredibleindia.gov.in/en/maharashtra/mumbai/a-gastronomic-odyssey"
+      ]
+    },
+    {
+      "id": "mumbai-pav-bhaji",
+      "type": "food",
+      "names": {
+        "zh-Hans": "帕夫巴吉蔬菜配面包",
+        "en": "Pav Bhaji"
+      },
+      "summary": {
+        "zh-Hans": "Pav bhaji 将加香料的蔬菜咖喱与涂黄油的烤面包搭配食用，在孟买可以见到。",
+        "en": "Pav bhaji pairs spiced vegetable curry with buttered toasted bread and is served in Mumbai."
+      },
+      "sources": [
+        "https://www.incredibleindia.gov.in/en/maharashtra/mumbai/a-gastronomic-odyssey"
+      ]
+    }
+  ]
 }

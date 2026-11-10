@@ -1,0 +1,98 @@
+[
+  {
+    "id": "nairobi.menu-ugali",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "乌伽黎小菜单",
+      "en": "Ugali Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在内罗毕吃过玉米团后做的纸菜单，盘沿留着几个缺口。",
+      "en": "My paper menu after ugali in Nairobi, showing the gaps round my serving."
+    },
+    "cityId": "nairobi"
+  },
+  {
+    "id": "nairobi.menu-choma",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "烤肉小菜单",
+      "en": "Nyama Choma Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我记下那次烤肉午饭的小菜单，夹子终于摆在盘边。",
+      "en": "A little record of my roast-meat lunch, with the tongs finally resting beside the plate."
+    },
+    "cityId": "nairobi"
+  },
+  {
+    "id": "nairobi.crossed-arrows",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "交叉方向纸角",
+      "en": "Crossed-Direction Paper Corner"
+    },
+    "descriptions": {
+      "zh-Hans": "我把卡鲁拉那次指路的两只手折成纸角，只记自己的小失误。",
+      "en": "My folded paper corner remembers two hands pointing different ways in Karura."
+    },
+    "cityId": "nairobi"
+  },
+  {
+    "id": "nairobi.paired-toes",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "并排鞋尖纸片",
+      "en": "Two Pairs of Paper Toes"
+    },
+    "descriptions": {
+      "zh-Hans": "参观鸟类展厅后剪的两双纸鞋尖，都是站平的样子。",
+      "en": "Two pairs of paper toes cut after the bird gallery visit, with both pairs flat on the ground."
+    },
+    "cityId": "nairobi"
+  },
+  {
+    "id": "nairobi.small-bowl-fold",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小碗纸折页",
+      "en": "Small-Bowl Foldout"
+    },
+    "descriptions": {
+      "zh-Hans": "在内罗毕自己做的折页，张开双手大小的圈，合上只剩一只小碗。",
+      "en": "My Nairobi foldout opens into a large hand gesture and closes around one small bowl."
+    },
+    "cityId": "nairobi"
+  },
+  {
+    "id": "nairobi.number-window",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "路口小窗折卡",
+      "en": "Junction Window Card"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制的纸卡，小窗里是个人约定的编号，不用作森林地图。",
+      "en": "My homemade card has a little window for a meeting number, rather than a usable forest map."
+    },
+    "cityId": "nairobi"
+  }
+]

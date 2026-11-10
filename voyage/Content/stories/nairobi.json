@@ -1,0 +1,416 @@
+[
+  {
+    "id": "nairobi.arrival.junction-number",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "nairobi-karura"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我把左右都说了，仍没说清站在哪里。",
+      "en": "I had named both directions without naming my spot."
+    },
+    "text": {
+      "zh-Hans": "卡鲁拉森林的岔路口有编号，我却只顾向同行旅人说左边右边。他转过身来，我的左边立刻成了他的右边。我们各伸一只手，差点替对方指向身后。最后一起退到路旁，他抬头念出路口的号码，我才停止转圈。临别时我答应，下回碰面先报号码，双手先放回包带上。",
+      "en": "Karura's trail junctions have numbers, but I gave a fellow walker directions using left and right. Once they turned to face me, my left was their right. We pointed past each other and then stepped aside. They read the junction number aloud, which finally stopped me turning. I promised to start with the number when arranging our next meeting, and put both hands back on my strap."
+    },
+    "replies": [
+      {
+        "id": "nairobi.arrival.junction-number.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "下回先报路口号码",
+          "en": "Give the junction number first next time"
+        }
+      },
+      {
+        "id": "nairobi.arrival.junction-number.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看编号标志的位置",
+          "en": "Find the numbered junction marker"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "nairobi.crossed-arrows"
+      ],
+      "menuIds": []
+    },
+    "cityId": "nairobi"
+  },
+  {
+    "id": "nairobi.arrival.quiet-beak",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "nairobi-bird-gallery"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我放轻脚步，小朋友也跟着放轻了。",
+      "en": "A child copied my very careful footsteps."
+    },
+    "text": {
+      "zh-Hans": "在内罗毕国家博物馆的鸟类展厅，我看见按类群排列的东非鸟类，走近时下意识放轻了脚步。旁边的小朋友也跟着踮起脚，走了几步才问我们在怕吵醒谁。我望着静静的展品，一时答不上来，便把脚跟轻轻落回地上。他也站平，两双鞋尖并排朝着玻璃。",
+      "en": "In Nairobi National Museum's bird gallery, I approached the grouped East African birds on unusually quiet feet. A child beside me copied my tiptoeing, then asked whom we were afraid of waking. I looked at the still displays and could not offer a useful answer. I lowered my heels gently. The child did the same, leaving two pairs of shoes pointing towards the glass."
+    },
+    "replies": [
+      {
+        "id": "nairobi.arrival.quiet-beak.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "轻声说明我刚才走得太小心",
+          "en": "Explain why I was walking so carefully"
+        }
+      },
+      {
+        "id": "nairobi.arrival.quiet-beak.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看展品怎样按类群排列",
+          "en": "Notice how the birds are grouped"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "nairobi.paired-toes"
+      ],
+      "menuIds": []
+    },
+    "cityId": "nairobi"
+  },
+  {
+    "id": "nairobi.arrival.ugali-slice",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "nairobi-ugali"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "这一块午饭，比我的叉子宽。",
+      "en": "My fork had taken on too much lunch."
+    },
+    "text": {
+      "zh-Hans": "我把乌伽黎切下一大块，用叉子托起来才发现太宽，送不到嘴边。叉尖稍一歪，整块又坐回盘子里，留下浅浅的印子。我先把手放稳，再分出一小口，这回终于成功。旁边的食客瞧见了，举起自己的小块朝我点点头，我的盘子边便多了一圈大小不同的缺口。",
+      "en": "I cut a large piece of ugali and lifted it on my fork before realising it was too wide for a comfortable bite. The fork tilted, and the piece settled back onto the plate with a shallow mark. I steadied my hand and cut something smaller. A diner nearby raised a modest piece of their own and nodded. My ugali gradually acquired a border of differently sized gaps."
+    },
+    "replies": [
+      {
+        "id": "nairobi.arrival.ugali-slice.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和邻座比较适合的一小口",
+          "en": "Compare manageable bites with my neighbour"
+        }
+      },
+      {
+        "id": "nairobi.arrival.ugali-slice.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看盘边留下的缺口",
+          "en": "Look at the gaps around the edge"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "nairobi.menu-ugali"
+      ]
+    },
+    "cityId": "nairobi"
+  },
+  {
+    "id": "nairobi.arrival.tongs-return",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "nairobi-choma"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "夹子松手时，盘子还没到位。",
+      "en": "The tongs opened before my plate was ready."
+    },
+    "text": {
+      "zh-Hans": "我在内罗毕点了尼亚玛乔马烤肉，想把一块肉从公盘夹到自己的盘里。夹子刚松开，才发现小盘还在另一只手后面。幸好肉只落回公盘，发出轻轻一声。我红着脸把盘子摆近，再试一次，旁边的人也把公盘往前推了推。这回肉稳稳落下，夹子终于可以躺好了。",
+      "en": "Over nyama choma in Nairobi, I tried moving a piece of roast meat from the shared dish. I opened the tongs before noticing that my own plate was still behind my other hand. The piece landed back where it had started. I brought my plate closer while another diner nudged the serving dish towards me. The next transfer worked, and I could finally put the tongs down."
+    },
+    "replies": [
+      {
+        "id": "nairobi.arrival.tongs-return.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢替我推近公盘的人",
+          "en": "Thank the diner who moved the dish closer"
+        }
+      },
+      {
+        "id": "nairobi.arrival.tongs-return.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看夹子与盘子的距离",
+          "en": "Check the gap between tongs and plate"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "nairobi.menu-choma"
+      ]
+    },
+    "cityId": "nairobi"
+  },
+  {
+    "id": "nairobi.arrival.small-portion-hands",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "nairobi-ugali",
+      "nairobi-choma"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我比画的分量，忽然长大了。",
+      "en": "My portion grew while I was explaining it."
+    },
+    "text": {
+      "zh-Hans": "点乌伽黎和烤肉时，我举起双手想比画小小一份，一开口却越讲越起劲，两只手也越分越远。服务员看看我，再看看那个大圆，笑着等我讲完。我赶紧把手收拢，说明邮包很能装，肚子却没有那么大。端来的分量正合适，小碗放下时，恰好填进我双手之间。",
+      "en": "Ordering ugali and nyama choma, I held my hands close together to show a small portion. As I talked, the gap grew wider and wider. The server studied the large circle and waited for me to finish. I quickly brought my hands back together and explained that my mailbag held much more than my stomach. The serving arrived in a bowl that fitted neatly between my hands."
+    },
+    "replies": [
+      {
+        "id": "nairobi.arrival.small-portion-hands.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说清我想要多大一份",
+          "en": "Explain the portion I actually want"
+        }
+      },
+      {
+        "id": "nairobi.arrival.small-portion-hands.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较碗和刚才手势的大小",
+          "en": "Compare the bowl with my hand gesture"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "nairobi.small-bowl-fold"
+      ],
+      "menuIds": [
+        "nairobi.menu-ugali",
+        "nairobi.menu-choma"
+      ]
+    },
+    "cityId": "nairobi"
+  },
+  {
+    "id": "nairobi.arrival.empty-cup-clink",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "nairobi-ugali",
+      "nairobi-choma"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我认真盯着饭，手却敲响了空杯。",
+      "en": "My eyes watched lunch while my hand rang the empty cup."
+    },
+    "text": {
+      "zh-Hans": "乌伽黎和烤肉摆好后，我先找餐具，手肘不小心碰到空杯，杯子沿桌面转了半圈。我赶紧伸手接住，碗里的叉子又响了一声，邻座以为我要什么，抬头看我。我把杯子推到里面，把叉子拿出来放稳，向他摇摇头。等终于安静下来，烤肉还好好待在盘子正中。",
+      "en": "With my ugali and roast meat ready, I reached for cutlery and nudged an empty cup with my elbow. I caught it as it turned, only to make the fork in my bowl clink. My neighbour looked up, thinking I wanted something. I moved the cup inward, laid the fork flat, and shook my head with a smile. Once everything was quiet, the meat was still waiting in the middle of its plate."
+    },
+    "replies": [
+      {
+        "id": "nairobi.arrival.empty-cup-clink.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉邻座只是我碰响了杯子",
+          "en": "Explain that I only knocked the cup"
+        }
+      },
+      {
+        "id": "nairobi.arrival.empty-cup-clink.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把容易碰到的杯子挪远",
+          "en": "Move the cup beyond my elbow"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "nairobi.menu-ugali",
+        "nairobi.menu-choma"
+      ]
+    },
+    "cityId": "nairobi"
+  },
+  {
+    "id": "nairobi.fulfill.number-before-turn",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "nairobi-karura"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "nairobi.arrival.junction-number.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，这次我先抬头找号码。",
+      "en": "You wrote, “{reply}.” I looked for the number first."
+    },
+    "text": {
+      "zh-Hans": "再和那位旅人在卡鲁拉森林约碰面，我先照着标志报了路口号码，忍住没加一串左右。他果然从另一条路走来，我高兴地挥手，邮包的带子却滑下了肩。对方替我扶好，问我站了多久。我刚要伸手比画，又把手收住，只说一小会儿。两只手都好好留在了包带上。",
+      "en": "When arranging to meet my fellow walker in Karura again, I gave the number on the junction marker and resisted adding lefts and rights. They appeared from another path. My enthusiastic wave sent my strap sliding off my shoulder. They helped settle it and asked how long I had waited. I began a gesture, stopped, and said only a little while. Both hands stayed on the strap this time."
+    },
+    "replies": [
+      {
+        "id": "nairobi.fulfill.number-before-turn.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问对方从哪条路走来",
+          "en": "Ask which path they took"
+        }
+      },
+      {
+        "id": "nairobi.fulfill.number-before-turn.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看包带有没有放稳",
+          "en": "Check that the strap is secure"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "nairobi.number-window"
+      ],
+      "menuIds": []
+    },
+    "cityId": "nairobi"
+  },
+  {
+    "id": "nairobi.revisit.leash-loop",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "nairobi-karura"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "先打招呼的，是一条横在路边的尾巴。",
+      "en": "A tail at the edge of the path greeted me first."
+    },
+    "text": {
+      "zh-Hans": "认得卡鲁拉的路口编号，我这趟回内罗毕又来森林走走。一位牵狗的旅人停在路边收外套，小狗坐得很端正，尾巴却扫到了我的鞋。我退半步，它便挪半步，始终替我擦着鞋尖。主人笑着把它叫回身旁，我才发现自己鞋上还沾着一点泥。再低头时，尾巴已经收在了狗的两只后脚边。",
+      "en": "Familiar junction numbers brought me back to Karura on this visit to Nairobi. A walker with a leashed dog stopped to pack away a coat. The dog sat beautifully, but its tail brushed my shoes. I stepped back; it shifted too and gave my toes another sweep. Its owner laughed and called it closer. Only then did I notice a little mud still on one shoe. The tail was now tucked neatly beside the dog's back feet."
+    },
+    "replies": [
+      {
+        "id": "nairobi.revisit.leash-loop.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和主人说说这把小扫帚",
+          "en": "Tell the owner about the little tail broom"
+        }
+      },
+      {
+        "id": "nairobi.revisit.leash-loop.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看鞋尖还沾着多少泥",
+          "en": "Check the mud left on my shoes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "nairobi"
+  }
+]

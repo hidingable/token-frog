@@ -11,7 +11,7 @@
     "mountain",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "开普敦",
     "en": "Cape Town"
@@ -20,5 +20,68 @@
     "zh-Hans": "开普敦",
     "en": "Cape Town"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "capetown-cableway",
+      "type": "place",
+      "names": {
+        "zh-Hans": "桌山缆车",
+        "en": "Table Mountain Aerial Cableway"
+      },
+      "summary": {
+        "zh-Hans": "桌山缆车连接山下站与山顶，车厢转动，让乘客从不同方向观看开普敦。",
+        "en": "The Table Mountain cableway links the lower station with the top. Its rotating cars offer changing views of Cape Town."
+      },
+      "sources": [
+        "https://www.capetown.travel/listing/d_table-mountain-aerial-cableway/"
+      ]
+    },
+    {
+      "id": "capetown-kirstenbosch",
+      "type": "place",
+      "names": {
+        "zh-Hans": "克斯滕博斯国家植物园",
+        "en": "Kirstenbosch National Botanical Garden"
+      },
+      "summary": {
+        "zh-Hans": "克斯滕博斯国家植物园位于开普敦桌山东坡脚下。",
+        "en": "Kirstenbosch National Botanical Garden lies against the eastern slopes of Table Mountain in Cape Town."
+      },
+      "sources": [
+        "https://www.sanbi.org/gardens/kirstenbosch/"
+      ]
+    },
+    {
+      "id": "capetown-bobotie",
+      "type": "food",
+      "names": {
+        "zh-Hans": "波波提烤肉糜",
+        "en": "Bobotie"
+      },
+      "summary": {
+        "zh-Hans": "波波提将加香料的牛肉糜与蛋奶层一起烘烤，是在开普敦可以品尝的南非菜。",
+        "en": "Bobotie is spiced minced beef baked with an egg custard, a South African dish served in Cape Town."
+      },
+      "sources": [
+        "https://visitwinelands.co.za/local-is-lekker-traditional-south-african-food/",
+        "https://www.klm.co.za/travel-guide/inspiration/taste-the-colours-of-the-rainbow"
+      ]
+    },
+    {
+      "id": "capetown-malva",
+      "type": "food",
+      "names": {
+        "zh-Hans": "玛尔瓦布丁",
+        "en": "Malva Pudding"
+      },
+      "summary": {
+        "zh-Hans": "玛尔瓦布丁是一种甜海绵蛋糕类甜点，常温热上桌，可搭配蛋奶酱。在开普敦的餐饮介绍中也能见到它。",
+        "en": "Malva pudding is a sweet sponge dessert, often served warm with custard. It also appears in guides to eating in Cape Town."
+      },
+      "sources": [
+        "https://visitwinelands.co.za/local-is-lekker-traditional-south-african-food/",
+        "https://www.klm.co.za/travel-guide/inspiration/taste-the-colours-of-the-rainbow"
+      ]
+    }
+  ]
 }

@@ -10,7 +10,7 @@
     "mountain",
     "capital"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "圣地亚哥",
     "en": "Santiago"
@@ -19,5 +19,66 @@
     "zh-Hans": "圣地亚哥 (智利)",
     "en": "Santiago"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "santiago-forestal",
+      "type": "place",
+      "names": {
+        "zh-Hans": "森林公园",
+        "en": "Parque Forestal"
+      },
+      "summary": {
+        "zh-Hans": "圣地亚哥的森林公园沿马波乔河南侧延伸，有草地和林荫步行空间。",
+        "en": "Santiago’s Parque Forestal runs along the south side of the Mapocho River, with lawns and tree-lined walking spaces."
+      },
+      "sources": [
+        "https://www.santiagoturismo.cl/es/parque-forestal/"
+      ]
+    },
+    {
+      "id": "santiago-oasis",
+      "type": "place",
+      "names": {
+        "zh-Hans": "圣地亚哥缆车 Oasis 站",
+        "en": "Oasis Station, Teleférico Santiago"
+      },
+      "summary": {
+        "zh-Hans": "Oasis 是圣地亚哥缆车 Pedro de Valdivia 线的起点站，位于都会公园相应入口附近，周边设有休息空间。",
+        "en": "Oasis is the starting station of Teleférico Santiago’s Pedro de Valdivia line, near that entrance to Parque Metropolitano, with spaces to rest nearby."
+      },
+      "sources": [
+        "https://telefericosantiago.cl/linea-pedro-de-valdivia/estacion-oasis/"
+      ]
+    },
+    {
+      "id": "santiago-empanada",
+      "type": "food",
+      "names": {
+        "zh-Hans": "皮诺馅烤饺",
+        "en": "Empanada de Pino"
+      },
+      "summary": {
+        "zh-Hans": "智利的皮诺馅饺以面皮包住肉、洋葱等馅料，有烤制的做法。馅料也可加入蛋和葡萄干。",
+        "en": "Chilean empanadas de pino enclose a meat-and-onion filling in pastry and may be baked. Egg and raisins can also be included."
+      },
+      "sources": [
+        "https://chile.travel/blog/la-empanada-sabor-unico-de-la-tradicion-chilena/"
+      ]
+    },
+    {
+      "id": "santiago-choclo",
+      "type": "food",
+      "names": {
+        "zh-Hans": "智利玉米派",
+        "en": "Pastel de Choclo"
+      },
+      "summary": {
+        "zh-Hans": "智利玉米派在肉与洋葱等馅料上盖一层玉米糊后烘烤；配方中也可有鸡肉和熟蛋。",
+        "en": "Chilean pastel de choclo is baked with a layer of ground corn over a meat-and-onion filling; versions can include chicken and hard-boiled egg."
+      },
+      "sources": [
+        "https://obra-gruesa.cultura.gob.cl/wp-content/uploads/2024/10/Corazon_de_Cocina_MAP.pdf"
+      ]
+    }
+  ]
 }

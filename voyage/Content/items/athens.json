@@ -1,0 +1,98 @@
+[
+  {
+    "id": "athens.menu-spanakopita",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "菠菜派小菜单",
+      "en": "Spanakopita Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在雅典做的纸菜单，绿色馅料旁边有一把终于放平的叉子。",
+      "en": "My Athens paper menu shows green filling beside a fork that can finally lie flat."
+    },
+    "cityId": "athens"
+  },
+  {
+    "id": "athens.menu-loukoumades",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "蜂蜜炸球小菜单",
+      "en": "Loukoumades Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "这张自制菜单把蜂蜜留在纸上的点心旁，杯柄保持干净。",
+      "en": "This homemade menu keeps the honey beside the paper sweets and off the cup handle."
+    },
+    "cityId": "athens"
+  },
+  {
+    "id": "athens.small-beak-fold",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "收拢小纸喙",
+      "en": "Folded Little Beak"
+    },
+    "descriptions": {
+      "zh-Hans": "在鸭池边站远看过以后，我折的小纸鸭，没有取用羽毛。",
+      "en": "My little paper duck was folded after watching from a distance; no feathers were collected."
+    },
+    "cityId": "athens"
+  },
+  {
+    "id": "athens.wagon-wheel-tab",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小车轮纸签",
+      "en": "Wagon-Wheel Paper Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "我在雅典剪的圆纸签，边缘缺口记着那颗挡路的小石子。",
+      "en": "My round Athens paper tab has a notch for the little stone that stopped the wagon."
+    },
+    "cityId": "athens"
+  },
+  {
+    "id": "athens.flat-sole",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "平鞋垫折卡",
+      "en": "Flat-Insole Fold Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我自己折的纸鞋，掀开能看见铺平的纸鞋垫。",
+      "en": "My folded paper shoe opens to reveal a neatly flattened paper insole."
+    },
+    "cityId": "athens"
+  },
+  {
+    "id": "athens.swing-straps-card",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "摇摆包带活动卡",
+      "en": "Swinging-Strap Paper Card"
+    },
+    "descriptions": {
+      "zh-Hans": "离开鸭池后做的活动纸卡，两条纸包带可以各自摆动。",
+      "en": "A moving paper card I made after the duck pond visit, with two independently swinging paper straps."
+    },
+    "cityId": "athens"
+  }
+]

@@ -1,0 +1,417 @@
+[
+  {
+    "id": "mumbai.arrival.long-scarf-tail",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "mumbai-marine-drive"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "围巾绕好了一圈，尾巴还在风里忙。",
+      "en": "My scarf was wrapped, but its tail was still busy in the breeze."
+    },
+    "text": {
+      "zh-Hans": "海滨大道上，我想把围巾绕紧一点，长长的一头却总拍到邮包。旁边的旅人替我拿住末端，我转身绕好，他手里的那截竟越来越长。我只好停下来，发现自己一直把短的一头往脖子里收。他笑着让我换边，我约好歇脚时再把它折短，先接回那根还在轻轻摆的流苏。",
+      "en": "On Marine Drive, I tried wrapping my scarf tighter, but its long tail kept tapping my bag. A visitor held the end while I turned. Their portion grew longer and longer. I stopped and found I had been pulling in the short end. They suggested changing sides. I promised to shorten the scarf when we rested, first taking back its gently swinging tassel."
+    },
+    "replies": [
+      {
+        "id": "mumbai.arrival.long-scarf-tail.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "歇脚时把围巾折短一点",
+          "en": "Fold the scarf shorter when resting"
+        }
+      },
+      {
+        "id": "mumbai.arrival.long-scarf-tail.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看围巾哪一头收得太多",
+          "en": "Check which end I pulled in too far"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "mumbai.long-tail-tab"
+      ],
+      "menuIds": []
+    },
+    "cityId": "mumbai"
+  },
+  {
+    "id": "mumbai.arrival.seesaw-wait",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "mumbai-science-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我的脚够不到地，对面也只好等一等。",
+      "en": "My feet missed the ground, so the other end had to wait."
+    },
+    "text": {
+      "zh-Hans": "在科学园试跷跷板，一个孩子坐到另一头，我这边便慢慢升起来。脚尖离地以后，我认真往下够，鞋底却还差一点。孩子的家长扶稳装置，让我们慢慢回到平处。我下来时还踮着脚，孩子指指地面，我才把脚跟放下。两只鞋站平了，空出来的座位轻轻停在身后。",
+      "en": "Trying a seesaw in the Science Park, I rose gently as a child sat at the other end. I stretched for the ground, but my shoes remained just short of it. The child's parent steadied things while we returned slowly to a level position. After getting off, I was still on tiptoe. The child pointed down. I lowered my heels, leaving the empty seat settled behind me."
+    },
+    "replies": [
+      {
+        "id": "mumbai.arrival.seesaw-wait.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢帮忙扶稳的家长",
+          "en": "Thank the parent for steadying the seesaw"
+        }
+      },
+      {
+        "id": "mumbai.arrival.seesaw-wait.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看鞋跟有没有站平",
+          "en": "Check that my heels reach the ground"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "mumbai.level-seat"
+      ],
+      "menuIds": []
+    },
+    "cityId": "mumbai"
+  },
+  {
+    "id": "mumbai.arrival.potato-middle",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "mumbai-vada-pav"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "面包咬下去了，土豆团却往另一边躲。",
+      "en": "My bite moved the potato fritter towards the far side."
+    },
+    "text": {
+      "zh-Hans": "我把瓦达帕夫两边捏得太紧，刚咬一口，里面的炸土豆团便向另一边挤出去。我忙把夹包放回盘子，用两根手指轻轻扶住，才没让馅滑下来。卖小吃的人递来小勺，我先尝了那一点掉在盘里的土豆，再把面包松松合回去。调味酱留在切口边，像一条细细的线。",
+      "en": "I gripped my vada pav too firmly. My first bite pushed the potato fritter towards the far side, so I lowered the roll to the plate and steadied it with two fingers. The vendor offered a small spoon. I ate the bit of potato that had fallen out, then closed the bread loosely around its filling. A thin line of chutney remained along the opening."
+    },
+    "replies": [
+      {
+        "id": "mumbai.arrival.potato-middle.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢递来小勺的摊主",
+          "en": "Thank the vendor for the little spoon"
+        }
+      },
+      {
+        "id": "mumbai.arrival.potato-middle.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看土豆团有没有放回中间",
+          "en": "Check that the fritter is centred"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "mumbai.menu-vada-pav"
+      ]
+    },
+    "cityId": "mumbai"
+  },
+  {
+    "id": "mumbai.arrival.bread-scoop-gap",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "mumbai-pav-bhaji"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "面包里挖得太薄，咖喱先从下面露了头。",
+      "en": "The curry found a thin spot in my bread."
+    },
+    "text": {
+      "zh-Hans": "吃帕夫巴吉，我想用面包托一大口蔬菜咖喱，偏偏中间被我按得太薄。刚举起来，下面就露出一点咖喱，我赶紧把手移到盘子上方。邻座递来另一小片面包，我把它垫在下面，再小心送到嘴边。盘子里没多落什么，倒是我的两只手，仍保持着托小碗的样子。",
+      "en": "With my pav bhaji, I tried carrying a generous scoop of vegetable curry on bread I had pressed too thin. A little curry appeared underneath, so I moved my hand over the plate. My neighbour offered a second small piece of bread. I placed it below the first and took a careful bite. Very little reached the plate, but my hands were still cupped as though holding a bowl."
+    },
+    "replies": [
+      {
+        "id": "mumbai.arrival.bread-scoop-gap.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢邻座多给的一小片面包",
+          "en": "Thank my neighbour for the extra bread"
+        }
+      },
+      {
+        "id": "mumbai.arrival.bread-scoop-gap.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看面包中间薄下去的地方",
+          "en": "Find the thin patch in the bread"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "mumbai.menu-pav-bhaji"
+      ]
+    },
+    "cityId": "mumbai"
+  },
+  {
+    "id": "mumbai.arrival.bottle-still-closed",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "mumbai-vada-pav",
+      "mumbai-pav-bhaji"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我说得口渴了，瓶盖却还没打开。",
+      "en": "My story had made me thirsty, but the bottle was still closed."
+    },
+    "text": {
+      "zh-Hans": "瓦达帕夫和蔬菜咖喱面包都尝过了，我和邻座聊得正起劲，举起水瓶想喝一口。瓶口碰到嘴才发现盖子还在，对方笑着等我拧开。我一边说没关系，一边又朝反方向转，盖子反倒更紧。只好先停下话，把瓶子放稳，慢慢拧开，最后将小盖放在了自己掌心。",
+      "en": "After vada pav and pav bhaji, I was deep in conversation with my neighbour when I raised my water bottle. The lid met my mouth. They smiled and waited while I tried opening it, but I kept talking and turned the wrong way. The lid tightened. I finally paused, steadied the bottle, and unscrewed it slowly, keeping the little cap in my palm."
+    },
+    "replies": [
+      {
+        "id": "mumbai.arrival.bottle-still-closed.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "先喝一口水再接着聊",
+          "en": "Take a drink before continuing the conversation"
+        }
+      },
+      {
+        "id": "mumbai.arrival.bottle-still-closed.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看瓶盖该往哪边转",
+          "en": "Check which way the lid turns"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "mumbai.menu-vada-pav",
+        "mumbai.menu-pav-bhaji"
+      ]
+    },
+    "cityId": "mumbai"
+  },
+  {
+    "id": "mumbai.arrival.lunchbox-seat",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "mumbai-vada-pav",
+      "mumbai-pav-bhaji",
+      "mumbai-science-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我坐下时，餐盒替我发出了一声响。",
+      "en": "My lunchbox made a small complaint when I sat."
+    },
+    "text": {
+      "zh-Hans": "身后轻轻咔了一声，我刚坐下又站起来。吃过土豆夹包和蔬菜咖喱面包，我到科学园歇脚，把空餐盒先放在座位上，抬头看杠杆时却忘了收。旁边的孩子替我拿起盒子，我赶紧看看底下，原来只是搭扣合上了。我接过空盒，把它收回包里，再用手掌确认了一遍座位。",
+      "en": "A soft click made me stand up just after sitting down. Resting in the Science Park after vada pav and pav bhaji, I had put my empty lunchbox on the seat, then looked towards the lever exhibit and forgotten it. A child lifted the box for me. I checked underneath; only its catch had closed. I packed it away and checked the seat with my palm."
+    },
+    "replies": [
+      {
+        "id": "mumbai.arrival.lunchbox-seat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢孩子替我拿起空盒",
+          "en": "Thank the child for retrieving the empty box"
+        }
+      },
+      {
+        "id": "mumbai.arrival.lunchbox-seat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看搭扣有没有扣好",
+          "en": "Check that the lunchbox catch is closed"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "mumbai.empty-seat-flap"
+      ],
+      "menuIds": [
+        "mumbai.menu-vada-pav",
+        "mumbai.menu-pav-bhaji"
+      ]
+    },
+    "cityId": "mumbai"
+  },
+  {
+    "id": "mumbai.fulfill.shortened-tassel",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "mumbai-marine-drive"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "mumbai.arrival.long-scarf-tail.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把围巾对折后再试。",
+      "en": "You wrote, “{reply}.” I folded the scarf before trying again."
+    },
+    "text": {
+      "zh-Hans": "在海滨大道歇脚，我请那位旅人再帮我拿一下围巾，这次先对折，照你的话缩短了长尾巴。两端绕回胸前，流苏终于不再拍邮包。我高兴地转过身，才发现对方还捏着折起来的中段。我赶紧解开一点请他抽手，重新绕好后，胸前留着两束差不多齐的小流苏。",
+      "en": "Resting on Marine Drive, I asked the visitor to hold my scarf again. I folded it first, as you suggested, and wrapped the shorter ends round to my chest. The tassels stopped hitting my bag. I turned happily, then found they were still holding the folded middle. I loosened the scarf so they could free their hand. Once wrapped again, two nearly even tassels rested in front of me."
+    },
+    "replies": [
+      {
+        "id": "mumbai.fulfill.shortened-tassel.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢替我拿稳围巾的旅人",
+          "en": "Thank the visitor for holding the scarf"
+        }
+      },
+      {
+        "id": "mumbai.fulfill.shortened-tassel.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两端流苏有没有齐",
+          "en": "Compare the two ends of the fringe"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "mumbai.even-tassels"
+      ],
+      "menuIds": []
+    },
+    "cityId": "mumbai"
+  },
+  {
+    "id": "mumbai.revisit.salt-on-glasses",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "mumbai-marine-drive"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "眼镜上的小点，把海分成了好几块。",
+      "en": "Little spots on my glasses divided the sea into pieces."
+    },
+    "text": {
+      "zh-Hans": "阿拉伯海还在海滨大道那一边，我这次回孟买，又沿着熟悉的弯道走走。眼前忽然多了几个模糊小点，我以为远处起了雾，摘下眼镜才发现镜片上沾了水。我拿出软布擦，一位路过的旅人提醒另一片也有，我便把两边都擦净。戴回去以后，海面连成一片，布角上留着一排湿点。",
+      "en": "The Arabian Sea was still beside Marine Drive when I returned to Mumbai and followed its familiar curve. Blurred spots appeared in the view. I wondered about mist, then removed my glasses and found water on the lenses. As I wiped one, a passing visitor pointed out the other. I cleaned both and put them back on. The sea joined into a single view again, leaving a row of damp dots on the cloth."
+    },
+    "replies": [
+      {
+        "id": "mumbai.revisit.salt-on-glasses.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢提醒另一片镜片的旅人",
+          "en": "Thank the visitor for spotting the other lens"
+        }
+      },
+      {
+        "id": "mumbai.revisit.salt-on-glasses.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看软布上的湿点",
+          "en": "Look at the damp spots on the cloth"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "mumbai"
+  }
+]

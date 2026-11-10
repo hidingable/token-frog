@@ -1,0 +1,98 @@
+[
+  {
+    "id": "mumbai.menu-vada-pav",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "瓦达帕夫小菜单",
+      "en": "Vada Pav Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在孟买自制的纸菜单，面包里的土豆团已经摆回正中。",
+      "en": "My homemade Mumbai paper menu puts the fritter back in the middle of the roll."
+    },
+    "cityId": "mumbai"
+  },
+  {
+    "id": "mumbai.menu-pav-bhaji",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "帕夫巴吉小菜单",
+      "en": "Pav Bhaji Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我吃过蔬菜咖喱面包后做的菜单，下面还添了一小片纸面包。",
+      "en": "My menu after pav bhaji includes the extra little piece of bread underneath."
+    },
+    "cityId": "mumbai"
+  },
+  {
+    "id": "mumbai.long-tail-tab",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "长尾围巾纸签",
+      "en": "Long-Tailed Scarf Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "海滨大道歇脚时做的纸签，一端的纸流苏故意剪长了一点。",
+      "en": "My Marine Drive paper tab has one deliberately overlong paper tassel."
+    },
+    "cityId": "mumbai"
+  },
+  {
+    "id": "mumbai.level-seat",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "平座小折纸",
+      "en": "Level-Seat Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "离开科学园后做的小纸座位，两个纸脚都碰得到桌面。",
+      "en": "My little paper seat made after the Science Park has two feet that reach the tabletop."
+    },
+    "cityId": "mumbai"
+  },
+  {
+    "id": "mumbai.empty-seat-flap",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "空座翻片",
+      "en": "Empty-Seat Paper Flap"
+    },
+    "descriptions": {
+      "zh-Hans": "我把忘收餐盒的小事做成翻片，掀开纸盒才能看见座面。",
+      "en": "My paper flap records the forgotten lunchbox; lifting it reveals the seat below."
+    },
+    "cityId": "mumbai"
+  },
+  {
+    "id": "mumbai.even-tassels",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "齐流苏折卡",
+      "en": "Even-Tassel Fold Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我在孟买自制的纸卡，两束纸流苏折好后可以并齐。",
+      "en": "My homemade Mumbai card folds two paper tassels into nearly matching ends."
+    },
+    "cityId": "mumbai"
+  }
+]

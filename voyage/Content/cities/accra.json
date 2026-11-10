@@ -10,7 +10,7 @@
     "coast",
     "capital"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "阿克拉",
     "en": "Accra"
@@ -19,5 +19,68 @@
     "zh-Hans": "阿克拉",
     "en": "Accra"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "accra-nubuke",
+      "type": "place",
+      "names": {
+        "zh-Hans": "努布克基金会艺术空间",
+        "en": "Nubuke Foundation"
+      },
+      "summary": {
+        "zh-Hans": "努布克基金会在阿克拉东莱贡设有艺术文化空间，通过展览、电影放映和艺术讲座开展工作。",
+        "en": "Nubuke Foundation has an arts and culture space in East Legon, Accra. Its work includes exhibitions, film screenings and art talks."
+      },
+      "sources": [
+        "https://nubukefoundation.com/FAQ"
+      ]
+    },
+    {
+      "id": "accra-balme",
+      "type": "place",
+      "names": {
+        "zh-Hans": "巴尔梅图书馆",
+        "en": "Balme Library"
+      },
+      "summary": {
+        "zh-Hans": "巴尔梅图书馆是加纳大学的主图书馆，提供书刊及线上资源。",
+        "en": "Balme Library is the main library of the University of Ghana, providing books, periodicals and online resources."
+      },
+      "sources": [
+        "https://www.ug.edu.gh/music/about/facilities",
+        "https://www.ipo.ug.edu.gh/sites/ipo.ug.edu.gh/files/documents/Int_Students_Handbook.pdf"
+      ]
+    },
+    {
+      "id": "accra-kelewele",
+      "type": "food",
+      "names": {
+        "zh-Hans": "香料炸大蕉块",
+        "en": "Kelewele"
+      },
+      "summary": {
+        "zh-Hans": "Kelewele 将成熟大蕉切块，拌入姜和其他香料后油炸，可搭配花生。在阿克拉的街头可以见到这种小吃。",
+        "en": "Kelewele is made from ripe plantain pieces seasoned with ginger and other spices, then fried. It may come with peanuts and is found on Accra streets."
+      },
+      "sources": [
+        "https://www.ipo.ug.edu.gh/sites/ipo.ug.edu.gh/files/documents/Int_Students_Handbook.pdf",
+        "https://gna.org.gh/2026/04/kelewele-a-spicy-heartbeat-ghanaian-street-cuisine-often-loyal-to-night-travelers-and-wanderers/"
+      ]
+    },
+    {
+      "id": "accra-waakye",
+      "type": "food",
+      "names": {
+        "zh-Hans": "瓦切豆饭",
+        "en": "Waakye"
+      },
+      "summary": {
+        "zh-Hans": "Waakye 是加纳以米和豆组成的一道饭食，也有作为外带餐售卖的形式。",
+        "en": "Waakye is a Ghanaian rice-and-beans dish that is also sold as a prepared takeaway meal."
+      },
+      "sources": [
+        "https://gna.org.gh/2026/02/early-morning-food-vendors-power-ghanas-workforce/"
+      ]
+    }
+  ]
 }

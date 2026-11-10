@@ -11,7 +11,7 @@
     "capital",
     "heritage"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "布拉格",
     "en": "Prague"
@@ -20,5 +20,66 @@
     "zh-Hans": "布拉格",
     "en": "Prague"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "prague-letna",
+      "type": "place",
+      "names": {
+        "zh-Hans": "莱特纳公园",
+        "en": "Letná Park"
+      },
+      "summary": {
+        "zh-Hans": "莱特纳公园有林荫步道，从部分路段可眺望伏尔塔瓦河及河上的桥梁。",
+        "en": "Letná Park has tree-shaded promenades, with views of the Vltava and its bridges from parts of the paths."
+      },
+      "sources": [
+        "https://prague.eu/en/home/information/practical-information/accessible-prague/letna-without-barriers/"
+      ]
+    },
+    {
+      "id": "prague-transport-hall",
+      "type": "place",
+      "names": {
+        "zh-Hans": "国家技术博物馆交通展厅",
+        "en": "Transport Hall, National Technical Museum"
+      },
+      "summary": {
+        "zh-Hans": "布拉格国家技术博物馆交通展厅展示汽车、摩托车和铁路车辆等交通技术，飞机悬挂在展厅上方。",
+        "en": "The transport hall at Prague’s National Technical Museum displays cars, motorcycles and railway technology, with aircraft suspended above the hall."
+      },
+      "sources": [
+        "https://www.muzeum-plasy.cz/en/about-our-museum/ntm-museums/museum-of-transportation/transportation"
+      ]
+    },
+    {
+      "id": "prague-chlebicky",
+      "type": "food",
+      "names": {
+        "zh-Hans": "捷克开放式三明治",
+        "en": "Chlebíčky"
+      },
+      "summary": {
+        "zh-Hans": "Chlebíčky 在小片白面包上铺配料，可有火腿、奶酪、腌菜、蛋和蛋黄酱等，在布拉格可以买到。",
+        "en": "Chlebíčky are small open-faced white-bread sandwiches with toppings such as ham, cheese, pickled vegetables, egg and mayonnaise, sold in Prague."
+      },
+      "sources": [
+        "https://www.visitczechia.com/en-us/news/2022/12/n-chlebicky-open-sandwich"
+      ]
+    },
+    {
+      "id": "prague-svickova",
+      "type": "food",
+      "names": {
+        "zh-Hans": "奶油蔬菜酱牛肉",
+        "en": "Svíčková na Smetaně"
+      },
+      "summary": {
+        "zh-Hans": "这道捷克菜将牛肉与根茎蔬菜烹制，配奶油酱汁，通常搭配面包团子或卡罗维发利团子。",
+        "en": "This Czech dish pairs beef cooked with root vegetables with a creamy sauce, typically served with bread or Carlsbad dumplings."
+      },
+      "sources": [
+        "https://www.visitczechia.com/en-us/things-to-do/places/gastronomic-tourism/czech-cuisine-and-regional-products/g-svickova-na-smetane"
+      ]
+    }
+  ]
 }

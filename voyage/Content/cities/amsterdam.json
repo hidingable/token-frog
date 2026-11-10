@@ -11,7 +11,7 @@
     "capital",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "阿姆斯特丹",
     "en": "Amsterdam"
@@ -20,5 +20,66 @@
     "zh-Hans": "阿姆斯特丹",
     "en": "Amsterdam"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "amsterdam-nemo-roof",
+      "type": "place",
+      "names": {
+        "zh-Hans": "NEMO 科学博物馆屋顶广场",
+        "en": "NEMO Rooftop Square"
+      },
+      "summary": {
+        "zh-Hans": "NEMO 科学博物馆屋顶有种植植物的公共空间，并设有眺望阿姆斯特丹城市景色的位置。",
+        "en": "NEMO Science Museum’s rooftop square has planted areas and a vantage point overlooking Amsterdam."
+      },
+      "sources": [
+        "https://www.nemosciencemuseum.nl/en/to-do/exhibition/rooftop-square"
+      ]
+    },
+    {
+      "id": "amsterdam-rijks-atrium",
+      "type": "place",
+      "names": {
+        "zh-Hans": "荷兰国立博物馆中庭",
+        "en": "Rijksmuseum Atrium"
+      },
+      "summary": {
+        "zh-Hans": "荷兰国立博物馆中庭覆盖玻璃顶，浅色的抛光葡萄牙石材地面反射日光。",
+        "en": "The Rijksmuseum Atrium has glass roofs and pale, polished Portuguese stone floors that reflect daylight."
+      },
+      "sources": [
+        "https://www.rijksmuseum.nl/en/visit/inside-the-museum/the-atrium"
+      ]
+    },
+    {
+      "id": "amsterdam-stroopwafel",
+      "type": "food",
+      "names": {
+        "zh-Hans": "荷兰糖浆华夫饼",
+        "en": "Stroopwafel"
+      },
+      "summary": {
+        "zh-Hans": "糖浆华夫饼用两片薄华夫饼夹住一层甜糖浆，在阿姆斯特丹的市场和面包店可以见到。",
+        "en": "A stroopwafel sandwiches a layer of sweet syrup between two thin waffles and is found in Amsterdam markets and bakeries."
+      },
+      "sources": [
+        "https://www.iamsterdam.com/en/see-and-do/restaurant-and-bars/dutch-foods-to-try"
+      ]
+    },
+    {
+      "id": "amsterdam-poffertjes",
+      "type": "food",
+      "names": {
+        "zh-Hans": "荷兰迷你松饼",
+        "en": "Poffertjes"
+      },
+      "summary": {
+        "zh-Hans": "Poffertjes 是小型松饼，在阿姆斯特丹可吃到配黄油和糖粉的版本。",
+        "en": "Poffertjes are miniature pancakes, served in Amsterdam in versions with butter and powdered sugar."
+      },
+      "sources": [
+        "https://www.iamsterdam.com/en/see-and-do/restaurant-and-bars/best-pancake-houses-in-amsterdam"
+      ]
+    }
+  ]
 }

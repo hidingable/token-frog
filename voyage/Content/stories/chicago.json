@@ -1,0 +1,418 @@
+[
+  {
+    "id": "chicago.arrival.too-loud-hello",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "chicago-whispering-gallery"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我还怕对面听不见，对面已经笑了。",
+      "en": "I worried about being heard after the other end was already laughing."
+    },
+    "text": {
+      "zh-Hans": "在耳语展厅，我和一位旅人各站一端，背对着彼此。我对着弧形声盘，先用了平时说你好的声音，他立刻笑着说听得太清楚了。我连忙压低嗓子，却又忍不住问现在呢。他隔着房间竖起拇指，我才答应再试更小声的一句，把攥紧的邮包带子从手心慢慢放松。",
+      "en": "In the Whispering Gallery, a visitor and I stood at opposite ends with our backs towards each other. I gave the curved dish my ordinary speaking hello. They immediately laughed and said it was very clear. I lowered my voice, then could not resist asking about that one too. A raised thumb answered across the room. I promised an even quieter attempt and loosened my grip on the mailbag strap."
+    },
+    "replies": [
+      {
+        "id": "chicago.arrival.too-loud-hello.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "试试用更小的声音问候",
+          "en": "Try an even quieter greeting"
+        }
+      },
+      {
+        "id": "chicago.arrival.too-loud-hello.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看脚下的站位标记",
+          "en": "Look at the standing markers"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chicago.quiet-dish-tab"
+      ],
+      "menuIds": []
+    },
+    "cityId": "chicago"
+  },
+  {
+    "id": "chicago.arrival.squeaking-wheel",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "chicago-riverwalk"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "轮子响一下，我的脚就跟着慢半拍。",
+      "en": "A squeak from the wheel kept putting my steps off beat."
+    },
+    "text": {
+      "zh-Hans": "河滨步道上，一位家长推着小车慢慢走，轮子隔一会儿就吱一声。我走在旁边，不知不觉照着声音迈步，小车一停，我还往前多迈了半步。车里的孩子回头看看我，拍了拍自己的鞋。我也轻轻碰一下鞋尖，等家长重新推车，才把那半步收回了自己的步子里。",
+      "en": "On the Riverwalk, a stroller wheel gave an occasional squeak as a parent pushed it along. Walking nearby, I began matching my steps to the sound. When the stroller stopped, I took one extra half-step. The child turned and patted their shoes. I tapped my own toes in reply. As the parent started moving again, I settled that stray half-step back into my usual walk."
+    },
+    "replies": [
+      {
+        "id": "chicago.arrival.squeaking-wheel.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉孩子我在跟谁的节拍走",
+          "en": "Tell the child whose rhythm I was following"
+        }
+      },
+      {
+        "id": "chicago.arrival.squeaking-wheel.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "听听轮子什么时候再响",
+          "en": "Listen for the wheel’s next squeak"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chicago.half-step"
+      ],
+      "menuIds": []
+    },
+    "cityId": "chicago"
+  },
+  {
+    "id": "chicago.arrival.cheese-tether",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "chicago-deep-dish"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "叉子已经到半空，奶酪还留在原地。",
+      "en": "The fork had risen while the cheese stayed tethered."
+    },
+    "text": {
+      "zh-Hans": "切开深盘披萨，我叉起一小块，奶酪却拉出一条长线。我把叉子放低，它也跟着低下来，始终连在高高的饼边旁。邻座递来小刀，我扶住盘子，才把那条线轻轻分开。好不容易吃到嘴里，低头又看见刀尖上沾着一点番茄酱，正好落在白色盘沿的一小块空处。",
+      "en": "I lifted a small piece from my deep dish pizza, drawing out a long thread of cheese. Lowering the fork lowered the thread too, still tethered beside the high crust. My neighbour offered a knife. I steadied the plate and gently cut it free. After the mouthful finally reached me, I noticed a little tomato sauce on the knife tip, just above a clean patch of white plate."
+    },
+    "replies": [
+      {
+        "id": "chicago.arrival.cheese-tether.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢邻座递来的小刀",
+          "en": "Thank my neighbour for the knife"
+        }
+      },
+      {
+        "id": "chicago.arrival.cheese-tether.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看奶酪线连着哪一边",
+          "en": "Find where the cheese thread remains attached"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "chicago.menu-deep-dish"
+      ]
+    },
+    "cityId": "chicago"
+  },
+  {
+    "id": "chicago.arrival.beef-jus-elbow",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "chicago-italian-beef"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "三明治举得很稳，手肘却占了半张桌。",
+      "en": "The sandwich was steady, but my elbows occupied the table."
+    },
+    "text": {
+      "zh-Hans": "意式牛肉三明治沾着肉汁，我怕一举起来就滴下，便把身体往前凑，两只手肘却挡住了旁边的空位。有人端盘走来，我赶紧收起手肘，三明治又险些碰到下巴。我把盘子拉近一点，这才稳稳咬下一口。剩下的薄牛肉片留在面包里，盘底接住了一小滴肉汁。",
+      "en": "My Italian beef sandwich carried plenty of jus, so I leaned forward before lifting it. Both elbows spread into the space beside me. When someone approached with a plate, I tucked them in and nearly bumped my chin with the bread. Pulling my plate closer solved the arrangement. I took a bite with the thin beef slices still inside and one small drop of jus caught below."
+    },
+    "replies": [
+      {
+        "id": "chicago.arrival.beef-jus-elbow.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给端盘过来的人让出位置",
+          "en": "Make room for the approaching diner"
+        }
+      },
+      {
+        "id": "chicago.arrival.beef-jus-elbow.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看盘子有没有接住肉汁",
+          "en": "Check that the plate catches the jus"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "chicago.menu-italian-beef"
+      ]
+    },
+    "cityId": "chicago"
+  },
+  {
+    "id": "chicago.arrival.indoor-voice-outside",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "chicago-deep-dish",
+      "chicago-italian-beef",
+      "chicago-whispering-gallery"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "该说响一点的时候，我却还在耳语。",
+      "en": "I kept whispering when a normal voice was needed."
+    },
+    "text": {
+      "zh-Hans": "旅人越凑越近，我才听见自己还在耳语。吃过深盘披萨和牛肉三明治，我到耳语展厅试着轻声说话。离开声盘后，他问邮包重不重，我仍压着嗓子回答，难怪他没听清。我笑着用平常声音说里面只是路上的小东西，为证明不重，还举起邮包，底下却垂出一只忘记收好的袜子。",
+      "en": "The visitor kept leaning closer before I realised I was still whispering. Following lunch of deep dish pizza and an Italian beef sandwich, we had tried the Whispering Gallery. Away from its dishes, they asked about my bag's weight and could barely hear my answer. I laughed and used my normal voice to explain its small contents. Lifting it for proof revealed an unpacked sock dangling below."
+    },
+    "replies": [
+      {
+        "id": "chicago.arrival.indoor-voice-outside.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "用平常声音说明那只袜子",
+          "en": "Explain the dangling sock in my normal voice"
+        }
+      },
+      {
+        "id": "chicago.arrival.indoor-voice-outside.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把邮包底下的袜子收好",
+          "en": "Tuck away the sock beneath the bag"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chicago.dangling-sock"
+      ],
+      "menuIds": [
+        "chicago.menu-deep-dish",
+        "chicago.menu-italian-beef"
+      ]
+    },
+    "cityId": "chicago"
+  },
+  {
+    "id": "chicago.arrival.cup-sleeve-mixup",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "chicago-deep-dish",
+      "chicago-italian-beef",
+      "chicago-riverwalk"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "空杯收好了，杯套还抱着我的手腕。",
+      "en": "The cup was packed away while its sleeve hugged my wrist."
+    },
+    "text": {
+      "zh-Hans": "披萨和牛肉三明治吃过，我带着喝空的水杯沿河滨步道走，想把杯套和杯子一并收好。杯子进了随身袋，纸杯套却被我套到手腕上，露在袖子外面。旁边的旅人看见，指指自己的手腕，我才低头发现这圈多出来的东西。我把它轻轻取下压平，放进空杯里，杯口刚好盖住。",
+      "en": "After pizza and an Italian beef sandwich, I walked the Riverwalk with my empty cup. Packing it away, I somehow left the cardboard sleeve around my wrist. A passing visitor pointed at their own wrist, and I looked down at the extra cuff sticking out of my coat. I slid it off, flattened it gently, and tucked it inside the empty cup, just below the rim."
+    },
+    "replies": [
+      {
+        "id": "chicago.arrival.cup-sleeve-mixup.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢指出多出来的杯套",
+          "en": "Thank the visitor for spotting the cup sleeve"
+        }
+      },
+      {
+        "id": "chicago.arrival.cup-sleeve-mixup.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看杯套有没有收进杯口",
+          "en": "Check that the sleeve fits inside the cup"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "chicago.menu-deep-dish",
+        "chicago.menu-italian-beef"
+      ]
+    },
+    "cityId": "chicago"
+  },
+  {
+    "id": "chicago.fulfill.soft-hello",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "chicago-whispering-gallery"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "chicago.arrival.too-loud-hello.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，这一句我只用了很小的气声。",
+      "en": "You wrote, “{reply}.” I used a very small breath for this hello."
+    },
+    "text": {
+      "zh-Hans": "照你的话，我在耳语展厅重新站到标记上，向声盘轻轻说了一句你好。那位旅人从另一头回了同样小声的一句，我还以为他已经走到身旁，赶紧回头看，才发现他仍站得远远的。我们各自笑了一下，我转回来扶住包带，刚才攥出来的一道褶子，还歪在带子正中。",
+      "en": "As you suggested, I returned to the standing mark in the Whispering Gallery and breathed a soft hello towards the dish. The visitor answered just as quietly from the other end. I turned, briefly thinking they had come beside me, but they were still far away. We both laughed. Facing the dish again, I steadied my strap, with the crease from my earlier grip still crooked across its middle."
+    },
+    "replies": [
+      {
+        "id": "chicago.fulfill.soft-hello.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "告诉旅人我差点回头找他",
+          "en": "Tell the visitor why I turned around"
+        }
+      },
+      {
+        "id": "chicago.fulfill.soft-hello.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看包带中央捏出的褶子",
+          "en": "Look at the crease across the strap"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "chicago.crease-echo-card"
+      ],
+      "menuIds": []
+    },
+    "cityId": "chicago"
+  },
+  {
+    "id": "chicago.revisit.untangled-earphones",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "chicago-riverwalk"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我也跟着转，耳机线反而缠得更紧。",
+      "en": "My helpful turns only tightened the earphone cord."
+    },
+    "text": {
+      "zh-Hans": "沿芝加哥河主支南岸走，我又认出了这段步道。旁边的旅人收耳机时，两根线绕到一起，便请我拿住一头。他转一下，我也跟着转一下，线反而拧得更紧。我们停住笑，他让我只拿着别动，自己慢慢理开。放回原来的小盒时，两只耳塞终于并排躺好，细线松松绕在两只小小的耳塞旁边。",
+      "en": "Walking the familiar south-bank Riverwalk on my return to Chicago, I stopped beside a visitor packing wired earphones. They asked me to hold one end while untangling the cord. Every time they turned it, I turned too, making the twist tighter. We stopped and laughed. I held still while they worked it free. Inside the little case at last, the two earpieces lay together with the cord loosely wound beside them."
+    },
+    "replies": [
+      {
+        "id": "chicago.revisit.untangled-earphones.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问清哪一头需要我拿着不动",
+          "en": "Ask which end I should hold still"
+        }
+      },
+      {
+        "id": "chicago.revisit.untangled-earphones.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看耳机线解开的那个结",
+          "en": "Look at the loop that came undone"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "chicago"
+  }
+]

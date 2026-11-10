@@ -1,0 +1,418 @@
+[
+  {
+    "id": "kualalumpur.arrival.hat-bow",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "kualalumpur-twin-towers"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我弯腰捡帽子，对方却先向我点了头。",
+      "en": "My bow to a fallen hat received a polite reply."
+    },
+    "text": {
+      "zh-Hans": "在双子塔前抬头找连接两塔的桥，我的帽子慢慢滑到脑后，最后掉在脚边。我赶紧弯腰，迎面那位旅人却以为我在打招呼，也认真向我点了点头。我捧着帽子直起身，笑着说明缘故，约好等会儿见到再好好问候。这回我先把帽子扣稳，指尖还按着歪掉的那一边。",
+      "en": "Looking up for the bridge between the twin towers, I let my hat slide backwards until it dropped by my feet. I bent to retrieve it. A visitor coming towards me mistook that for a greeting and nodded politely. I rose holding the hat, explained, and promised a proper hello when we next crossed paths. First I secured the brim, keeping a finger on its crooked side."
+    },
+    "replies": [
+      {
+        "id": "kualalumpur.arrival.hat-bow.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "戴好帽子再认真打招呼",
+          "en": "Secure my hat before giving a proper greeting"
+        }
+      },
+      {
+        "id": "kualalumpur.arrival.hat-bow.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看帽檐为什么会滑下来",
+          "en": "Check why the hat slipped"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "kualalumpur.tilting-brim"
+      ],
+      "menuIds": []
+    },
+    "cityId": "kualalumpur"
+  },
+  {
+    "id": "kualalumpur.arrival.patterned-step",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "kualalumpur-klcc-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两只鞋一起落地，图案就少了一块。",
+      "en": "Two shoes landed and hid part of the pattern."
+    },
+    "text": {
+      "zh-Hans": "KLCC 公园的步道带着图案，我走着走着，把脚尖对到一条线旁。一个孩子跟着试，发现自己的两只鞋都能放进同一小块，我的邮包却垂下来遮住了边缘。他蹲下想看，我便把邮包抱高，两个人都露出了脚。孩子先迈开，我留在原地多站了一小会儿，才从那条线上挪走鞋尖。",
+      "en": "Along KLCC Park's patterned path, I lined my toes up with an edge. A child tried too and fitted both shoes into one small patch. My hanging mailbag hid the border. When they crouched to look, I lifted it so both our pairs of feet were visible. The child moved on. I stayed a moment longer before taking my toes away from the line."
+    },
+    "replies": [
+      {
+        "id": "kualalumpur.arrival.patterned-step.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和孩子比较两双鞋占的地方",
+          "en": "Compare the space our shoes take up"
+        }
+      },
+      {
+        "id": "kualalumpur.arrival.patterned-step.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看包底遮住了哪条线",
+          "en": "Find the line hidden by the bag"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "kualalumpur.path-corner"
+      ],
+      "menuIds": []
+    },
+    "cityId": "kualalumpur"
+  },
+  {
+    "id": "kualalumpur.arrival.rice-round-egg",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "kualalumpur-nasi-lemak"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我想拨开米饭，鸡蛋先转了半圈。",
+      "en": "The egg turned before I could move the rice."
+    },
+    "text": {
+      "zh-Hans": "椰浆饭摆好，我想把饭旁的蛋挪近一点，勺子轻推，蛋却沿盘边转起圈。我赶紧伸出叉子轻轻拦住，又怕把旁边的参巴酱带过去，双手一时僵住。店员替我递来小碟，我把蛋稳稳放好，再慢慢拌一口饭。原来蛋停过的地方，黄瓜片上压着两三粒白白的米。",
+      "en": "I wanted the egg beside my nasi lemak a little closer, but a nudge from my spoon sent it turning along the rim. I stopped it with a fork, then hesitated over the nearby sambal. A server offered a small dish. I settled the egg there and returned to a mouthful of rice. Where the egg had paused, a few white grains rested on a cucumber slice."
+    },
+    "replies": [
+      {
+        "id": "kualalumpur.arrival.rice-round-egg.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢店员递来的小碟",
+          "en": "Thank the server for the little dish"
+        }
+      },
+      {
+        "id": "kualalumpur.arrival.rice-round-egg.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看黄瓜上留下的米粒",
+          "en": "Look at the grains on the cucumber"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "kualalumpur.menu-nasi-lemak"
+      ]
+    },
+    "cityId": "kualalumpur"
+  },
+  {
+    "id": "kualalumpur.arrival.roti-return",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "kualalumpur-roti"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "面饼伸进咖喱，出来时多带了一小角。",
+      "en": "The bread came out of the curry with an extra corner."
+    },
+    "text": {
+      "zh-Hans": "我撕下一块刚端来的面饼，蘸咖喱时，折着的那一角忽然松开，留在小碗里面。我用勺子去找，它却贴着碗边绕了半圈才出来。邻座把自己的空碟挪开，给我腾出放勺子的地方。我先吃掉那块已经泡软的面饼，盘里剩下的半张，还好好叠在原来的位置。",
+      "en": "I tore a piece of roti canai and dipped it in curry, but a folded corner came loose in the bowl. My spoon chased it around the rim before lifting it out. A diner beside me moved an empty dish to make room for the spoon. I ate the softened piece first. The remaining half of the bread was still neatly folded on its plate."
+    },
+    "replies": [
+      {
+        "id": "kualalumpur.arrival.roti-return.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢邻座让出的餐具位置",
+          "en": "Thank my neighbour for making room"
+        }
+      },
+      {
+        "id": "kualalumpur.arrival.roti-return.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看泡软的那一小角",
+          "en": "Look at the softened corner"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "kualalumpur.menu-roti"
+      ]
+    },
+    "cityId": "kualalumpur"
+  },
+  {
+    "id": "kualalumpur.arrival.third-seat",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "kualalumpur-nasi-lemak",
+      "kualalumpur-roti",
+      "kualalumpur-klcc-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我说这里还有座位，小熊便先坐下了。",
+      "en": "I offered a seat, and a small bear accepted."
+    },
+    "text": {
+      "zh-Hans": "椰浆饭和面饼吃完，我到 KLCC 公园坐坐，向旁边抱着孩子的旅人说这里还有空位。他道谢后先放下一只绒布熊，我便往旁边挪，给孩子也让出地方。谁知孩子抱起熊，干脆坐到大人膝上。我笑着问还要不要留座，孩子认真点头，把熊的一只脚摆在了空出来的位置。",
+      "en": "After nasi lemak and roti canai, I offered a place on a KLCC Park bench to someone carrying a child. They thanked me and first set down a stuffed bear. I moved farther along for the child, who instead picked up the bear and sat on the adult's knees. I asked whether we still needed the extra space. The child nodded solemnly and put one of the bear's feet on the empty seat."
+    },
+    "replies": [
+      {
+        "id": "kualalumpur.arrival.third-seat.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问小熊还要留多少位置",
+          "en": "Ask how much room the bear needs"
+        }
+      },
+      {
+        "id": "kualalumpur.arrival.third-seat.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看小熊占住的那一小块",
+          "en": "Notice the bear’s reserved place"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "kualalumpur.menu-nasi-lemak",
+        "kualalumpur.menu-roti"
+      ]
+    },
+    "cityId": "kualalumpur"
+  },
+  {
+    "id": "kualalumpur.arrival.paper-span",
+    "version": 1,
+    "kind": "arrival",
+    "factIds": [
+      "kualalumpur-nasi-lemak",
+      "kualalumpur-roti",
+      "kualalumpur-twin-towers"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两座纸塔站稳了，小桥却躺了下来。",
+      "en": "The paper towers stood while the little bridge lay down."
+    },
+    "text": {
+      "zh-Hans": "纸桥刚架好，一头便从小纸塔上滑下来。椰浆饭和面饼吃完，我在休息桌上折两座小塔，想学双子塔给它们接一段桥。旁边的孩子替我扶住一头，我又把另一头压得太低。他缩回手指，小桥竟挂在我的指尖上。我轻轻放下，给纸条折两个短脚，这回桥两端都稳稳停住了。",
+      "en": "One end of my paper bridge slipped from its little tower. After nasi lemak and roti canai, I had been folding two towers at a resting table, with a link inspired by the twin towers. A child steadied one end while I lowered the other too far, catching the strip on my fingertip. I eased it down and folded two short feet. Both ends finally stayed put."
+    },
+    "replies": [
+      {
+        "id": "kualalumpur.arrival.paper-span.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢扶住纸桥的小朋友",
+          "en": "Thank the child for steadying the bridge"
+        }
+      },
+      {
+        "id": "kualalumpur.arrival.paper-span.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看纸桥两端折出的短脚",
+          "en": "Look at the short feet under the paper bridge"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "kualalumpur.paper-span-card"
+      ],
+      "menuIds": [
+        "kualalumpur.menu-nasi-lemak",
+        "kualalumpur.menu-roti"
+      ]
+    },
+    "cityId": "kualalumpur"
+  },
+  {
+    "id": "kualalumpur.fulfill.hat-then-hello",
+    "version": 1,
+    "kind": "fulfill",
+    "factIds": [
+      "kualalumpur-twin-towers"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "kualalumpur.arrival.hat-bow.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，帽子先扣好，问候才出发。",
+      "en": "You wrote, “{reply}.” I secured the hat before saying hello."
+    },
+    "text": {
+      "zh-Hans": "在双子塔附近再遇那位旅人，我先伸手摸摸帽檐，确认戴稳，才向他打招呼。他认出我，也笑着按住自己的帽子。我想解释上次只是在捡东西，手一比画，又碰到了帽檐，赶紧收回。对方把双手放到身后，我也照着站好，两顶帽子终于都安安静静留在了头上。",
+      "en": "When I met the visitor near the twin towers again, I checked my hat before saying hello. Recognising me, they smiled and held their own hat too. I began explaining that my previous bow had been for a dropped hat, but my gesture caught the brim again. I quickly lowered my hand. They put both hands behind their back. I copied them, leaving both hats sitting quietly on our heads."
+    },
+    "replies": [
+      {
+        "id": "kualalumpur.fulfill.hat-then-hello.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "和旅人把招呼完整说完",
+          "en": "Finish our greeting with the visitor"
+        }
+      },
+      {
+        "id": "kualalumpur.fulfill.hat-then-hello.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两顶帽子有没有戴稳",
+          "en": "Check that both hats are secure"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "kualalumpur.two-hats-fold"
+      ],
+      "menuIds": []
+    },
+    "cityId": "kualalumpur"
+  },
+  {
+    "id": "kualalumpur.revisit.umbrella-beads",
+    "version": 1,
+    "kind": "revisit",
+    "factIds": [
+      "kualalumpur-klcc-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "伞收小了，水珠还没找到落脚处。",
+      "en": "The umbrella folded before its droplets had settled."
+    },
+    "text": {
+      "zh-Hans": "熟悉的步道图案把我带回 KLCC 公园，这趟吉隆坡途中刚遇过一阵小雨。我在遮蔽处收伞，伞尖却还滴着水，一位站在旁边的旅人提醒我往空地那边偏一点。我赶紧挪好，轻轻拢起伞骨，又忘了先解开缠住的腕带。对方帮我把带子拨开，伞终于收齐，细小的水珠沿着一根伞骨排成一行。",
+      "en": "The familiar path patterns brought me back to KLCC Park after a brief shower on this visit to Kuala Lumpur. As I closed my umbrella under a shelter, a visitor suggested pointing the dripping tip towards the clear space. I adjusted it, then tried folding the ribs with the wrist strap caught around them. They helped free the strap. The umbrella closed properly, leaving a row of tiny drops along one rib."
+    },
+    "replies": [
+      {
+        "id": "kualalumpur.revisit.umbrella-beads.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢提醒我挪开伞尖",
+          "en": "Thank the visitor for the reminder"
+        }
+      },
+      {
+        "id": "kualalumpur.revisit.umbrella-beads.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看腕带有没有绕住伞骨",
+          "en": "Check the strap around the umbrella ribs"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    },
+    "cityId": "kualalumpur"
+  }
+]

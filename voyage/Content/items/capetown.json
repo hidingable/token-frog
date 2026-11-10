@@ -1,0 +1,98 @@
+[
+  {
+    "id": "capetown.menu-bobotie",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "波波提小菜单",
+      "en": "Bobotie Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我吃过波波提后做的纸菜单，特地给蛋奶层下面的肉糜留了位置。",
+      "en": "My paper menu after eating bobotie, with room for the beef beneath its custard top."
+    },
+    "cityId": "capetown"
+  },
+  {
+    "id": "capetown.menu-malva",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "玛尔瓦布丁小菜单",
+      "en": "Malva Pudding Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在开普敦做的小菜单，记着我那份布丁上的浅沟和蛋奶酱。",
+      "en": "A little Cape Town menu recording the groove and custard in my serving of pudding."
+    },
+    "cityId": "capetown"
+  },
+  {
+    "id": "capetown.turning-tab",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "转半圈纸签",
+      "en": "Half-Turn Paper Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "我在开普敦折的双面纸签，翻到哪面，邮包就朝哪面。",
+      "en": "A two-sided paper tab I folded in Cape Town, with a mailbag facing each way."
+    },
+    "cityId": "capetown"
+  },
+  {
+    "id": "capetown.double-knot",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "双结剪纸",
+      "en": "Double-Knot Paper Cutout"
+    },
+    "descriptions": {
+      "zh-Hans": "植物园那次系鞋带之后做的纸剪影，两只纸鞋都绑好了。",
+      "en": "A paper silhouette made after tying my laces at Kirstenbosch; both paper shoes are secure."
+    },
+    "cityId": "capetown"
+  },
+  {
+    "id": "capetown.hat-brim-fold",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小帽檐折纸",
+      "en": "Folded Little Brim"
+    },
+    "descriptions": {
+      "zh-Hans": "我在开普敦用干净纸折的小帽子，边缘收得比真帽子牢些。",
+      "en": "A clean-paper hat I folded in Cape Town, with an edge rather firmer than my real brim."
+    },
+    "cityId": "capetown"
+  },
+  {
+    "id": "capetown.front-pocket-card",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "正面邮包翻页卡",
+      "en": "Front-Facing Mailbag Card"
+    },
+    "descriptions": {
+      "zh-Hans": "重拍照片后自制的翻页纸卡，翻开就能找到朝外的包扣。",
+      "en": "My homemade flap card after the second photo; lifting the flap reveals the outward-facing buckle."
+    },
+    "cityId": "capetown"
+  }
+]

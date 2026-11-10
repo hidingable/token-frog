@@ -1,0 +1,98 @@
+[
+  {
+    "id": "kualalumpur.menu-nasi-lemak",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "椰浆饭小菜单",
+      "en": "Nasi Lemak Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在吉隆坡吃椰浆饭后做的纸菜单，蛋和黄瓜各有位置。",
+      "en": "My paper menu after nasi lemak in Kuala Lumpur gives the egg and cucumber their own spaces."
+    },
+    "cityId": "kualalumpur"
+  },
+  {
+    "id": "kualalumpur.menu-roti",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "Roti Canai 小菜单",
+      "en": "Roti Canai Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "这张自制纸菜单留着面饼蘸进咖喱的一小角。",
+      "en": "My homemade paper menu records the corner of bread that stayed in the curry."
+    },
+    "cityId": "kualalumpur"
+  },
+  {
+    "id": "kualalumpur.tilting-brim",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "歪帽檐纸签",
+      "en": "Tilting-Brim Paper Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "双子塔前那次捡帽子之后剪的纸签，帽檐可以往回折。",
+      "en": "My paper tab after retrieving the hat by the twin towers has a brim that folds back."
+    },
+    "cityId": "kualalumpur"
+  },
+  {
+    "id": "kualalumpur.path-corner",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "鞋尖小纸角",
+      "en": "Paper Toe Corner"
+    },
+    "descriptions": {
+      "zh-Hans": "我给自己的脚尖折的小纸角，记着在公园看步道的停顿，不复制园路图。",
+      "en": "My folded toe corner remembers a pause over the park path, without reproducing its layout."
+    },
+    "cityId": "kualalumpur"
+  },
+  {
+    "id": "kualalumpur.paper-span-card",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "短脚纸桥卡",
+      "en": "Short-Footed Paper Bridge"
+    },
+    "descriptions": {
+      "zh-Hans": "信使做的纸塔小卡，桥两头各有一只短纸脚，是自己的简化造型。",
+      "en": "My simplified paper-tower card has a short folded foot beneath each end of its bridge."
+    },
+    "cityId": "kualalumpur"
+  },
+  {
+    "id": "kualalumpur.two-hats-fold",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两顶稳帽折页",
+      "en": "Two Steady Hats Foldout"
+    },
+    "descriptions": {
+      "zh-Hans": "我在吉隆坡自制的折页，翻开时，两顶纸帽子都牢牢留在纸脑袋上。",
+      "en": "My homemade Kuala Lumpur foldout keeps both paper hats firmly on their paper heads."
+    },
+    "cityId": "kualalumpur"
+  }
+]

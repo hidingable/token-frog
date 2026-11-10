@@ -1,0 +1,98 @@
+[
+  {
+    "id": "santiago.menu-empanada",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "皮诺馅烤饺小菜单",
+      "en": "Empanada de Pino Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在圣地亚哥做的菜单，折边和露出来的馅分得很清楚。",
+      "en": "My Santiago menu keeps the folded pastry edge distinct from the exposed filling."
+    },
+    "cityId": "santiago"
+  },
+  {
+    "id": "santiago.menu-choclo",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "玉米派小菜单",
+      "en": "Pastel de Choclo Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "吃过玉米派后做的纸菜单，玉米盖上特地留了一个勺子缺口。",
+      "en": "My paper menu after pastel de choclo leaves a spoon-sized gap in the corn topping."
+    },
+    "cityId": "santiago"
+  },
+  {
+    "id": "santiago.ball-arc",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小球弧线纸签",
+      "en": "Ball-Arc Paper Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自己剪的纸签，记下公园里小球碰到邮包的弧线。",
+      "en": "My own cut-paper tab records the ball’s arc towards my bag in the park."
+    },
+    "cityId": "santiago"
+  },
+  {
+    "id": "santiago.round-shadow",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "圆影透空卡",
+      "en": "Round-Shadow Cutout"
+    },
+    "descriptions": {
+      "zh-Hans": "在圣地亚哥自制的圆孔纸卡，挪一挪就能给纸帽子添个影子。",
+      "en": "My homemade circular cutout moves a little shadow across a paper hat."
+    },
+    "cityId": "santiago"
+  },
+  {
+    "id": "santiago.two-utensil-slots",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "餐具双槽折页",
+      "en": "Two-Utensil Foldout"
+    },
+    "descriptions": {
+      "zh-Hans": "我把那次找叉子的小事做成纸折页，两个槽只装纸餐具。",
+      "en": "A foldout I made after finding the missing fork, with slots for two paper utensils."
+    },
+    "cityId": "santiago"
+  },
+  {
+    "id": "santiago.rolling-window",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "贴地小球转页",
+      "en": "Low-Rolling Ball Wheel"
+    },
+    "descriptions": {
+      "zh-Hans": "我做的纸转页让小球从两只纸脚之间滚到纸邮包旁。",
+      "en": "My paper wheel sends a little ball between two paper feet towards a paper mailbag."
+    },
+    "cityId": "santiago"
+  }
+]

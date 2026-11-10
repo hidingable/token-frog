@@ -1,0 +1,98 @@
+[
+  {
+    "id": "amsterdam.menu-stroopwafel",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "糖浆华夫饼小菜单",
+      "en": "Stroopwafel Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在阿姆斯特丹做的纸菜单，圆饼少的那一口刚好让盒子合上。",
+      "en": "My Amsterdam paper menu shows the bite that finally let the waffle box close."
+    },
+    "cityId": "amsterdam"
+  },
+  {
+    "id": "amsterdam.menu-poffertjes",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "迷你松饼小菜单",
+      "en": "Poffertjes Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "这张自制纸菜单留着糖粉里的黄油小径，只是一顿点心的记号。",
+      "en": "My homemade paper menu records the butter’s little trail through one serving of sugar."
+    },
+    "cityId": "amsterdam"
+  },
+  {
+    "id": "amsterdam.one-dark-circle",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "半黑小圆纸签",
+      "en": "Half-Dark Circle Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "在 NEMO 看景后自制的双圆纸签，一边用深色纸表示忘取的镜盖。",
+      "en": "My double-circle tab after NEMO uses dark paper for the lens cap I forgot to remove."
+    },
+    "cityId": "amsterdam"
+  },
+  {
+    "id": "amsterdam.light-edge",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "亮边鞋尖纸片",
+      "en": "Bright-Edged Paper Toe"
+    },
+    "descriptions": {
+      "zh-Hans": "我用浅色纸边贴成的鞋尖，只记中庭光落在自己鞋上的样子。",
+      "en": "A pale paper edge on a paper shoe remembers light falling across my own toe in the Atrium."
+    },
+    "cityId": "amsterdam"
+  },
+  {
+    "id": "amsterdam.separate-shadows",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "分开影子拉页",
+      "en": "Separate-Shadows Pullout"
+    },
+    "descriptions": {
+      "zh-Hans": "我自制的纸拉页可以把两只纸鞋旁的影子拉开一点。",
+      "en": "My homemade pullout moves the shadows beside two paper shoes a little apart."
+    },
+    "cityId": "amsterdam"
+  },
+  {
+    "id": "amsterdam.twin-lens-card",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "双镜盖开合卡",
+      "en": "Two-Lens-Cap Flap Card"
+    },
+    "descriptions": {
+      "zh-Hans": "在屋顶借望远镜后做的开合卡，两片圆纸盖都能掀开，不复制博物馆产品。",
+      "en": "My flap card after borrowing binoculars on the roof has two opening paper caps; it is my own design."
+    },
+    "cityId": "amsterdam"
+  }
+]

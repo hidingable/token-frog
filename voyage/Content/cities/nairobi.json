@@ -10,7 +10,7 @@
     "capital",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "内罗毕",
     "en": "Nairobi"
@@ -19,5 +19,67 @@
     "zh-Hans": "内罗毕",
     "en": "Nairobi"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "nairobi-karura",
+      "type": "place",
+      "names": {
+        "zh-Hans": "卡鲁拉森林步道",
+        "en": "Karura Forest Trails"
+      },
+      "summary": {
+        "zh-Hans": "卡鲁拉森林步道的主要岔路口设有编号标志，步行和跑步路线也使用颜色标记。",
+        "en": "Main junctions on Karura Forest trails have numbered markers. Walking and running routes also use colour codes."
+      },
+      "sources": [
+        "https://friendsofkarura.org/forest-maps/"
+      ]
+    },
+    {
+      "id": "nairobi-bird-gallery",
+      "type": "place",
+      "names": {
+        "zh-Hans": "内罗毕国家博物馆鸟类展厅",
+        "en": "Bird Gallery at Nairobi National Museum"
+      },
+      "summary": {
+        "zh-Hans": "内罗毕国家博物馆的鸟类展陈按类群展示东非鸟类，包括猛禽、水鸟和太阳鸟。",
+        "en": "The bird displays at Nairobi National Museum group East African birds by family, including birds of prey, water birds and sunbirds."
+      },
+      "sources": [
+        "https://museums.or.ke/nairobi-national-museum/"
+      ]
+    },
+    {
+      "id": "nairobi-ugali",
+      "type": "food",
+      "names": {
+        "zh-Hans": "乌伽黎玉米团",
+        "en": "Ugali"
+      },
+      "summary": {
+        "zh-Hans": "乌伽黎可用玉米粉和水煮成结实的稠团，搭配蔬菜或肉类菜肴。肯尼亚也有使用其他谷物或混合粉的做法。",
+        "en": "Ugali can be made by cooking maize flour with water until firm and served with vegetable or meat dishes. Kenyan versions also use other grains or blended flours."
+      },
+      "sources": [
+        "https://worldrelief.org/content/uploads/2020/07/KenyaOrientationManualJan2019.pdf",
+        "https://academicjournals.org/journal/AJFS/article-full-text/FD60ABC61629"
+      ]
+    },
+    {
+      "id": "nairobi-choma",
+      "type": "food",
+      "names": {
+        "zh-Hans": "尼亚玛乔马烤肉",
+        "en": "Nyama Choma"
+      },
+      "summary": {
+        "zh-Hans": "尼亚玛乔马是以明火烤制的肉，可以使用山羊肉、绵羊肉或牛肉。",
+        "en": "Nyama choma is meat roasted over an open flame; it can be goat, sheep or beef."
+      },
+      "sources": [
+        "https://worldrelief.org/content/uploads/2020/07/KenyaOrientationManualJan2019.pdf"
+      ]
+    }
+  ]
 }

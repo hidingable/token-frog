@@ -1,0 +1,98 @@
+[
+  {
+    "id": "chicago.menu-deep-dish",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "深盘披萨小菜单",
+      "en": "Deep Dish Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "我在芝加哥做的纸菜单，高饼边上连着一条短短的纸奶酪线。",
+      "en": "My Chicago paper menu has a short paper cheese thread beside the high crust."
+    },
+    "cityId": "chicago"
+  },
+  {
+    "id": "chicago.menu-italian-beef",
+    "kind": "menu",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "意式牛肉三明治小菜单",
+      "en": "Italian Beef Little Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "吃过牛肉三明治后做的菜单，盘底留着那一小滴肉汁的圆点。",
+      "en": "My menu after Italian beef keeps a little dot for the jus caught on the plate."
+    },
+    "cityId": "chicago"
+  },
+  {
+    "id": "chicago.quiet-dish-tab",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小声盘纸签",
+      "en": "Quiet-Dish Paper Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "离开耳语展厅后自制的小纸签，凹折只记自己的问候，不是声学模型。",
+      "en": "My paper tab after the Whispering Gallery folds around a personal greeting rather than an acoustic model."
+    },
+    "cityId": "chicago"
+  },
+  {
+    "id": "chicago.half-step",
+    "kind": "souvenir",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "半步鞋印折纸",
+      "en": "Half-Step Paper Footprint"
+    },
+    "descriptions": {
+      "zh-Hans": "信使把河边多迈的半步折成纸脚印，两只纸鞋没有排得很齐。",
+      "en": "My paper footprint from the river walk leaves two paper shoes half a step out of line."
+    },
+    "cityId": "chicago"
+  },
+  {
+    "id": "chicago.dangling-sock",
+    "kind": "souvenir",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "垂袜邮包纸卡",
+      "en": "Dangling-Sock Mailbag Card"
+    },
+    "descriptions": {
+      "zh-Hans": "我在芝加哥自制的纸包卡，底下露着一只可收回去的纸袜子。",
+      "en": "My homemade Chicago mailbag card has a paper sock that tucks back inside."
+    },
+    "cityId": "chicago"
+  },
+  {
+    "id": "chicago.crease-echo-card",
+    "kind": "souvenir",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "包带褶子翻页卡",
+      "en": "Creased-Strap Flap Card"
+    },
+    "descriptions": {
+      "zh-Hans": "轻声问候后做的纸翻页，打开能看见我攥歪的那道纸包带褶子。",
+      "en": "My flap card after the quiet greeting opens on the crooked crease in a paper strap."
+    },
+    "cityId": "chicago"
+  }
+]
