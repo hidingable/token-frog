@@ -20,7 +20,7 @@ enum HubClientError: Error, Equatable {
     case wishUnavailable
 }
 
-/// Opt-in enrichment only: this actor never receives usage, local paths or pet details.
+/// Opt-in enrichment: only approved city, collection and anonymous appearance fields cross this boundary.
 actor HubClient {
     typealias Transport = @Sendable (URLRequest) async throws -> (Data, HTTPURLResponse)
     typealias KeyLoader = @Sendable () async throws -> Data
@@ -138,6 +138,78 @@ actor HubClient {
             guard let object = entry as? [String: Any] else { return nil }
             return try? JSONSerialization.data(withJSONObject: object, options: [.sortedKeys, .withoutEscapingSlashes])
         }
+    }
+
+    struct StayResponse: Decodable, Sendable {
+        struct Partner: Decodable, Sendable { let appearance: EncounterAppearance }
+        let status: String
+        let partner: Partner?
+        let pairedAt: Date?
+    }
+
+    func encountersAvailable() -> Bool { isConfigured && cached?.config.encountersEnabled == true }
+
+    func registerStay(_ stay: EncounterStay, enabled: Bool) async throws -> StayResponse {
+        struct Body: Encodable {
+            let stayId: String; let cityId: String; let day: String; let endsAt: Date
+            let appearance: EncounterAppearance
+        }
+        return try await encounterResponse(path: "/v1/stays", method: "POST", body: Body(
+            stayId: stay.stayId, cityId: stay.cityId, day: stay.day, endsAt: stay.endsAt, appearance: stay.appearance), enabled: enabled)
+    }
+
+    func stayStatus(stayID: String, enabled: Bool) async throws -> StayResponse {
+        guard enabled, encountersAvailable() else { throw HubClientError.disabled }
+        guard UUID(uuidString: stayID) != nil else { throw HubClientError.invalidRequest }
+        return try decodeStay(await sendSigned(makeRequest(path: "/v1/stays/\(stayID)")))
+    }
+
+    func syncCollection(_ collection: [String], enabled: Bool) async throws {
+        guard enabled, encountersAvailable() else { throw HubClientError.disabled }
+        struct Body: Encodable { let collection: [String] }
+        let request = try jsonRequest(path: "/v1/sync", method: "PUT", body: Body(collection: collection))
+        _ = try await sendSigned(request)
+    }
+
+    /// Deletion stays available even when encounters have been switched off remotely or locally.
+    func deleteMe() async throws {
+        var request = try makeRequest(path: "/v1/me")
+        request.httpMethod = "DELETE"
+        _ = try await sendSigned(request)
+    }
+
+    private func encounterResponse<Body: Encodable>(path: String, method: String, body: Body, enabled: Bool) async throws -> StayResponse {
+        guard enabled, encountersAvailable() else { throw HubClientError.disabled }
+        return try decodeStay(await sendSigned(jsonRequest(path: path, method: method, body: body)))
+    }
+
+    private func decodeStay(_ data: Data) throws -> StayResponse {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .custom { decoder in
+            let text = try decoder.singleValueContainer().decode(String.self)
+            let formatter = ISO8601DateFormatter()
+            formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            if let date = formatter.date(from: text) { return date }
+            formatter.formatOptions = [.withInternetDateTime]
+            guard let date = formatter.date(from: text) else { throw HubClientError.invalidResponse }
+            return date
+        }
+        let response = try decoder.decode(StayResponse.self, from: data)
+        guard response.status == "waiting" || (response.status == "paired" && response.partner != nil && response.pairedAt != nil) else {
+            throw HubClientError.invalidResponse
+        }
+        return response
+    }
+
+    private func jsonRequest<Body: Encodable>(path: String, method: String, body: Body) throws -> URLRequest {
+        var request = try makeRequest(path: path)
+        request.httpMethod = method
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]
+        encoder.dateEncodingStrategy = .iso8601
+        request.httpBody = try encoder.encode(body)
+        return request
     }
 
     private func makeRequest(path: String, query: [URLQueryItem] = []) throws -> URLRequest {

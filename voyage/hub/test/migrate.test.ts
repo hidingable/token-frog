@@ -30,10 +30,20 @@ test('real initial migration defines the five utf8mb4 tables and seeds the four 
   }
   const executor = new FakeExecutor();
   const directory = new URL('../migrations/', import.meta.url).pathname;
-  assert.deepEqual(await runMigrations(executor, directory), ['0001_init.sql']);
+  assert.deepEqual(await runMigrations(executor, directory), ['0001_init.sql', '0002_encounters.sql']);
   const count = executor.statements.length;
   assert.deepEqual(await runMigrations(executor, directory), []);
   assert.equal(executor.statements.length, count + 1, 'only bootstrap repeats');
+});
+
+test('encounter migration adds utf8mb4 stays/sync, unique device/day and queue/retention indexes without cascading pairs', async () => {
+  const sql = await readFile(new URL('../migrations/0002_encounters.sql', import.meta.url), 'utf8');
+  assert.deepEqual([...sql.matchAll(/CREATE TABLE IF NOT EXISTS (voyage_\w+)/g)].map(match => match[1]), ['voyage_stays', 'voyage_sync']);
+  assert.equal(sql.match(/ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci/g)?.length, 2);
+  assert.match(sql, /UNIQUE KEY voyage_stays_device_day \(public_key, local_day\)/);
+  assert.match(sql, /INDEX voyage_stays_city_end \(city_id, ends_at\)/);
+  assert.match(sql, /partner_appearance JSON NULL/);
+  assert.equal(/FOREIGN KEY|CASCADE/i.test(sql), false);
 });
 
 test('migration files run in numeric order, record only after success, and skip applied versions', async t => {

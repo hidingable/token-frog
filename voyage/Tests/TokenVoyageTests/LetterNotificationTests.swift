@@ -217,3 +217,23 @@ private func evaluate(_ service: LetterNotificationService, _ state: JourneyStat
     #expect(responses[0] == 42)
     #expect(responses[1] == nil)
 }
+
+@Test @MainActor func encounterPostcardsStayQuietAndCannotSuppressLaterMorningMail() async {
+    let center = NotificationProbe()
+    let defaults = NotificationDefaults()
+    let service = LetterNotificationService(defaults: defaults, center: center)
+    var state = notificationJourney(ids: [1, 3])
+    var photo = state.letters[0]
+    photo.id = Int.max - 1
+    photo.kind = .postcard
+    photo.encounter = .init(cityId: "quanzhou", partner: .init(species: "snail", stage: "teen"),
+                            localDate: "2026-11-01", own: .init(species: "pigeon", stage: "hatchling"))
+    state.letters.append(photo)
+    var onlyPhoto = state
+    onlyPhoto.letters = [photo]
+    await evaluate(service, onlyPhoto)
+    #expect(center.sent.isEmpty)
+    await evaluate(service, state)
+    await evaluate(service, state, at: notificationDate(3))
+    #expect(center.sent.map(\.letterID) == [1, 3])
+}

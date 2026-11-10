@@ -63,6 +63,7 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var rewards = StoryRewards()
     public var rewardItems: [Item] = []
     public var memoryReference: CareState.Memory?
+    public var encounter: EncounterPhoto?
     public var weeklySummary: WeeklyMailSummary?
     /// Identifies the saved wish whose one-time explanation is included in this text snapshot.
     public var wishExplanationAt: Date?
@@ -165,6 +166,12 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public var usageEvents: UsageEvents?
     /// Frozen at departure: missing/empty means bundled-only, including interrupted fetches.
     public var remoteContentByTrip: [Int: TripContentSnapshot]?
+    public var encounterStaysByTrip: [Int: EncounterStay]?
+    public var encounterPhotos: [EncounterPhoto]?
+    public var lastEncounterSyncDay: String?
+
+    /// Encounter postcards occupy a separate descending ID space and never advance gameplay RNG.
+    public var nextLetterID: Int { (letters.filter { $0.encounter == nil }.map(\.id).max() ?? 0) + 1 }
 
     public init(seed: UInt32, startCityId: String, pet: PetID? = nil, date: String, now: Date? = nil, logbook: Logbook? = nil, catalog: CityCatalog) {
         let now = now ?? DayKey.date(from: date)!
@@ -249,6 +256,9 @@ public struct JourneyState: Codable, Equatable, Sendable {
         replacement.roadCluesEligibleFrom = roadCluesEligibleFrom
         replacement.days[openDate]?.roadClueDecision = record.roadClueDecision
         replacement.usageEvents = usageEvents
+        replacement.encounterStaysByTrip = encounterStaysByTrip
+        replacement.encounterPhotos = encounterPhotos
+        replacement.lastEncounterSyncDay = lastEncounterSyncDay
         if var firstLetter {
             firstLetter.cityId = cityId
             replacement.letters = [firstLetter]
@@ -277,6 +287,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
             checkTime(at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
             settleUsageEvents(final, content: catalog.usageEvents)
             settle(date, calendar: calendar, deliveryTime: deliveryTime)
+            settleEncounters(on: date, content: catalog.encounterPostcards, calendar: calendar, deliveryTime: deliveryTime)
             openDate = DayKey.next(date, calendar: calendar)
         }
         apply(today, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
@@ -302,7 +313,9 @@ public struct JourneyState: Codable, Equatable, Sendable {
     }
 
     public func deliveredLetters(now: Date) -> [Letter] {
-        letters.filter { $0.deliverAt <= now }.sorted { $0.id > $1.id }
+        letters.filter { $0.deliverAt <= now }.sorted {
+            $0.deliverAt == $1.deliverAt ? $0.id > $1.id : $0.deliverAt > $1.deliverAt
+        }
     }
 
     public func unreadCount(now: Date) -> Int {
@@ -497,7 +510,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         }
         if (record.tokens ?? 0) == 0 {
             letters.append(Letter(
-                id: (letters.map(\.id).max() ?? 0) + 1, kind: .postcard, date: date,
+                id: nextLetterID, kind: .postcard, date: date,
                 pet: pet, cityId: currentCityId, arrivals: [], newCountries: [], fuel: 0,
                 vehicles: [], isDeepVisit: false, deliverAt: deliverAt, enrichmentDone: true
             ))
@@ -505,7 +518,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         }
         letters.append(
             Letter(
-                id: (letters.map(\.id).max() ?? 0) + 1,
+                id: nextLetterID,
                 kind: .daily,
                 date: date,
                 pet: pet,
@@ -530,7 +543,7 @@ extension JourneyState {
         case version, seed, pet, startDate, currentCityId, targetCityId, legFuel
         case route, stamps, openDate, days, letters, totalFuel, totalKm, legCost, legFrom, legTo, targetCountryCode
         case lastOpenedDate, weeklyMailEligibleFrom, lastWeeklyMailSunday, roadCluesEligibleFrom
-        case usageEvents, remoteContentByTrip
+        case usageEvents, remoteContentByTrip, encounterStaysByTrip, encounterPhotos, lastEncounterSyncDay
         case homeCityId, homeCoordinate, phase, phaseSince, travelFund, tripCount, homecoming
     }
 
@@ -573,6 +586,9 @@ extension JourneyState {
         roadCluesEligibleFrom = try values.decodeIfPresent(String.self, forKey: .roadCluesEligibleFrom)
         usageEvents = try values.decodeIfPresent(UsageEvents.self, forKey: .usageEvents)
         remoteContentByTrip = try values.decodeIfPresent([Int: TripContentSnapshot].self, forKey: .remoteContentByTrip)
+        encounterStaysByTrip = try values.decodeIfPresent([Int: EncounterStay].self, forKey: .encounterStaysByTrip)
+        encounterPhotos = try values.decodeIfPresent([EncounterPhoto].self, forKey: .encounterPhotos)
+        lastEncounterSyncDay = try values.decodeIfPresent(String.self, forKey: .lastEncounterSyncDay)
     }
 }
 
@@ -583,7 +599,7 @@ extension Letter {
         case tripNumber
         case storyId, storyVersion, arrivalStories, isRevisit, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
         case carriedItem, itemTriggered
-        case facts, rewards, rewardItems, memoryReference, weeklySummary, wishExplanationAt, usageEventNotes, weatherCode, temperatureC, place, photoFile
+        case facts, rewards, rewardItems, memoryReference, encounter, weeklySummary, wishExplanationAt, usageEventNotes, weatherCode, temperatureC, place, photoFile
     }
 
     public init(from decoder: Decoder) throws {
@@ -622,6 +638,7 @@ extension Letter {
         rewards = try values.decode(StoryRewards.self, forKey: .rewards, default: StoryRewards())
         rewardItems = try values.decode([Item].self, forKey: .rewardItems, default: [])
         memoryReference = try values.decodeIfPresent(CareState.Memory.self, forKey: .memoryReference)
+        encounter = try values.decodeIfPresent(EncounterPhoto.self, forKey: .encounter)
         weeklySummary = try values.decodeIfPresent(WeeklyMailSummary.self, forKey: .weeklySummary)
         wishExplanationAt = try values.decodeIfPresent(Date.self, forKey: .wishExplanationAt)
         usageEventNotes = try values.decodeIfPresent([UsageEventNote].self, forKey: .usageEventNotes)

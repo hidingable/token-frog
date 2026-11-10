@@ -31,6 +31,25 @@ export interface WishCacheRow {
   createdAt: Date;
 }
 
+export interface Appearance { species: string; stage: 'hatchling' | 'juvenile' | 'teen' }
+export interface StayRow {
+  stayId: string;
+  publicKey: Buffer;
+  cityId: string;
+  day: string;
+  startedAt: Date;
+  endsAt: Date;
+  appearance: Appearance;
+  pairedStayId: string | null;
+  partnerAppearance: Appearance | null;
+  pairedAt: Date | null;
+}
+export type StayRegistration =
+  | { kind: 'ok'; stay: StayRow }
+  | { kind: 'stay_id_conflict' | 'daily_limit' };
+
+export interface SyncRow { publicKey: Buffer; collection: string[]; syncedAt: Date }
+
 export interface Repository {
   ping(): Promise<void>;
   getFeatures(): Promise<Features>;
@@ -39,6 +58,13 @@ export interface Repository {
   putCityContent(row: CityContentRow): Promise<void>;
   getWish(hash: string): Promise<WishCacheRow | null>;
   putWish(row: WishCacheRow): Promise<void>;
+  /** Atomic registration, idempotency, daily limit and oldest-waiting pairing. */
+  registerStay(row: StayRow): Promise<StayRegistration>;
+  getStay(stayId: string): Promise<StayRow | null>;
+  getApprovedContentIds(ids: string[]): Promise<Set<string>>;
+  putSync(row: SyncRow): Promise<void>;
+  deleteDevice(publicKey: Buffer): Promise<void>;
+  deleteExpiredStays(endedBefore: Date): Promise<void>;
 }
 
 export class FeatureCache {

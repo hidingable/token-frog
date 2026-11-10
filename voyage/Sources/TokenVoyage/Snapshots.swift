@@ -13,6 +13,14 @@ enum Snapshots {
         }
     }
 
+    static var encounterCases: [(language: Language, scheme: ThemeScheme, suffix: String)] {
+        Language.allCases.flatMap { language in
+            [ThemeScheme.dark, .light].map { scheme in
+                (language, scheme, "\(language.rawValue)-\(scheme.rawValue)")
+            }
+        }
+    }
+
     static func dashboardPages(model: AppModel) -> [(name: String, size: CGSize, selection: DashboardSelection)] {
         let wide = CGSize(width: 940, height: 1240)
         let peak = model.dashboardDays.map { UsageDashboard(days: $0, start: nil, end: DayKey.string(from: model.now)) }?.peak
@@ -298,6 +306,7 @@ enum Snapshots {
             settingsModel.showingSettings = true
             render(MainView(model: settingsModel), size: settingsSize, name: example.name, directory, model: settingsModel)
         }
+        writeEncounters(model: model, to: directory)
         if let catalog = model.catalog {
             model.withSnapshotState({ state in
                 state = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: model.now), now: model.now, catalog: catalog)
@@ -872,6 +881,48 @@ enum Snapshots {
             care.souvenirs[index].shelved = true
         }
         return (journey, care)
+    }
+
+    static func encounterExample(catalog: CityCatalog, now: Date, unknownPartner: Bool = false) -> Letter {
+        var letter = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: now),
+                                  now: now, catalog: catalog).letters[0]
+        letter.id = Int.max - 1
+        letter.kind = .postcard
+        letter.cityId = "quanzhou"
+        letter.encounter = EncounterPhoto(cityId: "quanzhou",
+            partner: EncounterAppearance(species: unknownPartner ? "future-messenger" : "snail", stage: "juvenile"),
+            localDate: DayKey.string(from: now), own: EncounterAppearance(species: "pigeon", stage: "teen"))
+        letter.texts = catalog.encounterPostcards.lines[0].texts
+        letter.leadTexts = [:]
+        letter.deliverAt = now
+        letter.enrichmentDone = true
+        return letter
+    }
+
+    private static func writeEncounters(model: AppModel, to directory: URL) {
+        guard let catalog = model.catalog else { return }
+        for example in encounterCases {
+            let fixture = AppModel(isSnapshot: true, languageOverride: example.language,
+                                   appearanceOverride: example.scheme, catalog: catalog, themes: model.themes,
+                                   now: { model.now }, runtimeEnabled: false)
+            fixture.withSnapshotEncountersAvailable {
+                fixture.withSnapshotState({ state in
+                    state.startDate = DayKey.string(from: Calendar.current.date(byAdding: .day, value: -1, to: model.now)!)
+                    state.openDate = DayKey.string(from: model.now)
+                }) {
+                    render(SettingsTab(model: fixture).padding(16).background(fixture.theme.background),
+                           size: CGSize(width: 760, height: 2300), name: "settings-encounters-\(example.suffix)", directory, model: fixture)
+                }
+            }
+            render(EncounterConsentView(onConfirm: {}, onCancel: {}), size: CGSize(width: 480, height: 520),
+                   name: "encounter-consent-\(example.suffix)", directory, model: fixture)
+            for unknown in [false, true] {
+                let letter = encounterExample(catalog: catalog, now: model.now, unknownPartner: unknown)
+                render(LetterView(letter: letter, petName: model.petName, catalog: catalog)
+                    .padding(16).background(fixture.theme.background), size: CGSize(width: 580, height: 520),
+                    name: "encounter-postcard-\(unknown ? "unknown" : "known")-\(example.suffix)", directory, model: fixture)
+            }
+        }
     }
 
     private static func render<Content: View>(_ view: Content, size: CGSize, name: String, _ directory: URL, model: AppModel) {

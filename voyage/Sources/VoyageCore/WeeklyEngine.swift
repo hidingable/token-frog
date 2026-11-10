@@ -74,7 +74,7 @@ extension CareEngine {
                 care.boxItemIndex += 1
                 result = .item(id: item, kind: "souvenir")
             } else {
-                let city = journey.letters.max { $0.id < $1.id }?.cityId ?? journey.currentCityId
+                let city = journey.letters.filter { $0.encounter == nil }.max { $0.id < $1.id }?.cityId ?? journey.currentCityId
                 care.trailClues[city, default: 0] += 1
                 result = .clue(cityId: city)
             }

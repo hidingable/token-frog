@@ -8,6 +8,7 @@ public enum CareEngine {
         let indices = journey.letters.indices.sorted { journey.letters[$0].id < journey.letters[$1].id }
         for index in indices {
             var letter = journey.letters[index]
+            if letter.encounter != nil { continue }
             if [.postcard, .reunion].contains(letter.kind) {
                 guard !care.processedLetterIds.contains(letter.id) else { continue }
                 if letter.storyId == nil {

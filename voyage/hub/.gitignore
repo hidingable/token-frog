@@ -1,3 +1,8 @@
 node_modules/
 dist/
 .env
+# Derived Docker build-context content; regenerate with prepare:image-content.
+/tags.json
+/published-ids.txt
+/cities.txt
+/pets.json

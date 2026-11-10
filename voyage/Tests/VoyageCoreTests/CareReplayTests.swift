@@ -2,13 +2,17 @@ import Foundation
 import Testing
 @testable import VoyageCore
 
-private func replayCare(seed: UInt32, multiplier: Int, stories: StoryLibrary, wish: Bool = false, openFloor: Bool = false) -> (JourneyState, CareState) {
+private func replayCare(seed: UInt32, multiplier: Int, stories: StoryLibrary, wish: Bool = false, openFloor: Bool = false, encounters: Bool = false) -> (JourneyState, CareState) {
     var (journey, care) = engineState(seed: seed)
     if wish { WishEngine.write("看海", tags: ["coast"], at: DayKey.date(from: journey.openDate)!, care: &care) }
     for day in 0..<60 {
         let date = journey.openDate
         let next = DayKey.next(date, calendar: careCalendar)
         let amount = day % 9 == 8 ? 0 : (day % 5 + 1) * 3_000_000 * multiplier
+        if encounters && day % 10 == 0 {
+            journey.recordEncounter(.init(cityId: "encounter-city-\(day)", partner: .init(species: "snail", stage: "teen"),
+                                          localDate: date, own: .init(species: "pigeon", stage: "hatchling")))
+        }
         journey.sync(
             today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount, byClient: ["codex": amount], observedTokens: amount * 100)], now: DayKey.date(from: (DayUsage(date: next)).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600),
             calendar: careCalendar, catalog: testCatalog, wishTags: WishEngine.tags(in: care)
@@ -25,7 +29,7 @@ private func replayCare(seed: UInt32, multiplier: Int, stories: StoryLibrary, wi
             _ = HomeFloor.looseBoardRoll(seed: journey.seed, tripCount: journey.tripCount)
             for city in journey.route { _ = HomeFloor.rugColorIndex(cityID: city) }
         }
-        if let letter = journey.letters.last, letter.kind == .daily, letter.id % 4 == 1 {
+        if let letter = journey.letters.last(where: { $0.encounter == nil }), letter.kind == .daily, letter.id % 4 == 1 {
             // Policy depends only on letter number, including which habit to encourage.
             let replyId = letter.id % 8 == 1 ? "ask-next-time" : "look-closer"
             CareEngine.reply(letterId: letter.id, replyId: replyId, date: next, journey: &journey, care: &care)
@@ -109,6 +113,25 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
         #expect(care == openedCare)
         #expect(normal.letters == opened.letters)
         #expect(normal.route == opened.route && normal.totalKm == opened.totalKm && normal.travelFund == opened.travelFund)
+    }
+
+    @Test(arguments: [UInt32(1), 7, 42])
+    func encounterPostcardsAndDoubledUsageLeaveEveryGameplayInputUnchanged(seed: UInt32) {
+        let (normal, care) = replayCare(seed: seed, multiplier: 1, stories: replayStories())
+        let (paired, pairedCare) = replayCare(seed: seed, multiplier: 1, stories: replayStories(), encounters: true)
+        #expect(paired.letters.filter { $0.encounter != nil }.count == 6)
+        let ordinary = paired.letters.filter { $0.encounter == nil }
+        #expect(normal.letters == ordinary)
+        let (doubled, doubledCare) = replayCare(seed: seed, multiplier: 2, stories: replayStories(), encounters: true)
+        #expect(normal.letters.map(\.rewards.dropRarity) == doubled.letters.filter { $0.encounter == nil }.map(\.rewards.dropRarity))
+        #expect(care.habits == doubledCare.habits && care.pity == doubledCare.pity)
+        #expect(care.companionDays == doubledCare.companionDays && care.weekly == doubledCare.weekly)
+        #expect(normal.letters.map(\.rewards.dropRarity) == ordinary.map(\.rewards.dropRarity))
+        #expect(normal.letters.map(\.carriedItem) == ordinary.map(\.carriedItem))
+        #expect(normal.letters.map(\.itemTriggered) == ordinary.map(\.itemTriggered))
+        #expect(normal.letters.map(\.fulfilledReplyId) == ordinary.map(\.fulfilledReplyId))
+        #expect(care == pairedCare)
+        #expect(PetForm.current(companionDays: care.companionDays.count) == PetForm.current(companionDays: pairedCare.companionDays.count))
     }
 
     @Test func everySeedFulfillsTheFirstReplyNextLetterAndLaterRepliesWithinThreeHeadLetters() throws {

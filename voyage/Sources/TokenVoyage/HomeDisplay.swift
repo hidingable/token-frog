@@ -19,7 +19,7 @@ struct HomeStatusDisplay {
         case .pending:
             title = l10n("home.status.pending", city)
             let minutes = max(0, Int(ceil(journey.phaseSince.addingTimeInterval(30 * 60).timeIntervalSince(now) / 60)))
-            let itemID = CareEngine.carriedItem(bag: care.bag, seed: journey.seed, letterId: (journey.letters.map(\.id).max() ?? 0) + 1)
+            let itemID = CareEngine.carriedItem(bag: care.bag, seed: journey.seed, letterId: journey.nextLetterID)
             let item = itemID.flatMap { catalog.items.find($0) }.map(l10n.itemName) ?? l10n("home.status.emptyBag")
             detail = l10n("home.status.departure", minutes, item)
             fund = nil

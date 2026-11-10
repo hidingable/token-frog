@@ -47,7 +47,10 @@ export function fixture(options: {
     DB_HOST: 'unused.invalid', DB_DATABASE: 'unused', DB_USERNAME: 'unused', DB_PASSWORD: 'unused',
     OPENAI_MODEL: 'fake-model', ...options.env,
   });
-  const app = buildServer({ config, repository, model, tags: ['coast', 'capital', 'food'], now: options.now ?? (() => FIXED_NOW) }, options.logger);
+  const app = buildServer({ config, repository, model, tags: ['coast', 'capital', 'food'],
+    whitelists: { publishedIds: new Set(['hangzhou', 'suzhou', 'quanzhou', 'souvenir.tea']),
+      cities: new Set(['hangzhou', 'suzhou', 'quanzhou']), pets: new Set(['pigeon', 'snail', 'suitcase', 'letter']) },
+    now: options.now ?? (() => FIXED_NOW) }, options.logger);
   return { app, repository, model, config };
 }
 

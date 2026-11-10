@@ -34,6 +34,10 @@ const envSchema = z.object({
   HOST: z.string().min(1).default('127.0.0.1'),
   TRUST_PROXY: z.string().default('false'),
   HUB_TAGS_FILE: z.string().min(1).default('../Content/tags.json'),
+  HUB_PUBLISHED_IDS_FILE: z.string().min(1).default('../Content/published-ids.txt'),
+  HUB_ITEMS_FILE: z.string().min(1).default('../Content/items'),
+  HUB_CITIES_FILE: z.string().min(1).default('../Content/cities'),
+  HUB_PETS_FILE: z.string().min(1).default('../Content/pets'),
   WISH_TIMEOUT_MS: capacity.max(2500).default(2500),
   RATE_IP_CAPACITY: capacity.default(120),
   RATE_IP_REFILL_PER_SECOND: positiveNumber.default(2),
@@ -43,6 +47,10 @@ const envSchema = z.object({
   WISH_RATE_IP_REFILL_PER_SECOND: positiveNumber.default(1 / 6),
   WISH_RATE_DEVICE_CAPACITY: capacity.default(5),
   WISH_RATE_DEVICE_REFILL_PER_SECOND: positiveNumber.default(1 / 12),
+  STAY_RATE_IP_CAPACITY: capacity.default(20),
+  STAY_RATE_IP_REFILL_PER_SECOND: positiveNumber.default(1 / 60),
+  STAY_RATE_DEVICE_CAPACITY: capacity.default(6),
+  STAY_RATE_DEVICE_REFILL_PER_SECOND: positiveNumber.default(1 / 300),
 });
 
 export interface BucketConfig { capacity: number; refillPerSecond: number }
@@ -59,12 +67,16 @@ export function readConfig(env: NodeJS.ProcessEnv = process.env) {
   return {
     db: readDbConfig(env), port: v.PORT, host: v.HOST, trustProxy,
     tagsFile: resolve(v.HUB_TAGS_FILE), wishTimeoutMs: v.WISH_TIMEOUT_MS,
+    publishedIdsFile: resolve(v.HUB_PUBLISHED_IDS_FILE), citiesFile: resolve(v.HUB_CITIES_FILE), petsFile: resolve(v.HUB_PETS_FILE),
+    itemsFile: resolve(v.HUB_ITEMS_FILE),
     openai: { apiKey: v.OPENAI_API_KEY, model: v.OPENAI_MODEL, baseURL: v.OPENAI_BASE_URL },
     rate: {
       ip: { capacity: v.RATE_IP_CAPACITY, refillPerSecond: v.RATE_IP_REFILL_PER_SECOND },
       device: { capacity: v.RATE_DEVICE_CAPACITY, refillPerSecond: v.RATE_DEVICE_REFILL_PER_SECOND },
       wishIp: { capacity: v.WISH_RATE_IP_CAPACITY, refillPerSecond: v.WISH_RATE_IP_REFILL_PER_SECOND },
       wishDevice: { capacity: v.WISH_RATE_DEVICE_CAPACITY, refillPerSecond: v.WISH_RATE_DEVICE_REFILL_PER_SECOND },
+      stayIp: { capacity: v.STAY_RATE_IP_CAPACITY, refillPerSecond: v.STAY_RATE_IP_REFILL_PER_SECOND },
+      stayDevice: { capacity: v.STAY_RATE_DEVICE_CAPACITY, refillPerSecond: v.STAY_RATE_DEVICE_REFILL_PER_SECOND },
     },
   };
 }

@@ -5,6 +5,8 @@ import { loadEnvironment, readConfig } from './config.js';
 import { createDatabase, MySQLRepository } from './db/mysql.js';
 import { registerRoutes, type RouteDependencies } from './routes.js';
 import { loadTags, OpenAIWishModel } from './wish.js';
+import { loadWhitelists } from './encounters.js';
+import { cleanExpiredStays, RETENTION_INTERVAL_MS } from './retention.js';
 
 export function buildServer(dependencies: RouteDependencies, logger: FastifyServerOptions['logger'] = false) {
   const app = Fastify({
@@ -28,15 +30,26 @@ export function buildServer(dependencies: RouteDependencies, logger: FastifyServ
     }, 'request_complete');
   });
   registerRoutes(app, dependencies);
+  let retention: ReturnType<typeof setInterval> | undefined;
+  app.addHook('onReady', async () => {
+    const clean = async () => {
+      try { await cleanExpiredStays(dependencies.repository, (dependencies.now ?? Date.now)()); }
+      catch { app.log.warn({ code: 'stay_retention_failed' }, 'retention_error'); }
+    };
+    await clean();
+    retention = setInterval(() => { void clean(); }, RETENTION_INTERVAL_MS);
+    retention.unref();
+  });
+  app.addHook('onClose', async () => { if (retention) clearInterval(retention); });
   return app;
 }
 
 async function main(): Promise<void> {
   loadEnvironment();
   const config = readConfig();
-  const tags = await loadTags(config.tagsFile);
+  const [tags, whitelists] = await Promise.all([loadTags(config.tagsFile), loadWhitelists(config)]);
   const pool = createDatabase(config.db);
-  const app = buildServer({ config, tags, repository: new MySQLRepository(pool), model: new OpenAIWishModel(config.openai) }, true);
+  const app = buildServer({ config, tags, whitelists, repository: new MySQLRepository(pool), model: new OpenAIWishModel(config.openai) }, true);
   app.addHook('onClose', async () => { await pool.end(); });
   for (const signal of ['SIGINT', 'SIGTERM'] as const) {
     process.once(signal, () => {

@@ -12,6 +12,16 @@ final class AppModel {
     private let hubClient: HubClient
     private let remoteContentStore: RemoteContentStore?
     private(set) var departureContentTasks: [Int: Task<Void, Never>] = [:]
+    private(set) var encounterTasks: [String: Task<Void, Never>] = [:]
+    private var encounterGeneration = 0
+    private var hubEncountersAvailable = false
+    private var snapshotEncountersAvailable = false
+    private(set) var encountersEnabled: Bool {
+        didSet { if !isSnapshot { defaults.set(encountersEnabled, forKey: "encountersEnabled") } }
+    }
+    var encountersAvailable: Bool { snapshotEncountersAvailable || (hubClient.isConfigured && hubEncountersAvailable) }
+    var showingEncounterConsent = false
+    var showingEncounterOptOut = false
     let themes: ThemeCatalog?
     private(set) var systemScheme: ThemeScheme
     private let appearanceOverride: ThemeScheme?
@@ -199,6 +209,7 @@ final class AppModel {
         self.floatingReactionDuration = floatingReactionDuration
         self.languageOverride = languageOverride
         self.defaults = defaults
+        encountersEnabled = defaults.object(forKey: "encountersEnabled") as? Bool ?? false
         cityContentEnabled = defaults.object(forKey: "cityContentEnabled") as? Bool ?? true
         wishResolveEnabled = defaults.object(forKey: "wishResolveEnabled") as? Bool ?? true
         morningNotificationsEnabled = defaults.object(forKey: "morningNotifications") as? Bool ?? true
@@ -651,8 +662,7 @@ final class AppModel {
 
     func start() {
         guard !isLocked, !isSnapshot else { return }
-        let hub = hubClient
-        Task { await hub.refreshConfig(now: clock()) }
+        Task { await refreshHubConfiguration() }
         if let onboarding {
             onboarding.startReading()
             return
@@ -696,8 +706,7 @@ final class AppModel {
     func tick() {
         guard !isLocked else { return }
         now = clock()
-        let hub = hubClient
-        Task { await hub.refreshConfig(now: clock()) }
+        Task { await refreshHubConfiguration() }
         refreshWishWeek()
         // Finalize previous days before advancing their saved timeline to the current clock.
         if !isScanning, onboarding == nil, var state, let catalog,
@@ -718,7 +727,7 @@ final class AppModel {
                     isMoving = true
                     lastMovement = now
                 }
-                persist()
+                if persist() { beginEncounterWork(previous: previous) }
             }
         }
         if let lastMovement, now.timeIntervalSince(lastMovement) > 300 { isMoving = false }
@@ -732,6 +741,7 @@ final class AppModel {
         guard canDepartNow, var state, let catalog else { return }
         now = clock()
         refreshWishWeek()
+        let previous = state
         let before = state.totalKm
         state.departNow(now: now, catalog: catalog, wishTags: care.map(WishEngine.tags) ?? [],
                         revisitCities: care.map { RevisitStories.unlockedCities(care: $0, library: catalog.stories) } ?? [])
@@ -741,7 +751,7 @@ final class AppModel {
             isMoving = true
             lastMovement = now
         }
-        persist()
+        if persist() { beginEncounterWork(previous: previous) }
     }
 
     /// Coalesces change events and keeps at least `minScanInterval` between scans.
@@ -764,6 +774,7 @@ final class AppModel {
         isScanning = true
         defer { isScanning = false }
         let date = clock()
+        Task { await refreshHubConfiguration() }
         let todayKey = DayKey.string(from: date)
         var since = min(state.openDate, todayKey)
         let needsHistory = historyDate != todayKey
@@ -810,6 +821,7 @@ final class AppModel {
             guard let latestState = self.state else { return }
             state = latestState
             state.backfillTokens(days)
+            let previousJourney = state
             let before = state.totalKm
             refreshWishWeek()
             let revisitCities = care.map { RevisitStories.unlockedCities(care: $0, library: catalog.stories) } ?? []
@@ -826,7 +838,7 @@ final class AppModel {
             usageFailed = false
             lastScan = date
             now = date
-            persist()
+            if persist() { beginEncounterWork(previous: previousJourney) }
             await checkNotifications()
             if !isSnapshot { await enrichLatest() }
         } catch {
@@ -913,7 +925,7 @@ final class AppModel {
               let saved = state?.letters.first(where: { $0.id == letter.id }), saved.deliverAt <= clock() else { return }
         let previousCare = care
         state?.markRead(letter.id)
-        if !isSnapshot, var care {
+        if !isSnapshot, saved.encounter == nil, var care {
             CareEngine.markCompanion(date: DayKey.string(from: clock()), care: &care)
             self.care = care
         }
@@ -948,6 +960,129 @@ final class AppModel {
         mailFilter = .all
         selectedLetterID = letter.id
         navigate(to: .mail)
+    }
+
+    func withSnapshotEncountersAvailable<T>(_ action: () throws -> T) rethrows -> T {
+        guard isSnapshot else { return try action() }
+        snapshotEncountersAvailable = true
+        defer { snapshotEncountersAvailable = false }
+        return try action()
+    }
+
+    func refreshHubConfiguration() async {
+        let config = await hubClient.refreshConfig(now: clock())
+        hubEncountersAvailable = config.encountersEnabled
+    }
+
+    func requestEncountersEnabled(_ enabled: Bool) {
+        guard encountersAvailable else { return }
+        if enabled && !encountersEnabled { showingEncounterConsent = true }
+        if !enabled && encountersEnabled { showingEncounterOptOut = true }
+    }
+
+    func confirmEncounterConsent() {
+        guard showingEncounterConsent, encountersAvailable else { return }
+        showingEncounterConsent = false
+        encountersEnabled = true
+    }
+
+    func disableEncounters(deleteRecords: Bool) {
+        showingEncounterOptOut = false
+        showingEncounterConsent = false
+        encountersEnabled = false
+        encounterGeneration += 1
+        let pending = Array(encounterTasks.values)
+        pending.forEach { $0.cancel() }
+        guard deleteRecords, !isSnapshot, hubClient.isConfigured else { return }
+        if var state {
+            for trip in (state.encounterStaysByTrip ?? [:]).keys {
+                state.encounterStaysByTrip?[trip]?.registered = false
+                state.encounterStaysByTrip?[trip]?.finalChecked = true
+            }
+            self.state = state
+            persist()
+        }
+        let hub = hubClient
+        encounterTasks["delete"] = Task { [weak self] in
+            // Finish any request already in flight before deletion, even if a transport ignores cancellation.
+            for task in pending { await task.value }
+            try? await hub.deleteMe()
+            self?.encounterTasks.removeValue(forKey: "delete")
+        }
+    }
+
+    /// Only the live clock/normal scan calls this. Engine replay and day catch-up have no transport.
+    private func beginEncounterWork(previous: JourneyState) {
+        guard !isSnapshot, !isLocked, encountersEnabled, encountersAvailable, encounterTasks["delete"] == nil, var current = state else { return }
+        let date = clock()
+        let day = DayKey.string(from: date)
+        let trip = current.tripCount + 1
+        if previous.phase != .staying, current.phase == .staying,
+           previous.openDate == day, current.tripCount == previous.tripCount,
+           DayKey.string(from: current.phaseSince) == day,
+           current.encounterStaysByTrip?[trip] == nil,
+           !(current.encounterPhotos ?? []).contains(where: { $0.cityId == current.currentCityId }),
+           !current.letters.contains(where: { $0.encounter?.cityId == current.currentCityId }) {
+            let stay = EncounterStay(stayId: UUID().uuidString, cityId: current.currentCityId,
+                                     day: day, endsAt: current.phaseSince.addingTimeInterval(6 * 3600),
+                                     appearance: EncounterAppearance(species: current.pet.rawValue, stage: petForm.rawValue))
+            if current.encounterStaysByTrip == nil { current.encounterStaysByTrip = [:] }
+            current.encounterStaysByTrip?[trip] = stay
+            self.state = current
+            guard persist() else { return }
+            launchEncounterRequest(trip: trip, stay: stay, registering: true)
+        }
+        guard var latest = state else { return }
+        for (trip, saved) in (latest.encounterStaysByTrip ?? [:]).sorted(by: { $0.key < $1.key }) {
+            guard saved.registered, !saved.finalChecked, encounterTasks[saved.stayId] == nil,
+                  !(latest.encounterPhotos ?? []).contains(where: { $0.cityId == saved.cityId }) else { continue }
+            let ended = trip <= latest.tripCount
+            let staying = latest.phase == .staying && trip == latest.tripCount + 1
+            guard ended || (staying && date.timeIntervalSince(saved.lastPollAt ?? .distantPast) >= 15 * 60) else { continue }
+            latest.encounterStaysByTrip?[trip]?.lastPollAt = date
+            if ended { latest.encounterStaysByTrip?[trip]?.finalChecked = true }
+            self.state = latest
+            guard persist() else { return }
+            launchEncounterRequest(trip: trip, stay: saved, registering: false)
+        }
+        guard var latest = state, (latest.lastEncounterSyncDay ?? "") < day,
+              encounterTasks["sync"] == nil, encounterTasks["delete"] == nil else { return }
+        latest.lastEncounterSyncDay = day
+        self.state = latest
+        guard persist() else { return }
+        let ids = Set((care?.bag.owned ?? []) + (care?.souvenirs.map(\.id) ?? [])
+                      + (care?.menus.map(\.id) ?? []) + latest.route).sorted()
+        let hub = hubClient
+        encounterTasks["sync"] = Task { [weak self] in
+            try? await hub.syncCollection(ids, enabled: true)
+            self?.encounterTasks.removeValue(forKey: "sync")
+        }
+    }
+
+    private func launchEncounterRequest(trip: Int, stay: EncounterStay, registering: Bool) {
+        let generation = encounterGeneration
+        let saveGeneration = backgroundGeneration
+        let hub = hubClient
+        encounterTasks[stay.stayId] = Task { [weak self] in
+            defer { self?.encounterTasks.removeValue(forKey: stay.stayId) }
+            do {
+                let response = try await (registering ? hub.registerStay(stay, enabled: true)
+                                           : hub.stayStatus(stayID: stay.stayId, enabled: true))
+                guard let self, !Task.isCancelled, self.encountersEnabled, !self.isLocked,
+                      generation == self.encounterGeneration, saveGeneration == self.backgroundGeneration,
+                      var state = self.state, state.encounterStaysByTrip?[trip]?.stayId == stay.stayId else { return }
+                state.encounterStaysByTrip?[trip]?.registered = true
+                if registering { state.encounterStaysByTrip?[trip]?.lastPollAt = self.clock() }
+                if response.status == "paired", let partner = response.partner {
+                    state.recordEncounter(EncounterPhoto(cityId: stay.cityId, partner: partner.appearance,
+                        localDate: DayKey.string(from: self.clock()), own: stay.appearance))
+                }
+                self.state = state
+                self.persist()
+            } catch {
+                // An unavailable encounter never changes travel, mail, care or rewards.
+            }
+        }
     }
 
     /// Record the attempt before launching I/O. A restart never refetches or changes this trip's input.
@@ -1040,7 +1175,7 @@ final class AppModel {
 
     /// Scans proactively enrich only the newest letter, including its current-language place.
     func enrichLatest() async {
-        guard let letter = state?.letters.filter({ $0.kind != .weekly }).max(by: { $0.id < $1.id }) else { return }
+        guard let letter = state?.letters.filter({ $0.kind != .weekly && $0.encounter == nil }).max(by: { $0.id < $1.id }) else { return }
         await enrich(letterId: letter.id, weatherAndPhoto: true)
     }
 
@@ -1117,17 +1252,20 @@ final class AppModel {
         }
     }
 
-    private func persist() {
-        guard !isLocked, onboarding == nil, !isSnapshot, let state else { return }
+    @discardableResult
+    private func persist() -> Bool {
+        guard !isLocked, onboarding == nil, !isSnapshot, let state else { return false }
         do {
             try store.save(state)
             if let care {
-                if case .loaded(let saved) = store.care, saved == care { return }
+                if case .loaded(let saved) = store.care, saved == care { return true }
                 try store.save(care)
             }
+            return true
         } catch {
             lastError = AppError.save(error)
             refreshSaveStatus()
+            return false
         }
     }
 

@@ -71,6 +71,14 @@ struct SettingsTab: View {
                     .accessibilityLabel(l10n("settings.wishResolve"))
                     .accessibilityHint(l10n("settings.wishResolveHint"))
                     .accessibilityIdentifier("settings.wishResolveEnabled")
+                if model.encountersAvailable {
+                    Toggle(l10n("settings.encounters"), isOn: Binding(
+                        get: { model.encountersEnabled },
+                        set: { model.requestEncountersEnabled($0) }
+                    ))
+                    .accessibilityHint(l10n("settings.encountersHint"))
+                    .accessibilityIdentifier("settings.encountersEnabled")
+                }
             }
             if model.canChangeStart, let state = model.state, let catalog = model.catalog {
                 group("settings.home") {
@@ -116,6 +124,19 @@ struct SettingsTab: View {
         .foregroundStyle(theme.text)
         .frame(maxWidth: 580, alignment: .leading)
         .frame(maxWidth: .infinity, alignment: .topLeading)
+        .sheet(isPresented: $model.showingEncounterConsent) {
+            EncounterConsentView(onConfirm: { model.confirmEncounterConsent() },
+                                 onCancel: { model.showingEncounterConsent = false })
+                .localized(using: model)
+        }
+        .confirmationDialog(l10n("encounter.optOutTitle"), isPresented: $model.showingEncounterOptOut,
+                            titleVisibility: .visible) {
+            Button(l10n("encounter.disableKeep")) { model.disableEncounters(deleteRecords: false) }
+            Button(l10n("encounter.disableDelete"), role: .destructive) { model.disableEncounters(deleteRecords: true) }
+            Button(l10n("encounter.cancel"), role: .cancel) {}
+        } message: {
+            Text(l10n("encounter.optOutBody"))
+        }
     }
 
     static func authorizationKey(_ status: NotificationAuthorization) -> String {

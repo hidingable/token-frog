@@ -35,7 +35,7 @@ struct NotchDisplay {
                               distanceAndBand: l10n("notch.distanceAndBand", Format.km(journey.legKm), bandLabel),
                               countdown: l10n("notch.departureCountdown", minutes),
                               carriedItemID: care.flatMap {
-                                  CareEngine.carriedItem(bag: $0.bag, seed: journey.seed, letterId: (journey.letters.map(\.id).max() ?? 0) + 1)
+                                  CareEngine.carriedItem(bag: $0.bag, seed: journey.seed, letterId: journey.nextLetterID)
                               })
         case .outbound:
             status = NotchStatus.isNearArrival(remainingKm: journey.remainingKm)

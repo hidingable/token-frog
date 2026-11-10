@@ -17,7 +17,7 @@ enum PetBubble: Equatable {
 
     static func current(letters: [Letter], care: CareState) -> Self? {
         if letters.contains(where: { !$0.read }) { return .mail }
-        if let latest = letters.filter(\.read).max(by: { $0.id < $1.id }),
+        if let latest = letters.filter { $0.read && $0.encounter == nil }.max(by: { $0.id < $1.id }),
            !latest.replyOptions.isEmpty, latest.selectedReplyId == nil { return .reply(latest.id) }
         return care.bag.todayItem == nil ? .bag : nil
     }

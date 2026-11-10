@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "lines": [
+    {
+      "id": "encounter.bench",
+      "texts": {
+        "zh-Hans": "早餐摊的板凳上还坐着另一只信使，也在等热汤。我们并肩合了张影，等汤凉一点再各自赶路。",
+        "en": "Another messenger was waiting for hot soup on the breakfast stall bench. We took a photo together, then let the soup cool before going our separate ways."
+      }
+    },
+    {
+      "id": "encounter.rain",
+      "texts": {
+        "zh-Hans": "雨停的时候，我们同时从屋檐下探出头。留了一张合影，照片里两双脚旁边都是小水洼。",
+        "en": "When the rain stopped, we both peeked out from under the eaves. We took a photo with little puddles beside both pairs of feet."
+      }
+    },
+    {
+      "id": "encounter.bridge",
+      "texts": {
+        "zh-Hans": "桥上遇见一只往另一头走的信使。它替我按了快门，我又跑回去，请路人把我们一起拍下来。",
+        "en": "I met a messenger heading the other way on a bridge. They took my picture; I ran back and asked a passerby to get us both in the frame."
+      }
+    },
+    {
+      "id": "encounter.sunset",
+      "texts": {
+        "zh-Hans": "我们各自带着一张地图，却在同一个转角停下来。夕阳把影子拉得很长，刚好装进这张合影。",
+        "en": "We carried different maps but stopped at the same corner. The sunset stretched our shadows just far enough to fit them both in this photo."
+      }
+    }
+  ]
+}

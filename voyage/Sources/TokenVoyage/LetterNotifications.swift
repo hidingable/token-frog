@@ -121,7 +121,7 @@ final class LetterNotificationService {
         let lastSentID = defaults.string(forKey: "notificationLastSentJourney") == journeyID
             ? defaults.object(forKey: "notificationLastSentLetterID") as? Int : nil
         guard let letter = state.letters.filter({ letter in
-            letter.deliverAt <= now && !letter.read && letter.kind != .departure
+            letter.deliverAt <= now && !letter.read && letter.kind != .departure && letter.encounter == nil
                 && (lastSentID == nil || letter.id > lastSentID!)
         }).max(by: { $0.deliverAt == $1.deliverAt ? $0.id < $1.id : $0.deliverAt < $1.deliverAt }) else { return }
         let text = LetterComposer.text(for: letter, l10n: l10n, petName: petName, catalog: catalog, letters: state.letters)

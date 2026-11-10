@@ -1,6 +1,6 @@
 # Voyage Hub
 
-Independent Node 22 / TypeScript service for redesign steps 5a–5b. It does not live in or import from Token Monitor's `worker/`. It supplies configuration, city-content reads, wish classification and an offline content pipeline. The Swift client (5c) is implemented with offline fake-transport tests; stays, sync and pairing are later work. Nothing here deploys the service.
+Independent Node 22 / TypeScript service for redesign steps 5a–6. It does not live in or import from Token Monitor's `worker/`. It supplies configuration, city-content reads, wish classification, an offline content pipeline, and signed same-city encounters/sync. Encounters remain off by default. The service is deployed as described below; migration 0002 and this encounter implementation have not been deployed or run against the production database.
 
 ## Run and check
 
@@ -73,6 +73,10 @@ See [.env.example](.env.example) for the complete variable list and placeholders
 | `HOST`, `PORT` | Defaults `127.0.0.1:17322`. |
 | `TRUST_PROXY` | Default `false`. Use trusted proxy IPs/CIDRs (comma-separated), or `true` when the origin is reachable only through trusted proxies. Numeric hop counts are unsupported by the installed Fastify. |
 | `HUB_TAGS_FILE` | Default `../Content/tags.json`, resolved from the working directory and loaded once at startup. Keep the content pack beside the Hub or supply its path; no second maintained tag list. |
+| `HUB_PUBLISHED_IDS_FILE` | Default `../Content/published-ids.txt`, newline-delimited published IDs. The image uses a generated union with the bundled item IDs described below. |
+| `HUB_ITEMS_FILE` | Default `../Content/items`, a directory of pack-shaped JSON item arrays; all `id` fields join the sync allowlist. A newline ID file is also accepted; the image points this at its already merged `published-ids.txt`. |
+| `HUB_CITIES_FILE` | Default `../Content/cities`, whose `.json` filenames (without extension) are intersected with the published list. The image uses generated `cities.txt`, with one city ID per line. |
+| `HUB_PETS_FILE` | Default `../Content/pets`, reading each JSON object's `id`. The image uses generated `pets.json`, an array of those IDs. |
 | `WISH_TIMEOUT_MS` | Default and maximum `2500`; includes feature lookup, cache I/O and model time after authentication. SDK retries and SDK logging are disabled. |
 | `HUB_ENV_FILE` | Optional explicit env-file path. Never implicitly loads `voyage/.env`. |
 
@@ -84,6 +88,8 @@ Each rate bucket has a capacity and a continuous refill rate (tokens/second):
 | Signed traffic by device | `RATE_DEVICE_CAPACITY` (60) | `RATE_DEVICE_REFILL_PER_SECOND` (1) |
 | Wishes by IP, additional bucket | `WISH_RATE_IP_CAPACITY` (10) | `WISH_RATE_IP_REFILL_PER_SECOND` (1/6) |
 | Wishes by device, additional bucket | `WISH_RATE_DEVICE_CAPACITY` (5) | `WISH_RATE_DEVICE_REFILL_PER_SECOND` (1/12) |
+| Stays and sync by IP, additional bucket | `STAY_RATE_IP_CAPACITY` (20) | `STAY_RATE_IP_REFILL_PER_SECOND` (1/60) |
+| Stays and sync by device, additional bucket | `STAY_RATE_DEVICE_CAPACITY` (6) | `STAY_RATE_DEVICE_REFILL_PER_SECOND` (1/300) |
 
 All buckets are in-process, for one Hub instance. `request.ip` follows Fastify's `TRUST_PROXY` rules; untrusted `X-Forwarded-For` values cannot split the IP bucket. Health probes bypass rate limiting. Inactive device/bucket entries expire lazily. Restarting clears rate counts, device-write throttles and the feature cache.
 
@@ -95,7 +101,7 @@ Only run this command after explicitly choosing the intended database/environmen
 HUB_ENV_FILE=/absolute/path/to/private.env npm run migrate
 ```
 
-The tiny runner applies numbered `.sql` files in numeric order and records each completed filename in `voyage_schema_migrations`. The initial file creates that bookkeeping table, `voyage_config`, `voyage_devices`, `voyage_city_content` and `voyage_wish_cache`, all with InnoDB and explicit `utf8mb4_0900_ai_ci` table defaults. City/content IDs and hashes use case-sensitive key collations. Default feature rows enable city content and wish resolution and disable encounters and sponsor content.
+The tiny runner applies numbered `.sql` files in numeric order and records each completed filename in `voyage_schema_migrations`. The initial file creates that bookkeeping table, `voyage_config`, `voyage_devices`, `voyage_city_content` and `voyage_wish_cache`, all with InnoDB and explicit `utf8mb4_0900_ai_ci` table defaults. Migration `0002_encounters.sql` adds `voyage_stays` and `voyage_sync` with the same charset/collation and a unique `(public_key, local_day)` stay key. City/content IDs and hashes use case-sensitive key collations. Default feature rows enable city content and wish resolution and disable encounters and sponsor content. The new migration never enables encounters.
 
 Run one migrator at a time. MySQL DDL commits implicitly: a failed file is not recorded, and already completed DDL is not rolled back. The initial migration is rerunnable (`IF NOT EXISTS`, non-overwriting config seeds). Applied files are immutable; append a numbered file for future changes. The runner accepts simple SQL statements separated by semicolons, not procedures or semicolons inside literals. It never creates a database. No migration was executed against a real database for this step.
 
@@ -103,17 +109,18 @@ Run one migrator at a time. MySQL DDL commits implicitly: a failed file is not r
 
 Production runs at `https://hub.zctd.tech` on the Alibaba Cloud ECS host (CentOS 7, so Docker rather than a host Node install: glibc 2.17 can't run official Node 22 builds).
 
-- **Image:** build on the server from a context holding this directory plus `voyage/Content/tags.json` copied in as `tags.json` (the Dockerfile bakes it in and sets `HUB_TAGS_FILE`). The configured Docker Hub mirror stalls on `node:22.12.0-alpine`; pull `docker.m.daocloud.io/library/node:22.12.0-alpine` and tag it `node:22.12.0-alpine`. Pass `--build-arg NPM_REGISTRY=https://registry.npmmirror.com`.
+- **Image:** first run `npm run prepare:image-content` from `voyage/hub/` (offline, no DB/model/environment loading), then build using this directory as the context. It copies `Content/tags.json` and generates `published-ids.txt`, `cities.txt` and `pets.json`; Docker bakes all four in and sets their `HUB_*` paths. If assembling a separate deployment context, pass the source pack and output context as `npm run prepare:image-content -- /absolute/path/to/Content /absolute/path/to/context`. The configured Docker Hub mirror stalls on `node:22.12.0-alpine`; pull `docker.m.daocloud.io/library/node:22.12.0-alpine` and tag it `node:22.12.0-alpine`. Pass `--build-arg NPM_REGISTRY=https://registry.npmmirror.com`.
 - **Env:** `/opt/voyage-hub/hub.env` (mode 600, Docker `KEY=value` format) holds only `DB_*` with the RDS *internal* host, the `OPENAI_*` keys and `TRUST_PROXY=172.16.0.0/12` (nginx reaches the container through the Docker bridge).
 - **Run:** `docker run -d --name voyage-hub --restart unless-stopped --memory 256m -p 127.0.0.1:7321:7321 --env-file /opt/voyage-hub/hub.env voyage-hub:<version>`.
 - **nginx:** `/www/server/panel/vhost/nginx/hub.zctd.tech.conf` (BT Panel layout) proxies HTTPS to `127.0.0.1:7321` and redirects HTTP, except the ACME webroot `/www/wwwroot/hub.zctd.tech`. The certificate comes from acme.sh and is installed under `/www/server/panel/vhost/cert/hub.zctd.tech/` with an `nginx -s reload` renewal hook.
 - **Migrations** run from a laptop against the RDS external host (see Migrations), never on container start.
+- **Encounter rollout:** explicitly apply migration 0002 before starting this image; leave `encounters_enabled=false` until client/server acceptance. Starting the service performs only retention deletes, never schema changes or feature enabling.
 - **Smoke test:** `/healthz`, `/v1/config`, then a signed content request. Node's `fetch` drops a custom `Host` header, so test through the domain or inside the container rather than against the IP.
-- **Known gap:** the OpenAI relay currently returns 403 "Country, region, or territory not supported" for calls from this host, so wish resolution answers `source: "error"` and clients use local keywords until the relay egress changes.
+- **OpenAI egress.** Production uses `OPENAI_BASE_URL=http://172.17.0.1:19081/v1` and `OPENAI_MODEL=gpt-4.1-mini` for online wish classification. The ECS `voyage-openai-tunnel.service` listens on the Docker bridge and forwards over SSH to the loopback nginx site `voyage-openai-tunnel` on `moltbot`, which connects to OpenAI over HTTPS. The tunnel starts at boot and reconnects on failure. After changing the tunnel or model, check `systemctl is-active voyage-openai-tunnel` on ECS and send a signed uncached wish to confirm `source: "model"`. Cold requests can exceed the existing 2.5-second deadline and fall back to local keywords.
 
 ## Endpoints
 
-All `/v1` response fields are additive. Errors use `{ "error": "code" }`, with no request text or internal error details. Requests have a 32 KiB body limit. GET routes require an empty body. POST wishes require `Content-Type: application/json`.
+All `/v1` response fields are additive. Errors use `{ "error": "code" }`, with no request text or internal error details. Requests have a 32 KiB body limit, except sync's 2 MiB budget for up to 10,000 IDs. GET and DELETE routes require an empty body. POST/PUT writes require `Content-Type: application/json`.
 
 | Endpoint | Signing | Result |
 |---|---|---|
@@ -121,6 +128,22 @@ All `/v1` response fields are additive. Errors use `{ "error": "code" }`, with n
 | `GET /v1/config` | Optional, not verified | `{schemaVersion:1, cityContentEnabled, wishResolveEnabled, encountersEnabled, sponsorContentEnabled}`. Shared 60 s process cache. |
 | `GET /v1/cities/:cityId/content?lang=zh-Hans\|en` | Required | `{schemaVersion:1, cityId, language, disabled, items:[...]}`. Only approved, supported, structurally valid city records. Empty results are `items:[]`; switch off also sets `disabled:true` and skips the content query. |
 | `POST /v1/wishes/resolve` | Required | Accepts `{text, language, allowedTags?}`; returns `{tags:[], source}`. |
+| `POST /v1/stays` | Required | Accepts `{stayId, cityId, day, endsAt, appearance:{species,stage}}`; returns `{status:"waiting"}` or `{status:"paired",partner:{appearance},pairedAt}`. Re-POST of an owned ID returns its current state; another device's ID returns 409 `stay_id_conflict`; another stay that local day returns 409 `daily_limit`. |
+| `GET /v1/stays/:stayId` | Required | Owner-only status with the same shape as POST. Unknown or another device's stay returns 404. |
+| `PUT /v1/sync` | Required | Accepts `{collection:[id]}`, at most 10,000. Unknown/unapproved IDs return 422 `unknown_content_id`; accepted data replaces the previous list and returns `{ok:true}`. |
+| `DELETE /v1/me` | Required | Deletes only this device's stays, sync and device record; returns `{ok:true}` even when already deleted. Remains available while encounters are disabled and does not use the additional stay bucket. |
+
+### Encounters and sync
+
+`encounters_enabled=false` makes POST/GET stays return `{status:"disabled"}` and sync return `{disabled:true}` without reading or writing those records. Stays/sync share the additional IP/device buckets; deletion retains ordinary API limits so exhausting a polling bucket cannot block opt-out.
+
+Stay IDs are UUIDs, normalized to lowercase. `day` is a real `YYYY-MM-DD` local calendar date within one day of the server's UTC day. `endsAt` is an ISO-8601 timestamp with an explicit UTC offset, later than now and at most six hours ahead. An existing owned stay remains safe to retry after its end, without changing its original fields. City IDs must be published and have a corresponding `Content/cities/<id>.json`. Species are the `id` fields from `Content/pets/*.json`; forms are the app's actual `PetForm` raw values: `hatchling`, `juvenile`, `teen`. The older illustrative `traveler` value is not accepted. Extra stay/sync request fields are rejected.
+
+The repository registers and pairs inside one transaction. A short lock on the existing `encounters_enabled` config row serializes registration, including arrivals to a previously empty city; it never changes that switch. It then chooses the oldest waiting, unexpired stay in the same city from a different device with `ORDER BY started_at, stay_id ... FOR UPDATE SKIP LOCKED` and updates both rows before committing. The in-memory test repository serializes the same operation, and concurrency tests include simultaneous arrivals and same-ID retries. No response includes the partner's device public key or stay ID.
+
+`paired_stay_id` has no foreign key. Each paired row also saves `partner_appearance`, so deletion or retention of one side preserves the other's paired state and appearance, without revealing identifiers. Startup and each subsequent hour delete stays with `ends_at` strictly earlier than server now minus seven days, including paired stays; failed cleanup is logged without DB error details and retried at the next hour. Sync records persist until overwritten or device deletion.
+
+Whitelist sources are not independently maintained: image preparation derives cities from the intersection of `Content/published-ids.txt` and city JSON filenames, and pets from the pet JSON `id` fields. The repository's source `Content/published-ids.txt` currently contains cities, not owned items; therefore the generated image `published-ids.txt` is the union of that unchanged source list and every `Content/items/*.json` item `id`. Local runs form the same union through `HUB_ITEMS_FILE`. This allows the specified collection of owned item IDs plus visited city IDs. Approved database content IDs are accepted in addition to that baked union; draft/rejected IDs are never accepted. Sync deduplicates accepted IDs before storage. Changing these files requires rebuilding/restarting; requests cannot provide a whitelist.
 
 Content items retain the content pack's native `Story` / `Item` shapes, including both `zh-Hans` and `en` maps. `lang` is required and echoed as `language`; it does not discard the other translation, because the app stores bilingual snapshots. Database categories `play` and `question` both store a complete `Story` (questions are its embedded `replies`); `souvenir` stores an `Item` with native `kind: "souvenir"`. Do not replace `Story.kind` with the storage category. Unknown additive fields survive reads. This service checks shape, bilingual fields, ID/city consistency and schema version; full cross-reference and semantic `ContentValidator` checks belong to the 5b publish pipeline and 5c client.
 
@@ -146,7 +169,7 @@ METHOD\nPATH_WITH_QUERY\nTIMESTAMP\nSHA256_HEX(body)
 
 `METHOD` is uppercase. `PATH_WITH_QUERY` is the exact transmitted origin-form path and query (no scheme/host/fragment): preserve parameter order, percent-encoding, percent-escape case and all other bytes. The server uses `request.raw.url`. The body hash is lowercase hex of the exact transmitted body bytes, before JSON parsing; never reserialize after signing. GET has an empty body, whose SHA-256 is `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`. Timestamps at ±300 seconds are accepted; beyond that they fail. Node wraps the public key with SPKI DER prefix `302a300506032b6570032100` and calls `crypto.verify(null, ...)`. No algorithm negotiation.
 
-Device sightings are upserted at most once per five minutes per active device per process. This key is an anonymous rate-limit identifier, not proof of trusted identity. Signed requests are replayable within the time window, subject to rate limiting; these 5a endpoints have no per-user state-changing operations beyond sightings/cache. No nonce protocol is introduced.
+Device sightings are upserted at most once per five minutes per active device per process. This key is an anonymous rate-limit identifier, not proof of trusted identity. Signed requests are replayable within the time window, subject to rate limiting; stay IDs provide idempotent registration, sync replaces the device's list, and deletion is idempotent. No nonce protocol is introduced.
 
 ### Fixed test vector
 

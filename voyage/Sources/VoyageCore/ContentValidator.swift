@@ -58,6 +58,8 @@ public enum ContentValidator {
 
     public static func validate(directory: URL) -> [ContentIssue] {
         var issues = validatePets(directory: directory)
+        do { _ = try EncounterPostcardContent.load(directory: directory) }
+        catch { issues.append(ContentIssue(file: "encounter-postcards.json", rule: "encounterPostcards", message: "Invalid encounter postcards: \(error)")) }
         do { _ = try WeeklyMailContent.load(directory: directory) }
         catch { issues.append(ContentIssue(file: "weekly-mail.json", rule: "weeklyMail", message: "Invalid weekly mail: \(error)")) }
         do { _ = try WishContent.load(directory: directory) }

@@ -2,7 +2,7 @@
   "name": "voyage-hub",
   "private": true,
   "version": "0.1.0",
-  "description": "Voyage Hub: city content, wish resolution and (later) same-city meetups for Token Voyage.",
+  "description": "Voyage Hub: city content, wish resolution and same-city encounters for Token Voyage.",
   "type": "module",
   "engines": {
     "node": ">=22.12.0"
@@ -12,6 +12,7 @@
     "start": "node dist/src/server.js",
     "dev": "tsx watch src/server.ts",
     "migrate": "tsx src/migrate.ts",
+    "prepare:image-content": "tsx scripts/prepare-image-content.ts",
     "test": "node --import tsx --test \"test/**/*.test.ts\"",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

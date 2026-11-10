@@ -23,7 +23,7 @@ extension CareEngine {
         _ kind: Letter.Kind, date: String, now: Date, journey: inout JourneyState,
         care: CareState, catalog: CityCatalog
     ) {
-        let id = (journey.letters.map(\.id).max() ?? 0) + 1
+        let id = journey.nextLetterID
         var letter = Letter(
             id: id, kind: kind, date: date, pet: journey.pet, cityId: journey.currentCityId,
             arrivals: [], newCountries: [], fuel: 0, vehicles: [], isDeepVisit: false,

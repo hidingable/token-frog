@@ -11,10 +11,10 @@ struct LetterText: Equatable, Sendable {
 
 /// Story snapshots and legacy semantic templates both render in the current language.
 enum LetterComposer {
-    /// Keep legacy numbering, subtracting only the IDs occupied by companion mail.
+    /// Encounter mail has its own ID space and never occupies an ordinary mail number.
     static func number(for letter: Letter, letters: [Letter]) -> Int? {
         guard ![.postcard, .reunion, .weekly].contains(letter.kind) else { return nil }
-        let companions = Set(letters.filter { [.postcard, .reunion, .weekly].contains($0.kind) && $0.id < letter.id }.map(\.id))
+        let companions = Set(letters.filter { $0.encounter == nil && [.postcard, .reunion, .weekly].contains($0.kind) && $0.id < letter.id }.map(\.id))
         return letter.id - companions.count
     }
 
@@ -31,7 +31,8 @@ enum LetterComposer {
     }
 
     private static func companionTitle(_ letter: Letter, l10n: L10n) -> String {
-        switch letter.kind {
+        if letter.encounter != nil { return l10n("encounter.postcardTitle") }
+        return switch letter.kind {
         case .postcard: l10n("letter.postcardTitle")
         case .weekly: l10n("letter.weeklyTitle")
         default: l10n("letter.reunionTitle")
@@ -50,6 +51,10 @@ enum LetterComposer {
     static func text(for letter: Letter, l10n: L10n, petName: String, catalog: CityCatalog, letters: [Letter] = []) -> LetterText {
         let city = catalog.city(letter.cityId)
         let signature = l10n("letter.signature", petName)
+        if let encounter = letter.encounter {
+            return LetterText(title: l10n("encounter.postcardCityTitle", l10n.cityName(catalog.city(encounter.cityId))),
+                              voice: localized(letter.texts, l10n: l10n) ?? "", signature: signature, itinerary: [])
+        }
         if letter.kind == .logbook {
             let title = letter.logbook == nil ? l10n("letter.welcomeTitle") : l10n("letter.logbookTitle")
             return LetterText(title: title, voice: logbookVoice(letter.logbook, l10n: l10n), signature: signature,

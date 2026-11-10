@@ -139,7 +139,7 @@ extension CareEngine {
             VehicleShare(client: $0.key, percent: Int((Double($0.value) / Double(max(1, total)) * 100).rounded()))
         }
         var letter = Letter(
-            id: (journey.letters.map(\.id).max() ?? 0) + 1, kind: .weekly, date: sundayKey,
+            id: journey.nextLetterID, kind: .weekly, date: sundayKey,
             pet: journey.pet, cityId: journey.currentCityId, arrivals: [], newCountries: [], fuel: fuel,
             tokens: records.reduce(0) { $0 + ($1.tokens ?? 0) },
             vehicles: vehicles, isDeepVisit: false, deliverAt: deliverAt, enrichmentDone: true
