@@ -51,10 +51,10 @@ struct PickerCatalogSandbox {
     func cleanUp() { try? FileManager.default.removeItem(at: directory) }
 }
 
-private func pick(_ catalog: CityCatalog, seed: UInt32, currentCityId: String = "home", route: [String] = ["home"], medianKm: Double = 0) -> String {
+private func pick(_ catalog: CityCatalog, seed: UInt32, currentCityId: String = "home", route: [String] = [], medianKm: Double = 0, tripCount: Int = 0) -> String {
     DestinationPicker.pick(
         from: Coordinate(lat: 0, lon: 0), currentCityId: currentCityId, route: route,
-        stampedCountries: ["CN"], medianKm: medianKm, catalog: catalog, seed: seed
+        stampedCountries: ["CN"], medianKm: medianKm, catalog: catalog, seed: seed, tripCount: tripCount
     )
 }
 
@@ -109,63 +109,130 @@ private func pick(_ catalog: CityCatalog, seed: UInt32, currentCityId: String = 
         let minimum = 300.0
         for median in [0, 1, minimum - 1, minimum, minimum * 2] {
             let m = max(minimum, median)
-            #expect(DestinationPicker.band(distanceKm: m, medianKm: median) == .near)
-            #expect(DestinationPicker.band(distanceKm: m + 1, medianKm: median) == .middle)
-            #expect(DestinationPicker.band(distanceKm: m * 3, medianKm: median) == .middle)
-            #expect(DestinationPicker.band(distanceKm: m * 3 + 1, medianKm: median) == .far)
+            let reachable = DestinationPicker.Band.reachableToday
+            #expect(!reachable.contains(distanceKm: 0.3 * m - 0.001, medianKm: median))
+            #expect(reachable.contains(distanceKm: 0.3 * m, medianKm: median))
+            #expect(reachable.contains(distanceKm: 0.8 * m, medianKm: median))
+            #expect(!reachable.contains(distanceKm: 0.8 * m + 0.001, medianKm: median))
+            let wander = DestinationPicker.Band.wander
+            #expect(wander.contains(distanceKm: 1, medianKm: median))
+            #expect(wander.contains(distanceKm: 0.3 * m, medianKm: median))
+            #expect(wander.contains(distanceKm: 0.8 * m, medianKm: median))
+            #expect(wander.contains(distanceKm: 5 * m, medianKm: median))
+            #expect(!wander.contains(distanceKm: 5 * m + 0.001, medianKm: median))
         }
     }
 
-    @Test func bandWeightsAreExactAndEmptyBandsHaveZeroWeight() throws {
-        let home = pickerCity("home", km: 0)
-        let cities = [pickerCity("near", km: 100), pickerCity("middle", km: 600), pickerCity("far", km: 1500)]
-        #expect(DestinationPicker.bandWeights(for: cities.map { [$0] }) == [5, 4, 1])
-        // Cover every nonempty subset, including single remaining bands.
-        for mask in 1..<8 {
+    @Test func bandWeightsAreExactAndEitherEmptyBandFallsBackToTheOther() {
+        let cities = [pickerCity("reachable", km: 100), pickerCity("wander", km: 600)]
+        #expect(DestinationPicker.bandWeights(for: cities.map { [$0] }) == [80, 20])
+        #expect(DestinationPicker.bandWeights(for: [[], []]) == [0, 0])
+        for mask in 1..<4 {
             let bands = cities.enumerated().map { mask & (1 << $0.offset) == 0 ? [] : [$0.element] }
-            let expected = [5, 4, 1].enumerated().map { mask & (1 << $0.offset) == 0 ? 0 : $0.element }
+            let expected = [80, 20].enumerated().map { mask & (1 << $0.offset) == 0 ? 0 : $0.element }
             #expect(DestinationPicker.bandWeights(for: bands) == expected)
-            let box = try PickerCatalogSandbox([home] + bands.flatMap { $0 })
-            defer { box.cleanUp() }
-            let eligible = Set(bands.flatMap { $0 }.map(\.id))
-            for seed in 0..<100 { #expect(eligible.contains(pick(box.catalog, seed: UInt32(seed)))) }
+            for tripCount in 0..<100 {
+                var random = SplitMix64(seed: 42, stopCount: tripCount)
+                let band = DestinationPicker.drawBand(from: bands, random: &random)
+                #expect(!bands[band.rawValue].isEmpty)
+            }
         }
     }
 
-    @Test func allCityWeightCombinationsMultiplyExactlyOnce() {
-        for mask in 0..<16 {
+    @Test(arguments: [1, 2, 3, 4])
+    func allCityWeightCombinationsMultiplyExactlyOnce(tier: Int) {
+        let tierWeight = [8, 4, 2, 1][tier - 1]
+        for mask in 0..<32 {
             let unvisited = mask & 1 != 0
             let newCountry = mask & 2 != 0
             let wish = mask & 4 != 0
             let content = mask & 8 != 0
-            let city = pickerCity("city", km: 100, level: content ? "facts" : "basic", tags: ["coast", "food"])
+            let revisit = mask & 16 != 0
+            var city = pickerCity("city", km: 100, level: content ? "facts" : "basic", tags: ["coast", "food"])
+            city.tier = tier
             let weight = DestinationPicker.cityWeight(
                 city, route: unvisited ? [] : ["city"], stampedCountries: newCountry ? [] : ["CN"],
-                wishTags: wish ? ["coast", "food"] : ["art"]
+                wishTags: wish ? ["coast", "food"] : ["art"], revisitCities: revisit ? ["city"] : []
             )
-            let expected = 4 * (unvisited ? 3 : 1) * (newCountry ? 2 : 1) * (wish ? 3 : 1) * (content ? 2 : 1)
+            let expected = tierWeight * (unvisited ? 3 : 1) * (newCountry ? 2 : 1) * (wish ? 3 : 1) * (content ? 2 : 1) * (revisit ? 3 : 1)
             #expect(weight == expected)
-            if mask == 15 { #expect(weight == 144) }
+            if tier == 2 && mask == 15 { #expect(weight == 144) }
         }
         #expect(DestinationPicker.cityWeight(pickerCity("full", km: 100, level: "full"), route: ["full"], stampedCountries: ["CN"], wishTags: []) == 8)
     }
 
-    @Test func fiveThousandSeedsFollowTheDistanceBandDistribution() throws {
+    @Test func tenThousandCompletedTripCountsFollowTheEightyTwentyBandDraw() {
+        let bands = [[pickerCity("reachable", km: 100)], [pickerCity("wander", km: 600)]]
+        var reachableCount = 0
+        for tripCount in 0..<10_000 {
+            var random = SplitMix64(seed: 42, stopCount: tripCount)
+            if DestinationPicker.drawBand(from: bands, random: &random) == .reachableToday { reachableCount += 1 }
+        }
+        #expect(abs(Double(reachableCount) / 10_000 - 0.8) <= 0.02)
+        #expect(abs(Double(10_000 - reachableCount) / 10_000 - 0.2) <= 0.02)
+    }
+
+    @Test func wanderCanAlsoDrawReachableCities() throws {
         let box = try PickerCatalogSandbox([
-            pickerCity("home", km: 0), pickerCity("near", km: 100), pickerCity("middle", km: 600), pickerCity("far", km: 1500),
+            pickerCity("home", km: 0), pickerCity("reachable", km: 100), pickerCity("wander", km: 600),
+            pickerCity("beyond-cap", km: 1500.01),
         ])
         defer { box.cleanUp() }
         var counts: [String: Int] = [:]
-        for seed in 0..<5000 { counts[pick(box.catalog, seed: UInt32(seed)), default: 0] += 1 }
-        for (id, expected) in [("near", 0.5), ("middle", 0.4), ("far", 0.1)] {
-            #expect(abs(Double(counts[id, default: 0]) / 5000 - expected) <= 0.03)
+        for tripCount in 0..<10_000 { counts[pick(box.catalog, seed: 42, tripCount: tripCount), default: 0] += 1 }
+        // Equal city weights: 80% + half of the 20% wander draws are reachable.
+        for (id, expected) in [("reachable", 0.9), ("wander", 0.1)] {
+            #expect(abs(Double(counts[id, default: 0]) / 10_000 - expected) <= 0.02)
+        }
+        #expect(counts["beyond-cap"] == nil)
+    }
+
+    @Test func noReachableCitiesUsesWanderIncludingCitiesBelowTheLowerBound() throws {
+        let box = try PickerCatalogSandbox([
+            pickerCity("home", km: 0), pickerCity("close", km: 50), pickerCity("far", km: 1499.99),
+            pickerCity("beyond-cap", km: 1500.01),
+        ])
+        defer { box.cleanUp() }
+        let selected = Set((0..<200).map { pick(box.catalog, seed: 42, tripCount: $0) })
+        #expect(selected == ["close", "far"])
+    }
+
+    @Test func bothEmptyBandsUseNearestEligibleCityWithIdTieBreak() throws {
+        let box = try PickerCatalogSandbox([
+            pickerCity("home", km: 0), pickerCity("recent", km: 100), pickerCity("retired", km: 150, status: "retired"),
+            pickerCity("b", km: 1600), pickerCity("a", km: 1600), pickerCity("farther", km: 1700),
+        ])
+        defer { box.cleanUp() }
+        for tripCount in 0..<100 {
+            #expect(pick(box.catalog, seed: UInt32(tripCount), route: ["recent"], tripCount: tripCount) == "a")
         }
     }
 
-    @Test func firstStopAlwaysComesFromNearbyContentCities() throws {
+    @Test func bothEmptyBandsCompareDistanceBeforeTokenCostRounding() throws {
         let box = try PickerCatalogSandbox([
-            pickerCity("home", km: 0), pickerCity("basic", km: 1), pickerCity("a", km: 100, level: "facts"),
-            pickerCity("b", km: 250, country: "JP", level: "full"), pickerCity("distant", km: 500, level: "facts"),
+            pickerCity("home", km: 0), pickerCity("a", km: 1600.0000002), pickerCity("z", km: 1600.0000001),
+        ])
+        defer { box.cleanUp() }
+        #expect(pick(box.catalog, seed: 42) == "z")
+    }
+
+    @Test func sameSeedAndCompletedTripCountReproduceTheDestination() throws {
+        let box = try PickerCatalogSandbox([
+            pickerCity("home", km: 0), pickerCity("a", km: 100), pickerCity("b", km: 200), pickerCity("c", km: 600),
+        ])
+        defer { box.cleanUp() }
+        for seed: UInt32 in [0, 42, .max] {
+            let draws = (0..<100).map { pick(box.catalog, seed: seed, tripCount: $0) }
+            #expect(draws == (0..<100).map { pick(box.catalog, seed: seed, tripCount: $0) })
+            #expect(Set(draws) == ["a", "b", "c"])
+        }
+    }
+
+    @Test func firstStopUsesDefaultReachableBandAndContent() throws {
+        let box = try PickerCatalogSandbox([
+            pickerCity("home", km: 0), pickerCity("basic", km: 150), pickerCity("a", km: 100, level: "facts"),
+            pickerCity("b", km: 230, country: "JP", level: "full"), pickerCity("distant", km: 250, level: "facts"),
+            pickerCity("close", km: 80, level: "full"),
             pickerCity("retired", km: 2, level: "full", status: "retired"),
         ])
         defer { box.cleanUp() }
@@ -197,6 +264,15 @@ private func pick(_ catalog: CityCatalog, seed: UInt32, currentCityId: String = 
         let box = try PickerCatalogSandbox([pickerCity("home", km: 0), pickerCity("z", km: 100), pickerCity("a", km: 100)])
         defer { box.cleanUp() }
         #expect(JourneyState(seed: 7, startCityId: "home", date: "2026-01-01", catalog: box.catalog).targetCityId == "a")
+    }
+
+    @Test func firstStopChoosesTheNearestContentEvenBelowTheReachableBand() throws {
+        let box = try PickerCatalogSandbox([
+            pickerCity("home", km: 0), pickerCity("basic", km: 150), pickerCity("a", km: 0.2, level: "facts"),
+            pickerCity("z", km: 0.1, level: "full"), pickerCity("distant", km: 250, level: "facts"),
+        ])
+        defer { box.cleanUp() }
+        #expect(JourneyState(seed: 7, startCityId: "home", date: "2026-01-01", catalog: box.catalog).targetCityId == "z")
     }
 
     @Test func honoluluGetsTheNearestContentFirstStopInTheExpandedCatalog() throws {
@@ -276,7 +352,7 @@ private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multipl
         state.days["2026-02-01"] = today
         #expect(state.recentDailyKm(before: "2026-02-01") == 14)
         #expect(state.recentDailyKm(before: "2026-01-01") == 0)
-        #expect(DestinationPicker.band(distanceKm: 300, medianKm: state.recentDailyKm(before: "2026-01-01")) == .near)
+        #expect(DestinationPicker.Band.reachableToday.contains(distanceKm: 240, medianKm: state.recentDailyKm(before: "2026-01-01")))
     }
 
     @Test func currentDayUsageCannotChangeTheDestinationDrawnAtHome() {

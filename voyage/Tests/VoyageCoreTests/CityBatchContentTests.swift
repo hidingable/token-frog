@@ -83,16 +83,16 @@ let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCity
         #expect(published.contains(id) && published.contains(base.id))
     }
 
-    @Test func shanghaiFirstStopIsNearbyAndHasRealContent() {
+    @Test func shanghaiFirstStopIsReachableAndHasRealContent() {
         var selected: Set<String> = []
         for seed in UInt32(0)..<64 {
             let journey = JourneyState(seed: seed, startCityId: "shanghai", date: "2026-11-01", catalog: testCatalog)
             selected.insert(journey.targetCityId)
-            #expect(["hangzhou", "suzhou"].contains(journey.targetCityId))
+            #expect(journey.targetCityId == "hangzhou")
             #expect(testCatalog.city(journey.targetCityId).level == "full")
-            #expect(journey.legKm <= DestinationPicker.configuration.minimumMedianKm)
+            #expect(journey.legKm >= 90 && journey.legKm <= 240)
         }
-        #expect(selected == ["hangzhou", "suzhou"])
+        #expect(selected == ["hangzhou"])
         #expect(testCatalog.find("q4970")?.id == "hangzhou")
     }
 

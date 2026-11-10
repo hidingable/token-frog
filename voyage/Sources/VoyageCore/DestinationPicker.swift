@@ -3,8 +3,11 @@ public enum DestinationPicker {
         let recentActiveDays = 14
         let excludedStops = 3
         let minimumMedianKm = 300.0
-        let middleDistanceMultiplier = 3
-        let bandWeights = [5, 4, 1]
+        let reachableTodayMinimumMultiplier = 0.3
+        let reachableTodayMaximumMultiplier = 0.8
+        let wanderMaximumMultiplier = 5.0
+        let reachableTodayWeight = 80
+        let wanderWeight = 20
         let baseCityWeight = 1
         let unvisitedMultiplier = 3
         let newCountryMultiplier = 2
@@ -16,17 +19,27 @@ public enum DestinationPicker {
 
     static let configuration = Configuration()
 
-    enum Band: Int, CaseIterable { case near, middle, far }
+    enum Band: Int, CaseIterable {
+        case reachableToday, wander
 
-    static func band(distanceKm: Double, medianKm: Double) -> Band {
-        let median = max(configuration.minimumMedianKm, medianKm)
-        if distanceKm <= median { return .near }
-        if distanceKm <= Double(configuration.middleDistanceMultiplier) * median { return .middle }
-        return .far
+        func contains(distanceKm: Double, medianKm: Double) -> Bool {
+            let median = max(configuration.minimumMedianKm, medianKm)
+            switch self {
+            case .reachableToday:
+                return (configuration.reachableTodayMinimumMultiplier * median...configuration.reachableTodayMaximumMultiplier * median).contains(distanceKm)
+            case .wander:
+                return distanceKm <= configuration.wanderMaximumMultiplier * median
+            }
+        }
     }
 
     static func bandWeights(for bands: [[City]]) -> [Int] {
-        Band.allCases.map { bands[$0.rawValue].isEmpty ? 0 : configuration.bandWeights[$0.rawValue] }
+        let weights = [configuration.reachableTodayWeight, configuration.wanderWeight]
+        return Band.allCases.map { bands[$0.rawValue].isEmpty ? 0 : weights[$0.rawValue] }
+    }
+
+    static func drawBand(from bands: [[City]], random: inout SplitMix64) -> Band {
+        Band.allCases[draw(weights: bandWeights(for: bands), random: &random)]
     }
 
     static func cityWeight(_ city: City, route: [String], stampedCountries: Set<String>, wishTags: Set<String>, revisitCities: Set<String> = []) -> Int {
@@ -58,13 +71,18 @@ public enum DestinationPicker {
     ) -> String {
         var bands = Array(repeating: [City](), count: Band.allCases.count)
         let route = route.map { catalog.city($0).id }
-        for city in candidates(currentCityId: currentCityId, route: route, catalog: catalog) {
-            let band = band(distanceKm: coordinate.distanceKm(to: city.coordinate), medianKm: medianKm)
-            bands[band.rawValue].append(city)
+        let cities = candidates(currentCityId: currentCityId, route: route, catalog: catalog)
+        for city in cities {
+            let distance = coordinate.distanceKm(to: city.coordinate)
+            // Wander includes reachable-today cities as well as other cities within its cap.
+            for band in Band.allCases where band.contains(distanceKm: distance, medianKm: medianKm) {
+                bands[band.rawValue].append(city)
+            }
         }
+        if bands.allSatisfy(\.isEmpty) { return nearestCity(cities, from: coordinate) }
         var random = SplitMix64(seed: seed, stopCount: tripCount)
-        let selectedBand = draw(weights: bandWeights(for: bands), random: &random)
-        return drawCity(bands[selectedBand], route: route, stampedCountries: stampedCountries, wishTags: wishTags, revisitCities: revisitCities, random: &random)
+        let selectedBand = drawBand(from: bands, random: &random)
+        return drawCity(bands[selectedBand.rawValue], route: route, stampedCountries: stampedCountries, wishTags: wishTags, revisitCities: revisitCities, random: &random)
     }
 
     static func first(
@@ -74,16 +92,20 @@ public enum DestinationPicker {
         let route = route.map { catalog.city($0).id }
         let cities = candidates(currentCityId: currentCityId, route: route, catalog: catalog)
         let withContent = cities.filter { $0.level != "basic" }
-        let near = withContent.filter {
-            coordinate.distanceKm(to: $0.coordinate) <= configuration.minimumMedianKm
+        let reachable = withContent.filter {
+            Band.reachableToday.contains(distanceKm: coordinate.distanceKm(to: $0.coordinate), medianKm: configuration.minimumMedianKm)
         }
-        if !near.isEmpty {
+        if !reachable.isEmpty {
             var random = SplitMix64(seed: seed, stopCount: 0)
-            return drawCity(near, route: route, stampedCountries: stampedCountries, wishTags: wishTags, revisitCities: revisitCities, random: &random)
+            return drawCity(reachable, route: route, stampedCountries: stampedCountries, wishTags: wishTags, revisitCities: revisitCities, random: &random)
         }
-        let nearest = (withContent.isEmpty ? cities : withContent).min {
-            let left = JourneyState.cost(from: coordinate, to: $0.coordinate)
-            let right = JourneyState.cost(from: coordinate, to: $1.coordinate)
+        return nearestCity(withContent.isEmpty ? cities : withContent, from: coordinate)
+    }
+
+    private static func nearestCity(_ cities: [City], from coordinate: Coordinate) -> String {
+        let nearest = cities.min {
+            let left = coordinate.distanceKm(to: $0.coordinate)
+            let right = coordinate.distanceKm(to: $1.coordinate)
             return left == right ? $0.id < $1.id : left < right
         }
         // AppModel requires at least two active cities before starting or resuming.
