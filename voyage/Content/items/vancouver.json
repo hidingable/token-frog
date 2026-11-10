@@ -1,0 +1,98 @@
+[
+  {
+    "id": "vancouver.menu-aburi",
+    "kind": "menu",
+    "cityId": "vancouver",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "轻炙浅笔菜单",
+      "en": "Lightly Shaded Aburi Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在温哥华吃炙烧寿司后画的菜单，改淡了阴影。",
+      "en": "A Vancouver aburi menu with its pencil shading lightened."
+    }
+  },
+  {
+    "id": "vancouver.menu-nanaimo-bar",
+    "kind": "menu",
+    "cityId": "vancouver",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "方块层线菜单",
+      "en": "Nanaimo Layer Lines Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在温哥华尝纳奈莫方块后自画的侧面菜单。",
+      "en": "A side-view menu drawn after a Nanaimo bar in Vancouver."
+    }
+  },
+  {
+    "id": "vancouver.dots-and-circles",
+    "kind": "souvenir",
+    "cityId": "vancouver",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "点和圈的路纸",
+      "en": "Dots and Circles Path"
+    },
+    "descriptions": {
+      "zh-Hans": "温哥华海堤歇步时自画的个人便纸，不是路线指示。",
+      "en": "A personal seawall drawing from Vancouver, made during a pause."
+    }
+  },
+  {
+    "id": "vancouver.dessert-books",
+    "kind": "souvenir",
+    "cityId": "vancouver",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "没编页码的点心纸",
+      "en": "Dessert Without Page Numbers"
+    },
+    "descriptions": {
+      "zh-Hans": "信使把温哥华的方块点心画得像书，留下这张原创纸。",
+      "en": "An original Vancouver dessert drawing that resembles stacked books."
+    }
+  },
+  {
+    "id": "vancouver.pencil-roof",
+    "kind": "souvenir",
+    "cityId": "vancouver",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "铅笔的小屋顶",
+      "en": "A Little Roof for a Pencil"
+    },
+    "descriptions": {
+      "zh-Hans": "看布洛代尔圆顶温室后整理的自画弧线草稿。",
+      "en": "A homemade curve draft after looking at Bloedel Conservatory’s dome."
+    }
+  },
+  {
+    "id": "vancouver.labelled-paper-path",
+    "kind": "souvenir",
+    "cityId": "vancouver",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "点圈分路长纸条",
+      "en": "Labeled Paper Paths"
+    },
+    "descriptions": {
+      "zh-Hans": "信使把海堤观察加标签后亲手折的纸条，供翻看个人回忆。",
+      "en": "A hand-folded strip with labels for the messenger’s seawall observation."
+    }
+  }
+]

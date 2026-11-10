@@ -10,7 +10,7 @@
     "coast",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "奥克兰",
     "en": "Auckland"
@@ -19,5 +19,67 @@
     "zh-Hans": "奥克兰 (新西兰)",
     "en": "Auckland"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "auckland-sky-tower",
+      "type": "place",
+      "names": {
+        "zh-Hans": "天空塔",
+        "en": "Sky Tower"
+      },
+      "summary": {
+        "zh-Hans": "奥克兰天空塔设有观景层，可以环看城市与豪拉基湾一带。",
+        "en": "Auckland’s Sky Tower has observation levels with panoramic views over the city and Hauraki Gulf."
+      },
+      "sources": [
+        "https://skycityauckland.co.nz/sky-tower/"
+      ]
+    },
+    {
+      "id": "auckland-botanic-gardens",
+      "type": "place",
+      "names": {
+        "zh-Hans": "奥克兰植物园",
+        "en": "Auckland Botanic Gardens"
+      },
+      "summary": {
+        "zh-Hans": "奥克兰植物园种植来自世界各地的植物，园内设有香草园、玫瑰园和针叶植物园等不同植物区。",
+        "en": "Auckland Botanic Gardens grows plants from around the world in collections including herb, rose and conifer gardens."
+      },
+      "sources": [
+        "https://www.aucklandbotanicgardens.co.nz/our-gardens/"
+      ]
+    },
+    {
+      "id": "auckland-fish-chips",
+      "type": "food",
+      "names": {
+        "zh-Hans": "炸鱼薯条",
+        "en": "Fish and Chips"
+      },
+      "summary": {
+        "zh-Hans": "在奥克兰可以吃到裹面糊炸制的鱼配薯条，鱼的酥脆外层与薯条一同装盘。",
+        "en": "Auckland serves battered fish with chips, pairing a crisp coating with the potato side."
+      },
+      "sources": [
+        "https://www.aucklandnz.com/inspire/where-to-find-aucklands-best-fish-and-chips"
+      ]
+    },
+    {
+      "id": "auckland-hokey-pokey",
+      "type": "food",
+      "names": {
+        "zh-Hans": "蜂窝糖冰淇淋",
+        "en": "Hokey Pokey Ice Cream"
+      },
+      "summary": {
+        "zh-Hans": "Hokey pokey 将冰淇淋与酥脆的蜂窝糖块搭配，常以香草冰淇淋为底，在奥克兰也能品尝到。",
+        "en": "Hokey pokey combines ice cream with crunchy honeycomb pieces, commonly in a vanilla base. It is also served in Auckland."
+      },
+      "sources": [
+        "https://www.newzealand.com/au/feature/favourite-new-zealand-foods/",
+        "https://www.giapo.com/hokey-pokey-ice-cream-auckland/"
+      ]
+    }
+  ]
 }

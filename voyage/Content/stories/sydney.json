@@ -1,0 +1,416 @@
+[
+  {
+    "id": "sydney.arrival.roof-without-envelope",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "sydney",
+    "factIds": [
+      "sydney-opera-house"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "屋顶伸出纸边时，我把信封放下了。",
+      "en": "The roof ran off the page. I put the envelope aside."
+    },
+    "text": {
+      "zh-Hans": "我在悉尼歌剧院外画交叠的屋顶，第三条弧线就碰到纸边。旅人说可以换个大信封。我想了想，不能让家里的信箱跟着搬家。先把港口留在纸背，等你翻过去。",
+      "en": "Outside Sydney Opera House, my third curve reached the edge of the paper. A traveler suggested a larger envelope. Your letterbox should not have to move to accommodate my drawing. I saved the harbour for the back, waiting for you to turn the page."
+    },
+    "replies": [
+      {
+        "id": "sydney.arrival.roof-without-envelope.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊大信封怎么寄",
+          "en": "Discuss that enormous envelope"
+        }
+      },
+      {
+        "id": "sydney.arrival.roof-without-envelope.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把港口画在纸背",
+          "en": "Draw the harbour on the back"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "sydney.roof-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "sydney.arrival.garden-sentence",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "sydney",
+    "factIds": [
+      "sydney-botanic-garden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "这句话沿水边绕了一段。",
+      "en": "This sentence took the long way beside the water."
+    },
+    "text": {
+      "zh-Hans": "在悉尼皇家植物园看港口，本来只想写“到了”，又想添“我在好好看”。两句话挤得像包里的铅笔。我停下重新排，让每句都有地方，也给回信空出一行。",
+      "en": "Beside the harbour at the Royal Botanic Garden Sydney, “I have arrived” wanted company. “I am taking things in” jostled onto the page like another pencil in my bag. I spaced them out and left a line for your reply."
+    },
+    "replies": [
+      {
+        "id": "sydney.arrival.garden-sentence.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "念念排好的句子",
+          "en": "Read the newly spaced sentences"
+        }
+      },
+      {
+        "id": "sydney.arrival.garden-sentence.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看给回信的空行",
+          "en": "Find the line left for a reply"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "sydney.garden-spacing"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "sydney.arrival.pie-lid",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "sydney",
+    "factIds": [
+      "sydney-meat-pie"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "午饭有盖子，我的计划没有。",
+      "en": "Lunch had a lid. My plan did not."
+    },
+    "text": {
+      "zh-Hans": "悉尼这份牛肉肉汁派，我画完外形才切开酥皮。馅一露出来，图就少了一层，只好再补一张剖面。午饭有了两张肖像。给你写信时，派已经吃完，铅笔倒忙得很饱。",
+      "en": "I drew my Sydney beef-and-gravy pie before cutting its crust. The filling then demanded a cross-section too. Lunch acquired two portraits. By letter-writing time, the pie was gone and the pencil had done rather more work than expected."
+    },
+    "replies": [
+      {
+        "id": "sydney.arrival.pie-lid.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "介绍午饭的双肖像",
+          "en": "Introduce both portraits of lunch"
+        }
+      },
+      {
+        "id": "sydney.arrival.pie-lid.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看酥皮下的馅",
+          "en": "Look beneath the pastry"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "sydney.pie-section"
+      ],
+      "menuIds": [
+        "sydney.menu-meat-pie"
+      ]
+    }
+  },
+  {
+    "id": "sydney.arrival.coconut-sleeves",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "sydney",
+    "factIds": [
+      "sydney-lamington"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "方蛋糕很整齐，吃它的我没有。",
+      "en": "A neat square of cake met a less tidy messenger."
+    },
+    "text": {
+      "zh-Hans": "在悉尼吃过椰蓉巧克力方蛋糕，我才发现袖口也沾了椰蓉。收拾好后，我在菜单上画了一圈小点。旅人问是不是雪。我说，是我的画法出了点天气问题。寄回家的纸已经擦干净了。",
+      "en": "After a lamington in Sydney, I found coconut on my sleeve. Once tidied up, I drew dots around the cake on my menu. A traveler asked whether it was snow. Apparently my drawing had developed its own weather. The paper coming home is clean."
+    },
+    "replies": [
+      {
+        "id": "sydney.arrival.coconut-sleeves.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲画里的天气",
+          "en": "Explain the sketch’s weather"
+        }
+      },
+      {
+        "id": "sydney.arrival.coconut-sleeves.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看袖口收拾好没",
+          "en": "Check that tidy sleeve"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "sydney.menu-lamington"
+      ]
+    }
+  },
+  {
+    "id": "sydney.arrival.lunch-headings",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "sydney",
+    "factIds": [
+      "sydney-meat-pie",
+      "sydney-lamington"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "吃食有了工作用的标题。",
+      "en": "The dishes acquired working titles."
+    },
+    "text": {
+      "zh-Hans": "和旅人聊悉尼的吃食，我说“有盖子的午饭”和“穿椰蓉外套的点心”。对方建议菜单也写菜名。我添上 meat pie 和 lamington，把两个外号留在下面。菜名帮你认菜，外号大概会帮你认出我。",
+      "en": "Describing Sydney food, I offered “lunch with a lid” and “cake in a coconut coat.” My listener suggested putting the actual names on the menus. Meat pie and lamington now have their own headings, with my nicknames underneath. One set identifies the food; the other gives me away."
+    },
+    "replies": [
+      {
+        "id": "sydney.arrival.lunch-headings.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "念念两个新标题",
+          "en": "Read both new headings"
+        }
+      },
+      {
+        "id": "sydney.arrival.lunch-headings.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "核对标题和菜名",
+          "en": "Match headings to dish names"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "sydney.menu-meat-pie",
+        "sydney.menu-lamington"
+      ]
+    }
+  },
+  {
+    "id": "sydney.arrival.clean-menu-corners",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "sydney",
+    "factIds": [
+      "sydney-meat-pie",
+      "sydney-lamington"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "肉汁朝蛋糕流去，空碟来得正好。",
+      "en": "The gravy was heading for the cake when a spare plate arrived."
+    },
+    "text": {
+      "zh-Hans": "在悉尼，我把牛肉派和椰蓉巧克力方蛋糕放在同一个盘子里。刚用叉子碰开酥皮，肉汁便朝蛋糕流去，我忙把盘子抬高，蛋糕又往另一边滑。邻座赶紧递来空碟，我先放下叉子，才把蛋糕稳稳搬过去。吃完肉派再咬蛋糕时，对方指了指自己的鼻尖。我摸摸鼻子，手上多了一点白椰蓉。",
+      "en": "In Sydney, I put my beef pie and chocolate-and-coconut lamington on one plate. As soon as my fork opened the pastry, gravy headed towards the cake. I raised that side of the plate, which only sent the lamington sliding the other way. My neighbour offered a spare plate, and I put down my fork to transfer it with considerable care. After the pie, I finally bit into the cake. My neighbour tapped their own nose. I checked mine and found a little patch of white coconut."
+    },
+    "replies": [
+      {
+        "id": "sydney.arrival.clean-menu-corners.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢及时递来的空碟",
+          "en": "Thank my neighbour for the spare plate"
+        }
+      },
+      {
+        "id": "sydney.arrival.clean-menu-corners.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看鼻尖有没有留下椰蓉",
+          "en": "Check for coconut on the tip of my nose"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "sydney.menu-meat-pie",
+        "sydney.menu-lamington"
+      ]
+    }
+  },
+  {
+    "id": "sydney.fulfill.harbour-on-reverse",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "sydney",
+    "factIds": [
+      "sydney-opera-house"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "sydney.arrival.roof-without-envelope.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "你说“{reply}”，我把纸翻了过来。",
+      "en": "Your suggestion, “{reply},” sent me to the back of the page."
+    },
+    "text": {
+      "zh-Hans": "照着你的回应，我在歌剧院轮廓画背面添上自己看见的悉尼港。前面是屋顶，背面是水，中间还是普通的纸。我折成小卡，翻面像换个站的位置。家里的信箱总算不用搬家了。",
+      "en": "Following your reply, I added my view of Sydney Harbour to the back of the Opera House outline. Roofs on one side, water on the other, ordinary paper between. Folded into a card, it changes the view with a turn of the hand. Your letterbox may stay put."
+    },
+    "replies": [
+      {
+        "id": "sydney.fulfill.harbour-on-reverse.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说翻面后的景色",
+          "en": "Describe the reverse view"
+        }
+      },
+      {
+        "id": "sydney.fulfill.harbour-on-reverse.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "慢慢翻看两面",
+          "en": "Turn between both views"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "sydney.harbour-turn-card"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "sydney.revisit.familiar-address",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "sydney",
+    "factIds": [
+      "sydney-opera-house"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "屋顶拍全了，鞋却差点没进照片。",
+      "en": "The roofs made it into the photo. The shoes nearly did not."
+    },
+    "text": {
+      "zh-Hans": "“鞋也要拍进去呀。”歌剧院外的旅人低头看了看自己。我认得悉尼那些交叠的贝壳状屋顶，这回替人拍照，光顾着把屋顶收全，竟裁掉了鞋。我请他把双脚并好，再退开一点，把镜头往下压。对方抬起脚，认真检查屏幕，才笑着接回手机。照片底下，总算有了一双并得整整齐齐的鞋。",
+      "en": "“Could you get my shoes in too?” asked the traveller outside the Opera House. Back in Sydney, I recognised those overlapping shell-shaped roofs at once. Apparently I had given them rather too much of the photograph. I asked him to put his feet together, stepped back, and tilted the phone down. My patient subject lifted a foot, compared it with the screen, and accepted the phone with a smile. At the bottom of the picture, two neatly aligned shoes had finally joined the roofs."
+    },
+    "replies": [
+      {
+        "id": "sydney.revisit.familiar-address.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问这张合照还缺什么",
+          "en": "Ask if anything else is missing from the photo"
+        }
+      },
+      {
+        "id": "sydney.revisit.familiar-address.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看照片底下的那双鞋",
+          "en": "Look for the shoes at the bottom of the photo"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

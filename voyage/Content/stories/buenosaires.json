@@ -1,0 +1,416 @@
+[
+  {
+    "id": "buenosaires.arrival.flower-with-pencil",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "buenosaires",
+    "factIds": [
+      "buenosaires-floralis"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "这朵花不用浇水，我的铅笔需要削。",
+      "en": "The flower needed no watering. My pencil needed sharpening."
+    },
+    "text": {
+      "zh-Hans": "联合国广场的金属花让我在布宜诺斯艾利斯停住。铝和不锈钢做成花的样子，我却把纸上的花瓣画得像一把勺子。旅人说可以先看边缘，再补中间。我准备给它另留一张纸，免得这把勺子占满整封家信。",
+      "en": "Floralis Genérica stopped me in Buenos Aires. The aluminium and steel flower became something like a spoon in my drawing. A traveler suggested following the edges before filling the middle. I will give it another sheet, so the spoon does not occupy this entire letter home."
+    },
+    "replies": [
+      {
+        "id": "buenosaires.arrival.flower-with-pencil.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊画里的勺子",
+          "en": "Talk about that drawn spoon"
+        }
+      },
+      {
+        "id": "buenosaires.arrival.flower-with-pencil.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "沿着花瓣边缘再画",
+          "en": "Draw along the petal edges"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "buenosaires.petal-spoon"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "buenosaires.arrival.garden-no-collecting",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "buenosaires",
+    "factIds": [
+      "buenosaires-botanic-garden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "口袋里多了一张纸，没有多一片叶。",
+      "en": "One more sheet in my pocket, no extra leaves."
+    },
+    "text": {
+      "zh-Hans": "植物园里的棕榈和仙人掌，我都只用眼睛看。想记下来时，就在布宜诺斯艾利斯的便纸上分开画两种轮廓。出园摸口袋，只有自己带来的纸和笔。这样轻轻的，也能把一路的认真寄给你。",
+      "en": "I looked at palms and cacti in Buenos Aires Botanical Garden, drawing separate outlines on my own paper. At the exit, my pockets held only the pencil and stationery I had brought. A light load, but enough to send home a little of the attention I paid."
+    },
+    "replies": [
+      {
+        "id": "buenosaires.arrival.garden-no-collecting.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲两种不同轮廓",
+          "en": "Describe the different outlines"
+        }
+      },
+      {
+        "id": "buenosaires.arrival.garden-no-collecting.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把两种线条分开看",
+          "en": "Look at each outline separately"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "buenosaires.garden-outline"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "buenosaires.arrival.empanada-address",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "buenosaires",
+    "factIds": [
+      "buenosaires-empanada"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "半月形的午饭，不需要写邮编。",
+      "en": "My crescent-shaped lunch needed no postcode."
+    },
+    "text": {
+      "zh-Hans": "吃布宜诺斯艾利斯的烤馅饼，我在菜单上画半月形，给肉馅那份做个小记号。笔停下时，差点顺手写上家里的地址。大概是太习惯寄信了。我把地址留给信封，菜单只写菜名，午饭就不会走错地方。",
+      "en": "For a baked meat empanada in Buenos Aires, I drew a crescent and marked the filling on my menu. My hand almost added your address. Too much letter-writing, perhaps. I saved the address for the envelope; lunch needs its name rather than postal instructions."
+    },
+    "replies": [
+      {
+        "id": "buenosaires.arrival.empanada-address.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给午饭念个名字",
+          "en": "Read lunch its own name"
+        }
+      },
+      {
+        "id": "buenosaires.arrival.empanada-address.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看肉馅的小记号",
+          "en": "Find the filling’s small marker"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "buenosaires.menu-empanada"
+      ]
+    }
+  },
+  {
+    "id": "buenosaires.arrival.sugar-on-return",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "buenosaires",
+    "factIds": [
+      "buenosaires-churros"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "手指擦干净，才轮到写“你好”。",
+      "en": "Clean fingers came before “hello.”"
+    },
+    "text": {
+      "zh-Hans": "吉拿棒外面裹着糖，我在布宜诺斯艾利斯吃完后仔细擦手，才翻开写给你的纸。想起刚才那一口，在小菜单上加了细细的点。点画得太密，又像一封全是省略号的信。还好这封真的信，我有话要说。",
+      "en": "After sugar-coated churros in Buenos Aires, I cleaned my fingers before opening your letter paper. Dots on the little menu recalled the coating. I made so many that the sketch resembled a letter made entirely of ellipses. Fortunately, this actual letter has something to say."
+    },
+    "replies": [
+      {
+        "id": "buenosaires.arrival.sugar-on-return.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说省略号后面的话",
+          "en": "Say what comes after those dots"
+        }
+      },
+      {
+        "id": "buenosaires.arrival.sugar-on-return.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意糖点的疏密",
+          "en": "Notice the spacing of the dots"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "buenosaires.sugar-dots"
+      ],
+      "menuIds": [
+        "buenosaires.menu-churros"
+      ]
+    }
+  },
+  {
+    "id": "buenosaires.arrival.paper-order",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "buenosaires",
+    "factIds": [
+      "buenosaires-empanada",
+      "buenosaires-churros"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我让菜单替我先把话说完整。",
+      "en": "I let the menus finish the sentence first."
+    },
+    "text": {
+      "zh-Hans": "说到布宜诺斯艾利斯的馅饼和吉拿棒，我总想先讲形状，忘了讲味道。旅人把两张小菜单递回来，叫我各添一句自己的感受。我写“这份咸的”“那份甜的”，然后笑了。旅途报告还很短，但已经肯把自己的那一口算进去。",
+      "en": "When talking about empanadas and churros in Buenos Aires, I kept describing shapes and forgetting taste. A traveler handed back the menus: add your own impression to each. “This one savoury; that one sweet,” I wrote. A short report, but at least my own meal has entered it."
+    },
+    "replies": [
+      {
+        "id": "buenosaires.arrival.paper-order.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把自己的感受讲进去",
+          "en": "Add your own impression"
+        }
+      },
+      {
+        "id": "buenosaires.arrival.paper-order.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两句小注的位置",
+          "en": "Find the two small notes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "buenosaires.menu-empanada",
+        "buenosaires.menu-churros"
+      ]
+    }
+  },
+  {
+    "id": "buenosaires.arrival.separate-paper-pockets",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "buenosaires",
+    "factIds": [
+      "buenosaires-empanada",
+      "buenosaires-churros"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "两张干净纸，分住两个小格。",
+      "en": "Two clean sheets found separate little spaces."
+    },
+    "text": {
+      "zh-Hans": "整理布宜诺斯艾利斯的菜单，我把馅饼纸和吉拿棒纸折成一样宽。前者的半月线条，后者的糖点，不用打开也能从纸边认出来。我做了两个纸套分着放。信写完再收好，别让菜单抢先被我封进回家的信里。",
+      "en": "I folded my Buenos Aires empanada and churro menus to the same width. A crescent edge and a few sugar dots still told them apart. I made two paper sleeves. They will wait until this letter is sealed; otherwise a menu may accidentally become the message home."
+    },
+    "replies": [
+      {
+        "id": "buenosaires.arrival.separate-paper-pockets.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说纸套该写什么",
+          "en": "Choose words for the sleeves"
+        }
+      },
+      {
+        "id": "buenosaires.arrival.separate-paper-pockets.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "从纸边认出菜单",
+          "en": "Identify each menu at its edge"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "buenosaires.menu-empanada",
+        "buenosaires.menu-churros"
+      ]
+    }
+  },
+  {
+    "id": "buenosaires.fulfill.petal-outline-card",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "buenosaires",
+    "factIds": [
+      "buenosaires-floralis"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "buenosaires.arrival.flower-with-pencil.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "照着“{reply}”，这回从外面开始。",
+      "en": "Following “{reply},” I began with the outside."
+    },
+    "text": {
+      "zh-Hans": "我给金属花换了张纸，按你说的沿花瓣边缘慢慢画。中间暂时空着，先把每道线接好。那把误画出来的勺子终于收工了。我把新轮廓折成卡寄给你，布宜诺斯艾利斯这朵花在纸上也有了自己的位置。",
+      "en": "On fresh paper, I followed the edges of Floralis Genérica’s petals as you suggested, leaving the middle open. The accidental spoon has retired. I folded the new outline into a card for you. This Buenos Aires flower now has a place of its own on my paper."
+    },
+    "replies": [
+      {
+        "id": "buenosaires.fulfill.petal-outline-card.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给新轮廓取个名字",
+          "en": "Name the new outline"
+        }
+      },
+      {
+        "id": "buenosaires.fulfill.petal-outline-card.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看接起来的边缘",
+          "en": "Look at the joined edges"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "buenosaires.petal-outline-card"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "buenosaires.revisit.city-name-breath",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "buenosaires",
+    "factIds": [
+      "buenosaires-floralis"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "金属花前，我和旅人一起围住了杯盖。",
+      "en": "A bottle cap sent two visitors shuffling beside the metal flower."
+    },
+    "text": {
+      "zh-Hans": "杯盖从我脚边滚出去，停在一位旅人的鞋后。这趟重来，我刚在联合国广场认出那朵金属花，放心拧开水壶，手就滑了一下。对方以为碰到了小虫，抬脚躲开，杯盖又往旁边跑。我俩赶紧用鞋围出一个圈，才把它截住。重新盖好壶，我还得擦擦袖口，那里印着一个湿漉漉的小圆圈。",
+      "en": "My bottle cap rolled behind another visitor’s shoe. I had just recognised Floralis Genérica on my return to Buenos Aires and stopped in Plaza de las Naciones Unidas for a drink. Then my fingers slipped. The visitor felt something, lifted a foot as though avoiding an insect, and sent the cap rolling again. We shuffled our shoes into a little enclosure and caught it between us. The bottle was closed at last, but my cuff still wore a small wet ring."
+    },
+    "replies": [
+      {
+        "id": "buenosaires.revisit.city-name-breath.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲两个人怎么截住杯盖",
+          "en": "Tell how two visitors managed to catch the cap"
+        }
+      },
+      {
+        "id": "buenosaires.revisit.city-name-breath.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看袖口上的湿圆圈",
+          "en": "Look at the wet ring on the cuff"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

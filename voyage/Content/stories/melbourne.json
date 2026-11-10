@@ -1,0 +1,416 @@
+[
+  {
+    "id": "melbourne.arrival.green-lamp-margin",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "melbourne",
+    "factIds": [
+      "melbourne-reading-room"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "绿灯罩下面，我把感叹号写小了。",
+      "en": "Under a green lamp shade, my exclamation mark shrank."
+    },
+    "text": {
+      "zh-Hans": "坐在墨尔本拉筹伯阅览室，我抬头看穹顶，又低头看放射排列的桌子。给你的信写了一个大大的“哇”，忽然觉得纸上也该安静一点。我没出声，只把感叹号改小，旁边留了一圈空白。离馆后再跟你讲它有多高。",
+      "en": "At Melbourne’s La Trobe Reading Room, I looked from the dome to the radiating desks. My letter began with a huge written “wow.” Without making a sound, I reduced the exclamation mark and left some space around it. The tall-room conversation can wait until we are outside."
+    },
+    "replies": [
+      {
+        "id": "melbourne.arrival.green-lamp-margin.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "离馆后讲讲穹顶",
+          "en": "Describe the dome after leaving"
+        }
+      },
+      {
+        "id": "melbourne.arrival.green-lamp-margin.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "给小感叹号留空白",
+          "en": "Leave space for the small exclamation"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "melbourne.small-exclamation"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "melbourne.arrival.garden-unhurried",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "melbourne",
+    "factIds": [
+      "melbourne-carlton-gardens"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小径没有催我，鞋带倒催了。",
+      "en": "The path was patient. My shoelace was less so."
+    },
+    "text": {
+      "zh-Hans": "卡尔顿花园的林荫小径让我放慢脚步，鞋带偏在这时松开。系好抬头，皇家展览馆仍在，我却差点把“慢一点”写成“站一会儿”。两种都做到了。我在纸上画个小结，提醒回家收信的你，我一路有好好照看自己。",
+      "en": "A tree-lined path in Carlton Gardens slowed me down, then a loose lace brought me to a halt. When I looked up, the Royal Exhibition Building was still there. “Take it slowly” had become “stand still.” I drew a small knot on the page to assure home that I am looking after myself."
+    },
+    "replies": [
+      {
+        "id": "melbourne.arrival.garden-unhurried.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说停下来的理由",
+          "en": "Tell the reason for stopping"
+        }
+      },
+      {
+        "id": "melbourne.arrival.garden-unhurried.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看纸上的小结",
+          "en": "Look at the little drawn knot"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "melbourne.lace-knot"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "melbourne.arrival.steamed-parcel",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "melbourne",
+    "factIds": [
+      "melbourne-dim-sim"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "今天拆开的小包，不装信。",
+      "en": "Today’s little parcel contained no letters."
+    },
+    "text": {
+      "zh-Hans": "午饭选了蒸的 dim sim。我在墨尔本的小菜单上先写“咸味小包”，吃到肉馅才把菜名补完整。邮包待在椅边，没有申请分一口。我给它画在菜单角落，算它陪我按时吃了饭。",
+      "en": "I chose a steamed dim sim in Melbourne. “Savoury parcel” went on the menu first; after reaching the meat filling, I added its name. My mailbag waited beside the chair without asking for a share. It got a corner of the drawing for keeping me company at lunch."
+    },
+    "replies": [
+      {
+        "id": "melbourne.arrival.steamed-parcel.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "介绍今天的小包",
+          "en": "Introduce today’s little parcel"
+        }
+      },
+      {
+        "id": "melbourne.arrival.steamed-parcel.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把菜名补完整",
+          "en": "Finish writing the dish’s name"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "melbourne.menu-dim-sim"
+      ]
+    }
+  },
+  {
+    "id": "melbourne.arrival.jam-hidden",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "melbourne",
+    "factIds": [
+      "melbourne-jam-doughnut"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "第一眼没看见的，在点心里面。",
+      "en": "What I could not see was inside the doughnut."
+    },
+    "text": {
+      "zh-Hans": "维多利亚女王市场的果酱甜甜圈，外面的糖我一眼就看见了，果酱得咬开才知道。我想给你画一张诚实的菜单，便把里面也画出来。结果点心像开了小窗。窗里没有信使，信使正忙着把这一口吃好。",
+      "en": "At Queen Victoria Market, the sugar on my jam doughnut was easy to see. The filling needed a bite. For an honest menu drawing, I included the inside too. The doughnut looked as though it had acquired a window. No messenger at that window: I was occupied with the rest of the snack."
+    },
+    "replies": [
+      {
+        "id": "melbourne.arrival.jam-hidden.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊点心里的小窗",
+          "en": "Talk about the snack’s little window"
+        }
+      },
+      {
+        "id": "melbourne.arrival.jam-hidden.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看糖和果酱的位置",
+          "en": "Find sugar and jam in the drawing"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "melbourne.jam-window"
+      ],
+      "menuIds": [
+        "melbourne.menu-jam-doughnut"
+      ]
+    }
+  },
+  {
+    "id": "melbourne.arrival.polite-food-list",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "melbourne",
+    "factIds": [
+      "melbourne-dim-sim",
+      "melbourne-jam-doughnut"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我把“还吃了什么”讲成了接力。",
+      "en": "“What else did you eat?” became a relay."
+    },
+    "text": {
+      "zh-Hans": "旅人问起墨尔本这顿饭，我说完 dim sim，才想起还有果酱甜甜圈。对方替我等了一下，让第二样赶上。我把两张菜单排好，终于没让点心在话尾落单。寄给你时，也留个空格，等你的晚饭来接下一棒。",
+      "en": "A traveler asked about my Melbourne meal. I mentioned the dim sim, then remembered the jam doughnut. They waited for the second dish to catch up. Both menus now fit into the account. I left a gap for your supper to take the next turn when the letter gets home."
+    },
+    "replies": [
+      {
+        "id": "melbourne.arrival.polite-food-list.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "让晚饭接着讲",
+          "en": "Let supper take the next turn"
+        }
+      },
+      {
+        "id": "melbourne.arrival.polite-food-list.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看菜单之间的空格",
+          "en": "Look between the menus"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "melbourne.menu-dim-sim",
+        "melbourne.menu-jam-doughnut"
+      ]
+    }
+  },
+  {
+    "id": "melbourne.arrival.two-pencils-rest",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "melbourne",
+    "factIds": [
+      "melbourne-dim-sim",
+      "melbourne-jam-doughnut"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "铅笔躺下，午饭才算画完。",
+      "en": "The pencil lay down when lunch was finally drawn."
+    },
+    "text": {
+      "zh-Hans": "吃过 dim sim 和果酱甜甜圈，我把墨尔本的两张菜单摊开，一张字挤，一张图大。只改了标题的位置，就都看得清了。我本来还想添花边，想起信还没写，便让铅笔休息。菜单少一圈装饰，你会多收到几句话。",
+      "en": "After a dim sim and a jam doughnut, my Melbourne menus needed balancing: crowded words on one, an oversized sketch on the other. Moving the headings helped. I considered decorative borders, then remembered this letter. The pencil got a rest from ornament so I could send you a few more words."
+    },
+    "replies": [
+      {
+        "id": "melbourne.arrival.two-pencils-rest.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "念念留下的几句话",
+          "en": "Read the words that took their place"
+        }
+      },
+      {
+        "id": "melbourne.arrival.two-pencils-rest.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较两个标题的位置",
+          "en": "Compare the headings’ positions"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "melbourne.menu-dim-sim",
+        "melbourne.menu-jam-doughnut"
+      ]
+    }
+  },
+  {
+    "id": "melbourne.fulfill.quiet-space-card",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "melbourne",
+    "factIds": [
+      "melbourne-reading-room"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "melbourne.arrival.green-lamp-margin.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "“{reply}”，我替这句话腾好了地方。",
+      "en": "I made room for your words: “{reply}.”"
+    },
+    "text": {
+      "zh-Hans": "你让小感叹号旁边留些空白，我把拉筹伯阅览室那页重新誊在一张折卡上。穹顶只画轮廓，绿灯罩占一个小角。那声没说出口的“哇”留在中间，轻轻的。纸折起来也没有挤到它，我试过了。",
+      "en": "You suggested leaving space around the little exclamation. I copied the La Trobe Reading Room page onto a folded card: a dome outline, a green lamp shade in one corner. The silent “wow” has the middle to itself. Even folding the paper does not crowd it. I checked."
+    },
+    "replies": [
+      {
+        "id": "melbourne.fulfill.quiet-space-card.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "读读没有出声的感叹",
+          "en": "Read the silent exclamation"
+        }
+      },
+      {
+        "id": "melbourne.fulfill.quiet-space-card.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看折起后的空白",
+          "en": "Notice the space after folding"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "melbourne.quiet-space-card"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "melbourne.revisit.room-to-return",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "melbourne",
+    "factIds": [
+      "melbourne-carlton-gardens"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一只布球，把我留在了花园里。",
+      "en": "A cloth ball kept me in the gardens a little longer."
+    },
+    "text": {
+      "zh-Hans": "脚边滚来一只布球，我赶紧伸手拦住。皇家展览馆的轮廓还认得，这回进墨尔本的卡尔顿花园，却先被球领着离开了林荫小径。追来的孩子接过去，刚道谢又松了手，球沿草地滚回我身边。我索性在草地上蹲下来托住它，等他把外套穿好。临走，他把帽子翻了个面，布球正好窝在里面。",
+      "en": "A cloth ball rolled against my foot, and I caught it before it went any farther. I still recognised the Royal Exhibition Building on this return to Melbourne, but something much smaller had drawn me off a tree-lined path in Carlton Gardens. The child chasing it said thank you, then let go to put on his coat. Back it came. I crouched and held it until both sleeves were sorted. Before leaving, he turned his hat upside down and tucked the ball inside."
+    },
+    "replies": [
+      {
+        "id": "melbourne.revisit.room-to-return.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "给小球找个不乱跑的位置",
+          "en": "Suggest somewhere the ball can stay put"
+        }
+      },
+      {
+        "id": "melbourne.revisit.room-to-return.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看帽子里窝着的布球",
+          "en": "Look at the cloth ball tucked into the hat"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

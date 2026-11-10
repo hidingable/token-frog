@@ -10,7 +10,7 @@
     "lake",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "多伦多",
     "en": "Toronto"
@@ -19,5 +19,67 @@
     "zh-Hans": "多伦多",
     "en": "Toronto"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "toronto-cn-tower",
+      "type": "place",
+      "names": {
+        "zh-Hans": "加拿大国家电视塔",
+        "en": "CN Tower"
+      },
+      "summary": {
+        "zh-Hans": "多伦多 CN Tower 的主观景层设有大片玻璃窗，可向外观看城市景观。",
+        "en": "The CN Tower’s Main Observation Level has window walls overlooking Toronto’s cityscape."
+      },
+      "sources": [
+        "https://www.cntower.ca/explore-the-tower"
+      ]
+    },
+    {
+      "id": "toronto-st-lawrence-market",
+      "type": "place",
+      "names": {
+        "zh-Hans": "圣劳伦斯市场",
+        "en": "St. Lawrence Market"
+      },
+      "summary": {
+        "zh-Hans": "圣劳伦斯市场是多伦多市政府管理的市场区域。南市场内有销售水果、蔬菜、鱼肉、烘焙食品与奶制品的商户。",
+        "en": "St. Lawrence Market is a City of Toronto-managed market district. Its South Market has vendors selling produce, fish, meat, baked goods and dairy products."
+      },
+      "sources": [
+        "https://www.toronto.ca/services-payments/venues-facilities-bookings/booking-city-facilities/st-lawrence-market/"
+      ]
+    },
+    {
+      "id": "toronto-peameal-sandwich",
+      "type": "food",
+      "names": {
+        "zh-Hans": "玉米粉腌肉三明治",
+        "en": "Peameal Bacon Sandwich"
+      },
+      "summary": {
+        "zh-Hans": "Peameal bacon 用湿腌猪里脊裹上玉米粉制成，在多伦多可切片夹入面包做三明治。",
+        "en": "Peameal bacon is wet-cured pork loin rolled in cornmeal; in Toronto, slices are served in a bun as a sandwich."
+      },
+      "sources": [
+        "https://www.destinationtoronto.com/leisure-blog/post/canadian-flavours-toronto/"
+      ]
+    },
+    {
+      "id": "toronto-butter-tart",
+      "type": "food",
+      "names": {
+        "zh-Hans": "黄油糖浆挞",
+        "en": "Butter Tart"
+      },
+      "summary": {
+        "zh-Hans": "黄油糖浆挞以小挞皮装入黄油、糖、糖浆和蛋等组成的甜馅，在多伦多的烘焙店也有供应。",
+        "en": "Butter tarts have small pastry shells filled with a sweet mixture including butter, sugar, syrup and egg. They are also sold in Toronto bakeries."
+      },
+      "sources": [
+        "https://www.destinationontario.com/en-ca/articles/popular-canadian-food-try-ontario",
+        "https://www.destinationtoronto.com/leisure-blog/post/canadian-flavours-toronto/"
+      ]
+    }
+  ]
 }

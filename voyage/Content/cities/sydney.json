@@ -11,7 +11,7 @@
     "art",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "悉尼",
     "en": "Sydney"
@@ -20,5 +20,67 @@
     "zh-Hans": "悉尼",
     "en": "Sydney"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "sydney-opera-house",
+      "type": "place",
+      "names": {
+        "zh-Hans": "悉尼歌剧院",
+        "en": "Sydney Opera House"
+      },
+      "summary": {
+        "zh-Hans": "悉尼歌剧院位于伸入悉尼港的半岛尖端，以交叠的贝壳状屋顶覆盖演出空间，周围设有露台步行区域。",
+        "en": "Sydney Opera House stands on a peninsula in Sydney Harbour. Interlocking shell-shaped roofs cover its performance spaces, with pedestrian terraces around the building."
+      },
+      "sources": [
+        "https://whc.unesco.org/en/list/166/"
+      ]
+    },
+    {
+      "id": "sydney-botanic-garden",
+      "type": "place",
+      "names": {
+        "zh-Hans": "悉尼皇家植物园",
+        "en": "Royal Botanic Garden Sydney"
+      },
+      "summary": {
+        "zh-Hans": "悉尼皇家植物园沿悉尼港展开，毗邻悉尼歌剧院。",
+        "en": "The Royal Botanic Garden Sydney curves around Sydney Harbour beside the Sydney Opera House."
+      },
+      "sources": [
+        "https://www.botanicgardens.org.au/royal-botanic-garden-sydney/plan-your-visit/getting-here"
+      ]
+    },
+    {
+      "id": "sydney-meat-pie",
+      "type": "food",
+      "names": {
+        "zh-Hans": "肉派",
+        "en": "Meat Pie"
+      },
+      "summary": {
+        "zh-Hans": "在悉尼可以吃到有酥皮包裹的咸味肉派，牛肉配肉汁是其中一种馅料。",
+        "en": "Sydney serves savoury meat pies with a pastry crust; beef in gravy is one filling."
+      },
+      "sources": [
+        "https://www.saveur.com/article/travels/Sydneys-best-meat-pies/"
+      ]
+    },
+    {
+      "id": "sydney-lamington",
+      "type": "food",
+      "names": {
+        "zh-Hans": "椰蓉巧克力方蛋糕",
+        "en": "Lamington"
+      },
+      "summary": {
+        "zh-Hans": "Lamington 是裹上巧克力、再沾椰蓉的方形海绵蛋糕，在悉尼也能品尝到。",
+        "en": "A lamington is a square of sponge cake coated in chocolate and desiccated coconut, also served in Sydney."
+      },
+      "sources": [
+        "https://www.slq.qld.gov.au/blog/who-invented-lamington-answers-may-surprise-you",
+        "https://www.broadsheet.com.au/national/food-and-drink/article/recipe-rockpool-bar-grills-lamington"
+      ]
+    }
+  ]
 }

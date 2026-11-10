@@ -11,7 +11,7 @@
     "mountain",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "里约热内卢",
     "en": "Rio de Janeiro"
@@ -20,5 +20,67 @@
     "zh-Hans": "里约热内卢",
     "en": "Rio de Janeiro"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "rio-sugarloaf",
+      "type": "place",
+      "names": {
+        "zh-Hans": "糖面包山缆车公园",
+        "en": "Sugarloaf Cable Car Park"
+      },
+      "summary": {
+        "zh-Hans": "里约的糖面包山缆车公园以缆车连接红海滩、乌尔卡山与糖面包山。",
+        "en": "Rio’s Sugarloaf Cable Car Park links Praia Vermelha, Morro da Urca and Sugarloaf Mountain by cable car."
+      },
+      "sources": [
+        "https://ri.bondinho.com.br/pt"
+      ]
+    },
+    {
+      "id": "rio-botanic-garden",
+      "type": "place",
+      "names": {
+        "zh-Hans": "里约热内卢植物园",
+        "en": "Rio de Janeiro Botanical Garden"
+      },
+      "summary": {
+        "zh-Hans": "里约热内卢植物园的活植物收藏包括树木、凤梨、兰花和仙人掌等植物。",
+        "en": "Rio de Janeiro Botanical Garden’s living collections include trees, bromeliads, orchids and cacti."
+      },
+      "sources": [
+        "https://www.gov.br/pt-br/servicos/obter-informacoes-sobre-as-plantas-do-jardim-botanico-do-rio-de-janeiro-colecoes-vivas"
+      ]
+    },
+    {
+      "id": "rio-feijoada",
+      "type": "food",
+      "names": {
+        "zh-Hans": "巴西黑豆炖肉",
+        "en": "Feijoada"
+      },
+      "summary": {
+        "zh-Hans": "里约可以品尝到 feijoada；黑豆与猪肉是这种巴西炖菜的一种基本组合。",
+        "en": "Feijoada is served in Rio; black beans and pork form a basic combination in this Brazilian stew."
+      },
+      "sources": [
+        "https://agenciagov.ebc.com.br/noticias/202402/pesquisa-elege-os-dez-melhores-pratos-tipicos-do-brasil-e-a-feijoada-se-destaca-em-1o-lugar",
+        "https://www.visitbrasil.com/en/5-must-have-experiences-at-rio-de-janeiros-2025-carnival"
+      ]
+    },
+    {
+      "id": "rio-tapioca-biscuit",
+      "type": "food",
+      "names": {
+        "zh-Hans": "木薯脆饼",
+        "en": "Tapioca Biscuit"
+      },
+      "summary": {
+        "zh-Hans": "木薯淀粉饼干是里约街头可见的小吃，口感酥脆。",
+        "en": "Crisp tapioca-starch biscuits are a street snack in Rio."
+      },
+      "sources": [
+        "https://www.visitbrasil.com/en/location/rio-de-janeiro-en/"
+      ]
+    }
+  ]
 }

@@ -1,0 +1,416 @@
+[
+  {
+    "id": "rio.arrival.three-paper-stops",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "rio",
+    "factIds": [
+      "rio-sugarloaf"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "还没动身，我先把纸站错了边。",
+      "en": "Before setting off, I put my paper stops in the wrong order."
+    },
+    "text": {
+      "zh-Hans": "准备坐里约的缆车，我在便纸上写红海滩、乌尔卡山、糖面包山。纸拿反了，终点倒先到手边。旅人帮我转正，我又认真看了一遍。想把这一小段路画清楚寄回家，免得你读信也跟着我倒走。",
+      "en": "Before riding Rio’s cable car, I wrote Praia Vermelha, Morro da Urca and Sugarloaf on a slip. Holding it upside down brought the destination to my thumb first. A traveler turned it around. I want a clear little drawing for home, so reading this letter will not mean traveling backward."
+    },
+    "replies": [
+      {
+        "id": "rio.arrival.three-paper-stops.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲纸上的站点",
+          "en": "Talk through the paper stops"
+        }
+      },
+      {
+        "id": "rio.arrival.three-paper-stops.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把三个站点连起来",
+          "en": "Connect the three stops"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "rio.three-stops"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "rio.arrival.orchid-word",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "rio",
+    "factIds": [
+      "rio-botanic-garden"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "兰花写在左边，铅笔滚去了右边。",
+      "en": "“Orchids” stayed left. The pencil rolled right."
+    },
+    "text": {
+      "zh-Hans": "里约植物园的收藏里有兰花和仙人掌。我想在便纸上各记一个名字，写完兰花，铅笔先滚到了桌边。我把它收回来，才继续写。今天寄给你的植物观察只有很短两行，照看铅笔的本事倒练长了一点。",
+      "en": "Rio Botanical Garden’s collections include orchids and cacti. On my own note, I wrote one name before the pencil rolled toward the edge. Retrieved pencil, second name. The plant observation coming home is only two lines long. My pencil-minding skills have had a more substantial outing."
+    },
+    "replies": [
+      {
+        "id": "rio.arrival.orchid-word.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说铅笔的小旅行",
+          "en": "Tell the pencil’s little journey"
+        }
+      },
+      {
+        "id": "rio.arrival.orchid-word.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把两行字看仔细",
+          "en": "Read the two lines carefully"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "rio.plant-two-lines"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "rio.arrival.stew-stays-put",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "rio",
+    "factIds": [
+      "rio-feijoada"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "这顿午饭，让我把“走着说”改了。",
+      "en": "This lunch revised my plan to talk on the move."
+    },
+    "text": {
+      "zh-Hans": "吃里约的黑豆炖肉，我本来想边收包边想信的下一句。勺子还在手里，包带已经搭上肩。我索性把包放回去，坐稳吃饭。菜单上写黑豆与猪肉，信里写我终于肯好好坐着。两张纸都比赶路时清楚。",
+      "en": "Over feijoada in Rio, I tried planning the next sentence while gathering my bag. Spoon in hand, strap on shoulder: neither task was going well. I put the bag down and ate seated. Black beans and pork went on the menu; my decision to sit still went in your letter."
+    },
+    "replies": [
+      {
+        "id": "rio.arrival.stew-stays-put.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说坐稳后的午饭",
+          "en": "Describe lunch after sitting down"
+        }
+      },
+      {
+        "id": "rio.arrival.stew-stays-put.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看勺子和包的位置",
+          "en": "Notice spoon and bag in place"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "rio.menu-feijoada"
+      ]
+    }
+  },
+  {
+    "id": "rio.arrival.biscuit-crackle",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "rio",
+    "factIds": [
+      "rio-tapioca-biscuit"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "脆饼的声音，比我写字快。",
+      "en": "The biscuit finished its sound before I finished the word."
+    },
+    "text": {
+      "zh-Hans": "在里约尝木薯脆饼，咬下一口就有脆响。我写“咔嚓”，还没落完最后一笔，下一口已经吃好了。于是先收笔，免得给自己寄一封全是响声的信。菜单边上留下几笔短线，我想你看见就能猜到一点。",
+      "en": "A tapioca biscuit in Rio gave a quick crackle. Writing the sound took longer than eating the next bite. I put down the pencil before my entire letter became noise. A few short strokes remain beside the menu drawing. I think they will give you the idea."
+    },
+    "replies": [
+      {
+        "id": "rio.arrival.biscuit-crackle.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "念念纸上的响声",
+          "en": "Read the sound on paper"
+        }
+      },
+      {
+        "id": "rio.arrival.biscuit-crackle.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看短线停在哪里",
+          "en": "Find where the short strokes end"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "rio.crackle-slip"
+      ],
+      "menuIds": [
+        "rio.menu-tapioca-biscuit"
+      ]
+    }
+  },
+  {
+    "id": "rio.arrival.lunch-conversation-space",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "rio",
+    "factIds": [
+      "rio-feijoada",
+      "rio-tapioca-biscuit"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "把午饭讲完，需要给勺子放个假。",
+      "en": "Telling lunch’s story required a break for the spoon."
+    },
+    "text": {
+      "zh-Hans": "我把里约的炖肉和脆饼说给旅人听，刚开口就发现手里还握着勺子，只好先放下。两张菜单摆好，我指着它们讲自己怎么吃得太忙。对方说，纸上的午饭倒很从容。我把这句记下来，好在给你的信里也慢一点。",
+      "en": "Telling a traveler about Rio feijoada and tapioca biscuits, I noticed I still held my spoon. I set it down and laid out the menus. “Your paper lunch looks unhurried,” they said, after hearing about my busy hands. I kept the remark as a reminder to slow down in this letter too."
+    },
+    "replies": [
+      {
+        "id": "rio.arrival.lunch-conversation-space.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "慢慢讲完这一顿",
+          "en": "Finish the meal’s story slowly"
+        }
+      },
+      {
+        "id": "rio.arrival.lunch-conversation-space.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看放下勺子的空位",
+          "en": "Notice the space left by the spoon"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "rio.menu-feijoada",
+        "rio.menu-tapioca-biscuit"
+      ]
+    }
+  },
+  {
+    "id": "rio.arrival.dark-dots-short-lines",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "rio",
+    "factIds": [
+      "rio-feijoada",
+      "rio-tapioca-biscuit"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一点深色，几笔短线，都各归各页。",
+      "en": "Dark dots and short strokes found separate pages."
+    },
+    "text": {
+      "zh-Hans": "里约菜单上的黑豆，我用深色小点记，脆饼则用短线记。收纸时不小心叠在一起，透过去像一盘很忙的饭。我分开检查，写好菜名，再夹回自己的纸套。今天的细看，有一半是在照看自己的粗心。",
+      "en": "Dark dots stood for black beans on my Rio menu; short strokes for crisp biscuits. Accidentally overlaid, the sheets looked like one very busy plate. I separated them, checked the names and returned them to their sleeves. Half of today’s close observation has been directed at my own muddles."
+    },
+    "replies": [
+      {
+        "id": "rio.arrival.dark-dots-short-lines.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊叠起来的午饭",
+          "en": "Talk about that overlaid lunch"
+        }
+      },
+      {
+        "id": "rio.arrival.dark-dots-short-lines.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "分别看看点和短线",
+          "en": "Study dots and strokes separately"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "rio.menu-feijoada",
+        "rio.menu-tapioca-biscuit"
+      ]
+    }
+  },
+  {
+    "id": "rio.fulfill.route-fold",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "rio",
+    "factIds": [
+      "rio-sugarloaf"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "rio.arrival.three-paper-stops.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "照你说的“{reply}”，线终于往前走了。",
+      "en": "With “{reply},” the line finally went forward."
+    },
+    "text": {
+      "zh-Hans": "我把红海滩、乌尔卡山和糖面包山的名字重新写好，按你的回应接成一条线，再折成小小的三页纸。它记的是我在里约这一段路，不是正式路线图。翻开一页，下一站就露出来，终点这回没有抢着出发。",
+      "en": "Following your reply, I joined Praia Vermelha, Morro da Urca and Sugarloaf on a line, then folded the sheet into three small panels. It records my own Rio journey, not an official route map. Turning a panel reveals the next stop. This time the destination waits its turn."
+    },
+    "replies": [
+      {
+        "id": "rio.fulfill.route-fold.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "顺着纸页讲这段路",
+          "en": "Tell the journey panel by panel"
+        }
+      },
+      {
+        "id": "rio.fulfill.route-fold.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "翻开下一小页",
+          "en": "Open the next little panel"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "rio.route-fold"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "rio.revisit.return-before-drawing",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "rio",
+    "factIds": [
+      "rio-sugarloaf"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "围巾一拉，邮包也跟着往上走。",
+      "en": "I pulled my scarf, and the mailbag came up with it."
+    },
+    "text": {
+      "zh-Hans": "到了乌尔卡山，我把围巾往外一拉，邮包也跟着升了起来。重来里约，糖面包山缆车接下来的方向我还认得，偏偏自己打的结解不开。旁边的旅人替我托着包，我才摸出围巾的一头，原来它从提手里穿了过去。我红着脸把围巾慢慢抽出来，重新搭好围巾。对方松手时，我胸前终于只剩一个软软的结。",
+      "en": "At Morro da Urca, I tugged my scarf and lifted my mailbag with it. Back in Rio, I could remember where the cable car continued towards Sugarloaf Mountain, yet I could not work out what I had tied around myself. Another traveller held the bag while I followed one end of the scarf. It had gone straight through the handle. I eased it free, feeling rather warm around the ears. When my helper let go, only a soft scarf knot rested against my chest."
+    },
+    "replies": [
+      {
+        "id": "rio.revisit.return-before-drawing.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢替我托住包的旅人",
+          "en": "Thank the traveller who held the bag"
+        }
+      },
+      {
+        "id": "rio.revisit.return-before-drawing.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找围巾从哪里穿过去了",
+          "en": "Trace where the scarf went through the handle"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

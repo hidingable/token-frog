@@ -10,7 +10,7 @@
     "food",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "墨尔本",
     "en": "Melbourne"
@@ -19,5 +19,66 @@
     "zh-Hans": "墨尔本",
     "en": "Melbourne"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "melbourne-reading-room",
+      "type": "place",
+      "names": {
+        "zh-Hans": "拉筹伯阅览室",
+        "en": "La Trobe Reading Room"
+      },
+      "summary": {
+        "zh-Hans": "维多利亚州立图书馆的拉筹伯阅览室呈八角形，穹顶下的书桌向外放射排列，配有绿色玻璃灯罩。",
+        "en": "State Library Victoria’s octagonal La Trobe Reading Room has radiating desks beneath a dome, with green glass lamp shades."
+      },
+      "sources": [
+        "https://www.slv.vic.gov.au/visit/our-magnificent-spaces/la-trobe-reading-room"
+      ]
+    },
+    {
+      "id": "melbourne-carlton-gardens",
+      "type": "place",
+      "names": {
+        "zh-Hans": "皇家展览馆与卡尔顿花园",
+        "en": "Royal Exhibition Building and Carlton Gardens"
+      },
+      "summary": {
+        "zh-Hans": "墨尔本皇家展览馆与周围的卡尔顿花园共同构成世界遗产。花园布局包括林荫小径、喷泉和湖泊。",
+        "en": "Melbourne’s Royal Exhibition Building and surrounding Carlton Gardens form a World Heritage property. The gardens include tree-lined paths, fountains and lakes."
+      },
+      "sources": [
+        "https://whc.unesco.org/en/list/1131"
+      ]
+    },
+    {
+      "id": "melbourne-dim-sim",
+      "type": "food",
+      "names": {
+        "zh-Hans": "澳式点心",
+        "en": "Dim Sim"
+      },
+      "summary": {
+        "zh-Hans": "墨尔本的 dim sim 是咸味肉馅点心，有蒸制和油炸的做法。",
+        "en": "Melbourne’s dim sims are savoury meat-filled parcels served steamed or fried."
+      },
+      "sources": [
+        "https://www.visitmelbourne.com/regions/melbourne/eat-and-drink/11-must-try-melbourne-dishes-and-drinks"
+      ]
+    },
+    {
+      "id": "melbourne-jam-doughnut",
+      "type": "food",
+      "names": {
+        "zh-Hans": "果酱甜甜圈",
+        "en": "Jam Doughnut"
+      },
+      "summary": {
+        "zh-Hans": "墨尔本维多利亚女王市场的果酱甜甜圈是炸制点心，内有果酱，外面撒糖。",
+        "en": "Jam doughnuts at Melbourne’s Queen Victoria Market are fried, filled with jam and dusted with sugar."
+      },
+      "sources": [
+        "https://www.visitmelbourne.com/regions/melbourne/eat-and-drink/11-must-try-melbourne-dishes-and-drinks"
+      ]
+    }
+  ]
 }

@@ -1,0 +1,416 @@
+[
+  {
+    "id": "berlin.arrival.spree-long-line",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "berlin",
+    "factIds": [
+      "berlin-tv-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "河线画长了，信纸就有了转弯。",
+      "en": "The river line grew long enough to turn my page."
+    },
+    "text": {
+      "zh-Hans": "在柏林电视塔观景台，我看见城市里施普雷河的一段，试着记在纸上。线画到边缘，我转动纸接着画，末尾的签名却横了过来。旅人说签名也在看风景。我想给河线另外找个折法，让你读信时不用跟着歪脖子。",
+      "en": "From the Berlin TV Tower observation deck, I sketched a stretch of the Spree. At the page edge I turned the paper and continued, leaving my signature sideways. A traveler said it was admiring the view too. I want a better fold for the river, so your neck can rest while reading home’s letter."
+    },
+    "replies": [
+      {
+        "id": "berlin.arrival.spree-long-line.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说横着的签名",
+          "en": "Talk about the sideways signature"
+        }
+      },
+      {
+        "id": "berlin.arrival.spree-long-line.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "沿河线把纸展开",
+          "en": "Unfold the paper along the river line"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "berlin.sideways-signature"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "berlin.arrival.tiergarten-empty-list",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "berlin",
+    "factIds": [
+      "berlin-tiergarten"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我在公园删掉了一项“赶快”。",
+      "en": "In the park, I crossed off “hurry.”"
+    },
+    "text": {
+      "zh-Hans": "到了蒂尔加滕公园，我看看草地，沿路慢慢走。自己的清单写着“赶快把信写完”，看起来比我还着急。我把“赶快”划掉，在旁边写“好好”。两个词换过位置，纸还是原来那张，柏林这封信却终于肯让我歇歇脚。",
+      "en": "In Großer Tiergarten, I looked over the lawns and walked slowly. My list insisted that I “hurry and finish the letter.” It seemed more anxious than I was. I crossed out “hurry” and wrote “take care.” Same paper, but this Berlin letter finally allowed its messenger a pause."
+    },
+    "replies": [
+      {
+        "id": "berlin.arrival.tiergarten-empty-list.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "念念改过的清单",
+          "en": "Read the revised list"
+        }
+      },
+      {
+        "id": "berlin.arrival.tiergarten-empty-list.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看划掉的两个字",
+          "en": "Look at the crossed-out word"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "berlin.unhurried-list"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "berlin.arrival.sauce-keeps-distance",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "berlin",
+    "factIds": [
+      "berlin-currywurst"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "酱留在盘里，形容才走上纸。",
+      "en": "The sauce stayed on the plate; its description reached the page."
+    },
+    "text": {
+      "zh-Hans": "柏林这份咖喱香肠配着咖喱番茄酱，我把菜单挪远一点再吃。想画酱的颜色，手边只有铅笔，便写“这里是酱”。旅人说这份图说明得很诚实。我也这么觉得，给家里写信时不必把一小块灰色说成红色。",
+      "en": "My Berlin currywurst came with curry-tomato sauce. I moved the menu safely aside before eating. With only a pencil to show the colour, I labeled the patch “sauce here.” A traveler approved its honesty. So do I. My letter need not persuade home that a grey patch is red."
+    },
+    "replies": [
+      {
+        "id": "berlin.arrival.sauce-keeps-distance.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "介绍这张诚实的图",
+          "en": "Introduce the honest drawing"
+        }
+      },
+      {
+        "id": "berlin.arrival.sauce-keeps-distance.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看酱的位置标签",
+          "en": "Find the sauce label"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "berlin.menu-currywurst"
+      ]
+    }
+  },
+  {
+    "id": "berlin.arrival.jam-round-window",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "berlin",
+    "factIds": [
+      "berlin-pfannkuchen"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "圆点心吃开以后，里面还有一层颜色。",
+      "en": "Inside the round pastry, another colour waited."
+    },
+    "text": {
+      "zh-Hans": "在柏林吃果酱面包球，咬开才看到这一只的草莓馅。我给菜单上的圆留个小缺口，标出果酱的位置。缺口画得太整齐，像我带了尺吃饭。其实尺一直在包里，这回碰巧，是牙齿和铅笔配合得比较好。",
+      "en": "A bite into my Pfannkuchen in Berlin revealed strawberry jam. I left a small gap in the menu’s circle to mark the filling. It looked suspiciously ruler-straight. The ruler stayed in my bag throughout lunch. Teeth and pencil merely happened to cooperate for once."
+    },
+    "replies": [
+      {
+        "id": "berlin.arrival.jam-round-window.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲这次的好配合",
+          "en": "Tell about that accidental teamwork"
+        }
+      },
+      {
+        "id": "berlin.arrival.jam-round-window.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看缺口里的果酱",
+          "en": "Look at the jam in the gap"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "berlin.tidy-bite"
+      ],
+      "menuIds": [
+        "berlin.menu-pfannkuchen"
+      ]
+    }
+  },
+  {
+    "id": "berlin.arrival.one-label-too-many",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "berlin",
+    "factIds": [
+      "berlin-currywurst",
+      "berlin-pfannkuchen"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我给午饭加说明，加到自己先笑了。",
+      "en": "I annotated lunch until I made myself laugh."
+    },
+    "text": {
+      "zh-Hans": "拿着柏林咖喱香肠和果酱面包球的菜单，我对旅人念：“这边是酱，那边是馅，下面是盘子。”念完才发现对方并没有问盘子。我把多余一句留在背面，等寄给你。总得让你知道，我连吃饭的图都能讲得很认真。",
+      "en": "With my Berlin currywurst and Pfannkuchen menus, I explained sauce, filling and finally the plate. My listener had not asked about the plate. I moved that extra sentence to the back for you. Home should know how earnestly I can explain even a drawing of lunch."
+    },
+    "replies": [
+      {
+        "id": "berlin.arrival.one-label-too-many.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把多余那句也讲完",
+          "en": "Tell the extra sentence too"
+        }
+      },
+      {
+        "id": "berlin.arrival.one-label-too-many.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看说明挪到了哪里",
+          "en": "Find the moved annotation"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "berlin.menu-currywurst",
+        "berlin.menu-pfannkuchen"
+      ]
+    }
+  },
+  {
+    "id": "berlin.arrival.enough-caption",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "berlin",
+    "factIds": [
+      "berlin-currywurst",
+      "berlin-pfannkuchen"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "果酱跑出来，面包球上多了红指印。",
+      "en": "Escaping jam left two red fingerprints on the pastry."
+    },
+    "text": {
+      "zh-Hans": "吃完柏林的咖喱香肠，盘里还剩一点咖喱番茄酱。我拿起果酱面包球，咬开一边没见到馅，便转过来又咬一口。草莓果酱忽然从另一头挤出来，顺着手指往下跑。我赶紧换成双手托着，想把果酱按回去，反倒沾了满手。我把它轻轻放回小碟子时，圆圆的面包球上，多了两道歪歪的红指印。",
+      "en": "I finished my Berlin currywurst, leaving a little curry-tomato sauce on the plate, and picked up a strawberry-jam Pfannkuchen. My first bite found no filling. I turned it around and tried the other side. Jam promptly squeezed out of the first opening and ran over my fingers. I cupped both hands underneath and tried to push it back, spreading it farther instead. When I set the round pastry on its own little dish, two crooked red fingerprints decorated the outside."
+    },
+    "replies": [
+      {
+        "id": "berlin.arrival.enough-caption.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说果酱从哪一头跑出来了",
+          "en": "Tell which side the jam escaped from"
+        }
+      },
+      {
+        "id": "berlin.arrival.enough-caption.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看面包球上的两道红指印",
+          "en": "Look at the two red fingerprints on the pastry"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "berlin.menu-currywurst",
+        "berlin.menu-pfannkuchen"
+      ]
+    }
+  },
+  {
+    "id": "berlin.fulfill.river-unfolding",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "berlin",
+    "factIds": [
+      "berlin-tv-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "berlin.arrival.spree-long-line.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "“{reply}”，我就顺着那条线找折痕。",
+      "en": "“{reply}” helped me find a fold beside that line."
+    },
+    "text": {
+      "zh-Hans": "听了你的回应，我把电视塔上画的那段施普雷河摊开，在旁边折出一条平行的折痕。纸合起来时线藏在里面，打开后签名终于能正着读。我只画自己望见的一段，不冒充完整柏林地图。小小一折，家里读信的脖子可以放假。",
+      "en": "Following your reply, I opened my TV Tower sketch of the Spree and added a fold beside its line. Closed, the river is tucked inside; open, my signature can be read upright. It is only the stretch I saw, not a complete Berlin map. A small fold gives your neck a day off."
+    },
+    "replies": [
+      {
+        "id": "berlin.fulfill.river-unfolding.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把正着的签名念出来",
+          "en": "Read the now-upright signature"
+        }
+      },
+      {
+        "id": "berlin.fulfill.river-unfolding.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "沿折痕慢慢打开",
+          "en": "Open slowly along the fold"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "berlin.river-unfolding"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "berlin.revisit.park-before-sentence",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "berlin",
+    "factIds": [
+      "berlin-tiergarten"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "收毯子的人，差点把我也折了进去。",
+      "en": "The blanket was being folded, with me still on it."
+    },
+    "text": {
+      "zh-Hans": "我替人踩住毯角，还觉得自己帮了忙。蒂尔加滕的草地我还认得，这次走进柏林的这座公园，便在旁边歇脚。收毯子的姑娘折完一边，又绕到我面前，笑着问要不要把我也打包。我低头一看，脚竟始终压着她要收起的那一角。赶紧挪开后，毯子翻了个身，叠成方方正正的一小摞。",
+      "en": "I put a foot on the corner of a blanket, pleased to be useful. The lawns of Großer Tiergarten were familiar on my return to Berlin, and I had stopped beside someone packing up. She folded one side, came around to me, and asked with a smile whether I wanted to be packed too. My foot was still pinning down the corner she needed. I hopped aside. With one last fold, the blanket became a small, tidy square."
+    },
+    "replies": [
+      {
+        "id": "berlin.revisit.park-before-sentence.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问毯子里还装不装得下我",
+          "en": "Ask whether there is room to pack me too"
+        }
+      },
+      {
+        "id": "berlin.revisit.park-before-sentence.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看收好后的那一小摞毯子",
+          "en": "Look at the neatly folded blanket"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

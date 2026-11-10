@@ -12,7 +12,7 @@
     "heritage",
     "food"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "利马",
     "en": "Lima"
@@ -21,5 +21,67 @@
     "zh-Hans": "利马",
     "en": "Lima"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "lima-raimondi-park",
+      "type": "place",
+      "names": {
+        "zh-Hans": "赖蒙迪公园",
+        "en": "Raimondi Park"
+      },
+      "summary": {
+        "zh-Hans": "利马米拉弗洛雷斯区的赖蒙迪公园设有灯塔、喷泉、长椅与休憩绿地。",
+        "en": "Raimondi Park in Lima’s Miraflores district has a lighthouse, fountains, benches and green recreational space."
+      },
+      "sources": [
+        "https://www.miraflores.gob.pe/los-servicios/cultura-y-turismo/turismo/atractivos-turisticos/"
+      ]
+    },
+    {
+      "id": "lima-water-circuit",
+      "type": "place",
+      "names": {
+        "zh-Hans": "魔幻水回路",
+        "en": "Magic Water Circuit"
+      },
+      "summary": {
+        "zh-Hans": "利马的魔幻水回路位于储备公园，将喷泉、水、灯光和音乐结合成景观。",
+        "en": "Lima’s Magic Water Circuit in Parque de la Reserva combines fountains, water, light and music."
+      },
+      "sources": [
+        "https://target2.promperu.gob.pe/teapuntas-lima-callao/distritos-con-historia/centro-historico-de-lima/circuito-magico-del-agua-en-el-parque-de-la-reserva"
+      ]
+    },
+    {
+      "id": "lima-causa",
+      "type": "food",
+      "names": {
+        "zh-Hans": "土豆夹馅冷菜",
+        "en": "Causa"
+      },
+      "summary": {
+        "zh-Hans": "Causa 以放凉的黄土豆泥拌柑橘汁和黄辣椒制成；一种做法是在两层土豆泥之间夹入鸡肉与蛋黄酱。",
+        "en": "Causa uses cooled yellow potato mashed with citrus juice and yellow ají. One version sandwiches chicken and mayonnaise between potato layers."
+      },
+      "sources": [
+        "https://www.peru.travel/gastronomy/en/recipes/entrees/causa.html",
+        "https://andina.pe/ingles/noticia-causa-one-of-the-best-cold-layered-potato-dishes-174781.aspx"
+      ]
+    },
+    {
+      "id": "lima-suspiro",
+      "type": "food",
+      "names": {
+        "zh-Hans": "利马叹息甜点",
+        "en": "Suspiro a la Limeña"
+      },
+      "summary": {
+        "zh-Hans": "Suspiro a la limeña 是与利马相联系的甜点，制作时使用奶、糖和蛋黄等原料。",
+        "en": "Suspiro a la limeña is a dessert associated with Lima, made with ingredients including milk, sugar and egg yolks."
+      },
+      "sources": [
+        "https://peru.info/en-us/gastronomy/blogperu/2/14/the-world-embraces-peru-s-desserts"
+      ]
+    }
+  ]
 }

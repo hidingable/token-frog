@@ -1,0 +1,98 @@
+[
+  {
+    "id": "rio.menu-feijoada",
+    "kind": "menu",
+    "cityId": "rio",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "坐稳的炖肉菜单",
+      "en": "Seated Stew Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "里约黑豆炖肉的自画菜单，包带画在椅边。",
+      "en": "A hand-drawn Rio feijoada menu with the bag strap beside the chair."
+    }
+  },
+  {
+    "id": "rio.menu-tapioca-biscuit",
+    "kind": "menu",
+    "cityId": "rio",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "木薯脆饼短线菜单",
+      "en": "Tapioca Biscuit Strokes"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在里约用短线记脆响的小菜单。",
+      "en": "The messenger’s Rio biscuit menu with strokes for a crackle."
+    }
+  },
+  {
+    "id": "rio.three-stops",
+    "kind": "souvenir",
+    "cityId": "rio",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "三个站点便纸",
+      "en": "Three Stops Slip"
+    },
+    "descriptions": {
+      "zh-Hans": "在里约缆车行程前自写的便纸，曾拿反过。",
+      "en": "A homemade slip for Rio’s cable-car stops, once held upside down."
+    }
+  },
+  {
+    "id": "rio.crackle-slip",
+    "kind": "souvenir",
+    "cityId": "rio",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "写慢了的咔嚓",
+      "en": "A Slowly Written Crackle"
+    },
+    "descriptions": {
+      "zh-Hans": "信使吃过里约木薯脆饼后画的响声纸。",
+      "en": "A paper sound sketch after a tapioca biscuit in Rio."
+    }
+  },
+  {
+    "id": "rio.plant-two-lines",
+    "kind": "souvenir",
+    "cityId": "rio",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "铅笔归位植物纸",
+      "en": "Pencil Back in Place"
+    },
+    "descriptions": {
+      "zh-Hans": "在里约植物园写下的两行名字，纸笔都是信使带来的。",
+      "en": "Two plant names noted at Rio Botanical Garden, on the messenger’s own paper."
+    }
+  },
+  {
+    "id": "rio.route-fold",
+    "kind": "souvenir",
+    "cityId": "rio",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "依次出发三折纸",
+      "en": "Stops in Order Fold"
+    },
+    "descriptions": {
+      "zh-Hans": "信使把里约缆车行程接成线后亲手折的个人小卡。",
+      "en": "A hand-folded personal card joining the messenger’s Rio cable-car stops."
+    }
+  }
+]

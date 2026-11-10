@@ -10,7 +10,7 @@
     "capital",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "布宜诺斯艾利斯",
     "en": "Buenos Aires"
@@ -19,5 +19,66 @@
     "zh-Hans": "布宜诺斯艾利斯",
     "en": "Buenos Aires"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "buenosaires-floralis",
+      "type": "place",
+      "names": {
+        "zh-Hans": "金属花雕塑",
+        "en": "Floralis Genérica"
+      },
+      "summary": {
+        "zh-Hans": "金属花雕塑位于布宜诺斯艾利斯的联合国广场，以铝和不锈钢制成，造型是一朵花。",
+        "en": "Floralis Genérica is a flower-shaped aluminium and stainless-steel sculpture in Buenos Aires’ Plaza de las Naciones Unidas."
+      },
+      "sources": [
+        "https://turismo.buenosaires.gob.ar/en/otros-establecimientos/floralis-gen%C3%A9rica"
+      ]
+    },
+    {
+      "id": "buenosaires-botanic-garden",
+      "type": "place",
+      "names": {
+        "zh-Hans": "布宜诺斯艾利斯植物园",
+        "en": "Buenos Aires Botanical Garden"
+      },
+      "summary": {
+        "zh-Hans": "布宜诺斯艾利斯植物园设有阿根廷植物和来自其他大陆的植物区，也收藏棕榈与仙人掌等植物。",
+        "en": "Buenos Aires Botanical Garden has areas for Argentine plants and plants from other continents, with collections including palms and cacti."
+      },
+      "sources": [
+        "https://turismo.buenosaires.gob.ar/es/otros-establecimientos/jard%C3%ADn-bot%C3%A1nico"
+      ]
+    },
+    {
+      "id": "buenosaires-empanada",
+      "type": "food",
+      "names": {
+        "zh-Hans": "阿根廷馅饼",
+        "en": "Empanada"
+      },
+      "summary": {
+        "zh-Hans": "布宜诺斯艾利斯的 empanada 是半月形包馅面点，有烤制和油炸的做法，馅料可用肉、鸡肉、蔬菜或火腿奶酪等。",
+        "en": "Empanadas in Buenos Aires are crescent-shaped filled pastries, baked or fried, with fillings such as meat, chicken, vegetables or ham and cheese."
+      },
+      "sources": [
+        "https://turismo.buenosaires.gob.ar/en/article/what-where-and-when-eat"
+      ]
+    },
+    {
+      "id": "buenosaires-churros",
+      "type": "food",
+      "names": {
+        "zh-Hans": "吉拿棒",
+        "en": "Churros"
+      },
+      "summary": {
+        "zh-Hans": "布宜诺斯艾利斯可以吃到炸制并裹糖的吉拿棒，有些填入焦糖牛奶酱，也可搭配浓热巧克力。",
+        "en": "Buenos Aires serves fried, sugar-coated churros, sometimes filled with dulce de leche and accompanied by thick hot chocolate."
+      },
+      "sources": [
+        "https://turismo.buenosaires.gob.ar/en/article/what-where-and-when-eat"
+      ]
+    }
+  ]
 }

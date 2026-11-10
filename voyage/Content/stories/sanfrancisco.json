@@ -1,0 +1,416 @@
+[
+  {
+    "id": "sanfrancisco.arrival.orange-long-name",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "sanfrancisco",
+    "factIds": [
+      "sanfrancisco-golden-gate"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一种颜色的名字，把我写到了下一行。",
+      "en": "One colour’s name carried me onto the next line."
+    },
+    "text": {
+      "zh-Hans": "看旧金山金门大桥时，我把 International Orange 写在便纸上，没预留好，Orange 只好去下一行。旅人问两行是不是两种颜色。我赶紧把它们圈在一起。这么长的名字，我想念完整一次寄给你，别让一种颜色在路上分家。",
+      "en": "Looking at the Golden Gate Bridge, I ran out of room for “International Orange.” A traveler wondered whether the two lines named two colours. I circled them together. I want to say the whole name for home, so one colour does not split into two on its journey."
+    },
+    "replies": [
+      {
+        "id": "sanfrancisco.arrival.orange-long-name.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把颜色名字讲完整",
+          "en": "Say the colour’s full name"
+        }
+      },
+      {
+        "id": "sanfrancisco.arrival.orange-long-name.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "给两行字画个外框",
+          "en": "Frame the two written lines"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "sanfrancisco.orange-two-lines"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "sanfrancisco.arrival.museum-still-feet",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "sanfrancisco",
+    "factIds": [
+      "sanfrancisco-cable-museum"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "轮子在转，今天不用我的脚帮忙。",
+      "en": "The wheels turned without any assistance from my feet."
+    },
+    "text": {
+      "zh-Hans": "在旧金山缆车博物馆的参观区域，我看动力设备带着地下缆索运转。自己站着没动，眼睛倒很忙。我想在纸上画个转动记号，画到一半，差点把它当成给你的笑脸。先收好，离馆后再分清哪个是轮子，哪个是我。",
+      "en": "From the visitor area at the Cable Car Museum, I watched machinery move the underground cables. My feet stayed still; my eyes were busy. A rotation mark on paper nearly became a smiling face. After leaving, I can decide which part is the wheel and which part is me."
+    },
+    "replies": [
+      {
+        "id": "sanfrancisco.arrival.museum-still-feet.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "离馆后讲讲轮子的事",
+          "en": "Talk about the wheels afterward"
+        }
+      },
+      {
+        "id": "sanfrancisco.arrival.museum-still-feet.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看箭头往哪边弯",
+          "en": "Follow the curve of the arrow"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "sanfrancisco.wheel-arrow"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "sanfrancisco.arrival.bread-patient-bite",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "sanfrancisco",
+    "factIds": [
+      "sanfrancisco-sourdough"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "面包有嚼劲，我的一句话也跟着慢。",
+      "en": "Chewy bread slowed down a sentence too."
+    },
+    "text": {
+      "zh-Hans": "吃旧金山酸面包时，我正想对旅人讲一句很长的话。外皮需要认真嚼，我便把话停好，吃完再继续。等轮到开口，忘了中间几个词，反而讲得简短。菜单上记了酸味和嚼劲，信里就省掉那段绕远的句子。",
+      "en": "A bite of San Francisco sourdough interrupted a sentence I was preparing for a traveler. The crust deserved some chewing. By the time I could speak, a few words had escaped and the sentence was better for it. The menu records tang and chew. You have been spared the much longer sentence."
+    },
+    "replies": [
+      {
+        "id": "sanfrancisco.arrival.bread-patient-bite.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把简短那句说出来",
+          "en": "Say the shorter sentence"
+        }
+      },
+      {
+        "id": "sanfrancisco.arrival.bread-patient-bite.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看菜单上记的口感",
+          "en": "Read the texture notes"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "sanfrancisco.menu-sourdough"
+      ]
+    }
+  },
+  {
+    "id": "sanfrancisco.arrival.soup-not-in-envelope",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "sanfrancisco",
+    "factIds": [
+      "sanfrancisco-cioppino"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "汤可以装碗，香味暂时不肯装信封。",
+      "en": "The bowl held the soup. The envelope declined the aroma."
+    },
+    "text": {
+      "zh-Hans": "旧金山的番茄海鲜炖汤，让我想写一封带香味的信。试着形容了半页，还是只有字。我先把 cioppino 和自己这碗见到的鱼虾记在菜单上，换张干净纸给你写信。香味留给记忆，这回不用信封加班。",
+      "en": "Cioppino in San Francisco made me want to send a scented letter. Half a page of description still produced only words. I noted the dish and the fish and shrimp in my own serving on the menu, then found clean paper for home. The aroma can stay in memory; the envelope has enough work."
+    },
+    "replies": [
+      {
+        "id": "sanfrancisco.arrival.soup-not-in-envelope.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "挑一句形容这碗汤",
+          "en": "Choose a phrase for the soup"
+        }
+      },
+      {
+        "id": "sanfrancisco.arrival.soup-not-in-envelope.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看画里自己的这一碗",
+          "en": "Look at this particular bowl"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "sanfrancisco.soup-word-slip"
+      ],
+      "menuIds": [
+        "sanfrancisco.menu-cioppino"
+      ]
+    }
+  },
+  {
+    "id": "sanfrancisco.arrival.bread-and-broth-voices",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "sanfrancisco",
+    "factIds": [
+      "sanfrancisco-sourdough",
+      "sanfrancisco-cioppino"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "旅人问午饭，我先把嘴里的吃完。",
+      "en": "Asked about lunch, I finished the bite first."
+    },
+    "text": {
+      "zh-Hans": "有人问我在旧金山吃了什么，我把酸面包和海鲜炖汤的菜单递过去，先把嘴里的那口吃完。对方看图等我。我终于不用一边嚼一边点头，能完整说出两样名字。给你的家信也算练过了，读到菜名时不用猜我的含糊声。",
+      "en": "Asked what I had eaten in San Francisco, I handed over the sourdough and cioppino menus while finishing a bite. My listener studied them and waited. Then I could give both names properly, without nodding and chewing. This letter home has benefited from the rehearsal."
+    },
+    "replies": [
+      {
+        "id": "sanfrancisco.arrival.bread-and-broth-voices.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "清清楚楚念两样名字",
+          "en": "Say both names clearly"
+        }
+      },
+      {
+        "id": "sanfrancisco.arrival.bread-and-broth-voices.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "留意菜单怎样配图",
+          "en": "Notice how the menus illustrate them"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "sanfrancisco.menu-sourdough",
+        "sanfrancisco.menu-cioppino"
+      ]
+    }
+  },
+  {
+    "id": "sanfrancisco.arrival.one-wide-one-deep",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "sanfrancisco",
+    "factIds": [
+      "sanfrancisco-sourdough",
+      "sanfrancisco-cioppino"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一张画得宽，一张画得深。",
+      "en": "One drawing went wide, the other deep."
+    },
+    "text": {
+      "zh-Hans": "酸面包占了旧金山菜单的横向，汤碗占了另一张的纵向。收进小纸套时，两个方向闹了点别扭。我把菜单各转半圈，才发现自己也跟着歪头。我摆正脑袋，重新折纸套，原来不必让午饭替我迁就每条折痕。",
+      "en": "The sourdough spread across one San Francisco menu; a deep soup bowl filled the other. Packing them together made me tilt both paper and head. I straightened up and refolded the sleeve instead. Lunch need not accommodate every fold I happen to make."
+    },
+    "replies": [
+      {
+        "id": "sanfrancisco.arrival.one-wide-one-deep.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲歪头找办法",
+          "en": "Tell how tilting your head helped"
+        }
+      },
+      {
+        "id": "sanfrancisco.arrival.one-wide-one-deep.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看重折后的纸套",
+          "en": "Inspect the refolded sleeve"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "sanfrancisco.menu-sourdough",
+        "sanfrancisco.menu-cioppino"
+      ]
+    }
+  },
+  {
+    "id": "sanfrancisco.fulfill.one-colour-label",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "sanfrancisco",
+    "factIds": [
+      "sanfrancisco-golden-gate"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "sanfrancisco.arrival.orange-long-name.talkative"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我照“{reply}”练了一遍，才写上卡片。",
+      "en": "I practiced “{reply}” before making the card."
+    },
+    "text": {
+      "zh-Hans": "按你的回应，我把 International Orange 从头到尾念完，再写在自己做的长纸签上。旁边只有我画的金门大桥轮廓，没有冒充标准色样。读完整个名字时，纸签刚好够长。旧金山这一笔颜色，终于不用分行跟你打招呼。",
+      "en": "Following your reply, I said “International Orange” in full and wrote it on a long homemade label. Beside it is my Golden Gate Bridge outline, not a paint-standard swatch. The paper finally fits the name. This bit of San Francisco can greet home without breaking into two lines."
+    },
+    "replies": [
+      {
+        "id": "sanfrancisco.fulfill.one-colour-label.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把纸签念给家里听",
+          "en": "Read the label for home"
+        }
+      },
+      {
+        "id": "sanfrancisco.fulfill.one-colour-label.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看名字这次占几行",
+          "en": "Check the lines this time"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "sanfrancisco.one-colour-label"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "sanfrancisco.revisit.letter-with-same-city",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "sanfrancisco",
+    "factIds": [
+      "sanfrancisco-golden-gate"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "手套没丢，我却捡回了别人的那只。",
+      "en": "My mittens were both on. I still picked up someone else’s."
+    },
+    "text": {
+      "zh-Hans": "那只橙红手套刚落地，我就伸手去捡，嘴里还嘀咕自己怎么丢了东西。主人看看我的双手，笑着问我是不是多长了一只。我这才发现自己的手套全戴着。重来旧金山，金门大桥熟悉的橙红色让我认路，却没帮我认准手套。我赶紧道歉，对方伸手来接，三只橙红手套挤在了一起。",
+      "en": "An orange-red mitten fell nearby, and I picked it up, wondering aloud how I had managed to lose it. Its owner looked at my hands and asked whether I had grown an extra one. Both my own mittens were still on. I had recognised the Golden Gate Bridge’s familiar orange-red colour on this return to San Francisco, but that had hardly helped me identify my belongings. I apologised and handed it over. For a moment, three orange-red mittens were crowded together."
+    },
+    "replies": [
+      {
+        "id": "sanfrancisco.revisit.letter-with-same-city.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说多出来的手套是谁的",
+          "en": "Explain who owns the extra mitten"
+        }
+      },
+      {
+        "id": "sanfrancisco.revisit.letter-with-same-city.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "数数我们手里的橙红手套",
+          "en": "Count the orange-red mittens between us"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

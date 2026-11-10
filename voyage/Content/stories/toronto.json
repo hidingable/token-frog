@@ -1,0 +1,416 @@
+[
+  {
+    "id": "toronto.arrival.window-no-postcode",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "toronto",
+    "factIds": [
+      "toronto-cn-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "城在窗外，我的地址在包里。",
+      "en": "The city was beyond the window; my address book stayed in the bag."
+    },
+    "text": {
+      "zh-Hans": "在多伦多 CN Tower 的主观景层，我看着玻璃窗外的城市，想在图上找个位置代表家。找了会儿才想起，家并不在这片景色里。旅人说可以画在另一张纸上。我想把两张纸接起来，窗外留给旅程，另一边留给惦记。",
+      "en": "Looking over Toronto from the CN Tower, I tried to find a spot in my sketch to represent home. Home, of course, was not in this view. A traveler suggested another sheet. I want to join them: one side for the journey outside the window, another for what I carry with me."
+    },
+    "replies": [
+      {
+        "id": "toronto.arrival.window-no-postcode.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说惦记家的时候",
+          "en": "Talk about thinking of home"
+        }
+      },
+      {
+        "id": "toronto.arrival.window-no-postcode.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "给家另留一张纸",
+          "en": "Leave another sheet for home"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "toronto.window-home-note"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "toronto.arrival.market-listening",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "toronto",
+    "factIds": [
+      "toronto-st-lawrence-market"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "购物清单很短，听见的问候很长。",
+      "en": "A short shopping list met a longer greeting."
+    },
+    "text": {
+      "zh-Hans": "在圣劳伦斯市场南市场，我本来只写了“看看烘焙食品”。一位旅人和我说起各自从哪边进来，我把纸收好听完，才继续走。清单没有多一件东西，今天却多了一个能写给你的招呼。我的包也没有因此变重。",
+      "en": "In the South Market at St. Lawrence Market, my list merely said “look at baked goods.” A traveler started comparing our ways in. I put the paper away to listen before moving on. No extra purchase on the list, but a greeting worth sending home, without adding weight to the bag."
+    },
+    "replies": [
+      {
+        "id": "toronto.arrival.market-listening.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把问候接着讲完",
+          "en": "Continue the greeting"
+        }
+      },
+      {
+        "id": "toronto.arrival.market-listening.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看短短的清单",
+          "en": "Look at the short list"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "toronto.market-greeting"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "toronto.arrival.sandwich-side-label",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "toronto",
+    "factIds": [
+      "toronto-peameal-sandwich"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "三明治合上了，我的图还得翻开。",
+      "en": "The sandwich closed. My drawing had to open."
+    },
+    "text": {
+      "zh-Hans": "吃多伦多的 peameal bacon 三明治，我在小菜单上画面包，再给裹玉米粉的腌肉添个侧边标签。不然夹好以后，自己的图也认不清了。标签写得很小，我凑近看了一会儿。给家里这封信的字，我会写大些。",
+      "en": "For my Toronto peameal bacon sandwich, I drew the bun and added a side label for the cornmeal-coated meat. Otherwise my own drawing hid the filling too well. The tiny label needed close inspection. I promise the handwriting in this letter will be easier on your eyes."
+    },
+    "replies": [
+      {
+        "id": "toronto.arrival.sandwich-side-label.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "介绍侧边的小标签",
+          "en": "Introduce the little side label"
+        }
+      },
+      {
+        "id": "toronto.arrival.sandwich-side-label.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看面包里夹着什么",
+          "en": "Look at the filling inside"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "toronto.menu-peameal-sandwich"
+      ]
+    }
+  },
+  {
+    "id": "toronto.arrival.tart-plate-ring",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "toronto",
+    "factIds": [
+      "toronto-butter-tart"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小挞吃完，盘子仍留着圆。",
+      "en": "The tart was finished; the plate kept its circle."
+    },
+    "text": {
+      "zh-Hans": "在多伦多吃一只黄油糖浆挞，我先在菜单上画个圆。吃到甜馅时，想加一圈小线，结果更像盘子。我把两个圆分别写上名字，避免寄回家后点心和餐具互相冒认。真盘子留在原处，带走的只是这张图。",
+      "en": "A Toronto butter tart began as a circle on my menu. Extra lines for the sweet filling made it look more like its plate. I named both circles so dessert and crockery could not impersonate each other on the way home. The real plate stayed behind. Only the sketch is traveling."
+    },
+    "replies": [
+      {
+        "id": "toronto.arrival.tart-plate-ring.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "替两个圆分别介绍",
+          "en": "Introduce the two circles"
+        }
+      },
+      {
+        "id": "toronto.arrival.tart-plate-ring.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看哪圈是甜馅",
+          "en": "Find the circle for the filling"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "toronto.tart-circles"
+      ],
+      "menuIds": [
+        "toronto.menu-butter-tart"
+      ]
+    }
+  },
+  {
+    "id": "toronto.arrival.meal-caption-test",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "toronto",
+    "factIds": [
+      "toronto-peameal-sandwich",
+      "toronto-butter-tart"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我请旅人先读图，自己负责补字。",
+      "en": "My listener tried the pictures; I supplied the captions."
+    },
+    "text": {
+      "zh-Hans": "给旅人看多伦多的三明治和黄油挞菜单，我先盖住名字，请对方猜。我画的面包被当成了纸盒，只好提前公布答案。两人都笑了。我把清楚的菜名添回去，寄给你时就不必附一整页谜底。",
+      "en": "Showing a traveler my Toronto sandwich and butter-tart menus, I covered the names for a guessing game. The bun was mistaken for a box, so the answer arrived early. We both laughed. I restored the captions before sending them home; you should not need a whole page of solutions."
+    },
+    "replies": [
+      {
+        "id": "toronto.arrival.meal-caption-test.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把猜错那段讲给家里",
+          "en": "Tell home about the wrong guess"
+        }
+      },
+      {
+        "id": "toronto.arrival.meal-caption-test.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看添回去的菜名",
+          "en": "Read the restored dish names"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "toronto.menu-peameal-sandwich",
+        "toronto.menu-butter-tart"
+      ]
+    }
+  },
+  {
+    "id": "toronto.arrival.label-facing-out",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "toronto",
+    "factIds": [
+      "toronto-peameal-sandwich",
+      "toronto-butter-tart"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "黄油挞还端着，纸巾却全跑到腿上了。",
+      "en": "I held on to the butter tart and pulled a whole stack of napkins."
+    },
+    "text": {
+      "zh-Hans": "多伦多的三明治里夹着裹玉米粉的腌猪里脊，我把它吃完，才小心端起黄油糖浆挞。刚咬一口，黏甜的馅便粘住嘴角，另一只手想抽纸巾，却把整叠都拖到了腿上。邻座替我托住那叠纸巾，我终于抽出一张擦干净。我把剩下的半只挞轻轻放回小盘里，缺口边还挂着一小滴糖浆。",
+      "en": "After my Toronto sandwich, with its slices of cornmeal-coated peameal bacon, I picked up the butter tart. One bite left sweet, sticky filling at the corner of my mouth. I reached for a napkin with my free hand and dragged the whole stack into my lap. My neighbour held the stack still so I could finally pull a single sheet free. Mouth wiped and napkins gathered, I returned the tart to its plate. A small drop of syrup hung from the bitten edge."
+    },
+    "replies": [
+      {
+        "id": "toronto.arrival.label-facing-out.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢帮我按住纸巾的邻座",
+          "en": "Thank my neighbour for helping with the napkins"
+        }
+      },
+      {
+        "id": "toronto.arrival.label-facing-out.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看挞的缺口边那滴糖浆",
+          "en": "Look at the syrup on the bitten edge"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "toronto.menu-peameal-sandwich",
+        "toronto.menu-butter-tart"
+      ]
+    }
+  },
+  {
+    "id": "toronto.fulfill.home-hinge",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "toronto",
+    "factIds": [
+      "toronto-cn-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "toronto.arrival.window-no-postcode.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "听到“{reply}”，我找出了第二张纸。",
+      "en": "“{reply}” sent me looking for a second sheet."
+    },
+    "text": {
+      "zh-Hans": "按你的回应，我把 CN Tower 窗外那张城市小图放在一边，另一张写“家”。用自己折的纸套把两页接好，打开时它们能一起站住。没有把两个地方画成邻居，只是让我的惦记有了相邻的位置。多伦多这封信，就从纸缝里向你招手。",
+      "en": "Following your reply, I put my CN Tower city sketch beside a second sheet marked “home.” A paper sleeve I folded joins the pages so they can stand open together. The places are not neighbours; my thoughts of them can be. This Toronto letter waves through the little gap."
+    },
+    "replies": [
+      {
+        "id": "toronto.fulfill.home-hinge.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲两页相邻的心情",
+          "en": "Describe the two pages together"
+        }
+      },
+      {
+        "id": "toronto.fulfill.home-hinge.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "轻轻打开纸套看看",
+          "en": "Open the paper sleeve gently"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "toronto.home-hinge"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "toronto.revisit.market-new-list",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "toronto",
+    "factIds": [
+      "toronto-st-lawrence-market"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "面包还没装好，布袋先露了个洞。",
+      "en": "Before the bread went in, my bag revealed a hole."
+    },
+    "text": {
+      "zh-Hans": "南市场的面包摊前，我很熟练地抖开布袋，袋底却露了个洞。这次重到多伦多，市场名字倒没记错，袋子显然没检查好。卖面包的人伸手替我托着袋底，我从包里翻出手帕，把裂口两边拢住扎牢。面包放进去后，我试着轻轻提了提，面包没再往下滑。走到蔬果摊前，袋口还露着半截面包。",
+      "en": "At a bread stall in the South Market, I shook open my shopping bag with confidence. There was a hole in the bottom. Back in Toronto, I remembered St. Lawrence Market well enough; checking my bag had escaped me. The seller supported it while I found a handkerchief and tied the torn edges together. We lowered the bread inside, and I gave the handles a cautious lift. By the produce stalls, half the loaf was still poking safely out of the top."
+    },
+    "replies": [
+      {
+        "id": "toronto.revisit.market-new-list.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "谢谢帮忙托住袋底的人",
+          "en": "Thank the seller for holding the torn bag"
+        }
+      },
+      {
+        "id": "toronto.revisit.market-new-list.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "检查手帕有没有扎紧裂口",
+          "en": "Check the handkerchief around the tear"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

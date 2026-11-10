@@ -1,0 +1,98 @@
+[
+  {
+    "id": "toronto.menu-peameal-sandwich",
+    "kind": "menu",
+    "cityId": "toronto",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "夹馅侧签菜单",
+      "en": "Sandwich Side-label Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在多伦多吃过 peameal bacon 三明治后自画的小菜单。",
+      "en": "A homemade Toronto peameal bacon sandwich menu with a filling label."
+    }
+  },
+  {
+    "id": "toronto.menu-butter-tart",
+    "kind": "menu",
+    "cityId": "toronto",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "两个圆黄油挞菜单",
+      "en": "Two Circles Tart Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在多伦多把挞和盘子分开标好的菜单纸。",
+      "en": "A Toronto menu labeling tart and plate as separate circles."
+    }
+  },
+  {
+    "id": "toronto.window-home-note",
+    "kind": "souvenir",
+    "cityId": "toronto",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "窗外与家草稿",
+      "en": "Window and Home Draft"
+    },
+    "descriptions": {
+      "zh-Hans": "在 CN Tower 看多伦多时画的个人便签，旁边预留第二页。",
+      "en": "A personal CN Tower view note leaving room for a second page."
+    }
+  },
+  {
+    "id": "toronto.tart-circles",
+    "kind": "souvenir",
+    "cityId": "toronto",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "分清两个圆",
+      "en": "Circles Named Apart"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在多伦多吃挞后制作的原创圆圈纸。",
+      "en": "An original circle slip made after a butter tart in Toronto."
+    }
+  },
+  {
+    "id": "toronto.market-greeting",
+    "kind": "souvenir",
+    "cityId": "toronto",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "短清单长问候",
+      "en": "Short List, Longer Hello"
+    },
+    "descriptions": {
+      "zh-Hans": "圣劳伦斯市场歇步后记下招呼的自制纸条。",
+      "en": "A homemade greeting slip after a pause at St. Lawrence Market."
+    }
+  },
+  {
+    "id": "toronto.home-hinge",
+    "kind": "souvenir",
+    "cityId": "toronto",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "给家的一页纸铰",
+      "en": "Paper Hinge Toward Home"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折纸套连起多伦多景色和“家”字的两页卡。",
+      "en": "A paper sleeve joining the messenger’s Toronto view and a page marked home."
+    }
+  }
+]

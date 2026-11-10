@@ -1,0 +1,416 @@
+[
+  {
+    "id": "auckland.arrival.turning-with-bag",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "auckland",
+    "factIds": [
+      "auckland-sky-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "看完一圈，邮包还在同一边。",
+      "en": "A full turn of the view left my bag on the same shoulder."
+    },
+    "text": {
+      "zh-Hans": "在奥克兰天空塔观景层，我慢慢转身看城市和湾。转完一圈，还以为邮包会换到另一侧，结果它很守规矩。我在纸上画个圆，把自己画在中间。下次想试试先记住一个方向，再让眼睛出发。",
+      "en": "On a Sky Tower observation level, I turned slowly to take in Auckland and the gulf. A full circle somehow left my mailbag on the same shoulder. I drew myself in the middle of a ring. Next I want to choose one direction to remember before sending my eyes out exploring."
+    },
+    "replies": [
+      {
+        "id": "auckland.arrival.turning-with-bag.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲转一圈的发现",
+          "en": "Describe that full turn"
+        }
+      },
+      {
+        "id": "auckland.arrival.turning-with-bag.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "给圆圈添个方向记号",
+          "en": "Mark one direction on the circle"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "auckland.view-circle"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "auckland.arrival.garden-three-lines",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "auckland",
+    "factIds": [
+      "auckland-botanic-gardens"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "三行园名，字各有各的长短。",
+      "en": "Three garden names needed three different lengths of line."
+    },
+    "text": {
+      "zh-Hans": "走在奥克兰植物园，我把香草园、玫瑰园和针叶植物园写在自己的便纸上。英文长短不一样，排不成整齐三行。我没有怪植物，改把纸横过来。给你寄的不是植物清单，只是我终于肯转动便纸的证据。",
+      "en": "At Auckland Botanic Gardens, I noted the herb, rose and conifer gardens. Their English names refused to make three even lines. I did not blame the plants. Turning the paper sideways helped. This is not a botanical inventory, just evidence that I finally thought to rotate the stationery."
+    },
+    "replies": [
+      {
+        "id": "auckland.arrival.garden-three-lines.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "读读三行不同的字",
+          "en": "Read the three uneven lines"
+        }
+      },
+      {
+        "id": "auckland.arrival.garden-three-lines.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把便纸横过来看看",
+          "en": "Try turning the paper sideways"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "auckland.sideways-paper"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "auckland.arrival.chip-underlining",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "auckland",
+    "factIds": [
+      "auckland-fish-chips"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一根薯条，差点被任命为铅笔。",
+      "en": "One chip nearly received a job as a pencil."
+    },
+    "text": {
+      "zh-Hans": "奥克兰这份炸鱼薯条端来，我拿起长薯条，顺手在空中比了一道线。旅人问我是不是要用它给菜单画横线。我把它吃掉，换回铅笔。菜单标题因此有了非常干净的下划线，也没有让午饭多承担工作。",
+      "en": "My Auckland fish and chips arrived with a chip long enough to trace a line in the air. A traveler wondered whether it would underline the menu. I ate it and found my pencil instead. The heading now has a clean underline, and lunch escaped an unnecessary second job."
+    },
+    "replies": [
+      {
+        "id": "auckland.arrival.chip-underlining.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "替薯条介绍新工作",
+          "en": "Explain the chip’s proposed job"
+        }
+      },
+      {
+        "id": "auckland.arrival.chip-underlining.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看干净的下划线",
+          "en": "Notice the clean underline"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "auckland.menu-fish-chips"
+      ]
+    }
+  },
+  {
+    "id": "auckland.arrival.crunch-in-softness",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "auckland",
+    "factIds": [
+      "auckland-hokey-pokey"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "软软一勺，里面藏了小小的响。",
+      "en": "A soft spoonful carried a little crunch."
+    },
+    "text": {
+      "zh-Hans": "在奥克兰吃蜂窝糖冰淇淋，我先记住软，再碰到糖块的脆。想在菜单上画出声音，就给圆勺旁边添了几根短线。看起来像勺子长了胡子。我没有擦，等你看见再替这幅画想个解释。",
+      "en": "In Auckland, a spoonful of hokey pokey began softly, then reached a crunchy piece of honeycomb. I added little sound lines beside the spoon on my menu. It appeared to have grown whiskers. I left them there; perhaps you can help explain the portrait when it reaches home."
+    },
+    "replies": [
+      {
+        "id": "auckland.arrival.crunch-in-softness.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "解释勺子的小胡子",
+          "en": "Explain the spoon’s whiskers"
+        }
+      },
+      {
+        "id": "auckland.arrival.crunch-in-softness.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看短线围着哪儿",
+          "en": "Find the little sound lines"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "auckland.spoon-whiskers"
+      ],
+      "menuIds": [
+        "auckland.menu-hokey-pokey"
+      ]
+    }
+  },
+  {
+    "id": "auckland.arrival.not-sending-lunch",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "auckland",
+    "factIds": [
+      "auckland-fish-chips",
+      "auckland-hokey-pokey"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "关于邮寄午饭，我们达成了纸上协议。",
+      "en": "We reached a paper agreement about sending lunch."
+    },
+    "text": {
+      "zh-Hans": "旅人问我是不是要把奥克兰的炸鱼薯条和冰淇淋都寄回家。我说，寄两张菜单就行。于是我们认真讨论，画上的薯条可以靠冰淇淋多近。纸上不会融化，讨论倒花了一会儿。我给你留着最后一点位置，随你摆。",
+      "en": "A traveler asked whether I would send Auckland fish and chips and ice cream home. Two menus would do, I said. We then considered how close a drawn chip could stand to drawn ice cream. Neither would melt on paper, but the discussion took time. I saved the final arrangement for you."
+    },
+    "replies": [
+      {
+        "id": "auckland.arrival.not-sending-lunch.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "替菜单安排座位",
+          "en": "Arrange seats for the menus"
+        }
+      },
+      {
+        "id": "auckland.arrival.not-sending-lunch.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看纸上的间距",
+          "en": "Notice the gap on paper"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "auckland.menu-fish-chips",
+        "auckland.menu-hokey-pokey"
+      ]
+    }
+  },
+  {
+    "id": "auckland.arrival.long-and-round",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "auckland",
+    "factIds": [
+      "auckland-fish-chips",
+      "auckland-hokey-pokey"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "长线画午饭，圆线画点心。",
+      "en": "Long lines for lunch, round ones for dessert."
+    },
+    "text": {
+      "zh-Hans": "我给奥克兰的炸鱼薯条画了细长边线，给冰淇淋画了弯弯的边。两张菜单都写好名字，才发现圆的那张更占纸。我挪了挪自己的签名，不挤点心。写信的人小一点也没关系，信封上再大大方方写一遍。",
+      "en": "Long outlines suited my Auckland fish and chips; curves suited the ice cream. Once both menus had names, the curved drawing took more room. I moved my signature rather than crowd dessert. The messenger can be small on paper. I will give my signature its proper size on the envelope."
+    },
+    "replies": [
+      {
+        "id": "auckland.arrival.long-and-round.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说签名挪去了哪儿",
+          "en": "Tell where the signature moved"
+        }
+      },
+      {
+        "id": "auckland.arrival.long-and-round.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "比较长线和圆线",
+          "en": "Compare long lines and curves"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "auckland.menu-fish-chips",
+        "auckland.menu-hokey-pokey"
+      ]
+    }
+  },
+  {
+    "id": "auckland.fulfill.one-direction-tab",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "auckland",
+    "factIds": [
+      "auckland-sky-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "auckland.arrival.turning-with-bag.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "收到“{reply}”，我先找回圆圈。",
+      "en": "“{reply}” had me finding that circle again."
+    },
+    "text": {
+      "zh-Hans": "按你的提醒，我在天空塔那张圆圈画上加了一个小箭头，记自己望向湾的方向。画完折出一个纸舌，手指按住就不容易看反。这不是奥克兰的导航图，箭头只负责一件事：帮我把一圈风景讲得不打转。",
+      "en": "Following your reply, I added a small arrow to my Sky Tower circle for the direction where I looked toward the gulf. A folded paper tab keeps my thumb in place. It is my own view record, not an Auckland map. The arrow merely helps me tell the story without going round in circles."
+    },
+    "replies": [
+      {
+        "id": "auckland.fulfill.one-direction-tab.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "顺着箭头讲一段",
+          "en": "Tell a little along the arrow"
+        }
+      },
+      {
+        "id": "auckland.fulfill.one-direction-tab.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "试试纸舌的方向",
+          "en": "Try the directional paper tab"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "auckland.direction-tab"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "auckland.revisit.lowering-the-pencil",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "auckland",
+    "factIds": [
+      "auckland-sky-tower"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "城市忽然变小，望远镜得转个方向。",
+      "en": "The city had shrunk. The binoculars needed turning around."
+    },
+    "text": {
+      "zh-Hans": "天空塔上有个孩子，坚称奥克兰变小了。这回登塔，我原本还认得豪拉基湾，接过望远镜却也犯了嘀咕。旁边的家长忍着笑，指了指镜筒，我才发现小的一头朝着外面。我们把它翻过来，城市一下凑近，孩子连忙往后仰。我扶住他的手，等他看够，再把那根晃来晃去的黄带子绕回镜筒。",
+      "en": "A child on the Sky Tower insisted that Auckland had shrunk. I thought I knew the view towards Hauraki Gulf from being here before, but through the borrowed binoculars it did look surprisingly distant. His parent pointed at the barrels, trying not to laugh. We had them backwards. Once we turned them around, the city came so close that he leaned away. I steadied his hand while he looked, then wound the swinging yellow strap neatly around the binoculars."
+    },
+    "replies": [
+      {
+        "id": "auckland.revisit.lowering-the-pencil.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说城市怎么忽大忽小",
+          "en": "Explain how the city got bigger and smaller"
+        }
+      },
+      {
+        "id": "auckland.revisit.lowering-the-pencil.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看望远镜该朝哪一头",
+          "en": "Check which way the binoculars should face"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

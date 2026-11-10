@@ -1,0 +1,98 @@
+[
+  {
+    "id": "berlin.menu-currywurst",
+    "kind": "menu",
+    "cityId": "berlin",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "酱在这里菜单",
+      "en": "Sauce Here Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "柏林咖喱香肠的自画菜单，用文字标出酱的位置。",
+      "en": "A homemade Berlin currywurst menu labeling the sauce in words."
+    }
+  },
+  {
+    "id": "berlin.menu-pfannkuchen",
+    "kind": "menu",
+    "cityId": "berlin",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "果酱缺口菜单",
+      "en": "Jam Gap Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在柏林吃草莓馅面包球后画的菜单。",
+      "en": "A menu drawn after the messenger’s strawberry-filled Pfannkuchen in Berlin."
+    }
+  },
+  {
+    "id": "berlin.sideways-signature",
+    "kind": "souvenir",
+    "cityId": "berlin",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "横着看景的签名",
+      "en": "Signature Admiring the View"
+    },
+    "descriptions": {
+      "zh-Hans": "在柏林电视塔望河后画的原创便纸，签名横了过来。",
+      "en": "An original TV Tower river sketch with a sideways signature."
+    }
+  },
+  {
+    "id": "berlin.tidy-bite",
+    "kind": "souvenir",
+    "cityId": "berlin",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "整齐一口便纸",
+      "en": "One Tidy Bite Slip"
+    },
+    "descriptions": {
+      "zh-Hans": "信使记下柏林点心缺口的自画纸，没有夹带食物。",
+      "en": "A homemade paper recording a bite in a Berlin pastry."
+    }
+  },
+  {
+    "id": "berlin.unhurried-list",
+    "kind": "souvenir",
+    "cityId": "berlin",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "划掉赶快的清单",
+      "en": "A List Without Hurry"
+    },
+    "descriptions": {
+      "zh-Hans": "蒂尔加滕公园歇步时改过的个人纸清单。",
+      "en": "A personal list revised during a pause in Großer Tiergarten."
+    }
+  },
+  {
+    "id": "berlin.river-unfolding",
+    "kind": "souvenir",
+    "cityId": "berlin",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "河线展开卡",
+      "en": "River Line Unfolded"
+    },
+    "descriptions": {
+      "zh-Hans": "信使亲手折的柏林观景记忆卡，展开后签名能够正着读。",
+      "en": "A hand-folded Berlin view memory whose signature reads upright when opened."
+    }
+  }
+]

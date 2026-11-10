@@ -1,0 +1,416 @@
+[
+  {
+    "id": "lima.arrival.lighthouse-small-arrow",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "lima",
+    "factIds": [
+      "lima-raimondi-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "灯塔在远处，我的箭头画得太近。",
+      "en": "The lighthouse was over there. My arrow was much too close."
+    },
+    "text": {
+      "zh-Hans": "在利马的赖蒙迪公园，我想画张小图，标出自己歇脚的长椅和看见的灯塔。箭头画得太短，看起来灯塔坐在我旁边。旅人看了笑，我也笑。准备把纸展开些，给灯塔留出它自己的距离，给你留个能看懂的我。",
+      "en": "At Lima’s Raimondi Park, I sketched my resting bench and the lighthouse. My short arrow put the lighthouse practically in the next seat. A traveler laughed, and so did I. I want to open the page wider: room for the distance, and a messenger you can actually locate."
+    },
+    "replies": [
+      {
+        "id": "lima.arrival.lighthouse-small-arrow.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说灯塔坐哪张椅",
+          "en": "Discuss the lighthouse’s imaginary seat"
+        }
+      },
+      {
+        "id": "lima.arrival.lighthouse-small-arrow.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把箭头留得长一点",
+          "en": "Give the arrow more room"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "lima.short-arrow"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "lima.arrival.light-between-words",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "lima",
+    "factIds": [
+      "lima-water-circuit"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一行字等完了水，才等到我。",
+      "en": "A sentence waited for the water, then for me."
+    },
+    "text": {
+      "zh-Hans": "在储备公园看魔幻水回路，喷泉的水和灯光让我写一笔就抬一次头。音乐在耳边，我干脆把本子合上，好好看完这一段。寄给你的信晚写了几行，却少了那些没看清就急着下的形容。",
+      "en": "At the Magic Water Circuit in Parque de la Reserva, water and light interrupted every stroke of my pencil. With music around me, I closed the notebook and watched. A few lines home were written later, with fewer descriptions made before I had really looked."
+    },
+    "replies": [
+      {
+        "id": "lima.arrival.light-between-words.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲合上本子之后",
+          "en": "Tell what followed closing the book"
+        }
+      },
+      {
+        "id": "lima.arrival.light-between-words.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "先看再选一个词",
+          "en": "Look before choosing a word"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "lima.pause-bookmark"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "lima.arrival.potato-middle",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "lima",
+    "factIds": [
+      "lima-causa"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "我先画了上面，午饭提醒我还有中间。",
+      "en": "I drew the top. Lunch reminded me about the middle."
+    },
+    "text": {
+      "zh-Hans": "利马这份鸡肉 causa，我先画好土豆泥的外形，吃到中间才记起还有夹馅。小菜单上补一道层线，就讲得清楚了。写给家里的信也该这样：不能只写“我很好”，还要添一点今天为什么好。",
+      "en": "For my chicken causa in Lima, I drew the potato exterior before remembering the filling inside. An extra layer line explained it on the menu. Your letter deserves the same care: “I am well” needs a little something about what made the day good."
+    },
+    "replies": [
+      {
+        "id": "lima.arrival.potato-middle.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "补一句今天为什么好",
+          "en": "Add what made today good"
+        }
+      },
+      {
+        "id": "lima.arrival.potato-middle.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看中间那道层线",
+          "en": "Look at the middle layer line"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "lima.menu-causa"
+      ]
+    }
+  },
+  {
+    "id": "lima.arrival.dessert-name-breath",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "lima",
+    "factIds": [
+      "lima-suspiro"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "点心名字里的叹息，比我的轻。",
+      "en": "The sigh in dessert’s name was lighter than mine."
+    },
+    "text": {
+      "zh-Hans": "吃利马叹息甜点前，我把 suspiro a la limeña 抄在小菜单上，抄错一处，轻轻叹了口气。旅人问是不是点心太远，我说是字母走散了。改好名字才拿勺子，奶和糖的甜味这回没有被我的叹气打断。",
+      "en": "Before my suspiro a la limeña, I copied the name onto a menu and sighed over a stray letter. A traveler asked whether dessert was out of reach. Only the spelling, I said. Once corrected, I picked up the spoon. Milk-and-sugar sweetness deserved an uninterrupted turn."
+    },
+    "replies": [
+      {
+        "id": "lima.arrival.dessert-name-breath.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说走散的字母",
+          "en": "Tell about the wandering letter"
+        }
+      },
+      {
+        "id": "lima.arrival.dessert-name-breath.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把名字重新看一遍",
+          "en": "Read the name once more"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "lima.name-correction"
+      ],
+      "menuIds": [
+        "lima.menu-suspiro"
+      ]
+    }
+  },
+  {
+    "id": "lima.arrival.well-with-details",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "lima",
+    "factIds": [
+      "lima-causa",
+      "lima-suspiro"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "“吃好了”后面，我补了两个例子。",
+      "en": "I gave “I have eaten well” two examples."
+    },
+    "text": {
+      "zh-Hans": "给旅人讲利马的午饭，我拿出 causa 和叹息甜点的小菜单。对方说，这样家里就知道“吃好了”是什么意思。我把这句话放进信里，顺便承认拼写花了点工夫。你读到这里，大概会先检查我有没有真的把饭吃完。",
+      "en": "Showing a traveler my causa and suspiro menus in Lima gave “I have eaten well” some detail. They said home would understand that better. I included it in your letter, along with the work the spelling required. You will probably want to check that I actually finished the meal."
+    },
+    "replies": [
+      {
+        "id": "lima.arrival.well-with-details.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把吃好的细节讲全",
+          "en": "Tell the details of eating well"
+        }
+      },
+      {
+        "id": "lima.arrival.well-with-details.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看两张菜单的小注",
+          "en": "Read the notes on both menus"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "lima.menu-causa",
+        "lima.menu-suspiro"
+      ]
+    }
+  },
+  {
+    "id": "lima.arrival.layer-and-letter",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "lima",
+    "factIds": [
+      "lima-causa",
+      "lima-suspiro"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "一张用线，一张用字，才没弄混。",
+      "en": "One needed lines, the other careful letters."
+    },
+    "text": {
+      "zh-Hans": "收拾利马的两张菜单，causa 的层次是靠线分的，叹息甜点是靠名字认的。我试着把它们盖住一半，看看还能不能认出来。结果先认出自己的歪签名。也好，至少寄丢一张时，它知道是哪位笨拙信使画的。",
+      "en": "On my Lima menus, lines distinguish the causa layers; the name identifies suspiro. I covered half of each drawing to test whether I could recognize them. My crooked signature was the first clue I found. At least a stray sheet would know which awkward messenger had drawn it."
+    },
+    "replies": [
+      {
+        "id": "lima.arrival.layer-and-letter.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊签名的小破绽",
+          "en": "Talk about the signature’s giveaway"
+        }
+      },
+      {
+        "id": "lima.arrival.layer-and-letter.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "遮住一半再认认",
+          "en": "Try identifying half a drawing"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "lima.menu-causa",
+        "lima.menu-suspiro"
+      ]
+    }
+  },
+  {
+    "id": "lima.fulfill.long-arrow-card",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "lima",
+    "factIds": [
+      "lima-raimondi-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "lima.arrival.lighthouse-small-arrow.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "记着“{reply}”，我把折起的纸打开。",
+      "en": "Remembering “{reply},” I opened the folded paper."
+    },
+    "text": {
+      "zh-Hans": "照着你的回应，我重新画了赖蒙迪公园的歇脚小图，把长椅与灯塔之间的箭头留长。纸折好时它躲在中间，展开才看见。距离终于没有被我的小纸吃掉。寄回家给你试试，别照它找路，只找找我画的小椅子。",
+      "en": "Following your reply, I redrew my Raimondi Park pause with a longer arrow between bench and lighthouse. The distance hides inside the folded card until it opens. My paper has stopped swallowing space. Try it at home—look for my tiny bench, rather than using it to find your way."
+    },
+    "replies": [
+      {
+        "id": "lima.fulfill.long-arrow-card.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说展开后多了什么",
+          "en": "Describe what unfolds"
+        }
+      },
+      {
+        "id": "lima.fulfill.long-arrow-card.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "找找那张小椅子",
+          "en": "Find the tiny bench"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "lima.long-arrow-card"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "lima.revisit.bench-for-now",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "lima",
+    "factIds": [
+      "lima-raimondi-park"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "灯塔旁边，我先缝好了一颗纽扣。",
+      "en": "Near the lighthouse, I stopped to sew on a button."
+    },
+    "text": {
+      "zh-Hans": "纽扣在赖蒙迪公园的长椅上跳了一下，幸好没落进缝里。灯塔还是认得的那座，我这回打算先缝好外套再去看它。针穿好了，拉线时手套却跟着跑，原来线轴还缠在里面。我把它们慢慢分开，用膝头托住外套，把松掉的纽扣缝牢。起身前特意抖了抖衣襟，胸前那颗蓝纽扣一动也没动。",
+      "en": "The button bounced on a bench in Raimondi Park and narrowly missed a gap between the slats. I recognised the lighthouse on this return to Lima, but first my coat needed attention. I threaded the needle and pulled. A glove followed the thread out of my sewing things; the spool had tangled inside it. Once everything was separated, I spread the coat across my knees and stitched. Before leaving, I gave the front a shake. The little blue button stayed firmly in place."
+    },
+    "replies": [
+      {
+        "id": "lima.revisit.bench-for-now.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说缝纽扣时的小麻烦",
+          "en": "Tell about the trouble with the sewing thread"
+        }
+      },
+      {
+        "id": "lima.revisit.bench-for-now.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "检查蓝纽扣有没有缝牢",
+          "en": "Check that the blue button is secure"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

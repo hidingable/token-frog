@@ -1,0 +1,98 @@
+[
+  {
+    "id": "sanfrancisco.menu-sourdough",
+    "kind": "menu",
+    "cityId": "sanfrancisco",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "慢一句面包菜单",
+      "en": "One Sentence Slower Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使吃旧金山酸面包后画的菜单，口感旁边留着停顿。",
+      "en": "A menu after San Francisco sourdough, with a pause beside its texture notes."
+    }
+  },
+  {
+    "id": "sanfrancisco.menu-cioppino",
+    "kind": "menu",
+    "cityId": "sanfrancisco",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "海鲜汤记字菜单",
+      "en": "Cioppino in Words Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在旧金山记录自己那碗番茄海鲜汤的小菜单。",
+      "en": "A little record of the messenger’s own San Francisco cioppino."
+    }
+  },
+  {
+    "id": "sanfrancisco.orange-two-lines",
+    "kind": "souvenir",
+    "cityId": "sanfrancisco",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "颜色分行便签",
+      "en": "A Colour on Two Lines"
+    },
+    "descriptions": {
+      "zh-Hans": "自写的金门大桥颜色名便签，两行用圈连起来。",
+      "en": "A homemade bridge-colour note joining two lines with a circle."
+    }
+  },
+  {
+    "id": "sanfrancisco.soup-word-slip",
+    "kind": "souvenir",
+    "cityId": "sanfrancisco",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "没装香味的汤纸",
+      "en": "Soup Words, No Aroma"
+    },
+    "descriptions": {
+      "zh-Hans": "旧金山午饭后自制的小纸，只有写下的香味记忆。",
+      "en": "A homemade paper carrying words about a San Francisco lunch, rather than the soup."
+    }
+  },
+  {
+    "id": "sanfrancisco.wheel-arrow",
+    "kind": "souvenir",
+    "cityId": "sanfrancisco",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "轮子还是笑脸",
+      "en": "Wheel or Smile"
+    },
+    "descriptions": {
+      "zh-Hans": "信使离开旧金山缆车博物馆后整理的原创箭头草稿。",
+      "en": "An original arrow draft sorted out after leaving the Cable Car Museum."
+    }
+  },
+  {
+    "id": "sanfrancisco.one-colour-label",
+    "kind": "souvenir",
+    "cityId": "sanfrancisco",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "完整颜色名长签",
+      "en": "One Colour, Whole Name"
+    },
+    "descriptions": {
+      "zh-Hans": "信使亲手制作的长纸签，写金门大桥颜色名，非标准色样。",
+      "en": "A handmade long paper label for the bridge colour’s name, not a standard swatch."
+    }
+  }
+]

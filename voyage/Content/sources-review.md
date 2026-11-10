@@ -751,3 +751,153 @@ CLANG_MODULE_CACHE_PATH="$PWD/.build/codex-cache/clang" SWIFTPM_MODULECACHE_OVER
 结果：退出码0；VoyageCoreTests 257 tests / 15 suites 通过，TokenVoyageTests 168 tests / 6 suites 通过，共425 tests。30城精确回应兑现、90组真实到达与菜单各收集一次、30城纪念品可达性与稀有度、用量翻倍回放与既有兑现测试全部通过。最终测试日志 `.build/step11-batch3-tests-final.log`，修改前基线 `.build/step11-batch3-baseline.log`。两份日志的警告逐行完全一致，仍为4条既有SwiftPM用户缓存不可写/只读数据库警告，没有新增警告。
 
 额外静态核对记录 `.build/step11-batch3-audit.log`：所有新增JSON可解析；每条事实及应用来源在报告中有据可查；全内容包fact/story/reply/item ID跨类型也无冲突；双语、槽位、回应长度、同城引用、奖励种类与图标有效；原有城市元数据、旧情节与物品文字保持不变，西安只改sources；既有复核报告原文保留，仅追加本批记录；`git diff --check`通过。没有改docs、没有手工写项目外文件、没有提交、没有启动应用或运行build-app.sh / snapshot。
+
+## M2 补全城市资料：第一批
+
+核实日期：2026-11-09。本节按城市逐一记录核查。基础元数据沿用原文件，未填写 rainyMonths。以下应用来源均实际联网搜索、打开并核读支持段落；打不开的页面不作为依据。故事、路人及纸品均为原创虚构，食品只描述已支持的版本，不代表所有店家。每城整包写完并通过内容校验后才继续下一城。
+
+### 悉尼 sydney
+
+- `sydney.sydney-opera-house`：UNESCO 第 4–5 行支持港内半岛尖端、交叠贝壳状屋顶、演出空间及露台步行区域。不写设计灵感传说。
+  - https://whc.unesco.org/en/list/166/
+- `sydney.sydney-botanic-garden`：植物园管理机构 Getting here 第 263 行支持沿港、毗邻歌剧院；缩至位置，不扩充植物品种。
+  - https://www.botanicgardens.org.au/royal-botanic-garden-sydney/plan-your-visit/getting-here
+- `sydney.sydney-meat-pie`：Saveur 悉尼实地饮食报道第 24 行支持咸派酥皮、牛肉肉汁馅。写成其中一种馅料，不推广某店标准。
+  - https://www.saveur.com/article/travels/Sydneys-best-meat-pies/
+- `sydney.sydney-lamington`：昆士兰州立图书馆第 31 行支持方形海绵蛋糕、巧克力和椰蓉；独立媒体 Broadsheet 第 16、22–23 行交叉支持组成及悉尼供应。
+  - https://www.slq.qld.gov.au/blog/who-invented-lamington-answers-may-surprise-you
+  - https://www.broadsheet.com.au/national/food-and-drink/article/recipe-rockpool-bar-grills-lamington
+
+缩窄/弃用：lamington 的命名人物、发明地点和掉进肉汁的传说均弃用。Saveur 的店铺排名、番茄酱必加及旧营业信息不用。Sydney.com 的 Tokyo Lamington 页实际打开返回 405，未列为来源。肉派依据较早，故只留长期组成，不承诺店铺仍经营。植物园原住民文化不进入情节。兑现 harbour-on-reverse 精确续接“把港口画在纸背”；纸卡不是官方商品。
+
+
+### 墨尔本 melbourne
+
+- `melbourne.melbourne-reading-room`：维多利亚州立图书馆官方空间页第 44、49 行支持八角形、穹顶、放射桌列和绿色玻璃灯罩。只写建筑与家具，不保证楼层临时开放。
+  - https://www.slv.vic.gov.au/visit/our-magnificent-spaces/la-trobe-reading-room
+- `melbourne.melbourne-carlton-gardens`：UNESCO 第 48 行支持展览馆与花园的整体关系、林荫路、喷泉和湖；遗产页本身支持世界遗产身份。
+  - https://whc.unesco.org/en/list/1131
+- `melbourne.melbourne-dim-sim`：Visit Victoria 官方旅游页第 67–69 行支持墨尔本 dim sim、肉馅与蒸/炸两种做法。未扩充肉类种类、尺寸或固定蘸料。
+  - https://www.visitmelbourne.com/regions/melbourne/eat-and-drink/11-must-try-melbourne-dishes-and-drinks
+- `melbourne.melbourne-jam-doughnut`：同一官方页第 37–39 行明确维多利亚女王市场、炸制、果酱馅与撒糖。这两个 food 共用一个机构来源，不声称独立交叉核对。
+  - https://www.visitmelbourne.com/regions/melbourne/eat-and-drink/11-must-try-melbourne-dishes-and-drinks
+
+缩窄/弃用：原拟鸡肉 parma 改为官方正文可直接核实的果酱甜甜圈；不写食品发明者、传入故事、排队年代、必吃排名、固定摊位或全城统一配方。Visit Melbourne 与 Visit Victoria 镜像不重复列入。图书馆保持安静，谈话安排在离馆后；不碰藏书或模仿机构藏品。quiet-space-card 兑现留白回应，所有纸品为信使自制。
+
+
+### 奥克兰 auckland
+
+- `auckland.auckland-sky-tower`：SkyCity 直接运营页第 34–36、129–135 行支持观景层、城市与豪拉基湾全景。摘要删去高度、可视距离和火山数，不保证任何天气的可见度。
+  - https://skycityauckland.co.nz/sky-tower/
+- `auckland.auckland-botanic-gardens`：市议会所属植物园 Our gardens 第 46、59–77 行明确世界各地植物与 herb、rose、conifer 分区。只选公开植物区，不写文化用途、采集或仪式。
+  - https://www.aucklandbotanicgardens.co.nz/our-gardens/
+- `auckland.auckland-fish-chips`：Discover Auckland 官方旅游页第 20、51、72 行支持裹面糊鱼、酥脆外层和薯条。只提组合，不统一鱼种、配料和店家。
+  - https://www.aucklandnz.com/inspire/where-to-find-aucklands-best-fish-and-chips
+- `auckland.auckland-hokey-pokey`：新西兰旅游局第 412 行支持香草冰淇淋与脆蜂窝糖；奥克兰生产者 GIAPO 第 84–86、148 行交叉支持本地供应与基本组成，其 double cream 版本不强写成香草，摘要用“常以”。两机构独立，商业页只用于供应/组成。
+  - https://www.newzealand.com/au/feature/favourite-new-zealand-foods/
+  - https://www.giapo.com/hokey-pokey-ice-cream-auckland/
+
+缩窄/弃用：不采用旅游页“最好”“最古老”、每日渔获、可持续认证等推广断言；不把 honeycomb 误写为真实蜂巢或必含蜂蜜，不写冰淇淋起源争论与保证每天供应。塔楼不写跳跃项目；不选具有原住民圣地性质的地标作情节舞台。direction-tab 精确兑现“给圆圈添个方向记号”，卡片是个人记忆而非导航或商品。
+
+
+### 布宜诺斯艾利斯 buenosaires
+
+- `buenosaires.buenosaires-floralis`：市旅游局 Floralis Genérica 第 17 行支持联合国广场、铝与不锈钢及花形。不采用机构页面的运动机制承诺。
+  - https://turismo.buenosaires.gob.ar/en/otros-establecimientos/floralis-gen%C3%A9rica
+- `buenosaires.buenosaires-botanic-garden`：市旅游局西语页第 27 行支持阿根廷植物、其他大陆温带森林植物、棕榈与仙人掌。摘要不写数量和面积。
+  - https://turismo.buenosaires.gob.ar/es/otros-establecimientos/jard%C3%ADn-bot%C3%A1nico
+- `buenosaires.buenosaires-empanada`：市旅游局饮食页第 29 行支持半月形、烤/炸以及列出的馅料，故事只选其中烤肉馅版本。
+  - https://turismo.buenosaires.gob.ar/en/article/what-where-and-when-eat
+- `buenosaires.buenosaires-churros`：同页第 33 行支持炸制、裹糖、可填 dulce de leche 与配浓热巧克力；不把可选馅推广为所有版本。以上均属同一市政府体系，不当作独立机构交叉核对。
+  - https://turismo.buenosaires.gob.ar/en/article/what-where-and-when-eat
+
+缩窄/弃用：原拟 medialuna 的具体层次/配方资料不够直接，改用正文明确支持的 churros。花瓣随日出开合可能涉及维修状态，因此只写静态花形与材料；不写开合时刻、重量、高度。食品起源、民族性格、用餐时刻、最古老咖啡馆与餐厅排名全部不用。petal-outline-card 兑现沿花瓣边缘重画，纸上图案为信使原创，不复制雕塑设计图或充当官方商品。
+
+
+### 里约 rio
+
+- `rio.rio-sugarloaf`：缆车公园直接运营页第 41 行支持红海滩、乌尔卡山、糖面包山的缆车联系。只保留路线地名，不写运营时刻、高度与第一/最好等宣传。
+  - https://ri.bondinho.com.br/pt
+- `rio.rio-botanic-garden`：巴西政府活植物收藏服务页第 138 行明确 Arboreto、Bromeliário、Orquidário、Cactário。摘要为收藏范围，不保证某温室在某天开放。
+  - https://www.gov.br/pt-br/servicos/obter-informacoes-sobre-as-plantas-do-jardim-botanico-do-rio-de-janeiro-colecoes-vivas
+- `rio.rio-feijoada`：旅游部署名的 Agência Gov 第 28 行支持黑豆配猪肉；Embratur/Visit Brasil 里约页第 21 行支持在本城供应。这是两个机构，前者仍是转述饮食报道，故只采用简单组成，不据此讨论历史。
+  - https://agenciagov.ebc.com.br/noticias/202402/pesquisa-elege-os-dez-melhores-pratos-tipicos-do-brasil-e-a-feijoada-se-destaca-em-1o-lugar
+  - https://www.visitbrasil.com/en/5-must-have-experiences-at-rio-de-janeiros-2025-carnival
+- `rio.rio-tapioca-biscuit`：Visit Brasil 城市页第 64 行直接称 crispy tapioca biscuits 为街头小吃。只写木薯淀粉和酥脆，不加形状、品牌、蛋奶与制作方式。
+  - https://www.visitbrasil.com/en/location/rio-de-janeiro-en/
+
+缩窄/弃用：原拟 pão de queijo，但本城直接成分依据不足，换为木薯脆饼。IBICT 技术 PDF 实际打开超时，MultiRio 打开被拒，两者均不作为应用来源。feijoada 的殖民/奴隶起源说、排名、固定星期六食俗不采用；旅游页的宗教供奉、狂欢节、贫困与救济内容不作情节。未选宗教雕像作玩笑场景。route-fold 精确兑现连接三个站点；纪念品只是自制纸张。
+
+
+### 利马 lima
+
+- `lima.lima-raimondi-park`：米拉弗洛雷斯区政府景点页第 30 行支持赖蒙迪公园的绿地、长椅、喷泉与灯塔。只写这些公开设施，不混用相邻纪念公园历史。
+  - https://www.miraflores.gob.pe/los-servicios/cultura-y-turismo/turismo/atractivos-turisticos/
+- `lima.lima-water-circuit`：PROMPERÚ 第 132 行支持储备公园内的喷泉、水、光、音乐组合。摘要不写喷泉数、世界纪录、开灯/表演时间。
+  - https://target2.promperu.gob.pe/teapuntas-lima-callao/distritos-con-historia/centro-historico-de-lima/circuito-magico-del-agua-en-el-parque-de-la-reserva
+- `lima.lima-causa`：PROMPERÚ 配方第 41–57 行支持黄土豆、柑橘汁、黄 ají、冷却与鸡肉蛋黄酱夹层；独立的 ANDINA 第 95 行交叉支持土豆/椒/柑橘基础。两层夹鸡肉仅为配方的一种，不排除卷形或其他馅。英文来源写 lemon，未自行改成限定 lime，双语统一写 citrus/柑橘汁。
+  - https://www.peru.travel/gastronomy/en/recipes/entrees/causa.html
+  - https://andina.pe/ingles/noticia-causa-one-of-the-best-cold-layered-potato-dishes-174781.aspx
+- `lima.lima-suspiro`：PROMPERÚ Peru.info 第 96–97 行明确利马甜点及 milk、sugar、egg yolks。只列“等原料”，没有把简略说明扩大为完整配方或所有版本标准。与 Peru Travel 同属 PROMPERÚ，不计为第二独立机构。
+  - https://peru.info/en-us/gastronomy/blogperu/2/14/the-world-embraces-peru-s-desserts
+
+缩窄/弃用：原拟海岸公园具体说法的 gob.pe 新闻实际返回 418，改用可读区政府页中的赖蒙迪公园；PROMPERÚ 饮食 PDF 超时，未用其摘要。picarones 的完整原料与利马供应依据未读全，改为明确写作利马甜点的 suspiro。causa 的印加/战争起源、土豆数量与营养宣传不用。喷泉不作入水或互动承诺。long-arrow-card 兑现延长箭头；全为信使个人纸图。
+
+
+### 旧金山 sanfrancisco
+
+- `sanfrancisco.sanfrancisco-golden-gate`：桥梁管理机构 Painting the Bridge 第 31、38–41 行支持 International Orange 橙红色与涂料防腐作用。只取机构明确说明，不复制配色表为商品。
+  - https://www.goldengate.org/bridge/bridge-maintenance/painting-the-bridge/
+- `sanfrancisco.sanfrancisco-cable-museum`：Visit California 第 84–86、91 行支持博物馆历史车辆、可看动力轮、地下缆索牵引。只在参观区域观看，不让角色接触机械或进入作业区。
+  - https://www.visitcalifornia.com/experience/cable-cars/
+- `sanfrancisco.sanfrancisco-sourdough`：San Francisco Travel 第 174 行支持发酵、外皮有嚼劲和湿润酸味内里。仅取食物可观察特征，不把后文微生物/雾气营销当成唯一产地论证。
+  - https://www.sftravel.com/article/locals-guide-to-best-sourdough-bread-san-francisco
+- `sanfrancisco.sanfrancisco-cioppino`：公共媒体 KQED 第 109 行的采访直接支持番茄汤底、鱼/蟹/虾/贝类及配方变化。只用饮食组成，不采文章各说法中的历史年份或命名故事。
+  - https://www.kqed.org/news/11695791/the-fishy-origins-of-cioppino
+
+缩窄/弃用：不写桥名由来、定期整桥重漆周期、缆车“唯一”等排名与旧票价；不写扒车、探身或碰机械。酸面包不写菌种只能在旧金山存在，cioppino 不写“chip in”谐音起源或固定海鲜清单。one-colour-label 兑现完整说出颜色名；纸签由信使自制，没有拿真实涂料或桥上物件作纪念。
+
+
+### 多伦多 toronto
+
+- `toronto.toronto-cn-tower`：CN Tower 直接运营页第 103–113 行支持主观景层玻璃窗墙和俯瞰城市。未把 Lake Ontario 的填海土地说明误作特定观景层看湖的依据，摘要只写城市。
+  - https://www.cntower.ca/explore-the-tower
+- `toronto.toronto-st-lawrence-market`：市政府第 18–20 行明确管理归属与南市场的蔬果、鱼肉、烘焙及奶制品商户。省旅游页数量口径不同，因此不写商户数、排名与营业日。
+  - https://www.toronto.ca/services-payments/venues-facilities-bookings/booking-city-facilities/st-lawrence-market/
+- `toronto.toronto-peameal-sandwich`：Destination Toronto 第 168–169 行支持湿腌猪里脊、玉米粉外层、切片夹面包。未把 peameal 直译成当前必裹豌豆粉。
+  - https://www.destinationtoronto.com/leisure-blog/post/canadian-flavours-toronto/
+- `toronto.toronto-butter-tart`：Destination Ontario 第 309 行支持小挞壳、黄油、糖、糖浆和蛋；Destination Toronto 第 208–210 行支持本城供应。市与省旅游机构独立，分别支持组成和当地供应，不用作店家配方保证。
+  - https://www.destinationontario.com/en-ca/articles/popular-canadian-food-try-ontario
+  - https://www.destinationtoronto.com/leisure-blog/post/canadian-flavours-toronto/
+
+缩窄/弃用：未采 butter tart 的首份食谱年代、先驱起源、葡萄干争论和“最好”店榜；peameal 不写发明者或城市绰号由来。CN Tower 不写高度、玻璃承重、塔外挑战和临时展览；原住民菜单/土地条约内容不作玩笑或情节。home-hinge 兑现给家另留一页，纸铰是个人制作，不复制官方商品。
+
+
+### 温哥华 vancouver
+
+- `vancouver.vancouver-stanley-seawall`：市政府第 35–40、48–50 行支持斯坦利公园段与水边步行、内侧骑行分区。存在维护封闭说明，故不写整圈永远畅通或游览时长。
+  - https://vancouver.ca/parks-recreation-culture/seawall.aspx
+- `vancouver.vancouver-bloedel`：市政府第 40、94–103 行支持热带/亚热带植物与圆顶结构。只写植物和建筑，不以救助鸟的经历作玩笑，不触摸植物或喂动物；情节在外观观察中展开。
+  - https://vancouver.ca/parks-recreation-culture/bloedel-conservatory-what-to-see.aspx
+- `vancouver.vancouver-aburi`：Destination Vancouver 第 52–54、88、101 行支持本城 flame-seared 海鲜寿司。只写轻炙表面，不推导全部熟透、不写发明或引入者；故事不落真实餐厅。
+  - https://www.destinationvancouver.com/food-and-drink/dining-guides/vancouver-sushi
+- `vancouver.vancouver-nanaimo-bar`：纳奈莫市政府单页原始配方第 1–23 行支持饼屑/椰蓉/坚果底、卡仕达粉黄油甜馅和巧克力顶；FourFourTwo 温哥华旅行实访第 218–226 行支持本城可品尝到。两机构独立，前者证明组成、后者只证明温哥华供应，不把纳奈莫说成温哥华市内地名或此点心发源于温哥华。
+  - https://www.nanaimo.ca/docs/about-nanaimo/nanaimobarrecipe.pdf
+  - https://www.fourfourtwo.com/competition/on-the-ground-in-vancouver-everything-you-need-to-know-about-one-of-the-most-beautiful-world-cup-2026-host-cities
+
+缩窄/弃用：原拟日式热狗和烟熏三文鱼，未继续采用品牌/文化起源说法。方块配方仅为“一种”，不规定所有店家坚果种类与比例；本地供应证据是综合杂志旅行报道，较官方原料配方弱，故不承诺店名或随时可买。不写食物起源争论、海堤最长纪录、雨季月份或原住民图腾情节。labelled-paper-path 兑现给两行加名字；纪念品是原创纸条，不是地图、文物或商品。
+
+
+### 柏林 berlin
+
+- `berlin.berlin-tv-tower`：电视塔直接运营页第 25–30 行支持观景台全景及施普雷河。只写可观景的结构，不承诺特定天气或临时营业。
+  - https://tv-turm.de/en/observation-deck/
+- `berlin.berlin-tiergarten`：visitBerlin 德语页第 113–125 行支持市中心公园、散步/草地休憩、南侧 Neuer See。故事只在普通公园区域，不把纪念碑或历史伤痛作背景笑料。
+  - https://www.visitberlin.de/de/tiergarten
+- `berlin.berlin-currywurst`：Berlin.de 第 122 行支持烤肠、咖喱番茄酱和有/无肠衣；visitBerlin 第 141 行交叉支持香肠、番茄酱与咖喱调味。两平台机构不同，但均是公共旅游编辑信息，不声称覆盖全部餐馆。
+  - https://www.berlin.de/en/tourism/insider-tips/5150899-5766508-berlin-specialties-must-try.en.html
+  - https://www.visitberlin.de/en/berlins-currywurst
+- `berlin.berlin-pfannkuchen`：Berlin.de 第 100–101 行支持柏林叫法、圆形、油炸、李子/草莓果酱及多种表面/馅料。只写可见形态，不统一所有馅。
+  - https://www.berlin.de/en/tourism/insider-tips/5150899-5766508-berlin-specialties-must-try.en.html
+
+缩窄/弃用：visitBerlin 英文新闻把面点写成 boiled pastry，未采用该不可靠翻译，改用 Berlin.de 明确的 deep-fried 说明。美联社咖喱香肠文章无法实际打开，未列为应用来源。咖喱香肠发明者、日期、城市起源竞争和政治人物的面包球笑话均不用。电视塔不写观景台旋转；公园不写战时/纪念地情节。river-unfolding 精确兑现沿河线展开纸张，全部纪念品为个人纸作。

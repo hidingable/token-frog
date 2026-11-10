@@ -5,7 +5,8 @@ import Testing
 let firstBatchCityIds = ["shanghai", "hangzhou", "suzhou", "quanzhou", "jingdezhen", "kyoto"]
 let secondBatchCityIds = ["beijing", "chengdu", "xian", "tokyo", "osaka", "fukuoka", "seoul", "busan", "taipei", "hongkong", "bangkok", "hanoi"]
 let thirdBatchCityIds = ["singapore", "istanbul", "rome", "paris", "lisbon", "barcelona", "london", "newyork", "mexicocity", "cairo", "marrakesh", "chiangmai"]
-let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCityIds
+let m2BatchCityIds = ["sydney", "melbourne", "auckland", "buenosaires", "rio", "lima", "sanfrancisco", "toronto", "vancouver", "berlin"]
+let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCityIds + m2BatchCityIds
 
 @Suite struct CityBatchContentTests {
     @Test func fullCitiesHaveSourcedFactsStoriesMenusAndLocalSouvenirs() throws {
@@ -26,6 +27,12 @@ let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCity
             let stories = testCatalog.stories.all.filter { $0.cityId == id }
             let arrivals = stories.filter { $0.kind == "arrival" }
             #expect(arrivals.count >= 4)
+            if m2BatchCityIds.contains(id) {
+                #expect(arrivals.count >= 6)
+                #expect(arrivals.allSatisfy { !$0.factIds.isEmpty && $0.lead != nil
+                    && Set($0.replies.map(\.habit)) == ["talkative", "observant"] })
+                #expect(stories.filter { $0.kind == "revisit" }.count >= 1)
+            }
             #expect(arrivals.filter { !$0.factIds.isEmpty }.count >= 2)
             for habit in ["talkative", "observant"] {
                 #expect(arrivals.contains { $0.requires.habit == habit })

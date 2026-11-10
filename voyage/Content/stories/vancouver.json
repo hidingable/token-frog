@@ -1,0 +1,416 @@
+[
+  {
+    "id": "vancouver.arrival.two-tracks-on-paper",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "vancouver",
+    "factIds": [
+      "vancouver-stanley-seawall"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "脚印和轮子，在我的纸上各走各的。",
+      "en": "Footprints and wheels took separate lines on my paper."
+    },
+    "text": {
+      "zh-Hans": "在斯坦利公园的海堤步道，我沿着靠水的步行区域走，把内侧骑行区域也记在小图里。脚印用点，轮子用圈，画完却像两串不同的珠子。我想给两行添上名字，再寄给你看；先别拿它做项链，我还在画路。",
+      "en": "On Stanley Park’s seawall, I followed the walking area nearer the water and noted the cycling area inside it. Dots for feet, circles for wheels: the sketch resembled two strings of beads. I want to label both lines before sending it home. Please postpone making a necklace; I am still drawing a path."
+    },
+    "replies": [
+      {
+        "id": "vancouver.arrival.two-tracks-on-paper.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "聊聊纸上的两串珠子",
+          "en": "Talk about those paper beads"
+        }
+      },
+      {
+        "id": "vancouver.arrival.two-tracks-on-paper.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "给点和圈分别写名字",
+          "en": "Label the dots and circles"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "vancouver.dots-and-circles"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "vancouver.arrival.dome-looking-up",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "vancouver",
+    "factIds": [
+      "vancouver-bloedel"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "圆顶罩着植物，我用手罩住滚动的铅笔。",
+      "en": "The dome sheltered plants; my hand sheltered a rolling pencil."
+    },
+    "text": {
+      "zh-Hans": "看温哥华布洛代尔温室的圆顶，我在自己的本子上试画弯线，铅笔一松手就滚。赶紧按住，才没让它抢先离开。想到圆顶下面种着热带和亚热带植物，我给草稿写“各有各的屋顶”。我的那一份屋顶，暂时是一只手。",
+      "en": "Looking at Bloedel Conservatory’s dome, I tried a curve in my notebook. The pencil rolled as soon as I released it. Under the real dome grow tropical and subtropical plants; under my hand, one pencil stayed put. “A roof for each of us,” I wrote beside the Vancouver sketch."
+    },
+    "replies": [
+      {
+        "id": "vancouver.arrival.dome-looking-up.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲铅笔临时的屋顶",
+          "en": "Describe the pencil’s temporary roof"
+        }
+      },
+      {
+        "id": "vancouver.arrival.dome-looking-up.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看弧线有没有接上",
+          "en": "Check whether the curve joins"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "vancouver.pencil-roof"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "vancouver.arrival.seared-surface",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "vancouver",
+    "factIds": [
+      "vancouver-aburi"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "菜单这一笔，只画表面。",
+      "en": "This menu drawing began at the surface."
+    },
+    "text": {
+      "zh-Hans": "在温哥华尝炙烧寿司，我想记下海鲜表面轻炙过的样子。菜单上涂色太用力，差点像整块焦了。我减淡铅笔，重新画一小格，再认真吃完。给你这份记录的是我那一口，不能让铅笔代替味觉下判断。",
+      "en": "After trying aburi sushi in Vancouver, I sketched the lightly seared seafood surface. Heavy shading made my drawing look entirely burnt. I lightened the pencil and tried a smaller panel before finishing the meal. This records my serving; a pencil should not make taste judgments on my behalf."
+    },
+    "replies": [
+      {
+        "id": "vancouver.arrival.seared-surface.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "讲讲自己的这一口",
+          "en": "Describe your own bite"
+        }
+      },
+      {
+        "id": "vancouver.arrival.seared-surface.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "把表面的颜色看轻些",
+          "en": "Study the lightly shaded surface"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "vancouver.menu-aburi"
+      ]
+    }
+  },
+  {
+    "id": "vancouver.arrival.bar-three-levels",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "vancouver",
+    "factIds": [
+      "vancouver-nanaimo-bar"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "小方块有层次，我的图也想有。",
+      "en": "The little square had layers. My drawing wanted some too."
+    },
+    "text": {
+      "zh-Hans": "温哥华这块纳奈莫方块，我从侧面画，底层、甜馅和巧克力顶层分开记。第一遍画得像三本叠在一起的书。我给它添了盘子，才像一份点心。写信的时候还惦记那幅图，幸好我没有真给点心编页码。",
+      "en": "For a Nanaimo bar in Vancouver, I drew the side: base, sweet filling and chocolate top. The first attempt resembled three stacked books. Adding a plate helped it become dessert. I was still thinking about the picture while writing home. Fortunately, I never actually numbered the pages of the snack."
+    },
+    "replies": [
+      {
+        "id": "vancouver.arrival.bar-three-levels.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "替三本小书介绍点心",
+          "en": "Introduce the book-like dessert"
+        }
+      },
+      {
+        "id": "vancouver.arrival.bar-three-levels.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "从侧面看看三层",
+          "en": "Study the three layers from the side"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "vancouver.dessert-books"
+      ],
+      "menuIds": [
+        "vancouver.menu-nanaimo-bar"
+      ]
+    }
+  },
+  {
+    "id": "vancouver.arrival.two-drawing-corrections",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "vancouver",
+    "factIds": [
+      "vancouver-aburi",
+      "vancouver-nanaimo-bar"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "talkative",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "这一顿，铅笔先认了两次错。",
+      "en": "For this meal, the pencil admitted two mistakes."
+    },
+    "text": {
+      "zh-Hans": "和旅人聊温哥华的炙烧寿司与纳奈莫方块，我把画错的地方也讲了。太深的阴影、太像书的三层，听起来像铅笔自己出门吃饭。对方说菜单背面该留给这些。我写好了，正面认食物，翻过来就能认出写信给你的笨手。",
+      "en": "Talking about Vancouver aburi sushi and a Nanaimo bar, I included my drawing mistakes: heavy shading and book-like layers. It sounded as though the pencil had dined without me. My listener suggested saving those details on the menu backs. The fronts show the food; the reverse reveals the awkward hand writing home."
+    },
+    "replies": [
+      {
+        "id": "vancouver.arrival.two-drawing-corrections.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "把画错的经过讲完",
+          "en": "Tell the story of the mistaken drawings"
+        }
+      },
+      {
+        "id": "vancouver.arrival.two-drawing-corrections.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "翻看看背面的小记",
+          "en": "Read the notes on the reverse"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "vancouver.menu-aburi",
+        "vancouver.menu-nanaimo-bar"
+      ]
+    }
+  },
+  {
+    "id": "vancouver.arrival.paper-light-and-layered",
+    "version": 1,
+    "kind": "arrival",
+    "cityId": "vancouver",
+    "factIds": [
+      "vancouver-aburi",
+      "vancouver-nanaimo-bar"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": "observant",
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "轻的一笔，分层的一笔，分开收好。",
+      "en": "A light stroke and layered lines went into separate sleeves."
+    },
+    "text": {
+      "zh-Hans": "整理温哥华菜单，我把寿司那张放亮处看，免得阴影画重；方块那张竖起来看，检查层线有没有连在一起。忙完把两张放平，自己也坐直。看纸有这么多姿势，吃饭倒只要好好坐着就够了。",
+      "en": "Sorting my Vancouver menus, I held the sushi sketch to the light to check its shading, then raised the Nanaimo bar drawing to inspect the layer lines. Finally both went flat and I sat upright. Paper has required several viewing positions; eating merely required me to sit comfortably."
+    },
+    "replies": [
+      {
+        "id": "vancouver.arrival.paper-light-and-layered.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "说说看纸的几种姿势",
+          "en": "Describe the viewing positions"
+        }
+      },
+      {
+        "id": "vancouver.arrival.paper-light-and-layered.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "分别检查阴影和层线",
+          "en": "Check shading and layers separately"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": [
+        "vancouver.menu-aburi",
+        "vancouver.menu-nanaimo-bar"
+      ]
+    }
+  },
+  {
+    "id": "vancouver.fulfill.labelled-paper-path",
+    "version": 1,
+    "kind": "fulfill",
+    "cityId": "vancouver",
+    "factIds": [
+      "vancouver-stanley-seawall"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [
+      "vancouver.arrival.two-tracks-on-paper.observant"
+    ],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "收到“{reply}”，两串珠子有了名字。",
+      "en": "With “{reply},” the two strings of beads acquired names."
+    },
+    "text": {
+      "zh-Hans": "按你的回应，我在温哥华海堤小图旁写好“步行”和“骑行”，再折成长纸条。脚印的点和轮子的圈终于不会混着读。纸条只记自己看到的分区，不代替现场标识。给你翻看的时候，可以让手指散个很短的步。",
+      "en": "Following your reply, I labeled the walking and cycling lines in my Vancouver seawall sketch and folded it into a long strip. Dots and circles now read differently. It records the separation I noticed, rather than replacing signs on the path. Your finger can take a very short walk along it at home."
+    },
+    "replies": [
+      {
+        "id": "vancouver.fulfill.labelled-paper-path.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "沿纸条讲讲两条线",
+          "en": "Describe the two lines along the strip"
+        }
+      },
+      {
+        "id": "vancouver.fulfill.labelled-paper-path.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看点和圈的标签",
+          "en": "Read the dots’ and circles’ labels"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [
+        "vancouver.labelled-paper-path"
+      ],
+      "menuIds": []
+    }
+  },
+  {
+    "id": "vancouver.revisit.water-beside-me",
+    "version": 1,
+    "kind": "revisit",
+    "cityId": "vancouver",
+    "factIds": [
+      "vancouver-stanley-seawall"
+    ],
+    "tags": [],
+    "requires": {
+      "habit": null,
+      "item": null,
+      "season": null,
+      "tool": null,
+      "rainySeason": null
+    },
+    "fulfills": [],
+    "fulfillsHabit": null,
+    "lead": {
+      "zh-Hans": "海堤上来了一位口袋里的小骑手。",
+      "en": "A tiny cyclist needed help choosing a path."
+    },
+    "text": {
+      "zh-Hans": "一辆巴掌大的单车被举到我眼前，车座上还坐着小熊。孩子问它该走哪边。我认得温哥华斯坦利公园海堤的标识，这回走在靠水的步行区，没料到会碰见这么小的骑手。我说先让小熊下来歇歇，他便认真卸下小熊，塞进自己胸前的口袋，抱着车跟妈妈走了。口袋外还露着一对绒耳朵。",
+      "en": "A child held up a palm-sized bicycle with a bear on the seat and asked which path it should take. I remembered the signs on Stanley Park’s seawall from being in Vancouver before. This time I was walking near the water, but I had not expected to advise such a tiny cyclist. I suggested that the bear get off for a rest. The child carefully unseated it, tucked it into his chest pocket, and carried the bicycle after his mother. Two furry ears stuck out above the pocket."
+    },
+    "replies": [
+      {
+        "id": "vancouver.revisit.water-beside-me.talkative",
+        "habit": "talkative",
+        "text": {
+          "zh-Hans": "问问小骑手要不要歇脚",
+          "en": "Ask whether the little cyclist needs a rest"
+        }
+      },
+      {
+        "id": "vancouver.revisit.water-beside-me.observant",
+        "habit": "observant",
+        "text": {
+          "zh-Hans": "看看口袋外的小熊耳朵",
+          "en": "Look at the bear’s ears above the pocket"
+        }
+      }
+    ],
+    "rewards": {
+      "itemIds": [],
+      "menuIds": []
+    }
+  }
+]

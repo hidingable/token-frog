@@ -10,7 +10,7 @@
     "capital",
     "art"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "柏林",
     "en": "Berlin"
@@ -19,5 +19,67 @@
     "zh-Hans": "柏林",
     "en": "Berlin"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "berlin-tv-tower",
+      "type": "place",
+      "names": {
+        "zh-Hans": "柏林电视塔",
+        "en": "Berlin TV Tower"
+      },
+      "summary": {
+        "zh-Hans": "柏林电视塔设有观景台，可环看柏林城市景观，包括施普雷河等地标。",
+        "en": "The Berlin TV Tower has an observation deck offering panoramic views across the city, including the River Spree."
+      },
+      "sources": [
+        "https://tv-turm.de/en/observation-deck/"
+      ]
+    },
+    {
+      "id": "berlin-tiergarten",
+      "type": "place",
+      "names": {
+        "zh-Hans": "蒂尔加滕公园",
+        "en": "Großer Tiergarten"
+      },
+      "summary": {
+        "zh-Hans": "蒂尔加滕是柏林市中心的大型公园，有供散步和休憩的草地；新湖位于公园南侧。",
+        "en": "Großer Tiergarten is a large central Berlin park with lawns for relaxation and space for walks. Neuer See lies in its southern part."
+      },
+      "sources": [
+        "https://www.visitberlin.de/de/tiergarten"
+      ]
+    },
+    {
+      "id": "berlin-currywurst",
+      "type": "food",
+      "names": {
+        "zh-Hans": "咖喱香肠",
+        "en": "Currywurst"
+      },
+      "summary": {
+        "zh-Hans": "柏林咖喱香肠常以烤肠搭配咖喱番茄酱，有带肠衣和不带肠衣的版本。",
+        "en": "Berlin currywurst commonly pairs grilled sausage with a curry-tomato sauce, with versions served with or without casing."
+      },
+      "sources": [
+        "https://www.berlin.de/en/tourism/insider-tips/5150899-5766508-berlin-specialties-must-try.en.html",
+        "https://www.visitberlin.de/en/berlins-currywurst"
+      ]
+    },
+    {
+      "id": "berlin-pfannkuchen",
+      "type": "food",
+      "names": {
+        "zh-Hans": "柏林果酱面包球",
+        "en": "Berliner Pfannkuchen"
+      },
+      "summary": {
+        "zh-Hans": "柏林称为 Pfannkuchen 的圆形油炸面点，常包李子或草莓果酱；也有糖粉、糖霜或其他馅料的版本。",
+        "en": "Berlin’s Pfannkuchen are round fried pastries commonly filled with plum or strawberry jam, with versions using powdered sugar, glaze or other fillings."
+      },
+      "sources": [
+        "https://www.berlin.de/en/tourism/insider-tips/5150899-5766508-berlin-specialties-must-try.en.html"
+      ]
+    }
+  ]
 }

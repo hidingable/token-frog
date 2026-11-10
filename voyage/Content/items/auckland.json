@@ -1,0 +1,98 @@
+[
+  {
+    "id": "auckland.menu-fish-chips",
+    "kind": "menu",
+    "cityId": "auckland",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "薯条下划线菜单",
+      "en": "Chip Underline Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "奥克兰炸鱼薯条手绘菜单，横线由真正的铅笔完成。",
+      "en": "An Auckland fish-and-chips sketch, underlined by a real pencil."
+    }
+  },
+  {
+    "id": "auckland.menu-hokey-pokey",
+    "kind": "menu",
+    "cityId": "auckland",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小响声冰淇淋菜单",
+      "en": "Little Crunch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "奥克兰冰淇淋菜单，蜂窝糖的脆被画成短线。",
+      "en": "An Auckland ice-cream menu with short lines for honeycomb crunch."
+    }
+  },
+  {
+    "id": "auckland.view-circle",
+    "kind": "souvenir",
+    "cityId": "auckland",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "观景圆圈纸",
+      "en": "Circle of a View"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在奥克兰天空塔看完一圈后画的纸片。",
+      "en": "A paper circle drawn after taking in the Sky Tower view."
+    }
+  },
+  {
+    "id": "auckland.spoon-whiskers",
+    "kind": "souvenir",
+    "cityId": "auckland",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "长胡子的勺子纸",
+      "en": "Whiskered Spoon Paper"
+    },
+    "descriptions": {
+      "zh-Hans": "自画便纸，记着奥克兰一勺冰淇淋的脆响。",
+      "en": "A homemade spoon doodle remembering a crunchy Auckland spoonful."
+    }
+  },
+  {
+    "id": "auckland.sideways-paper",
+    "kind": "souvenir",
+    "cityId": "auckland",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "横过来的园名纸",
+      "en": "Garden Names, Sideways"
+    },
+    "descriptions": {
+      "zh-Hans": "在奥克兰植物园写园名后转了方向的小纸。",
+      "en": "A little sheet turned sideways to fit names at Auckland Botanic Gardens."
+    }
+  },
+  {
+    "id": "auckland.direction-tab",
+    "kind": "souvenir",
+    "cityId": "auckland",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "不打转的纸舌卡",
+      "en": "One Direction Paper Tab"
+    },
+    "descriptions": {
+      "zh-Hans": "信使给天空塔观景圆圈添了箭头后亲手折的卡。",
+      "en": "A hand-folded card with a tab and arrow for a personal Sky Tower view."
+    }
+  }
+]

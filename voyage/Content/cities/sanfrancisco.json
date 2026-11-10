@@ -10,7 +10,7 @@
     "coast",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "旧金山",
     "en": "San Francisco"
@@ -19,5 +19,66 @@
     "zh-Hans": "旧金山",
     "en": "San Francisco"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "sanfrancisco-golden-gate",
+      "type": "place",
+      "names": {
+        "zh-Hans": "金门大桥",
+        "en": "Golden Gate Bridge"
+      },
+      "summary": {
+        "zh-Hans": "金门大桥的橙红色称为 International Orange。桥梁涂装同时承担保护钢材、减少腐蚀的作用。",
+        "en": "The Golden Gate Bridge’s orange-red colour is called International Orange. Its paint also protects the steel against corrosion."
+      },
+      "sources": [
+        "https://www.goldengate.org/bridge/bridge-maintenance/painting-the-bridge/"
+      ]
+    },
+    {
+      "id": "sanfrancisco-cable-museum",
+      "type": "place",
+      "names": {
+        "zh-Hans": "旧金山缆车博物馆",
+        "en": "San Francisco Cable Car Museum"
+      },
+      "summary": {
+        "zh-Hans": "旧金山缆车博物馆展示历史缆车，并可观看让地下缆索运转的动力设备；城市缆车由地下缆索牵引。",
+        "en": "San Francisco’s Cable Car Museum displays historic cars and offers a view of machinery moving the underground cables that pull the city’s cable cars."
+      },
+      "sources": [
+        "https://www.visitcalifornia.com/experience/cable-cars/"
+      ]
+    },
+    {
+      "id": "sanfrancisco-sourdough",
+      "type": "food",
+      "names": {
+        "zh-Hans": "酸面包",
+        "en": "Sourdough Bread"
+      },
+      "summary": {
+        "zh-Hans": "旧金山的酸面包以带酸味的湿润内里和有嚼劲的外皮为特色，制作使用发酵过程。",
+        "en": "San Francisco sourdough is fermented bread with a moist, tangy interior and a chewy crust."
+      },
+      "sources": [
+        "https://www.sftravel.com/article/locals-guide-to-best-sourdough-bread-san-francisco"
+      ]
+    },
+    {
+      "id": "sanfrancisco-cioppino",
+      "type": "food",
+      "names": {
+        "zh-Hans": "番茄海鲜炖汤",
+        "en": "Cioppino"
+      },
+      "summary": {
+        "zh-Hans": "旧金山的 cioppino 以番茄汤底搭配海鲜，鱼、蟹、虾或贝类等都可入锅，没有统一的海鲜组合。",
+        "en": "San Francisco cioppino combines a tomato-based broth with seafood such as fish, crab, shrimp or shellfish; the mixture varies."
+      },
+      "sources": [
+        "https://www.kqed.org/news/11695791/the-fishy-origins-of-cioppino"
+      ]
+    }
+  ]
 }

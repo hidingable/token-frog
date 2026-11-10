@@ -1,0 +1,98 @@
+[
+  {
+    "id": "buenosaires.menu-empanada",
+    "kind": "menu",
+    "cityId": "buenosaires",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "半月午饭菜单",
+      "en": "Crescent Lunch Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在布宜诺斯艾利斯吃烤馅饼后画的菜单，记号指着自己这份肉馅。",
+      "en": "A Buenos Aires empanada menu marking the messenger’s meat filling."
+    }
+  },
+  {
+    "id": "buenosaires.menu-churros",
+    "kind": "menu",
+    "cityId": "buenosaires",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "糖点吉拿棒菜单",
+      "en": "Sugar-dotted Churro Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在布宜诺斯艾利斯吃过吉拿棒后画的干净菜单。",
+      "en": "A clean menu drawing after churros in Buenos Aires."
+    }
+  },
+  {
+    "id": "buenosaires.petal-spoon",
+    "kind": "souvenir",
+    "cityId": "buenosaires",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "像勺子的花瓣草稿",
+      "en": "Spoon-like Petal Draft"
+    },
+    "descriptions": {
+      "zh-Hans": "金属花前的原创草稿，信使把花瓣画得有点像勺子。",
+      "en": "An original Floralis Genérica draft with a rather spoon-like petal."
+    }
+  },
+  {
+    "id": "buenosaires.sugar-dots",
+    "kind": "souvenir",
+    "cityId": "buenosaires",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "省略号糖点纸",
+      "en": "Sugar Ellipsis Paper"
+    },
+    "descriptions": {
+      "zh-Hans": "信使回想布宜诺斯艾利斯吉拿棒时画的点点便纸。",
+      "en": "A dotted paper made while recalling Buenos Aires churros."
+    }
+  },
+  {
+    "id": "buenosaires.garden-outline",
+    "kind": "souvenir",
+    "cityId": "buenosaires",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "只带线条的园子",
+      "en": "A Garden in Lines Alone"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自画的布宜诺斯艾利斯植物园轮廓纸，没有夹带植物。",
+      "en": "A homemade botanical-garden outline from Buenos Aires, carrying only drawings."
+    }
+  },
+  {
+    "id": "buenosaires.petal-outline-card",
+    "kind": "souvenir",
+    "cityId": "buenosaires",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "金属花留白卡",
+      "en": "Flower Outline Card"
+    },
+    "descriptions": {
+      "zh-Hans": "沿金属花轮廓重画后折成的原创纸卡，中间留白。",
+      "en": "An original folded card with a redrawn Floralis Genérica outline and an open middle."
+    }
+  }
+]

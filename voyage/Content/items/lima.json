@@ -1,0 +1,98 @@
+[
+  {
+    "id": "lima.menu-causa",
+    "kind": "menu",
+    "cityId": "lima",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "土豆层线菜单",
+      "en": "Potato Layer Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在利马吃鸡肉 causa 后补画夹馅层的小菜单。",
+      "en": "A Lima chicken causa menu with the filling layer added."
+    }
+  },
+  {
+    "id": "lima.menu-suspiro",
+    "kind": "menu",
+    "cityId": "lima",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "叹息甜点改字菜单",
+      "en": "Suspiro Spelling Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在利马吃甜点时改好菜名留下的菜单纸。",
+      "en": "A Lima dessert menu with the dish’s spelling put right."
+    }
+  },
+  {
+    "id": "lima.short-arrow",
+    "kind": "souvenir",
+    "cityId": "lima",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "太短的箭头纸",
+      "en": "Too-short Arrow Slip"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在赖蒙迪公园画的个人草稿，灯塔和椅子挤得太近。",
+      "en": "A personal Raimondi Park draft that crowds lighthouse and bench together."
+    }
+  },
+  {
+    "id": "lima.name-correction",
+    "kind": "souvenir",
+    "cityId": "lima",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "字母归队便签",
+      "en": "Letters Back in Line"
+    },
+    "descriptions": {
+      "zh-Hans": "在利马抄甜点名后自制的改字小纸。",
+      "en": "A homemade correction slip after writing a Lima dessert’s name."
+    }
+  },
+  {
+    "id": "lima.pause-bookmark",
+    "kind": "souvenir",
+    "cityId": "lima",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "先看完书签",
+      "en": "Look First Bookmark"
+    },
+    "descriptions": {
+      "zh-Hans": "信使回想利马喷泉时做的纸书签，提醒自己合上本子先看。",
+      "en": "A paper bookmark made after Lima’s fountains, recalling a pause to look."
+    }
+  },
+  {
+    "id": "lima.long-arrow-card",
+    "kind": "souvenir",
+    "cityId": "lima",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "展开的距离纸卡",
+      "en": "Distance Unfolded"
+    },
+    "descriptions": {
+      "zh-Hans": "亲手折的利马歇脚记忆卡，展开才看见长箭头。",
+      "en": "A hand-folded Lima memory card that opens to reveal a long arrow."
+    }
+  }
+]

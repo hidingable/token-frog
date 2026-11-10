@@ -11,7 +11,7 @@
     "mountain",
     "nature"
   ],
-  "level": "basic",
+  "level": "full",
   "names": {
     "zh-Hans": "温哥华",
     "en": "Vancouver"
@@ -20,5 +20,67 @@
     "zh-Hans": "温哥华",
     "en": "Vancouver"
   },
-  "facts": []
+  "facts": [
+    {
+      "id": "vancouver-stanley-seawall",
+      "type": "place",
+      "names": {
+        "zh-Hans": "斯坦利公园海堤步道",
+        "en": "Stanley Park Seawall"
+      },
+      "summary": {
+        "zh-Hans": "温哥华海滨步道包含环绕斯坦利公园的一段。步行与慢跑区域靠近水边，骑行与轮滑区域在内侧，分区设有标识。",
+        "en": "Vancouver’s seaside path includes a section around Stanley Park. Marked areas separate walkers and joggers nearer the water from cyclists and inline skaters on the inside."
+      },
+      "sources": [
+        "https://vancouver.ca/parks-recreation-culture/seawall.aspx"
+      ]
+    },
+    {
+      "id": "vancouver-bloedel",
+      "type": "place",
+      "names": {
+        "zh-Hans": "布洛代尔圆顶温室",
+        "en": "Bloedel Conservatory"
+      },
+      "summary": {
+        "zh-Hans": "温哥华布洛代尔温室以圆顶结构覆盖展区，种植热带与亚热带雨林植物。",
+        "en": "Vancouver’s Bloedel Conservatory houses tropical and subtropical rainforest plants beneath a dome."
+      },
+      "sources": [
+        "https://vancouver.ca/parks-recreation-culture/bloedel-conservatory-what-to-see.aspx"
+      ]
+    },
+    {
+      "id": "vancouver-aburi",
+      "type": "food",
+      "names": {
+        "zh-Hans": "炙烧寿司",
+        "en": "Aburi Sushi"
+      },
+      "summary": {
+        "zh-Hans": "温哥华有供应 aburi 炙烧寿司，以火焰轻炙海鲜表面，为寿司带来不同的风味和口感。",
+        "en": "Vancouver serves aburi sushi, lightly flame-searing seafood to change its flavour and texture."
+      },
+      "sources": [
+        "https://www.destinationvancouver.com/food-and-drink/dining-guides/vancouver-sushi"
+      ]
+    },
+    {
+      "id": "vancouver-nanaimo-bar",
+      "type": "food",
+      "names": {
+        "zh-Hans": "纳奈莫方块",
+        "en": "Nanaimo Bar"
+      },
+      "summary": {
+        "zh-Hans": "在温哥华也能品尝到纳奈莫方块。一种配方有饼屑、椰蓉和坚果底层，卡仕达粉黄油甜馅，以及巧克力顶层。",
+        "en": "Nanaimo bars are also served in Vancouver. One recipe layers a crumb, coconut and nut base, a custard-powder butter filling and a chocolate top."
+      },
+      "sources": [
+        "https://www.nanaimo.ca/docs/about-nanaimo/nanaimobarrecipe.pdf",
+        "https://www.fourfourtwo.com/competition/on-the-ground-in-vancouver-everything-you-need-to-know-about-one-of-the-most-beautiful-world-cup-2026-host-cities"
+      ]
+    }
+  ]
 }

@@ -243,7 +243,7 @@ private func process(_ journey: inout JourneyState, _ care: inout CareState, _ s
 @Suite struct RevisitContentTests {
     @Test func everyFullCityHasOneBilingualRevisitUsingItsOwnFacts() {
         let full = testCatalog.all.filter { $0.level == "full" }
-        #expect(full.count == 30)
+        #expect(full.count == fullContentCityIds.count)
         for city in full {
             let stories = testCatalog.stories.all.filter { $0.kind == "revisit" && $0.cityId == city.id }
             #expect(stories.count == 1)

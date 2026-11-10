@@ -1,0 +1,98 @@
+[
+  {
+    "id": "melbourne.menu-dim-sim",
+    "kind": "menu",
+    "cityId": "melbourne",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "小包午饭菜单",
+      "en": "Savoury Parcel Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在墨尔本画的蒸点心菜单，角落坐着陪饭的邮包。",
+      "en": "A Melbourne steamed dim sim menu with the companion mailbag in a corner."
+    }
+  },
+  {
+    "id": "melbourne.menu-jam-doughnut",
+    "kind": "menu",
+    "cityId": "melbourne",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "果酱小窗菜单",
+      "en": "Jam Window Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在墨尔本吃过果酱甜甜圈后画的剖面菜单。",
+      "en": "The messenger’s cross-section after a Melbourne jam doughnut."
+    }
+  },
+  {
+    "id": "melbourne.small-exclamation",
+    "kind": "souvenir",
+    "cityId": "melbourne",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "轻声感叹便签",
+      "en": "Quiet Exclamation Slip"
+    },
+    "descriptions": {
+      "zh-Hans": "在拉筹伯阅览室写的原创纸条，感叹号改小了。",
+      "en": "An original slip from La Trobe Reading Room, with a smaller exclamation mark."
+    }
+  },
+  {
+    "id": "melbourne.jam-window",
+    "kind": "souvenir",
+    "cityId": "melbourne",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "点心开窗纸",
+      "en": "Doughnut Window Paper"
+    },
+    "descriptions": {
+      "zh-Hans": "自制的小纸片，用一扇画出来的窗记住墨尔本的果酱点心。",
+      "en": "A homemade paper keepsake of a Melbourne doughnut, with a drawn window."
+    }
+  },
+  {
+    "id": "melbourne.lace-knot",
+    "kind": "souvenir",
+    "cityId": "melbourne",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "林荫路小结",
+      "en": "A Knot for the Garden Path"
+    },
+    "descriptions": {
+      "zh-Hans": "在卡尔顿花园系好鞋带后画的小结便纸。",
+      "en": "A paper knot drawn after tying a shoelace in Carlton Gardens."
+    }
+  },
+  {
+    "id": "melbourne.quiet-space-card",
+    "kind": "souvenir",
+    "cityId": "melbourne",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "安静的空白折卡",
+      "en": "Room for a Quiet Wow"
+    },
+    "descriptions": {
+      "zh-Hans": "信使亲手折的墨尔本记忆卡，穹顶轮廓和小感叹号都留有余地。",
+      "en": "A hand-folded Melbourne memory with space around a dome and a small exclamation."
+    }
+  }
+]

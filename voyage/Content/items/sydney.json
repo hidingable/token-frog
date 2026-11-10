@@ -1,0 +1,98 @@
+[
+  {
+    "id": "sydney.menu-meat-pie",
+    "kind": "menu",
+    "cityId": "sydney",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "肉派剖面菜单",
+      "en": "Meat Pie Cross-section Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "在悉尼画的菜单，完整和切开的派各占一格。",
+      "en": "A Sydney menu with room for the pie before and after cutting."
+    }
+  },
+  {
+    "id": "sydney.menu-lamington",
+    "kind": "menu",
+    "cityId": "sydney",
+    "rarity": null,
+    "icon": "lunch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "方蛋糕点点菜单",
+      "en": "Dotted Lamington Menu"
+    },
+    "descriptions": {
+      "zh-Hans": "尝过悉尼的方蛋糕后画的小菜单，椰蓉画成了点。",
+      "en": "A menu after a Sydney lamington, with coconut rendered as dots."
+    }
+  },
+  {
+    "id": "sydney.roof-note",
+    "kind": "souvenir",
+    "cityId": "sydney",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "伸出纸边的屋顶",
+      "en": "Roof Beyond the Page"
+    },
+    "descriptions": {
+      "zh-Hans": "信使在悉尼歌剧院外画的原创轮廓便签，边缘很努力。",
+      "en": "An original outline drawn outside Sydney Opera House. Its margins tried their best."
+    }
+  },
+  {
+    "id": "sydney.pie-section",
+    "kind": "souvenir",
+    "cityId": "sydney",
+    "rarity": "common",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "午饭双肖像纸",
+      "en": "Two Portraits of Lunch"
+    },
+    "descriptions": {
+      "zh-Hans": "信使自制纸条，记悉尼肉派切开前后的样子。",
+      "en": "A homemade slip remembering a Sydney pie before and after the cut."
+    }
+  },
+  {
+    "id": "sydney.garden-spacing",
+    "kind": "souvenir",
+    "cityId": "sydney",
+    "rarity": "uncommon",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "给回信的空位",
+      "en": "Space for a Reply"
+    },
+    "descriptions": {
+      "zh-Hans": "悉尼植物园歇脚时排过的信纸小样，留了一行空白。",
+      "en": "A letter-paper trial from a Sydney garden pause, with a line left open."
+    }
+  },
+  {
+    "id": "sydney.harbour-turn-card",
+    "kind": "souvenir",
+    "cityId": "sydney",
+    "rarity": "rare",
+    "icon": "sketch",
+    "habit": null,
+    "names": {
+      "zh-Hans": "屋顶与水翻面卡",
+      "en": "Roofs and Water Turn Card"
+    },
+    "descriptions": {
+      "zh-Hans": "信使折的双面纸卡，一面歌剧院，一面自己看过的悉尼港。",
+      "en": "A hand-folded card with Sydney Opera House and the messenger’s harbour memory on opposite sides."
+    }
+  }
+]
