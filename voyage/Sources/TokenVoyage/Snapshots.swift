@@ -61,7 +61,7 @@ enum Snapshots {
             model.withSnapshotState({ state in
                 update(&state)
                 if let todayUsage, let catalog = model.catalog {
-                    state.sync(today: todayUsage, catalog: catalog, wishTags: model.care.map(WishEngine.tags) ?? [])
+                    state.sync(today: todayUsage, now: model.now, catalog: catalog, wishTags: model.care.map(WishEngine.tags) ?? [])
                 }
             }) {
                 model.navigate(to: tab)
@@ -311,8 +311,8 @@ enum Snapshots {
 
         render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-collapsed", directory, model: model)
         model.withSnapshotState({ state in
-            state.legCost = max(state.legCost, 12 * outboundTokensPerKm)
-            state.legFuel = state.legCost - 12 * outboundTokensPerKm
+            state.legCost = max(state.legCost, 12 * state.tokensPerKm)
+            state.legFuel = state.legCost - 12 * state.tokensPerKm
             for index in state.letters.indices { state.letters[index].read = true }
         }) {
             render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-near-arrival", directory, model: model)
@@ -320,7 +320,7 @@ enum Snapshots {
         if let catalog = model.catalog, let longest = catalog.active.max(by: { model.l10n.cityName($0).count < model.l10n.cityName($1).count }) {
             model.withSnapshotState({ state in
                 state.targetCityId = longest.id
-                state.legCost = max(state.legCost, 500 * outboundTokensPerKm)
+                state.legCost = max(state.legCost, 500 * state.tokensPerKm)
                 state.legFuel = 0
             }) {
                 render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-long-destination", directory, model: model)
@@ -374,14 +374,17 @@ enum Snapshots {
             let next = DayKey.string(from: calendar.date(byAdding: .day, value: id, to: start)!)
             journey.sync(today: DayUsage(date: next), finalized: [
                 DayUsage(date: journey.openDate, fuel: outboundTokensPerKm, byClient: ["codex": outboundTokensPerKm]),
-            ], catalog: catalog)
+            ], now: DayKey.date(from: next)!, catalog: catalog)
             let index = journey.letters.count - 1
             journey.letters[index].cityId = "hangzhou"
             journey.letters[index].arrivals = ["hangzhou"]
             journey.letters[index].transitTargetId = nil
+            journey.days[journey.letters[index].date]?.arrivals = ["hangzhou"]
             journey.letters[index].deliverAt = now
             journey.letters[index].enrichmentDone = true
         }
+        journey.route = ["hangzhou", "hangzhou"]
+        journey.tripCount = 2
         journey.openDate = DayKey.string(from: now)
         CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
         care.trailClues["shanghai"] = 2
@@ -481,19 +484,23 @@ enum Snapshots {
             example.journey.letters[index].cityId = city
             example.journey.letters[index].arrivals = [city]
             example.journey.letters[index].transitTargetId = nil
+            example.journey.days[example.journey.letters[index].date]?.arrivals = [city]
         }
-        example.journey.route = ["shanghai"] + stops
+        example.journey.route = stops
+        example.journey.tripCount = 2
+        example.journey.phase = .returning
+        example.journey.phaseSince = now
         example.journey.currentCityId = "quanzhou"
         example.journey.targetCityId = "shanghai"
         example.journey.legFrom = catalog.city("quanzhou").coordinate
         example.journey.legTo = catalog.city("shanghai").coordinate
-        example.journey.legCost = JourneyState.cost(from: catalog.city("quanzhou"), to: catalog.city("shanghai"))
+        example.journey.legCost = max(returnTokensPerKm, Int(example.journey.legFrom.distanceKm(to: example.journey.legTo) * Double(returnTokensPerKm)))
         example.journey.legFuel = 0
         let key = DayKey.string(from: now)
         // Use the real engine to obtain a populated observation, independent of the snapshot date.
         for seed in UInt32(0)..<64 {
             var probe = JourneyState(seed: seed, startCityId: "shanghai", date: key, now: now, catalog: catalog)
-            probe.sync(today: DayUsage(date: key, fuel: 1), catalog: catalog)
+            probe.sync(today: DayUsage(date: key, fuel: 1), now: now, catalog: catalog)
             if let decision = probe.days[key]?.roadClueDecision, decision.clue != nil {
                 example.journey.seed = seed
                 example.journey.days[key, default: DayRecord()].roadClueDecision = decision
@@ -553,7 +560,7 @@ enum Snapshots {
             let next = Calendar.current.date(byAdding: .day, value: offset, to: start)!
             journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
                 DayUsage(date: journey.openDate, fuel: fuel, byClient: [tool: fuel], observedTokens: fuel * 100),
-            ], catalog: catalog)
+            ], now: next, catalog: catalog)
             CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
         }
         for index in journey.letters.indices {
@@ -572,7 +579,7 @@ enum Snapshots {
             let day = journey.openDate
             journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
                 DayUsage(date: day, fuel: 13_400_000, byClient: ["codex": 8_300_000, "claude": 5_100_000], observedTokens: 1_340_000_000),
-            ], catalog: catalog)
+            ], now: next, catalog: catalog)
             CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
             if offset == 1 {
                 let first = journey.letters.first { $0.id == 1 }!
@@ -593,7 +600,7 @@ enum Snapshots {
         let activeDay = Calendar.current.date(byAdding: .day, value: -2, to: now)!
         examples.journey.sync(today: DayUsage(date: DayKey.string(from: now)), finalized: [
             DayUsage(date: DayKey.string(from: activeDay), fuel: 100, byClient: ["codex": 100]),
-        ], catalog: catalog)
+        ], now: now, catalog: catalog)
         CareEngine.process(journey: &examples.journey, care: &examples.care, stories: catalog.stories, catalog: catalog)
         CareEngine.open(at: now, journey: &examples.journey, care: &examples.care, catalog: catalog)
         return examples
@@ -612,7 +619,7 @@ enum Snapshots {
             let next = calendar.date(byAdding: .day, value: offset, to: start)!
             journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
                 DayUsage(date: day, fuel: fuel, byClient: fuel == 0 ? [:] : ["codex": fuel * 3 / 4, "claude": fuel / 4], observedTokens: fuel * 100),
-            ], catalog: catalog)
+            ], now: next, catalog: catalog)
             CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
             if !quiet, offset == 8, let letter = journey.letters.last, let reply = letter.replyOptions.first {
                 CareEngine.reply(letterId: letter.id, replyId: reply.id, date: letter.date, journey: &journey, care: &care)
@@ -620,7 +627,7 @@ enum Snapshots {
         }
         CareEngine.open(at: sunday, journey: &journey, care: &care, catalog: catalog)
         CareEngine.writeWeeklyMail(journey: &journey, catalog: catalog)
-        journey.sync(today: DayUsage(date: DayKey.string(from: now)), catalog: catalog)
+        journey.sync(today: DayUsage(date: DayKey.string(from: now)), now: now, catalog: catalog)
         CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
         for index in journey.letters.indices {
             journey.letters[index].deliverAt = min(journey.letters[index].deliverAt, now)
@@ -640,7 +647,7 @@ enum Snapshots {
             care.bag.todayItem = "sketchbook"
             journey.sync(today: DayUsage(date: DayKey.string(from: next)), finalized: [
                 DayUsage(date: day, fuel: outboundTokensPerKm, byClient: ["codex": outboundTokensPerKm]),
-            ], catalog: catalog)
+            ], now: next, catalog: catalog)
             CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
         }
 

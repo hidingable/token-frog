@@ -655,8 +655,47 @@ final class AppModel {
         guard !isLocked else { return }
         now = clock()
         refreshWishWeek()
+        // Finalize previous days before advancing their saved timeline to the current clock.
+        if !isScanning, onboarding == nil, var state, let catalog,
+           state.openDate == DayKey.string(from: now) {
+            let previous = state
+            let record = state.days[state.openDate] ?? DayRecord()
+            state.sync(today: DayUsage(date: state.openDate, fuel: record.fuel, byClient: record.byClient,
+                                       observedTokens: record.tokens ?? 0), now: now, catalog: catalog,
+                       wishTags: care.map(WishEngine.tags) ?? [],
+                       revisitCities: care.map { RevisitStories.unlockedCities(care: $0, library: catalog.stories) } ?? [],
+                       deliveryTime: deliveryTime)
+            // Timers advance the clock without observing another tokscale high-water mark.
+            state.days[state.openDate]?.lastObservedAt = previous.days[state.openDate]?.lastObservedAt
+            if state != previous {
+                self.state = state
+                processLetters(persistChanges: false)
+                if state.totalKm > previous.totalKm {
+                    isMoving = true
+                    lastMovement = now
+                }
+                persist()
+            }
+        }
         if let lastMovement, now.timeIntervalSince(lastMovement) > 300 { isMoving = false }
         Task { await checkNotifications() }
+    }
+
+    /// The pending preview can call this without another usage scan.
+    func departNow() {
+        guard !isLocked, !isScanning, onboarding == nil, var state, state.phase == .pending, let catalog else { return }
+        now = clock()
+        refreshWishWeek()
+        let before = state.totalKm
+        state.departNow(now: now, catalog: catalog, wishTags: care.map(WishEngine.tags) ?? [],
+                        revisitCities: care.map { RevisitStories.unlockedCities(care: $0, library: catalog.stories) } ?? [])
+        self.state = state
+        processLetters(persistChanges: false)
+        if state.totalKm > before {
+            isMoving = true
+            lastMovement = now
+        }
+        persist()
     }
 
     /// Coalesces change events and keeps at least `minScanInterval` between scans.
@@ -708,14 +747,27 @@ final class AppModel {
             }
             let today = days.first { $0.date == todayKey } ?? DayUsage(date: todayKey)
             let finalized = days.filter { $0.date < todayKey && $0.date >= state.openDate }
+            var hourly: [String: [HourUsage]] = [:]
+            let hourlyStart = Calendar.current.date(byAdding: .day, value: -29, to: date).map { DayKey.string(from: $0) } ?? todayKey
+            // Each graph/hourly subprocess owns the scan slot in turn; a failed hourly read
+            // deliberately leaves this day absent so the engine uses its 23:59 fallback.
+            for final in finalized.sorted(by: { $0.date < $1.date }) where final.date >= hourlyStart {
+                guard final.observedTokens > (state.days[final.date]?.tokens ?? 0) else { continue }
+                if let rows = try? await hoursReader(final.date, final.date) { hourly[final.date] = rows }
+                guard !isLocked, generation == backgroundGeneration else { return }
+            }
             if needsHistory {
                 history = Dictionary(days.map { ($0.date, Double($0.observedTokens) / Double(outboundTokensPerKm)) }, uniquingKeysWith: { _, latest in latest })
                 historyDate = todayKey
             }
+            // Hourly reads suspend on the main actor; preserve any letter reads/open records made meanwhile.
+            guard let latestState = self.state else { return }
+            state = latestState
+            state.backfillTokens(days)
             let before = state.totalKm
             refreshWishWeek()
             let revisitCities = care.map { RevisitStories.unlockedCities(care: $0, library: catalog.stories) } ?? []
-            state.sync(today: today, finalized: finalized, catalog: catalog, wishTags: care.map(WishEngine.tags) ?? [],
+            state.sync(today: today, finalized: finalized, hourly: hourly, now: date, catalog: catalog, wishTags: care.map(WishEngine.tags) ?? [],
                        revisitCities: revisitCities, deliveryTime: deliveryTime)
             nightWorkObserver.observe(today, at: clock(), journey: &state, content: catalog.usageEvents)
             self.state = state
@@ -874,8 +926,8 @@ final class AppModel {
 
     /// Only available on the first day, when nothing has been settled and today can simply be replayed.
     func setStart(_ cityId: String) {
-        guard canChangeStart, var replacement = state, let catalog, catalog.find(cityId)?.status == "active", cityId != replacement.route[0] else { return }
-        replacement.setStart(cityId, catalog: catalog)
+        guard canChangeStart, var replacement = state, let catalog, catalog.find(cityId)?.status == "active", cityId != replacement.homeCityId else { return }
+        replacement.setStart(cityId, now: clock(), catalog: catalog)
         self.state = replacement
         enrichAttempts = [:]
         persist()

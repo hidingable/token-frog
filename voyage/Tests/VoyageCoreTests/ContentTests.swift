@@ -163,12 +163,12 @@ func removedCitiesLoadAndReachTheirSavedTarget(endpoint: String) throws {
         #expect(catalog.city(id).names.isEmpty)
     }
     let savedCountry = state.targetCountryCode
-    state.sync(today: DayUsage(date: "2026-11-01", fuel: state.legCost + 123), catalog: catalog)
+    state.sync(today: DayUsage(date: "2026-11-01", fuel: state.legCost + 123), now: DayKey.date(from: (DayUsage(date: "2026-11-01", fuel: state.legCost + 123)).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: catalog)
     #expect(state.currentCityId == target)
-    #expect(state.legFuel == 123)
+    #expect(state.phase == .staying && state.legFuel == state.legCost)
     #expect(state.route.last == target)
-    #expect(catalog.find(state.targetCityId)?.status == "active")
-    #expect(state.legFrom == to)
+    #expect(state.targetCityId == target)
+    #expect(state.legTo == to)
     if let savedCountry { #expect(state.stamps.contains { $0.countryCode == savedCountry }) }
 }
 
@@ -219,36 +219,37 @@ func removedCitiesLoadAndReachTheirSavedTarget(endpoint: String) throws {
     let catalog = try CityCatalog.load(directory: box.directory)
     #expect(catalog.find(retired)?.status == "retired")
     #expect(!catalog.active.contains { $0.id == retired })
-    state.sync(today: DayUsage(date: "2026-11-01", fuel: state.legCost), catalog: catalog)
+    state.sync(today: DayUsage(date: "2026-11-01", fuel: state.legCost), now: DayKey.date(from: (DayUsage(date: "2026-11-01", fuel: state.legCost)).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: catalog)
     #expect(state.currentCityId == retired)
-    var fuel = state.totalFuel
-    for _ in 0..<12 {
-        #expect(!DestinationPicker.candidates(currentCityId: state.currentCityId, route: state.route, catalog: catalog).contains { $0.id == retired })
-        #expect(state.targetCityId != retired)
-        fuel += state.remainingFuel
-        state.sync(today: DayUsage(date: "2026-11-01", fuel: fuel), catalog: catalog)
-    }
+    state.sync(today: DayUsage(date: "2026-11-01", observedTokens: state.legCost),
+               now: DayKey.date(from: "2026-11-01")!.addingTimeInterval(18 * 3600), catalog: catalog)
+    let finalTokens = state.days[state.openDate]!.tokens! + state.remainingFuel
+    state.sync(today: DayUsage(date: "2026-11-01", observedTokens: finalTokens),
+               now: DayKey.date(from: "2026-11-01")!.addingTimeInterval(19 * 3600), catalog: catalog)
+    #expect(state.phase == .home && state.tripCount == 1)
+    #expect(state.targetCityId != retired)
+    #expect(!DestinationPicker.candidates(currentCityId: state.homeCityId, route: state.route, catalog: catalog).contains { $0.id == retired })
 }
 
 @Test func catalogCoordinateChangesCannotMoveASavedLeg() throws {
     let box = try ContentSandbox()
     defer { box.cleanUp() }
     var state = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-01", catalog: testCatalog)
-    state.sync(today: DayUsage(date: "2026-11-01", fuel: 123), catalog: testCatalog)
+    state.sync(today: DayUsage(date: "2026-11-01", fuel: 123), now: DayKey.date(from: (DayUsage(date: "2026-11-01", fuel: 123)).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: testCatalog)
     let original = state
     for id in [state.currentCityId, state.targetCityId] {
         try box.edit("cities/\(id).json") { $0["lat"] = 0; $0["lon"] = 0 }
     }
     let catalog = try CityCatalog.load(directory: box.directory)
     state = try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(state))
-    state.sync(today: DayUsage(date: "2026-11-01", fuel: 123), catalog: catalog)
+    state.sync(today: DayUsage(date: "2026-11-01", fuel: 123), now: DayKey.date(from: (DayUsage(date: "2026-11-01", fuel: 123)).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: catalog)
     #expect(state.legCost == original.legCost)
     #expect(state.position == original.position)
     #expect(state.legProgress == original.legProgress && state.remainingFuel == original.remainingFuel)
     #expect(state.legFrom == original.legFrom && state.legTo == original.legTo)
-    state.sync(today: DayUsage(date: "2026-11-01", fuel: state.legCost), catalog: catalog)
+    state.sync(today: DayUsage(date: "2026-11-01", fuel: state.legCost), now: DayKey.date(from: (DayUsage(date: "2026-11-01", fuel: state.legCost)).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: catalog)
     #expect(state.currentCityId == original.targetCityId)
-    #expect(state.legFrom == original.legTo)
+    #expect(state.legTo == original.legTo)
 }
 
 @Test(arguments: ["filename", "uniqueID", "status", "level", "continent", "latitude", "longitude", "countryCode", "names", "wikipedia", "cityTags", "emptyTags", "factID", "factNames", "factSources", "publishedMissing", "unpublished", "cityJSON"])

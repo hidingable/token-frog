@@ -16,6 +16,30 @@ public enum JourneyMigrations {
         return json
     }
 
+    static func migrateV7(_ original: [String: Any], catalog: CityCatalog) throws -> [String: Any] {
+        var json = original
+        guard let route = json["route"] as? [String], let home = route.first,
+              let from = json["legFrom"] as? [String: Any],
+              let to = json["legTo"] as? [String: Any],
+              let openDate = json["openDate"] as? String else { throw SaveStoreError.invalidJSON }
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        guard let since = DayKey.date(from: openDate, calendar: calendar) else { throw SaveStoreError.invalidJSON }
+        json["homeCityId"] = home
+        // Continuous legs never snapshotted home after the first stop, so read it from content; a saved endpoint is only a fallback.
+        if let city = catalog.find(home), !city.isPlaceholder {
+            json["homeCoordinate"] = ["lat": city.coordinate.lat, "lon": city.coordinate.lon]
+        } else {
+            json["homeCoordinate"] = json["targetCityId"] as? String == home ? to : from
+        }
+        json["route"] = Array(route.dropFirst())
+        json["tripCount"] = route.count - 1
+        json["phase"] = "outbound"
+        json["phaseSince"] = since.timeIntervalSinceReferenceDate
+        json["travelFund"] = 0
+        return json
+    }
+
     // Persisted M0 country names are a permanent migration contract.
     public static let legacyCountryCodes: [String: String] = [
         "中国": "CN",
@@ -163,6 +187,7 @@ extension SaveMigrations {
             4: { JourneyMigrations.migrateV4($0) },
             5: { $0 }, // Opening history starts now; never infer absence from usage or old mail.
             6: { try JourneyMigrations.migrateV6($0) },
+            7: { try JourneyMigrations.migrateV7($0, catalog: catalog) },
         ])
     }
 }

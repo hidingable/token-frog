@@ -35,10 +35,29 @@ private actor WishProbe {
     func model(catalog: CityCatalog = localizationCatalog, clock: (() -> Date)? = nil, wishModel: WishContent.Model? = nil,
                usageReader: @escaping @Sendable (String?, String) async throws -> [DayDetail] = { _, _ in [] }) -> AppModel {
         AppModel(languageOverride: .en, defaults: WishDefaults(), directory: directory, catalog: catalog, themes: testThemes,
-                 now: clock ?? { now }, usageReader: usageReader, enrichmentReader: { _ in Enrichment() },
+                 now: clock ?? { now }, usageReader: usageReader, hoursReader: { _, _ in [] }, enrichmentReader: { _ in Enrichment() },
                  wishModel: wishModel, runtimeEnabled: false)
     }
     func cleanUp() { try? FileManager.default.removeItem(at: directory) }
+}
+
+private func wishReturnJourney(seed: UInt32, catalog: CityCatalog, now: Date) -> JourneyState {
+    let key = DayKey.string(from: now)
+    var journey = JourneyState(seed: seed, startCityId: "shanghai", date: key, now: now.addingTimeInterval(-6 * 3600), catalog: catalog)
+    let city = catalog.city(journey.targetCityId)
+    journey.route = [city.id]
+    journey.currentCityId = city.id
+    journey.targetCityId = journey.homeCityId
+    journey.targetCountryCode = catalog.city(journey.homeCityId).countryCode
+    journey.phase = .returning
+    journey.phaseSince = now
+    journey.legFrom = city.coordinate
+    journey.legTo = journey.homeCoordinate
+    journey.legCost = max(returnTokensPerKm, Int(city.coordinate.distanceKm(to: journey.homeCoordinate) * Double(returnTokensPerKm)))
+    var day = DayRecord()
+    day.arrivals = [city.id]
+    journey.days[key] = day
+    return journey
 }
 
 @Suite @MainActor struct WishAppTests {
@@ -92,13 +111,13 @@ private actor WishProbe {
         try JSONEncoder().encode(stories).write(to: storyDir.appendingPathComponent("test.json"))
         let catalog = try CityCatalog.load(directory: content)
         let seed = try #require((UInt32(0)..<100).first { seed in
-            let initial = JourneyState(seed: seed, startCityId: "shanghai", date: "2026-11-02", catalog: catalog)
+            let initial = wishReturnJourney(seed: seed, catalog: catalog, now: fixture.now)
             var a = initial, b = initial
-            a.sync(today: DayUsage(date: a.openDate, fuel: a.legCost), catalog: catalog, wishTags: ["coast"])
-            b.sync(today: DayUsage(date: b.openDate, fuel: b.legCost), catalog: catalog)
+            a.sync(today: DayUsage(date: a.openDate, fuel: a.legCost), now: fixture.now, catalog: catalog, wishTags: ["coast"])
+            b.sync(today: DayUsage(date: b.openDate, fuel: b.legCost), now: fixture.now, catalog: catalog)
             return a.targetCityId != b.targetCityId
         })
-        let journey = JourneyState(seed: seed, startCityId: "shanghai", date: "2026-11-02", catalog: catalog)
+        let journey = wishReturnJourney(seed: seed, catalog: catalog, now: fixture.now)
         let care = CareState(petName: "Pip", species: journey.pet, hatchedAt: journey.startDate)
         try fixture.save(journey, care)
         var current = fixture.now
@@ -109,7 +128,7 @@ private actor WishProbe {
         let model = fixture.model(catalog: catalog, clock: { current }, wishModel: { _, _, _ in ["coast"] }, usageReader: reader)
         #expect(await model.setWish("Quiet moments"))
         var expected = journey
-        expected.sync(today: DayUsage(date: "2026-11-02", fuel: fuel, byClient: ["codex": fuel]), catalog: catalog, wishTags: ["coast"])
+        expected.sync(today: DayUsage(date: "2026-11-02", fuel: fuel, byClient: ["codex": fuel]), now: fixture.now, catalog: catalog, wishTags: ["coast"])
         await model.scan()
         #expect(model.state?.targetCityId == expected.targetCityId)
         #expect(model.state?.route == expected.route)

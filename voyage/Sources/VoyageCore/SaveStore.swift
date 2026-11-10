@@ -233,7 +233,7 @@ public final class SaveStore {
         RoomDecor.clean(care: &care, library: items)
         PetMilestones.establishBaseline(care: &care)
         let careData = try JSONEncoder().encode(care)
-        // Imported files cross a trust boundary. These are runtime invariants assumed by route[0],
+        // Imported files cross a trust boundary. These are runtime invariants assumed by the trip engine,
         // day settlement and the photo loader; the existing version decoders only check the JSON shape.
         let dayParser = DateFormatter()
         dayParser.calendar = Calendar(identifier: .gregorian)
@@ -263,9 +263,11 @@ public final class SaveStore {
         func validCoordinate(_ coordinate: Coordinate) -> Bool {
             (-90...90).contains(coordinate.lat) && (-180...180).contains(coordinate.lon)
         }
-        guard !journey.route.isEmpty, journey.route.allSatisfy({ !$0.isEmpty }),
+        guard !journey.homeCityId.isEmpty, journey.route.allSatisfy({ !$0.isEmpty }),
+              validCoordinate(journey.homeCoordinate), journey.travelFund >= 0, journey.tripCount >= 0,
               !journey.currentCityId.isEmpty, !journey.targetCityId.isEmpty,
-              (0..<journey.legCost).contains(journey.legFuel),
+              journey.legFuel >= 0,
+              (journey.phase == .pending || (journey.phase == .staying ? journey.legFuel == journey.legCost : journey.legFuel < journey.legCost)),
               (0...(Int.max - maximumDailyFuel)).contains(journey.totalFuel),
               journey.totalKm.isFinite, journey.totalKm >= 0, journey.totalKm < Double(Int.max),
               validCoordinate(journey.legFrom), validCoordinate(journey.legTo),

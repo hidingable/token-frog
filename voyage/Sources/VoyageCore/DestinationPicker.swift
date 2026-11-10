@@ -54,7 +54,7 @@ public enum DestinationPicker {
 
     public static func pick(
         from coordinate: Coordinate, currentCityId: String, route: [String], stampedCountries: Set<String>,
-        medianKm: Double, wishTags: Set<String> = [], revisitCities: Set<String> = [], catalog: CityCatalog, seed: UInt32
+        medianKm: Double, wishTags: Set<String> = [], revisitCities: Set<String> = [], catalog: CityCatalog, seed: UInt32, tripCount: Int = 0
     ) -> String {
         var bands = Array(repeating: [City](), count: Band.allCases.count)
         let route = route.map { catalog.city($0).id }
@@ -62,7 +62,7 @@ public enum DestinationPicker {
             let band = band(distanceKm: coordinate.distanceKm(to: city.coordinate), medianKm: medianKm)
             bands[band.rawValue].append(city)
         }
-        var random = SplitMix64(seed: seed, stopCount: route.count)
+        var random = SplitMix64(seed: seed, stopCount: tripCount)
         let selectedBand = draw(weights: bandWeights(for: bands), random: &random)
         return drawCity(bands[selectedBand], route: route, stampedCountries: stampedCountries, wishTags: wishTags, revisitCities: revisitCities, random: &random)
     }
@@ -78,7 +78,7 @@ public enum DestinationPicker {
             coordinate.distanceKm(to: $0.coordinate) <= configuration.minimumMedianKm
         }
         if !near.isEmpty {
-            var random = SplitMix64(seed: seed, stopCount: route.count)
+            var random = SplitMix64(seed: seed, stopCount: 0)
             return drawCity(near, route: route, stampedCountries: stampedCountries, wishTags: wishTags, revisitCities: revisitCities, random: &random)
         }
         let nearest = (withContent.isEmpty ? cities : withContent).min {

@@ -51,6 +51,10 @@ private actor MileageReader {
         }
         var json = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(journey)) as? [String: Any])
         json["version"] = 6
+        json["route"] = [journey.homeCityId] + journey.route
+        for key in ["homeCityId", "homeCoordinate", "phase", "phaseSince", "travelFund", "tripCount"] {
+            json.removeValue(forKey: key)
+        }
         json.removeValue(forKey: "totalKm")
         json["legCost"] = journey.legCost / 100
         json["legFuel"] = journey.legCost / 300

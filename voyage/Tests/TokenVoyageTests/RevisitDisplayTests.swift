@@ -83,15 +83,30 @@ private final class RevisitDefaults: UserDefaults, @unchecked Sendable {
     @Test(arguments: [false, true])
     func scanPassesRevisitCandidatesToLiveAndCatchUpDraws(finalize: Bool) async throws {
         let catalog = localizationCatalog
+        let departure = Calendar.current.date(from: DateComponents(year: 2026, month: 11, day: 8, hour: 6))!
+        func returning(seed: UInt32) -> JourneyState {
+            var journey = JourneyState(seed: seed, startCityId: "shanghai", date: "2026-11-08", now: departure, catalog: catalog)
+            let city = catalog.city(journey.targetCityId)
+            journey.route = [city.id]
+            journey.currentCityId = city.id
+            journey.targetCityId = journey.homeCityId
+            journey.targetCountryCode = catalog.city(journey.homeCityId).countryCode
+            journey.phase = .returning
+            journey.phaseSince = departure.addingTimeInterval(6 * 3600)
+            journey.legFrom = city.coordinate
+            journey.legTo = journey.homeCoordinate
+            journey.legCost = max(returnTokensPerKm, Int(city.coordinate.distanceKm(to: journey.homeCoordinate) * Double(returnTokensPerKm)))
+            return journey
+        }
         let cities = Set(catalog.all.filter { $0.level == "full" }.map(\.id))
         let seed = try #require((UInt32(0)..<100).first { seed in
-            let initial = JourneyState(seed: seed, startCityId: "shanghai", date: "2026-11-08", catalog: catalog)
+            let initial = returning(seed: seed)
             var weighted = initial, ordinary = initial
-            weighted.sync(today: DayUsage(date: initial.openDate, fuel: initial.legCost), catalog: catalog, revisitCities: cities)
-            ordinary.sync(today: DayUsage(date: initial.openDate, fuel: initial.legCost), catalog: catalog)
+            weighted.sync(today: DayUsage(date: initial.openDate, fuel: initial.legCost), now: departure.addingTimeInterval(6 * 3600), catalog: catalog, revisitCities: cities)
+            ordinary.sync(today: DayUsage(date: initial.openDate, fuel: initial.legCost), now: departure.addingTimeInterval(6 * 3600), catalog: catalog)
             return weighted.targetCityId != ordinary.targetCityId
         })
-        let journey = JourneyState(seed: seed, startCityId: "shanghai", date: "2026-11-08", catalog: catalog)
+        let journey = returning(seed: seed)
         var care = CareState(petName: "Pip", species: journey.pet, hatchedAt: journey.startDate)
         care.trailClues = Dictionary(cities.map { ($0, 3) }, uniquingKeysWith: { first, _ in first })
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent("voyage-revisit-scan-\(UUID())")
@@ -105,12 +120,12 @@ private final class RevisitDefaults: UserDefaults, @unchecked Sendable {
         let model = AppModel(defaults: RevisitDefaults(), directory: directory, catalog: catalog, themes: testThemes,
                              now: { current }, usageReader: { _, _ in
             [DayDetail(date: "2026-11-08", rows: [.init(client: "codex", model: "test", tokens: .init(input: fuel))])]
-        }, enrichmentReader: { _ in Enrichment() }, runtimeEnabled: false)
+        }, hoursReader: { _, _ in [] }, enrichmentReader: { _ in Enrichment() }, runtimeEnabled: false)
         #expect(model.state?.targetCityId == journey.targetCityId)
         var expected = journey
         let usage = DayUsage(date: journey.openDate, fuel: fuel, byClient: ["codex": fuel])
         expected.sync(today: finalize ? DayUsage(date: "2026-11-09") : usage, finalized: finalize ? [usage] : [],
-                      catalog: catalog, revisitCities: cities)
+                      now: current, catalog: catalog, revisitCities: cities)
         await model.scan()
         #expect(model.state?.targetCityId == expected.targetCityId && model.state?.route == expected.route)
     }

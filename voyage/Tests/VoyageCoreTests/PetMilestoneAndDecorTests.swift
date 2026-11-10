@@ -136,7 +136,7 @@ private func decorCare(days: Int = 20) -> CareState {
             var journey = JourneyState(seed: 42, startCityId: "shanghai", date: "2026-10-01", catalog: testCatalog)
             var care = decorCare()
             _ = RoomDecor.place(care.souvenirs[0].id, in: .floor, care: &care, library: testCatalog.items)
-            journey.sync(today: DayUsage(date: journey.openDate, fuel: 30_000 * multiplier), catalog: testCatalog)
+            journey.sync(today: DayUsage(date: journey.openDate, fuel: 30_000 * multiplier), now: DayKey.date(from: (DayUsage(date: journey.openDate, fuel: 30_000 * multiplier)).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: testCatalog)
             CareEngine.process(journey: &journey, care: &care, stories: testCatalog.stories, catalog: testCatalog)
             return care
         }

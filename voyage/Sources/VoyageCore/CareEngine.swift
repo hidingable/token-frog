@@ -34,22 +34,49 @@ public enum CareEngine {
             if letter.storyId == nil {
                 letter.carriedItem = carriedItem(bag: care.bag, seed: journey.seed, letterId: letter.id)
                 let trigger = itemTrigger(seed: journey.seed, letterId: letter.id)
-                if let cityId = letter.arrivals.last(where: { id in stories.all.contains { $0.cityId == id } })
-                    ?? letter.arrivals.last {
-                    letter.cityId = cityId
-                }
+                if let cityId = letter.arrivals.last { letter.cityId = cityId }
                 let reply = promise.flatMap { promise in
                     journey.letters.first { $0.id == promise.letterId }?.replyOptions.first { $0.id == promise.replyId }
                 }
+                func hasPriorStay(_ cityId: String) -> Bool {
+                    journey.days.contains { $0.key < letter.date && $0.value.arrivals.contains(cityId) }
+                        || journey.letters.contains { $0.kind == .daily && $0.id < letter.id && $0.arrivals.contains(cityId) }
+                }
                 let recent = Set(journey.letters.filter { $0.id < letter.id }.sorted { $0.id < $1.id }.suffix(10).compactMap(\.storyId))
-                let story = choose(
+                var story = choose(
                     letter: letter, care: care, stories: stories, catalog: catalog, wishTags: wishTags,
                     dueReply: due ? reply : nil, itemTrigger: trigger, recent: recent, seed: journey.seed,
-                    hasPriorStay: journey.letters.contains {
-                        $0.kind == .daily && $0.date < letter.date && !$0.arrivals.isEmpty && $0.cityId == letter.cityId
-                    }
+                    hasPriorStay: hasPriorStay(letter.cityId)
                 )
                 snapshot(story, letter: &letter, petName: care.petName, reply: due ? reply : nil, catalog: catalog)
+                var segmentCare = care
+                for (offset, cityId) in letter.arrivals.enumerated() {
+                    var segment = letter
+                    segment.cityId = cityId
+                    segment.arrivals = [cityId]
+                    let prior = letter.arrivals.prefix(offset).contains(cityId) || hasPriorStay(cityId)
+                    let arrival = choose(
+                        letter: segment, care: segmentCare, stories: stories, catalog: catalog, wishTags: wishTags,
+                        dueReply: nil, itemTrigger: trigger, recent: recent, seed: journey.seed, hasPriorStay: prior, allowRevisit: !due
+                    )
+                    snapshot(arrival, letter: &segment, petName: care.petName, reply: nil, catalog: catalog)
+                    if !due, offset == letter.arrivals.count - 1 {
+                        story = arrival
+                        snapshot(arrival, letter: &letter, petName: care.petName, reply: nil, catalog: catalog)
+                    }
+                    letter.arrivalStories.append(.init(cityId: cityId, storyId: arrival.id, storyVersion: arrival.version,
+                                                       isRevisit: arrival.kind == "revisit", texts: segment.texts ?? [:]))
+                    if arrival.kind == "revisit" {
+                        segmentCare.toldRevisitStoryIds = (segmentCare.toldRevisitStoryIds ?? []) + [arrival.id]
+                    }
+                }
+                if !letter.arrivalStories.isEmpty {
+                    for language in Language.allCases {
+                        let segments = letter.arrivalStories.compactMap { $0.texts[language.rawValue] }.joined(separator: "\n\n")
+                        let mainText = letter.texts?[language.rawValue] ?? ""
+                        letter.texts?[language.rawValue] = due ? mainText + "\n\n" + segments : segments
+                    }
+                }
                 for note in letter.usageEventNotes ?? [] {
                     for language in Language.allCases {
                         letter.texts?[language.rawValue, default: ""] += "\n\n" + note.texts[language.rawValue]!
@@ -72,6 +99,9 @@ public enum CareEngine {
             if letter.isRevisit == true, let storyId = letter.storyId,
                !(care.toldRevisitStoryIds ?? []).contains(storyId) {
                 care.toldRevisitStoryIds = (care.toldRevisitStoryIds ?? []) + [storyId]
+            }
+            for segment in letter.arrivalStories where segment.isRevisit && !(care.toldRevisitStoryIds ?? []).contains(segment.storyId) {
+                care.toldRevisitStoryIds = (care.toldRevisitStoryIds ?? []) + [segment.storyId]
             }
             if let explainedAt = letter.wishExplanationAt, explainedAt == care.wishResolution?.parsedAt {
                 care.wishResolution?.explanationLetterId = letter.id
@@ -160,7 +190,7 @@ public enum CareEngine {
 
     private static func choose(
         letter: Letter, care: CareState, stories: StoryLibrary, catalog: CityCatalog, wishTags: Set<String>,
-        dueReply: StoryReply?, itemTrigger: Bool, recent: Set<String>, seed: UInt32, hasPriorStay: Bool
+        dueReply: StoryReply?, itemTrigger: Bool, recent: Set<String>, seed: UInt32, hasPriorStay: Bool, allowRevisit: Bool = true
     ) -> Story {
         let kind = letter.arrivals.isEmpty ? "transit" : "arrival"
         let city = catalog.city(letter.cityId)
@@ -176,7 +206,7 @@ public enum CareEngine {
                 eligible.filter { $0.cityId == nil && $0.kind == "fulfill" && $0.fulfills.isEmpty && $0.fulfillsHabit != nil },
             ]
         } else {
-            if !letter.arrivals.isEmpty, hasPriorStay,
+            if allowRevisit, !letter.arrivals.isEmpty, hasPriorStay,
                let revisit = RevisitStories.next(in: city.id, care: care, library: stories) {
                 tiers.append([revisit])
             }

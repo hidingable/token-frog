@@ -38,22 +38,22 @@ private func process(_ journey: inout JourneyState, _ care: inout CareState, _ s
         #expect(care.trailClues["shanghai", default: 0] >= clues)
     }
 
-    @Test func firstArrivalAndPriorPassThroughDoNotCountAsAStay() {
+    @Test func everyArrivalInAMultiStayLetterCountsAsAPriorStay() {
         var (journey, care) = engineState()
         let stories = engineStories([revisit(), engineStory("xian.arrival", city: "xian")])
         care.trailClues["shanghai"] = 9
-        // Even home / route membership is insufficient without a prior settled stay.
+        // The first letter covers both stays; the next letter can revisit either city.
         journey.route = ["shanghai", "xian", "shanghai"]
         journey.letters.append(engineLetter(1, arrivals: ["shanghai", "xian"]))
         process(&journey, &care, stories)
         #expect(journey.letters.last?.cityId == "xian")
         journey.letters.append(engineLetter(2, date: "2026-11-02"))
         process(&journey, &care, stories)
-        #expect(journey.letters.last?.isRevisit != true)
-        #expect(RevisitStories.progress(in: "shanghai", care: care, library: stories) == .unlocked)
+        #expect(journey.letters.last?.isRevisit == true)
+        #expect(RevisitStories.progress(in: "shanghai", care: care, library: stories) == .told)
         journey.letters.append(engineLetter(3, date: "2026-11-03"))
         process(&journey, &care, stories)
-        #expect(journey.letters.last?.isRevisit == true)
+        #expect(journey.letters.last?.isRevisit != true)
     }
 
     @Test func dueFulfillmentWinsAndLeavesTheRevisitForNextArrival() throws {
@@ -109,7 +109,7 @@ private func process(_ journey: inout JourneyState, _ care: inout CareState, _ s
         }
     }
 
-    @Test func onlyTheSelectedStoryCityConsumesARevisitAndTransitNeverDoes() {
+    @Test func everyStayGetsItsRevisitAndTransitNeverConsumesOne() {
         var (journey, care) = stayedState()
         let stories = engineStories([revisit(), revisit("xian.revisit", city: "xian")])
         journey.letters.append(engineLetter(2, arrivals: ["xian"], date: "2026-11-02"))
@@ -120,9 +120,10 @@ private func process(_ journey: inout JourneyState, _ care: inout CareState, _ s
         #expect((care.toldRevisitStoryIds ?? []).isEmpty)
         journey.letters.append(engineLetter(4, arrivals: ["shanghai", "xian", "no-story"], date: "2026-11-04"))
         process(&journey, &care, stories)
-        #expect(journey.letters.last?.cityId == "xian")
-        #expect(care.toldRevisitStoryIds == ["xian.revisit"])
-        #expect(RevisitStories.next(in: "shanghai", care: care, library: stories) != nil)
+        #expect(journey.letters.last?.cityId == "no-story")
+        #expect(journey.letters.last?.arrivalStories.map(\.cityId) == ["shanghai", "xian", "no-story"])
+        #expect(Set(care.toldRevisitStoryIds ?? []) == ["shanghai.revisit", "xian.revisit"])
+        #expect(RevisitStories.next(in: "shanghai", care: care, library: stories) == nil)
     }
 
     @Test func catchUpReplaysAndRestartTellOnlyOnceAndRepairInterruptedCareSave() throws {
@@ -198,9 +199,9 @@ private func process(_ journey: inout JourneyState, _ care: inout CareState, _ s
         let letters = journey.letters
         process(&journey, &care, stories)
         #expect(journey.letters == letters)
-        #expect(JourneyState.currentVersion == 7 && CareState.currentVersion == 1)
+        #expect(JourneyState.currentVersion == 8 && CareState.currentVersion == 1)
         let journeyURL = try #require(Bundle.module.url(forResource: "journey-v6", withExtension: "json", subdirectory: "Fixtures"))
-        let legacyJourney = try JSONDecoder().decode(JourneyState.self, from: Data(contentsOf: journeyURL))
+        let legacyJourney = try decodeOldJourneyFixture(Data(contentsOf: journeyURL))
         #expect(legacyJourney.letters.allSatisfy { $0.isRevisit == nil })
     }
 
@@ -221,21 +222,29 @@ private func process(_ journey: inout JourneyState, _ care: inout CareState, _ s
     }
 
     @Test func revisitWeightsReachLiveAndFinalizedDrawsAndNeverRedrawTheSavedTarget() {
-        let (initial, _) = engineState()
+        var (initial, _) = engineState()
+        initial.route = [initial.targetCityId]
+        initial.currentCityId = initial.targetCityId
+        initial.phase = .returning
+        initial.phaseSince = DayKey.date(from: initial.openDate, calendar: careCalendar)!
+        initial.legFrom = initial.legTo
+        initial.legTo = initial.homeCoordinate
+        initial.targetCityId = initial.homeCityId
+        initial.legCost = max(returnTokensPerKm, Int(initial.legFrom.distanceKm(to: initial.legTo) * Double(returnTokensPerKm)))
         let cities: Set<String> = ["shanghai", "hangzhou", "beijing"]
         let usage = DayUsage(date: initial.openDate, fuel: initial.legCost, byClient: ["codex": initial.legCost])
         var live = initial
         var catchUp = initial
-        live.sync(today: usage, calendar: careCalendar, catalog: testCatalog, revisitCities: cities)
-        let expected = DestinationPicker.pick(from: initial.legTo, currentCityId: initial.targetCityId, route: live.route,
+        live.sync(today: usage, now: DayKey.date(from: (usage).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog, revisitCities: cities)
+        let expected = DestinationPicker.pick(from: initial.homeCoordinate, currentCityId: initial.homeCityId, route: live.route,
                                               stampedCountries: Set(live.stamps.map(\.countryCode)), medianKm: 0,
-                                              revisitCities: cities, catalog: testCatalog, seed: initial.seed)
+                                              revisitCities: cities, catalog: testCatalog, seed: initial.seed, tripCount: 1)
         #expect(live.targetCityId == expected)
-        live.sync(today: DayUsage(date: "2026-11-02"), finalized: [usage], calendar: careCalendar, catalog: testCatalog, revisitCities: cities)
-        catchUp.sync(today: DayUsage(date: "2026-11-02"), finalized: [usage], calendar: careCalendar, catalog: testCatalog, revisitCities: cities)
+        live.sync(today: DayUsage(date: "2026-11-02"), finalized: [usage], now: DayKey.date(from: (DayUsage(date: "2026-11-02")).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog, revisitCities: cities)
+        catchUp.sync(today: DayUsage(date: "2026-11-02"), finalized: [usage], hourly: [usage.date: [HourUsage(date: usage.date, hour: 11, tokens: .init(input: usage.observedTokens))]], now: DayKey.date(from: (DayUsage(date: "2026-11-02")).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog, revisitCities: cities)
         #expect(live == catchUp)
         let saved = live
-        live.sync(today: DayUsage(date: live.openDate), calendar: careCalendar, catalog: testCatalog, revisitCities: ["xian"])
+        live.sync(today: DayUsage(date: live.openDate), now: DayKey.date(from: (DayUsage(date: live.openDate)).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog, revisitCities: ["xian"])
         #expect(live == saved)
     }
 }
@@ -297,12 +306,12 @@ private func revisitReplay(seed: UInt32, multiplier: Int, slices: Int = 1, catal
         let cities = RevisitStories.unlockedCities(care: care, library: stories)
         for slice in 1...slices {
             let usage = amount * slice / slices
-            journey.sync(today: DayUsage(date: date, fuel: usage, byClient: ["codex": usage], observedTokens: usage * 100), calendar: careCalendar,
+            journey.sync(today: DayUsage(date: date, fuel: usage, byClient: ["codex": usage], observedTokens: usage * 100), now: DayKey.date(from: (DayUsage(date: date, fuel: usage, byClient: ["codex": usage], observedTokens: usage * 100)).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar,
                          catalog: catalog, revisitCities: cities)
             CareEngine.process(journey: &journey, care: &care, stories: stories, catalog: catalog)
         }
         care.bag.todayItem = ["sketchbook", "note-slip", "raincoat", "old-camera", "lunchbox"][offset % 5]
-        journey.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount, byClient: ["codex": amount], observedTokens: amount * 100)],
+        journey.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: amount, byClient: ["codex": amount], observedTokens: amount * 100)], now: DayKey.date(from: (DayUsage(date: next)).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600),
                      calendar: careCalendar, catalog: catalog, revisitCities: cities)
         CareEngine.markCompanion(date: next, care: &care)
         CareEngine.process(journey: &journey, care: &care, stories: stories, catalog: catalog)
@@ -345,6 +354,6 @@ private func revisitReplay(seed: UInt32, multiplier: Int, slices: Int = 1, catal
         #expect(care.companionDays == doubledCare.companionDays && care.weekly == doubledCare.weekly)
         #expect(care.identity == doubledCare.identity)
         #expect(doubled.totalFuel == journey.totalFuel * 2)
-        #expect(doubled.totalKm == journey.totalKm * 2)
+        #expect(doubled.days.values.reduce(0) { $0 + ($1.tokens ?? 0) } == journey.days.values.reduce(0) { $0 + ($1.tokens ?? 0) } * 2)
     }
 }

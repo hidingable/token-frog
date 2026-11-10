@@ -17,9 +17,9 @@ import Testing
         #expect(try JSONDecoder().decode(JourneyState.self, from: original) == journey)
     }
 
-    @Test func stopsAreSelectedDailyCitiesRatherThanPassThroughsTransitOrCompanionMail() {
+    @Test func stopsAreAllRouteArrivalsIncludingMultipleStaysOnOneDay() {
         var (journey, _) = engineState()
-        journey.route = ["shanghai", "xian", "xian", "xian", "quanzhou", "quanzhou", "fukuoka"]
+        journey.route = ["xian", "quanzhou", "quanzhou", "fukuoka"]
         journey.letters = [engineLetter(1, arrivals: ["xian", "quanzhou"], date: "2026-11-02", cityId: "quanzhou"),
                            engineLetter(2, date: "2026-11-03", cityId: "quanzhou"),
                            engineLetter(3, date: "2026-11-04", cityId: "fukuoka"),
@@ -37,9 +37,11 @@ import Testing
 
     @Test func equalVisitCountsUseLatestDateThenLetterIdRegardlessOfArrayOrder() {
         var (journey, _) = engineState()
+        journey.route = ["quanzhou", "fukuoka"]
         journey.letters = [engineLetter(9, date: "2026-11-02", cityId: "quanzhou"),
                            engineLetter(2, date: "2026-11-03", cityId: "fukuoka")]
         #expect(footprints(journey).mostVisited.cityId == "fukuoka")
+        journey.route = ["fukuoka", "quanzhou"]
         journey.letters[0].date = "2026-11-03"
         #expect(footprints(journey).mostVisited.cityId == "quanzhou")
         let result = footprints(journey)
@@ -78,7 +80,7 @@ import Testing
         #expect(result.mostMemorable?.cityId == "missing-city")
         #expect(testCatalog.city(result.mostVisited.cityId).isPlaceholder)
         #expect(result.farthest == nil)
-        journey.route[0] = "missing-home"
+        journey.homeCityId = "missing-home"
         journey.route.append("xian")
         #expect(footprints(journey).farthest == nil)
     }

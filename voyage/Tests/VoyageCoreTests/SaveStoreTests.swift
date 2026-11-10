@@ -14,7 +14,7 @@ private struct SaveSandbox {
 
     func cleanUp() { try? FileManager.default.removeItem(at: directory) }
 
-    func fixture(_ name: String = "journey-v7") throws -> Data {
+    func fixture(_ name: String = "journey-v8") throws -> Data {
         let url = try #require(Bundle.module.url(forResource: name, withExtension: "json", subdirectory: "Fixtures"))
         return try Data(contentsOf: url)
     }
@@ -77,15 +77,15 @@ private struct SaveSandbox {
         try #require(FileManager.default.attributesOfItem(atPath: url.path)[.posixPermissions] as? Int) & 0o777
     }
 
-    @Test func frozenV7LoadsWithoutRewritingOrBackingUp() throws {
+    @Test func frozenV8LoadsWithoutRewritingOrBackingUp() throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }
         let original = try box.fixture()
         try original.write(to: box.journeyURL)
         let store = SaveStore(directory: box.directory, pets: testCatalog.pets, journeyMigrations: .journey(catalog: testCatalog))
         store.load()
-        guard case .loaded(let journey) = store.journey else { Issue.record("v7 must load"); return }
-        #expect(journey.version == 7)
+        guard case .loaded(let journey) = store.journey else { Issue.record("v8 must load"); return }
+        #expect(journey.version == 8)
         #expect(journey.seed == 42)
         #expect(journey.pet == PetID(rawValue: "snail"))
         #expect(journey.targetCityId == "xian")
@@ -129,7 +129,7 @@ private struct SaveSandbox {
         #expect(stateWithoutCollections.days.isEmpty && stateWithoutCollections.letters.isEmpty)
     }
 
-    @Test(arguments: ["seed", "pet", "startDate", "currentCityId", "targetCityId", "route", "openDate", "version", "legCost", "legFrom", "legTo"])
+    @Test(arguments: ["seed", "pet", "startDate", "currentCityId", "targetCityId", "route", "openDate", "version", "legCost", "legFrom", "legTo", "homeCityId", "homeCoordinate", "phase", "phaseSince", "travelFund", "tripCount"])
     func missingRequiredJourneyFieldIsCorrupted(key: String) throws {
         let box = try SaveSandbox()
         defer { box.cleanUp() }

@@ -12,7 +12,7 @@ import Testing
         journey.sync(today: DayUsage(date: "2026-11-08", fuel: 90_000_000), finalized: [
             DayUsage(date: "2026-11-02", fuel: 10_000, byClient: ["codex": 7_500, "claude": 2_500]),
             DayUsage(date: "2026-11-07", fuel: 20_000, byClient: ["codex": 20_000]),
-        ], calendar: careCalendar, catalog: testCatalog)
+        ], now: DayKey.date(from: (DayUsage(date: "2026-11-08", fuel: 90_000_000)).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
         CareEngine.process(journey: &journey, care: &care, stories: testCatalog.stories, catalog: testCatalog)
         return (journey, care)
     }
@@ -59,7 +59,7 @@ import Testing
         journey.sync(today: DayUsage(date: "2026-11-24"), finalized: [
             DayUsage(date: "2026-11-02", fuel: 100), DayUsage(date: "2026-11-09", fuel: 200),
             DayUsage(date: "2026-11-16", fuel: 300),
-        ], calendar: careCalendar, catalog: testCatalog)
+        ], now: DayKey.date(from: (DayUsage(date: "2026-11-24")).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
         CareEngine.process(journey: &journey, care: &care, stories: testCatalog.stories, catalog: testCatalog)
         run(&journey)
         #expect(journey.letters.filter { $0.kind == .weekly }.map(\.date) == ["2026-11-22"])
@@ -70,7 +70,7 @@ import Testing
         journey = try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(journey))
         run(&journey)
         #expect(journey == saved)
-        journey.sync(today: DayUsage(date: "2026-12-08"), finalized: [DayUsage(date: "2026-11-30", fuel: 400)], calendar: careCalendar, catalog: testCatalog)
+        journey.sync(today: DayUsage(date: "2026-12-08"), finalized: [DayUsage(date: "2026-11-30", fuel: 400)], now: DayKey.date(from: (DayUsage(date: "2026-12-08")).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
         CareEngine.process(journey: &journey, care: &care, stories: testCatalog.stories, catalog: testCatalog)
         run(&journey)
         #expect(journey.letters.filter { $0.kind == .weekly }.map(\.date) == ["2026-11-22", "2026-12-06"])
@@ -78,19 +78,19 @@ import Testing
 
     @Test func inactiveWeekAndSundayOnlyActivityNeverProduceMail() {
         var (journey, care) = engineState()
-        journey.sync(today: DayUsage(date: "2026-11-08", fuel: 100), calendar: careCalendar, catalog: testCatalog)
+        journey.sync(today: DayUsage(date: "2026-11-08", fuel: 100), now: DayKey.date(from: (DayUsage(date: "2026-11-08", fuel: 100)).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
         journey.days["2026-11-08"]?.mainWindowOpened = true
         run(&journey)
         #expect(!journey.letters.contains { $0.kind == .weekly })
         #expect(journey.lastWeeklyMailSunday == "2026-11-08")
-        journey.sync(today: DayUsage(date: "2026-11-24"), calendar: careCalendar, catalog: testCatalog)
+        journey.sync(today: DayUsage(date: "2026-11-24"), now: DayKey.date(from: (DayUsage(date: "2026-11-24")).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
         run(&journey)
         #expect(!journey.letters.contains { $0.kind == .weekly }) // No fallback to an older active week.
     }
 
     @Test func saturdayNeverCreatesTheUpcomingSundayLetter() {
         var (journey, care) = engineState()
-        journey.sync(today: DayUsage(date: "2026-11-07"), finalized: [DayUsage(date: "2026-11-02", fuel: 100)], calendar: careCalendar, catalog: testCatalog)
+        journey.sync(today: DayUsage(date: "2026-11-07"), finalized: [DayUsage(date: "2026-11-02", fuel: 100)], now: DayKey.date(from: (DayUsage(date: "2026-11-07")).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
         CareEngine.process(journey: &journey, care: &care, stories: testCatalog.stories, catalog: testCatalog)
         run(&journey)
         #expect(!journey.letters.contains { $0.kind == .weekly })
@@ -117,7 +117,7 @@ import Testing
     @Test func windowVisitWithoutUsageGetsCompleteFallbackAndNoTrend() throws {
         var (journey, care) = engineState()
         journey.days["2026-11-05", default: DayRecord()].mainWindowOpened = true
-        journey.sync(today: DayUsage(date: "2026-11-08"), calendar: careCalendar, catalog: testCatalog)
+        journey.sync(today: DayUsage(date: "2026-11-08"), now: DayKey.date(from: (DayUsage(date: "2026-11-08")).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
         CareEngine.process(journey: &journey, care: &care, stories: testCatalog.stories, catalog: testCatalog)
         run(&journey)
         let mail = try #require(journey.letters.last)
@@ -147,15 +147,15 @@ import Testing
         var json = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])
         json.removeValue(forKey: "weeklyMailEligibleFrom")
         json.removeValue(forKey: "lastWeeklyMailSunday")
-        var journey = try JSONDecoder().decode(JourneyState.self, from: JSONSerialization.data(withJSONObject: json))
+        var journey = try decodeOldJourneyFixture(JSONSerialization.data(withJSONObject: json))
         let care = engineState().1
         #expect(journey.weeklyMailEligibleFrom == nil)
         journey.enableWeeklyMail(on: "2026-11-08", calendar: careCalendar)
         #expect(journey.weeklyMailEligibleFrom == "2026-11-15")
-        journey.sync(today: DayUsage(date: "2026-11-08"), finalized: [DayUsage(date: "2026-11-02", fuel: 100)], calendar: careCalendar, catalog: testCatalog)
+        journey.sync(today: DayUsage(date: "2026-11-08"), finalized: [DayUsage(date: "2026-11-02", fuel: 100)], now: DayKey.date(from: (DayUsage(date: "2026-11-08")).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
         run(&journey)
         #expect(!journey.letters.contains { $0.kind == .weekly })
-        journey.sync(today: DayUsage(date: "2026-11-15"), finalized: [DayUsage(date: "2026-11-09", fuel: 100)], calendar: careCalendar, catalog: testCatalog)
+        journey.sync(today: DayUsage(date: "2026-11-15"), finalized: [DayUsage(date: "2026-11-09", fuel: 100)], now: DayKey.date(from: (DayUsage(date: "2026-11-15")).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
         run(&journey)
         #expect(journey.letters.filter { $0.kind == .weekly }.map(\.date) == ["2026-11-15"])
     }
@@ -185,7 +185,7 @@ import Testing
                 let date = "2026-11-\(String(format: "%02d", day))"
                 let yesterday = journey.openDate
                 journey.sync(today: DayUsage(date: date, fuel: day % 3 == 0 ? 10_000 * multiplier : 0, byClient: day % 3 == 0 ? ["codex": 10_000 * multiplier] : [:]),
-                             finalized: [DayUsage(date: yesterday, fuel: journey.fuel(on: yesterday))], calendar: careCalendar, catalog: testCatalog)
+                             finalized: [DayUsage(date: yesterday, fuel: journey.fuel(on: yesterday))], now: DayKey.date(from: (DayUsage(date: date, fuel: day % 3 == 0 ? 10_000 * multiplier : 0, byClient: day % 3 == 0 ? ["codex": 10_000 * multiplier] : [:])).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
                 CareEngine.process(journey: &journey, care: &care, stories: testCatalog.stories, catalog: testCatalog)
                 run(&journey)
                 CareEngine.open(at: DayKey.date(from: date, calendar: careCalendar)!, journey: &journey, care: &care, catalog: testCatalog, calendar: careCalendar)

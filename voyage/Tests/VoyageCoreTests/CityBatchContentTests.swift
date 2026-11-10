@@ -104,7 +104,7 @@ let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCity
         if habit == "observant" { care.habits.observant = 10 }
         for id in 1...16 {
             journey.letters.append(engineLetter(id, arrivals: [cityId], cityId: cityId))
-            CareEngine.process(journey: &journey, care: &care, stories: testCatalog.stories, catalog: testCatalog)
+            CareEngine.process(journey: &journey, care: &care, stories: .init(stories: testCatalog.stories.all.filter { $0.kind != "revisit" }), catalog: testCatalog)
             let letter = try #require(journey.letters.last)
             let story = try #require(testCatalog.stories.all.first { $0.id == letter.storyId })
             #expect(story.cityId == cityId && story.kind == "arrival")
@@ -125,7 +125,7 @@ let fullContentCityIds = firstBatchCityIds + secondBatchCityIds + thirdBatchCity
         #expect(care.menus.count == 2)
         let savedJourney = journey
         let savedCare = care
-        CareEngine.process(journey: &journey, care: &care, stories: testCatalog.stories, catalog: testCatalog)
+        CareEngine.process(journey: &journey, care: &care, stories: .init(stories: testCatalog.stories.all.filter { $0.kind != "revisit" }), catalog: testCatalog)
         #expect(journey == savedJourney && care == savedCare)
         #expect(try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(journey)) == journey)
     }

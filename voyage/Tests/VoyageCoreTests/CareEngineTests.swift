@@ -110,15 +110,13 @@ func engineLetter(_ id: Int, arrivals: [String] = ["shanghai"], date: String = "
         #expect(care.habits == .init()) // The raincoat never changes habits.
     }
 
-    @Test func longDayUsesTheLastArrivedCityWithStoriesAndOtherwiseTheLastArrival() {
+    @Test func longDayGivesEachStayAStoryAndUsesTheLastCityForDrops() {
         var (journey, care) = engineState()
         journey.letters.append(engineLetter(1, arrivals: ["tokyo", "shanghai", "xian"]))
         CareEngine.process(journey: &journey, care: &care, stories: engineStories([engineStory("local", city: "shanghai")]), catalog: testCatalog)
-        #expect(journey.letters.last?.cityId == "shanghai")
-        #expect(journey.letters.last?.storyId == "local")
-        journey.letters.append(engineLetter(2, arrivals: ["tokyo", "xian"]))
-        CareEngine.process(journey: &journey, care: &care, stories: engineStories(), catalog: testCatalog)
         #expect(journey.letters.last?.cityId == "xian")
+        #expect(journey.letters.last?.arrivalStories.map(\.storyId) == ["generic.arrival", "local", "generic.arrival"])
+        #expect(care.processedLetterIds == [1])
     }
 
     @Test func aDayWithoutArrivalUsesTransitAndPreservesItsCity() {
@@ -275,7 +273,7 @@ func engineLetter(_ id: Int, arrivals: [String] = ["shanghai"], date: String = "
 
     @Test func legacyDailyLettersAndTheLogbookAreNotRewrittenOrGivenReplies() throws {
         let fixture = try #require(Bundle.module.url(forResource: "journey-v4", withExtension: "json", subdirectory: "Fixtures"))
-        var journey = try JSONDecoder().decode(JourneyState.self, from: Data(contentsOf: fixture))
+        var journey = try decodeOldJourneyFixture(Data(contentsOf: fixture))
         var care = CareState(petName: "Pip", species: PetID(rawValue: "snail"), hatchedAt: journey.startDate)
         let original = journey
         CareEngine.process(journey: &journey, care: &care, stories: engineStories(), catalog: testCatalog)

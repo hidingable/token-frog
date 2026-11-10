@@ -218,7 +218,7 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         #expect(journey.version == JourneyState.currentVersion && journey.seed == 42 && journey.pet == PetID(rawValue: "snail"))
         #expect(journey.startDate == onboardingDate && journey.openDate == onboardingDate)
         #expect(journey.totalFuel == 0 && journey.legFuel == 0 && journey.days.isEmpty)
-        #expect(journey.route == ["shanghai"] && journey.targetCityId == firstStation)
+        #expect(journey.homeCityId == "shanghai" && journey.route.isEmpty && journey.targetCityId == firstStation)
         #expect(journey.letters.count == 1)
         let letter = try #require(journey.letters.first)
         #expect(letter.kind == .logbook && letter.logbook == flow.logbook)
@@ -250,7 +250,7 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         let saved = try JSONDecoder().decode(JourneyState.self, from: Data(contentsOf: fixture.journeyURL))
         #expect(saved.targetCityId == preview.targetCityId)
         #expect(saved.legCost == preview.legCost && saved.legFrom == preview.legFrom && saved.legTo == preview.legTo)
-        #expect(saved.route == ["beijing"])
+        #expect(saved.homeCityId == "beijing" && saved.route.isEmpty && saved.phase == .outbound)
         #expect(model.care?.bag.todayItem == nil)
     }
 
@@ -460,7 +460,7 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         var expectedLetter = try #require(model.state?.letters.first)
         expectedLetter.cityId = "beijing"
         model.setStart("beijing")
-        #expect(model.state?.route.first == "beijing")
+        #expect(model.state?.homeCityId == "beijing" && model.state?.route.isEmpty == true)
         #expect(model.state?.letters.first == expectedLetter)
         #expect(model.state?.letters.first?.kind == .logbook)
         #expect(try Data(contentsOf: fixture.careURL) == careBefore)

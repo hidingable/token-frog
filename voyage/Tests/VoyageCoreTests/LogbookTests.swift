@@ -122,7 +122,7 @@ private func logbookHour(_ date: String, _ hour: Int, input: Int = 1, cacheRead:
         let letter = try #require(journey.letters.first)
         #expect(letter.kind == .logbook && letter.logbook == logbook)
         #expect(letter.deliverAt == now && letter.read && letter.enrichmentDone)
-        #expect(journey.totalFuel == 0 && journey.days.isEmpty && journey.route == ["shanghai"])
+        #expect(journey.totalFuel == 0 && journey.days.isEmpty && journey.route.isEmpty && journey.homeCityId == "shanghai")
         #expect(journey.unreadCount(now: now) == 0)
         #expect(try JSONDecoder().decode(Letter.self, from: JSONEncoder().encode(letter)) == letter)
         #expect(try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(journey)) == journey)
@@ -130,7 +130,7 @@ private func logbookHour(_ date: String, _ hour: Int, input: Int = 1, cacheRead:
 
     @Test func oldDepartureStillDecodesWithoutLogbook() throws {
         let url = try #require(Bundle.module.url(forResource: "journey-v3", withExtension: "json", subdirectory: "Fixtures"))
-        let journey = try JSONDecoder().decode(JourneyState.self, from: Data(contentsOf: url))
+        let journey = try decodeOldJourneyFixture(Data(contentsOf: url))
         let departure = try #require(journey.letters.first)
         #expect(departure.kind == .departure && departure.logbook == nil)
         #expect(try JSONDecoder().decode(Letter.self, from: JSONEncoder().encode(departure)) == departure)

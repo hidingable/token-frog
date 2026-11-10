@@ -47,39 +47,39 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     )
     state.letters[0].read = false
     state.letters[0].weatherCode = 0
-    state.sync(today: usage("2026-11-01", 40_000_000_000), calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-01", 40_000_000_000), now: DayKey.date(from: (usage("2026-11-01", 40_000_000_000)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     var expectedLetter = state.letters[0]
     expectedLetter.cityId = "xian"
     var expected = JourneyState(seed: 42, startCityId: "xian", pet: PetID(rawValue: "snail"), date: "2026-11-01", catalog: testCatalog)
-    expected.sync(today: usage("2026-11-01", 40_000_000_000), calendar: calendar, catalog: testCatalog)
+    expected.sync(today: usage("2026-11-01", 40_000_000_000), now: DayKey.date(from: (usage("2026-11-01", 40_000_000_000)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     expected.letters = [expectedLetter]
-    state.setStart("xian", calendar: calendar, catalog: testCatalog)
+    state.setStart("xian", now: DayKey.date(from: "2026-11-01", calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state == expected)
     #expect(state.letters[0].kind == .logbook && state.letters[0].logbook == logbook && !state.letters[0].read)
-    #expect(state.totalFuel == 40_000_000_000 && state.route.first == "xian")
+    #expect(state.totalFuel == 40_000_000_000 && state.homeCityId == "xian")
 }
 
 @Test func changingHomeKeepsLegacyDepartureAndRejectsLaterDays() throws {
     var state = fresh()
     state.letters[0].kind = .departure
-    state.setStart("xian", calendar: calendar, catalog: testCatalog)
+    state.setStart("xian", now: DayKey.date(from: "2026-11-01", calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state.letters[0].kind == .departure)
     #expect(state.letters[0].cityId == "xian")
-    state.sync(today: usage("2026-11-02", 10), finalized: [usage("2026-11-01", 100)], calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-02", 10), finalized: [usage("2026-11-01", 100)], now: DayKey.date(from: (usage("2026-11-02", 10)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     let original = state
-    state.setStart("shanghai", calendar: calendar, catalog: testCatalog)
+    state.setStart("shanghai", now: DayKey.date(from: "2026-11-01", calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state == original)
 }
 
 @Test func creditsExactDeltasAndNeverGoesBackwards() {
     var state = fresh()
-    state.sync(today: usage("2026-11-01", 5_000), calendar: calendar, catalog: testCatalog)
-    state.sync(today: usage("2026-11-01", 8_000), calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-01", 5_000), now: DayKey.date(from: (usage("2026-11-01", 5_000)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-01", 8_000), now: DayKey.date(from: (usage("2026-11-01", 8_000)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state.legFuel == 8_000)
-    state.sync(today: usage("2026-11-01", 6_000), calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-01", 6_000), now: DayKey.date(from: (usage("2026-11-01", 6_000)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state.legFuel == 8_000)
     #expect(state.totalFuel == 8_000)
-    state.sync(today: usage("2026-11-01", 8_001), calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-01", 8_001), now: DayKey.date(from: (usage("2026-11-01", 8_001)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state.legFuel == 8_001)
     #expect(state.totalFuel == 8_001)
 }
@@ -92,13 +92,13 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
             input: 100_000, output: 200_000, cacheRead: cacheRead, cacheWrite: 300_000, reasoning: 400_000
         ))]).usage
     }
-    state.sync(today: scan(cacheRead: 1_000_000), calendar: calendar, catalog: testCatalog)
+    state.sync(today: scan(cacheRead: 1_000_000), now: DayKey.date(from: (scan(cacheRead: 1_000_000)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state.legFuel == 2_000_000 && state.totalKm == 125.5)
     #expect(state.days[state.openDate]?.tokens == 2_000_000)
     #expect(state.days[state.openDate]?.fuel == 600_000)
-    state.sync(today: scan(cacheRead: 500_000), calendar: calendar, catalog: testCatalog)
+    state.sync(today: scan(cacheRead: 500_000), now: DayKey.date(from: (scan(cacheRead: 500_000)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state.legFuel == 2_000_000 && state.totalKm == 125.5)
-    state.sync(today: scan(cacheRead: 1_500_000), calendar: calendar, catalog: testCatalog)
+    state.sync(today: scan(cacheRead: 1_500_000), now: DayKey.date(from: (scan(cacheRead: 1_500_000)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state.legFuel == 2_500_000 && state.totalKm == 126)
     #expect(outboundTokensPerKm == 1_000_000 && returnTokensPerKm == 100_000)
 }
@@ -109,7 +109,7 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
         let day = state.openDate
         state.sync(today: DayUsage(date: DayKey.next(day, calendar: calendar)), finalized: [
             DayUsage(date: day, fuel: 1, byClient: ["codex": 1], observedTokens: tokens),
-        ], calendar: calendar, catalog: testCatalog)
+        ], now: DayKey.date(from: (DayUsage(date: DayKey.next(day, calendar: calendar))).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     }
     let letter = try #require(state.letters.last)
     #expect(letter.compareToMedianPercent == -89 && letter.isDeepVisit)
@@ -128,7 +128,7 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     #expect(state.days["2026-10-30"]?.tokens == nil)
     #expect(state.recentDailyKm(before: state.openDate) == 400)
     #expect(state.totalKm == original.totalKm && state.legFuel == original.legFuel && state.letters == original.letters)
-    state.sync(today: DayUsage(date: state.openDate, observedTokens: 601_000_000), calendar: calendar, catalog: testCatalog)
+    state.sync(today: DayUsage(date: state.openDate, observedTokens: 601_000_000), now: DayKey.date(from: (DayUsage(date: state.openDate, observedTokens: 601_000_000)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state.legFuel == 1_000_000 && state.totalKm == 1)
 }
 
@@ -136,16 +136,16 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     var state = fresh()
     let firstTarget = state.targetCityId
     let cost = state.legCost
-    state.sync(today: usage("2026-11-01", cost + 123), calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-01", cost + 123), now: DayKey.date(from: (usage("2026-11-01", cost + 123)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state.currentCityId == firstTarget)
-    #expect(state.route == ["shanghai", firstTarget])
-    #expect(state.legFuel == 123)
+    #expect(state.route == [firstTarget])
+    #expect(state.phase == .staying && state.legFuel == cost && state.travelFund == 0)
 }
 
 @Test func lateFuelForTheOpenDayIsCreditedBeforeSettlement() {
     var state = fresh()
-    state.sync(today: usage("2026-11-01", 1_000), calendar: calendar, catalog: testCatalog)
-    state.sync(today: usage("2026-11-02", 500), finalized: [usage("2026-11-01", 4_000)], calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-01", 1_000), now: DayKey.date(from: (usage("2026-11-01", 1_000)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-02", 500), finalized: [usage("2026-11-01", 4_000)], now: DayKey.date(from: (usage("2026-11-02", 500)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state.fuel(on: "2026-11-01") == 4_000)
     #expect(state.totalFuel == 4_500)
     let letter = state.letters.last!
@@ -158,7 +158,7 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     var state = fresh()
     state.sync(
         today: usage("2026-11-05", 10),
-        finalized: [usage("2026-11-01", 1_000), usage("2026-11-02", 0), usage("2026-11-03", 2_000), usage("2026-11-04", 3_000)],
+        finalized: [usage("2026-11-01", 1_000), usage("2026-11-02", 0), usage("2026-11-03", 2_000), usage("2026-11-04", 3_000)], now: DayKey.date(from: (usage("2026-11-05", 10)).date, calendar: calendar)!.addingTimeInterval(12 * 3600),
         calendar: calendar, catalog: testCatalog
     )
     #expect(state.openDate == "2026-11-05")
@@ -166,20 +166,20 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     #expect(state.totalFuel == 6_010)
 }
 
-@Test func heavyDayPassesManyCitiesButWritesOneLetter() {
+@Test func heavyDayStaysAtOneCityAndWritesOneLetter() {
     var state = fresh()
-    state.sync(today: usage("2026-11-01", 40_000_000_000), calendar: calendar, catalog: testCatalog)
-    state.sync(today: usage("2026-11-02", 0), finalized: [usage("2026-11-01", 40_000_000_000)], calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-01", 40_000_000_000), now: DayKey.date(from: (usage("2026-11-01", 40_000_000_000)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-02", 0), finalized: [usage("2026-11-01", 40_000_000_000)], now: DayKey.date(from: (usage("2026-11-02", 0)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     let daily = state.letters.filter { $0.kind == .daily }
     #expect(daily.count == 1)
-    #expect(daily[0].arrivals.count > 3)
+    #expect(daily[0].arrivals.count == 1)
     #expect(daily[0].cityId == daily[0].arrivals.last)
     #expect(daily[0].transitTargetId == nil)
 }
 
 @Test func letterIsDeliveredAtNineTheNextMorning() {
     var state = fresh()
-    state.sync(today: usage("2026-11-02", 0), finalized: [usage("2026-11-01", 1_000)], calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-02", 0), finalized: [usage("2026-11-01", 1_000)], now: DayKey.date(from: (usage("2026-11-02", 0)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     let letter = state.letters.last!
     let parts = calendar.dateComponents([.year, .month, .day, .hour], from: letter.deliverAt)
     #expect([parts.year, parts.month, parts.day, parts.hour] == [2026, 11, 2, 9])
@@ -193,7 +193,7 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
         var day = "2026-11-01"
         for value in [30_000_000, 5_000_000, 90_000_000, 1_000, 44_000_000] {
             let next = DayKey.next(day, calendar: calendar)
-            state.sync(today: usage(next, 0), finalized: [usage(day, value)], calendar: calendar, catalog: testCatalog)
+            state.sync(today: usage(next, 0), finalized: [usage(day, value)], now: DayKey.date(from: (usage(next, 0)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
             day = next
         }
         return state
@@ -201,16 +201,16 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     #expect(run() == run())
 }
 
-@Test func savedTargetDoesNotChangeUntilArrival() throws {
+@Test func savedTargetDoesNotChangeAtArrivalOrWithNewWishTags() throws {
     var state = fresh()
-    state.sync(today: usage("2026-11-01", 123), calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-01", 123), now: DayKey.date(from: (usage("2026-11-01", 123)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     let original = state
     state = try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(state))
-    state.sync(today: usage("2026-11-01", 123), calendar: calendar, catalog: testCatalog, wishTags: ["coast"])
+    state.sync(today: usage("2026-11-01", 123), now: DayKey.date(from: (usage("2026-11-01", 123)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog, wishTags: ["coast"])
     #expect(state == original)
-    state.sync(today: usage("2026-11-01", state.legCost), calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-01", state.legCost), now: DayKey.date(from: (usage("2026-11-01", state.legCost)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     #expect(state.currentCityId == original.targetCityId)
-    #expect(state.targetCityId != original.targetCityId)
+    #expect(state.targetCityId == original.targetCityId && state.phase == .staying)
 }
 
 @Test func lowDaysBecomeDeepVisitsOnceThereIsABaseline() {
@@ -218,7 +218,7 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
     var day = "2026-11-01"
     for value in [8_000_000, 9_000_000, 10_000_000, 1_000_000] {
         let next = DayKey.next(day, calendar: calendar)
-        state.sync(today: usage(next, 0), finalized: [usage(day, value)], calendar: calendar, catalog: testCatalog)
+        state.sync(today: usage(next, 0), finalized: [usage(day, value)], now: DayKey.date(from: (usage(next, 0)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
         day = next
     }
     let letters = state.letters.filter { $0.kind == .daily }
@@ -229,7 +229,7 @@ private func usage(_ date: String, _ fuel: Int, client: String = "codex") -> Day
 
 @Test func journeyStateRoundTripsThroughJSON() throws {
     var state = fresh()
-    state.sync(today: usage("2026-11-02", 7), finalized: [usage("2026-11-01", 99_000_000)], calendar: calendar, catalog: testCatalog)
+    state.sync(today: usage("2026-11-02", 7), finalized: [usage("2026-11-01", 99_000_000)], now: DayKey.date(from: (usage("2026-11-02", 7)).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog)
     let decoded = try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(state))
     #expect(decoded == state)
 }
@@ -384,14 +384,14 @@ private func detail(_ date: String, client: String = "codex", model: String = "g
 @Test func hourlyReportParsesAndProfiles() throws {
     let json = #"""
     {"entries":[
-      {"hour":"2026-11-05 09:00","clients":["codex"],"input":1,"output":2,"cacheRead":3,"cacheWrite":4,"messageCount":5,"cost":0.5},
+      {"hour":"2026-11-05 09:00","clients":["codex"],"input":1,"output":2,"cacheRead":3,"cacheWrite":4,"reasoning":5,"messageCount":5,"cost":0.5},
       {"hour":"2026-11-06 09:00","clients":["claude","codex"],"input":10,"output":0,"cacheRead":0,"cacheWrite":0,"messageCount":1,"cost":1}
     ]}
     """#
     let hours = try TokscaleHourly.parse(Data(json.utf8))
     #expect(hours[0].date == "2026-11-05")
     #expect(hours[0].hour == 9)
-    #expect(hours[0].tokens.total == 10)
+    #expect(hours[0].tokens.total == 15 && hours[0].tokens.reasoning == 5)
     #expect(hours[0].tokens.messages == 5)
     let profile = HourUsage.profile(hours, start: "2026-11-06", end: "2026-11-06", metric: .total)
     #expect(profile.count == 24)

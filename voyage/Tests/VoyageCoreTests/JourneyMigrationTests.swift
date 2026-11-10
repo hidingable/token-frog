@@ -28,6 +28,7 @@ private struct MigrationSandbox {
 
     func migrated(_ name: String) throws -> JourneyState {
         var json = try JourneyMigrations.migrateV6(#require(JSONSerialization.jsonObject(with: fixture(name)) as? [String: Any]))
+        json = try JourneyMigrations.migrateV7(json, catalog: testCatalog)
         json["version"] = JourneyState.currentVersion
         return try JSONDecoder().decode(JourneyState.self, from: JSONSerialization.data(withJSONObject: json))
     }
@@ -53,10 +54,12 @@ private enum MigrationTestError: Error { case didNotLoad }
         original["legFuel"] = legFuel
         original["totalFuel"] = 98_765_432
         let bytes = try JSONSerialization.data(withJSONObject: original, options: [.sortedKeys])
-        let old = try JSONDecoder().decode(JourneyState.self, from: bytes)
+        var oldJSON = try JourneyMigrations.migrateV7(original, catalog: testCatalog)
+        oldJSON["version"] = JourneyState.currentVersion
+        let old = try JSONDecoder().decode(JourneyState.self, from: JSONSerialization.data(withJSONObject: oldJSON))
         try bytes.write(to: box.journeyURL)
         let (state, store) = try box.load()
-        #expect(state.version == 7)
+        #expect(state.version == 8)
         #expect(state.legCost == 1_220_349_000 && state.legFuel == legFuel * 100)
         #expect(abs(state.legProgress - old.legProgress) < 1e-15)
         #expect(state.position == old.position)
@@ -114,7 +117,7 @@ private enum MigrationTestError: Error { case didNotLoad }
     @Test func frozenV5RoundTripsEveryStorySnapshotField() throws {
         let box = try MigrationSandbox()
         defer { box.cleanUp() }
-        let state = try JSONDecoder().decode(JourneyState.self, from: box.fixture("journey-v5"))
+        let state = try decodeOldJourneyFixture(box.fixture("journey-v5"))
         let roundTrip = try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(state))
         #expect(roundTrip == state)
         let letter = try #require(state.letters.last)
@@ -134,7 +137,7 @@ private enum MigrationTestError: Error { case didNotLoad }
         try original.write(to: box.journeyURL)
         let (state, store) = try box.load()
         var expected = try #require(JSONSerialization.jsonObject(with: original) as? [String: Any])
-        expected = try JourneyMigrations.migrateV6(expected)
+        expected = try JourneyMigrations.migrateV7(JourneyMigrations.migrateV6(expected), catalog: testCatalog)
         expected["version"] = JourneyState.currentVersion
         let written = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: box.journeyURL)) as? [String: Any])
         #expect(NSDictionary(dictionary: written).isEqual(to: expected))
@@ -155,7 +158,7 @@ private enum MigrationTestError: Error { case didNotLoad }
         #expect(state == expected)
         var old = try #require(JSONSerialization.jsonObject(with: original) as? [String: Any])
         old.removeValue(forKey: "nextChoiceId")
-        old = try JourneyMigrations.migrateV6(old)
+        old = try JourneyMigrations.migrateV7(JourneyMigrations.migrateV6(old), catalog: testCatalog)
         old["version"] = JourneyState.currentVersion
         let written = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: box.journeyURL)) as? [String: Any])
         #expect(NSDictionary(dictionary: written).isEqual(to: old))
@@ -182,7 +185,7 @@ private enum MigrationTestError: Error { case didNotLoad }
         #expect(state == expected)
         #expect(state.version == JourneyState.currentVersion)
         #expect(state.totalFuel == 123 && state.legFuel == 12_300)
-        #expect(state.route == ["shanghai"])
+        #expect(state.route.isEmpty)
         #expect(state.letters.map(\.id) == [0, 7])
         #expect(state.stamps.map(\.countryCode) == ["CN"])
         #expect(state.legFrom == testCatalog.city("shanghai").coordinate)
@@ -220,7 +223,7 @@ private enum MigrationTestError: Error { case didNotLoad }
         #expect(state.letters[1].newCountries == ["CN", "JP"])
         #expect(JourneyMigrations.countryCode(for: "未知国家") == "ZZ")
         #expect(state.totalFuel == 123 && state.legFuel == 12_300)
-        #expect(state.route == ["shanghai"] && state.letters.count == 2)
+        #expect(state.route.isEmpty && state.letters.count == 2)
         let written = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: box.journeyURL)) as? [String: Any])
         let stamps = try #require(written["stamps"] as? [[String: Any]])
         #expect(stamps.allSatisfy { $0["country"] == nil })
@@ -248,11 +251,12 @@ private enum MigrationTestError: Error { case didNotLoad }
         let destination = state.targetCityId
         let originalStampCount = state.stamps.count
         let fuel = state.remainingFuel + 321
-        state.sync(today: DayUsage(date: "2026-11-02", fuel: fuel, byClient: ["codex": fuel]), catalog: testCatalog)
+        state.sync(today: DayUsage(date: "2026-11-02", fuel: fuel, byClient: ["codex": fuel]), now: DayKey.date(from: (DayUsage(date: "2026-11-02", fuel: fuel, byClient: ["codex": fuel])).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: testCatalog)
         #expect(state.currentCityId == destination)
         #expect(state.route.last == destination)
-        #expect(state.legFuel == 321)
-        #expect(testCatalog.find(state.targetCityId)?.status == "active")
+        #expect(state.phase == .staying && state.legFuel == state.legCost)
+        #expect(state.travelFund == 0)
+        #expect(state.targetCityId == destination)
         #expect(state.stamps.count == originalStampCount)
     }
 
@@ -266,10 +270,10 @@ private enum MigrationTestError: Error { case didNotLoad }
         reference.version = JourneyState.currentVersion
         let fuel = reference.remainingFuel + 4_321
         let usage = DayUsage(date: "2026-11-02", fuel: fuel, byClient: ["codex": fuel])
-        migrated.sync(today: usage, catalog: testCatalog)
-        reference.sync(today: usage, catalog: testCatalog)
+        migrated.sync(today: usage, now: DayKey.date(from: (usage).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: testCatalog)
+        reference.sync(today: usage, now: DayKey.date(from: (usage).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: testCatalog)
         #expect(migrated.currentCityId == "xian")
-        #expect(migrated.legFuel == 4_321)
+        #expect(migrated.phase == .staying && migrated.legFuel == migrated.legCost)
         #expect(migrated.route == reference.route)
         #expect(migrated.currentCityId == reference.currentCityId)
         #expect(migrated.targetCityId == reference.targetCityId)
@@ -277,5 +281,61 @@ private enum MigrationTestError: Error { case didNotLoad }
         #expect(migrated.remainingFuel == reference.remainingFuel)
         #expect(migrated.position == reference.position)
         #expect(migrated == reference)
+    }
+}
+
+@Suite struct TripMigrationTests {
+    @Test func frozenV7BecomesOutboundWithoutRedrawingOrReplayingAnything() throws {
+        let box = try MigrationSandbox()
+        defer { box.cleanUp() }
+        let original = try box.fixture("journey-v7")
+        let json = try #require(JSONSerialization.jsonObject(with: original) as? [String: Any])
+        try original.write(to: box.journeyURL)
+        let (state, store) = try box.load()
+        #expect(state.version == 8 && state.homeCityId == "shanghai")
+        #expect(state.homeCoordinate == Coordinate(lat: 31.23, lon: 121.47))
+        #expect(state.route.isEmpty && state.tripCount == 0 && state.travelFund == 0)
+        #expect(state.phase == .outbound && state.phaseSince == DayKey.date(from: state.openDate, calendar: careCalendar))
+        #expect(state.legCost == json["legCost"] as? Int && state.legFuel == json["legFuel"] as? Int)
+        #expect(state.targetCityId == json["targetCityId"] as? String)
+        let snapshot = try decodeOldJourneyFixture(original)
+        #expect(state == snapshot)
+        #expect(state.totalKm == 0.0123 && state.days.values.allSatisfy { $0.lastObservedAt == nil })
+        #expect(try Data(contentsOf: #require(store.backups(for: .journey).first).url) == original)
+        try store.save(state)
+        #expect(try box.load().0 == state)
+    }
+
+    @Test func laterV7LegUsesOnlySavedEndpointsAndStayedCityCount() throws {
+        let box = try MigrationSandbox()
+        defer { box.cleanUp() }
+        var json = try #require(JSONSerialization.jsonObject(with: box.fixture("journey-v7")) as? [String: Any])
+        json["route"] = ["removed-home", "retired-stop", "unknown-stop"]
+        json["currentCityId"] = "unknown-stop"
+        json["legFrom"] = ["lat": 12.0, "lon": 34.0]
+        json["legTo"] = ["lat": 23.0, "lon": 45.0]
+        try JSONSerialization.data(withJSONObject: json).write(to: box.journeyURL)
+        let (state, _) = try box.load()
+        #expect(state.homeCityId == "removed-home" && state.homeCoordinate == Coordinate(lat: 12, lon: 34))
+        #expect(state.route == ["retired-stop", "unknown-stop"] && state.tripCount == 2)
+        #expect(state.legFrom == Coordinate(lat: 12, lon: 34) && state.legTo == Coordinate(lat: 23, lon: 45))
+        #expect(state.legFuel == 12_300 && state.legCost == 1_220_349_000)
+        json["targetCityId"] = "removed-home"
+        let migrated = try JourneyMigrations.migrateV7(json, catalog: testCatalog)
+        let home = try #require(migrated["homeCoordinate"] as? [String: Double])
+        #expect(home == ["lat": 23, "lon": 45])
+    }
+
+    @Test func v8ReadsAKnownHomeFromContentInsteadOfTheLastStop() throws {
+        let box = try MigrationSandbox()
+        defer { box.cleanUp() }
+        var json = try #require(JSONSerialization.jsonObject(with: box.fixture("journey-v7")) as? [String: Any])
+        let home = testCatalog.city("shanghai")
+        json["route"] = ["shanghai", "hangzhou"]
+        json["targetCityId"] = "suzhou"
+        json["legFrom"] = ["lat": testCatalog.city("hangzhou").coordinate.lat, "lon": testCatalog.city("hangzhou").coordinate.lon]
+        let migrated = try JourneyMigrations.migrateV7(json, catalog: testCatalog)
+        let coordinate = try #require(migrated["homeCoordinate"] as? [String: Double])
+        #expect(coordinate == ["lat": home.coordinate.lat, "lon": home.coordinate.lon])
     }
 }

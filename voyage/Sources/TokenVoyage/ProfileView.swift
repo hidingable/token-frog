@@ -18,7 +18,7 @@ struct ProfileView: View {
                             VStack(alignment: .leading, spacing: 10) {
                                 Text(model.petName).font(Theme.pixel(24))
                                 Text(l10n("profile.summary", l10n.stage(profile.stage), l10n.days(profile.days),
-                                          l10n.cityName(catalog.city(journey.route[0]))))
+                                          l10n.cityName(catalog.city(journey.homeCityId))))
                                     .foregroundStyle(theme.textMuted)
                                 Text(l10n("profile.travel", profile.cityCount, profile.kilometers))
                                     .foregroundStyle(theme.mileageText)

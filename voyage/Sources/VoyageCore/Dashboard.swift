@@ -257,6 +257,7 @@ public enum TokscaleHourly {
         let output: Int?
         let cacheRead: Int?
         let cacheWrite: Int?
+        let reasoning: Int?
         let messageCount: Int?
         let cost: Double?
     }
@@ -270,7 +271,7 @@ public enum TokscaleHourly {
                 hour: hour,
                 tokens: UsageTotals(
                     input: entry.input ?? 0, output: entry.output ?? 0, cacheRead: entry.cacheRead ?? 0,
-                    cacheWrite: entry.cacheWrite ?? 0, cost: entry.cost ?? 0, messages: entry.messageCount ?? 0
+                    cacheWrite: entry.cacheWrite ?? 0, reasoning: entry.reasoning ?? 0, cost: entry.cost ?? 0, messages: entry.messageCount ?? 0
                 )
             )
         }

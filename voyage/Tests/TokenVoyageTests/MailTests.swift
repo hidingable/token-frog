@@ -64,7 +64,7 @@ private struct MailFixture {
         let day = journey.openDate
         journey.sync(today: DayUsage(date: DayKey.next(day)), finalized: [
             DayUsage(date: day, fuel: 13_400_000, byClient: ["codex": 8_300_000, "claude": 5_100_000]),
-        ], catalog: localizationCatalog)
+        ], now: DayKey.date(from: DayKey.next(day))!.addingTimeInterval(12 * 3600), catalog: localizationCatalog)
     }
 
     func write(_ journey: JourneyState, _ care: CareState) throws {

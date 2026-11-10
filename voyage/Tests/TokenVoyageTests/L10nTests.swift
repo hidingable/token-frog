@@ -103,6 +103,7 @@ func passportStampDoesNotRequireACountryArticle(country: String) {
     state.sync(
         today: DayUsage(date: "2026-11-02"),
         finalized: [DayUsage(date: "2026-11-01", fuel: 8_880_000, byClient: ["codex": 8_880_000], observedTokens: 888_000_000)],
+        now: DayKey.date(from: "2026-11-02", calendar: calendar)!.addingTimeInterval(12 * 3600),
         calendar: calendar, catalog: localizationCatalog
     )
     var care = CareState(petName: "Ginkgo", species: PetID(rawValue: "pigeon"), hatchedAt: state.startDate)

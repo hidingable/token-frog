@@ -213,17 +213,24 @@ private func pick(_ catalog: CityCatalog, seed: UInt32, currentCityId: String = 
     }
 }
 
+private func pickerTime(_ key: String, hour: Int) -> Date {
+    pickerCalendar.date(bySettingHour: hour, minute: 0, second: 0, of: DayKey.date(from: key, calendar: pickerCalendar)!)!
+}
+
 private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multiplier: Int = 1) -> JourneyState {
-    var state = JourneyState(seed: seed, startCityId: "shanghai", date: "2026-01-01", now: Date(timeIntervalSince1970: 0), catalog: catalog)
+    var state = JourneyState(seed: seed, startCityId: "shanghai", date: "2026-01-01", now: pickerTime("2026-01-01", hour: 0), catalog: catalog)
     var date = "2026-01-01"
     for day in 0..<35 {
         let fuel = (day % 7 == 0 ? 0 : (day * 7_919_147) % 120_000_000 + 1_000_000) * multiplier
+        // Splitting the same observation at the same timestamp must not change the ledger.
         for slice in 1...slices {
             let value = fuel * slice / slices
-            state.sync(today: DayUsage(date: date, fuel: value, byClient: ["codex": value], observedTokens: value * 100), calendar: pickerCalendar, catalog: catalog, wishTags: ["coast"])
+            state.sync(today: DayUsage(date: date, fuel: value, byClient: ["codex": value], observedTokens: value * 100),
+                       now: pickerTime(date, hour: 12), calendar: pickerCalendar, catalog: catalog, wishTags: ["coast"])
         }
         let next = DayKey.next(date, calendar: pickerCalendar)
-        state.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: fuel, byClient: ["codex": fuel], observedTokens: fuel * 100)], calendar: pickerCalendar, catalog: catalog, wishTags: ["coast"])
+        state.sync(today: DayUsage(date: next), finalized: [DayUsage(date: date, fuel: fuel, byClient: ["codex": fuel], observedTokens: fuel * 100)],
+                   now: pickerTime(next, hour: 12), calendar: pickerCalendar, catalog: catalog, wishTags: ["coast"])
         date = next
     }
     return state
@@ -235,7 +242,7 @@ private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multipl
         let once = replay(catalog: testCatalog, seed: seed)
         let repeated = replay(catalog: testCatalog, seed: seed)
         let sliced = replay(catalog: testCatalog, seed: seed, slices: 5)
-        #expect(once.route.count > 20)
+        #expect(once.route.count >= 10)
         #expect(once.route == repeated.route)
         #expect(once.route == sliced.route)
         #expect(once == repeated)
@@ -272,61 +279,85 @@ private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multipl
         #expect(DestinationPicker.band(distanceKm: 300, medianKm: state.recentDailyKm(before: "2026-01-01")) == .near)
     }
 
-    @Test func arrivalDayFuelCannotChangeItsNextDestination() {
+    @Test func currentDayUsageCannotChangeTheDestinationDrawnAtHome() {
+        let date = "2026-01-01"
         for seed: UInt32 in 0..<200 {
-            var low = JourneyState(seed: seed, startCityId: "shanghai", date: "2026-01-01", catalog: testCatalog)
-            let fuel = low.legCost
+            var low = JourneyState(seed: seed, startCityId: "shanghai", date: date, now: pickerTime(date, hour: 0), catalog: testCatalog)
+            let firstTarget = low.targetCityId
+            let outbound = low.legCost
+            let extra = outbound - 1
             var high = low
-            low.sync(today: DayUsage(date: "2026-01-01", fuel: fuel), catalog: testCatalog)
-            let extra = low.legCost - 1
-            high.sync(today: DayUsage(date: "2026-01-01", fuel: fuel + extra), catalog: testCatalog)
-            #expect(low.route.count == 2 && high.route == low.route)
-            #expect(high.targetCityId == low.targetCityId)
-            #expect(high.legCost == low.legCost)
-            #expect(high.legFuel == extra)
-            #expect(low.recentDailyKm(before: "2026-01-01") == 0)
-            #expect(high.recentDailyKm(before: "2026-01-01") == 0)
+            low.sync(today: DayUsage(date: date, fuel: outbound), now: pickerTime(date, hour: 6), calendar: pickerCalendar, catalog: testCatalog)
+            high.sync(today: DayUsage(date: date, fuel: outbound + extra), now: pickerTime(date, hour: 6), calendar: pickerCalendar, catalog: testCatalog)
+            #expect(low.route == [firstTarget] && high.route == low.route)
+            #expect(low.phase == .staying && high.phase == .staying)
+            #expect(low.targetCityId == firstTarget && high.targetCityId == firstTarget)
+            let returnCost = max(returnTokensPerKm, Int(low.legTo.distanceKm(to: low.homeCoordinate) * Double(returnTokensPerKm)))
+            low.sync(today: DayUsage(date: date, fuel: outbound + returnCost), now: pickerTime(date, hour: 12), calendar: pickerCalendar, catalog: testCatalog)
+            high.sync(today: DayUsage(date: date, fuel: outbound + extra + returnCost), now: pickerTime(date, hour: 12), calendar: pickerCalendar, catalog: testCatalog)
+            #expect(low.phase == .home && high.phase == .home && low.tripCount == 1 && high.tripCount == 1)
+            #expect(high.targetCityId == low.targetCityId && high.legCost == low.legCost)
+            #expect(low.legFuel == 0 && high.legFuel == 0)
+            #expect(low.recentDailyKm(before: date) == 0 && high.recentDailyKm(before: date) == 0)
         }
     }
 
-    @Test func arrivalDrawUsesHistoricalTokensRatherThanAlwaysUsingTheMinimum() {
+    @Test func homeDrawUsesHistoricalTokensAndHomeDistanceRatherThanTheMinimum() {
+        let date = "2026-02-01"
         var differsFromMinimum = false
         for seed: UInt32 in 0..<100 {
-            var state = JourneyState(seed: seed, startCityId: "shanghai", date: "2026-02-01", catalog: testCatalog)
+            var state = JourneyState(seed: seed, startCityId: "shanghai", date: date, now: pickerTime(date, hour: 0), catalog: testCatalog)
             var previous = DayRecord()
             previous.tokens = 1_000 * outboundTokensPerKm
             state.days["2026-01-31"] = previous
-            state.sync(today: DayUsage(date: "2026-02-01", fuel: state.legCost), catalog: testCatalog)
+            let cost = state.legCost
+            state.sync(today: DayUsage(date: date, fuel: cost), now: pickerTime(date, hour: 6), calendar: pickerCalendar, catalog: testCatalog)
+            let returnCost = max(returnTokensPerKm, Int(state.legTo.distanceKm(to: state.homeCoordinate) * Double(returnTokensPerKm)))
+            state.sync(today: DayUsage(date: date, fuel: cost + returnCost), now: pickerTime(date, hour: 12), calendar: pickerCalendar, catalog: testCatalog)
+            #expect(state.phase == .home && state.tripCount == 1)
             let stamped = Set(state.stamps.map(\.countryCode))
             let expected = DestinationPicker.pick(
-                from: state.legFrom, currentCityId: state.currentCityId, route: state.route,
-                stampedCountries: stamped, medianKm: previous.km, catalog: testCatalog, seed: seed
+                from: state.homeCoordinate, currentCityId: state.homeCityId, route: state.route,
+                stampedCountries: stamped, medianKm: previous.km, catalog: testCatalog, seed: seed, tripCount: state.tripCount
             )
             #expect(state.targetCityId == expected)
+            #expect(state.legFrom == state.homeCoordinate)
             let minimum = DestinationPicker.pick(
-                from: state.legFrom, currentCityId: state.currentCityId, route: state.route,
-                stampedCountries: stamped, medianKm: 0, catalog: testCatalog, seed: seed
+                from: state.homeCoordinate, currentCityId: state.homeCityId, route: state.route,
+                stampedCountries: stamped, medianKm: 0, catalog: testCatalog, seed: seed, tripCount: state.tripCount
             )
             if expected != minimum { differsFromMinimum = true }
         }
         #expect(differsFromMinimum)
     }
 
-    @Test func wishTagsReachBothLiveAndFinalizedArrivalDrawsWithoutBeingSaved() throws {
-        var initial = JourneyState(seed: 42, startCityId: "shanghai", date: "2026-01-01", now: Date(timeIntervalSince1970: 0), catalog: testCatalog)
-        initial.sync(today: DayUsage(date: "2026-01-01", fuel: 123), catalog: testCatalog)
-        let usage = DayUsage(date: "2026-01-01", fuel: initial.legCost)
+    @Test func wishTagsReachLiveAndHourlyCatchUpHomeDrawsWithoutBeingSaved() throws {
+        let date = "2026-01-01"
+        var initial = JourneyState(seed: 42, startCityId: "shanghai", date: date, now: pickerTime(date, hour: 0), catalog: testCatalog)
+        let cost = initial.legCost
+        initial.sync(today: DayUsage(date: date, fuel: cost), now: pickerTime(date, hour: 6), calendar: pickerCalendar, catalog: testCatalog)
+        initial.sync(today: DayUsage(date: date, fuel: cost), now: pickerTime(date, hour: 12), calendar: pickerCalendar, catalog: testCatalog)
+        #expect(initial.phase == .returning)
+        let returnCost = initial.legCost
+        let usage = DayUsage(date: date, fuel: cost + returnCost)
+        let hourly = [date: [HourUsage(date: date, hour: 17, tokens: UsageTotals(input: returnCost))]]
         let wishes: Set<String> = ["coast", "food"]
         var live = initial
         var finalized = initial
-        live.sync(today: usage, catalog: testCatalog, wishTags: wishes)
+        live.sync(today: usage, now: pickerTime(date, hour: 18), calendar: pickerCalendar, catalog: testCatalog, wishTags: wishes)
         let expected = DestinationPicker.pick(
-            from: initial.legTo, currentCityId: initial.targetCityId, route: live.route,
-            stampedCountries: Set(live.stamps.map(\.countryCode)), medianKm: 0, wishTags: wishes, catalog: testCatalog, seed: initial.seed
+            from: initial.homeCoordinate, currentCityId: initial.homeCityId, route: live.route,
+            stampedCountries: Set(live.stamps.map(\.countryCode)), medianKm: 0, wishTags: wishes,
+            catalog: testCatalog, seed: initial.seed, tripCount: 1
         )
-        #expect(live.targetCityId == expected)
-        live.sync(today: DayUsage(date: "2026-01-02"), finalized: [usage], calendar: pickerCalendar, catalog: testCatalog, wishTags: wishes)
-        finalized.sync(today: DayUsage(date: "2026-01-02"), finalized: [usage], calendar: pickerCalendar, catalog: testCatalog, wishTags: wishes)
+        #expect(live.phase == .home && live.tripCount == 1 && live.targetCityId == expected)
+        for _ in 0..<3 {
+            live.sync(today: usage, now: pickerTime(date, hour: 18), calendar: pickerCalendar, catalog: testCatalog, wishTags: ["art"])
+            #expect(live.targetCityId == expected && live.tripCount == 1)
+        }
+        live.sync(today: DayUsage(date: "2026-01-02"), finalized: [usage], now: pickerTime("2026-01-02", hour: 12), calendar: pickerCalendar, catalog: testCatalog, wishTags: wishes)
+        finalized.sync(today: DayUsage(date: "2026-01-02"), finalized: [usage], hourly: hourly,
+                       now: pickerTime("2026-01-02", hour: 12), calendar: pickerCalendar, catalog: testCatalog, wishTags: wishes)
         #expect(live == finalized)
         let json = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(live)) as? [String: Any])
         #expect(json["wishTags"] == nil)
@@ -334,31 +365,38 @@ private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multipl
 
     @Test(arguments: [UInt32(0), 42, UInt32.max])
     func aYearOfVariableUsageAllowsRevisitsAndHonorsEveryExclusion(seed: UInt32) throws {
-        let box = try ContentSandbox()
+        // A bounded catalog makes revisits observable even as the shipped world grows.
+        var retired = testCatalog.city("tokyo")
+        retired.status = "retired"
+        let cities = ["shanghai", "hangzhou", "suzhou", "quanzhou", "beijing", "xian", "fukuoka"].map { testCatalog.city($0) }
+        let box = try PickerCatalogSandbox(cities + [retired])
         defer { box.cleanUp() }
-        try box.edit("cities/tokyo.json") { $0["status"] = "retired" }
-        let catalog = try CityCatalog.load(directory: box.directory)
+        let catalog = box.catalog
         var state = JourneyState(seed: seed, startCityId: "shanghai", date: "2026-01-01", catalog: catalog)
         var date = "2026-01-01"
+        var previousUsage: DayUsage?
         for day in 0..<365 {
             let fuel = day % 9 == 0 ? 0 : (day * 7_919_147) % 180_000_000 + 1_000_000
             let oldCount = state.route.count
-            state.sync(today: DayUsage(date: date, fuel: fuel, observedTokens: fuel * 100), calendar: pickerCalendar, catalog: catalog)
+            let usage = DayUsage(date: date, fuel: fuel, observedTokens: fuel * 100)
+            state.sync(today: usage, finalized: previousUsage.map { [$0] } ?? [], now: pickerTime(date, hour: 12), calendar: pickerCalendar, catalog: catalog)
+            previousUsage = usage
             // Check every intermediate arrival, including multiple arrivals in a single sync.
             for index in oldCount..<state.route.count {
                 let arrived = state.route[index]
-                let previous = state.route[index - 1]
-                let recent = Set(state.route[..<(index - 1)].suffix(3))
-                let strict = catalog.active.filter { $0.id != previous && !recent.contains($0.id) }
-                #expect(arrived != previous)
+                let recent = Set(state.route[..<index].suffix(3))
+                let strict = catalog.active.filter { $0.id != state.homeCityId && !recent.contains($0.id) }
+                #expect(arrived != state.homeCityId)
                 #expect(arrived != "tokyo")
                 #expect(catalog.find(arrived)?.status == "active")
                 if !strict.isEmpty { #expect(!recent.contains(arrived)) }
             }
-            let recent = Set(state.route.dropLast().suffix(3))
-            let strict = catalog.active.filter { $0.id != state.currentCityId && !recent.contains($0.id) }
-            #expect(state.targetCityId != state.currentCityId && state.targetCityId != "tokyo")
-            if !strict.isEmpty { #expect(!recent.contains(state.targetCityId)) }
+            if [.home, .pending, .outbound].contains(state.phase) {
+                let recent = Set(state.route.suffix(3))
+                let strict = catalog.active.filter { $0.id != state.homeCityId && !recent.contains($0.id) }
+                #expect(state.targetCityId != state.homeCityId && state.targetCityId != "tokyo")
+                if !strict.isEmpty { #expect(!recent.contains(state.targetCityId)) }
+            }
             date = DayKey.next(date, calendar: pickerCalendar)
         }
         #expect(state.route.count > 100)
@@ -375,6 +413,6 @@ private func replay(catalog: CityCatalog, seed: UInt32, slices: Int = 1, multipl
         #expect(doubled.letters.map(\.deliverAt) == normal.letters.map(\.deliverAt))
         #expect(doubled.letters.map(\.kind) == normal.letters.map(\.kind))
         #expect(doubled.totalFuel == normal.totalFuel * 2)
-        #expect(doubled.totalKm == normal.totalKm * 2)
+        #expect(doubled.days.values.reduce(0) { $0 + ($1.tokens ?? 0) } == normal.days.values.reduce(0) { $0 + ($1.tokens ?? 0) } * 2)
     }
 }

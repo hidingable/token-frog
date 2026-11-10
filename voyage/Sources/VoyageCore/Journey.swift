@@ -36,6 +36,15 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var enrichmentDone = false
     public var storyId: String?
     public var storyVersion: Int?
+    public struct ArrivalStory: Codable, Equatable, Sendable {
+        public var cityId: String
+        public var storyId: String
+        public var storyVersion: Int
+        public var isRevisit: Bool
+        public var texts: [String: String]
+    }
+    /// One story snapshot per stay; rewards and care effects still belong to the enclosing letter.
+    public var arrivalStories: [ArrivalStory] = []
     /// Snapshot the marker so content updates and interrupted care writes cannot change it.
     public var isRevisit: Bool?
     /// nil is a legacy/template letter; an empty dictionary is a newly settled, uncomposed letter.
@@ -97,6 +106,7 @@ public struct DayRecord: Codable, Equatable, Sendable {
     public var roadClueDecision: RoadClueDecision?
     /// Final scan value, separate from mileage's monotonic high-water mark.
     public var finalUsageFuel: Int?
+    public var lastObservedAt: Date?
 
     public init() {}
 }
@@ -108,11 +118,18 @@ public struct Stamp: Codable, Equatable, Sendable {
 }
 
 public struct JourneyState: Codable, Equatable, Sendable {
-    public static let currentVersion = 7
+    public static let currentVersion = 8
     public var version = currentVersion
     public var seed: UInt32
     public var pet: PetID
     public var startDate: String
+    public enum Phase: String, Codable, Sendable { case home, pending, outbound, staying, returning }
+    public var homeCityId: String
+    public var homeCoordinate: Coordinate
+    public var phase: Phase = .outbound
+    public var phaseSince: Date
+    public var travelFund = 0
+    public var tripCount = 0
     public var currentCityId: String
     public var targetCityId: String
     public var legCost: Int
@@ -136,7 +153,8 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public var roadCluesEligibleFrom: String?
     public var usageEvents: UsageEvents?
 
-    public init(seed: UInt32, startCityId: String, pet: PetID? = nil, date: String, now: Date = Date(), logbook: Logbook? = nil, catalog: CityCatalog) {
+    public init(seed: UInt32, startCityId: String, pet: PetID? = nil, date: String, now: Date? = nil, logbook: Logbook? = nil, catalog: CityCatalog) {
+        let now = now ?? DayKey.date(from: date)!
         let pet = pet ?? catalog.pets.defaultID
         let start = catalog.city(startCityId)
         self.seed = seed
@@ -146,9 +164,12 @@ public struct JourneyState: Codable, Equatable, Sendable {
         roadCluesEligibleFrom = date
         usageEvents = UsageEvents(eligibleFrom: date)
         openDate = date
+        homeCityId = start.id
+        homeCoordinate = start.coordinate
+        phaseSince = now
         currentCityId = start.id
         targetCityId = start.id
-        route = [start.id]
+        route = []
         stamps = start.isPlaceholder ? [] : [Stamp(countryCode: start.countryCode, cityId: start.id, date: date)]
         legFrom = start.coordinate
         legTo = start.coordinate
@@ -167,10 +188,12 @@ public struct JourneyState: Codable, Equatable, Sendable {
         ]
     }
 
-    public var legProgress: Double { Double(legFuel) / Double(legCost) }
-    public var remainingFuel: Int { legCost - legFuel }
-    public var remainingKm: Double { Double(remainingFuel) / Double(outboundTokensPerKm) }
-    public var legKm: Double { Double(legCost) / Double(outboundTokensPerKm) }
+    public var tokensPerKm: Int { phase == .returning ? returnTokensPerKm : outboundTokensPerKm }
+    public var travelFundKm: Double { Double(travelFund) / Double(outboundTokensPerKm) }
+    public var legProgress: Double { phase == .pending || phase == .home ? 0 : Double(legFuel) / Double(legCost) }
+    public var remainingFuel: Int { phase == .pending || phase == .home ? legCost : legCost - legFuel }
+    public var remainingKm: Double { Double(remainingFuel) / Double(tokensPerKm) }
+    public var legKm: Double { Double(legCost) / Double(tokensPerKm) }
 
     public var position: Coordinate {
         let from = legFrom
@@ -195,12 +218,12 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public func fuel(on date: String) -> Int { days[date]?.fuel ?? 0 }
 
     /// Replays the first day's credited usage from a new home while keeping its original letter.
-    public mutating func setStart(_ cityId: String, calendar: Calendar = .current, catalog: CityCatalog) {
-        guard startDate == openDate, catalog.find(cityId)?.status == "active", cityId != route.first else { return }
+    public mutating func setStart(_ cityId: String, now: Date, calendar: Calendar = .current, catalog: CityCatalog) {
+        guard startDate == openDate, catalog.find(cityId)?.status == "active", cityId != homeCityId else { return }
         let firstLetter = letters.first { $0.id == 0 }
         let record = days[openDate] ?? DayRecord()
-        var replacement = JourneyState(seed: seed, startCityId: cityId, pet: pet, date: startDate, catalog: catalog)
-        replacement.sync(today: DayUsage(date: openDate, fuel: record.fuel, byClient: record.byClient, observedTokens: record.tokens ?? 0), calendar: calendar, catalog: catalog)
+        var replacement = JourneyState(seed: seed, startCityId: cityId, pet: pet, date: startDate, now: letters.first?.deliverAt ?? phaseSince, catalog: catalog)
+        replacement.sync(today: DayUsage(date: openDate, fuel: record.fuel, byClient: record.byClient, observedTokens: record.tokens ?? 0), now: now, calendar: calendar, catalog: catalog)
         replacement.days[openDate]?.mainWindowOpened = record.mainWindowOpened
         replacement.lastOpenedDate = lastOpenedDate
         replacement.weeklyMailEligibleFrom = weeklyMailEligibleFrom
@@ -217,19 +240,38 @@ public struct JourneyState: Codable, Equatable, Sendable {
 
     /// Advances the journey. `finalized` must hold the final count of every day from `openDate` up to,
     /// but excluding, `today.date`; the caller skips this call when those counts could not be read.
-    public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], revisitCities: Set<String> = [], deliveryTime: DeliveryTime = .standard) {
+    public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], hourly: [String: [HourUsage]] = [:], now: Date, calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], revisitCities: Set<String> = [], deliveryTime: DeliveryTime = .standard) {
         guard today.date >= openDate else { return }
         enableRoadClues(on: today.date)
         enableUsageEvents(on: today.date)
         let finals = Dictionary(finalized.map { ($0.date, $0) }, uniquingKeysWith: { _, latest in latest })
         while openDate < today.date {
-            let final = finals[openDate] ?? DayUsage(date: openDate)
-            apply(final, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+            let date = openDate
+            let final = finals[date] ?? DayUsage(date: date)
+            let start = DayKey.date(from: date, calendar: calendar)!
+            let end = calendar.date(byAdding: .day, value: 1, to: start)!.addingTimeInterval(-1)
+            // A whole idle day after the stay ended takes the free night mail, without charging the fund.
+            let stayEnded = phase == .staying ? phaseSince.addingTimeInterval(6 * 3600) : phaseSince
+            if final.observedTokens == 0, (phase == .staying || phase == .returning), stayEnded <= start {
+                arriveHome(at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+            }
+            apply(final, at: end.addingTimeInterval(-59), hourly: hourly[date], calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+            checkTime(at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
             settleUsageEvents(final, content: catalog.usageEvents)
-            settle(openDate, calendar: calendar, deliveryTime: deliveryTime)
-            openDate = DayKey.next(openDate, calendar: calendar)
+            settle(date, calendar: calendar, deliveryTime: deliveryTime)
+            openDate = DayKey.next(date, calendar: calendar)
         }
-        apply(today, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+        apply(today, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+    }
+
+    /// Pending usage and saved fund begin the outbound leg at the explicit input time.
+    public mutating func departNow(now: Date, calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], revisitCities: Set<String> = []) {
+        guard phase == .pending else { return }
+        let pending = legFuel
+        legFuel = 0
+        phase = .outbound
+        phaseSince = now
+        advance(pending, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
     }
 
     public mutating func markRead(_ letterId: Int) {
@@ -247,11 +289,15 @@ public struct JourneyState: Codable, Equatable, Sendable {
 
     /// Median of the most recent active days, used to compare today against "usual".
     public func recentDailyKm(before date: String? = nil, limit: Int = 14) -> Double {
+        Double(recentDailyTokens(before: date, limit: limit)) / Double(outboundTokensPerKm)
+    }
+
+    private func recentDailyTokens(before date: String? = nil, limit: Int = 14) -> Int {
         let values = days
             .filter { ($0.value.tokens ?? 0) > 0 && (date == nil || $0.key < date!) }
             .sorted { $0.key > $1.key }
             .prefix(limit)
-            .map { Double($0.value.tokens!) / Double(outboundTokensPerKm) }
+            .map { $0.value.tokens! }
             .sorted()
         return values.isEmpty ? 0 : values[values.count / 2]
     }
@@ -263,10 +309,11 @@ public struct JourneyState: Codable, Equatable, Sendable {
         }
     }
 
-    private mutating func apply(_ usage: DayUsage, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
+    private mutating func apply(_ usage: DayUsage, at now: Date, hourly: [HourUsage]? = nil, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
         recordFirstVoyages(usage, content: catalog.usageEvents)
         var record = days[usage.date] ?? DayRecord()
-        let delta = usage.observedTokens - (record.tokens ?? 0)
+        let delta = max(0, usage.observedTokens - (record.tokens ?? 0))
+        let lastObserved = record.lastObservedAt
         for (client, fuel) in usage.byClient {
             record.byClient[client] = max(record.byClient[client] ?? 0, fuel)
         }
@@ -276,24 +323,106 @@ public struct JourneyState: Codable, Equatable, Sendable {
         if record.tokens! > 0, usage.date >= roadCluesEligibleFrom!, record.roadClueDecision == nil {
             record.roadClueDecision = catalog.roadClues.draw(seed: seed, date: usage.date)
         }
+        record.lastObservedAt = max(lastObserved ?? now, now)
         days[usage.date] = record
-        if delta > 0 {
-            // Round at token resolution so sliced scans and a single final scan agree.
-            totalKm = (totalKm * Double(outboundTokensPerKm) + Double(delta)).rounded() / Double(outboundTokensPerKm)
-            advance(delta, date: usage.date, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+        // Finalized usage is allocated proportionally only over unobserved hour ends.
+        if let hourly, delta > 0 {
+            let start = DayKey.date(from: usage.date, calendar: calendar)!
+            let dayEnd = calendar.date(byAdding: .day, value: 1, to: start)!.addingTimeInterval(-1)
+            var weights: [Date: Int] = [:]
+            for row in hourly where row.date == usage.date && (0..<24).contains(row.hour) && row.tokens.total > 0 {
+                let hour = calendar.date(bySettingHour: row.hour, minute: 0, second: 0, of: start)!
+                let end = min(hour.addingTimeInterval(3600), dayEnd)
+                if lastObserved == nil || end > lastObserved! { weights[end, default: 0] += row.tokens.total }
+            }
+            let total = weights.values.reduce(0, +)
+            if total > 0 {
+                var allocated = 0
+                var cumulative = 0
+                for end in weights.keys.sorted() {
+                    cumulative += weights[end]!
+                    // Cumulative rounding preserves every integer token, including the last remainder.
+                    let share = cumulative == total ? delta : total.dividingFullWidth(delta.multipliedFullWidth(by: cumulative)).quotient
+                    checkTime(at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+                    advance(share - allocated, at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+                    allocated = share
+                }
+                return
+            }
+        }
+        // No usable hourly rows (including a failed/old report): use the supplied day-end timestamp.
+        checkTime(at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+        advance(delta, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+    }
+
+    private mutating func checkTime(at now: Date, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
+        if phase == .pending, now >= phaseSince.addingTimeInterval(30 * 60) {
+            departNow(now: phaseSince.addingTimeInterval(30 * 60), calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+        }
+        if phase == .staying, now >= phaseSince.addingTimeInterval(6 * 3600) {
+            let ended = phaseSince.addingTimeInterval(6 * 3600)
+            phase = .returning
+            phaseSince = ended
+            legFrom = legTo
+            legTo = homeCoordinate
+            targetCityId = homeCityId
+            targetCountryCode = nil
+            legCost = max(returnTokensPerKm, Int(legFrom.distanceKm(to: legTo) * Double(returnTokensPerKm)))
+            legFuel = 0
+            advance(0, at: ended, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
         }
     }
 
-    private mutating func advance(_ amount: Int, date: String, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
-        var remaining = amount
-        while remaining > 0 {
-            let needed = remainingFuel
-            guard remaining >= needed else {
-                legFuel += remaining
-                return
+    private mutating func addKm(tokens: Int, rate: Int) {
+        // Both rates divide the outbound rate: round at that token resolution for stable sliced scans.
+        totalKm = (totalKm * Double(outboundTokensPerKm) + Double(tokens) * Double(outboundTokensPerKm / rate)).rounded() / Double(outboundTokensPerKm)
+    }
+
+    private mutating func saveFund(_ amount: Int, on date: String) {
+        // Completed active days keep the cap stable throughout the current day.
+        let cap = recentDailyTokens(before: date)
+        let previousOverflow = max(0, travelFund - cap)
+        travelFund -= previousOverflow
+        let available = cap - travelFund
+        let saved = min(amount, available)
+        travelFund += saved
+        addKm(tokens: previousOverflow, rate: outboundTokensPerKm)
+        addKm(tokens: amount - saved, rate: outboundTokensPerKm)
+    }
+
+    private mutating func advance(_ amount: Int, at now: Date, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
+        let date = DayKey.string(from: now, calendar: calendar)
+        saveFund(0, on: date)
+        switch phase {
+        case .home:
+            if amount > 0 { phase = .pending; phaseSince = now; legFuel = amount }
+        case .pending:
+            legFuel += amount
+        case .staying:
+            saveFund(amount, on: date)
+        case .outbound, .returning:
+            let funded = min(travelFund, remainingFuel)
+            travelFund -= funded
+            let spent = min(amount, remainingFuel - funded)
+            legFuel += funded + spent
+            addKm(tokens: funded + spent, rate: tokensPerKm)
+            let surplus = amount - spent
+            guard remainingFuel == 0 else { return }
+            if phase == .outbound {
+                currentCityId = targetCityId
+                route.append(currentCityId)
+                days[date, default: DayRecord()].arrivals.append(currentCityId)
+                if let country = targetCountryCode, !stamps.contains(where: { $0.countryCode == country }) {
+                    stamps.append(Stamp(countryCode: country, cityId: currentCityId, date: date))
+                    days[date, default: DayRecord()].newCountries.append(country)
+                }
+                phase = .staying
+                phaseSince = now
+                saveFund(surplus, on: date)
+            } else {
+                arriveHome(at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+                advance(surplus, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
             }
-            remaining -= needed
-            arrive(date: date, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
         }
     }
 
@@ -303,27 +432,22 @@ public struct JourneyState: Codable, Equatable, Sendable {
         legFrom = coordinate
         legTo = target.coordinate
         legCost = Self.cost(from: legFrom, to: legTo)
+        legFuel = 0
         targetCountryCode = target.isPlaceholder ? nil : target.countryCode
     }
 
-    private mutating func arrive(date: String, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
-        let arrivedId = targetCityId
-        let arrivedCoordinate = legTo
-        currentCityId = arrivedId
-        route.append(arrivedId)
-        legFuel = 0
-        days[date, default: DayRecord()].arrivals.append(arrivedId)
-        if let countryCode = targetCountryCode, !stamps.contains(where: { $0.countryCode == countryCode }) {
-            stamps.append(Stamp(countryCode: countryCode, cityId: arrivedId, date: date))
-            days[date, default: DayRecord()].newCountries.append(countryCode)
-        }
+    private mutating func arriveHome(at now: Date, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
+        phase = .home
+        phaseSince = now
+        currentCityId = homeCityId
+        tripCount += 1
         let next = DestinationPicker.pick(
-            from: arrivedCoordinate, currentCityId: arrivedId, route: route,
+            from: homeCoordinate, currentCityId: homeCityId, route: route,
             stampedCountries: Set(stamps.map(\.countryCode)),
-            medianKm: recentDailyKm(before: date, limit: DestinationPicker.configuration.recentActiveDays),
-            wishTags: wishTags, revisitCities: revisitCities, catalog: catalog, seed: seed
+            medianKm: recentDailyKm(before: DayKey.string(from: now, calendar: calendar), limit: DestinationPicker.configuration.recentActiveDays),
+            wishTags: wishTags, revisitCities: revisitCities, catalog: catalog, seed: seed, tripCount: tripCount
         )
-        setTarget(next, from: arrivedCoordinate, catalog: catalog)
+        setTarget(next, from: homeCoordinate, catalog: catalog)
     }
 
     private mutating func settle(_ date: String, calendar: Calendar, deliveryTime: DeliveryTime) {
@@ -355,7 +479,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
                 kind: .daily,
                 date: date,
                 pet: pet,
-                cityId: record.arrivals.last ?? currentCityId,
+                cityId: record.arrivals.last ?? route.last ?? homeCityId,
                 transitTargetId: record.arrivals.isEmpty ? targetCityId : nil,
                 arrivals: record.arrivals,
                 newCountries: record.newCountries,
@@ -376,6 +500,7 @@ extension JourneyState {
         case route, stamps, openDate, days, letters, totalFuel, totalKm, legCost, legFrom, legTo, targetCountryCode
         case lastOpenedDate, weeklyMailEligibleFrom, lastWeeklyMailSunday, roadCluesEligibleFrom
         case usageEvents
+        case homeCityId, homeCoordinate, phase, phaseSince, travelFund, tripCount
     }
 
     public init(from decoder: Decoder) throws {
@@ -384,6 +509,15 @@ extension JourneyState {
         seed = try values.decode(UInt32.self, forKey: .seed)
         pet = try values.decode(PetID.self, forKey: .pet)
         startDate = try values.decode(String.self, forKey: .startDate)
+        homeCityId = try values.decode(String.self, forKey: .homeCityId)
+        homeCoordinate = try values.decode(Coordinate.self, forKey: .homeCoordinate)
+        phase = try values.decode(Phase.self, forKey: .phase)
+        phaseSince = try values.decode(Date.self, forKey: .phaseSince)
+        travelFund = try values.decode(Int.self, forKey: .travelFund)
+        tripCount = try values.decode(Int.self, forKey: .tripCount)
+        guard travelFund >= 0, tripCount >= 0 else {
+            throw DecodingError.dataCorruptedError(forKey: .travelFund, in: values, debugDescription: "Fund and trip count must be nonnegative")
+        }
         currentCityId = try values.decode(String.self, forKey: .currentCityId)
         targetCityId = try values.decode(String.self, forKey: .targetCityId)
         legCost = try values.decode(Int.self, forKey: .legCost)
@@ -413,7 +547,7 @@ extension Letter {
     private enum CodingKeys: String, CodingKey {
         case id, kind, date, pet, cityId, transitTargetId, arrivals, newCountries, fuel, tokens
         case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
-        case storyId, storyVersion, isRevisit, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
+        case storyId, storyVersion, arrivalStories, isRevisit, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
         case carriedItem, itemTriggered
         case facts, rewards, rewardItems, memoryReference, weeklySummary, wishExplanationAt, usageEventNotes, weatherCode, temperatureC, place, photoFile
     }
@@ -439,6 +573,7 @@ extension Letter {
         enrichmentDone = try values.decode(Bool.self, forKey: .enrichmentDone, default: false)
         storyId = try values.decodeIfPresent(String.self, forKey: .storyId)
         storyVersion = try values.decodeIfPresent(Int.self, forKey: .storyVersion)
+        arrivalStories = try values.decode([ArrivalStory].self, forKey: .arrivalStories, default: [])
         isRevisit = try values.decodeIfPresent(Bool.self, forKey: .isRevisit)
         texts = try values.decodeIfPresent([String: String].self, forKey: .texts)
         leadTexts = try values.decode([String: String].self, forKey: .leadTexts, default: [:])
@@ -463,7 +598,7 @@ extension Letter {
 }
 
 extension DayRecord {
-    private enum CodingKeys: String, CodingKey { case fuel, tokens, byClient, arrivals, newCountries, mainWindowOpened, roadClueDecision, finalUsageFuel }
+    private enum CodingKeys: String, CodingKey { case fuel, tokens, byClient, arrivals, newCountries, mainWindowOpened, roadClueDecision, finalUsageFuel, lastObservedAt }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -475,6 +610,7 @@ extension DayRecord {
         newCountries = try values.decode([String].self, forKey: .newCountries, default: [])
         roadClueDecision = try values.decodeIfPresent(RoadClueDecision.self, forKey: .roadClueDecision)
         finalUsageFuel = try values.decodeIfPresent(Int.self, forKey: .finalUsageFuel)
+        lastObservedAt = try values.decodeIfPresent(Date.self, forKey: .lastObservedAt)
     }
 }
 

@@ -68,7 +68,7 @@ struct SettingsTab: View {
             if model.canChangeStart, let state = model.state, let catalog = model.catalog {
                 group("settings.home") {
                     CitySearchList(catalog: catalog,
-                                   selection: Binding(get: { state.route[0] }, set: { model.setStart($0) }), search: $homeSearch)
+                                   selection: Binding(get: { state.homeCityId }, set: { model.setStart($0) }), search: $homeSearch)
                         .frame(height: 300)
                     explanation("onboarding.homeHint")
                 }

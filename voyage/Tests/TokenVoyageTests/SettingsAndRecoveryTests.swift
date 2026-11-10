@@ -66,7 +66,7 @@ private actor SuspendedSettingsUsage {
         store.load()
         var journey = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-01", now: .distantPast, catalog: localizationCatalog)
         if withLetter {
-            journey.sync(today: DayUsage(date: "2026-11-02"), finalized: [DayUsage(date: "2026-11-01", fuel: 1_000_000)], catalog: localizationCatalog)
+            journey.sync(today: DayUsage(date: "2026-11-02"), finalized: [DayUsage(date: "2026-11-01", fuel: 1_000_000)], now: clock.now, catalog: localizationCatalog)
         }
         var care = CareState(petName: "Ginkgo", species: journey.pet, hatchedAt: journey.startDate)
         CareEngine.process(journey: &journey, care: &care, stories: localizationCatalog.stories, catalog: localizationCatalog)

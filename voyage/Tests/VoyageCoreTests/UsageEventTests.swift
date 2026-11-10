@@ -19,7 +19,7 @@ private func usageEventJourney(seed: UInt32 = 7) -> JourneyState {
 private func usageEventSettle(_ fuel: Int, clients: [String: Int] = [:], journey: inout JourneyState) {
     let date = journey.openDate
     journey.sync(today: DayUsage(date: DayKey.next(date, calendar: usageEventCalendar)),
-                 finalized: [DayUsage(date: date, fuel: fuel, byClient: clients)],
+                 finalized: [DayUsage(date: date, fuel: fuel, byClient: clients)], now: DayKey.date(from: (DayUsage(date: DayKey.next(date, calendar: usageEventCalendar))).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                  calendar: usageEventCalendar, catalog: testCatalog)
 }
 
@@ -64,7 +64,7 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
         var spiked = usageEventHistory(Array(repeating: 100, count: 14))
         var direct = spiked
         let date = spiked.openDate
-        spiked.sync(today: DayUsage(date: date, fuel: 10_000), calendar: usageEventCalendar, catalog: testCatalog)
+        spiked.sync(today: DayUsage(date: date, fuel: 10_000), now: DayKey.date(from: (DayUsage(date: date, fuel: 10_000)).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600), calendar: usageEventCalendar, catalog: testCatalog)
         #expect(spiked.usageEvents?.pendingTea == nil)
         #expect(usageEventNotes(spiked, on: date).isEmpty)
         #expect(spiked.days[date]?.finalUsageFuel == nil)
@@ -83,7 +83,7 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
     @Test func correctedZeroUsageDoesNotBecomeAnActiveDayInLaterTeaBaselines() {
         var journey = usageEventHistory(Array(repeating: 100, count: 7) + Array(repeating: 200, count: 7))
         let correctedDate = journey.openDate
-        journey.sync(today: DayUsage(date: correctedDate, fuel: 10_000), calendar: usageEventCalendar, catalog: testCatalog)
+        journey.sync(today: DayUsage(date: correctedDate, fuel: 10_000), now: DayKey.date(from: (DayUsage(date: correctedDate, fuel: 10_000)).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600), calendar: usageEventCalendar, catalog: testCatalog)
         usageEventSettle(0, journey: &journey)
         #expect(journey.days[correctedDate]?.finalUsageFuel == 0)
         #expect(usageEventNotes(journey, on: correctedDate).isEmpty)
@@ -135,19 +135,21 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
     @Test func firstVoyagesUseCanonicalToolIdsOnlyOnceAndIgnoreZeroUsage() {
         var journey = usageEventJourney()
         journey.sync(today: DayUsage(date: journey.openDate, fuel: 30,
-                                    byClient: ["claude-code": 10, "claude": 20, "pi": 0]),
+                                    byClient: ["claude-code": 10, "claude": 20, "pi": 0]), now: DayKey.date(from: (DayUsage(date: journey.openDate, fuel: 30,
+                                    byClient: ["claude-code": 10, "claude": 20, "pi": 0])).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                      calendar: usageEventCalendar, catalog: testCatalog)
         #expect(journey.usageEvents?.tickets == [ToolTicket(toolID: "claude", date: "2026-11-01")])
         let pending = journey.usageEvents?.pendingFirstVoyage
-        journey.sync(today: DayUsage(date: journey.openDate, fuel: 40, byClient: ["Claude Code": 40]),
+        journey.sync(today: DayUsage(date: journey.openDate, fuel: 40, byClient: ["Claude Code": 40]), now: DayKey.date(from: (DayUsage(date: journey.openDate, fuel: 40, byClient: ["Claude Code": 40])).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                      calendar: usageEventCalendar, catalog: testCatalog)
         #expect(journey.usageEvents?.tickets.count == 1)
         #expect(journey.usageEvents?.pendingFirstVoyage == pending)
         usageEventSettle(40, clients: ["claude-code": 40], journey: &journey)
         journey.sync(today: DayUsage(date: journey.openDate, fuel: 30,
-                                    byClient: ["antigravity-cli": 10, "antigravity-extension": 20]),
+                                    byClient: ["antigravity-cli": 10, "antigravity-extension": 20]), now: DayKey.date(from: (DayUsage(date: journey.openDate, fuel: 30,
+                                    byClient: ["antigravity-cli": 10, "antigravity-extension": 20])).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                      calendar: usageEventCalendar, catalog: testCatalog)
-        journey.sync(today: DayUsage(date: journey.openDate, fuel: 40, byClient: ["antigravity": 40]),
+        journey.sync(today: DayUsage(date: journey.openDate, fuel: 40, byClient: ["antigravity": 40]), now: DayKey.date(from: (DayUsage(date: journey.openDate, fuel: 40, byClient: ["antigravity": 40])).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                      calendar: usageEventCalendar, catalog: testCatalog)
         #expect(journey.usageEvents?.tickets == [
             ToolTicket(toolID: "claude", date: "2026-11-01"),
@@ -166,7 +168,7 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
     func upstreamAliasFamiliesShareOneTicket(aliases: [String]) {
         var journey = usageEventJourney()
         for (index, alias) in aliases.enumerated() {
-            journey.sync(today: DayUsage(date: journey.openDate, fuel: index + 1, byClient: [alias: index + 1]),
+            journey.sync(today: DayUsage(date: journey.openDate, fuel: index + 1, byClient: [alias: index + 1]), now: DayKey.date(from: (DayUsage(date: journey.openDate, fuel: index + 1, byClient: [alias: index + 1])).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                          calendar: usageEventCalendar, catalog: testCatalog)
         }
         #expect(journey.usageEvents?.tickets.map(\.toolID) == [aliases.last!])
@@ -174,11 +176,11 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
 
     @Test func sameDayFirstVoyagePresentationDoesNotDependOnScanOrder() {
         var incremental = usageEventJourney(), together = incremental
-        incremental.sync(today: .init(date: incremental.openDate, fuel: 100, byClient: ["gemini": 100]),
+        incremental.sync(today: .init(date: incremental.openDate, fuel: 100, byClient: ["gemini": 100]), now: DayKey.date(from: (DayUsage(date: incremental.openDate, fuel: 100, byClient: ["gemini": 100])).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                          calendar: usageEventCalendar, catalog: testCatalog)
         let final = DayUsage(date: incremental.openDate, fuel: 200, byClient: ["gemini": 100, "claude": 100])
-        incremental.sync(today: final, calendar: usageEventCalendar, catalog: testCatalog)
-        together.sync(today: final, calendar: usageEventCalendar, catalog: testCatalog)
+        incremental.sync(today: final, now: DayKey.date(from: (final).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600), calendar: usageEventCalendar, catalog: testCatalog)
+        together.sync(today: final, now: DayKey.date(from: (final).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600), calendar: usageEventCalendar, catalog: testCatalog)
         #expect(incremental.usageEvents == together.usageEvents)
         usageEventSettle(200, clients: final.byClient, journey: &incremental)
         usageEventSettle(200, clients: final.byClient, journey: &together)
@@ -190,7 +192,7 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
         let date = journey.openDate
         let first = DayDetail(date: date, rows: [.init(client: "claude-code", model: "test", tokens: .init(cacheRead: 100))]).usage
         let next = DayDetail(date: date, rows: [.init(client: "claude", model: "test", tokens: .init(cacheRead: 101))]).usage
-        journey.sync(today: first, calendar: usageEventCalendar, catalog: testCatalog)
+        journey.sync(today: first, now: DayKey.date(from: (first).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600), calendar: usageEventCalendar, catalog: testCatalog)
         #expect(journey.totalFuel == 0 && journey.letters.count == 1)
         #expect(journey.usageEvents?.tickets == [.init(toolID: "claude", date: date)])
         let pending = journey.usageEvents?.pendingFirstVoyage
@@ -198,7 +200,7 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
         observer.observe(first, at: usageEventDate(1, hour: 23), journey: &journey, content: testCatalog.usageEvents, calendar: usageEventCalendar)
         observer.observe(next, at: usageEventDate(1, hour: 23, minute: 1), journey: &journey, content: testCatalog.usageEvents, calendar: usageEventCalendar)
         #expect(journey.usageEvents?.nightcap?.date == date)
-        journey.sync(today: .init(date: "2026-11-02"), finalized: [next], calendar: usageEventCalendar, catalog: testCatalog)
+        journey.sync(today: .init(date: "2026-11-02"), finalized: [next], now: DayKey.date(from: (DayUsage(date: "2026-11-02")).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600), calendar: usageEventCalendar, catalog: testCatalog)
         #expect(journey.letters.count == 2 && journey.usageEvents?.pendingFirstVoyage == nil)
         #expect(journey.letters.last?.usageEventNotes == [pending!])
         #expect(journey.totalKm == 0.000101)
@@ -222,7 +224,8 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
         #expect(journey.usageEvents?.pendingFirstVoyage == nil)
         #expect(journey.letters == savedLetters)
         journey.sync(today: DayUsage(date: "2026-11-01", fuel: 300,
-                                    byClient: ["claude": 100, "antigravity-extension": 100, "codex": 100]),
+                                    byClient: ["claude": 100, "antigravity-extension": 100, "codex": 100]), now: DayKey.date(from: (DayUsage(date: "2026-11-01", fuel: 300,
+                                    byClient: ["claude": 100, "antigravity-extension": 100, "codex": 100])).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                      calendar: usageEventCalendar, catalog: testCatalog)
         #expect(journey.usageEvents?.tickets == [ToolTicket(toolID: "codex", date: "2026-11-01")])
         let enabled = journey.usageEvents
@@ -232,7 +235,7 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
 
     @Test func upgradeCatchUpKeepsTheFirstDateOfAToolNotPreviouslyInTheSave() {
         var journey = usageEventJourney()
-        journey.sync(today: .init(date: journey.openDate, fuel: 100, byClient: ["codex": 100]),
+        journey.sync(today: .init(date: journey.openDate, fuel: 100, byClient: ["codex": 100]), now: DayKey.date(from: (DayUsage(date: journey.openDate, fuel: 100, byClient: ["codex": 100])).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                      calendar: usageEventCalendar, catalog: testCatalog)
         journey.usageEvents = nil
         let finals = [
@@ -240,11 +243,11 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
             DayDetail(date: "2026-11-02", rows: [.init(client: "claude-code", model: "test", tokens: .init(cacheRead: 100))]).usage,
             DayUsage(date: "2026-11-03", fuel: 100, byClient: ["claude": 100]),
         ]
-        journey.sync(today: .init(date: "2026-11-04"), finalized: finals, calendar: usageEventCalendar, catalog: testCatalog)
+        journey.sync(today: .init(date: "2026-11-04"), finalized: finals, now: DayKey.date(from: (DayUsage(date: "2026-11-04")).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600), calendar: usageEventCalendar, catalog: testCatalog)
         #expect(journey.usageEvents?.tickets == [.init(toolID: "claude", date: "2026-11-02")])
         #expect(journey.letters.filter { $0.usageEventNotes != nil }.map(\.date) == ["2026-11-02"])
         let saved = journey
-        journey.sync(today: .init(date: "2026-11-04"), finalized: finals, calendar: usageEventCalendar, catalog: testCatalog)
+        journey.sync(today: .init(date: "2026-11-04"), finalized: finals, now: DayKey.date(from: (DayUsage(date: "2026-11-04")).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600), calendar: usageEventCalendar, catalog: testCatalog)
         #expect(journey == saved)
     }
 
@@ -322,14 +325,14 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
             usageEventSettle(fuel, clients: clients, journey: &incremental)
         }
         var caughtUp = usageEventJourney()
-        caughtUp.sync(today: DayUsage(date: incremental.openDate), finalized: Array(finalized.reversed()),
+        caughtUp.sync(today: DayUsage(date: incremental.openDate), finalized: Array(finalized.reversed()), now: DayKey.date(from: (DayUsage(date: incremental.openDate)).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                       calendar: usageEventCalendar, catalog: testCatalog)
         #expect(caughtUp == incremental)
         let saved = caughtUp
-        caughtUp.sync(today: DayUsage(date: caughtUp.openDate), finalized: finalized + finalized,
+        caughtUp.sync(today: DayUsage(date: caughtUp.openDate), finalized: finalized + finalized, now: DayKey.date(from: (DayUsage(date: caughtUp.openDate)).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                       calendar: usageEventCalendar, catalog: testCatalog)
         caughtUp = try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(caughtUp))
-        caughtUp.sync(today: DayUsage(date: caughtUp.openDate), finalized: finalized,
+        caughtUp.sync(today: DayUsage(date: caughtUp.openDate), finalized: finalized, now: DayKey.date(from: (DayUsage(date: caughtUp.openDate)).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                       calendar: usageEventCalendar, catalog: testCatalog)
         #expect(caughtUp == saved)
         #expect(caughtUp.usageEvents?.tickets.count == 2)
@@ -488,7 +491,8 @@ private func usageEventNotes(_ journey: JourneyState, on date: String) -> [Usage
         #expect(journey.usageEvents?.tickets.isEmpty == true)
         #expect(journey.usageEvents?.pendingTea == nil && journey.usageEvents?.pendingFirstVoyage == nil)
         journey.sync(today: DayUsage(date: journey.openDate, fuel: known.count,
-                                    byClient: Dictionary(known.map { ($0, 1) }, uniquingKeysWith: { first, _ in first })),
+                                    byClient: Dictionary(known.map { ($0, 1) }, uniquingKeysWith: { first, _ in first })), now: DayKey.date(from: (DayUsage(date: journey.openDate, fuel: known.count,
+                                    byClient: Dictionary(known.map { ($0, 1) }, uniquingKeysWith: { first, _ in first }))).date, calendar: usageEventCalendar)!.addingTimeInterval(12 * 3600),
                      calendar: usageEventCalendar, catalog: testCatalog)
         #expect(journey.usageEvents?.tickets.isEmpty == true)
         #expect(try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(journey)) == journey)

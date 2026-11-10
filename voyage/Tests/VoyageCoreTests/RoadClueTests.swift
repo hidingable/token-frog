@@ -11,9 +11,9 @@ import Testing
         for day in 1...20 {
             let date = String(format: "2026-11-%02d", day)
             let fuel = day % 3 == 0 ? 0 : 10_000
-            once.sync(today: .init(date: date, fuel: fuel), calendar: careCalendar, catalog: testCatalog)
+            once.sync(today: .init(date: date, fuel: fuel), now: DayKey.date(from: (DayUsage(date: date, fuel: fuel)).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
             for amount in [0, fuel / 2, fuel, fuel * 2, fuel * 2] {
-                often.sync(today: .init(date: date, fuel: amount), calendar: careCalendar, catalog: testCatalog)
+                often.sync(today: .init(date: date, fuel: amount), now: DayKey.date(from: (DayUsage(date: date, fuel: amount)).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
             }
             let a = once.days[date]?.roadClueDecision, b = often.days[date]?.roadClueDecision
             #expect(a == b)
@@ -21,7 +21,7 @@ import Testing
             often = try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(often))
         }
         let finals = once.days.filter { $0.key < "2026-11-20" }.map { DayUsage(date: $0.key, fuel: $0.value.fuel) }
-        catchUp.sync(today: .init(date: "2026-11-20", fuel: 20_000), finalized: finals, calendar: careCalendar, catalog: testCatalog)
+        catchUp.sync(today: .init(date: "2026-11-20", fuel: 20_000), finalized: finals, now: DayKey.date(from: (DayUsage(date: "2026-11-20", fuel: 20_000)).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
         #expect(once.days.mapValues(\.roadClueDecision) == often.days.mapValues(\.roadClueDecision))
         #expect(once.days.mapValues(\.roadClueDecision) == catchUp.days.mapValues(\.roadClueDecision))
         #expect(once.days.values.contains { $0.roadClueDecision?.clue != nil })
@@ -32,13 +32,13 @@ import Testing
         var journey = engineState().0
         let date = journey.openDate
         journey.days[date, default: DayRecord()].mainWindowOpened = true
-        for _ in 0..<10 { journey.sync(today: .init(date: date), catalog: testCatalog) }
+        for _ in 0..<10 { journey.sync(today: .init(date: date), now: DayKey.date(from: (DayUsage(date: date)).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: testCatalog) }
         #expect(journey.days[date]?.roadClueDecision == nil)
-        journey.sync(today: .init(date: date, fuel: 1), catalog: testCatalog)
+        journey.sync(today: .init(date: date, fuel: 1), now: DayKey.date(from: (DayUsage(date: date, fuel: 1)).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: testCatalog)
         let decision = journey.days[date]?.roadClueDecision
         #expect(decision != nil)
-        journey.sync(today: .init(date: date, fuel: 0), catalog: testCatalog)
-        journey.sync(today: .init(date: date, fuel: 2_000_000_000), catalog: testCatalog)
+        journey.sync(today: .init(date: date, fuel: 0), now: DayKey.date(from: (DayUsage(date: date, fuel: 0)).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: testCatalog)
+        journey.sync(today: .init(date: date, fuel: 2_000_000_000), now: DayKey.date(from: (DayUsage(date: date, fuel: 2_000_000_000)).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: testCatalog)
         #expect(journey.days[date]?.roadClueDecision == decision)
     }
 
@@ -46,7 +46,7 @@ import Testing
     func contentUpdatesNeverRewriteEitherPopulatedOrEmptyDraws(seed: UInt32) throws {
         let box = try ContentSandbox(); defer { box.cleanUp() }
         var journey = engineState(seed: seed).0
-        journey.sync(today: .init(date: journey.openDate, fuel: 1), catalog: testCatalog)
+        journey.sync(today: .init(date: journey.openDate, fuel: 1), now: DayKey.date(from: (DayUsage(date: journey.openDate, fuel: 1)).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: testCatalog)
         let before = journey.days[journey.openDate]?.roadClueDecision
         let file = box.directory.appendingPathComponent("road-clues.json")
         var content = try JSONDecoder().decode(RoadClueContent.self, from: Data(contentsOf: file))
@@ -59,9 +59,9 @@ import Testing
         try JSONEncoder().encode(content).write(to: file)
         let changed = try CityCatalog.load(directory: box.directory)
         journey = try JSONDecoder().decode(JourneyState.self, from: JSONEncoder().encode(journey))
-        journey.sync(today: .init(date: journey.openDate, fuel: 2), catalog: changed)
+        journey.sync(today: .init(date: journey.openDate, fuel: 2), now: DayKey.date(from: (DayUsage(date: journey.openDate, fuel: 2)).date, calendar: .current)!.addingTimeInterval(12 * 3600), catalog: changed)
         #expect(journey.days[journey.openDate]?.roadClueDecision == before)
-        journey.sync(today: .init(date: "2026-11-03"), finalized: [.init(date: "2026-11-01", fuel: 4), .init(date: "2026-11-02", fuel: 1)], calendar: careCalendar, catalog: changed)
+        journey.sync(today: .init(date: "2026-11-03"), finalized: [.init(date: "2026-11-01", fuel: 4), .init(date: "2026-11-02", fuel: 1)], now: DayKey.date(from: (DayUsage(date: "2026-11-03")).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: changed)
         #expect(journey.days["2026-11-01"]?.roadClueDecision == before)
         #expect(journey.days["2026-11-02"]?.roadClueDecision?.contentVersion == 2)
     }
@@ -84,7 +84,7 @@ import Testing
             guard case .loaded(var journey) = store.journey else { Issue.record("Version \(version) must load"); continue }
             #expect(journey.roadCluesEligibleFrom == nil)
             let oldOpen = journey.openDate
-            journey.sync(today: .init(date: "2026-11-09", fuel: 1), finalized: [.init(date: oldOpen, fuel: 100)], calendar: careCalendar, catalog: testCatalog)
+            journey.sync(today: .init(date: "2026-11-09", fuel: 1), finalized: [.init(date: oldOpen, fuel: 100)], now: DayKey.date(from: (DayUsage(date: "2026-11-09", fuel: 1)).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
             #expect(journey.roadCluesEligibleFrom == "2026-11-09")
             #expect(journey.days.filter { $0.key < "2026-11-09" }.values.allSatisfy { $0.roadClueDecision == nil })
             #expect(journey.days["2026-11-09"]?.roadClueDecision != nil)
@@ -99,8 +99,8 @@ import Testing
         for day in 1...12 {
             let date = String(format: "2026-11-%02d", day)
             for value in [1, 1000] {
-                a.sync(today: .init(date: date, fuel: value), calendar: careCalendar, catalog: testCatalog)
-                b.sync(today: .init(date: date, fuel: value), calendar: careCalendar, catalog: testCatalog)
+                a.sync(today: .init(date: date, fuel: value), now: DayKey.date(from: (DayUsage(date: date, fuel: value)).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
+                b.sync(today: .init(date: date, fuel: value), now: DayKey.date(from: (DayUsage(date: date, fuel: value)).date, calendar: careCalendar)!.addingTimeInterval(12 * 3600), calendar: careCalendar, catalog: testCatalog)
                 CareEngine.process(journey: &a, care: &ca, stories: testCatalog.stories, catalog: testCatalog)
                 CareEngine.process(journey: &b, care: &cb, stories: testCatalog.stories, catalog: testCatalog)
                 #expect(a.letters == b.letters && ca == cb)

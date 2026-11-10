@@ -16,7 +16,7 @@ public struct Footprints: Equatable, Sendable {
 
     public init(journey: JourneyState, care: CareState?, catalog: CityCatalog, now: Date) {
         func canonical(_ id: String) -> String { catalog.find(id)?.id ?? id }
-        let home = canonical(journey.route.first ?? journey.currentCityId)
+        let home = canonical(journey.homeCityId)
         // Imported letter IDs need not be unique. Resolve them the same way as the memory book.
         let letters = Dictionary(journey.letters.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
         var visits: [String: Int] = [:]
@@ -26,10 +26,10 @@ public struct Footprints: Equatable, Sendable {
         func recency(date: String, letterId: Int) -> String {
             date + String(format: ":%020lld", Int64(letterId))
         }
-        for letter in letters.values where letter.kind == .daily && letter.transitTargetId == nil && !letter.arrivals.isEmpty {
-            let city = canonical(letter.cityId)
+        for (index, id) in journey.route.enumerated() {
+            let city = canonical(id)
             visits[city, default: 0] += 1
-            lastVisit[city] = max(lastVisit[city] ?? "", recency(date: letter.date, letterId: letter.id))
+            lastVisit[city] = String(format: "%020lld", Int64(index))
         }
         func addMemory(date: String, letterId: Int?) {
             guard let letterId, let letter = letters[letterId], letter.deliverAt <= now else { return }
@@ -55,10 +55,10 @@ public struct Footprints: Equatable, Sendable {
 
         // Unknown cities have no usable coordinates; a placeholder's (0, 0) is not a real location.
         var distant: Distance?
-        if let origin = catalog.find(home) {
-            for id in journey.route.dropFirst() {
+        if catalog.find(home) != nil {
+            for id in journey.route {
                 guard let city = catalog.find(id), city.id != home else { continue }
-                let km = origin.coordinate.distanceKm(to: city.coordinate)
+                let km = journey.homeCoordinate.distanceKm(to: city.coordinate)
                 // Route order breaks equal distances in favour of the most recent arrival.
                 if km > 0, km >= (distant?.km ?? 0) { distant = Distance(cityId: city.id, km: km) }
             }

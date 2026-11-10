@@ -19,12 +19,12 @@ private let deliveryCalendar: Calendar = {
 
 @Test func configuredDeliveryTimeOnlyChangesLettersSettledAfterPreferenceChange() throws {
     var state = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-01", now: .distantPast, catalog: testCatalog)
-    state.sync(today: DayUsage(date: "2026-11-02"), finalized: [DayUsage(date: "2026-11-01", fuel: 100)],
+    state.sync(today: DayUsage(date: "2026-11-02"), finalized: [DayUsage(date: "2026-11-01", fuel: 100)], now: DayKey.date(from: (DayUsage(date: "2026-11-02")).date, calendar: deliveryCalendar)!.addingTimeInterval(12 * 3600),
                calendar: deliveryCalendar, catalog: testCatalog)
     let oldLetter = try #require(state.letters.last)
     #expect(deliveryCalendar.component(.hour, from: oldLetter.deliverAt) == 9)
     #expect(deliveryCalendar.component(.minute, from: oldLetter.deliverAt) == 0)
-    state.sync(today: DayUsage(date: "2026-11-03"), finalized: [DayUsage(date: "2026-11-02", fuel: 100)],
+    state.sync(today: DayUsage(date: "2026-11-03"), finalized: [DayUsage(date: "2026-11-02", fuel: 100)], now: DayKey.date(from: (DayUsage(date: "2026-11-03")).date, calendar: deliveryCalendar)!.addingTimeInterval(12 * 3600),
                calendar: deliveryCalendar, catalog: testCatalog, deliveryTime: DeliveryTime(rawValue: "08:30")!)
     let newLetter = try #require(state.letters.last)
     #expect(newLetter.id > oldLetter.id)
@@ -40,7 +40,7 @@ private let deliveryCalendar: Calendar = {
     var state = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-10-31", now: .distantPast, catalog: testCatalog)
     state.sync(today: DayUsage(date: "2026-11-02"), finalized: [
         DayUsage(date: "2026-10-31", fuel: 100), DayUsage(date: "2026-11-01", fuel: 100),
-    ], calendar: calendar, catalog: testCatalog, deliveryTime: DeliveryTime(rawValue: "08:30")!)
+    ], now: DayKey.date(from: (DayUsage(date: "2026-11-02")).date, calendar: calendar)!.addingTimeInterval(12 * 3600), calendar: calendar, catalog: testCatalog, deliveryTime: DeliveryTime(rawValue: "08:30")!)
     let deliveries = state.letters.filter { $0.kind == .daily }.map(\.deliverAt)
     #expect(deliveries.count == 2)
     #expect(deliveries.allSatisfy { calendar.component(.hour, from: $0) == 8 && calendar.component(.minute, from: $0) == 30 })

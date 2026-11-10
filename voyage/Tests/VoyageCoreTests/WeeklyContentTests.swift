@@ -166,7 +166,7 @@ import Testing
         #expect(souvenir.letterId == 2 && souvenir.boxId == nil && souvenir.shelved)
         #expect(try JSONDecoder().decode(CareState.self, from: JSONEncoder().encode(care)) == care)
         let journeyURL = try #require(Bundle.module.url(forResource: "journey-v5", withExtension: "json", subdirectory: "Fixtures"))
-        let journey = try JSONDecoder().decode(JourneyState.self, from: Data(contentsOf: journeyURL))
+        let journey = try decodeOldJourneyFixture(Data(contentsOf: journeyURL))
         #expect(journey.letters.allSatisfy { $0.learnedTexts.isEmpty })
     }
 

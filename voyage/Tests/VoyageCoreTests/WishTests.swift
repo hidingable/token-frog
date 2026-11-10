@@ -89,15 +89,29 @@ import Testing
             WishEngine.write("原文与标签无关", tags: ["coast", "food"], at: monday, care: &care)
             care = try JSONDecoder().decode(CareState.self, from: JSONEncoder().encode(care))
             let savedTags = WishEngine.tags(in: care)
-            journey.sync(today: DayUsage(date: journey.openDate, fuel: 1), catalog: testCatalog, wishTags: savedTags)
+            let date = journey.openDate
+            let morning = DayKey.date(from: date, calendar: careCalendar)!.addingTimeInterval(6 * 3600)
+            let arrival = morning.addingTimeInterval(6 * 3600)
+            let home = arrival.addingTimeInterval(6 * 3600)
+            journey.sync(today: DayUsage(date: date, fuel: 1), now: morning, calendar: careCalendar,
+                         catalog: testCatalog, wishTags: savedTags)
             #expect(journey.targetCityId == target && journey.legCost == cost && journey.legFrom == from && journey.legTo == to)
+            journey.sync(today: DayUsage(date: date, fuel: cost), now: arrival, calendar: careCalendar,
+                         catalog: testCatalog, wishTags: savedTags)
+            #expect(journey.phase == .staying && journey.targetCityId == target)
+            let returnCost = max(returnTokensPerKm, Int(to.distanceKm(to: journey.homeCoordinate) * Double(returnTokensPerKm)))
             var plain = journey
-            journey.sync(today: DayUsage(date: journey.openDate, fuel: cost), catalog: testCatalog, wishTags: savedTags)
-            plain.sync(today: DayUsage(date: plain.openDate, fuel: cost), catalog: testCatalog)
-            let expected = DestinationPicker.pick(from: to, currentCityId: target, route: journey.route,
+            journey.sync(today: DayUsage(date: date, fuel: cost + returnCost), now: home, calendar: careCalendar,
+                         catalog: testCatalog, wishTags: savedTags)
+            plain.sync(today: DayUsage(date: date, fuel: cost + returnCost), now: home, calendar: careCalendar, catalog: testCatalog)
+            let expected = DestinationPicker.pick(from: journey.homeCoordinate, currentCityId: journey.homeCityId, route: journey.route,
                 stampedCountries: Set(journey.stamps.map(\.countryCode)), medianKm: 0,
-                wishTags: savedTags, catalog: testCatalog, seed: seed)
-            #expect(journey.targetCityId == expected)
+                wishTags: savedTags, catalog: testCatalog, seed: seed, tripCount: 1)
+            #expect(journey.phase == .home && journey.tripCount == 1 && journey.targetCityId == expected)
+            // A changed wish at home applies to the following draw, not the saved destination.
+            journey.sync(today: DayUsage(date: date, fuel: cost + returnCost), now: home, calendar: careCalendar,
+                         catalog: testCatalog, wishTags: ["art"])
+            #expect(journey.targetCityId == expected && journey.tripCount == 1)
             if journey.targetCityId != plain.targetCityId { foundDifference = true }
         }
         #expect(foundDifference)

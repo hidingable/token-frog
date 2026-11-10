@@ -17,7 +17,7 @@ private struct ArchiveSandbox {
     }
     func store(populated: Bool = true) throws -> SaveStore {
         if populated {
-            try fixture("journey-v7").write(to: url(.journey))
+            try fixture("journey-v8").write(to: url(.journey))
             try fixture("care-v1").write(to: url(.care))
         }
         let store = SaveStore(directory: directory, now: { Date(timeIntervalSince1970: 0) },
@@ -31,7 +31,7 @@ private struct ArchiveSandbox {
     func temporaryFiles() throws -> [String] {
         try FileManager.default.contentsOfDirectory(atPath: directory.path).filter { $0.hasPrefix(".voyage-import-") }
     }
-    func archive(journey: String = "journey-v7", care: String = "care-v1") throws -> Data {
+    func archive(journey: String = "journey-v8", care: String = "care-v1") throws -> Data {
         try JSONSerialization.data(withJSONObject: [
             "format": 1, "exportedAt": "2026-11-06T01:00:00Z", "appVersion": "1.0",
             "journey": JSONSerialization.jsonObject(with: fixture(journey)),
@@ -353,7 +353,7 @@ private struct ArchiveSandbox {
         var journey = try #require(object["journey"] as? [String: Any])
         var care = try #require(object["care"] as? [String: Any])
         switch problem {
-        case "route": journey["route"] = [] as [String]
+        case "route": journey["route"] = [""] as [String]
         case "currentCity": journey["currentCityId"] = ""
         case "targetCity": journey["targetCityId"] = ""
         case "startDate": journey["startDate"] = "not-a-date"
