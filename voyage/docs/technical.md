@@ -562,8 +562,8 @@ Voyage Hub 是 Voyage 自己的服务，和 Token Monitor 的 Hub 没有关系�
 ### 部署
 
 - **服务：** `voyage/hub/` 下独立的 TypeScript 服务（Node 22），部署在阿里云 ECS，前面用 nginx 做 HTTPS 反代；不接 Cloudflare，大陆访问延迟更稳。用 systemd 守护，单实例。
-- **配置：** 只读需要的环境变量，来自 `voyage/.env`（不提交）。数据库用 `DB_*`，模型用 `OPENAI_API_KEY` 和 `OPENAI_MODEL`；SMTP 和 OSS 这一步不用。
-- **存储：** 阿里云 RDS MySQL 的 `token` 库（已存在，目前没有表），表名统一 `voyage_` 前缀。库默认字符集是 `utf8mb3`，每张表显式建成 `utf8mb4`。表结构只走版本化的 SQL 迁移文件，手动执行，永不开 ORM 自动同步——这个库是唯一的生产库，测试也连它，所以测试只用独立的临时表前缀并在结束时清理，或用本地 MySQL。
+- **配置：** 只读需要的进程环境变量；仅显式设置 `HUB_ENV_FILE` 时用 Node `process.loadEnvFile` 加载该文件，不自动读取 `voyage/.env`。数据库用 `DB_*`，模型用 `OPENAI_API_KEY`、`OPENAI_MODEL` 和可选 `OPENAI_BASE_URL`；完整列表见 `hub/.env.example`，SMTP 和 OSS 这一步不用。
+- **存储：** 阿里云 RDS MySQL 的 `token` 库是唯一生产库，表名统一 `voyage_` 前缀。库默认字符集是 `utf8mb3`，每张表显式建成 `utf8mb4`、`utf8mb4_0900_ai_ci`。表结构只走版本化的 SQL 迁移文件，手动执行 `npm run migrate` 并记录在 `voyage_schema_migrations`，服务器启动永不执行迁移。自动测试用内存仓库和假模型，不连接真实数据库或 OpenAI；以后若加 MySQL 集成测试，必须显式启用，使用独立临时表前缀并清理。
 - **开关：** `voyage_config` 表保存每项联网功能的开关，`GET /v1/config` 读取，服务内缓存 60 秒；手动改表即可关掉任一项，客户端读到关闭就走本机回退。
 - **健康和限流：** `GET /healthz` 检查数据库连通。限流在服务内做：按设备公钥和来源 IP 的令牌桶，单实例内存计数；多实例时再换成数据库或 Redis。
 - **模型：** OpenAI 官方 SDK，模型名由 `OPENAI_MODEL` 指定（当前选 gpt-6.1 sol），密钥只在服务端。心愿解析在线调用；城市内容离线批量生成，可用时走批处理接口。
@@ -572,7 +572,7 @@ Voyage Hub 是 Voyage 自己的服务，和 Token Monitor 的 Hub 没有关系�
 ### 生成
 
 - **按城市，不按用户：** 城市玩法、问题和纪念品由离线任务批量生成后入库，所有用户共用；同类已有就复用，没有才新增。
-- **不在请求路径上调模型：** 出发和到站的请求只读库。心愿解析是唯一在线调用模型的接口，结果按“规范化心愿文字 + 标签表版本”的 SHA-256 缓存在 `voyage_wish_cache`，只存哈希和标签，不存原文。
+- **不在请求路径上调模型：** 出发和到站的请求只读库。心愿解析是唯一在线调用模型的接口，结果按“规范化心愿文字 + 语言 + 有效标签白名单版本”的 SHA-256 缓存在 `voyage_wish_cache`，不存原文。标签版本取去重排序后列表的哈希；默认直接读取 `Content/tags.json`，请求可用 `allowedTags` 替换白名单。
 - **进库前校验：** 生成结果按内容包的同一套结构和 `ContentValidator` 规则校验，双语完整才可用；模型输出一律当不可信数据，文字按纯文本显示。校验复用 Swift 代码：`VoyageCore` 新增一个命令行入口 `voyage-content validate <目录>`，生成脚本先写草稿 JSON，再调用它，通过的才能发布。
 - **流程：** `hub/scripts/generate` 按城市生成草稿 → `voyage-content validate` → 人工抽查 → `hub/scripts/publish` 写入 `voyage_city_content`（状态 `approved`）。客户端拿到内容后仍按同一规则再校验一次，不通过就丢弃、用内置内容。
 
@@ -589,7 +589,7 @@ Voyage Hub 是 Voyage 自己的服务，和 Token Monitor 的 Hub 没有关系�
 
 ### 请求签名
 
-每个请求带 `X-Voyage-Device`（Ed25519 公钥）、`X-Voyage-Timestamp` 和 `X-Voyage-Signature`。签名内容是方法、路径、时间戳和请求体 SHA-256 的拼接；时间偏差超过 5 分钟拒绝。客户端用 CryptoKit 的 `Curve25519.Signing` 生成密钥并放进钥匙串，服务端用 Node 自带的 `crypto.verify`。签名只用来限流和以后的配对，不代表身份可信。
+城市内容和心愿请求带 `X-Voyage-Device`（原始 32 字节 Ed25519 公钥的标准 base64）、`X-Voyage-Timestamp`（Unix 秒）和 `X-Voyage-Signature`（64 字节签名的标准 base64）；健康和配置允许无签名。签名字符串精确为 `METHOD\nPATH_WITH_QUERY\nTIMESTAMP\nSHA256_HEX(body)`，UTF-8 编码、无末尾换行；方法大写，路径保留原始查询顺序和百分号编码，请求体按原始字节取小写十六进制哈希，GET 体为空。时间偏差超过 5 分钟拒绝。客户端用 CryptoKit 的 `Curve25519.Signing` 生成密钥并放进钥匙串，服务端用 Node 自带的 `crypto.verify(null, ...)`。设备出现时间每个进程最多每 5 分钟写一次；签名只用来限流和以后的配对，不代表身份可信。完整协议和固定测试向量见 `hub/README.md`。
 
 ### 客户端
 
@@ -601,7 +601,7 @@ Voyage Hub 是 Voyage 自己的服务，和 Token Monitor 的 Hub 没有关系�
 
 ### 实施顺序
 
-1. **5a 服务：** `voyage/hub/` 骨架、迁移、配置、健康、限流、签名校验、心愿解析、内容读取，含测试；不部署。
+1. **5a 服务（已实现，未部署）：** `voyage/hub/` 骨架、迁移、配置、健康、限流、签名校验、心愿解析、内容读取，含内存仓库和假模型测试；未对真实数据库执行迁移。
 2. **5b 生成：** `voyage-content validate` 命令、生成和发布脚本，先用三座城试跑并人工检查。
 3. **5c 客户端：** Hub 客户端、设备密钥、设置开关、心愿走服务端、出发时拉内容。
 4. **部署：** 在 ECS 上执行迁移、配置 nginx 和 systemd，需要人工确认后进行。
@@ -622,8 +622,8 @@ Voyage Hub 是 Voyage 自己的服务，和 Token Monitor 的 Hub 没有关系�
 | 接口 | 什么时候调 | 作用 |
 |---|---|---|
 | `GET /v1/config` | 启动和每天一次 | 读各功能开关；读不到用本机默认。选城参数是否也从这里下发见 design.md 的待确认 |
-| `GET /v1/cities/{cityId}/content?lang=` | 出发时一次 | 取这一趟要用的玩法、问题和纪念品；拉不到用内置内容 |
-| `POST /v1/wishes/resolve` | 写心愿时 | 返回已有标签；3 秒超时后用本机关键词 |
+| `GET /v1/cities/{cityId}/content?lang=zh-Hans\|en` | 出发时一次 | 返回 `schemaVersion` 和 `items`，保留内容包双语 Story/Item 结构（问题在 Story.replies 中）；只读 approved，开关关闭时 `disabled:true, items:[]` |
+| `POST /v1/wishes/resolve` | 写心愿时 | 接受 `{text, language, allowedTags?}`，最多 40 个字素；返回 `{tags, source}`。认证后的解析预算最多 2.5 秒，超时/错误/关闭分别返回空标签及 timeout/error/disabled；客户端 3 秒超时后用本机关键词 |
 | `POST /v1/stays` | 到站时一次，偶遇开启才调 | 登记在这座城停留；同城已有等待中的宠物就配成一对并返回对方外观 |
 | `GET /v1/stays/{stayId}` | 停留期间和到家时 | 查这次停留后来有没有被配上 |
 | `PUT /v1/sync` | 定期 | 同步收藏的内容 ID，用于校验和换设备恢复 |
