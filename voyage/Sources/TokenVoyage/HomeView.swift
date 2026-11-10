@@ -26,7 +26,7 @@ struct HomeTab: View {
                                         }
                                         Spacer(minLength: 4)
                                         VStack(alignment: .trailing, spacing: 10) {
-                                            Button(l10n("home.profile")) { model.showProfile() }
+                                            if state.petIsHome { Button(l10n("home.profile")) { model.showProfile() } }
                                             if model.canArrangeRoom {
                                                 Button(l10n("room.arrange")) { model.showRoomArrangement() }
                                                     .accessibilityLabel(l10n("room.arrange"))
@@ -49,15 +49,11 @@ struct HomeTab: View {
                                 .buttonStyle(.plain)
                                 HomeCard(grows: true) {
                                     Text(l10n("home.now")).foregroundStyle(theme.textMuted)
-                                    if model.usageDisplayState == .noUsage {
-                                        Text(l10n("usage.noRecords")).foregroundStyle(theme.textMuted)
-                                            .fixedSize(horizontal: false, vertical: true)
-                                    } else {
-                                        Text(l10n("home.onRoad", l10n.cityName(catalog.city(state.targetCityId))))
-                                        BlockProgress(progress: state.legProgress, blocks: 16, size: 8)
-                                        Text(l10n("home.today", Format.km(model.todayKm))).foregroundStyle(theme.mileageText)
-                                        Text(l10n("journey.remaining", Format.km(state.remainingKm))).foregroundStyle(theme.textMuted)
-                                    }
+                                    let status = HomeStatusDisplay(journey: state, care: care, now: model.now, catalog: catalog, l10n: l10n)
+                                    Text(status.title).fixedSize(horizontal: false, vertical: true)
+                                    Text(status.detail).foregroundStyle(theme.textMuted)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                    if let fund = status.fund { Text(fund).foregroundStyle(theme.mileageText) }
                                 }
                                 WeekCard(model: model, care: care)
                             }
@@ -119,48 +115,24 @@ private struct WeekCard: View {
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
+            HStack(spacing: 0) {
+                ForEach(week.days) { day in
+                    VStack(spacing: 4) {
+                        Text(day.label)
+                        Text(day.stamped ? "●" : "·")
+                    }
+                    .foregroundStyle(day.stamped || day.today ? theme.text : theme.textMuted)
+                    .frame(maxWidth: .infinity)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(l10n.day(day.id, full: true))
+                    .accessibilityValue(day.stamped ? l10n("home.week.stamped") : "")
+                }
+            }
             Text(l10n("home.week.noStreak")).foregroundStyle(theme.textMuted)
             if let title = week.boxButton(l10n: l10n) {
                 CollectionAction(title: title) { model.showBoxes() }
             }
         }
-    }
-}
-
-private struct WeekFloorView: View {
-    @Environment(\.theme) private var theme
-    let days: [WeekDisplay.Day]
-    let scale: Int
-
-    var body: some View {
-        let factor = CGFloat(scale)
-        GeometryReader { proxy in
-            let rows = Int(ceil(proxy.size.height / factor))
-            ZStack(alignment: .topLeading) {
-                PixelArtView(image: RoomArt.weekFloor(days: days, rows: rows, theme: theme), scale: scale)
-                    .frame(width: CGFloat(RoomLayout.width) * factor, height: CGFloat(rows) * factor)
-                    .accessibilityHidden(true)
-                ForEach(Array(days.enumerated()), id: \.element.id) { index, day in
-                    let tile = RoomLayout.weekTile(index, rows: rows)
-                    WeekTileLabel(day: day).position(x: tile.midX * factor, y: tile.midY * factor)
-                }
-            }
-        }
-        .frame(minHeight: CGFloat(RoomLayout.weekFloorMinRows) * factor, maxHeight: .infinity)
-        .clipped()
-    }
-}
-
-private struct WeekTileLabel: View {
-    @Environment(\.theme) private var theme
-    @Environment(\.l10n) private var l10n
-    let day: WeekDisplay.Day
-
-    var body: some View {
-        Text(day.label).font(Theme.pixel())
-            .foregroundStyle(day.stamped ? theme.companionOnFill : theme.textMuted)
-            .accessibilityLabel(l10n.day(day.id, full: true))
-            .accessibilityValue(day.stamped ? l10n("home.week.stamped") : "")
     }
 }
 
@@ -170,6 +142,13 @@ private struct RoomSceneView: View {
     let model: AppModel
     let availableWidth: CGFloat
     @Binding var selectedSouvenir: String?
+    @State private var floorNote: FloorNote?
+
+    private struct FloorNote: Identifiable {
+        var id: String
+        var title: String
+        var text: String
+    }
 
     var body: some View {
         if let state = model.state, let care = model.care, let catalog = model.catalog {
@@ -180,10 +159,14 @@ private struct RoomSceneView: View {
             let shelf = RoomLayout.shelf(care).compactMap { catalog.items.find($0.id) }
             let placements = roomItems(care: care, catalog: catalog)
             let petBounds = RoomLayout.petBounds(form: model.petForm)
-            VStack(spacing: 0) {
+            let floorDisplay = HomeFloorDisplay(journey: state, care: care, now: model.now, catalog: catalog, l10n: l10n)
+            GeometryReader { proxy in
+                let rows = Int(ceil(proxy.size.height / factor))
                 ZStack(alignment: .topLeading) {
-                    PixelArtView(image: RoomArt.image(pet: state.pet, shelf: shelf, theme: theme, catalog: catalog.pets, form: model.petForm, placements: placements, nightcap: model.nightcapNote != nil), scale: scale)
+                    PixelArtView(image: RoomArt.image(pet: state.pet, shelf: shelf, theme: theme, catalog: catalog.pets, form: model.petForm, placements: placements, nightcap: model.nightcapNote != nil, petIsHome: state.petIsHome), scale: scale)
                         .frame(width: width, height: height).accessibilityHidden(true)
+                    PixelArtView(image: RoomArt.floor(display: floorDisplay, rows: rows, theme: theme, catalog: catalog.pets), scale: scale)
+                        .frame(width: width, height: CGFloat(rows) * factor).accessibilityHidden(true)
                     Color.clear.contentShape(Rectangle()).onTapGesture { selectedSouvenir = nil }
                     ForEach(Array(shelf.enumerated()), id: \.element.id) { index, item in
                         Button { selectedSouvenir = item.id } label: {
@@ -204,12 +187,14 @@ private struct RoomSceneView: View {
                                 .accessibilityLabel(l10n("room.placedItem", l10n.roomSlot(slot), l10n.itemName(item)))
                         }
                     }
+                    if state.petIsHome {
                     Button { selectedSouvenir = nil; model.showProfile() } label: {
                         Color.clear.contentShape(Rectangle())
                     }
                     .buttonStyle(.plain).frame(width: (petBounds.width + 4) * factor, height: (petBounds.height + 4) * factor)
                     .position(x: petBounds.midX * factor, y: petBounds.midY * factor)
                     .accessibilityLabel(l10n("home.profile"))
+                    }
                     Button { selectedSouvenir = nil; model.openCollection(.souvenirs) } label: {
                         Text(l10n("home.allSouvenirs")).padding(4)
                             .background(theme.background).pixelBorder(theme.border)
@@ -220,17 +205,58 @@ private struct RoomSceneView: View {
                         roomBubble(l10n.itemDescription(item), region: RoomLayout.bubbleRegion(scale: scale, souvenir: true, form: model.petForm)) {
                             selectedSouvenir = nil
                         }
-                    } else if let text = model.nightcapText {
+                    } else if state.phase == .pending {
+                        roomBubble(l10n("home.status.pendingBubble", l10n.cityName(catalog.city(state.targetCityId))), region: RoomLayout.bubbleRegion(scale: scale, souvenir: false, form: model.petForm)) {}
+                    } else if state.phase == .home, let returned = state.homecoming?.returnedAt,
+                              model.now.timeIntervalSince(returned) < 3600 {
+                        roomBubble(l10n("home.bubble.returned"), region: RoomLayout.bubbleRegion(scale: scale, souvenir: false, form: model.petForm)) {}
+                    } else if state.petIsHome, let text = model.nightcapText {
                         roomBubble(text, region: RoomLayout.bubbleRegion(scale: scale, souvenir: false, form: model.petForm)) {}
-                    } else if let bubble = model.petBubble {
+                    } else if state.petIsHome, let bubble = model.petBubble {
                         roomBubble(l10n(bubble.titleKey), region: RoomLayout.bubbleRegion(scale: scale, souvenir: false, form: model.petForm)) {
                             model.activateBubble(bubble)
                         }
                     }
+                    ForEach(Array(floorDisplay.parcels.enumerated()), id: \.element.id) { index, parcel in
+                        floorButton(bounds: RoomLayout.parcel(index), factor: factor,
+                                    label: l10n("floor.parcel.open", catalog.items.find(parcel.itemID).map(l10n.itemName) ?? parcel.itemID)) {
+                            if model.openFloorParcel(parcel.id), let item = catalog.items.find(parcel.itemID) {
+                                floorNote = FloorNote(id: parcel.id, title: l10n("floor.parcel.collected", l10n.itemName(item)), text: l10n.itemDescription(item))
+                            }
+                        }
+                    }
+                    ForEach(Array(floorDisplay.patches.enumerated()), id: \.element.id) { index, patch in
+                        let title = l10n("floor.rug.patch", l10n.cityName(catalog.city(patch.id)), l10n.day(patch.firstStay, full: true))
+                        floorButton(bounds: RoomLayout.rugPatch(index), factor: factor, label: title) {
+                            floorNote = FloorNote(id: patch.id, title: l10n.cityName(catalog.city(patch.id)), text: l10n("floor.rug.firstStay", l10n.day(patch.firstStay, full: true)))
+                        }
+                    }
+                    if let line = floorDisplay.looseBoard {
+                        floorButton(bounds: RoomLayout.looseBoard, factor: factor, label: l10n("floor.board.open")) {
+                            floorNote = FloorNote(id: "board", title: l10n.day(line.date, full: true), text: line.text)
+                        }
+                    }
+                    floorButton(bounds: RoomLayout.crate, factor: factor, label: l10n("floor.crate.label", floorDisplay.crateLabel(l10n: l10n))) {
+                        if floorDisplay.crate == .ready { model.showBoxes() }
+                        else { floorNote = FloorNote(id: "crate", title: l10n("floor.crate.title"), text: floorDisplay.crateLabel(l10n: l10n)) }
+                    }
+                    Text(floorDisplay.crateLabel(l10n: l10n)).font(.system(size: 12))
+                        .foregroundStyle(theme.paperText).padding(4).background(theme.paper).pixelBorder(theme.paperBorder)
+                        .frame(width: 66 * factor)
+                        .position(x: 34 * factor, y: 158 * factor)
+                        .accessibilityHidden(true).allowsHitTesting(false)
                 }
-                .frame(width: width, height: height)
-                WeekFloorView(days: WeekDisplay(care: care, now: model.now, l10n: l10n).days, scale: scale)
-                    .frame(width: width)
+                .frame(width: width, height: proxy.size.height, alignment: .topLeading)
+            }
+            .frame(width: width)
+            .frame(minHeight: CGFloat(RoomLayout.height + RoomLayout.floorMinRows) * factor, maxHeight: .infinity)
+            .clipped()
+            .popover(item: $floorNote) { note in
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(note.title).font(Theme.pixel()).foregroundStyle(theme.text)
+                    Text(note.text).font(.system(size: 14)).foregroundStyle(theme.textMuted)
+                }.padding(16).frame(width: 280).fixedSize(horizontal: false, vertical: true)
+                    .background(theme.background)
             }
             .pixelBorder(theme.border)
             .padding(.leading, floor((availableWidth - width) / 2))
@@ -243,6 +269,14 @@ private struct RoomSceneView: View {
                 selectedSouvenir = nil
             }
         }
+    }
+
+    private func floorButton(bounds: CGRect, factor: CGFloat, label: String, action: @escaping () -> Void) -> some View {
+        Button { selectedSouvenir = nil; action() } label: { Color.clear.contentShape(Rectangle()) }
+            .buttonStyle(.plain)
+            .frame(width: bounds.width * factor, height: bounds.height * factor)
+            .position(x: bounds.midX * factor, y: bounds.midY * factor)
+            .accessibilityLabel(label)
     }
 
     private func roomBubble(_ text: String, region: CGRect, action: @escaping () -> Void) -> some View {

@@ -32,7 +32,7 @@ struct RoomArrangementView: View {
                     .fixedSize(horizontal: false, vertical: true)
                 PixelArtView(image: RoomArt.image(pet: state.pet, shelf: RoomLayout.shelf(care).compactMap { catalog.items.find($0.id) },
                                                   theme: theme, catalog: catalog.pets, form: model.petForm, placements: placed,
-                                                  nightcap: model.nightcapNote != nil), scale: 2)
+                                                  nightcap: model.nightcapNote != nil, petIsHome: state.petIsHome), scale: 2)
                     .frame(width: 480, height: 264).frame(maxWidth: .infinity)
                     .accessibilityLabel(l10n("room.preview"))
                 HStack(spacing: 8) {

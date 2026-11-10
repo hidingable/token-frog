@@ -9,16 +9,17 @@ enum RoomArt {
         let form: PetForm
         let placements: [String]
         let nightcap: Bool
+        let petIsHome: Bool
         let icons: [String]
         let catalog: PetCatalog
         static func == (lhs: Key, rhs: Key) -> Bool {
-            lhs.pet == rhs.pet && lhs.form == rhs.form && lhs.placements == rhs.placements && lhs.nightcap == rhs.nightcap && lhs.icons == rhs.icons && lhs.catalog === rhs.catalog
+            lhs.pet == rhs.pet && lhs.form == rhs.form && lhs.placements == rhs.placements && lhs.nightcap == rhs.nightcap && lhs.petIsHome == rhs.petIsHome && lhs.icons == rhs.icons && lhs.catalog === rhs.catalog
         }
     }
     private static var cache: [String: (key: Key, image: CGImage)] = [:]
 
-    static func image(pet: PetID, shelf: [Item], theme: AppTheme, catalog: PetCatalog, form: PetForm = .hatchling, placements: [RoomSlot: Item] = [:], nightcap: Bool = false) -> CGImage {
-        let key = Key(pet: pet, form: form, placements: RoomSlot.allCases.map { placements[$0]?.icon ?? "" }, nightcap: nightcap, icons: shelf.prefix(CareRules.shelfCapacity).map(\.icon), catalog: catalog)
+    static func image(pet: PetID, shelf: [Item], theme: AppTheme, catalog: PetCatalog, form: PetForm = .hatchling, placements: [RoomSlot: Item] = [:], nightcap: Bool = false, petIsHome: Bool = true) -> CGImage {
+        let key = Key(pet: pet, form: form, placements: RoomSlot.allCases.map { placements[$0]?.icon ?? "" }, nightcap: nightcap, petIsHome: petIsHome, icons: shelf.prefix(CareRules.shelfCapacity).map(\.icon), catalog: catalog)
         if let cached = cache[theme.id], cached.key == key { return cached.image }
         let width = RoomLayout.width
         let height = RoomLayout.height
@@ -70,46 +71,103 @@ enum RoomArt {
                        x: Int(bounds.minX), y: Int(bounds.minY), scale: 1)
             }
         }
-        let bounds = RoomLayout.petBounds(form: form)
-        sprite(Sprites.petPixels(pet, catalog: catalog, form: form, nightcap: nightcap),
-               width: catalog.sprite(pet, form: form).size[0], x: Int(bounds.minX), y: Int(bounds.minY), scale: 2)
+        if !petIsHome {
+            // A note on the ajar door is the mockup's away state.
+            rect(theme.rgb(.roomWindowBack), 204, 54, 7, 40)
+            rect(theme.rgb(.roomPaper), 214, 64, 9, 8)
+            rect(theme.rgb(.roomMail), 216, 66, 5, 1)
+            rect(theme.rgb(.roomWoodDark), 216, 68, 5, 1)
+            rect(theme.rgb(.roomWoodDark), 216, 70, 3, 1)
+        }
+        if petIsHome {
+            let bounds = RoomLayout.petBounds(form: form)
+            sprite(Sprites.petPixels(pet, catalog: catalog, form: form, nightcap: nightcap),
+                   width: catalog.sprite(pet, form: form).size[0], x: Int(bounds.minX), y: Int(bounds.minY), scale: 2)
+        }
         let image = PixelImage.make(width: width, height: height, pixels: pixels)
         cache[theme.id] = (key, image)
         return image
     }
 
-    /// Continues the room's planks in phase, with one stepping tile per weekday; a stamped day carries a postmark.
-    static func weekFloor(days: [WeekDisplay.Day], rows: Int, theme: AppTheme) -> CGImage {
+    private struct FloorKey: Equatable {
+        let rows: Int
+        let parcels: Int
+        let footprints: Int
+        let colors: [Int]
+        let looseBoard: Bool
+        let crate: HomeFloorDisplay.Crate
+    }
+    private static var floorCache: [String: (key: FloorKey, catalog: PetCatalog, image: CGImage)] = [:]
+
+    /// Transparent over the original room, then continues its planks below y=132.
+    static func floor(display: HomeFloorDisplay, rows: Int, theme: AppTheme, catalog: PetCatalog) -> CGImage {
+        let key = FloorKey(rows: rows, parcels: display.parcels.count, footprints: display.footprintLevel,
+                           colors: display.patches.map(\.colorIndex), looseBoard: display.looseBoard != nil, crate: display.crate)
+        if let cached = floorCache[theme.id], cached.key == key, cached.catalog === catalog { return cached.image }
         let width = RoomLayout.width
-        var pixels = [UInt32?](repeating: theme.rgb(.roomFloor), count: width * rows)
+        var pixels = [UInt32?](repeating: nil, count: width * rows)
         func rect(_ color: UInt32, _ x: Int, _ y: Int, _ w: Int, _ h: Int) {
             for row in max(y, 0)..<min(y + h, rows) {
-                for column in x..<(x + w) { pixels[row * width + column] = color }
+                for column in max(x, 0)..<min(x + w, width) { pixels[row * width + column] = color }
             }
         }
-        for x in stride(from: 0, to: width, by: 20) { rect(theme.rgb(.roomFloorLine), x, 0, 1, rows) }
-        // RoomArt's horizontal planks run every 9 rows from y=104 and its image ends at y=132.
-        for y in stride(from: 8, to: rows, by: 9) { rect(theme.rgb(.roomFloorLine), 0, y, width, 1) }
-        for (index, day) in days.enumerated() {
-            let tile = RoomLayout.weekTile(index, rows: rows)
-            let (x, y, size) = (Int(tile.minX), Int(tile.minY), Int(tile.width))
-            rect(theme.rgb(.roomShadow), x, y + 2, size, size)
-            rect(theme.rgb(day.today ? .text : .roomFloorLine), x, y, size, size)
-            rect(theme.rgb(.background), x + 1, y + 1, size - 2, size - 2)
-            guard day.stamped else { continue }
-            let center = Double(size - 1) / 2
-            for row in 0..<size {
-                for column in 0..<size {
-                    let (dx, dy) = (Double(column) - center, Double(row) - center)
-                    let radius = (dx * dx + dy * dy).squareRoot()
-                    // The dashed outer edge reads as a postmark rather than a colored data cell.
-                    let tooth = Int(floor((atan2(dy, dx) + .pi) * 12 / .pi)) % 2 == 0
-                    guard radius <= (tooth ? 10.6 : 9.6) else { continue }
-                    let ring = radius > 7.4 && radius <= 8.4
-                    pixels[(y + row) * width + x + column] = theme.rgb(ring ? .background : .companionFill)
-                }
+        func fill(_ color: UInt32, _ bounds: CGRect) {
+            rect(color, Int(bounds.minX), Int(bounds.minY), Int(bounds.width), Int(bounds.height))
+        }
+        rect(theme.rgb(.roomFloor), 0, RoomLayout.height, width, max(0, rows - RoomLayout.height))
+        for x in stride(from: 0, to: width, by: 20) {
+            rect(theme.rgb(.roomFloorLine), x, RoomLayout.height, 1, max(0, rows - RoomLayout.height))
+        }
+        for y in stride(from: 140, to: rows, by: 9) { rect(theme.rgb(.roomFloorLine), 0, y, width, 1) }
+        // Door-to-pet trail stays above the rug and clear of the parcel hit areas.
+        if display.footprintLevel > 0 {
+            let count = [0, 2, 4, 6][display.footprintLevel]
+            for index in 0..<count {
+                rect(theme.rgb(.roomShadow), 198 - index * 8, 116 + index % 2 * 3, 3, 2)
             }
         }
-        return PixelImage.make(width: width, height: rows, pixels: pixels)
+        let rug = RoomLayout.rug
+        fill(theme.rgb(.paperCompanionText), rug)
+        rect(catalog.palette["y"]!, Int(rug.minX), Int(rug.minY) + 2, Int(rug.width), 1)
+        rect(catalog.palette["y"]!, Int(rug.minX), Int(rug.maxY) - 3, Int(rug.width), 1)
+        // Muted textile colors keep the same city identity in both room themes.
+        let palette = ["c", "w", "b", "g", "o"].map { catalog.palette[Character($0)]! }
+        for (index, patch) in display.patches.enumerated() { fill(palette[patch.colorIndex], RoomLayout.rugPatch(index)) }
+        for index in display.parcels.indices {
+            let bounds = RoomLayout.parcel(index)
+            for (pixel, color) in Sprites.itemPixels("box", catalog: catalog).enumerated() {
+                if let color { rect(color, Int(bounds.minX) + pixel % 12, Int(bounds.minY) + pixel / 12, 1, 1) }
+            }
+        }
+        let crate = RoomLayout.crate
+        fill(theme.rgb(.roomWood), crate)
+        let x = Int(crate.minX), y = Int(crate.minY)
+        rect(theme.rgb(.roomWoodDark), x, y, 24, 2)
+        rect(theme.rgb(.roomWoodDark), x, y + 18, 24, 2)
+        rect(theme.rgb(.roomWoodDark), x + 7, y, 2, 20)
+        rect(theme.rgb(.roomWoodDark), x + 16, y, 2, 20)
+        switch display.crate {
+        case .nailed:
+            for i in 0..<16 { rect(theme.rgb(.roomPaper), x + 4 + i, y + 2 + i, 2, 2) }
+            rect(theme.rgb(.roomShadow), x + 5, y + 4, 1, 1)
+            rect(theme.rgb(.roomShadow), x + 18, y + 16, 1, 1)
+        case .ready:
+            rect(theme.rgb(.roomLight), x + 10, y + 7, 4, 5)
+        case .opened:
+            rect(theme.rgb(.roomShadow), x + 2, y + 2, 20, 8)
+            rect(theme.rgb(.roomWood), x - 2, y - 4, 24, 3)
+        }
+        if display.looseBoard != nil {
+            let board = RoomLayout.looseBoard
+            fill(theme.rgb(.roomShadow), board.offsetBy(dx: 1, dy: 2))
+            fill(theme.rgb(.roomWood), board)
+            let bx = Int(board.minX), by = Int(board.minY)
+            rect(theme.rgb(.roomLight), bx, by, 24, 1)
+            rect(theme.rgb(.roomWoodDark), bx + 2, by + 6, 18, 1)
+            rect(theme.rgb(.roomLight), bx + 23, by, 1, 12)
+        }
+        let image = PixelImage.make(width: width, height: rows, pixels: pixels)
+        floorCache[theme.id] = (key, catalog, image)
+        return image
     }
 }

@@ -48,12 +48,18 @@ enum RoomLayout {
         }
     }
 
-    /// The week floor continues below the room art and grows to match the column beside it.
-    static let weekFloorMinRows = 34
-    static let weekTileSize = 24
+    /// Extended planks absorb the right column's height, with no interactive overlap.
+    static let floorMinRows = 50
+    static let rug = CGRect(x: 94, y: 122, width: 72, height: 28)
+    static let crate = CGRect(x: 22, y: 124, width: 24, height: 20)
+    static let looseBoard = CGRect(x: 184, y: 143, width: 24, height: 12)
 
-    static func weekTile(_ index: Int, rows: Int) -> CGRect {
-        CGRect(x: 6 + index * 34, y: (rows - weekTileSize) / 2, width: weekTileSize, height: weekTileSize)
+    static func parcel(_ index: Int) -> CGRect {
+        CGRect(x: 172 + index * 13, y: 100 + index % 2 * 6, width: 12, height: 12)
+    }
+
+    static func rugPatch(_ index: Int) -> CGRect {
+        CGRect(x: 98 + index % 4 * 16, y: 127 + index / 4 * 10, width: 14, height: 8)
     }
 
     static func bubbleRegion(scale: Int, souvenir: Bool, form: PetForm = .hatchling) -> CGRect {

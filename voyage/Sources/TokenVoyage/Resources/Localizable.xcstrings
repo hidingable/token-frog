@@ -4251,38 +4251,6 @@
         }
       }
     },
-    "home.onRoad": {
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "在路上 → %@"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "On the road → %@"
-          }
-        }
-      }
-    },
-    "home.today": {
-      "localizations": {
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "今天 %@"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Today %@"
-          }
-        }
-      }
-    },
     "settings.language": {
       "localizations": {
         "zh-Hans": {
@@ -8258,6 +8226,431 @@
           "stringUnit": {
             "state": "translated",
             "value": "Good night, messengers · 8×"
+          }
+        }
+      }
+    },
+    "home.status.fund": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Travel fund %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "路费 %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "home.status.home": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "At home"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在家"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "home.status.returned": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "At home · Just back from %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在家 · 刚从%@回来"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "home.status.brought": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brought back %d items, now in the post office"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "带回 %d 件，已放进邮局"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "home.status.nextTrip": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "It will plan the next trip when you start work"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你一开工，它就准备下一趟"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "home.status.pending": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Getting ready → %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "准备出门 → %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "home.status.departure": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leaving in %d min · Carrying %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d 分后出发 · 带着%@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "home.status.emptyBag": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "an empty bag"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "空行囊"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "home.status.outbound": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On the way to %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "前往%@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "home.status.staying": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In %@ · Staying %d h %d min more"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在%@ · 还停 %d 时 %d 分"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "home.status.returning": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heading home · %@ to go"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "回家 · 还差 %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "home.status.pendingBubble": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off to %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我去趟%@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "floor.parcel.open": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unwrap parcel: %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拆包裹：%@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "floor.parcel.collected": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Put away · %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收好了 · %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "floor.rug.patch": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Travel rug: %@ · First stay %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "旅行地毯：%@ · 第一次停留 %@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "floor.rug.firstStay": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First stay: %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "第一次停留：%@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "floor.board.open": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lift the loose floorboard to revisit an old memory"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "掀开松动的地板，看看旧事"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "floor.crate.nailed": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d more stamps"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还差 %d 章"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "floor.crate.ready": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open gift box"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开礼盒"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "floor.crate.opened": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opened this week"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本周已打开"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "floor.crate.label": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weekly crate: %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本周木箱：%@"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "floor.crate.title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weekly crate"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本周木箱"
+          }
+        }
+      },
+      "extractionState": "manual"
+    },
+    "home.status.broughtOne": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brought back %d item, now in the post office"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "带回 %d 件，已放进邮局"
+          }
+        }
+      }
+    },
+    "floor.crate.nailedOne": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d more stamp"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还差 %d 章"
+          }
+        }
+      }
+    },
+    "home.bubble.returned": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I'm home!"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我回来了！"
           }
         }
       }

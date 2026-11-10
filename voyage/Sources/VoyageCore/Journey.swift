@@ -21,6 +21,8 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     /// Set when no city was reached that day: the pet writes from the road towards this city.
     public var transitTargetId: String?
     public var arrivals: [String]
+    /// Presentation provenance only; daily rewards belong to the last stay, or the active transit trip.
+    public var tripNumber: Int?
     public var newCountries: [String]
     public var fuel: Int
     /// Absent on legacy letters, whose fuel used the old mileage rate.
@@ -102,6 +104,7 @@ public struct DayRecord: Codable, Equatable, Sendable {
     public var mainWindowOpened = false
     public var byClient: [String: Int] = [:]
     public var arrivals: [String] = []
+    public var tripNumber: Int?
     public var newCountries: [String] = []
     public var roadClueDecision: RoadClueDecision?
     /// Final scan value, separate from mileage's monotonic high-water mark.
@@ -130,6 +133,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
     public var phaseSince: Date
     public var travelFund = 0
     public var tripCount = 0
+    public var homecoming: Homecoming?
     public var currentCityId: String
     public var targetCityId: String
     public var legCost: Int
@@ -187,6 +191,8 @@ public struct JourneyState: Codable, Equatable, Sendable {
             ),
         ]
     }
+
+    public var petIsHome: Bool { phase == .home || phase == .pending }
 
     public var tokensPerKm: Int { phase == .returning ? returnTokensPerKm : outboundTokensPerKm }
     public var travelFundKm: Double { Double(travelFund) / Double(outboundTokensPerKm) }
@@ -271,6 +277,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         legFuel = 0
         phase = .outbound
         phaseSince = now
+        homecoming = nil
         advance(pending, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
     }
 
@@ -393,6 +400,9 @@ public struct JourneyState: Codable, Equatable, Sendable {
     private mutating func advance(_ amount: Int, at now: Date, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
         let date = DayKey.string(from: now, calendar: calendar)
         saveFund(0, on: date)
+        if amount > 0, days[date, default: DayRecord()].arrivals.isEmpty {
+            days[date, default: DayRecord()].tripNumber = tripCount + 1
+        }
         switch phase {
         case .home:
             if amount > 0 { phase = .pending; phaseSince = now; legFuel = amount }
@@ -411,6 +421,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
             if phase == .outbound {
                 currentCityId = targetCityId
                 route.append(currentCityId)
+                days[date, default: DayRecord()].tripNumber = tripCount + 1
                 days[date, default: DayRecord()].arrivals.append(currentCityId)
                 if let country = targetCountryCode, !stamps.contains(where: { $0.countryCode == country }) {
                     stamps.append(Stamp(countryCode: country, cityId: currentCityId, date: date))
@@ -437,6 +448,10 @@ public struct JourneyState: Codable, Equatable, Sendable {
     }
 
     private mutating func arriveHome(at now: Date, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
+        homecoming = Homecoming(tripNumber: tripCount + 1, cityId: currentCityId, returnedAt: now,
+                                distanceKm: homeCoordinate.distanceKm(to: catalog.city(currentCityId).coordinate),
+                                medianKm: max(DestinationPicker.configuration.minimumMedianKm,
+                                              recentDailyKm(before: DayKey.string(from: now, calendar: calendar))))
         phase = .home
         phaseSince = now
         currentCityId = homeCityId
@@ -482,6 +497,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
                 cityId: record.arrivals.last ?? route.last ?? homeCityId,
                 transitTargetId: record.arrivals.isEmpty ? targetCityId : nil,
                 arrivals: record.arrivals,
+                tripNumber: record.tripNumber,
                 newCountries: record.newCountries,
                 fuel: record.fuel,
                 tokens: record.tokens,
@@ -500,7 +516,7 @@ extension JourneyState {
         case route, stamps, openDate, days, letters, totalFuel, totalKm, legCost, legFrom, legTo, targetCountryCode
         case lastOpenedDate, weeklyMailEligibleFrom, lastWeeklyMailSunday, roadCluesEligibleFrom
         case usageEvents
-        case homeCityId, homeCoordinate, phase, phaseSince, travelFund, tripCount
+        case homeCityId, homeCoordinate, phase, phaseSince, travelFund, tripCount, homecoming
     }
 
     public init(from decoder: Decoder) throws {
@@ -515,6 +531,7 @@ extension JourneyState {
         phaseSince = try values.decode(Date.self, forKey: .phaseSince)
         travelFund = try values.decode(Int.self, forKey: .travelFund)
         tripCount = try values.decode(Int.self, forKey: .tripCount)
+        homecoming = try values.decodeIfPresent(Homecoming.self, forKey: .homecoming)
         guard travelFund >= 0, tripCount >= 0 else {
             throw DecodingError.dataCorruptedError(forKey: .travelFund, in: values, debugDescription: "Fund and trip count must be nonnegative")
         }
@@ -547,6 +564,7 @@ extension Letter {
     private enum CodingKeys: String, CodingKey {
         case id, kind, date, pet, cityId, transitTargetId, arrivals, newCountries, fuel, tokens
         case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
+        case tripNumber
         case storyId, storyVersion, arrivalStories, isRevisit, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
         case carriedItem, itemTriggered
         case facts, rewards, rewardItems, memoryReference, weeklySummary, wishExplanationAt, usageEventNotes, weatherCode, temperatureC, place, photoFile
@@ -561,6 +579,7 @@ extension Letter {
         cityId = try values.decode(String.self, forKey: .cityId)
         transitTargetId = try values.decodeIfPresent(String.self, forKey: .transitTargetId)
         arrivals = try values.decode([String].self, forKey: .arrivals)
+        tripNumber = try values.decodeIfPresent(Int.self, forKey: .tripNumber)
         newCountries = try values.decode([String].self, forKey: .newCountries)
         fuel = try values.decode(Int.self, forKey: .fuel)
         tokens = try values.decodeIfPresent(Int.self, forKey: .tokens)
@@ -598,7 +617,7 @@ extension Letter {
 }
 
 extension DayRecord {
-    private enum CodingKeys: String, CodingKey { case fuel, tokens, byClient, arrivals, newCountries, mainWindowOpened, roadClueDecision, finalUsageFuel, lastObservedAt }
+    private enum CodingKeys: String, CodingKey { case fuel, tokens, byClient, arrivals, tripNumber, newCountries, mainWindowOpened, roadClueDecision, finalUsageFuel, lastObservedAt }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -607,6 +626,7 @@ extension DayRecord {
         mainWindowOpened = try values.decode(Bool.self, forKey: .mainWindowOpened, default: false)
         byClient = try values.decode([String: Int].self, forKey: .byClient, default: [:])
         arrivals = try values.decode([String].self, forKey: .arrivals, default: [])
+        tripNumber = try values.decodeIfPresent(Int.self, forKey: .tripNumber)
         newCountries = try values.decode([String].self, forKey: .newCountries, default: [])
         roadClueDecision = try values.decodeIfPresent(RoadClueDecision.self, forKey: .roadClueDecision)
         finalUsageFuel = try values.decodeIfPresent(Int.self, forKey: .finalUsageFuel)

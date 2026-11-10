@@ -157,7 +157,7 @@ public enum CareEngine {
         return random.next() % 2 == 0
     }
 
-    private static func carriedItem(bag: CareState.Bag, seed: UInt32, letterId: Int) -> String? {
+    public static func carriedItem(bag: CareState.Bag, seed: UInt32, letterId: Int) -> String? {
         if let chosen = bag.todayItem, bag.owned.contains(chosen) { return chosen }
         let owned = bag.owned.sorted()
         guard !owned.isEmpty else { return nil }

@@ -438,6 +438,15 @@ final class AppModel {
         return true
     }
 
+    @discardableResult
+    func openFloorParcel(_ id: String) -> Bool {
+        guard !isLocked, onboarding == nil, var state, let care,
+              HomeFloor.openParcel(id, journey: &state, care: care) else { return false }
+        self.state = state
+        persist()
+        return true
+    }
+
     var petBubble: PetBubble? { care.flatMap { PetBubble.current(letters: letters, care: $0) } }
 
     func activateBubble(_ bubble: PetBubble) {

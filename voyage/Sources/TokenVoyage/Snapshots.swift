@@ -53,6 +53,7 @@ enum Snapshots {
             }
         }
 
+        writeHomePhases(model: model, to: directory)
         writePetForms(model: model, to: directory, metrics: metrics)
         writeRevisits(model: model, to: directory)
 
@@ -79,15 +80,6 @@ enum Snapshots {
                     WishEngine.write(text, tags: ["coast", "food", "art"], at: model.now, care: &care)
                 }) {
                     main(.home, name: "home-wish-written", size: CGSize(width: 760, height: 1000), update: { $0 = examples.journey })
-                }
-                model.withSnapshotCare({ care in
-                    let calendar = Calendar.current
-                    let monday = calendar.date(byAdding: .day, value: -((calendar.component(.weekday, from: model.now) + 5) % 7), to: model.now)!
-                    care.weekly.stamps = [0, 1, 3, 4].map { DayKey.string(from: calendar.date(byAdding: .day, value: $0, to: monday)!) }
-                    care.weekly.boxes = ["snapshot"]
-                }) {
-                    main(.home, name: "home-week-floor", size: CGSize(width: 940, height: 800), update: { $0 = examples.journey })
-                    main(.home, name: "home-week-floor-wide", size: CGSize(width: 1200, height: 900), update: { $0 = examples.journey })
                 }
                 model.withSnapshotState({ $0 = examples.journey }) {
                     model.showProfile()
@@ -456,6 +448,78 @@ enum Snapshots {
             .claude: QuotaAccountState(linked: true, status: .stale(lastGoodAt: old), readings: [stale], failure: .unavailable(.network)),
             .otherTools: QuotaAccountState(linked: true, status: .expired),
         ]
+    }
+
+    static func writeHomePhases(model: AppModel, to directory: URL) {
+        guard let catalog = model.catalog else { return }
+        for phase in [JourneyState.Phase.home, .pending, .outbound, .staying, .returning] {
+            let example = homePhaseExample(phase: phase, catalog: catalog, now: model.now, petName: model.petName)
+            model.withSnapshotCare({ $0 = example.care }) {
+                model.withSnapshotState({ $0 = example.journey }) {
+                    model.openPostOffice()
+                    for width in [760, 940, 1200] {
+                        render(MainView(model: model), size: CGSize(width: width, height: 1000),
+                               name: "home-phase-\(phase.rawValue)-\(width)", directory, model: model)
+                    }
+                }
+            }
+        }
+    }
+
+    static func homePhaseExample(phase: JourneyState.Phase, catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
+        var example = homeExamples(catalog: catalog, now: now, petName: petName)
+        let home = catalog.city("shanghai"), destination = catalog.city("jingdezhen")
+        let trip = (1...100).first { HomeFloor.looseBoardRoll(seed: example.journey.seed, tripCount: $0) % 5 == 0 }!
+        example.journey.tripCount = trip
+        example.journey.phase = phase
+        example.journey.phaseSince = now
+        example.journey.currentCityId = home.id
+        example.journey.targetCityId = destination.id
+        example.journey.legFrom = home.coordinate
+        example.journey.legTo = destination.coordinate
+        example.journey.legCost = JourneyState.cost(from: home, to: destination)
+        example.journey.legFuel = 0
+        example.journey.travelFund = 46 * outboundTokensPerKm
+        example.journey.homecoming = nil
+        example.care.seenPetStages = ["juvenile", "teen"]
+        example.care.weekly.boxes = []
+        let calendar = Calendar.current
+        let monday = calendar.date(byAdding: .day, value: -((calendar.component(.weekday, from: now) + 5) % 7), to: now)!
+        example.care.weekly.stamps = [0, 1, 3].map { DayKey.string(from: calendar.date(byAdding: .day, value: $0, to: monday)!) }
+        example.journey.route = ["hangzhou", "suzhou", "jingdezhen"]
+        for (index, city) in example.journey.route.enumerated() {
+            let key = DayKey.string(from: calendar.date(byAdding: .day, value: -4 + index, to: now)!)
+            example.journey.days[key, default: DayRecord()].arrivals = [city]
+        }
+        for index in example.journey.letters.indices {
+            example.journey.letters[index].read = true
+            example.journey.letters[index].tripNumber = nil
+        }
+        switch phase {
+        case .home:
+            example.journey.homecoming = Homecoming(tripNumber: trip, cityId: destination.id, returnedAt: now,
+                                                   distanceKm: 1000, medianKm: 366)
+            let letterIDs = Set(example.care.souvenirs.prefix(2).compactMap(\.letterId))
+            for index in example.journey.letters.indices where letterIDs.contains(example.journey.letters[index].id) {
+                example.journey.letters[index].tripNumber = trip
+            }
+        case .pending:
+            example.journey.phaseSince = now.addingTimeInterval(-2 * 60)
+        case .outbound:
+            example.journey.legFuel = example.journey.legCost / 3
+        case .staying:
+            example.journey.currentCityId = destination.id
+            example.journey.legFuel = example.journey.legCost
+            example.journey.phaseSince = now.addingTimeInterval(-100 * 60)
+        case .returning:
+            example.journey.currentCityId = destination.id
+            example.journey.targetCityId = home.id
+            example.journey.legFrom = destination.coordinate
+            example.journey.legTo = home.coordinate
+            example.journey.legCost = max(returnTokensPerKm, Int(home.coordinate.distanceKm(to: destination.coordinate) * Double(returnTokensPerKm)))
+            example.journey.legFuel = example.journey.legCost / 3
+        }
+        return example
     }
 
     static func homeExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {

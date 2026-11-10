@@ -5,6 +5,7 @@ struct SplitMix64 {
         case dropRarity = 0xD510_B3C1_873A_E629
         case dropItem = 0x3CF9_EA61_0B28_754D
         case roadClue = 0x6C1B_E342_A859_07DF
+        case looseBoard = 0x921A_5D73_08C4_B6EF
         case usageEvent = 0x45BC_921A_7D36_E08F
     }
 

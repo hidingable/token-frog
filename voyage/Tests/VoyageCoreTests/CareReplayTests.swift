@@ -2,7 +2,7 @@ import Foundation
 import Testing
 @testable import VoyageCore
 
-private func replayCare(seed: UInt32, multiplier: Int, stories: StoryLibrary, wish: Bool = false) -> (JourneyState, CareState) {
+private func replayCare(seed: UInt32, multiplier: Int, stories: StoryLibrary, wish: Bool = false, openFloor: Bool = false) -> (JourneyState, CareState) {
     var (journey, care) = engineState(seed: seed)
     if wish { WishEngine.write("看海", tags: ["coast"], at: DayKey.date(from: journey.openDate)!, care: &care) }
     for day in 0..<60 {
@@ -18,6 +18,13 @@ private func replayCare(seed: UInt32, multiplier: Int, stories: StoryLibrary, wi
         care.bag.todayItem = ["sketchbook", "note-slip", "raincoat", "old-camera", "lunchbox", nil, "unowned"][day % 7]
         if day % 6 != 5 { CareEngine.markCompanion(date: next, care: &care) }
         CareEngine.process(journey: &journey, care: &care, stories: stories, catalog: testCatalog, wishTags: WishEngine.tags(in: care))
+        if openFloor {
+            for parcel in HomeFloor.parcels(journey: journey, care: care) {
+                HomeFloor.openParcel(parcel.id, journey: &journey, care: care)
+            }
+            _ = HomeFloor.looseBoardRoll(seed: journey.seed, tripCount: journey.tripCount)
+            for city in journey.route { _ = HomeFloor.rugColorIndex(cityID: city) }
+        }
         if let letter = journey.letters.last, letter.kind == .daily, letter.id % 4 == 1 {
             // Policy depends only on letter number, including which habit to encourage.
             let replyId = letter.id % 8 == 1 ? "ask-next-time" : "look-closer"
@@ -72,7 +79,7 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
     func sixtyDaysOfDoubledUsagePreserveAllCompanionProgress(seed: UInt32) {
         let stories = replayStories()
         let (normal, care) = replayCare(seed: seed, multiplier: 1, stories: stories)
-        let (doubled, doubledCare) = replayCare(seed: seed, multiplier: 2, stories: stories)
+        let (doubled, doubledCare) = replayCare(seed: seed, multiplier: 2, stories: stories, openFloor: true)
         #expect(normal.letters.map(\.id) == doubled.letters.map(\.id))
         #expect(normal.letters.map(\.date) == doubled.letters.map(\.date))
         #expect(normal.letters.map(\.fulfilledReplyId) == doubled.letters.map(\.fulfilledReplyId))
@@ -93,6 +100,15 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
         #expect(normal.letters.contains { $0.storyId?.hasSuffix(".fulfill") == true })
         #expect(doubled.totalFuel == normal.totalFuel * 2)
         #expect(doubled.days.values.reduce(0) { $0 + ($1.tokens ?? 0) } == normal.days.values.reduce(0) { $0 + ($1.tokens ?? 0) } * 2)
+    }
+
+    @Test(arguments: [UInt32(1), 7, 42])
+    func floorInteractionsLeaveAllRewardsAndCareUntouched(seed: UInt32) {
+        let (normal, care) = replayCare(seed: seed, multiplier: 1, stories: replayStories())
+        let (opened, openedCare) = replayCare(seed: seed, multiplier: 1, stories: replayStories(), openFloor: true)
+        #expect(care == openedCare)
+        #expect(normal.letters == opened.letters)
+        #expect(normal.route == opened.route && normal.totalKm == opened.totalKm && normal.travelFund == opened.travelFund)
     }
 
     @Test func everySeedFulfillsTheFirstReplyNextLetterAndLaterRepliesWithinThreeHeadLetters() throws {

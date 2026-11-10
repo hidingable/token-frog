@@ -68,7 +68,7 @@ struct L10n: Sendable {
     func roomSlot(_ slot: RoomSlot) -> String { self(Self.roomSlotKeys[slot]!) }
 
     static var dynamicKeys: [String] {
-        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(mailEmptyKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + Array(appearanceKeys.values) + countKeys.values.flatMap { $0 } + Array(onboardingTitleKeys.values) + Enricher.weatherKeys + Array(stageKeys.values) + Array(habitKeys.values) + habitDescriptionKeys.values.flatMap { $0 } + floatingKeys + wishActionKeys + settingsKeys + Array(roomSlotKeys.values) + ["habit.both", "home.bubble.mail", "home.bubble.reply", "home.bubble.bag", "box.next", "box.keep", "box.open"]
+        Array(tabKeys.values) + Array(mailFilterKeys.values) + Array(mailEmptyKeys.values) + Array(collectionTabKeys.values) + Array(dataTabKeys.values) + Array(periodKeys.values) + Array(metricKeys.values) + Array(quotaKeys.values) + Array(languageKeys.values) + Array(appearanceKeys.values) + countKeys.values.flatMap { $0 } + Array(onboardingTitleKeys.values) + Enricher.weatherKeys + Array(stageKeys.values) + Array(habitKeys.values) + habitDescriptionKeys.values.flatMap { $0 } + floatingKeys + wishActionKeys + settingsKeys + Array(roomSlotKeys.values) + ["home.status.brought", "home.status.broughtOne", "floor.crate.nailed", "floor.crate.nailedOne", "habit.both", "home.bubble.mail", "home.bubble.reply", "home.bubble.bag", "box.next", "box.keep", "box.open"]
     }
 
     func defaultPetName(_ pet: PetID, catalog: PetCatalog) -> String {
