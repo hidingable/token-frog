@@ -59,6 +59,8 @@ test('generator writes exact bilingual pack arrays, source and review, then vali
   });
   assert.deepEqual(result, { generated: ['hangzhou'], skipped: [] });
   assert.deepEqual(validations, [[packDirectory, out]]);
+  const angles: string[] = JSON.parse(await readFile(new URL('../scripts/scene-angles.json', import.meta.url), 'utf8'));
+  assert.deepEqual(JSON.parse(model.calls[0]!.prompt).sceneAngles, angles.slice(2, 4));
   const stories = await readJSON(join(out, 'stories/hangzhou.json'));
   const items = await readJSON(join(out, 'items/hangzhou.json'));
   const batch = generationSchema.parse({ stories, items });
@@ -143,6 +145,15 @@ test('dry-run writes reviewable prompts and schema, never calls model or validat
   const reference = JSON.parse(prompt.prompt);
   assert.equal(reference.city.facts[0].id, 'west-lake');
   assert.ok(reference.existingStories.length && reference.existingItems.length);
+  const angles: string[] = JSON.parse(await readFile(new URL('../scripts/scene-angles.json', import.meta.url), 'utf8'));
+  assert.deepEqual(reference.sceneAngles, angles.slice(2, 4));
+  assert.equal(reference.sceneAngles.length, reference.count);
+  const paragraphs: string[] = prompt.system.split('\n\n');
+  const sceneParagraph = paragraphs.findIndex(paragraph => paragraph.startsWith('Let each scene grow out of'));
+  assert.ok(sceneParagraph >= 0);
+  assert.equal(paragraphs[sceneParagraph + 1], "The request's sceneAngles list gives one angle per story, in order. Build story N around sceneAngles[N], applied to that story's cited fact. Do not end a story by keeping a napkin, wrapper, receipt or food-stained paper. A photo taken by a passer-by may appear only when the angle involves a stranger.");
+  assert.ok(prompt.system.includes('A story need not end with keeping anything.'));
+  assert.ok(!prompt.system.includes('Vary the kind of keepsake;'));
   assert.deepEqual(await readdir(out), ['prompts']);
 });
 

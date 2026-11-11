@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
@@ -29,6 +29,18 @@ const exampleItems = z.array(z.object({
   id: z.string(), kind: z.string(), cityId: z.string().nullable(), rarity: z.string().nullable(),
   icon: z.string(), habit: z.string().nullable(), names: bilingual, descriptions: bilingual,
 }));
+const sceneAnglesSchema = z.array(z.string().trim().min(1)).min(1)
+  .refine(angles => new Set(angles).size === angles.length, { message: 'scene_angles_must_be_unique' });
+
+export async function loadSceneAngles(file: string | URL = new URL('./scene-angles.json', import.meta.url)): Promise<string[]> {
+  return sceneAnglesSchema.parse(JSON.parse(await readFile(file, 'utf8')));
+}
+
+export function pickSceneAngles(cityId: string, count: number, angles: readonly string[]): string[] {
+  if (!Number.isSafeInteger(count) || count < 1 || count > angles.length) throw new Error('invalid_scene_angle_count');
+  const start = createHash('sha256').update(cityId).digest().readUInt32BE(0) % angles.length;
+  return Array.from({ length: count }, (_, offset) => angles[(start + offset) % angles.length]!);
+}
 
 export interface GenerationRequest { system: string; prompt: string }
 export interface ContentModel {
@@ -102,6 +114,7 @@ export async function generateContent(options: {
   const count = options.count ?? 2;
   if (!Number.isSafeInteger(count) || count < 1 || options.cities.length === 0
     || options.cities.some(city => !/^[a-z][a-z0-9-]*$/.test(city))) throw new Error('invalid_generation_arguments');
+  const angles = await loadSceneAngles();
   const pack = options.pack ?? packDirectory;
   await mkdir(options.out, { recursive: true });
   if ((await readdir(options.out)).length) throw new Error('output_directory_must_be_empty');
@@ -120,9 +133,10 @@ export async function generateContent(options: {
       log(JSON.stringify({ city: cityId, event: 'skipped', reason: 'insufficient_verified_content' }));
       continue;
     }
+    const sceneAngles = pickSceneAngles(cityId, count, angles);
     const prefix = `hub.${cityId}.${randomUUID()}.`;
     const request = { system, prompt: JSON.stringify({ city, existingStories: stories, existingItems: items,
-      allowedTags: tags, count, idPrefix: prefix }) };
+      allowedTags: tags, count, idPrefix: prefix, sceneAngles }) };
     if (options.dryRun) {
       await mkdir(resolve(options.out, 'prompts'), { recursive: true });
       await writeFile(resolve(options.out, 'prompts', `${cityId}.json`), JSON.stringify({
