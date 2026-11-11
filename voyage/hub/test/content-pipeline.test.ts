@@ -61,6 +61,9 @@ test('generator writes exact bilingual pack arrays, source and review, then vali
   assert.deepEqual(validations, [[packDirectory, out]]);
   const angles: string[] = JSON.parse(await readFile(new URL('../scripts/scene-angles.json', import.meta.url), 'utf8'));
   assert.deepEqual(JSON.parse(model.calls[0]!.prompt).sceneAngles, angles.slice(2, 4));
+  const forms: string[] = JSON.parse(await readFile(new URL('../scripts/keepsake-forms.json', import.meta.url), 'utf8'));
+  const formStart = 1047061468 % forms.length;
+  assert.deepEqual(JSON.parse(model.calls[0]!.prompt).keepsakeForms, [forms[formStart], forms[(formStart + 1) % forms.length]]);
   const stories = await readJSON(join(out, 'stories/hangzhou.json'));
   const items = await readJSON(join(out, 'items/hangzhou.json'));
   const batch = generationSchema.parse({ stories, items });
@@ -148,11 +151,18 @@ test('dry-run writes reviewable prompts and schema, never calls model or validat
   const angles: string[] = JSON.parse(await readFile(new URL('../scripts/scene-angles.json', import.meta.url), 'utf8'));
   assert.deepEqual(reference.sceneAngles, angles.slice(2, 4));
   assert.equal(reference.sceneAngles.length, reference.count);
+  const forms: string[] = JSON.parse(await readFile(new URL('../scripts/keepsake-forms.json', import.meta.url), 'utf8'));
+  // SHA-256(hangzhou:keepsake) starts with 3e68e3dc: 1047061468.
+  const formStart = 1047061468 % forms.length;
+  assert.deepEqual(reference.keepsakeForms, [forms[formStart], forms[(formStart + 1) % forms.length]]);
+  assert.equal(reference.keepsakeForms.length, reference.count);
   const paragraphs: string[] = prompt.system.split('\n\n');
   const sceneParagraph = paragraphs.findIndex(paragraph => paragraph.startsWith('Let each scene grow out of'));
   assert.ok(sceneParagraph >= 0);
-  assert.equal(paragraphs[sceneParagraph + 1], "The request's sceneAngles list gives one angle per story, in order. Build story N around sceneAngles[N], applied to that story's cited fact. Do not end a story by keeping a napkin, wrapper, receipt or food-stained paper. A photo taken by a passer-by may appear only when the angle involves a stranger.");
-  assert.ok(prompt.system.includes('A story need not end with keeping anything.'));
+  assert.ok(paragraphs[sceneParagraph + 1]?.startsWith("The request's sceneAngles list gives one angle per story, in order."));
+  assert.ok(paragraphs[sceneParagraph + 2]?.startsWith("The request's keepsakeForms list gives one form per new souvenir, in order."));
+  assert.ok(prompt.system.includes('New souvenirs should be fictional personal keepsakes grounded in the scene, not invented local goods.'));
+  assert.ok(!prompt.system.includes('A story need not end with keeping anything.'));
   assert.ok(!prompt.system.includes('Vary the kind of keepsake;'));
   assert.deepEqual(await readdir(out), ['prompts']);
 });

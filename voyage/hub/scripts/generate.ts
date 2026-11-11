@@ -29,17 +29,33 @@ const exampleItems = z.array(z.object({
   id: z.string(), kind: z.string(), cityId: z.string().nullable(), rarity: z.string().nullable(),
   icon: z.string(), habit: z.string().nullable(), names: bilingual, descriptions: bilingual,
 }));
-const sceneAnglesSchema = z.array(z.string().trim().min(1)).min(1)
-  .refine(angles => new Set(angles).size === angles.length, { message: 'scene_angles_must_be_unique' });
+
+async function loadUniqueStrings(file: string | URL, label: string): Promise<string[]> {
+  const schema = z.array(z.string().trim().min(1)).min(1)
+    .refine(values => new Set(values).size === values.length, { message: `${label}_must_be_unique` });
+  return schema.parse(JSON.parse(await readFile(file, 'utf8')));
+}
 
 export async function loadSceneAngles(file: string | URL = new URL('./scene-angles.json', import.meta.url)): Promise<string[]> {
-  return sceneAnglesSchema.parse(JSON.parse(await readFile(file, 'utf8')));
+  return loadUniqueStrings(file, 'scene_angles');
+}
+
+export async function loadKeepsakeForms(file: string | URL = new URL('./keepsake-forms.json', import.meta.url)): Promise<string[]> {
+  return loadUniqueStrings(file, 'keepsake_forms');
+}
+
+function pickConsecutive(seed: string, count: number, entries: readonly string[], countError: string): string[] {
+  if (!Number.isSafeInteger(count) || count < 1 || count > entries.length) throw new Error(countError);
+  const start = createHash('sha256').update(seed).digest().readUInt32BE(0) % entries.length;
+  return Array.from({ length: count }, (_, offset) => entries[(start + offset) % entries.length]!);
 }
 
 export function pickSceneAngles(cityId: string, count: number, angles: readonly string[]): string[] {
-  if (!Number.isSafeInteger(count) || count < 1 || count > angles.length) throw new Error('invalid_scene_angle_count');
-  const start = createHash('sha256').update(cityId).digest().readUInt32BE(0) % angles.length;
-  return Array.from({ length: count }, (_, offset) => angles[(start + offset) % angles.length]!);
+  return pickConsecutive(cityId, count, angles, 'invalid_scene_angle_count');
+}
+
+export function pickKeepsakeForms(cityId: string, count: number, forms: readonly string[]): string[] {
+  return pickConsecutive(`${cityId}:keepsake`, count, forms, 'invalid_keepsake_form_count');
 }
 
 export interface GenerationRequest { system: string; prompt: string }
@@ -115,6 +131,7 @@ export async function generateContent(options: {
   if (!Number.isSafeInteger(count) || count < 1 || options.cities.length === 0
     || options.cities.some(city => !/^[a-z][a-z0-9-]*$/.test(city))) throw new Error('invalid_generation_arguments');
   const angles = await loadSceneAngles();
+  const forms = await loadKeepsakeForms();
   const pack = options.pack ?? packDirectory;
   await mkdir(options.out, { recursive: true });
   if ((await readdir(options.out)).length) throw new Error('output_directory_must_be_empty');
@@ -134,9 +151,10 @@ export async function generateContent(options: {
       continue;
     }
     const sceneAngles = pickSceneAngles(cityId, count, angles);
+    const keepsakeForms = pickKeepsakeForms(cityId, count, forms);
     const prefix = `hub.${cityId}.${randomUUID()}.`;
     const request = { system, prompt: JSON.stringify({ city, existingStories: stories, existingItems: items,
-      allowedTags: tags, count, idPrefix: prefix, sceneAngles }) };
+      allowedTags: tags, count, idPrefix: prefix, sceneAngles, keepsakeForms }) };
     if (options.dryRun) {
       await mkdir(resolve(options.out, 'prompts'), { recursive: true });
       await writeFile(resolve(options.out, 'prompts', `${cityId}.json`), JSON.stringify({
