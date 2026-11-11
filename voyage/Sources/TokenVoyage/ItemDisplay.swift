@@ -7,10 +7,12 @@ struct ItemDisplay: Equatable, Identifiable {
     let description: String
     let rarity: String?
     let isRare: Bool
+    let sponsorTag: String?
     var id: String { item.id }
 
     init(_ item: Item, l10n: L10n, showCommon: Bool = false, rarity: String? = nil) {
         self.item = item
+        sponsorTag = l10n.sponsorTag(item.sponsor)
         name = l10n.itemName(item)
         description = l10n.itemDescription(item)
         let recordedRarity = rarity ?? item.rarity
@@ -35,7 +37,10 @@ extension LetterComposer {
     static func brought(for letter: Letter, care: CareState?, catalog: CityCatalog, l10n: L10n) -> BroughtItems? {
         // The rarity stamp distinguishes these rewards from older saved letters.
         guard let rarity = letter.rewards.dropRarity else { return nil }
-        let items = letter.rewards.itemIds.compactMap { id in letter.rewardItems.first { $0.id == id } ?? catalog.items.find(id) }.map { ItemDisplay($0, l10n: l10n, rarity: rarity) }
+        let items = letter.rewards.itemIds.compactMap { id -> ItemDisplay? in
+            guard let item = letter.rewardItems.first(where: { $0.id == id }) ?? catalog.items.find(id) else { return nil }
+            return ItemDisplay(item, l10n: l10n, rarity: rarity)
+        }
         let menus = letter.rewards.menuIds.compactMap { catalog.items.find($0) }.map { ItemDisplay($0, l10n: l10n) }
         let city = letter.rewards.duplicateClueCityId
         return BroughtItems(
@@ -60,6 +65,13 @@ struct MenuGroup: Identifiable {
 }
 
 enum ItemCollection {
+    static func souvenirItem(_ saved: CareState.Souvenir, letters: [Letter], library: ItemLibrary) -> Item? {
+        let origin = saved.letterId.flatMap { id in letters.first { $0.id == id } }
+        guard var item = origin?.rewardItems.first(where: { $0.id == saved.id }) ?? library.find(saved.id) else { return nil }
+        item.sponsor = saved.sponsor ?? item.sponsor
+        return item
+    }
+
     static func menuGroups(care: CareState, catalog: CityCatalog, letters: [Letter]) -> [MenuGroup] {
         var groups: [String: [MenuGroup.Entry]] = [:]
         for menu in care.menus {

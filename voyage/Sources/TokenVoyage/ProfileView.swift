@@ -49,9 +49,12 @@ struct ProfileView: View {
                         }
                         ForEach(profile.learned) { learned in
                             Button { model.openCollectionLetter(learned.id) } label: {
-                                Text("· " + learned.text).font(.system(size: 14)).lineSpacing(4)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("· " + learned.text).font(.system(size: 14)).lineSpacing(4)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    ForEach(learned.sponsorTags, id: \.self) { SponsorTag(text: $0) }
+                                }
                             }
                             .buttonStyle(.plain)
                             .disabled(!model.letters.contains { $0.id == learned.id })

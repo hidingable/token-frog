@@ -27,15 +27,17 @@ const souvenirSchema = z.looseObject({
   habit: z.null().optional(), names: bilingual, descriptions: bilingual, source: optionalText,
 });
 
-function readItem(row: CityContentRow, cityId: string): unknown | null {
+function readItem(row: CityContentRow, cityId: string, sponsorContentEnabled: boolean): unknown | null {
   if (row.schemaVersion !== SCHEMA_VERSION) return null;
+  if (!sponsorContentEnabled && row.content !== null && typeof row.content === 'object'
+    && Object.hasOwn(row.content, 'sponsor')) return null;
   const parsed = (row.kind === 'souvenir' ? souvenirSchema : storySchema).safeParse(row.content);
   if (!parsed.success || parsed.data.cityId !== cityId || parsed.data.id !== row.id) return null;
   // Preserve bilingual maps and additive fields, including native Story.kind and embedded replies.
   return row.content;
 }
 
-export async function readCityContent(repository: Repository, cityId: string): Promise<unknown[]> {
+export async function readCityContent(repository: Repository, cityId: string, sponsorContentEnabled = false): Promise<unknown[]> {
   const rows = await repository.getApprovedCityContent(cityId);
-  return rows.map(row => readItem(row, cityId)).filter(item => item !== null);
+  return rows.map(row => readItem(row, cityId, sponsorContentEnabled)).filter(item => item !== null);
 }

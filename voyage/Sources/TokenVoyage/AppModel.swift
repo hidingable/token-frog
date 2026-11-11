@@ -15,6 +15,7 @@ final class AppModel {
     private(set) var encounterTasks: [String: Task<Void, Never>] = [:]
     private var encounterGeneration = 0
     private var hubEncountersAvailable = false
+    private var hubSponsorContentEnabled = false
     private var snapshotEncountersAvailable = false
     private(set) var encountersEnabled: Bool {
         didSet { if !isSnapshot { defaults.set(encountersEnabled, forKey: "encountersEnabled") } }
@@ -98,6 +99,10 @@ final class AppModel {
     var cityContentEnabled: Bool {
         didSet { if !isSnapshot { defaults.set(cityContentEnabled, forKey: "cityContentEnabled") } }
     }
+    var sponsorContentEnabled: Bool {
+        didSet { if !isSnapshot { defaults.set(sponsorContentEnabled, forKey: "sponsorContentEnabled") } }
+    }
+    var sponsorContentAllowed: Bool { sponsorContentEnabled && hubSponsorContentEnabled }
     var wishResolveEnabled: Bool {
         didSet { if !isSnapshot { defaults.set(wishResolveEnabled, forKey: "wishResolveEnabled") } }
     }
@@ -211,6 +216,7 @@ final class AppModel {
         self.defaults = defaults
         encountersEnabled = defaults.object(forKey: "encountersEnabled") as? Bool ?? false
         cityContentEnabled = defaults.object(forKey: "cityContentEnabled") as? Bool ?? true
+        sponsorContentEnabled = defaults.object(forKey: "sponsorContentEnabled") as? Bool ?? true
         wishResolveEnabled = defaults.object(forKey: "wishResolveEnabled") as? Bool ?? true
         morningNotificationsEnabled = defaults.object(forKey: "morningNotifications") as? Bool ?? true
         deliveryTime = defaults.string(forKey: "deliveryTime").flatMap(DeliveryTime.init(rawValue:)) ?? .standard
@@ -470,6 +476,14 @@ final class AppModel {
         state?.letters.filter { $0.carriedItem == item }.count ?? 0
     }
 
+    func ownedItem(_ id: String) -> Item? {
+        guard let catalog else { return nil }
+        if let saved = care?.souvenirs.first(where: { $0.id == id }) {
+            return ItemCollection.souvenirItem(saved, letters: state?.letters ?? [], library: catalog.items)
+        }
+        return catalog.items.find(id)
+    }
+
     @discardableResult
     func setSouvenirShelved(_ id: String, shelved: Bool) -> Bool {
         guard !isLocked, onboarding == nil, var care,
@@ -531,7 +545,8 @@ final class AppModel {
         now = clock()
         let previousState = state
         let previousCare = care
-        CareEngine.open(at: now, journey: &state, care: &care, catalog: catalog)
+        CareEngine.open(at: now, journey: &state, care: &care, catalog: catalog,
+                        sponsorContentEnabled: sponsorContentAllowed)
         guard state != previousState || care != previousCare else { return }
         self.state = state
         self.care = care
@@ -575,6 +590,13 @@ final class AppModel {
         if let state, let learned = CareEngine.recentLearned(journey: state, limit: 1).first,
            let text = LetterComposer.localized(learned.learnedTexts, l10n: l10n) { return text }
         return l10n(L10n.floatingKeys[reactionIndex % L10n.floatingKeys.count])
+    }
+
+    var floatingSponsorTags: [String] {
+        guard let state, let learned = CareEngine.recentLearned(journey: state, limit: 1).first,
+              LetterComposer.localized(learned.learnedTexts, l10n: l10n) != nil,
+              let letter = state.letters.first(where: { $0.id == learned.letterId }) else { return [] }
+        return LetterComposer.sponsorTags(for: letter, l10n: l10n, letters: state.letters)
     }
 
     func reactToFloatingClick() {
@@ -972,6 +994,7 @@ final class AppModel {
     func refreshHubConfiguration() async {
         let config = await hubClient.refreshConfig(now: clock())
         hubEncountersAvailable = config.encountersEnabled
+        hubSponsorContentEnabled = config.sponsorContentEnabled
     }
 
     func requestEncountersEnabled(_ enabled: Bool) {
@@ -1144,7 +1167,8 @@ final class AppModel {
         state.enableUsageEvents(on: DayKey.string(from: clock()))
         WishEngine.refreshWeek(at: clock(), care: &care)
         let wishTags = WishEngine.tags(in: care)
-        CareEngine.process(journey: &state, care: &care, stories: catalog.stories, catalog: catalog, wishTags: wishTags)
+        CareEngine.process(journey: &state, care: &care, stories: catalog.stories, catalog: catalog, wishTags: wishTags,
+                           sponsorContentEnabled: sponsorContentAllowed)
         if weeklyMail {
             CareEngine.writeWeeklyMail(journey: &state, catalog: catalog, deliveryTime: deliveryTime)
         }

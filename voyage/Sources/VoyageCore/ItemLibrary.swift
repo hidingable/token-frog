@@ -10,6 +10,7 @@ public struct Item: Codable, Equatable, Sendable, Identifiable {
     public var names: [String: String]
     public var descriptions: [String: String]
     public var source: String?
+    public var sponsor: Sponsor? = nil
 }
 
 public struct BoxContents: Codable, Equatable, Sendable {
@@ -44,9 +45,9 @@ public struct ItemLibrary: Sendable {
         return ItemLibrary(items: all.filter { !remoteIDs.contains($0.id) || ids.contains($0.id) }, boxes: boxes)
     }
 
-    func drop(rewards: StoryRewards, letter: Letter, care: CareState, seed: UInt32) -> StoryRewards {
+    func drop(rewards: StoryRewards, letter: Letter, care: CareState, seed: UInt32, sponsorContentEnabled: Bool = false) -> StoryRewards {
         let rarity = ItemDropRules.rarity(seed: seed, letterId: letter.id, pity: care.pity)
-        let souvenirs = all.filter { $0.kind == "souvenir" && $0.source == nil && $0.rarity == rarity }
+        let souvenirs = all.filter { $0.kind == "souvenir" && $0.source == nil && $0.rarity == rarity && ($0.sponsor == nil || sponsorContentEnabled) }
         let authored = souvenirs.filter { rewards.itemIds.contains($0.id) }
         let local = souvenirs.filter { $0.cityId == letter.cityId }
         let generic = souvenirs.filter { $0.cityId == nil }

@@ -4,7 +4,7 @@ extension CareEngine {
     /// Called for a real main-window open, never by usage collection or catch-up.
     public static func open(
         at now: Date, journey: inout JourneyState, care: inout CareState,
-        catalog: CityCatalog, calendar: Calendar = .current
+        catalog: CityCatalog, calendar: Calendar = .current, sponsorContentEnabled: Bool = false
     ) {
         let date = DayKey.string(from: now, calendar: calendar)
         guard date >= journey.startDate, date > (journey.lastOpenedDate ?? "") else { return }
@@ -16,7 +16,8 @@ extension CareEngine {
         }
         journey.lastOpenedDate = date
         journey.days[date, default: DayRecord()].mainWindowOpened = true
-        process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog)
+        process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog,
+                sponsorContentEnabled: sponsorContentEnabled, calendar: calendar)
     }
 
     private static func appendCompanionMail(
@@ -39,7 +40,7 @@ extension CareEngine {
         let datedSeed = date.utf8.reduce(journey.seed) { ($0 &* 31) &+ UInt32($1) }
         var random = SplitMix64(seed: datedSeed, stopCount: id)
         let recent = Set(journey.letters.filter { $0.id < id }.suffix(10).compactMap(\.storyId))
-        let pool = stories.all.filter { $0.kind == kind.rawValue }
+        let pool = stories.all.filter { $0.kind == kind.rawValue && $0.sponsor == nil }
         let unseen = pool.filter { !recent.contains($0.id) }
         let candidates = unseen.isEmpty ? pool : unseen
         let story = candidates[Int(random.next() % UInt64(candidates.count))]
@@ -63,7 +64,7 @@ extension CareEngine {
                 return $0.kind < $1.kind
             }.compactMap { memory -> (CareState.Memory, [String: String])? in
                 guard let source = journey.letters.first(where: { $0.id == memory.letterId }),
-                      source.deliverAt <= letter.deliverAt else { return nil }
+                      source.deliverAt <= letter.deliverAt, !source.hasSponsoredContent else { return nil }
                 let texts = memory.kind == "fulfilled" ? source.learnedTexts
                     : source.replyOptions.first { $0.id == memory.replyId }?.text ?? [:]
                 guard ["zh-Hans", "en"].allSatisfy({ texts[$0]?.isEmpty == false }) else { return nil }
@@ -75,7 +76,7 @@ extension CareEngine {
             letter.leadTexts = render(lead, memory: texts)
         }
         let rarity = kind == .postcard ? ItemDropRules.rarity(seed: datedSeed, letterId: id, pity: care.pity) : "common"
-        let items = catalog.items.all.filter { $0.source == kind.rawValue && $0.rarity == rarity }
+        let items = catalog.items.all.filter { $0.source == kind.rawValue && $0.rarity == rarity && $0.sponsor == nil }
         let owned = Set(care.souvenirs.map(\.id))
         let newItems = items.filter { !owned.contains($0.id) }
         let drops = newItems.isEmpty ? items : newItems

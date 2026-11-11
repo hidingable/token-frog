@@ -732,3 +732,80 @@ private actor RemoteDepartureTransport {
         #expect(app.state?.remoteContentByTrip?[1]?.entryIDs?.count == 2)
     }
 }
+
+private var remotePartner: [String: Any] { ["id": "corner-shop", "label": ["zh-Hans": "路边小店", "en": "Corner Shop"]] }
+
+@Test func remoteTopLevelSponsorPreservesBilingualShapeAndPartnerIDIsNotAContentID() throws {
+    let validator = try RemoteContentValidator(directory: remotePack, catalog: localizationCatalog)
+    var story = try remoteStory(), item = try remoteItem()
+    story["sponsor"] = remotePartner; story["factIds"] = [String]()
+    item["sponsor"] = remotePartner
+    let result = validator.accepting([try remoteJSON(story), try remoteJSON(item)], cityID: "hangzhou", into: RemoteCityContent())
+    #expect(result.ids == [remoteStoryID, remoteItemID])
+    #expect(result.stories[remoteStoryID]?.sponsor?.label == remotePartner["label"] as? [String: String])
+    #expect(result.items[remoteItemID]?.sponsor == result.stories[remoteStoryID]?.sponsor)
+    // Reusing a partner across entries and responses cannot collide with the entry ID namespace.
+    var second = try remoteItem(id: remoteItemID + ".second")
+    second["sponsor"] = remotePartner
+    let next = validator.accepting([try remoteJSON(second)], cityID: "hangzhou", into: result)
+    #expect(next.ids.count == 3)
+}
+
+@Test(arguments: ["badID", "shortID", "longID", "newlineID", "emptyLabel", "longLabel", "missingLanguage", "extraKey", "extraLocale", "nested", "nestedInSponsor", "facts", "ordinaryNoFacts", "uncommon", "rare"])
+func remoteSponsorShapeAndDeliveryConstraintsDropOnlyTheInvalidEntry(_ failure: String) throws {
+    let validator = try RemoteContentValidator(directory: remotePack, catalog: localizationCatalog)
+    var story = try remoteStory(), item = try remoteItem()
+    var sponsor = remotePartner
+    story["factIds"] = [String]()
+    switch failure {
+    case "badID": sponsor["id"] = "Corner_Shop"
+    case "shortID": sponsor["id"] = "a"
+    case "longID": sponsor["id"] = String(repeating: "a", count: 41)
+    case "newlineID": sponsor["id"] = "ab\n"
+    case "emptyLabel": sponsor["label"] = ["zh-Hans": " \n ", "en": "Shop"]
+    case "longLabel": sponsor["label"] = ["zh-Hans": String(repeating: "店", count: 25), "en": "Shop"]
+    case "missingLanguage": sponsor["label"] = ["en": "Shop"]
+    case "extraKey": sponsor["url"] = "offline"
+    case "extraLocale": sponsor["label"] = ["zh-Hans": "小店", "en": "Shop", "fr": "Magasin"]
+    case "nested": story["metadata"] = ["nested": [["sponsor": remotePartner]]]
+    case "nestedInSponsor": sponsor["sponsor"] = remotePartner
+    case "facts": story["factIds"] = try remoteStory()["factIds"]
+    case "uncommon", "rare": item["rarity"] = failure
+    default: break
+    }
+    let invalidItem = ["uncommon", "rare"].contains(failure)
+    if invalidItem { item["sponsor"] = sponsor }
+    else if failure != "ordinaryNoFacts" { story["sponsor"] = sponsor }
+    if invalidItem { story = try remoteStory() }
+    let result = validator.accepting([try remoteJSON(story), try remoteJSON(item)], cityID: "hangzhou", into: RemoteCityContent())
+    #expect(result.ids == (invalidItem ? [remoteStoryID] : [remoteItemID]), "Invalid: \(failure)")
+}
+
+@Test func sponsorLabelsCountCharactersRatherThanUnicodeScalarsOrBytes() throws {
+    let validator = try RemoteContentValidator(directory: remotePack, catalog: localizationCatalog)
+    var item = try remoteItem()
+    let label = String(repeating: "e\u{301}", count: 24)
+    item["sponsor"] = ["id": "ab", "label": ["zh-Hans": label, "en": label]]
+    let result = validator.accepting([try remoteJSON(item)], cityID: "hangzhou", into: RemoteCityContent())
+    #expect(result.items[remoteItemID]?.sponsor?.label["en"] == label)
+}
+
+@Test func partnerRemoteArchiveSurvivesExportImportAndFrozenTripReload() async throws {
+    let source = remoteTestDirectory(), target = remoteTestDirectory()
+    defer { try? FileManager.default.removeItem(at: source); try? FileManager.default.removeItem(at: target) }
+    let validator = try RemoteContentValidator(directory: remotePack, catalog: localizationCatalog)
+    let first = RemoteContentStore(url: source.appendingPathComponent("remote-content.json"), validator: validator, content: RemoteCityContent())
+    var story = try remoteStory(), item = try remoteItem()
+    story["sponsor"] = remotePartner; story["factIds"] = [String]()
+    item["sponsor"] = remotePartner
+    let accepted = try await first.accept([remoteJSON(story), remoteJSON(item)], cityID: "hangzhou")
+    let exported = try #require(await first.exportArchiveData())
+    let second = RemoteContentStore(url: target.appendingPathComponent("remote-content.json"), validator: validator, content: RemoteCityContent())
+    let imported = try await second.mergeArchive(exported)
+    #expect(imported.ids == accepted.content.ids)
+    #expect(imported.stories == accepted.content.stories && imported.items == accepted.content.items)
+    let restarted = RemoteContentStore.load(url: target.appendingPathComponent("remote-content.json"), validator: validator)
+    #expect(restarted.stories == imported.stories && restarted.items == imported.items)
+    #expect(try JSONSerialization.jsonObject(with: #require(await second.exportArchiveData())) as? NSDictionary
+            == JSONSerialization.jsonObject(with: exported) as? NSDictionary)
+}

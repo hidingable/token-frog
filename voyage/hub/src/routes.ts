@@ -75,10 +75,10 @@ export function registerRoutes(app: FastifyInstance, dependencies: RouteDependen
     const params = z.object({ cityId: z.string().min(1).max(96).regex(/^[a-z0-9][a-z0-9-]*$/) }).safeParse(request.params);
     const query = z.object({ lang: languageSchema }).safeParse(request.query);
     if (!params.success || !query.success) return reply.code(400).send({ error: 'invalid_request' });
-    const enabled = (await features.get()).cityContentEnabled;
+    const { cityContentEnabled: enabled, sponsorContentEnabled } = await features.get();
     return {
       schemaVersion: SCHEMA_VERSION, cityId: params.data.cityId, language: query.data.lang, disabled: !enabled,
-      items: enabled ? await readCityContent(repository, params.data.cityId) : [],
+      items: enabled ? await readCityContent(repository, params.data.cityId, sponsorContentEnabled) : [],
     };
   });
 

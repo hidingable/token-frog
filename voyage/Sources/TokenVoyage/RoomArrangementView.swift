@@ -2,11 +2,13 @@ import SwiftUI
 import VoyageCore
 
 /// Iteration deliberately tolerates duplicate IDs from a saved inventory.
-func roomItems(care: CareState, catalog: CityCatalog) -> [RoomSlot: Item] {
+func roomItems(care: CareState, catalog: CityCatalog, letters: [Letter] = []) -> [RoomSlot: Item] {
     guard RoomDecor.isUnlocked(care) else { return [:] }
     var items: [RoomSlot: Item] = [:]
     for placement in care.roomPlacements ?? [] {
-        if let slot = RoomSlot(rawValue: placement.slot), let item = catalog.items.find(placement.itemID) {
+        if let slot = RoomSlot(rawValue: placement.slot),
+           let saved = care.souvenirs.first(where: { $0.id == placement.itemID }),
+           let item = ItemCollection.souvenirItem(saved, letters: letters, library: catalog.items) {
             items[slot] = item
         }
     }
@@ -21,7 +23,7 @@ struct RoomArrangementView: View {
 
     var body: some View {
         if model.canArrangeRoom, let care = model.care, let state = model.state, let catalog = model.catalog {
-            let placed = roomItems(care: care, catalog: catalog)
+            let placed = roomItems(care: care, catalog: catalog, letters: state.letters)
             VStack(alignment: .leading, spacing: 16) {
                 HStack {
                     Button(l10n("profile.back")) { model.openPostOffice() }.buttonStyle(.plain)
@@ -30,7 +32,7 @@ struct RoomArrangementView: View {
                 }
                 Text(l10n("room.instructions")).foregroundStyle(theme.textMuted)
                     .fixedSize(horizontal: false, vertical: true)
-                PixelArtView(image: RoomArt.image(pet: state.pet, shelf: RoomLayout.shelf(care).compactMap { catalog.items.find($0.id) },
+                PixelArtView(image: RoomArt.image(pet: state.pet, shelf: RoomLayout.shelf(care).compactMap { model.ownedItem($0.id) },
                                                   theme: theme, catalog: catalog.pets, form: model.petForm, placements: placed,
                                                   nightcap: model.nightcapNote != nil, petIsHome: state.petIsHome), scale: 2)
                     .frame(width: 480, height: 264).frame(maxWidth: .infinity)
@@ -43,6 +45,7 @@ struct RoomArrangementView: View {
                                 if let item = placed[slot] {
                                     ItemIcon(item: item, scale: 2)
                                     Text(l10n.itemName(item)).fixedSize(horizontal: false, vertical: true)
+                                    if let tag = l10n.sponsorTag(item.sponsor) { SponsorTag(text: tag) }
                                 } else {
                                     Text(l10n("room.empty")).foregroundStyle(theme.textMuted)
                                 }
@@ -64,7 +67,7 @@ struct RoomArrangementView: View {
                         .buttonStyle(.plain)
                         .accessibilityLabel(l10n("room.clearSlot", l10n.roomSlot(selectedSlot)))
                 }
-                let owned = ownedItems(care: care, library: catalog.items)
+                let owned = ownedItems(care: care, library: catalog.items, letters: state.letters)
                 if owned.isEmpty {
                     Text(l10n("room.noSouvenirs")).foregroundStyle(theme.textMuted)
                 }
@@ -75,6 +78,7 @@ struct RoomArrangementView: View {
                                 ItemIcon(item: item, scale: 2)
                                 VStack(alignment: .leading, spacing: 6) {
                                     Text(l10n.itemName(item)).fixedSize(horizontal: false, vertical: true)
+                                    if let tag = l10n.sponsorTag(item.sponsor) { SponsorTag(text: tag) }
                                     if let location = location(item.id, care: care) {
                                         Text(location).foregroundStyle(theme.textMuted).fixedSize(horizontal: false, vertical: true)
                                     }
@@ -89,10 +93,11 @@ struct RoomArrangementView: View {
         }
     }
 
-    private func ownedItems(care: CareState, library: ItemLibrary) -> [Item] {
+    private func ownedItems(care: CareState, library: ItemLibrary, letters: [Letter]) -> [Item] {
         var seen: Set<String> = []
         return care.souvenirs.compactMap {
-            guard seen.insert($0.id).inserted, let item = library.find($0.id), item.kind == "souvenir" else { return nil }
+            guard seen.insert($0.id).inserted,
+                  let item = ItemCollection.souvenirItem($0, letters: letters, library: library), item.kind == "souvenir" else { return nil }
             return item
         }
     }

@@ -58,6 +58,15 @@ public enum ContentValidator {
 
     public static func validate(directory: URL) -> [ContentIssue] {
         var issues = validatePets(directory: directory)
+        // Inspect raw JSON before Codable can discard unknown fields. Bundled content is never sponsored.
+        if let files = FileManager.default.enumerator(at: directory, includingPropertiesForKeys: nil) {
+            for case let file as URL in files where file.pathExtension == "json" {
+                if let object = try? JSONSerialization.jsonObject(with: Data(contentsOf: file)), containsSponsor(object) {
+                    issues.append(ContentIssue(file: file.path.replacingOccurrences(of: directory.path + "/", with: ""),
+                                               rule: "sponsor", message: "Sponsor fields are not allowed in bundled content"))
+                }
+            }
+        }
         do { _ = try EncounterPostcardContent.load(directory: directory) }
         catch { issues.append(ContentIssue(file: "encounter-postcards.json", rule: "encounterPostcards", message: "Invalid encounter postcards: \(error)")) }
         do { _ = try WeeklyMailContent.load(directory: directory) }
@@ -245,6 +254,9 @@ public enum ContentValidator {
             || (source != "box" && item.cityId != nil) {
             report(path, "itemSource", "Source must be box/postcard/reunion on a souvenir; companion pools must be cityless and box/reunion must be common")
         }
+        if item.sponsor != nil && (item.kind != "souvenir" || item.rarity != "common" || item.source != nil) {
+            report(path, "itemSponsor", "Partner items must be ordinary common souvenirs")
+        }
         if !["bag", "souvenir", "menu"].contains(item.kind) { report(path, "itemKind", "Invalid item kind") }
         if let rarity = item.rarity, !["common", "uncommon", "rare"].contains(rarity) {
             report(path, "itemRarity", "Invalid item rarity")
@@ -352,6 +364,9 @@ public enum ContentValidator {
         var seenReplyIds: Set<String> = []
         func report(_ file: String, _ rule: String, _ message: String) {
             issues.append(ContentIssue(file: file, rule: rule, message: message))
+        }
+        if story.sponsor != nil && (!story.factIds.isEmpty || !["arrival", "transit"].contains(story.kind)) {
+            report(file, "storySponsor", "Partner stories must be arrival/transit stories without verified facts")
         }
         if story.version < 1 { report(file, "storyVersion", "Story version must be positive") }
         if !["arrival", "transit", "fulfill", "postcard", "reunion", "revisit"].contains(story.kind) { report(file, "storyKind", "Invalid story kind") }

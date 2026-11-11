@@ -97,6 +97,35 @@ test('disabled content does not read content storage', async t => {
   assert.deepEqual(response.json().items, []);
 });
 
+test('city content filters top-level sponsor keys while disabled and preserves entries while enabled', async t => {
+  const stories = JSON.parse(await readFile(new URL('../../Content/stories/hangzhou.json', import.meta.url), 'utf8'));
+  const items = JSON.parse(await readFile(new URL('../../Content/items/hangzhou.json', import.meta.url), 'utf8'));
+  const sponsor = { id: 'paper-shop', label: { 'zh-Hans': '纸铺', en: 'Paper Shop' } };
+  const ordinary = { ...stories[0], id: 'remote-a-ordinary', futureField: 'additive' };
+  const story = { ...stories[0], id: 'remote-b-story', factIds: [], sponsor };
+  const souvenir = { ...items.find((item: { kind: string }) => item.kind === 'souvenir'),
+    id: 'remote-c-souvenir', rarity: 'common', sponsor };
+  const nullSponsor = { ...stories[0], id: 'remote-d-null', sponsor: null };
+  for (const enabled of [false, true]) await t.test(`sponsor_content_enabled=${enabled}`, async t => {
+    const { app, repository } = fixture();
+    t.after(() => app.close());
+    repository.features.sponsorContentEnabled = enabled;
+    const row = { cityId: 'hangzhou', schemaVersion: 1, status: 'approved' as const,
+      source: null, generatedAt: new Date() };
+    repository.content = [
+      ...[ordinary, story, nullSponsor].map(content => ({ ...row, id: content.id, kind: 'play' as const, content })),
+      { ...row, id: souvenir.id, kind: 'souvenir', content: souvenir },
+    ];
+    for (const lang of ['zh-Hans', 'en']) {
+      const url = `/v1/cities/hangzhou/content?lang=${lang}`;
+      const response = await app.inject({ url, headers: headers('GET', url) });
+      assert.equal(response.statusCode, 200);
+      assert.deepEqual(response.json().items, enabled ? [ordinary, story, souvenir, nullSponsor] : [ordinary]);
+    }
+    assert.equal(repository.content.length, 4, 'filtering never deletes stored partner entries');
+  });
+});
+
 test('content query validation, raw-query signing and JSON error envelope', async t => {
   const { app } = fixture();
   t.after(() => app.close());

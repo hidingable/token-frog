@@ -148,6 +148,7 @@ private struct RoomSceneView: View {
         var id: String
         var title: String
         var text: String
+        var sponsorTags: [String] = []
     }
 
     var body: some View {
@@ -156,8 +157,8 @@ private struct RoomSceneView: View {
             let factor = CGFloat(scale)
             let width = CGFloat(RoomLayout.width * scale)
             let height = CGFloat(RoomLayout.height * scale)
-            let shelf = RoomLayout.shelf(care).compactMap { catalog.items.find($0.id) }
-            let placements = roomItems(care: care, catalog: catalog)
+            let shelf = RoomLayout.shelf(care).compactMap { model.ownedItem($0.id) }
+            let placements = roomItems(care: care, catalog: catalog, letters: state.letters)
             let petBounds = RoomLayout.petBounds(form: model.petForm)
             let floorDisplay = HomeFloorDisplay(journey: state, care: care, now: model.now, catalog: catalog, l10n: l10n)
             GeometryReader { proxy in
@@ -201,8 +202,8 @@ private struct RoomSceneView: View {
                     }
                     .buttonStyle(.plain).fixedSize()
                     .position(x: 181 * factor, y: 32 * factor)
-                    if let id = selectedSouvenir, let item = catalog.items.find(id) {
-                        roomBubble(l10n.itemDescription(item), region: RoomLayout.bubbleRegion(scale: scale, souvenir: true, form: model.petForm)) {
+                    if let id = selectedSouvenir, let item = model.ownedItem(id) {
+                        roomBubble(l10n.itemDescription(item), sponsorTag: l10n.sponsorTag(item.sponsor), region: RoomLayout.bubbleRegion(scale: scale, souvenir: true, form: model.petForm)) {
                             selectedSouvenir = nil
                         }
                     } else if state.phase == .pending {
@@ -219,9 +220,9 @@ private struct RoomSceneView: View {
                     }
                     ForEach(Array(floorDisplay.parcels.enumerated()), id: \.element.id) { index, parcel in
                         floorButton(bounds: RoomLayout.parcel(index), factor: factor,
-                                    label: l10n("floor.parcel.open", catalog.items.find(parcel.itemID).map(l10n.itemName) ?? parcel.itemID)) {
-                            if model.openFloorParcel(parcel.id), let item = catalog.items.find(parcel.itemID) {
-                                floorNote = FloorNote(id: parcel.id, title: l10n("floor.parcel.collected", l10n.itemName(item)), text: l10n.itemDescription(item))
+                                    label: l10n("floor.parcel.open", model.ownedItem(parcel.itemID).map(l10n.itemName) ?? parcel.itemID)) {
+                            if model.openFloorParcel(parcel.id), let item = model.ownedItem(parcel.itemID) {
+                                floorNote = FloorNote(id: parcel.id, title: l10n("floor.parcel.collected", l10n.itemName(item)), text: l10n.itemDescription(item), sponsorTags: [l10n.sponsorTag(item.sponsor)].compactMap { $0 })
                             }
                         }
                     }
@@ -233,7 +234,7 @@ private struct RoomSceneView: View {
                     }
                     if let line = floorDisplay.looseBoard {
                         floorButton(bounds: RoomLayout.looseBoard, factor: factor, label: l10n("floor.board.open")) {
-                            floorNote = FloorNote(id: "board", title: l10n.day(line.date, full: true), text: line.text)
+                            floorNote = FloorNote(id: "board", title: l10n.day(line.date, full: true), text: line.text, sponsorTags: line.sponsorTags)
                         }
                     }
                     floorButton(bounds: RoomLayout.crate, factor: factor, label: l10n("floor.crate.label", floorDisplay.crateLabel(l10n: l10n))) {
@@ -254,6 +255,7 @@ private struct RoomSceneView: View {
             .popover(item: $floorNote) { note in
                 VStack(alignment: .leading, spacing: 12) {
                     Text(note.title).font(Theme.pixel()).foregroundStyle(theme.text)
+                    ForEach(note.sponsorTags, id: \.self) { SponsorTag(text: $0).foregroundStyle(theme.textMuted) }
                     Text(note.text).font(.system(size: 14)).foregroundStyle(theme.textMuted)
                 }.padding(16).frame(width: 280).fixedSize(horizontal: false, vertical: true)
                     .background(theme.background)
@@ -279,16 +281,19 @@ private struct RoomSceneView: View {
             .accessibilityLabel(label)
     }
 
-    private func roomBubble(_ text: String, region: CGRect, action: @escaping () -> Void) -> some View {
+    private func roomBubble(_ text: String, sponsorTag: String? = nil, region: CGRect, action: @escaping () -> Void) -> some View {
         ScrollView {
             Button(action: action) {
                 // Short text hugs its width; a nil-width measure would size wrapped text as one line and clip it.
-                ViewThatFits(in: .horizontal) {
-                    Text(text).font(.system(size: 12)).lineSpacing(2)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Text(text).font(.system(size: 12)).lineSpacing(2)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .frame(width: region.width - 16, alignment: .leading)
+                VStack(alignment: .leading, spacing: 4) {
+                    if let sponsorTag { SponsorTag(text: sponsorTag) }
+                    ViewThatFits(in: .horizontal) {
+                        Text(text).font(.system(size: 12)).lineSpacing(2)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Text(text).font(.system(size: 12)).lineSpacing(2)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(width: region.width - 16, alignment: .leading)
+                    }
                 }
                 .foregroundStyle(theme.paperText).padding(8).background(theme.paper).pixelBorder(theme.paperBorder)
             }

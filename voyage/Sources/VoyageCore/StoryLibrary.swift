@@ -49,6 +49,7 @@ public struct Story: Codable, Equatable, Sendable, Identifiable {
     public var replies: [StoryReply]
     public var rewards: StoryRewards
     public var learned: [String: String]?
+    public var sponsor: Sponsor? = nil
     public var memoryLead: [String: String]? = nil
 }
 

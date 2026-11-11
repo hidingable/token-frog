@@ -296,7 +296,7 @@ final class FloatingController {
                 let original = panel.frame
                 let visible = panel.screen?.visibleFrame ?? original
                 let maximum = FloatingLayout.availableReactionSize(normal: original, visible: visible)
-                let size = FloatingLayout.reactionSize(text: model.floatingWords, maximum: maximum, form: model.petForm)
+                let size = FloatingLayout.reactionSize(text: model.floatingWords, sponsorTags: model.floatingSponsorTags, maximum: maximum, form: model.petForm)
                 let frame = FloatingLayout.reactionFrame(normal: original, size: size)
                 normalFrame = original
                 speechFrame = frame

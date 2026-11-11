@@ -112,7 +112,7 @@ actor HubClient {
         return response.tags.filter { allowed.contains($0) && seen.insert($0).inserted }
     }
 
-    /// Raw entry objects preserve unknown fields so the pack validator can reject sponsor data.
+    /// Preserve raw fields so remote validation can distinguish a valid sponsor from nested or malformed data.
     func cityContent(cityID: String, language: Language, enabled: Bool) async throws -> [Data] {
         guard enabled, baseURL != nil, cached?.config.cityContentEnabled == true else {
             throw HubClientError.disabled

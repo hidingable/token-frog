@@ -128,6 +128,7 @@ struct ProfileDisplay {
     struct Learned: Identifiable {
         let id: Int
         let text: String
+        let sponsorTags: [String]
     }
     let days: Int
     let stage: Stage
@@ -141,9 +142,12 @@ struct ProfileDisplay {
         stage = Stage.current(companionDays: days)
         cityCount = Set(journey.route).count
         kilometers = Format.km(journey.totalKm)
-        learned = CareEngine.recentLearned(journey: journey, limit: 5).compactMap {
-            guard let text = LetterComposer.localized($0.learnedTexts, l10n: l10n) else { return nil }
-            return Learned(id: $0.letterId, text: text)
+        learned = CareEngine.recentLearned(journey: journey, limit: 5).compactMap { learned in
+            guard let text = LetterComposer.localized(learned.learnedTexts, l10n: l10n) else { return nil }
+            let tags = journey.letters.first { $0.id == learned.letterId }.map {
+                LetterComposer.sponsorTags(for: $0, l10n: l10n, letters: journey.letters)
+            } ?? []
+            return Learned(id: learned.letterId, text: text, sponsorTags: tags)
         }
         if let nextStage = Stage.next(companionDays: days), let remaining = Stage.daysUntilNext(companionDays: days) {
             next = l10n("profile.nextStage", l10n.days(remaining), l10n.stage(nextStage))

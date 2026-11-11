@@ -33,6 +33,9 @@ struct L10n: Sendable {
 
     func itemName(_ item: Item) -> String { LetterComposer.localized(item.names, l10n: self) ?? item.id }
     func itemDescription(_ item: Item) -> String { LetterComposer.localized(item.descriptions, l10n: self) ?? "" }
+    func sponsorTag(_ sponsor: Sponsor?) -> String? {
+        sponsor.flatMap { LetterComposer.localized($0.label, l10n: self) }.map { self("sponsor.tag", $0) }
+    }
 
     static func bundleLookup(_ language: Language, _ key: String) -> String? {
         guard let path = Bundle.module.path(forResource: language.rawValue, ofType: "lproj"),
@@ -63,7 +66,7 @@ struct L10n: Sendable {
     ]
     static let floatingKeys = ["floating.line.0", "floating.line.1", "floating.line.2"]
     static let wishActionKeys = ["wish.write", "wish.edit", "wish.save", "wish.saving"]
-    static let settingsKeys = ["settings.accountPrivacy", "settings.cityContent", "settings.cityContentHint", "settings.wishResolve", "settings.wishResolveHint", "settings.login", "settings.loginFailed", "settings.loginApproval", "settings.loginUnavailable", "settings.notifications", "settings.morningMail", "settings.deliveryTime", "settings.deliveryHint", "settings.openSystemSettings", "settings.authorizationNotRequested", "settings.authorizationGranted", "settings.authorizationDenied", "settings.authorizationUnavailable", "settings.data", "settings.export", "settings.import", "settings.exportHint", "settings.openDataFolder", "settings.about", "settings.version", "settings.licenses", "settings.naturalEarth", "settings.privacy", "usage.noRecords", "usage.recoverableFailure", "settings.language", "settings.interfaceAndLetters", "settings.appearance", "settings.display", "settings.notch", "settings.floating", "settings.home", "accounts.title", "accounts.manage", "onboarding.homeHint"]
+    static let settingsKeys = ["settings.accountPrivacy", "settings.cityContent", "settings.cityContentHint", "settings.sponsorContent", "settings.sponsorContentHint", "settings.wishResolve", "settings.wishResolveHint", "settings.login", "settings.loginFailed", "settings.loginApproval", "settings.loginUnavailable", "settings.notifications", "settings.morningMail", "settings.deliveryTime", "settings.deliveryHint", "settings.openSystemSettings", "settings.authorizationNotRequested", "settings.authorizationGranted", "settings.authorizationDenied", "settings.authorizationUnavailable", "settings.data", "settings.export", "settings.import", "settings.exportHint", "settings.openDataFolder", "settings.about", "settings.version", "settings.licenses", "settings.naturalEarth", "settings.privacy", "usage.noRecords", "usage.recoverableFailure", "settings.language", "settings.interfaceAndLetters", "settings.appearance", "settings.display", "settings.notch", "settings.floating", "settings.home", "accounts.title", "accounts.manage", "onboarding.homeHint"]
     static let roomSlotKeys: [RoomSlot: String] = [.windowsill: "room.slot.windowsill", .cabinet: "room.slot.cabinet", .wall: "room.slot.wall", .floor: "room.slot.floor"]
     func roomSlot(_ slot: RoomSlot) -> String { self(Self.roomSlotKeys[slot]!) }
 

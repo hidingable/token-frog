@@ -44,6 +44,16 @@ enum LetterComposer {
         return [l10n.language.rawValue, "en", "zh-Hans"].lazy.compactMap { texts[$0] }.first { !$0.isEmpty }
     }
 
+    static func sponsorTags(for letter: Letter, l10n: L10n, letters: [Letter] = []) -> [String] {
+        var sponsors = [letter.sponsor].compactMap { $0 } + letter.arrivalStories.compactMap(\.sponsor)
+        if let replyId = letter.fulfilledReplyId,
+           let source = letters.first(where: { $0.id < letter.id && $0.replyOptions.contains { $0.id == replyId } }) {
+            sponsors += [source.sponsor].compactMap { $0 } + source.arrivalStories.compactMap(\.sponsor)
+        }
+        var seen: Set<String> = []
+        return sponsors.filter { seen.insert($0.id).inserted }.compactMap { l10n.sponsorTag($0) }
+    }
+
     static func place(for letter: Letter, l10n: L10n) -> Letter.Place? {
         letter.place[l10n.language.rawValue]
     }

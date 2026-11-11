@@ -127,7 +127,7 @@ All `/v1` response fields are additive. Errors use `{ "error": "code" }`, with n
 |---|---|---|
 | `GET /healthz` | No | DB ping; `200 {"ok":true}` or `503 {"error":"database_unavailable"}`. |
 | `GET /v1/config` | Optional, not verified | `{schemaVersion:1, cityContentEnabled, wishResolveEnabled, encountersEnabled, sponsorContentEnabled}`. Shared 60 s process cache. |
-| `GET /v1/cities/:cityId/content?lang=zh-Hans\|en` | Required | `{schemaVersion:1, cityId, language, disabled, items:[...]}`. Only approved, supported, structurally valid city records. Empty results are `items:[]`; switch off also sets `disabled:true` and skips the content query. |
+| `GET /v1/cities/:cityId/content?lang=zh-Hans\|en` | Required | `{schemaVersion:1, cityId, language, disabled, items:[...]}`. Only approved, supported, structurally valid city records. Empty results are `items:[]`; switch off also sets `disabled:true` and skips the content query. Entries with a top-level `sponsor` are returned only while `sponsor_content_enabled` is on; the field shape and client rules are in [technical.md](../docs/technical.md#品牌合作的预留). |
 | `POST /v1/wishes/resolve` | Required | Accepts `{text, language, allowedTags?}`; returns `{tags:[], source}`. |
 | `POST /v1/stays` | Required | Accepts `{stayId, cityId, day, endsAt, appearance:{species,stage}}`; returns `{status:"waiting"}` or `{status:"paired",partner:{appearance},pairedAt}`. Re-POST of an owned ID returns its current state; another device's ID returns 409 `stay_id_conflict`; another stay that local day returns 409 `daily_limit`. |
 | `GET /v1/stays/:stayId` | Required | Owner-only status with the same shape as POST. Unknown or another device's stay returns 404. |

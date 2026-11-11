@@ -3,7 +3,8 @@ import Foundation
 public enum CareEngine {
     public static func process(
         journey: inout JourneyState, care: inout CareState, stories: StoryLibrary,
-        catalog: CityCatalog, wishTags: Set<String> = []
+        catalog: CityCatalog, wishTags: Set<String> = [],
+        sponsorContentEnabled: Bool = false, calendar: Calendar = .current
     ) {
         let indices = journey.letters.indices.sorted { journey.letters[$0].id < journey.letters[$1].id }
         for index in indices {
@@ -29,6 +30,8 @@ public enum CareEngine {
             let remoteIDs = Set(letter.tripNumber.flatMap { journey.remoteContentByTrip?[$0]?.entryIDs } ?? [])
             let stories = stories.availableForTrip(remoteIDs)
             let items = catalog.items.availableForTrip(remoteIDs)
+            let week = WeeklyEngine.weekStart(for: letter.date, calendar: calendar)!
+            let sponsorAvailable = sponsorContentEnabled && care.sponsoredDeliveryWeeks[week] == nil
 
             let promise = care.pendingPromises.first.flatMap { $0.letterId < letter.id ? $0 : nil }
             if promise != nil { care.pendingPromises[0].attempts += 1 }
@@ -51,10 +54,12 @@ public enum CareEngine {
                 var story = choose(
                     letter: letter, care: care, stories: stories, catalog: catalog, wishTags: wishTags,
                     dueReply: due ? reply : nil, itemTrigger: trigger, recent: recent, seed: journey.seed,
-                    hasPriorStay: hasPriorStay(letter.cityId)
+                    hasPriorStay: hasPriorStay(letter.cityId),
+                    sponsorContentEnabled: sponsorAvailable && letter.arrivals.isEmpty
                 )
                 snapshot(story, letter: &letter, petName: care.petName, reply: due ? reply : nil, catalog: catalog)
                 var segmentCare = care
+                var sponsoredStoryChosen = letter.sponsor != nil
                 for (offset, cityId) in letter.arrivals.enumerated() {
                     var segment = letter
                     segment.cityId = cityId
@@ -62,15 +67,17 @@ public enum CareEngine {
                     let prior = letter.arrivals.prefix(offset).contains(cityId) || hasPriorStay(cityId)
                     let arrival = choose(
                         letter: segment, care: segmentCare, stories: stories, catalog: catalog, wishTags: wishTags,
-                        dueReply: nil, itemTrigger: trigger, recent: recent, seed: journey.seed, hasPriorStay: prior, allowRevisit: !due
+                        dueReply: nil, itemTrigger: trigger, recent: recent, seed: journey.seed, hasPriorStay: prior, allowRevisit: !due,
+                        sponsorContentEnabled: sponsorAvailable && !sponsoredStoryChosen
                     )
                     snapshot(arrival, letter: &segment, petName: care.petName, reply: nil, catalog: catalog)
+                    if arrival.sponsor != nil { sponsoredStoryChosen = true }
                     if !due, offset == letter.arrivals.count - 1 {
                         story = arrival
                         snapshot(arrival, letter: &letter, petName: care.petName, reply: nil, catalog: catalog)
                     }
                     letter.arrivalStories.append(.init(cityId: cityId, storyId: arrival.id, storyVersion: arrival.version,
-                                                       isRevisit: arrival.kind == "revisit", texts: segment.texts ?? [:]))
+                                                       isRevisit: arrival.kind == "revisit", texts: segment.texts ?? [:], sponsor: arrival.sponsor))
                     if arrival.kind == "revisit" {
                         segmentCare.toldRevisitStoryIds = (segmentCare.toldRevisitStoryIds ?? []) + [arrival.id]
                     }
@@ -89,7 +96,9 @@ public enum CareEngine {
                 }
                 if due { letter.fulfilledReplyId = promise!.replyId }
                 letter.itemTriggered = trigger && !due && letter.carriedItem.flatMap { catalog.items.find($0)?.habit } != nil
-                letter.rewards = items.drop(rewards: story.rewards, letter: letter, care: care, seed: journey.seed)
+                letter.rewards = items.drop(rewards: story.rewards, letter: letter, care: care, seed: journey.seed,
+                                            sponsorContentEnabled: sponsorAvailable && !sponsoredStoryChosen)
+                letter.rewardItems = letter.rewards.itemIds.compactMap { items.find($0) }.filter { $0.sponsor != nil }
                 if let wish = care.wishResolution, care.wish != nil, wish.tags.isEmpty, wish.explanationLetterId == nil {
                     for language in Language.allCases {
                         letter.texts?[language.rawValue, default: ""] += "\n\n" + catalog.wishes.unmatched[language.rawValue]!
@@ -98,6 +107,9 @@ public enum CareEngine {
                 }
                 journey.letters[index] = letter
             }
+
+            // Saved attribution also repairs the quota after a crash between journey and care writes.
+            if letter.hasSponsoredContent { care.sponsoredDeliveryWeeks[week] = letter.id }
 
             // A saved story is authoritative even if the content pack has since changed.
             // Replaying only the care side repairs a crash between the two atomic save writes.
@@ -178,7 +190,8 @@ public enum CareEngine {
                 care.trailClues[city, default: 0] += 1
             } else {
                 for id in letter.rewards.itemIds where !care.souvenirs.contains(where: { $0.id == id }) {
-                    care.souvenirs.append(.init(id: id, letterId: letter.id, shelved: false))
+                    care.souvenirs.append(.init(id: id, letterId: letter.id, shelved: false,
+                                               sponsor: letter.rewardItems.first { $0.id == id }?.sponsor))
                 }
             }
         }
@@ -195,12 +208,12 @@ public enum CareEngine {
 
     private static func choose(
         letter: Letter, care: CareState, stories: StoryLibrary, catalog: CityCatalog, wishTags: Set<String>,
-        dueReply: StoryReply?, itemTrigger: Bool, recent: Set<String>, seed: UInt32, hasPriorStay: Bool, allowRevisit: Bool = true
+        dueReply: StoryReply?, itemTrigger: Bool, recent: Set<String>, seed: UInt32, hasPriorStay: Bool, allowRevisit: Bool = true, sponsorContentEnabled: Bool = false
     ) -> Story {
         let kind = letter.arrivals.isEmpty ? "transit" : "arrival"
         let city = catalog.city(letter.cityId)
         let eligible = stories.all.filter {
-            ($0.cityId == nil || $0.cityId == city.id) && satisfies($0.requires, letter: letter, care: care, city: city)
+            ($0.sponsor == nil || sponsorContentEnabled) && ($0.cityId == nil || $0.cityId == city.id) && satisfies($0.requires, letter: letter, care: care, city: city)
         }
         var tiers: [[Story]] = []
         if let reply = dueReply {
@@ -274,6 +287,7 @@ public enum CareEngine {
         }
         letter.storyId = story.id
         letter.storyVersion = story.version
+        letter.sponsor = story.sponsor
         letter.isRevisit = story.kind == "revisit" ? true : nil
         letter.texts = render(story.text)
         letter.leadTexts = story.lead.map(render) ?? [:]

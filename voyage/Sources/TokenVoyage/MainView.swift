@@ -289,6 +289,7 @@ struct LetterView: View {
                 Text(lead).font(.system(size: 14, weight: .semibold)).foregroundStyle(theme.paperCompanionText)
                     .lineSpacing(4).fixedSize(horizontal: false, vertical: true)
             }
+            ForEach(LetterComposer.sponsorTags(for: letter, l10n: l10n, letters: model?.state?.letters ?? []), id: \.self) { SponsorTag(text: $0) }
             Text(text.voice).font(.system(size: 14)).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
             Text(text.signature).font(Theme.pixel()).frame(maxWidth: .infinity, alignment: .trailing)
 

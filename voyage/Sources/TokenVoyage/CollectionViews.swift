@@ -1,6 +1,15 @@
 import SwiftUI
 import VoyageCore
 
+struct SponsorTag: View {
+    let text: String
+    var body: some View {
+        Text(text).font(.system(size: 11)).fixedSize(horizontal: false, vertical: true)
+            .padding(.horizontal, 6).padding(.vertical, 2)
+            .overlay(Rectangle().strokeBorder(Color.primary.opacity(0.3), lineWidth: 1))
+    }
+}
+
 struct ItemIcon: View {
     @Environment(\.petCatalog) private var catalog
     @Environment(\.theme) private var theme
@@ -28,6 +37,7 @@ private struct ItemTile: View {
                 if owned {
                     ItemIcon(item: item)
                     Text(l10n.itemName(item)).fixedSize(horizontal: false, vertical: true)
+                    if let tag = l10n.sponsorTag(item.sponsor) { SponsorTag(text: tag) }
                 } else {
                     Text("?").font(Theme.pixel(36)).frame(height: 36)
                     Text(l10n("item.unknown"))
@@ -55,6 +65,7 @@ private struct ItemHeading: View {
             ItemIcon(item: display.item, scale: 4)
             VStack(alignment: .leading, spacing: 8) {
                 Text(display.name).font(Theme.pixel(24)).fixedSize(horizontal: false, vertical: true)
+                if let tag = display.sponsorTag { SponsorTag(text: tag) }
                 if let rarity = display.rarity { Text(rarity).font(Theme.pixel()) }
             }
         }
@@ -146,7 +157,9 @@ struct SouvenirsCollectionView: View {
 
     var body: some View {
         if let catalog = model.catalog, let care = model.care {
-            let souvenirs = care.souvenirs.compactMap { saved in catalog.items.find(saved.id) }
+            let souvenirs = care.souvenirs.compactMap {
+                ItemCollection.souvenirItem($0, letters: model.state?.letters ?? [], library: catalog.items)
+            }
             let selected = souvenirs.first { $0.id == selectedItemID } ?? souvenirs.first
             VStack(alignment: .leading, spacing: 24) {
                 if souvenirs.isEmpty {

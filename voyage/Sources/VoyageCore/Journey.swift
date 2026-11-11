@@ -38,12 +38,14 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var enrichmentDone = false
     public var storyId: String?
     public var storyVersion: Int?
+    public var sponsor: Sponsor?
     public struct ArrivalStory: Codable, Equatable, Sendable {
         public var cityId: String
         public var storyId: String
         public var storyVersion: Int
         public var isRevisit: Bool
         public var texts: [String: String]
+        public var sponsor: Sponsor? = nil
     }
     /// One story snapshot per stay; rewards and care effects still belong to the enclosing letter.
     public var arrivalStories: [ArrivalStory] = []
@@ -597,7 +599,7 @@ extension Letter {
         case id, kind, date, pet, cityId, transitTargetId, arrivals, newCountries, fuel, tokens
         case compareToMedianPercent, vehicles, isDeepVisit, deliverAt, read, logbook, enrichmentDone
         case tripNumber
-        case storyId, storyVersion, arrivalStories, isRevisit, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
+        case storyId, storyVersion, sponsor, arrivalStories, isRevisit, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
         case carriedItem, itemTriggered
         case facts, rewards, rewardItems, memoryReference, encounter, weeklySummary, wishExplanationAt, usageEventNotes, weatherCode, temperatureC, place, photoFile
     }
@@ -624,6 +626,7 @@ extension Letter {
         enrichmentDone = try values.decode(Bool.self, forKey: .enrichmentDone, default: false)
         storyId = try values.decodeIfPresent(String.self, forKey: .storyId)
         storyVersion = try values.decodeIfPresent(Int.self, forKey: .storyVersion)
+        sponsor = try values.decodeIfPresent(Sponsor.self, forKey: .sponsor)
         arrivalStories = try values.decode([ArrivalStory].self, forKey: .arrivalStories, default: [])
         isRevisit = try values.decodeIfPresent(Bool.self, forKey: .isRevisit)
         texts = try values.decodeIfPresent([String: String].self, forKey: .texts)
@@ -671,5 +674,12 @@ private extension KeyedDecodingContainer {
     /// Only absent fields use defaults; explicit nulls and wrong types remain decoding errors.
     func decode<T: Decodable>(_ type: T.Type, forKey key: Key, default fallback: T) throws -> T {
         contains(key) ? try decode(type, forKey: key) : fallback
+    }
+}
+
+extension Letter {
+    public var hasSponsoredContent: Bool {
+        sponsor != nil || arrivalStories.contains { $0.sponsor != nil }
+            || rewardItems.contains { $0.sponsor != nil }
     }
 }

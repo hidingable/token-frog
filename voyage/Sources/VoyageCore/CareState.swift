@@ -25,6 +25,8 @@ public struct CareState: Codable, Equatable, Sendable {
     public var specialDays: [SpecialDay] = []
     public var pity = 0
     public var processedLetterIds: [Int] = []
+    /// Monday local date to the letter that consumed that week's shared story/item slot.
+    public var sponsoredDeliveryWeeks: [String: Int] = [:]
     public var boxesOpened = 0
     public var boxItemIndex = 0
 
@@ -57,8 +59,9 @@ public struct CareState: Codable, Equatable, Sendable {
         public var letterId: Int?
         public var boxId: String?
         public var shelved: Bool
-        public init(id: String, letterId: Int? = nil, boxId: String? = nil, shelved: Bool) {
-            self.id = id; self.letterId = letterId; self.boxId = boxId; self.shelved = shelved
+        public var sponsor: Sponsor?
+        public init(id: String, letterId: Int? = nil, boxId: String? = nil, shelved: Bool, sponsor: Sponsor? = nil) {
+            self.id = id; self.letterId = letterId; self.boxId = boxId; self.shelved = shelved; self.sponsor = sponsor
         }
     }
 
@@ -164,6 +167,7 @@ public struct CareState: Codable, Equatable, Sendable {
         specialDays = try values.decodeIfMissing([SpecialDay].self, forKey: .specialDays, default: [])
         pity = try values.decodeIfMissing(Int.self, forKey: .pity, default: 0)
         processedLetterIds = try values.decodeIfMissing([Int].self, forKey: .processedLetterIds, default: [])
+        sponsoredDeliveryWeeks = try values.decodeIfMissing([String: Int].self, forKey: .sponsoredDeliveryWeeks, default: [:])
         boxesOpened = try values.decodeIfMissing(Int.self, forKey: .boxesOpened, default: 0)
         boxItemIndex = try values.decodeIfMissing(Int.self, forKey: .boxItemIndex, default: 0)
         guard boxesOpened >= 0, boxItemIndex >= 0 else {

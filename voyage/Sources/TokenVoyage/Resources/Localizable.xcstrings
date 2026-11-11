@@ -5210,6 +5210,23 @@
         }
       }
     },
+    "sponsor.tag": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合作 · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partner · %@"
+          }
+        }
+      }
+    },
     "item.rarityRare": {
       "extractionState": "manual",
       "localizations": {
@@ -6787,6 +6804,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fetch new stories and souvenirs using only the destination city when a trip starts."
+          }
+        }
+      }
+    },
+    "settings.sponsorContent": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合作内容"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partner content"
+          }
+        }
+      }
+    },
+    "settings.sponsorContentHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合作内容始终标注，每周最多一次；已经收到的内容会保留。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partner content is always labelled, appears at most once a week, and stays once received."
           }
         }
       }

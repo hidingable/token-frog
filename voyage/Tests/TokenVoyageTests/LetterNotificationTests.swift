@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-import VoyageCore
+@testable import VoyageCore
 @testable import TokenVoyage
 
 private final class NotificationDefaults: UserDefaults, @unchecked Sendable {
@@ -121,6 +121,61 @@ private func evaluate(_ service: LetterNotificationService, _ state: JourneyStat
     #expect(center.sent.first?.body == "I brought your scarf!")
     #expect(LetterNotificationService.firstSentence("A quiet morning") == "A quiet morning")
     #expect(LetterNotificationService.firstSentence("  第一声问好？后面还有故事。") == "第一声问好？")
+}
+
+@Test(arguments: [Language.zhHans, .en], ["story", "arrival", "itemSnapshot"])
+@MainActor func sponsoredMailNotificationsUseGenericTextWithoutPartnerNames(language: Language, placement: String) async throws {
+    var state = notificationJourney()
+    let sponsor = Sponsor(id: "riverside-shop", label: ["zh-Hans": "河畔小店", "en": "Riverside Shop"])
+    switch placement {
+    case "story": state.letters[0].sponsor = sponsor
+    case "arrival":
+        state.letters[0].arrivalStories = [try JSONDecoder().decode(Letter.ArrivalStory.self, from: JSONSerialization.data(withJSONObject: [
+            "cityId": "shanghai", "storyId": "hub.shanghai.partner-story", "storyVersion": 1, "isRevisit": false,
+            "texts": ["zh-Hans": "河畔小店的故事。", "en": "A Riverside Shop story."],
+            "sponsor": ["id": sponsor.id, "label": sponsor.label],
+        ]))]
+    default:
+        var item = try #require(localizationCatalog.items.all.first)
+        item.sponsor = sponsor
+        state.letters[0].rewardItems = [item]
+    }
+    state.letters[0].texts = ["zh-Hans": "河畔小店推荐的杯子。", "en": "A cup recommended by Riverside Shop."]
+    state.letters[0].leadTexts = ["zh-Hans": "去河畔小店看看。", "en": "Come visit Riverside Shop."]
+    let center = NotificationProbe()
+    let service = LetterNotificationService(defaults: NotificationDefaults(), center: center)
+    await evaluate(service, state, language: language)
+    let sent = try #require(center.sent.first)
+    let l10n = L10n(language: language)
+    #expect(sent.body == l10n("home.bubble.mail"))
+    #expect(sent.title == l10n("notification.letterTitle", "Ginkgo", l10n.cityName(localizationCatalog.city("shanghai"))))
+    #expect(!sent.body.contains("cup") && !sent.body.contains("杯子"))
+    for label in sponsor.label.values { #expect(!(sent.title + sent.body).contains(label)) }
+}
+
+@Test(arguments: [Language.zhHans, .en])
+@MainActor func ordinaryFulfillmentNotificationDoesNotQuoteASponsoredReply(language: Language) async throws {
+    var state = notificationJourney(ids: [1, 2])
+    let sponsor = Sponsor(id: "riverside-shop", label: ["zh-Hans": "河畔小店", "en": "Riverside Shop"])
+    let reply = StoryReply(id: "hub.reply.partner-cup", habit: "observant",
+                           text: ["zh-Hans": "看看河畔小店的杯子", "en": "Look at the Riverside Shop cup"])
+    state.letters[0].sponsor = sponsor
+    state.letters[0].replyOptions = [reply]
+    state.letters[0].selectedReplyId = reply.id
+    state.letters[0].read = true
+    state.letters[1].fulfilledReplyId = reply.id
+    state.letters[1].leadTexts = ["zh-Hans": "你说过：看看河畔小店的杯子。", "en": "You said: Look at the Riverside Shop cup."]
+    #expect(!state.letters[1].hasSponsoredContent)
+    let l10n = L10n(language: language)
+    #expect(LetterComposer.sponsorTags(for: state.letters[1], l10n: l10n, letters: state.letters) == [try #require(l10n.sponsorTag(sponsor))])
+    let center = NotificationProbe()
+    let service = LetterNotificationService(defaults: NotificationDefaults(), center: center)
+    await evaluate(service, state, at: notificationDate(hour: 10), language: language)
+    let sent = try #require(center.sent.first)
+    #expect(sent.letterID == 2)
+    #expect(sent.body == l10n("home.bubble.mail"))
+    #expect(sent.title == l10n("notification.letterTitle", "Ginkgo", l10n.cityName(localizationCatalog.city("shanghai"))))
+    for label in sponsor.label.values { #expect(!(sent.title + sent.body).contains(label)) }
 }
 
 @Test @MainActor func notificationPermissionIsRequestedOnlyOnceWhenAnActualLetterNeedsDelivery() async {

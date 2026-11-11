@@ -72,6 +72,7 @@ struct BroughtItemsView: View {
                     ItemIcon(item: display.item)
                     VStack(alignment: .leading, spacing: 8) {
                         Text(display.name).font(Theme.pixel())
+                        if let tag = display.sponsorTag { SponsorTag(text: tag) }
                         if let rarity = display.rarity { Text(rarity).font(Theme.pixel()) }
                         Text(display.description).font(.system(size: 14)).lineSpacing(4)
                     }

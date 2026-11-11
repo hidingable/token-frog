@@ -150,13 +150,15 @@ func draftCityMustMatchItsFilename(kind: String) throws {
     #expect(box.issues.contains { $0.rule == "draftCity" && $0.file == "\(kind)/harbor.json" })
 }
 
-@Test(arguments: ["stories", "items"])
-func sponsorFieldsAreRejectedBeforeDecodingAtEveryDepth(kind: String) throws {
+@Test(arguments: ["stories", "items"], ["top", "nested"])
+func sponsorFieldsAreRejectedBeforeDecodingAtEveryDepth(kind: String, position: String) throws {
     let box = try DraftSandbox()
     defer { box.cleanUp() }
     let encoded = kind == "stories" ? try JSONEncoder().encode([box.story()]) : try JSONEncoder().encode([box.item()])
     var entries = try #require(JSONSerialization.jsonObject(with: encoded) as? [[String: Any]])
-    entries[0]["metadata"] = ["nested": [["sponsor": NSNull()]]]
+    let sponsor: [String: Any] = ["id": "corner-shop", "label": ["zh-Hans": "路边小店", "en": "Corner Shop"]]
+    if position == "top" { entries[0]["sponsor"] = sponsor }
+    else { entries[0]["metadata"] = ["nested": [["sponsor": NSNull()]]] }
     try box.writeData(JSONSerialization.data(withJSONObject: entries), kind: kind)
     #expect(box.issues.contains { $0.rule == "draftSponsor" })
 }

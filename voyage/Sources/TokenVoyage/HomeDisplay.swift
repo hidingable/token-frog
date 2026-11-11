@@ -49,6 +49,7 @@ struct HomeFloorDisplay {
     struct OldLine {
         let text: String
         let date: String
+        var sponsorTags: [String] = []
     }
     enum Crate: Equatable { case nailed(stampsNeeded: Int), ready, opened }
 
@@ -87,16 +88,16 @@ struct HomeFloorDisplay {
             let date = DayKey.string(from: homecoming.returnedAt, calendar: calendar)
             oldLines = MemoryBookDisplay(journey: journey, care: care, now: min(now, homecoming.returnedAt), l10n: l10n, catalog: catalog)
                 .entries.filter { $0.date < date && $0.text != l10n("memory.unavailable") }
-                .map { OldLine(text: $0.text, date: $0.date) }
+                .map { OldLine(text: $0.text, date: $0.date, sponsorTags: $0.sponsorTags) }
             if oldLines.isEmpty {
                 oldLines = journey.letters.filter { $0.date < date && $0.deliverAt <= min(now, homecoming.returnedAt) }
                     .sorted { $0.id < $1.id }.compactMap { letter in
                         LetterComposer.localized(letter.learnedTexts, l10n: l10n)
                             .flatMap { $0.components(separatedBy: .newlines).first }
-                            .map { OldLine(text: $0, date: letter.date) }
+                            .map { OldLine(text: $0, date: letter.date, sponsorTags: LetterComposer.sponsorTags(for: letter, l10n: l10n, letters: journey.letters)) }
                         ?? LetterComposer.localized(letter.texts ?? [:], l10n: l10n)
                             .flatMap { $0.components(separatedBy: .newlines).first }
-                            .flatMap { $0.isEmpty ? nil : OldLine(text: $0, date: letter.date) }
+                            .flatMap { $0.isEmpty ? nil : OldLine(text: $0, date: letter.date, sponsorTags: LetterComposer.sponsorTags(for: letter, l10n: l10n, letters: journey.letters)) }
                     }
             }
         }

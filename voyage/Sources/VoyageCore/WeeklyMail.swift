@@ -99,7 +99,7 @@ extension CareEngine {
         let previousKm = previousKeys.allSatisfy { journey.days[$0] != nil }
             ? previousKeys.reduce(0.0) { $0 + journey.days[$1]!.km } : nil
         let events = journey.letters.filter {
-            $0.date >= keys[0] && $0.date <= keys[5] && $0.deliverAt <= deliverAt && $0.kind != .weekly
+            $0.date >= keys[0] && $0.date <= keys[5] && $0.deliverAt <= deliverAt && $0.kind != .weekly && !$0.hasSponsoredContent
         }.sorted { $0.date == $1.date ? $0.id < $1.id : $0.date < $1.date }
         let content = catalog.weeklyMail
         var highlight: WeeklyMailSummary.Highlight?

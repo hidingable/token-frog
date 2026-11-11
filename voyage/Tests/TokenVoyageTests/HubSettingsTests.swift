@@ -27,7 +27,7 @@ private final class HubSettingsDefaults: UserDefaults, @unchecked Sendable {
                      themes: testThemes, runtimeEnabled: false)
         }
         let first = model()
-        #expect(first.cityContentEnabled && first.wishResolveEnabled)
+        #expect(first.cityContentEnabled && first.wishResolveEnabled && first.sponsorContentEnabled)
         #expect(defaults.writes.isEmpty)
 
         first.cityContentEnabled = false
@@ -42,6 +42,10 @@ private final class HubSettingsDefaults: UserDefaults, @unchecked Sendable {
         #expect(third.cityContentEnabled && !third.wishResolveEnabled)
         #expect(defaults.object(forKey: "wishResolveEnabled") as? Bool == false)
         #expect(defaults.writes == ["cityContentEnabled", "wishResolveEnabled", "cityContentEnabled"])
+        third.sponsorContentEnabled = false
+        #expect(!model().sponsorContentEnabled)
+        #expect(defaults.object(forKey: "sponsorContentEnabled") as? Bool == false)
+        #expect(model().cityContentEnabled && !model().wishResolveEnabled)
     }
 
     @Test func snapshotNetworkPreferencesNeverWriteDefaultsOrCreateSaves() {
@@ -49,14 +53,17 @@ private final class HubSettingsDefaults: UserDefaults, @unchecked Sendable {
         let defaults = HubSettingsDefaults()
         defaults.set(false, forKey: "cityContentEnabled")
         defaults.set(false, forKey: "wishResolveEnabled")
+        defaults.set(false, forKey: "sponsorContentEnabled")
         let writes = defaults.writes
         let model = AppModel(isSnapshot: true, defaults: defaults, directory: directory,
                              catalog: localizationCatalog, themes: testThemes, runtimeEnabled: false)
         model.cityContentEnabled = true
         model.wishResolveEnabled = true
+        model.sponsorContentEnabled = true
         #expect(model.cityContentEnabled && model.wishResolveEnabled)
         #expect(defaults.object(forKey: "cityContentEnabled") as? Bool == false)
         #expect(defaults.object(forKey: "wishResolveEnabled") as? Bool == false)
+        #expect(defaults.object(forKey: "sponsorContentEnabled") as? Bool == false)
         #expect(defaults.writes == writes)
         #expect(!FileManager.default.fileExists(atPath: directory.path))
     }
@@ -74,6 +81,33 @@ private final class HubSettingsDefaults: UserDefaults, @unchecked Sendable {
         #expect(english("settings.cityContentHint").contains("destination city"))
         #expect(chinese("settings.wishResolveHint").contains("发送心愿文字"))
         #expect(english("settings.wishResolveHint").contains("Send wish text"))
+        #expect(chinese("settings.sponsorContent") == "合作内容")
+        #expect(english("settings.sponsorContent") == "Partner content")
+        #expect(chinese("settings.sponsorContentHint").contains("始终标注"))
+        #expect(chinese("settings.sponsorContentHint").contains("每周最多一次"))
+        #expect(chinese("settings.sponsorContentHint").contains("保留"))
+        #expect(english("settings.sponsorContentHint").contains("always labelled"))
+        #expect(english("settings.sponsorContentHint").contains("at most once a week"))
+        #expect(english("settings.sponsorContentHint").contains("stays once received"))
+    }
+
+    @Test(arguments: [false, true], [false, true])
+    func sponsorSelectionGateRequiresBothHubAndLocalSwitches(hubEnabled: Bool, localEnabled: Bool) async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("voyage-sponsor-gate-\(UUID())")
+        defer { try? FileManager.default.removeItem(at: directory) }
+        var config = HubConfig.defaults
+        config.sponsorContentEnabled = hubEnabled
+        let data = try JSONEncoder().encode(config)
+        let hub = HubClient(baseURL: URL(string: "https://hub.invalid"), transport: { request in
+            #expect(request.url?.path == "/v1/config")
+            return (data, HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!)
+        })
+        let model = AppModel(defaults: HubSettingsDefaults(), directory: directory, catalog: localizationCatalog,
+                             themes: testThemes, hubClient: hub, runtimeEnabled: false)
+        model.sponsorContentEnabled = localEnabled
+        #expect(!model.sponsorContentAllowed)
+        await model.refreshHubConfiguration()
+        #expect(model.sponsorContentAllowed == (hubEnabled && localEnabled))
     }
 
     @Test func networkSettingsSnapshotsCoverBothLanguagesAndBothAppearances() {

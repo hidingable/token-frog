@@ -33,6 +33,7 @@ struct MemoryBookDisplay {
         var cause: String?
         var sourceLetterId: Int?
         var citedLetterIds: [Int] = []
+        var sponsorTags: [String] = []
     }
 
     let entries: [Entry]
@@ -92,6 +93,9 @@ struct MemoryBookDisplay {
         }
         for index in entries.indices {
             let entry = entries[index]
+            entries[index].sponsorTags = [entry.letterId, entry.sourceLetterId].compactMap { $0 }
+                .compactMap { letters[$0] }.flatMap { LetterComposer.sponsorTags(for: $0, l10n: l10n, letters: journey.letters) }
+                .reduce(into: []) { tags, tag in if !tags.contains(tag) { tags.append(tag) } }
             let kind = entry.category == .replies ? "reply" : "fulfilled"
             guard entry.category != .special else { continue }
             entries[index].citedLetterIds = Array(Set(journey.letters.filter {
@@ -154,6 +158,7 @@ struct MemoryBookView: View {
             .fixedSize(horizontal: false, vertical: true)
             Text(entry.text).font(.system(size: 14)).lineSpacing(4).foregroundStyle(theme.paperText)
                 .fixedSize(horizontal: false, vertical: true).textSelection(.enabled)
+            ForEach(entry.sponsorTags, id: \.self) { SponsorTag(text: $0).foregroundStyle(theme.paperMuted) }
             if let cause = entry.cause {
                 Text(cause).font(.system(size: 13)).lineSpacing(4).foregroundStyle(theme.paperMuted)
                     .fixedSize(horizontal: false, vertical: true).textSelection(.enabled)

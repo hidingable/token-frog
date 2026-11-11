@@ -363,7 +363,7 @@ enum Snapshots {
         render(NotchExpandedView(model: model, metrics: metrics), size: metrics.expandedSize, name: "notch-expanded", directory, model: model)
         render(FloatingView(model: model), size: FloatingController.size, name: "floating", directory, model: model)
         model.reactToFloatingClick()
-        render(FloatingView(model: model), size: FloatingLayout.reactionSize(text: model.floatingWords), name: "floating-reaction", directory, model: model)
+        render(FloatingView(model: model), size: FloatingLayout.reactionSize(text: model.floatingWords, sponsorTags: model.floatingSponsorTags, form: model.petForm), name: "floating-reaction", directory, model: model)
         model.endFloatingReaction()
 
         let exampleDirectory = model.l10n("snapshot.exampleDirectory")

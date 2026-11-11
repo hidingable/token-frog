@@ -105,13 +105,15 @@ test('second invalid response skips the city, reports it, and continues to the n
 });
 
 test('invalid shape or foreign facts retry once; transport errors skip without retry', async t => {
-  for (const failure of ['sponsor', 'foreign-fact', 'transport']) {
+  for (const failure of ['sponsor', 'nested-sponsor', 'sponsored-item', 'foreign-fact', 'transport']) {
     const out = join(await temporary(t), failure);
     const model = new FakeContentModel();
     model.respond = request => {
       if (failure === 'transport') throw new Error('secret-provider-message');
       const batch = JSON.parse(answer(request));
       if (failure === 'sponsor') batch.stories[0].sponsor = null;
+      else if (failure === 'nested-sponsor') batch.stories[0].replies[0].sponsor = { id: 'paper-shop' };
+      else if (failure === 'sponsored-item') batch.items[0].sponsor = { id: 'paper-shop' };
       else batch.stories[0].factIds = ['not-a-city-fact'];
       return JSON.stringify(batch);
     };
@@ -120,6 +122,24 @@ test('invalid shape or foreign facts retry once; transport errors skip without r
     assert.deepEqual(result.skipped, ['hangzhou']);
     assert.equal(model.calls.length, failure === 'transport' ? 1 : 2);
     assert.ok(!logs.join('').includes('secret-provider-message'));
+  }
+});
+
+test('publisher rejects top-level and nested sponsor fields before connecting even after an external validation pass', async t => {
+  for (const placement of ['story', 'reply', 'item', 'item-description']) {
+    const out = await temporary(t);
+    await generateContent({ cities: ['hangzhou'], out, count: 1, noValidate: true }, { model: new FakeContentModel() });
+    const file = join(out, placement.startsWith('item') ? 'items/hangzhou.json' : 'stories/hangzhou.json');
+    const entries = JSON.parse(await readFile(file, 'utf8'));
+    const sponsor = { id: 'paper-shop', label: { 'zh-Hans': '纸铺', en: 'Paper Shop' } };
+    if (placement === 'reply') entries[0].replies[0].sponsor = sponsor;
+    else if (placement === 'item-description') entries[0].descriptions.sponsor = sponsor;
+    else entries[0].sponsor = sponsor;
+    await writeFile(file, JSON.stringify(entries));
+    await assert.rejects(publishContent({ drafts: out }, {
+      validate: async () => {},
+      openRepository: async () => { assert.fail('sponsored drafts must not reach the database'); },
+    }), /sponsor/);
   }
 });
 

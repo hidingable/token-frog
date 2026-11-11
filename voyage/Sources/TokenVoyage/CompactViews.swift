@@ -216,9 +216,9 @@ enum FloatingLayout {
     static func normalSize(form: PetForm) -> CGSize {
         form == .hatchling ? size : CGSize(width: 158, height: 56)
     }
-    static let maximumReactionSize = CGSize(width: 300, height: 64)
+    static let maximumReactionSize = CGSize(width: 300, height: 128)
 
-    static func reactionSize(text: String, maximum: CGSize = maximumReactionSize, form: PetForm = .hatchling) -> CGSize {
+    static func reactionSize(text: String, sponsorTags: [String] = [], maximum: CGSize = maximumReactionSize, form: PetForm = .hatchling) -> CGSize {
         let normal = normalSize(form: form)
         let inset: CGFloat = form == .hatchling ? 50 : 58
         let font = NSFont.systemFont(ofSize: 12)
@@ -226,11 +226,18 @@ enum FloatingLayout {
         paragraph.lineSpacing = 2
         let attributes: [NSAttributedString.Key: Any] = [.font: font, .paragraphStyle: paragraph]
         // Sprite (32), gap (6), and the panel's horizontal padding (12).
-        let width = min(maximum.width, max(normal.width, ceil((text as NSString).size(withAttributes: attributes).width) + inset))
+        let tagAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.systemFont(ofSize: 11)]
+        let tagWidth = sponsorTags.map { ceil(($0 as NSString).size(withAttributes: tagAttributes).width) + 12 + inset }.max() ?? 0
+        let width = min(maximum.width, max(normal.width, ceil((text as NSString).size(withAttributes: attributes).width) + inset, tagWidth))
         let bounds = (text as NSString).boundingRect(with: CGSize(width: width - inset, height: .greatestFiniteMagnitude),
                                                     options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes)
         let twoLines = ceil((font.ascender - font.descender + font.leading) * 2 + 2)
-        let height = max(normal.height, ceil(min(bounds.height, twoLines)) + 24)
+        let tagHeight = sponsorTags.reduce(CGFloat.zero) { total, tag in
+            let bounds = (tag as NSString).boundingRect(with: CGSize(width: width - inset - 12, height: .greatestFiniteMagnitude),
+                                                       options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: tagAttributes)
+            return total + ceil(bounds.height) + 4 + 4 // Tag padding and the stack gap.
+        }
+        let height = max(normal.height, ceil(min(bounds.height, twoLines)) + 24 + tagHeight)
         return CGSize(width: width, height: min(maximum.height, height))
     }
 
@@ -264,10 +271,20 @@ struct FloatingView: View {
                     .background(theme.paper)
                     .offset(y: model.floatingJump ? -4 : 0)
                 if model.floatingReaction {
-                    Text(model.floatingWords).font(.system(size: 12)).lineSpacing(2)
-                        .lineLimit(2).padding(.vertical, surfaceSize.height > 48 ? 6 : 0)
-                        .foregroundStyle(theme.text).fixedSize(horizontal: false, vertical: true)
+                    if model.floatingSponsorTags.isEmpty {
+                        reactionWords
+                    } else {
+                        VStack(alignment: .leading, spacing: 4) {
+                            ForEach(model.floatingSponsorTags, id: \.self) { SponsorTag(text: $0).layoutPriority(1) }
+                            Text(model.floatingWords).font(.system(size: 12)).lineSpacing(2).lineLimit(2)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .padding(.vertical, surfaceSize.height > 56 ? 6 : 0)
+                        .foregroundStyle(theme.text)
                         .frame(width: surfaceSize.width - (model.petForm == .hatchling ? 50 : 58), alignment: .leading)
+                        .frame(height: max(0, surfaceSize.height - 12), alignment: .top)
+                        .clipped()
+                    }
                 } else {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(Format.km(model.todayKm)).foregroundStyle(theme.mileageText)
@@ -289,6 +306,13 @@ struct FloatingView: View {
     }
 
     private var surfaceSize: CGSize {
-        model.floatingReaction ? FloatingLayout.reactionSize(text: model.floatingWords, maximum: maximumReactionSize, form: model.petForm) : FloatingLayout.normalSize(form: model.petForm)
+        model.floatingReaction ? FloatingLayout.reactionSize(text: model.floatingWords, sponsorTags: model.floatingSponsorTags, maximum: maximumReactionSize, form: model.petForm) : FloatingLayout.normalSize(form: model.petForm)
+    }
+
+    private var reactionWords: some View {
+        Text(model.floatingWords).font(.system(size: 12)).lineSpacing(2)
+            .lineLimit(2).padding(.vertical, surfaceSize.height > 48 ? 6 : 0)
+            .foregroundStyle(theme.text).fixedSize(horizontal: false, vertical: true)
+            .frame(width: surfaceSize.width - (model.petForm == .hatchling ? 50 : 58), alignment: .leading)
     }
 }
