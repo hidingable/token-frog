@@ -44,7 +44,7 @@ swift test
 TOKEN_VOYAGE_DATA_DIR=/tmp/voyage-data build/Tokotoko.app/Contents/MacOS/TokenVoyage --snapshot /tmp/voyage-shots
 ```
 
-Voyage Hub 尚未部署。打包配置 `Info.plist` 的 `VoyageHubURL` 留空时，城市新内容和联网解析心愿不发请求，继续使用内置内容与本机关键词。开发者可在启动应用可执行文件时设置 `TOKEN_VOYAGE_HUB_URL`（例如本地测试服务的 `http://127.0.0.1:17322`）；显式空值关闭，应用不读取 `.env`。设置中的两个联网开关默认开启，分别保存为新增的 `cityContentEnabled`、`wishResolveEnabled`。设备签名私钥只在首次签名请求时生成并存入 Keychain。客户端测试注入假 transport，不需要运行 Hub，也不会访问真实网络或生产 Keychain。
+打包时 `Info.plist` 的 `VoyageHubURL` 指向已部署的 Voyage Hub（`https://hub.zctd.tech`）；留空时城市新内容、联网解析心愿和同城偶遇不发请求，继续使用内置内容与本机关键词。开发者可在启动应用可执行文件时设置 `TOKEN_VOYAGE_HUB_URL`（例如本地测试服务的 `http://127.0.0.1:17322`）；显式空值关闭，应用不读取 `.env`。设置中的两个联网开关默认开启，分别保存为新增的 `cityContentEnabled`、`wishResolveEnabled`。设备签名私钥只在首次签名请求时生成并存入 Keychain。客户端测试注入假 transport，不需要运行 Hub，也不会访问真实网络或生产 Keychain。
 
 `remote-content.json` 永久保留接受过的故事和物品；请与旅程存档一起备份数据目录。现有“导出存档”仍只导出 `journey.json` / `care.json`，不包含远端物品库，跨设备恢复远端收藏暂需同时复制此文件。
 
