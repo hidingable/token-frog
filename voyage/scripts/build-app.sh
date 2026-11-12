@@ -1,10 +1,10 @@
 #!/bin/bash
-# Builds build/TokenVoyage.app. tokscale and the pixel font are fetched into the ignored .vendor/ on first run.
+# Builds build/Tokotoko.app. tokscale and the pixel font are fetched into the ignored .vendor/ on first run.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 VENDOR="$ROOT/.vendor"
-APP="$ROOT/build/TokenVoyage.app"
+APP="$ROOT/build/Tokotoko.app"
 TOKSCALE_VERSION="4.21.0"
 FONT_VERSION="2026.10.25"
 FONT_FILE="fusion-pixel-12px-proportional-zh_hans.otf"
@@ -67,6 +67,7 @@ verify_sha256 "$VENDOR/fonts/$FONT_FILE" "$FONT_SHA256"
 verify_sha256 "$VENDOR/fonts/OFL.txt" "$FONT_LICENSE_SHA256"
 
 cd "$ROOT"
+rm -rf "$ROOT/build/TokenVoyage.app"
 swift build -c release --arch arm64
 BIN="$(swift build -c release --arch arm64 --show-bin-path)/TokenVoyage"
 
@@ -75,6 +76,7 @@ mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources/tokscale" "$APP/Contents
 cp "$BIN" "$APP/Contents/MacOS/TokenVoyage"
 cp -R "$(dirname "$BIN")/TokenVoyage_TokenVoyage.bundle" "$APP/Contents/Resources/"
 cp -R "$ROOT/Content" "$APP/Contents/Resources/Content"
+cp "$ROOT/Resources/AppIcon.icns" "$APP/Contents/Resources/"
 cp "$VENDOR/tokscale/tokscale" "$VENDOR/tokscale/libFoundationModels.dylib" "$APP/Contents/Resources/tokscale/"
 cp "$VENDOR/fonts/$FONT_FILE" "$VENDOR/fonts/OFL.txt" "$APP/Contents/Resources/Fonts/"
 
@@ -83,8 +85,9 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>CFBundleName</key><string>Voyage</string>
-  <key>CFBundleDisplayName</key><string>Voyage</string>
+  <key>CFBundleName</key><string>Tokotoko</string>
+  <key>CFBundleDisplayName</key><string>Tokotoko</string>
+  <key>CFBundleIconFile</key><string>AppIcon.icns</string>
   <key>CFBundleDevelopmentRegion</key><string>en</string>
   <key>CFBundleLocalizations</key><array><string>en</string><string>zh-Hans</string></array>
   <key>CFBundleIdentifier</key><string>local.tokenfrog.voyage</string>

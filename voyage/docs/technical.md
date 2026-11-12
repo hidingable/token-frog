@@ -1,4 +1,4 @@
-# Voyage 技术方案
+# Tokotoko 技术方案
 
 ## 实现交接
 
@@ -494,7 +494,7 @@ M2 第 2 步的 `journey.json` 升到版本 6：新增可选的 `lastOpenedDate`
 
 ## 用户关联账号和额度（规划）
 
-Voyage 是独立应用，运行时不依赖 Token Monitor。tokscale 继续负责用量；额度由 Swift 原生适配器读取，可以参考 Token Monitor 的实现思路，但不共享进程、文件和服务。
+Tokotoko 是独立应用，运行时不依赖 Token Monitor。tokscale 继续负责用量；额度由 Swift 原生适配器读取，可以参考 Token Monitor 的实现思路，但不共享进程、文件和服务。
 
 ### 数据来源
 
@@ -557,7 +557,7 @@ public enum QuotaStatus: Sendable {
 
 Voyage Hub 不放进仓库现有的 `worker/`，那是 Token Monitor 的 Worker，有自己的隔离规则。
 
-Voyage Hub 是 Voyage 自己的服务，和 Token Monitor 的 Hub 没有关系。它做三件事：按城市提供生成好的内容，解析心愿，给同城停留的宠物配对。旅程进度始终在本机按用量计算，Hub 连不上时单人玩法完全不受影响。
+Voyage Hub 是 Tokotoko 自己的服务，和 Token Monitor 的 Hub 没有关系。它做三件事：按城市提供生成好的内容，解析心愿，给同城停留的宠物配对。旅程进度始终在本机按用量计算，Hub 连不上时单人玩法完全不受影响。
 
 城市内容和心愿解析默认开，偶遇默认关、用户明确开启后才登记停留；三项都能在设置里单独关闭。
 
@@ -726,7 +726,7 @@ SwiftPM 无法构建 app extension。届时加一个最小 Xcode 工程，引用
 看板的计算结果在 `DashboardStore` 里后台算好并缓存，body 只读结果；`DayKey` 不用 `DateFormatter`。改动看板后用下面的命令复测，切换操作应在 100 ms 内：
 
 ```bash
-TOKEN_VOYAGE_DATA_DIR=/tmp/voyage-measure build/TokenVoyage.app/Contents/MacOS/TokenVoyage --measure-dashboard
+TOKEN_VOYAGE_DATA_DIR=/tmp/voyage-measure build/Tokotoko.app/Contents/MacOS/TokenVoyage --measure-dashboard
 ```
 
 ## 验证
@@ -734,5 +734,5 @@ TOKEN_VOYAGE_DATA_DIR=/tmp/voyage-measure build/TokenVoyage.app/Contents/MacOS/T
 ```bash
 cd voyage && swift test
 cd voyage && scripts/build-app.sh
-open voyage/build/TokenVoyage.app
+open voyage/build/Tokotoko.app
 ```

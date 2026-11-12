@@ -3,6 +3,12 @@ import Testing
 import VoyageCore
 @testable import TokenVoyage
 
+@Test(arguments: Language.allCases)
+func localizedProductNameIsTokotoko(language: Language) {
+    #expect(L10n.bundleLookup(language, "app.name") == "Tokotoko")
+    #expect(L10n(language: language)("app.name") == "Tokotoko")
+}
+
 @Test(arguments: ["Philippines", "United States"])
 func passportStampDoesNotRequireACountryArticle(country: String) {
     #expect(L10n(language: .en)("letter.newStamp", country) == "New passport stamp: \(country).")

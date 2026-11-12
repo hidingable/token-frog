@@ -1,6 +1,8 @@
-# Voyage（占位名）
+![Tokotoko](docs/logo/tokotoko-lockup-light.svg)
 
-独立的 macOS 原生养成游戏：所有 AI 工具的 token 用量变成小信使的旅行里程（1 万 token = 1 公里），它走遍世界并写信回来；而它的成长只取决于你的陪伴，不取决于用量。
+# Tokotoko
+
+Tokotoko 是独立的 macOS 原生养成游戏：所有 AI 工具的 token 用量变成小信使的旅行里程（1 万 token = 1 公里），它走遍世界并写信回来；而它的成长只取决于你的陪伴，不取决于用量。
 
 - 产品设计：[docs/design.md](docs/design.md)
 - 技术方案：[docs/technical.md](docs/technical.md)
@@ -14,10 +16,21 @@
 
 ```bash
 scripts/build-app.sh
-open build/TokenVoyage.app
+open build/Tokotoko.app
 ```
 
 应用只出现在菜单栏，不占 Dock。刘海显示在带刘海的屏幕上，浮窗可以拖动，两者都能在菜单栏关闭。
+
+## 应用图标
+
+应用图标保存在 `Resources/AppIcon.icns`，打包只复制该文件。在本目录执行以下命令重新生成（需要 `rsvg-convert`、Python 3 和 Xcode 的 Swift；ICNS 编码使用 macOS 自带的 ImageIO）：
+
+```bash
+bash scripts/generate-app-icon.sh
+iconutil --convert iconset Resources/AppIcon.icns --output .build/app-icon/verified.iconset
+```
+
+生成器从 `docs/logo/tokotoko-icon.svg` 直接渲染每个尺寸，沿用 `crispEdges`，不缩放 PNG。16/32 点（含 2×）改用 `tokotoko-mascot.svg` 的蛋吉祥物，圆角背景换成琥珀色，蛋的墨色轮廓和脚才看得见。第二条命令解包检查全部 10 个尺寸表示；日常打包不运行这些工具。
 
 ## 开发
 
@@ -28,7 +41,7 @@ swift test
 不打开窗口、把所有界面渲染成 PNG（`TOKEN_VOYAGE_DATA_DIR` 让测试数据不进入真实旅程）：
 
 ```bash
-TOKEN_VOYAGE_DATA_DIR=/tmp/voyage-data build/TokenVoyage.app/Contents/MacOS/TokenVoyage --snapshot /tmp/voyage-shots
+TOKEN_VOYAGE_DATA_DIR=/tmp/voyage-data build/Tokotoko.app/Contents/MacOS/TokenVoyage --snapshot /tmp/voyage-shots
 ```
 
 Voyage Hub 尚未部署。打包配置 `Info.plist` 的 `VoyageHubURL` 留空时，城市新内容和联网解析心愿不发请求，继续使用内置内容与本机关键词。开发者可在启动应用可执行文件时设置 `TOKEN_VOYAGE_HUB_URL`（例如本地测试服务的 `http://127.0.0.1:17322`）；显式空值关闭，应用不读取 `.env`。设置中的两个联网开关默认开启，分别保存为新增的 `cityContentEnabled`、`wishResolveEnabled`。设备签名私钥只在首次签名请求时生成并存入 Keychain。客户端测试注入假 transport，不需要运行 Hub，也不会访问真实网络或生产 Keychain。

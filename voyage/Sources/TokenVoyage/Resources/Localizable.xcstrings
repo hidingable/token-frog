@@ -619,13 +619,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "点“关联”后，tokscale usage 会读取本机所有受支持工具的登录信息并请求服务商。此来源统一授权；列表会排除 Codex 和 Claude。Voyage 不保存凭据，也不会替你刷新令牌。"
+            "value": "点“关联”后，tokscale usage 会读取本机所有受支持工具的登录信息并请求服务商。此来源统一授权；列表会排除 Codex 和 Claude。Tokotoko 不保存凭据，也不会替你刷新令牌。"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Link authorizes tokscale usage to read local logins for all supported tools and contact their providers. This source uses one shared consent; Codex and Claude are excluded from its displayed results. Voyage does not save credentials or refresh tokens for you."
+            "value": "Link authorizes tokscale usage to read local logins for all supported tools and contact their providers. This source uses one shared consent; Codex and Claude are excluded from its displayed results. Tokotoko does not save credentials or refresh tokens for you."
           }
         }
       }
@@ -1265,13 +1265,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Voyage"
+            "value": "Tokotoko"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Voyage"
+            "value": "Tokotoko"
           }
         }
       }
@@ -6508,13 +6508,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "请在系统设置的登录项中允许 Voyage 开机启动。"
+            "value": "请在系统设置的登录项中允许 Tokotoko 开机启动。"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Allow Voyage in System Settings → Login Items."
+            "value": "Allow Tokotoko in System Settings → Login Items."
           }
         }
       }
@@ -7052,13 +7052,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "文件不是完整的 Voyage 导出存档。请重新选择有效的 JSON 文件。"
+            "value": "文件不是完整的 Tokotoko 导出存档。请重新选择有效的 JSON 文件。"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "This file is not a complete Voyage export. Choose a valid JSON save file."
+            "value": "This file is not a complete Tokotoko export. Choose a valid JSON save file."
           }
         }
       }
