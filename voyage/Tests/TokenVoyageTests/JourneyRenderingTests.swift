@@ -10,7 +10,8 @@ private final class JourneyRenderingDefaults: UserDefaults, @unchecked Sendable 
     override func set(_ value: Any?, forKey name: String) {}
 }
 
-@Suite @MainActor struct JourneyRenderingTests {
+// Native captures occupy the main actor; serialize variants so asynchronous UI timers can run between phases.
+@Suite(.serialized) @MainActor struct JourneyRenderingTests {
     @Test(arguments: [Language.zhHans, .en], [ThemeScheme.dark, .light])
     func journeyAndExpandedNotchFitEachPhaseInBothLanguagesAndThemes(language: Language, scheme: ThemeScheme) async throws {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent("journey-rendering-\(UUID())")
@@ -19,7 +20,7 @@ private final class JourneyRenderingDefaults: UserDefaults, @unchecked Sendable 
         let model = AppModel(isSnapshot: true, languageOverride: language, appearanceOverride: scheme,
                              defaults: JourneyRenderingDefaults(), directory: directory, catalog: localizationCatalog,
                              themes: testThemes, now: { now }, runtimeEnabled: false)
-        let metrics = NotchMetrics(notchWidth: 180, barHeight: 37)
+        let metrics = NotchMetrics(notchSize: CGSize(width: 180, height: 37), menuBarHeight: 37)
         for phase in [JourneyState.Phase.home, .pending, .outbound, .staying, .returning] {
             let example = Snapshots.journeyPhaseExample(phase: phase, catalog: localizationCatalog, now: now, petName: "Pip")
             #expect(example.journey.travelFundKm <= example.journey.recentDailyKm(before: DayKey.string(from: now)))
@@ -33,6 +34,34 @@ private final class JourneyRenderingDefaults: UserDefaults, @unchecked Sendable 
                         let notch = try render(NotchExpandedView(model: model, metrics: metrics).localized(using: model),
                                                name: "notch-\(phase.rawValue)", language: language, scheme: scheme)
                         #expect(notch.size == metrics.expandedSize)
+                        let externalMetrics = NotchMetrics(notchSize: metrics.notchSize, menuBarHeight: 24, expandedWidth: 560)
+                        let external = try render(NotchExpandedView(model: model, metrics: externalMetrics).localized(using: model),
+                                                  name: "external-bar-\(phase.rawValue)-expanded", language: language, scheme: scheme)
+                        #expect(external.size == externalMetrics.expandedSize)
+                        // Extra collapsed review artifacts are opt-in; the regular notch tests cover sizing and state.
+                        if ProcessInfo.processInfo.environment["VOYAGE_TEST_RENDER_DIR"] != nil {
+                            for unread in phase == .outbound ? [false, true] : [false] {
+                                model.withSnapshotState({ state in
+                                    for index in state.letters.indices {
+                                        state.letters[index].read = !unread
+                                        state.letters[index].deliverAt = now
+                                    }
+                                }) {
+                                    do {
+                                        #expect((model.unread > 0) == unread)
+                                        for notchWidth in [CGFloat(180), 0] {
+                                            let compact = NotchMetrics(notchSize: CGSize(width: 180, height: 37),
+                                                                       menuBarHeight: notchWidth > 0 ? 37 : 24).fitting(model: model)
+                                            let prefix = notchWidth > 0 ? "notch" : "external-bar"
+                                            let image = try render(NotchCollapsedView(model: model, metrics: compact).localized(using: model),
+                                                                   name: "\(prefix)-\(phase.rawValue)-\(unread ? "unread" : "no-unread")",
+                                                                   language: language, scheme: scheme, mapExpected: false)
+                                            #expect(image.size == compact.collapsedSize)
+                                        }
+                                    } catch { Issue.record(error) }
+                                }
+                            }
+                        }
                     } catch {
                         Issue.record(error)
                     }
@@ -59,7 +88,7 @@ private final class JourneyRenderingDefaults: UserDefaults, @unchecked Sendable 
     }
 
     /// Optional offline artifacts for checking layout when the windowed --snapshot cannot start.
-    private func render(_ view: some View, name: String, language: Language, scheme: ThemeScheme) throws -> NSImage {
+    private func render(_ view: some View, name: String, language: Language, scheme: ThemeScheme, mapExpected: Bool = true) throws -> NSImage {
         // ImageRenderer measures SwiftUI, but cannot draw the map's NSViewRepresentable.
         let renderer = ImageRenderer(content: view)
         let measured = try #require(renderer.nsImage)
@@ -88,7 +117,7 @@ private final class JourneyRenderingDefaults: UserDefaults, @unchecked Sendable 
                 if found == expected { break scan }
             }
         }
-        #expect(found == expected, "The native map must render in \(name)")
+        #expect(!mapExpected || found == expected, "The native map must render in \(name)")
         let image = NSImage(size: measured.size)
         image.addRepresentation(bitmap)
         if let root = ProcessInfo.processInfo.environment["VOYAGE_TEST_RENDER_DIR"] {

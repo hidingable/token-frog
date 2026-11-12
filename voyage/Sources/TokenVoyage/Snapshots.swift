@@ -45,7 +45,7 @@ enum Snapshots {
 
     static func write(model: AppModel, to directory: URL) {
         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-        let metrics = NotchMetrics(notchWidth: 180, barHeight: 37)
+        let metrics = NotchMetrics(notchSize: CGSize(width: 180, height: 37), menuBarHeight: 37)
         let mainSize = CGSize(width: 760, height: 780)
         guard !model.isLocked else {
             render(SaveRecoveryView(
@@ -234,7 +234,7 @@ enum Snapshots {
                     model.withSnapshotState({ $0 = example.journey }) {
                         model.navigate(to: .home)
                         render(MainView(model: model), size: CGSize(width: 1000, height: 900), name: "home-nightcap", directory, model: model)
-                        render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-nightcap", directory, model: model)
+                        renderCollapsed(model: model, metrics: metrics, name: "notch-nightcap", directory)
                         render(FloatingView(model: model), size: FloatingLayout.size, name: "floating-nightcap", directory, model: model)
                     }
                 }
@@ -343,13 +343,13 @@ enum Snapshots {
             render(AccountsView(model: model).padding(12), size: CGSize(width: 760, height: 850), name: "accounts", directory, model: model)
         }
 
-        render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-collapsed", directory, model: model)
+        renderCollapsed(model: model, metrics: metrics, name: "notch-collapsed", directory)
         model.withSnapshotState({ state in
             state.legCost = max(state.legCost, 12 * state.tokensPerKm)
             state.legFuel = state.legCost - 12 * state.tokensPerKm
             for index in state.letters.indices { state.letters[index].read = true }
         }) {
-            render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-near-arrival", directory, model: model)
+            renderCollapsed(model: model, metrics: metrics, name: "notch-near-arrival", directory)
         }
         if let catalog = model.catalog, let longest = catalog.active.max(by: { model.l10n.cityName($0).count < model.l10n.cityName($1).count }) {
             model.withSnapshotState({ state in
@@ -357,7 +357,7 @@ enum Snapshots {
                 state.legCost = max(state.legCost, 500 * state.tokensPerKm)
                 state.legFuel = 0
             }) {
-                render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-long-destination", directory, model: model)
+                renderCollapsed(model: model, metrics: metrics, name: "notch-long-destination", directory)
             }
         }
         render(NotchExpandedView(model: model, metrics: metrics), size: metrics.expandedSize, name: "notch-expanded", directory, model: model)
@@ -450,7 +450,7 @@ enum Snapshots {
                     model.showProfile()
                     render(MainView(model: model), size: CGSize(width: 760, height: 900), name: "profile-\(form.rawValue)", directory, model: model)
                     render(FloatingView(model: model), size: FloatingLayout.normalSize(form: form), name: "floating-\(form.rawValue)", directory, model: model)
-                    render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: "notch-\(form.rawValue)", directory, model: model)
+                    renderCollapsed(model: model, metrics: metrics, name: "notch-\(form.rawValue)", directory)
                     model.openPostOffice()
                     render(MainView(model: model), size: CGSize(width: 1000, height: 900), name: "home-\(form.rawValue)-empty", directory, model: model)
                     if days == 20 {
@@ -511,7 +511,8 @@ enum Snapshots {
     /// Run with --language zh-Hans/en and --appearance dark/light for the four review sets.
     private static func writeTripSurfaces(model: AppModel, to directory: URL) {
         guard let catalog = model.catalog else { return }
-        let metrics = [NotchMetrics(notchWidth: 180, barHeight: 37), NotchMetrics(notchWidth: 0, barHeight: 24)]
+        let metrics = [("notch", NotchMetrics(notchSize: CGSize(width: 180, height: 37), menuBarHeight: 37)),
+                       ("external-bar", NotchMetrics(notchSize: CGSize(width: 180, height: 37), menuBarHeight: 24, expandedWidth: 560))]
         for phase in [JourneyState.Phase.home, .pending, .outbound, .staying, .returning] {
             let example = journeyPhaseExample(phase: phase, catalog: catalog, now: model.now, petName: model.petName)
             model.withSnapshotCare({ $0 = example.care }) {
@@ -519,12 +520,26 @@ enum Snapshots {
                     model.navigate(to: .journey)
                     render(MainView(model: model), size: CGSize(width: 760, height: 900),
                            name: "journey-phase-\(phase.rawValue)", directory, model: model)
-                    for metric in metrics {
-                        let name = metric.notchWidth == 0 ? "external-bar" : "notch"
-                        render(NotchCollapsedView(model: model, metrics: metric), size: metric.collapsedSize,
-                               name: "\(name)-\(phase.rawValue)-collapsed", directory, model: model)
+                    for (name, metric) in metrics {
+                        renderCollapsed(model: model, metrics: metric,
+                               name: "\(name)-\(phase.rawValue)-collapsed", directory)
                         render(NotchExpandedView(model: model, metrics: metric), size: metric.expandedSize,
                                name: "\(name)-\(phase.rawValue)-expanded", directory, model: model)
+                    }
+                    if phase == .outbound {
+                        for unread in [false, true] {
+                            model.withSnapshotState({ state in
+                                for index in state.letters.indices {
+                                    state.letters[index].read = !unread
+                                    state.letters[index].deliverAt = model.now
+                                }
+                            }) {
+                                for (name, metric) in metrics {
+                                    renderCollapsed(model: model, metrics: metric,
+                                                    name: "\(name)-collapsed-\(unread ? "unread" : "no-unread")", directory)
+                                }
+                            }
+                        }
                     }
                     if phase == .pending {
                         model.withSnapshotState({ state in
@@ -533,11 +548,11 @@ enum Snapshots {
                             state.legTo = city.coordinate
                             state.legCost = JourneyState.cost(from: catalog.city(state.homeCityId), to: city)
                         }) {
-                            render(NotchExpandedView(model: model, metrics: metrics[0]), size: metrics[0].expandedSize,
+                            render(NotchExpandedView(model: model, metrics: metrics[0].1), size: metrics[0].1.expandedSize,
                                    name: "notch-pending-reachable", directory, model: model)
                         }
                         model.withSnapshotCare({ $0.bag.todayItem = "note-slip" }) {
-                            render(NotchExpandedView(model: model, metrics: metrics[0]), size: metrics[0].expandedSize,
+                            render(NotchExpandedView(model: model, metrics: metrics[0].1), size: metrics[0].1.expandedSize,
                                    name: "notch-pending-changed-item", directory, model: model)
                         }
                     }
@@ -546,10 +561,9 @@ enum Snapshots {
                             model.withSnapshotState({ state in
                                 state.legFuel = state.legCost - km * state.tokensPerKm
                             }) {
-                                for metric in metrics {
-                                    let name = metric.notchWidth == 0 ? "external-bar" : "notch"
-                                    render(NotchCollapsedView(model: model, metrics: metric), size: metric.collapsedSize,
-                                           name: "\(name)-outbound-\(km)km", directory, model: model)
+                                for (name, metric) in metrics {
+                                    renderCollapsed(model: model, metrics: metric,
+                                           name: "\(name)-outbound-\(km)km", directory)
                                 }
                             }
                         }
@@ -564,7 +578,7 @@ enum Snapshots {
                 model.navigate(to: .journey)
                 render(MainView(model: model), size: CGSize(width: 760, height: 900),
                        name: "journey-first-\(phase.rawValue)-world", directory, model: model)
-                render(NotchExpandedView(model: model, metrics: metrics[0]), size: metrics[0].expandedSize,
+                render(NotchExpandedView(model: model, metrics: metrics[0].1), size: metrics[0].1.expandedSize,
                        name: "notch-first-\(phase.rawValue)-world", directory, model: model)
             }
         }
@@ -923,6 +937,11 @@ enum Snapshots {
                     name: "encounter-postcard-\(unknown ? "unknown" : "known")-\(example.suffix)", directory, model: fixture)
             }
         }
+    }
+
+    private static func renderCollapsed(model: AppModel, metrics: NotchMetrics, name: String, _ directory: URL) {
+        let metrics = metrics.fitting(model: model)
+        render(NotchCollapsedView(model: model, metrics: metrics), size: metrics.collapsedSize, name: name, directory, model: model)
     }
 
     private static func render<Content: View>(_ view: Content, size: CGSize, name: String, _ directory: URL, model: AppModel) {

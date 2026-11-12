@@ -2,23 +2,51 @@ import AppKit
 import SwiftUI
 import VoyageCore
 
-/// Black panel with stepped lower corners, so it reads as part of the notch.
-struct SteppedBottom: Shape {
-    var step: CGFloat = 4
+/// One continuous shell: straight-topped camera body, or concave top flares and rounded panel bottom.
+struct NotchShell: Shape {
+    static let bodyBottomRadius: CGFloat = 10
+    static let panelTopRadius: CGFloat = 8
+    static let panelBottomRadius: CGFloat = 22
+
+    var size: CGSize
+    var topRadius: CGFloat = 0
+    var bottomRadius: CGFloat = Self.bodyBottomRadius
+
+    var animatableData: AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>> {
+        get { AnimatablePair(AnimatablePair(size.width, size.height), AnimatablePair(topRadius, bottomRadius)) }
+        set {
+            size = CGSize(width: newValue.first.first, height: newValue.first.second)
+            topRadius = newValue.second.first
+            bottomRadius = newValue.second.second
+        }
+    }
+
     func path(in rect: CGRect) -> Path {
+        // Keep spring overshoot within the expanded envelope, so the window never clips the shell.
+        let width = min(rect.width, max(0, size.width))
+        let height = min(rect.height, max(0, size.height))
+        let body = CGRect(x: rect.midX - width / 2, y: rect.minY, width: width, height: height)
+        let top = min(max(0, topRadius), width / 4, height / 2)
+        let bottom = min(max(0, bottomRadius), (width - 2 * top) / 2, height - top)
+        let k: CGFloat = 0.5522847498
         var path = Path()
-        path.move(to: CGPoint(x: rect.minX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY - step * 2))
-        path.addLine(to: CGPoint(x: rect.maxX - step, y: rect.maxY - step * 2))
-        path.addLine(to: CGPoint(x: rect.maxX - step, y: rect.maxY - step))
-        path.addLine(to: CGPoint(x: rect.maxX - step * 2, y: rect.maxY - step))
-        path.addLine(to: CGPoint(x: rect.maxX - step * 2, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.minX + step * 2, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.minX + step * 2, y: rect.maxY - step))
-        path.addLine(to: CGPoint(x: rect.minX + step, y: rect.maxY - step))
-        path.addLine(to: CGPoint(x: rect.minX + step, y: rect.maxY - step * 2))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - step * 2))
+        path.move(to: CGPoint(x: body.minX, y: body.minY))
+        path.addLine(to: CGPoint(x: body.maxX, y: body.minY))
+        path.addCurve(to: CGPoint(x: body.maxX - top, y: body.minY + top),
+                      control1: CGPoint(x: body.maxX - k * top, y: body.minY),
+                      control2: CGPoint(x: body.maxX - top, y: body.minY + (1 - k) * top))
+        path.addLine(to: CGPoint(x: body.maxX - top, y: body.maxY - bottom))
+        path.addCurve(to: CGPoint(x: body.maxX - top - bottom, y: body.maxY),
+                      control1: CGPoint(x: body.maxX - top, y: body.maxY - (1 - k) * bottom),
+                      control2: CGPoint(x: body.maxX - top - (1 - k) * bottom, y: body.maxY))
+        path.addLine(to: CGPoint(x: body.minX + top + bottom, y: body.maxY))
+        path.addCurve(to: CGPoint(x: body.minX + top, y: body.maxY - bottom),
+                      control1: CGPoint(x: body.minX + top + (1 - k) * bottom, y: body.maxY),
+                      control2: CGPoint(x: body.minX + top, y: body.maxY - (1 - k) * bottom))
+        path.addLine(to: CGPoint(x: body.minX + top, y: body.minY + top))
+        path.addCurve(to: CGPoint(x: body.minX, y: body.minY),
+                      control1: CGPoint(x: body.minX + top, y: body.minY + (1 - k) * top),
+                      control2: CGPoint(x: body.minX + k * top, y: body.minY))
         path.closeSubpath()
         return path
     }
@@ -37,33 +65,74 @@ struct MailBadge: View {
     }
 }
 
-/// The fullest status that fits the shoulder: text is swapped for a shorter form, never cut off.
-struct NotchShoulderStatus: View {
+/// Full next-stop text or the original six progress blocks; text is never truncated.
+struct NotchCollapsedProgress: View {
     @Environment(\.theme) private var theme
-    var label: String
-    var distance: String
-    var unread: Int
+    var destination: String?
+    var progress: Double
 
     var body: some View {
         ViewThatFits(in: .horizontal) {
-            row(label)
-            row(distance)
-            if unread > 0 { MailBadge(count: unread) } else { row(distance) }
-        }
-    }
-
-    private func row(_ text: String) -> some View {
-        HStack(spacing: 6) {
-            Text(text)
-                .font(Theme.pixel())
-                .foregroundStyle(theme.notchText)
-                .lineLimit(1)
-            if unread > 0 { MailBadge(count: unread) }
+            if let destination {
+                Text(destination).font(Theme.pixel()).foregroundStyle(theme.notchText)
+                    .fixedSize()
+            }
+            BlockProgress(progress: progress, blocks: 6, size: 5, inactiveColor: theme.notchControlOff)
         }
     }
 }
 
-struct NotchCollapsedView: View {
+/// Palette-backed raster marks share the sprite pipeline's integer grid and nearest-neighbour drawing.
+enum NotchPixelMark {
+    case flag, envelope
+
+    func image(theme: AppTheme) -> CGImage {
+        let rows: [String]
+        switch self {
+        case .flag:
+            rows = ["t.........", "taaaaaaaa.", "taaaaaaaa.", "taaaaaaa..", "taaaaaa...",
+                    "taaaaaaa..", "taaaaaaaa.", "t.........", "t.........", "t.........",
+                    "t.........", "t.........", "t........."]
+        case .envelope:
+            rows = ["rrrrrrrrrrrr", "rprrrrrrrrpr", "rrprrrrrrprr", "rrrprrrrprrr", "rrrrpppprrrr",
+                    "rrrrrrrrrrrr", "rrrrrrrrrrrr", "rrrrrrrrrrrr", "rrrrrrrrrrrr"]
+        }
+        let palette: [Character: UInt32] = ["t": theme.rgb(.notchText), "a": theme.rgb(.notchMileageText),
+                                            "r": theme.rgb(.newMailFill), "p": theme.rgb(.paper)]
+        return PixelImage.make(width: rows[0].count, height: rows.count,
+                               pixels: rows.flatMap { row in row.map { palette[$0] } })
+    }
+}
+
+extension NotchCollapsedProgress {
+    // Preserve the previous next-stop slot: 98 - 16 pt pet - 6 pt gap - 20 pt padding.
+    static let maximumNextStopWidth: CGFloat = 56
+    static let blocksWidth: CGFloat = 40
+
+    @MainActor static func width(destination: String?) -> CGFloat {
+        guard let destination else { return blocksWidth }
+        // Measure the same SwiftUI font as the displayed text, including its system fallback.
+        let text = NSHostingView(rootView: Text(destination).font(Theme.pixel()).fixedSize())
+        let width = ceil(text.fittingSize.width)
+        return width <= maximumNextStopWidth ? width : blocksWidth
+    }
+}
+
+extension NotchMetrics {
+    @MainActor func fitting(model: AppModel) -> Self {
+        var result = self
+        if let state = model.state, let catalog = model.catalog {
+            let display = NotchDisplay(journey: state, care: model.care, now: model.now, catalog: catalog, l10n: model.l10n)
+            let destination = display.pending.map { model.l10n("compact.destination", $0.destination) }
+            result.leftChipWidth = 16 + Self.chipContentGap + NotchCollapsedProgress.width(destination: destination)
+                + (display.showsFlag ? Self.chipContentGap + 10 : 0) + 2 * Self.chipPadding
+        }
+        result.rightChipWidth = model.unread > 0 ? Self.mailChipWidth : 0
+        return result
+    }
+}
+
+struct NotchLeftChip: View {
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
@@ -72,26 +141,55 @@ struct NotchCollapsedView: View {
     var body: some View {
         if let state = model.state, let catalog = model.catalog {
             let display = NotchDisplay(journey: state, care: model.care, now: model.now, catalog: catalog, l10n: l10n)
-            HStack(spacing: 0) {
-                HStack(spacing: 6) {
-                    SpriteView(pet: state.pet, scale: 1, moving: model.isMoving, nightcap: model.nightcapNote != nil)
-                        .background(theme.paper)
-                    BlockProgress(progress: state.legProgress, blocks: 6, size: 5, inactiveColor: theme.notchControlOff)
+            HStack(spacing: NotchMetrics.chipContentGap) {
+                SpriteView(pet: state.pet, scale: 1, moving: model.isMoving, nightcap: model.nightcapNote != nil)
+                    .scaleEffect(x: display.petFacesLeft ? -1 : 1, y: 1)
+                    .background(theme.paper)
+                let destination = display.pending.map { l10n("compact.destination", $0.destination) }
+                NotchCollapsedProgress(destination: destination, progress: state.legProgress)
+                    .frame(width: NotchCollapsedProgress.width(destination: destination))
+                if display.showsFlag {
+                    Image(decorative: NotchPixelMark.flag.image(theme: theme), scale: 1).interpolation(.none)
                 }
-                .frame(width: metrics.shoulderWidth, alignment: .center)
-                Color.clear.frame(width: metrics.notchWidth)
-                NotchShoulderStatus(
-                    label: display.status,
-                    distance: display.compactStatus,
-                    unread: model.unread
-                )
-                .frame(width: metrics.shoulderWidth, alignment: .center)
             }
-            .frame(width: metrics.collapsedSize.width, height: metrics.collapsedSize.height)
-            .background(theme.notchBackground, in: SteppedBottom(step: 2))
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(display.status)
+            .padding(.horizontal, NotchMetrics.chipPadding)
+            .frame(width: metrics.leftChipWidth, height: metrics.chipHeight)
+            .background(.black, in: Capsule())
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(display.accessibilityLabel(unread: model.unread, l10n: l10n))
         }
+    }
+}
+
+struct NotchMailChip: View {
+    @Environment(\.theme) private var theme
+    var height: CGFloat
+    var body: some View {
+        Image(decorative: NotchPixelMark.envelope.image(theme: theme), scale: 1).interpolation(.none)
+            .frame(width: NotchMetrics.mailChipWidth, height: height)
+            .background(.black, in: Capsule())
+    }
+}
+
+/// Static final-state rendering; the live panel uses these same chips and shell during its transition.
+struct NotchCollapsedView: View {
+    let model: AppModel
+    var metrics: NotchMetrics
+
+    var body: some View {
+        ZStack(alignment: .topLeading) {
+            NotchShell(size: metrics.notchSize).fill(.black)
+                .frame(width: metrics.notchSize.width, height: metrics.notchSize.height)
+                .offset(x: metrics.bodyRect.minX)
+            NotchLeftChip(model: model, metrics: metrics)
+                .offset(x: metrics.leftChipRect.minX, y: metrics.leftChipRect.minY)
+            if metrics.rightChipWidth > 0 {
+                NotchMailChip(height: metrics.chipHeight)
+                    .offset(x: metrics.rightChipRect.minX, y: metrics.rightChipRect.minY)
+            }
+        }
+        .frame(width: metrics.collapsedSize.width, height: metrics.collapsedSize.height, alignment: .topLeading)
+        .transaction { $0.animation = nil }
     }
 }
 
@@ -101,6 +199,7 @@ struct NotchExpandedView: View {
     let model: AppModel
     var metrics: NotchMetrics
     var onOpen: () -> Void = {}
+    var drawsShell = true
 
     var body: some View {
         if let state = model.state, let catalog = model.catalog {
@@ -108,8 +207,8 @@ struct NotchExpandedView: View {
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
                     Text(model.petName)
-                        .frame(width: metrics.shoulderWidth + (metrics.expandedSize.width - metrics.collapsedSize.width) / 2)
-                    Color.clear.frame(width: metrics.notchWidth)
+                        .frame(width: (metrics.expandedSize.width - metrics.notchSize.width) / 2)
+                    Color.clear.frame(width: metrics.notchSize.width)
                     Group {
                         Button(action: onOpen) {
                             if model.unread > 0 { MailBadge(count: model.unread) } else { Text(l10n("compact.open")) }
@@ -117,11 +216,11 @@ struct NotchExpandedView: View {
                         .buttonStyle(.plain)
                         .accessibilityLabel(l10n("menu.openPostOffice"))
                     }
-                    .frame(width: metrics.shoulderWidth + (metrics.expandedSize.width - metrics.collapsedSize.width) / 2)
+                    .frame(width: (metrics.expandedSize.width - metrics.notchSize.width) / 2)
                 }
                 .font(Theme.pixel())
                 .foregroundStyle(theme.notchTextMuted)
-                .frame(height: metrics.collapsedSize.height)
+                .frame(height: max(metrics.notchSize.height, metrics.menuBarHeight))
 
                 HStack(alignment: .top, spacing: 12) {
                     VStack(alignment: .leading, spacing: 6) {
@@ -177,23 +276,19 @@ struct NotchExpandedView: View {
                             Text(pending.countdown).foregroundStyle(theme.notchTextMuted)
                                 .fixedSize(horizontal: false, vertical: true)
                         } else {
-                            Text(Format.km(model.todayKm))
-                                .font(Theme.pixel(24))
-                                .foregroundStyle(theme.notchMileageText)
-                            Text(l10n("compact.fuel", l10n.tokens(model.todayTokens)))
-                            if let totals = model.todayTotals {
-                                Text(l10n("compact.cost", Format.cost(totals.cost)))
-                                    .foregroundStyle(theme.notchTextMuted)
+                            if state.phase == .outbound {
+                                Text(l10n("notch.headingTo")).foregroundStyle(theme.notchTextMuted)
+                                Text(display.destination).font(Theme.pixel(24)).foregroundStyle(theme.notchMileageText)
+                            } else {
+                                Text(display.status).fixedSize(horizontal: false, vertical: true)
                             }
-                            Text(display.status).fixedSize(horizontal: false, vertical: true)
                             BlockProgress(progress: state.legProgress, blocks: 12, size: 6, inactiveColor: theme.notchControlOff)
-                            Text(display.remainingAndFund)
+                            if state.phase == .outbound {
+                                Text(l10n("journey.remaining", Format.km(state.remainingKm)))
+                            }
+                            Text(l10n("notch.todayDistance", Format.km(model.todayKm)))
                                 .foregroundStyle(theme.notchTextMuted)
                                 .fixedSize(horizontal: false, vertical: true)
-                            ForEach(model.todayVehicles.prefix(1), id: \.client) { share in
-                                Text(l10n("vehicle.share", l10n.vehicle(share.client), share.percent))
-                                    .foregroundStyle(theme.notchTextMuted)
-                            }
                         }
                         Spacer(minLength: 0)
                     }
@@ -206,7 +301,12 @@ struct NotchExpandedView: View {
             }
             .frame(width: metrics.expandedSize.width, height: metrics.expandedSize.height, alignment: .top)
             .clipped()
-            .background(theme.notchBackground, in: SteppedBottom(step: 4))
+            .background {
+                if drawsShell {
+                    NotchShell(size: metrics.expandedSize, topRadius: NotchShell.panelTopRadius,
+                               bottomRadius: NotchShell.panelBottomRadius).fill(.black)
+                }
+            }
         }
     }
 }

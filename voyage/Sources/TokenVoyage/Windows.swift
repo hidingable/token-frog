@@ -1,4 +1,5 @@
 import AppKit
+import Observation
 import SwiftUI
 import VoyageCore
 
@@ -16,6 +17,8 @@ final class PanelHostView<Content: View>: NSView {
     var onPress: (() -> Void)?
     var draggable = false
     var interactiveContent = false
+    // The notch keeps a fixed SwiftUI canvas while AppKit changes only the window's hit-test bounds.
+    var contentFrame: CGRect? { didSet { needsLayout = true } }
     private var dragged = false
 
     init(rootView: Content) {
@@ -33,7 +36,7 @@ final class PanelHostView<Content: View>: NSView {
 
     override func layout() {
         super.layout()
-        hosting.frame = bounds
+        hosting.frame = contentFrame ?? bounds
     }
 
     override func hitTest(_ point: NSPoint) -> NSView? {
@@ -77,26 +80,82 @@ private func makePanel(frame: NSRect) -> NSPanel {
     return panel
 }
 
+/// All sizes are points. Local rectangles use SwiftUI's top-left origin; screen frames use AppKit's.
 struct NotchMetrics: Equatable {
-    var notchWidth: CGFloat
-    var barHeight: CGFloat
-    var shoulderWidth: CGFloat = 240
-    var collapsedSize: CGSize { CGSize(width: notchWidth + shoulderWidth * 2, height: barHeight) }
-    var expandedSize: CGSize { CGSize(width: max(collapsedSize.width, 560), height: barHeight + 240) }
+    static let fallbackNotchSize = CGSize(width: 185, height: 32)
+    static let chipGap: CGFloat = 6
+    static let chipPadding: CGFloat = 10
+    static let chipContentGap: CGFloat = 6
+    static let maximumChipHeight: CGFloat = 24
+    static let mailChipWidth: CGFloat = 32
 
-    @MainActor init(screen: NSScreen) {
-        if let left = screen.auxiliaryTopLeftArea, let right = screen.auxiliaryTopRightArea, screen.safeAreaInsets.top > 0 {
-            notchWidth = screen.frame.width - left.width - right.width
-            barHeight = screen.safeAreaInsets.top
-        } else {
-            notchWidth = 0
-            barHeight = max(NSStatusBar.system.thickness, 24)
-        }
+    var notchSize: CGSize
+    var menuBarHeight: CGFloat
+    var leftChipWidth: CGFloat
+    var rightChipWidth: CGFloat
+    var notchCenterOffsetX: CGFloat = 0
+    var expandedWidth: CGFloat
+
+    init(notchSize: CGSize = Self.fallbackNotchSize, menuBarHeight: CGFloat,
+         leftChipWidth: CGFloat = 82, rightChipWidth: CGFloat = 0, notchCenterOffsetX: CGFloat = 0,
+         expandedWidth: CGFloat? = nil) {
+        self.notchSize = notchSize
+        self.menuBarHeight = menuBarHeight
+        self.leftChipWidth = leftChipWidth
+        self.rightChipWidth = rightChipWidth
+        self.notchCenterOffsetX = notchCenterOffsetX
+        self.expandedWidth = expandedWidth ?? max(notchSize.width + 480, 560)
     }
 
-    init(notchWidth: CGFloat, barHeight: CGFloat) {
-        self.notchWidth = notchWidth
-        self.barHeight = barHeight
+    var chipHeight: CGFloat { min(Self.maximumChipHeight, menuBarHeight) }
+    var bodyRect: CGRect {
+        CGRect(x: leftChipWidth + Self.chipGap, y: 0, width: notchSize.width, height: notchSize.height)
+    }
+    var leftChipRect: CGRect {
+        CGRect(x: 0, y: (menuBarHeight - chipHeight) / 2, width: leftChipWidth, height: chipHeight)
+    }
+    var rightChipRect: CGRect {
+        CGRect(x: bodyRect.maxX + Self.chipGap, y: leftChipRect.minY, width: rightChipWidth, height: chipHeight)
+    }
+    var collapsedSize: CGSize {
+        CGSize(width: bodyRect.maxX + (rightChipWidth > 0 ? Self.chipGap + rightChipWidth : 0),
+               height: max(notchSize.height, leftChipRect.maxY))
+    }
+    var expandedSize: CGSize { CGSize(width: expandedWidth, height: menuBarHeight + 240) }
+
+    func bodyFrame(screenFrame: CGRect) -> CGRect {
+        CGRect(x: screenFrame.midX + notchCenterOffsetX - notchSize.width / 2,
+               y: screenFrame.maxY - notchSize.height, width: notchSize.width, height: notchSize.height)
+    }
+
+    func frame(screenFrame: CGRect, expanded: Bool) -> CGRect {
+        let body = bodyFrame(screenFrame: screenFrame)
+        let size = expanded ? expandedSize : collapsedSize
+        return CGRect(x: expanded ? body.midX - size.width / 2 : body.minX - bodyRect.minX,
+                      y: screenFrame.maxY - size.height, width: size.width, height: size.height)
+    }
+
+    /// Includes both chips until they have faded, even when a long next stop exceeds the panel's left edge.
+    func animationFrame(screenFrame: CGRect) -> CGRect {
+        frame(screenFrame: screenFrame, expanded: true).union(frame(screenFrame: screenFrame, expanded: false))
+    }
+
+    @MainActor private static func nativeNotch(_ screen: NSScreen) -> CGRect? {
+        guard screen.safeAreaInsets.top > 0, let left = screen.auxiliaryTopLeftArea,
+              let right = screen.auxiliaryTopRightArea else { return nil }
+        return CGRect(x: left.maxX, y: screen.frame.maxY - screen.safeAreaInsets.top,
+                      width: right.minX - left.maxX, height: screen.safeAreaInsets.top)
+    }
+
+    @MainActor init(screen: NSScreen) {
+        let native = Self.nativeNotch(screen)
+        let reference = NSScreen.screens.compactMap { Self.nativeNotch($0)?.size }.first ?? Self.fallbackNotchSize
+        // visibleFrame excludes this display's menu bar (and, on a notched display, the camera strip).
+        let topInset = screen.frame.maxY - screen.visibleFrame.maxY
+        self.init(notchSize: native?.size ?? reference,
+                  menuBarHeight: topInset > 0 ? topInset : NSStatusBar.system.thickness,
+                  notchCenterOffsetX: native.map { $0.midX - screen.frame.midX } ?? 0,
+                  expandedWidth: native.map { max($0.width + 480, 560) } ?? 560)
     }
 }
 
@@ -135,64 +194,142 @@ final class NotchController {
     }
 }
 
-/// Each display keeps its own hover state, including the camera-free top bar on external displays.
-@MainActor
-private final class NotchSurface {
-    private struct Root: View {
-        let model: AppModel
-        let metrics: NotchMetrics
-        let expanded: Bool
-        let onOpen: () -> Void
-        var body: some View {
-            VStack(spacing: 0) {
-                if expanded {
-                    NotchExpandedView(model: model, metrics: metrics, onOpen: onOpen)
-                } else {
-                    NotchCollapsedView(model: model, metrics: metrics)
-                }
-                Spacer(minLength: 0)
-            }
-            .localized(using: model)
+/// Owns the transition independently of NSPanel, including cancellation and the final hit-test bounds.
+@MainActor @Observable
+final class NotchPresentation {
+    private(set) var metrics: NotchMetrics
+    private(set) var canvasFrame: CGRect
+    private(set) var expanded = false
+    private(set) var shellExpanded = false
+    private(set) var contentVisible = false
+    private(set) var chipsVisible = true
+    private(set) var leftChipVisible = true
+    private(set) var mailVisible: Bool
+    private(set) var reduceMotion = false
+    private(set) var transitioning = false
+
+    let screenFrame: CGRect
+    let animationsEnabled: Bool
+    @ObservationIgnored var onFrameChange: (CGRect) -> Void = { _ in }
+    @ObservationIgnored var onInteractiveChange: (Bool) -> Void = { _ in }
+    @ObservationIgnored private var hoverTask: Task<Void, Never>?
+    @ObservationIgnored private var contentTask: Task<Void, Never>?
+    @ObservationIgnored private var transitionID = 0
+    @ObservationIgnored private var layoutID = 0
+    @ObservationIgnored private var layoutChanging = false
+    @ObservationIgnored private var pendingLayouts = 0
+
+    init(metrics: NotchMetrics, screenFrame: CGRect, animationsEnabled: Bool) {
+        self.metrics = metrics
+        self.screenFrame = screenFrame
+        self.animationsEnabled = animationsEnabled
+        canvasFrame = metrics.frame(screenFrame: screenFrame, expanded: false)
+        mailVisible = metrics.rightChipWidth > 0
+    }
+
+    func cancel() {
+        hoverTask?.cancel()
+        contentTask?.cancel()
+        transitionID += 1
+        layoutID += 1
+    }
+
+    func setReduceMotion(_ value: Bool) {
+        guard reduceMotion != value else { return }
+        reduceMotion = value
+        // A preference change during a spring settles immediately into the current requested state.
+        settle()
+    }
+
+    private func resize(_ frame: CGRect) {
+        var transaction = Transaction(animation: nil)
+        transaction.disablesAnimations = true
+        withTransaction(transaction) { canvasFrame = frame }
+        onFrameChange(frame)
+    }
+
+    private func settle() {
+        contentTask?.cancel()
+        transitionID += 1
+        layoutID += 1
+        layoutChanging = false
+        pendingLayouts = 0
+        var transaction = Transaction(animation: nil)
+        transaction.disablesAnimations = true
+        withTransaction(transaction) {
+            transitioning = false
+            shellExpanded = expanded
+            contentVisible = expanded
+            chipsVisible = !expanded
+            leftChipVisible = true
+            mailVisible = metrics.rightChipWidth > 0
         }
+        resize(metrics.frame(screenFrame: screenFrame, expanded: expanded))
+        onInteractiveChange(expanded)
     }
 
-    private let model: AppModel
-    private let screen: NSScreen
-    private let metrics: NotchMetrics
-    private let onOpen: () -> Void
-    private let panel: NSPanel
-    private let host: PanelHostView<Root>
-    private var expanded = false
-    private var collapseTask: Task<Void, Never>?
-
-    init(model: AppModel, screen: NSScreen, onOpen: @escaping () -> Void) {
-        self.model = model
-        self.screen = screen
-        self.onOpen = onOpen
-        metrics = NotchMetrics(screen: screen)
-        host = PanelHostView(rootView: Root(model: model, metrics: metrics, expanded: false, onOpen: onOpen))
-        panel = makePanel(frame: Self.frame(for: metrics.collapsedSize, screen: screen))
-        host.onClick = onOpen
-        host.onHover = { [weak self] inside in self?.hover(inside) }
-        panel.level = .statusBar
-        panel.contentView = host
-        panel.orderFrontRegardless()
+    func updateMetrics(_ next: NotchMetrics) {
+        guard next != metrics else { return }
+        guard animationsEnabled else { metrics = next; settle(); return }
+        layoutID += 1
+        layoutChanging = true
+        let id = layoutID
+        let hasMail = next.rightChipWidth > 0
+        let mailChanged = mailVisible != hasMail
+        let widthChanged = next.leftChipWidth != metrics.leftChipWidth
+        pendingLayouts = (mailChanged ? 1 : 0) + (widthChanged ? 1 : 0)
+        let target = transitioning ? next.animationFrame(screenFrame: screenFrame)
+            : next.frame(screenFrame: screenFrame, expanded: expanded)
+        // Retain the old bounds until the width animation and disappearing mail have finished.
+        resize(canvasFrame.union(target))
+        if widthChanged && reduceMotion {
+            withAnimation(.easeOut(duration: 0.08), completionCriteria: .removed) {
+                leftChipVisible = false
+            } completion: { [weak self] in
+                guard let self, self.layoutID == id else { return }
+                var transaction = Transaction(animation: nil)
+                transaction.disablesAnimations = true
+                withTransaction(transaction) { self.metrics = next }
+                withAnimation(.easeIn(duration: 0.1), completionCriteria: .removed) {
+                    self.leftChipVisible = true
+                } completion: { [weak self] in self?.finishLayout(id: id) }
+            }
+        } else if widthChanged {
+            withAnimation(.easeInOut(duration: 0.18), completionCriteria: .removed) {
+                metrics = next
+                leftChipVisible = true
+            } completion: { [weak self] in self?.finishLayout(id: id) }
+        } else {
+            metrics = next
+        }
+        if mailChanged {
+            let animation: Animation = hasMail && !reduceMotion
+                ? .spring(response: 0.22, dampingFraction: 1) : .easeOut(duration: 0.15)
+            withAnimation(animation, completionCriteria: .removed) {
+                mailVisible = hasMail
+            } completion: { [weak self] in self?.finishLayout(id: id) }
+        }
+        if !widthChanged && !mailChanged { finishLayout(id: id) }
     }
 
-    func close() {
-        collapseTask?.cancel()
-        panel.close()
+    private func finishLayout(id: Int) {
+        guard layoutID == id else { return }
+        pendingLayouts = max(0, pendingLayouts - 1)
+        guard pendingLayouts == 0 else { return }
+        layoutChanging = false
+        if !transitioning { resize(metrics.frame(screenFrame: screenFrame, expanded: expanded)) }
     }
 
-    private static func frame(for size: CGSize, screen: NSScreen) -> NSRect {
-        NSRect(x: screen.frame.midX - size.width / 2, y: screen.frame.maxY - size.height, width: size.width, height: size.height)
+    private func finishResizing(expanded: Bool) {
+        let frame = metrics.frame(screenFrame: screenFrame, expanded: expanded)
+        resize(layoutChanging ? canvasFrame.union(frame) : frame)
     }
 
-    private func hover(_ inside: Bool) {
-        collapseTask?.cancel()
+    func hover(_ inside: Bool) {
+        hoverTask?.cancel()
         if inside { setExpanded(true) }
         else {
-            collapseTask = Task { [weak self] in
+            hoverTask = Task { [weak self] in
                 try? await Task.sleep(for: .milliseconds(250))
                 guard !Task.isCancelled else { return }
                 self?.setExpanded(false)
@@ -200,12 +337,142 @@ private final class NotchSurface {
         }
     }
 
-    private func setExpanded(_ value: Bool) {
+    func setExpanded(_ value: Bool) {
         guard value != expanded else { return }
+        contentTask?.cancel()
+        transitionID += 1
+        let id = transitionID
         expanded = value
-        host.interactiveContent = value
-        host.setRootView(Root(model: model, metrics: metrics, expanded: value, onOpen: onOpen))
-        panel.setFrame(Self.frame(for: value ? metrics.expandedSize : metrics.collapsedSize, screen: screen), display: true)
+        onInteractiveChange(false)
+        guard animationsEnabled else { settle(); return }
+        transitioning = true
+        // AppKit resizes first; SwiftUI then animates inside a canvas covering both endpoints.
+        resize(canvasFrame.union(metrics.animationFrame(screenFrame: screenFrame)))
+        if value {
+            contentTask = Task { [weak self] in
+                await Task.yield()
+                guard !Task.isCancelled, let self, self.transitionID == id else { return }
+                withAnimation(.easeOut(duration: 0.1)) { self.chipsVisible = false }
+                withAnimation(self.reduceMotion ? .easeInOut(duration: 0.15) : .spring(response: 0.35, dampingFraction: 0.8),
+                              completionCriteria: .removed) {
+                    self.shellExpanded = true
+                } completion: { [weak self] in
+                    guard let self, self.transitionID == id else { return }
+                    self.transitioning = false
+                    self.finishResizing(expanded: true)
+                }
+                try? await Task.sleep(for: .milliseconds(80))
+                guard !Task.isCancelled, self.transitionID == id else { return }
+                withAnimation(.easeOut(duration: 0.15)) { self.contentVisible = true }
+                self.onInteractiveChange(true)
+            }
+        } else {
+            withAnimation(.easeOut(duration: 0.1), completionCriteria: .removed) {
+                contentVisible = false
+            } completion: { [weak self] in
+                guard let self, self.transitionID == id else { return }
+                withAnimation(self.reduceMotion ? .easeInOut(duration: 0.15) : .spring(response: 0.28, dampingFraction: 0.8),
+                              completionCriteria: .removed) {
+                    self.shellExpanded = false
+                } completion: { [weak self] in
+                    guard let self, self.transitionID == id else { return }
+                    self.transitioning = false
+                    self.finishResizing(expanded: false)
+                    withAnimation(.easeIn(duration: 0.15)) { self.chipsVisible = true }
+                }
+            }
+        }
+    }
+}
+
+/// Every display uses the same shell and chip layout, anchored to that display's camera position.
+@MainActor
+private final class NotchSurface {
+    private struct Root: View {
+        @Environment(\.accessibilityReduceMotion) private var reduceMotion
+        let model: AppModel
+        let presentation: NotchPresentation
+        let onOpen: () -> Void
+
+        var body: some View {
+            let metrics = presentation.metrics
+            let centerX = metrics.expandedSize.width / 2
+            let chipY = metrics.menuBarHeight / 2
+            ZStack(alignment: .topLeading) {
+                if reduceMotion {
+                    shell(expanded: false).opacity(presentation.shellExpanded ? 0 : 1)
+                        .position(x: centerX, y: metrics.expandedSize.height / 2)
+                    shell(expanded: true).opacity(presentation.shellExpanded ? 1 : 0)
+                        .position(x: centerX, y: metrics.expandedSize.height / 2)
+                } else {
+                    shell(expanded: presentation.shellExpanded)
+                        .position(x: centerX, y: metrics.expandedSize.height / 2)
+                }
+                if presentation.expanded || presentation.transitioning {
+                    NotchExpandedView(model: model, metrics: metrics, onOpen: onOpen, drawsShell: false)
+                        .mask { shell(expanded: reduceMotion || presentation.shellExpanded) }
+                        .opacity(presentation.contentVisible ? 1 : 0)
+                        .allowsHitTesting(presentation.contentVisible)
+                        .accessibilityHidden(!presentation.contentVisible)
+                        .position(x: centerX, y: metrics.expandedSize.height / 2)
+                        .transition(.identity)
+                }
+                NotchLeftChip(model: model, metrics: metrics)
+                    .opacity(presentation.chipsVisible && presentation.leftChipVisible ? 1 : 0)
+                    .accessibilityHidden(!presentation.chipsVisible)
+                    .position(x: centerX - metrics.notchSize.width / 2 - NotchMetrics.chipGap - metrics.leftChipWidth / 2, y: chipY)
+                if presentation.mailVisible {
+                    NotchMailChip(height: metrics.chipHeight)
+                        .opacity(presentation.chipsVisible ? 1 : 0)
+                        .accessibilityHidden(!presentation.chipsVisible)
+                        .transition(reduceMotion ? .opacity : .asymmetric(
+                            insertion: .scale(scale: 0.6).combined(with: .opacity), removal: .opacity))
+                        .position(x: centerX + metrics.notchSize.width / 2 + NotchMetrics.chipGap + NotchMetrics.mailChipWidth / 2, y: chipY)
+                }
+            }
+            .frame(width: metrics.expandedSize.width, height: metrics.expandedSize.height, alignment: .topLeading)
+            .localized(using: model)
+            .onChange(of: metrics.fitting(model: model)) { _, next in presentation.updateMetrics(next) }
+            .onChange(of: reduceMotion, initial: true) { _, next in presentation.setReduceMotion(next) }
+        }
+
+        private func shell(expanded: Bool) -> some View {
+            let metrics = presentation.metrics
+            return NotchShell(size: expanded ? metrics.expandedSize : metrics.notchSize,
+                              topRadius: expanded ? NotchShell.panelTopRadius : 0,
+                              bottomRadius: expanded ? NotchShell.panelBottomRadius : NotchShell.bodyBottomRadius)
+                .fill(.black)
+                .frame(width: metrics.expandedSize.width, height: metrics.expandedSize.height)
+        }
+    }
+
+    private let panel: NSPanel
+    private let host: PanelHostView<Root>
+    private let presentation: NotchPresentation
+
+    init(model: AppModel, screen: NSScreen, onOpen: @escaping () -> Void) {
+        let metrics = NotchMetrics(screen: screen).fitting(model: model)
+        presentation = NotchPresentation(metrics: metrics, screenFrame: screen.frame, animationsEnabled: !model.isSnapshotMode)
+        host = PanelHostView(rootView: Root(model: model, presentation: presentation, onOpen: onOpen))
+        panel = makePanel(frame: presentation.canvasFrame)
+        let contentFrame = metrics.frame(screenFrame: screen.frame, expanded: true)
+        host.contentFrame = contentFrame.offsetBy(dx: -presentation.canvasFrame.minX, dy: -presentation.canvasFrame.minY)
+        presentation.onFrameChange = { [weak panel, weak host] frame in
+            host?.contentFrame = contentFrame.offsetBy(dx: -frame.minX, dy: -frame.minY)
+            panel?.setFrame(frame, display: true)
+            host?.layoutSubtreeIfNeeded()
+        }
+        presentation.onInteractiveChange = { [weak host] value in host?.interactiveContent = value }
+        host.onClick = onOpen
+        host.onHover = { [weak presentation] inside in presentation?.hover(inside) }
+        panel.level = .statusBar
+        panel.contentView = host
+        panel.orderFrontRegardless()
+    }
+
+    func close() {
+        presentation.cancel()
+        panel.close()
     }
 }
 

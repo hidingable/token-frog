@@ -55,7 +55,7 @@ private final class NotchTripDefaults: UserDefaults, @unchecked Sendable {
 
 @Suite @MainActor struct NotchTripTests {
     @Test(arguments: [Language.zhHans, .en])
-    func collapsedStatusReflectsEveryPhase(language: Language) {
+    func accessibleStatusReflectsEveryPhase(language: Language) {
         let l10n = L10n(language: language)
         let cases: [(JourneyState.Phase, String)] = language == .zhHans ? [
             (.home, "在家"), (.pending, "→ 北京 · 28 分后出发"), (.outbound, "→ 北京"),
@@ -78,8 +78,27 @@ private final class NotchTripDefaults: UserDefaults, @unchecked Sendable {
         let remaining = remainingKm == 49 ? "49 km" : "50 km"
         let distance = language == .zhHans ? "还差 \(remaining)" : "\(remaining) to go"
         #expect(display.status == (remainingKm <= 50 ? distance : language == .zhHans ? "→ 北京" : "→ Beijing"))
-        #expect(display.compactStatus == distance)
-        #expect(display.remainingAndFund == (language == .zhHans ? "\(distance) · 路费 73 km" : "\(distance) · Travel fund 73 km"))
+        #expect(display.showsFlag == (remainingKm <= 50))
+        #expect(display.destination == (language == .zhHans ? "北京" : "Beijing"))
+    }
+
+    @Test(arguments: [JourneyState.Phase.home, .pending, .outbound, .staying, .returning])
+    func flagAndFacingFollowTheJourneyPhase(phase: JourneyState.Phase) {
+        let display = NotchDisplay(journey: notchJourney(phase: phase, remainingKm: 20), care: nil,
+                                   now: notchNow, catalog: localizationCatalog, l10n: L10n(language: .en))
+        #expect(display.showsFlag == (phase == .outbound || phase == .staying))
+        #expect(display.petFacesLeft == (phase == .returning))
+    }
+
+    @Test(arguments: [Language.zhHans, .en], [0, 7])
+    func accessibilityKeepsFullStatusAndUnreadCount(language: Language, unread: Int) {
+        let l10n = L10n(language: language)
+        let display = NotchDisplay(journey: notchJourney(phase: .pending), care: nil,
+                                   now: notchNow, catalog: localizationCatalog, l10n: l10n)
+        let mail = language == .zhHans ? " · 信 7" : " · Mail 7"
+        #expect(display.accessibilityLabel(unread: unread, l10n: l10n) == display.status + (unread > 0 ? mail : ""))
+        #expect(l10n("notch.headingTo") == (language == .zhHans ? "去往" : "Heading to"))
+        #expect(l10n("notch.todayDistance", "360 km") == (language == .zhHans ? "今天走了 360 km" : "360 km today"))
     }
 
     @Test(arguments: [Language.zhHans, .en], [false, true])
@@ -138,8 +157,8 @@ private final class NotchTripDefaults: UserDefaults, @unchecked Sendable {
         let fixture = try NotchTripFixture()
         defer { fixture.remove() }
         let model = fixture.model()
-        let metrics = NotchMetrics(notchWidth: notchWidth, barHeight: 30)
-        let renderer = ImageRenderer(content: NotchCollapsedView(model: model, metrics: metrics).environment(\.l10n, model.l10n))
+        let metrics = NotchMetrics(menuBarHeight: notchWidth > 0 ? 37 : 24).fitting(model: model)
+        let renderer = ImageRenderer(content: NotchCollapsedView(model: model, metrics: metrics).localized(using: model))
         let image = try #require(renderer.nsImage)
         #expect(image.size == metrics.collapsedSize)
         #expect(image.size.width > 0 && image.size.height > 0)
