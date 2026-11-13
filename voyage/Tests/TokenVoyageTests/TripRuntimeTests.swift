@@ -46,7 +46,7 @@ private actor TripUsageReader {
     }
 
     @Test(arguments: [false, true])
-    func pendingDepartureRunsWithoutAnotherUsageReadAndPersists(immediate: Bool) throws {
+    func pendingDepartureIgnoresClosedGateWithoutAnotherUsageReadAndPersists(immediate: Bool) throws {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent("voyage-trip-timer-\(UUID())")
         defer { try? FileManager.default.removeItem(at: directory) }
         let start = Calendar.current.date(from: DateComponents(year: 2026, month: 11, day: 10, hour: 12))!
@@ -60,6 +60,7 @@ private actor TripUsageReader {
         journey.days[journey.openDate] = record
         try save(journey, at: directory)
         let app = model(directory: directory, clock: clock)
+        app.journeyGate = JourneyGate { _ in false }
         clock.date = start.addingTimeInterval(immediate ? 60 : 30 * 60)
         if immediate { app.departNow() } else { app.tick() }
         #expect(app.state?.phase == .outbound)
@@ -67,6 +68,30 @@ private actor TripUsageReader {
         #expect(app.state?.totalKm == 1)
         #expect(app.state?.days["2026-11-10"]?.lastObservedAt == start)
         #expect(model(directory: directory, clock: clock).state == app.state)
+    }
+
+    @Test func closedGateKeepsASavedHomeJourneyHomeThroughTimerAndScan() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("voyage-trip-gate-\(UUID())")
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let start = Calendar.current.date(from: DateComponents(year: 2026, month: 11, day: 10, hour: 12))!
+        let clock = TripClock(start)
+        var journey = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-10", now: start, catalog: localizationCatalog)
+        journey.phase = .home
+        try save(journey, at: directory)
+        let app = AppModel(defaults: TripDefaults(), directory: directory, catalog: localizationCatalog, themes: testThemes,
+                           now: { clock.date }, usageReader: { _, until in
+                               [DayDetail(date: until, rows: [.init(client: "codex", model: "test", tokens: .init(input: 100))])]
+                           }, hoursReader: { _, _ in [] }, enrichmentReader: { _ in Enrichment() },
+                           hubClient: HubClient(baseURL: nil), runtimeEnabled: false)
+        app.journeyGate = JourneyGate { _ in false }
+        app.tick()
+        #expect(app.state?.phase == .home)
+        await app.scan()
+        let state = try #require(app.state)
+        #expect(app.lastError == nil && app.lastScan == start)
+        #expect(state.phase == .home && state.legFuel == 0 && state.travelFund == 0 && state.totalKm == 0)
+        #expect(state.days["2026-11-10"]?.tokens == 100 && state.days["2026-11-10"]?.tripNumber == nil)
+        #expect(model(directory: directory, clock: clock).state == state)
     }
 
     @Test func timerFinishesASavedStayAfterTheApplicationWasClosed() throws {
@@ -128,5 +153,52 @@ private actor TripUsageReader {
         await app.scan()
         #expect(await reader.requests == ["graph", "hours:2026-11-07", "hours:2026-11-09", "graph"])
         #expect(app.state?.legFuel == 106)
+    }
+
+    @Test func mailGateRunsThroughRealScanProcessingAndReadingOldMail() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("voyage-mail-gate-\(UUID())")
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let calendar = Calendar.current
+        func instant(_ date: String) -> Date { calendar.date(bySettingHour: 12, minute: 0, second: 0, of: DayKey.date(from: date)!)! }
+        let clock = TripClock(instant("2026-11-02"))
+        var journey = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-02", now: clock.date, catalog: localizationCatalog)
+        journey.phase = .home
+        journey.letters[0].read = false
+        try save(journey, at: directory)
+        let app = AppModel(defaults: TripDefaults(), directory: directory, catalog: localizationCatalog, themes: testThemes,
+                           now: { clock.date }, usageReader: { _, until in
+                               (2...(Int(until.suffix(2))!)).map { day in
+                                   DayDetail(date: String(format: "2026-11-%02d", day), rows: [
+                                       .init(client: "codex", model: "test", tokens: .init(input: day == 2 ? 0 : 100)),
+                                   ])
+                               }
+                           }, hoursReader: { _, _ in [] }, enrichmentReader: { _ in Enrichment() },
+                           hubClient: HubClient(baseURL: nil), runtimeEnabled: false)
+        let reopens = instant("2026-11-09").addingTimeInterval(-12 * 3600)
+        app.journeyGate = JourneyGate(allowsDeparture: { _ in false }, allowsNewMail: { $0 >= reopens })
+        let before = try #require(app.care)
+        app.setMainWindowPresented(true)
+        clock.date = instant("2026-11-08")
+        app.markRead(try #require(app.state?.letters.first))
+        #expect(app.state?.letters.first?.read == true)
+        await app.scan()
+        app.setMainWindowPresented(false)
+        app.setMainWindowPresented(true)
+        #expect(app.lastError == nil)
+        #expect(app.state?.letters.map(\.kind) == [.logbook])
+        #expect(app.state?.lastWeeklyMailSunday == "2026-11-08")
+        #expect(app.care == before)
+        clock.date = instant("2026-11-09")
+        await app.scan()
+        #expect(app.state?.letters.map(\.kind) == [.logbook])
+        app.markRead(try #require(app.state?.letters.first))
+        #expect(app.care?.companionDays == ["2026-11-09"])
+        clock.date = instant("2026-11-10")
+        await app.scan()
+        let letter = try #require(app.state?.letters.last)
+        #expect(letter.kind == .daily && letter.date == "2026-11-09")
+        #expect(letter.storyId != nil && !letter.rewards.itemIds.isEmpty)
+        #expect(app.care?.processedLetterIds == [letter.id])
+        #expect(app.state?.letters.count == 2 && app.state?.phase == .home)
     }
 }

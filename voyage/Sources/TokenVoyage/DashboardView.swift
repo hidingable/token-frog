@@ -54,13 +54,16 @@ struct DashboardTab: View, Equatable {
             }
             if let result = store.result {
                 content(result)
-            } else if model.lastError == nil {
+            } else if model.dashboardError == nil {
                 Text(l10n("dashboard.loading")).font(Theme.pixel()).foregroundStyle(theme.textMuted)
+            }
+            if let error = model.dashboardError {
+                Text(error is UsageError ? l10n("usage.recoverableFailure") : l10n.error(error))
+                    .font(Theme.pixel()).foregroundStyle(theme.textMuted)
+                Chip(title: l10n("action.retry"), isOn: false) { Task { await model.loadDashboard() } }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        // lastScan is in the id so a load skipped because a scan held the slot retries after that scan.
-        .task(id: String(describing: model.lastScan)) { await model.loadDashboard() }
         .task(id: refresh) {
             await store.select(store.request(selection: refresh.selection, seriesLimit: refresh.seriesLimit, calendar: refresh.calendar))
         }

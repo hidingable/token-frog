@@ -225,7 +225,7 @@ public struct UsageDashboard: Sendable {
     }
 }
 
-public struct HourUsage: Equatable, Sendable {
+public struct HourUsage: Codable, Equatable, Sendable {
     public var date: String
     public var hour: Int
     public var tokens: UsageTotals

@@ -6,6 +6,9 @@ struct SplitMix64 {
         case dropItem = 0x3CF9_EA61_0B28_754D
         case roadClue = 0x6C1B_E342_A859_07DF
         case looseBoard = 0x921A_5D73_08C4_B6EF
+        case friend = 0xDF81_630A_2B49_E7C5
+        case friendNote = 0x8E52_C4A9_71D0_3FB6
+        case identity = 0xA37D_6E20_C915_4B8F
         case usageEvent = 0x45BC_921A_7D36_E08F
     }
 

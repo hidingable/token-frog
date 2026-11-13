@@ -4,7 +4,8 @@ public enum CareEngine {
     public static func process(
         journey: inout JourneyState, care: inout CareState, stories: StoryLibrary,
         catalog: CityCatalog, wishTags: Set<String> = [],
-        sponsorContentEnabled: Bool = false, calendar: Calendar = .current
+        sponsorContentEnabled: Bool = false, calendar: Calendar = .current,
+        identityDate: String? = nil, deliveryTime: DeliveryTime = .standard, gate: JourneyGate = .open
     ) {
         let indices = journey.letters.indices.sorted { journey.letters[$0].id < journey.letters[$1].id }
         for index in indices {
@@ -138,6 +139,10 @@ public enum CareEngine {
             care.bag.todayItem = nil
             care.processedLetterIds.append(letter.id)
         }
+        settleFriend(journey: &journey, care: &care, catalog: catalog, date: identityDate ?? journey.openDate,
+                     calendar: calendar, deliveryTime: deliveryTime, gate: gate)
+        settleIdentity(journey: &journey, care: &care, catalog: catalog, date: identityDate ?? journey.openDate,
+                       calendar: calendar, deliveryTime: deliveryTime, gate: gate)
         MemoryBook.backfill(journey: journey, care: &care)
     }
 

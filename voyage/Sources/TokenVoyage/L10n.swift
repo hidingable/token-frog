@@ -49,7 +49,7 @@ struct L10n: Sendable {
     static let tabKeys: [MainTab: String] = [.home: "nav.postOffice", .journey: "nav.journey", .mail: "nav.mail", .collection: "nav.collection", .data: "nav.data"]
     static let mailFilterKeys: [MailFilter: String] = [.all: "mail.all", .travel: "mail.travel", .postcards: "mail.postcards", .weekly: "mail.weekly"]
     static let mailEmptyKeys: [MailFilter: String] = [.all: "mail.empty", .travel: "mail.travelEmpty", .postcards: "mail.postcardsEmpty", .weekly: "mail.weeklyEmpty"]
-    static let collectionTabKeys: [CollectionTab: String] = [.passport: "nav.passport", .bag: "collection.bag", .souvenirs: "collection.souvenirs", .menus: "collection.menus", .memories: "collection.memories"]
+    static let collectionTabKeys: [CollectionTab: String] = [.passport: "nav.passport", .bag: "collection.bag", .souvenirs: "collection.souvenirs", .menus: "collection.menus", .memories: "collection.memories", .friends: "friends.title"]
     static let dataTabKeys: [DataTab: String] = [.dashboard: "nav.dashboard", .quota: "nav.quota"]
     static let periodKeys: [DashboardPeriod: String] = [.today: "period.today", .week: "period.week", .month: "period.month", .quarter: "period.quarter", .year: "period.year", .all: "period.all"]
     static let metricKeys: [DashboardMetric: String] = [.total: "metric.total", .fuel: "metric.fuel", .cost: "metric.cost", .messages: "metric.messages"]

@@ -6,7 +6,6 @@ struct MainView: View {
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
     let model: AppModel
-    @State var dashboard = DashboardSelection()
     /// The harness drives the same binding as the controls without replacing the hosting root.
     var measuredDashboard: Binding<DashboardSelection>? = nil
 
@@ -61,7 +60,8 @@ struct MainView: View {
                 .fixedSize()
             }
             Spacer(minLength: 8)
-            if let scan = model.lastScan {
+            if let scan = model.tab == .data && model.dataTab == .dashboard && !model.showingSettings && !model.showingAccounts
+                ? model.dashboardStore.updatedAt : model.lastScan {
                 Text(l10n("status.updated", l10n.time(scan)))
                     .font(Theme.pixel()).foregroundStyle(theme.textMuted).fixedSize()
             }
@@ -88,7 +88,7 @@ struct MainView: View {
                         Chip(title: l10n.mailFilter(item), isOn: model.mailFilter == item) { model.mailFilter = item }
                     }
                 case .collection:
-                    ForEach(CollectionTab.allCases) { item in
+                    ForEach(CollectionTab.visible(care: model.care)) { item in
                         Chip(title: l10n.collectionTab(item), isOn: model.collectionTab == item) { model.collectionTab = item }
                     }
                 case .data:
@@ -128,6 +128,7 @@ struct MainView: View {
                     case .souvenirs: SouvenirsCollectionView(model: model)
                     case .menus: MenusCollectionView(model: model)
                     case .memories: MemoryBookView(model: model)
+                    case .friends: FriendsCollectionView(model: model)
                     }
                 }
                 .padding(12)
@@ -135,7 +136,9 @@ struct MainView: View {
         case .data:
             ScrollView {
                 switch model.dataTab {
-                case .dashboard: DashboardTab(model: model, selection: measuredDashboard ?? $dashboard).equatable().padding(12)
+                case .dashboard: DashboardTab(model: model, selection: measuredDashboard ?? Binding(
+                    get: { model.dashboardSelection }, set: { model.dashboardSelection = $0 }
+                )).equatable().padding(12)
                 case .quota: QuotaTab(model: model).padding(12)
                 }
             }
@@ -153,8 +156,22 @@ struct JourneyTab: View {
         if let state = model.state, let catalog = model.catalog {
             let display = JourneyStatusDisplay(journey: state, now: model.now, catalog: catalog, l10n: l10n)
             VStack(alignment: .leading, spacing: 12) {
+                if !MapViewport(journey: state, catalog: catalog).isWorld {
+                    HStack(spacing: 4) {
+                        Spacer(minLength: 0)
+                        ForEach(JourneyMapScope.allCases, id: \.self) { scope in
+                            Chip(title: scope == .region ? l10n("journey.mapScope.region") : l10n("journey.mapScope.world"),
+                                 isOn: model.journeyMapScope == scope) {
+                                model.journeyMapScope = scope
+                            }
+                            .accessibilityAddTraits(model.journeyMapScope == scope ? .isSelected : [])
+                        }
+                    }
+                    .accessibilityElement(children: .contain)
+                    .accessibilityLabel(l10n("journey.mapScope.label"))
+                }
                 JourneyMapView(state: state, catalog: catalog, availableWidth: availableWidth,
-                               borderColor: theme.mapBorder, animate: !model.isSnapshotMode)
+                               borderColor: theme.mapBorder, animate: !model.isSnapshotMode, scope: model.journeyMapScope)
                     .accessibilityLabel(l10n("map.description", display.title, display.detail))
                 MapLegend()
                 ViewThatFits(in: .horizontal) {

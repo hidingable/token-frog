@@ -9,6 +9,9 @@ public enum MemoryBook {
         if let letter = journey.letters.filter({ $0.kind == .daily }).min(by: { $0.id < $1.id }) {
             record(.init(kind: .firstLetter, date: letter.date, letterId: letter.id), care: &care)
         }
+        for friend in care.metFriends ?? [] {
+            record(.init(kind: .friendMet, date: friend.date, letterId: friend.letterId), care: &care)
+        }
         recordCompanionMilestone(care: &care)
     }
 
@@ -20,6 +23,6 @@ public enum MemoryBook {
     }
 
     private static func record(_ day: CareState.SpecialDay, care: inout CareState) {
-        if !care.specialDays.contains(where: { $0.kind == day.kind }) { care.specialDays.append(day) }
+        if !care.specialDays.contains(where: { $0.id == day.id }) { care.specialDays.append(day) }
     }
 }

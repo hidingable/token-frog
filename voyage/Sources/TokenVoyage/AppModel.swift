@@ -7,6 +7,8 @@ import VoyageCore
 @Observable
 final class AppModel {
     private(set) var state: JourneyState?
+    /// The departure and new-mail hook supplied by the licence track.
+    var journeyGate: JourneyGate = .open
     private(set) var catalog: CityCatalog?
     private let bundledCatalog: CityCatalog?
     private let hubClient: HubClient
@@ -59,6 +61,10 @@ final class AppModel {
         didSet { updateDashboardInput() }
     }
     let dashboardStore = DashboardStore()
+    var dashboardSelection = DashboardSelection()
+    private(set) var dashboardError: (any Error)?
+    @ObservationIgnored private var dashboardInputUpdatedAt: Date?
+    let dashboardDiskCache: DashboardDiskCache
     let quotaRuntime: QuotaRuntime
     var quotas: [QuotaReading] { QuotaSource.allCases.flatMap { quotaRuntime.account($0).displayedReadings } }
     var quotasLoadedAt: Date? { quotas.map(\.readAt).min() }
@@ -84,6 +90,9 @@ final class AppModel {
     var mailFilter: MailFilter = .all
     var collectionTab: CollectionTab = .passport
     var dataTab: DataTab = .dashboard
+    var journeyMapScope: JourneyMapScope {
+        didSet { if !isSnapshot { defaults.set(journeyMapScope.rawValue, forKey: "journeyMapScope") } }
+    }
     var selectedLetterID: Int?
     private(set) var ritualLetterID: Int?
     private(set) var deferredReplyLetterID: Int?
@@ -154,7 +163,13 @@ final class AppModel {
     private var nightWorkObserver = NightWorkObserver()
     private var hasStarted = false
     private var backgroundGeneration = 0
-    private var isScanning = false
+    private enum ScanOwner { case journey, dashboard }
+    private var scanOwner: ScanOwner?
+    private var isScanning: Bool { scanOwner != nil }
+    private var journeyScanPending = false
+    private var dashboardRefreshing = false
+    private var dashboardTask: Task<Void, Never>?
+    private var dashboardRefreshPending = false
     private var scheduledScan: Task<Void, Never>?
     private var lastMovement: Date?
     private var enrichAttempts: [Int: Int] = [:]
@@ -167,6 +182,7 @@ final class AppModel {
     private var enrichingLetters: Set<Int> = []
     private var historyDate: String?
     private var dashboardLoadedAt: Date?
+    private var todayHoursLoadedAt: Date?
     private var monthHoursLoadedAt: Date?
     private var monthHours: [HourUsage] = [] {
         didSet { updateDashboardInput() }
@@ -214,6 +230,7 @@ final class AppModel {
         self.floatingReactionDuration = floatingReactionDuration
         self.languageOverride = languageOverride
         self.defaults = defaults
+        journeyMapScope = defaults.string(forKey: "journeyMapScope").flatMap(JourneyMapScope.init(rawValue:)) ?? .region
         encountersEnabled = defaults.object(forKey: "encountersEnabled") as? Bool ?? false
         cityContentEnabled = defaults.object(forKey: "cityContentEnabled") as? Bool ?? true
         sponsorContentEnabled = defaults.object(forKey: "sponsorContentEnabled") as? Bool ?? true
@@ -236,6 +253,7 @@ final class AppModel {
             dataDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
                 .appendingPathComponent("TokenVoyage")
         }
+        dashboardDiskCache = DashboardDiskCache(directory: dataDirectory)
         let configuredHub = isSnapshot ? HubClient(baseURL: nil) : (hubClient ?? HubClient(
             baseURL: HubClient.configuredBaseURL(),
             configURL: dataDirectory.appendingPathComponent("hub-config.json")))
@@ -287,6 +305,17 @@ final class AppModel {
         }
         if configuredHub.isConfigured && state?.remoteContentByTrip == nil { state?.remoteContentByTrip = [:] }
         refreshSaveStatus()
+        if !isLocked, onboarding == nil, let cached = dashboardDiskCache.load() {
+            dashboardInputUpdatedAt = cached.updatedAt
+            dashboardLoadedAt = cached.historyReadAt
+            todayHoursLoadedAt = cached.todayHoursReadAt
+            monthHoursLoadedAt = cached.monthHoursReadAt
+            monthHours = cached.monthHours
+            todayHours = cached.todayHours
+            dashboardDays = cached.days
+            updateDashboardInput()
+            dashboardStore.restore(selection: dashboardSelection, seriesLimit: theme.series.count)
+        }
         processLetters()
         notifications.onOpenLetter = { [weak self] id in
             self?.openNotificationLetter(id)
@@ -546,7 +575,7 @@ final class AppModel {
         let previousState = state
         let previousCare = care
         CareEngine.open(at: now, journey: &state, care: &care, catalog: catalog,
-                        sponsorContentEnabled: sponsorContentAllowed)
+                        sponsorContentEnabled: sponsorContentAllowed, deliveryTime: deliveryTime, gate: journeyGate)
         guard state != previousState || care != previousCare else { return }
         self.state = state
         self.care = care
@@ -722,6 +751,7 @@ final class AppModel {
             }
         }
         scheduleScan()
+        scheduleDashboardRefresh()
         quotaRuntime.trigger()
     }
 
@@ -739,7 +769,7 @@ final class AppModel {
                                        observedTokens: record.tokens ?? 0), now: now, catalog: catalog,
                        wishTags: care.map(WishEngine.tags) ?? [],
                        revisitCities: care.map { RevisitStories.unlockedCities(care: $0, library: catalog.stories) } ?? [],
-                       deliveryTime: deliveryTime)
+                       gate: journeyGate, deliveryTime: deliveryTime)
             // Timers advance the clock without observing another tokscale high-water mark.
             state.days[state.openDate]?.lastObservedAt = previous.days[state.openDate]?.lastObservedAt
             if state != previous {
@@ -753,6 +783,7 @@ final class AppModel {
             }
         }
         if let lastMovement, now.timeIntervalSince(lastMovement) > 300 { isMoving = false }
+        if hasStarted { scheduleDashboardRefresh() }
         Task { await checkNotifications() }
     }
 
@@ -766,7 +797,7 @@ final class AppModel {
         let previous = state
         let before = state.totalKm
         state.departNow(now: now, catalog: catalog, wishTags: care.map(WishEngine.tags) ?? [],
-                        revisitCities: care.map { RevisitStories.unlockedCities(care: $0, library: catalog.stories) } ?? [])
+                        revisitCities: care.map { RevisitStories.unlockedCities(care: $0, library: catalog.stories) } ?? [], gate: journeyGate)
         self.state = state
         processLetters(persistChanges: false)
         if state.totalKm > before {
@@ -790,11 +821,20 @@ final class AppModel {
     }
 
     func scan() async {
-        guard !isLocked, onboarding == nil, !isScanning, let state, let catalog else { return }
+        guard !isLocked, onboarding == nil, let state, let catalog else { return }
+        guard !isScanning else {
+            if scanOwner == .dashboard { journeyScanPending = true }
+            return
+        }
+        journeyScanPending = false
         refreshWishWeek()
         let generation = backgroundGeneration
-        isScanning = true
-        defer { isScanning = false }
+        scanOwner = .journey
+        defer {
+            scanOwner = nil
+            if journeyScanPending { scheduleScan(immediately: true) }
+            if hasStarted { scheduleDashboardRefresh() }
+        }
         let date = clock()
         Task { await refreshHubConfiguration() }
         let todayKey = DayKey.string(from: date)
@@ -818,11 +858,14 @@ final class AppModel {
             let todayDetail = details.first { $0.date == todayKey }
             todayTotals = UsageLedger(days: todayDetail.map { [$0] } ?? []).totals
             if isSnapshot {
+                dashboardInputUpdatedAt = date
                 dashboardDays = details
             } else if let todayDetail, var known = dashboardDays {
                 known.removeAll { $0.date == todayKey }
                 known.append(todayDetail)
+                dashboardInputUpdatedAt = date
                 dashboardDays = known
+                persistDashboardCache()
             }
             let today = days.first { $0.date == todayKey } ?? DayUsage(date: todayKey)
             let finalized = days.filter { $0.date < todayKey && $0.date >= state.openDate }
@@ -848,7 +891,7 @@ final class AppModel {
             refreshWishWeek()
             let revisitCities = care.map { RevisitStories.unlockedCities(care: $0, library: catalog.stories) } ?? []
             state.sync(today: today, finalized: finalized, hourly: hourly, now: date, catalog: catalog, wishTags: care.map(WishEngine.tags) ?? [],
-                       revisitCities: revisitCities, deliveryTime: deliveryTime)
+                       revisitCities: revisitCities, gate: journeyGate, deliveryTime: deliveryTime)
             nightWorkObserver.observe(today, at: clock(), journey: &state, content: catalog.usageEvents)
             self.state = state
             processLetters(persistChanges: false, weeklyMail: true)
@@ -877,52 +920,106 @@ final class AppModel {
     }
 
     private func updateDashboardInput() {
-        dashboardStore.update(days: dashboardDays, hours: dashboardHours)
+        dashboardStore.update(days: dashboardDays, hours: dashboardHours, updatedAt: dashboardInputUpdatedAt)
     }
 
-    /// Reads the whole history only while the dashboard is showing, sharing the scan's serial slot.
+    private func persistDashboardCache() {
+        guard !isSnapshot, let days = dashboardDays, let updatedAt = dashboardInputUpdatedAt else { return }
+        dashboardDiskCache.write(DashboardDiskSnapshot(days: days, monthHours: monthHours, todayHours: todayHours,
+                                                       updatedAt: updatedAt, historyReadAt: dashboardLoadedAt,
+                                                       todayHoursReadAt: todayHoursLoadedAt, monthHoursReadAt: monthHoursLoadedAt))
+    }
+
+    private func scheduleDashboardRefresh() {
+        guard !isSnapshot, !isLocked, onboarding == nil else { return }
+        guard dashboardTask == nil, !dashboardRefreshing else { dashboardRefreshPending = true; return }
+        dashboardRefreshPending = false
+        dashboardTask = Task { [weak self] in
+            guard let self else { return }
+            await self.loadDashboard()
+            self.dashboardTask = nil
+            if self.dashboardRefreshPending { self.scheduleDashboardRefresh() }
+        }
+    }
+
+    private func prepareDashboard() async {
+        await dashboardStore.select(dashboardStore.request(selection: dashboardSelection, seriesLimit: theme.series.count))
+    }
+
+    /// Release after each subprocess. A journey read that became due owns the next slot.
+    private func finishDashboardRead(generation: Int) async -> Bool {
+        scanOwner = nil
+        guard !isLocked, generation == backgroundGeneration else { return false }
+        if journeyScanPending {
+            // Presentation work needs no read slot and can publish while the journey reads.
+            let preparation = Task { await self.prepareDashboard() }
+            await scan()
+            await preparation.value
+        }
+        guard !isLocked, generation == backgroundGeneration else { return false }
+        await prepareDashboard()
+        return !isScanning && scheduledScan == nil && !journeyScanPending && !isLocked && generation == backgroundGeneration
+    }
+
+    /// Warm independently of the view, retaining the last presentation throughout revalidation.
     func loadDashboard() async {
-        guard !isLocked, onboarding == nil else { return }
+        guard !isLocked, onboarding == nil, !dashboardRefreshing else { return }
         let generation = backgroundGeneration
-        let now = clock()
-        let isStale = dashboardLoadedAt.map { now.timeIntervalSince($0) >= Self.dashboardMaxAge } ?? true
-        let monthStale = monthHoursLoadedAt.map { now.timeIntervalSince($0) >= Self.monthHoursMaxAge } ?? true
-        guard isStale || monthStale, !isScanning else { return }
-        isScanning = true
-        let until = DayKey.string(from: now)
+        let date = clock()
+        let until = DayKey.string(from: date)
+        let historyStale = dashboardLoadedAt.map { date.timeIntervalSince($0) >= Self.dashboardMaxAge } ?? true
+        let todayStale = todayHoursLoadedAt.map {
+            date.timeIntervalSince($0) >= Self.dashboardMaxAge || DayKey.string(from: $0) != until
+        } ?? true
+        let monthStale = monthHoursLoadedAt.map { date.timeIntervalSince($0) >= Self.monthHoursMaxAge } ?? true
+        guard !isScanning, scheduledScan == nil, !journeyScanPending else { return }
+        dashboardRefreshing = true
+        defer {
+            dashboardRefreshing = false
+            if journeyScanPending { scheduleScan(immediately: true) }
+            if dashboardTask == nil, dashboardRefreshPending { scheduleDashboardRefresh() }
+        }
         do {
-            if isStale {
+            if historyStale {
+                scanOwner = .dashboard
                 let days = try await usageReader(nil, until)
-                guard !isLocked, generation == backgroundGeneration else { isScanning = false; return }
+                guard !isLocked, generation == backgroundGeneration else { scanOwner = nil; return }
+                dashboardInputUpdatedAt = date
+                dashboardLoadedAt = date
                 dashboardDays = days
-                let hours = try await hoursReader(until, until)
-                guard !isLocked, generation == backgroundGeneration else { isScanning = false; return }
-                todayHours = hours
-                dashboardLoadedAt = now
+                persistDashboardCache()
+                guard await finishDashboardRead(generation: generation) else { return }
             }
-            lastError = nil
-            usageFailed = false
+            if todayStale {
+                scanOwner = .dashboard
+                let hours = try await hoursReader(until, until)
+                guard !isLocked, generation == backgroundGeneration else { scanOwner = nil; return }
+                dashboardInputUpdatedAt = clock()
+                todayHoursLoadedAt = date
+                todayHours = hours
+                persistDashboardCache()
+                guard await finishDashboardRead(generation: generation) else { return }
+            }
+            if monthStale, let start = Calendar.current.date(byAdding: .day, value: -29, to: date) {
+                scanOwner = .dashboard
+                let hours = try await hoursReader(DayKey.string(from: start), until)
+                guard !isLocked, generation == backgroundGeneration else { scanOwner = nil; return }
+                dashboardInputUpdatedAt = clock()
+                monthHoursLoadedAt = date
+                monthHours = hours
+                persistDashboardCache()
+                guard await finishDashboardRead(generation: generation) else { return }
+            }
+            dashboardError = nil
         } catch {
-            guard !isLocked, generation == backgroundGeneration else { isScanning = false; return }
-            lastError = error
-            usageFailed = true
-        }
-        // Released between reads so a scan waiting on the graph can run before the slow hourly read.
-        isScanning = false
-        guard !isLocked, generation == backgroundGeneration, monthStale,
-              let start = Calendar.current.date(byAdding: .day, value: -29, to: now) else { return }
-        isScanning = true
-        defer { isScanning = false }
-        do {
-            let hours = try await hoursReader(DayKey.string(from: start), until)
+            scanOwner = nil
             guard !isLocked, generation == backgroundGeneration else { return }
-            monthHours = hours
-            monthHoursLoadedAt = now
-        } catch {
-            guard !isLocked, generation == backgroundGeneration else { return }
-            lastError = error
-            usageFailed = true
+            dashboardError = error
+            if journeyScanPending { await scan() }
         }
+        // Also prepares updated today's rows and a changed selection on cache hits.
+        guard !isLocked, generation == backgroundGeneration else { return }
+        await prepareDashboard()
     }
 
     func quotaTimerFired() {
@@ -943,12 +1040,18 @@ final class AppModel {
     }
 
     func markRead(_ letter: Letter) {
+        let readAt = clock()
         guard !isLocked, onboarding == nil,
-              let saved = state?.letters.first(where: { $0.id == letter.id }), saved.deliverAt <= clock() else { return }
+              let saved = state?.letters.first(where: { $0.id == letter.id }), saved.deliverAt <= readAt else { return }
         let previousCare = care
         state?.markRead(letter.id)
-        if !isSnapshot, saved.encounter == nil, var care {
-            CareEngine.markCompanion(date: DayKey.string(from: clock()), care: &care)
+        if !isSnapshot, saved.encounter == nil, var care, var state, let catalog {
+            let date = DayKey.string(from: readAt)
+            CareEngine.markCompanion(date: readAt, care: &care, gate: journeyGate)
+            CareEngine.process(journey: &state, care: &care, stories: catalog.stories, catalog: catalog,
+                               wishTags: WishEngine.tags(in: care), sponsorContentEnabled: sponsorContentAllowed,
+                               identityDate: date, deliveryTime: deliveryTime, gate: journeyGate)
+            self.state = state
             self.care = care
         }
         if !saved.read || care != previousCare { persist() }
@@ -1168,9 +1271,9 @@ final class AppModel {
         WishEngine.refreshWeek(at: clock(), care: &care)
         let wishTags = WishEngine.tags(in: care)
         CareEngine.process(journey: &state, care: &care, stories: catalog.stories, catalog: catalog, wishTags: wishTags,
-                           sponsorContentEnabled: sponsorContentAllowed)
+                           sponsorContentEnabled: sponsorContentAllowed, identityDate: DayKey.string(from: clock()), deliveryTime: deliveryTime, gate: journeyGate)
         if weeklyMail {
-            CareEngine.writeWeeklyMail(journey: &state, catalog: catalog, deliveryTime: deliveryTime)
+            CareEngine.writeWeeklyMail(journey: &state, catalog: catalog, deliveryTime: deliveryTime, gate: journeyGate)
         }
         guard state != previousState || care != previousCare else { return }
         self.state = state
@@ -1199,7 +1302,7 @@ final class AppModel {
 
     /// Scans proactively enrich only the newest letter, including its current-language place.
     func enrichLatest() async {
-        guard let letter = state?.letters.filter({ $0.kind != .weekly && $0.encounter == nil }).max(by: { $0.id < $1.id }) else { return }
+        guard let letter = state?.letters.filter({ $0.kind != .weekly && $0.kind != .identity && $0.kind != .adventure && $0.encounter == nil }).max(by: { $0.id < $1.id }) else { return }
         await enrich(letterId: letter.id, weatherAndPhoto: true)
     }
 
@@ -1212,7 +1315,7 @@ final class AppModel {
     private func enrich(letterId: Int, weatherAndPhoto: Bool) async {
         guard !isLocked, onboarding == nil, !isSnapshot, let state, let catalog,
               let letter = state.letters.first(where: { $0.id == letterId }),
-              ![.postcard, .reunion, .weekly].contains(letter.kind),
+              ![.postcard, .reunion, .weekly, .identity, .adventure].contains(letter.kind),
               let city = catalog.find(letter.subjectCityId), !city.isPlaceholder else { return }
         let generation = backgroundGeneration
         let language = l10n.language
@@ -1357,11 +1460,16 @@ final class AppModel {
         departureContentTasks = [:]
         displayedPetMoment = nil
         nightWorkObserver = NightWorkObserver()
+        if !isSnapshot { dashboardDiskCache.clear() }
+        dashboardInputUpdatedAt = nil
         dashboardDays = nil
         dashboardLoadedAt = nil
+        todayHoursLoadedAt = nil
         monthHoursLoadedAt = nil
         monthHours = []
         todayHours = []
+        dashboardError = nil
+        journeyScanPending = false
         todayTotals = nil
         history = [:]
         historyDate = nil
@@ -1394,6 +1502,7 @@ final class AppModel {
         lastError = nil
         processLetters()
         start()
+        if hasStarted { scheduleDashboardRefresh() }
         onLockChange?()
     }
 

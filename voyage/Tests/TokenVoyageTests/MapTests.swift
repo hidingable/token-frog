@@ -87,6 +87,31 @@ import VoyageCore
         journey.phase = .outbound
         #expect(!MapViewport(journey: journey, catalog: localizationCatalog).isWorld)
     }
+
+    @Test func scopeChoosesTheExistingWorldOrRegionalViewportAndFirstTripNeedsNoControl() {
+        var state = JourneyState(seed: 7, startCityId: "shanghai", date: "2026-11-10", catalog: localizationCatalog)
+        state.phase = .outbound
+        let region = MapViewport(journey: state, catalog: localizationCatalog)
+        #expect(!region.isWorld)
+        #expect(JourneyMapScope.region.viewport(region: region) == region)
+        #expect(JourneyMapScope.world.viewport(region: region) == .world)
+        for phase in [JourneyState.Phase.home, .pending] {
+            state.phase = phase
+            let firstTrip = MapViewport(journey: state, catalog: localizationCatalog)
+            #expect(firstTrip.isWorld)
+            #expect(JourneyMapScope.region.viewport(region: firstTrip) == JourneyMapScope.world.viewport(region: firstTrip))
+        }
+    }
+
+    @Test func worldWrapsBothSidesOfTheAntimeridianWithoutMovingOtherContinents() {
+        let world = JourneyMapScope.world.viewport(region: MapViewport(home: Coordinate(lat: 0, lon: 179), destination: Coordinate(lat: 0, lon: -179)))
+        #expect(world.point(Coordinate(lat: 0, lon: 177)) == MapPoint(x: 119, y: 29))
+        #expect(world.point(Coordinate(lat: 0, lon: -177)) == MapPoint(x: 1, y: 29))
+        #expect(world.point(Coordinate(lat: 0, lon: 180)) == world.point(Coordinate(lat: 0, lon: -180)))
+        #expect(world.point(localizationCatalog.city("london").coordinate) == MapPoint(x: 60, y: 11))
+        #expect(world.point(localizationCatalog.city("newyork").coordinate) == MapPoint(x: 35, y: 15))
+        #expect(world.point(localizationCatalog.city("sydney").coordinate) == MapPoint(x: 110, y: 41))
+    }
 }
 
 @Suite @MainActor struct MapMarkerTests {
@@ -187,5 +212,44 @@ import VoyageCore
         let image = PixelMap.homeImage(city, theme: theme)
         #expect(try colors(image).filter { $0 == theme.rgb(.mapMarker) }.count == 7)
         #expect(MapViewport.world.point(city.coordinate).x == 0)
+    }
+
+    @Test(arguments: [ThemeScheme.dark, .light])
+    func worldShowsStaysOnEveryContinentAndKeepsTheSameThreeMarkerTypes(scheme: ThemeScheme) throws {
+        let state = Snapshots.journeyWorldExample(catalog: localizationCatalog,
+                                                now: Date(timeIntervalSince1970: 1_794_268_800), petName: "Pip").journey
+        let theme = AppTheme(testThemes.standard(scheme))
+        let markers = MapMarkers(journey: state, catalog: localizationCatalog, viewport: .world)
+        #expect(state.phase == .outbound && state.legFuel == state.legCost / 2)
+        #expect(Set(state.route.compactMap(localizationCatalog.find).map(\.continent)).count == 6)
+        #expect(markers.stayed.count == state.route.count)
+        #expect(markers.stayed.allSatisfy { (0..<120).contains($0.x) && (0..<50).contains($0.y) })
+        let image = PixelMap.image(for: state, catalog: localizationCatalog, theme: theme, scope: .world)
+        #expect(image.width == 120 && image.height == 50)
+        for point in markers.stayed { #expect(try color(image, at: point) == theme.rgb(.mapStayed)) }
+        #expect(try color(image, at: markers.home) == theme.rgb(.mapMarker))
+        let current = try #require(markers.current)
+        #expect(try color(image, at: current) == theme.rgb(.mapPosition))
+        #expect(try color(image, at: MapViewport.world.point(state.legTo)) != theme.rgb(.mapStayed))
+        #expect(try Set(colors(image)).isSubset(of: [theme.rgb(.mapSea), theme.rgb(.mapLand), theme.rgb(.mapMarker), theme.rgb(.mapPosition), theme.rgb(.mapStayed)]))
+        let region = PixelMap.image(for: state, catalog: localizationCatalog, theme: theme)
+        #expect(region !== image)
+    }
+
+    @Test(arguments: [ThemeScheme.dark, .light])
+    func worldCurrentMarkerWrapsAcrossTheAntimeridian(scheme: ThemeScheme) throws {
+        var state = journey()
+        state.homeCoordinate = Coordinate(lat: 30, lon: 175)
+        state.legFrom = state.homeCoordinate
+        state.legTo = Coordinate(lat: 29, lon: -179.9)
+        state.legFuel = state.legCost / 2
+        let theme = AppTheme(testThemes.standard(scheme))
+        let markers = MapMarkers(journey: state, catalog: localizationCatalog, viewport: .world)
+        let current = try #require(markers.current)
+        #expect(current.x == 119)
+        let image = PixelMap.image(for: state, catalog: localizationCatalog, theme: theme, scope: .world)
+        #expect(try colors(image).filter { $0 == theme.rgb(.mapPosition) }.count == 4)
+        #expect(try color(image, at: current) == theme.rgb(.mapPosition))
+        #expect(try color(image, at: MapPoint(x: 0, y: current.y)) == theme.rgb(.mapPosition))
     }
 }

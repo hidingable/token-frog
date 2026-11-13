@@ -77,6 +77,10 @@ public enum ContentValidator {
         catch { issues.append(ContentIssue(file: "road-clues.json", rule: "roadClues", message: "Invalid road clues: \(error)")) }
         do { _ = try UsageEventContent.load(directory: directory) }
         catch { issues.append(ContentIssue(file: "usage-events.json", rule: "usageEvents", message: "Invalid usage events: \(error)")) }
+        do { _ = try FriendContent.load(directory: directory) }
+        catch { issues.append(ContentIssue(file: "friends.json", rule: "friends", message: "Invalid friend content: \(error)")) }
+        do { _ = try IdentityContent.load(directory: directory) }
+        catch { issues.append(ContentIssue(file: "identities.json", rule: "identities", message: "Invalid identity content: \(error)")) }
         do { _ = try PetMomentContent.load(directory: directory) }
         catch { issues.append(ContentIssue(file: "pet-moments.json", rule: "petMoments", message: "Invalid pet moments: \(error)")) }
         func report(_ file: String, _ rule: String, _ message: String) {

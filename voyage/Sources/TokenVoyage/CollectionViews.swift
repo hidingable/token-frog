@@ -23,6 +23,19 @@ struct ItemIcon: View {
     }
 }
 
+struct CollectionTileStyle: ViewModifier {
+    @Environment(\.theme) private var theme
+    var selected = false
+    func body(content: Content) -> some View {
+        content.foregroundStyle(selected ? theme.selectedText : theme.text)
+            .frame(maxWidth: .infinity, minHeight: 96)
+            .padding(8)
+            .background(selected ? theme.selectedFill : theme.surfaceRaised)
+            .pixelBorder(selected ? theme.selectedFill : theme.border, width: selected ? 3 : 2)
+            .contentShape(Rectangle())
+    }
+}
+
 private struct ItemTile: View {
     @Environment(\.theme) private var theme
     @Environment(\.l10n) private var l10n
@@ -44,12 +57,7 @@ private struct ItemTile: View {
                 }
             }
             .font(Theme.pixel())
-            .foregroundStyle(selected ? theme.selectedText : theme.text)
-            .frame(maxWidth: .infinity, minHeight: 96)
-            .padding(8)
-            .background(selected ? theme.selectedFill : theme.surfaceRaised)
-            .pixelBorder(selected ? theme.selectedFill : theme.border, width: selected ? 3 : 2)
-            .contentShape(Rectangle())
+            .modifier(CollectionTileStyle(selected: selected))
         }
         .buttonStyle(.plain)
         .disabled(!owned)
@@ -57,12 +65,25 @@ private struct ItemTile: View {
     }
 }
 
+struct CollectionHeading<Icon: View, Content: View>: View {
+    let icon: Icon
+    let content: Content
+    init(@ViewBuilder icon: () -> Icon, @ViewBuilder content: () -> Content) {
+        self.icon = icon()
+        self.content = content()
+    }
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) { icon; content }
+    }
+}
+
 private struct ItemHeading: View {
     @Environment(\.theme) private var theme
     let display: ItemDisplay
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
+        CollectionHeading {
             ItemIcon(item: display.item, scale: 4)
+        } content: {
             VStack(alignment: .leading, spacing: 8) {
                 Text(display.name).font(Theme.pixel(24)).fixedSize(horizontal: false, vertical: true)
                 if let tag = display.sponsorTag { SponsorTag(text: tag) }
@@ -72,7 +93,7 @@ private struct ItemHeading: View {
     }
 }
 
-private struct ItemPaper<Content: View>: View {
+struct ItemPaper<Content: View>: View {
     @Environment(\.theme) private var theme
     let content: Content
     let rare: Bool

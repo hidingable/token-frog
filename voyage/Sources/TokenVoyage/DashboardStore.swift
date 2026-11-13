@@ -169,6 +169,20 @@ struct DashboardPresentation: Sendable {
     let weekdays: [Double]
 }
 
+extension DashboardPresentation {
+    /// A small startup-only calculation makes restored input visible before the first frame.
+    init(input: DashboardInput, request: DashboardRequest) {
+        let board = UsageDashboard(days: input.days, start: request.start, end: request.end, filter: request.filter, calendar: request.calendar)
+        let year = UsageDashboard(days: input.days, start: nil, end: request.today, filter: request.filter, calendar: request.calendar)
+        let everything = UsageDashboard(days: input.days, start: nil, end: request.today, calendar: request.calendar)
+        let tools = Array(everything.ledger.byClient.prefix(request.seriesLimit).map(\.name))
+        let hours = request.filter.isEmpty ? HourUsage.profile(input.hours, start: board.start, end: board.end, metric: request.metric) : []
+        self.init(request: request, board: board, yearBoard: year, everything: everything, stats: DashboardStats(board), tools: tools,
+                  trend: DashboardTrend(board: board, hours: hours, metric: request.metric, tools: tools),
+                  heat: DashboardHeat(cells: year.heatCells(metric: request.metric)), hours: hours, weekdays: board.weekdayProfile(request.metric))
+    }
+}
+
 /// A small bounded cache per responsibility, so changing a range never rebuilds the annual grid.
 private struct DashboardLRU<Key: Equatable, Value> {
     private var entries: [(key: Key, value: Value)] = []
@@ -247,9 +261,11 @@ actor DashboardCache {
 final class DashboardStore {
     typealias Compute = @Sendable (DashboardInput, DashboardRequest) async -> DashboardPresentation
     private(set) var result: DashboardPresentation?
+    private(set) var updatedAt: Date?
     private(set) var version = 0
     private(set) var today: String
     @ObservationIgnored private var input: DashboardInput?
+    @ObservationIgnored private var inputUpdatedAt: Date?
     @ObservationIgnored private var latestRequest: DashboardRequest?
     @ObservationIgnored private var requestNumber = 0
     @ObservationIgnored private var cached = DashboardLRU<DashboardRequest, DashboardPresentation>()
@@ -261,13 +277,14 @@ final class DashboardStore {
         self.compute = compute ?? { input, request in await cache.result(input: input, request: request) }
     }
 
-    func update(days: [DayDetail]?, hours: [HourUsage]) {
+    func update(days: [DayDetail]?, hours: [HourUsage], updatedAt: Date? = nil) {
+        inputUpdatedAt = updatedAt
         guard input?.days != days || input?.hours != hours else { return }
         input = days.map { DashboardInput(days: $0, hours: hours) }
         version += 1
         cached.removeAll()
         requestNumber += 1
-        if days == nil { result = nil }
+        if days == nil { result = nil; self.updatedAt = nil }
     }
 
     func updateToday(_ day: String) {
@@ -297,13 +314,25 @@ final class DashboardStore {
         latestRequest = request
         if let hit = cached.value(for: request) {
             result = hit
+            updatedAt = inputUpdatedAt
             return
         }
         let compute = compute
+        let readAt = inputUpdatedAt
         let value = await Task.detached(priority: .utility) { await compute(input, request) }.value
         guard number == requestNumber, latestRequest == request, request.version == version, request.today == today else { return }
         cached.insert(value, for: request)
         result = value
+        updatedAt = readAt
+    }
+
+    func restore(selection: DashboardSelection, seriesLimit: Int) {
+        guard let input else { return }
+        let request = request(selection: selection, seriesLimit: seriesLimit)
+        let value = DashboardPresentation(input: input, request: request)
+        cached.insert(value, for: request)
+        result = value
+        updatedAt = inputUpdatedAt
     }
 
     /// For snapshots, which render while holding the main actor, so `select` from a view's task cannot finish.

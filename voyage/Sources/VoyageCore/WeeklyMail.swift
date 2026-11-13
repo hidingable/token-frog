@@ -72,7 +72,7 @@ extension CareEngine {
     /// The latest due Sunday is the sole candidate, so returning never produces a weekly backlog.
     public static func writeWeeklyMail(
         journey: inout JourneyState, catalog: CityCatalog,
-        calendar: Calendar = .current, deliveryTime: DeliveryTime = .standard
+        calendar: Calendar = .current, deliveryTime: DeliveryTime = .standard, gate: JourneyGate = .open
     ) {
         journey.enableWeeklyMail(on: journey.openDate, calendar: calendar)
         guard let today = DayKey.date(from: journey.openDate, calendar: calendar),
@@ -81,7 +81,8 @@ extension CareEngine {
         let sundayKey = DayKey.string(from: sunday, calendar: calendar)
         guard sundayKey >= journey.weeklyMailEligibleFrom!, sundayKey > (journey.lastWeeklyMailSunday ?? "") else { return }
         journey.lastWeeklyMailSunday = sundayKey
-        guard !journey.letters.contains(where: { $0.kind == .weekly && $0.date == sundayKey }) else { return }
+        guard journey.allowsNewMail(on: sundayKey, gate: gate, calendar: calendar),
+              !journey.letters.contains(where: { $0.kind == .weekly && $0.date == sundayKey }) else { return }
         func key(_ offset: Int) -> String {
             DayKey.string(from: calendar.date(byAdding: .day, value: offset, to: sunday)!, calendar: calendar)
         }

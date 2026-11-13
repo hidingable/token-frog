@@ -23,7 +23,7 @@ public struct DayUsage: Equatable, Sendable {
 }
 
 /// One tokscale row: a tool and model on one day.
-public struct UsageRow: Equatable, Sendable {
+public struct UsageRow: Codable, Equatable, Sendable {
     public var client: String
     public var model: String
     public var tokens: UsageTotals
@@ -35,7 +35,7 @@ public struct UsageRow: Equatable, Sendable {
     }
 }
 
-public struct UsageTotals: Equatable, Sendable {
+public struct UsageTotals: Codable, Equatable, Sendable {
     public var input = 0
     public var output = 0
     public var cacheRead = 0
@@ -73,7 +73,7 @@ public struct UsageTotals: Equatable, Sendable {
     }
 }
 
-public struct DayDetail: Equatable, Sendable {
+public struct DayDetail: Codable, Equatable, Sendable {
     public var date: String
     public var rows: [UsageRow]
     /// Session time summed across parallel sessions, so a day can exceed 24 hours. tokscale does not split it per tool.

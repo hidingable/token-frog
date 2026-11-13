@@ -20,8 +20,12 @@ enum MailFilter: String, CaseIterable, Identifiable, Sendable {
 }
 
 enum CollectionTab: String, CaseIterable, Identifiable, Sendable {
-    case passport, bag, souvenirs, menus, memories
+    case passport, bag, souvenirs, menus, friends, memories
     var id: String { rawValue }
+
+    static func visible(care: CareState?) -> [Self] {
+        allCases.filter { $0 != .friends || !(care?.metFriends ?? []).isEmpty }
+    }
 }
 
 enum DataTab: String, CaseIterable, Identifiable, Sendable {

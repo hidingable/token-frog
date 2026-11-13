@@ -11,7 +11,7 @@ public struct VehicleShare: Codable, Equatable, Sendable {
 }
 
 public struct Letter: Codable, Equatable, Sendable, Identifiable {
-    public enum Kind: String, Codable, Sendable { case departure, daily, logbook, postcard, reunion, weekly }
+    public enum Kind: String, Codable, Sendable { case departure, daily, logbook, postcard, reunion, weekly, identity, adventure }
 
     public var id: Int
     public var kind: Kind
@@ -66,6 +66,8 @@ public struct Letter: Codable, Equatable, Sendable, Identifiable {
     public var rewardItems: [Item] = []
     public var memoryReference: CareState.Memory?
     public var encounter: EncounterPhoto?
+    public var identitySettlement: IdentitySettlement?
+    public var friendSettlement: FriendSettlement?
     public var weeklySummary: WeeklyMailSummary?
     /// Identifies the saved wish whose one-time explanation is included in this text snapshot.
     public var wishExplanationAt: Date?
@@ -270,33 +272,42 @@ public struct JourneyState: Codable, Equatable, Sendable {
 
     /// Advances the journey. `finalized` must hold the final count of every day from `openDate` up to,
     /// but excluding, `today.date`; the caller skips this call when those counts could not be read.
-    public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], hourly: [String: [HourUsage]] = [:], now: Date, calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], revisitCities: Set<String> = [], deliveryTime: DeliveryTime = .standard) {
+    public mutating func sync(today: DayUsage, finalized: [DayUsage] = [], hourly: [String: [HourUsage]] = [:], now: Date, calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], revisitCities: Set<String> = [], gate: JourneyGate = .open, deliveryTime: DeliveryTime = .standard) {
         guard today.date >= openDate else { return }
         enableRoadClues(on: today.date)
         enableUsageEvents(on: today.date)
         let finals = Dictionary(finalized.map { ($0.date, $0) }, uniquingKeysWith: { _, latest in latest })
         while openDate < today.date {
             let date = openDate
+            let tripAtStart = phase == .home ? nil : tripCount + 1
             let final = finals[date] ?? DayUsage(date: date)
             let start = DayKey.date(from: date, calendar: calendar)!
             let end = calendar.date(byAdding: .day, value: 1, to: start)!.addingTimeInterval(-1)
             // A whole idle day after the stay ended takes the free night mail, without charging the fund.
             let stayEnded = phase == .staying ? phaseSince.addingTimeInterval(6 * 3600) : phaseSince
             if final.observedTokens == 0, (phase == .staying || phase == .returning), stayEnded <= start {
-                arriveHome(at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+                arriveHome(at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
             }
-            apply(final, at: end.addingTimeInterval(-59), hourly: hourly[date], calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
-            checkTime(at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+            apply(final, at: end.addingTimeInterval(-59), hourly: hourly[date], calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
+            checkTime(at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
             settleUsageEvents(final, content: catalog.usageEvents)
-            settle(date, calendar: calendar, deliveryTime: deliveryTime)
+            // Zero-usage days may have no arrival or credited trip number. Retain their trip
+            // provenance when needed by the closed-mail exception; open saves stay byte-identical.
+            let returnedTrip = homecoming.flatMap {
+                DayKey.string(from: $0.returnedAt, calendar: calendar) == date ? $0.tripNumber : nil
+            }
+            if !gate.allowsNewMail(at: end), let trip = tripAtStart ?? returnedTrip, days[date]?.tripNumber == nil {
+                days[date, default: DayRecord()].tripNumber = trip
+            }
+            settle(date, gate: gate, calendar: calendar, deliveryTime: deliveryTime)
             settleEncounters(on: date, content: catalog.encounterPostcards, calendar: calendar, deliveryTime: deliveryTime)
             openDate = DayKey.next(date, calendar: calendar)
         }
-        apply(today, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+        apply(today, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
     }
 
     /// Pending usage and saved fund begin the outbound leg at the explicit input time.
-    public mutating func departNow(now: Date, calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], revisitCities: Set<String> = []) {
+    public mutating func departNow(now: Date, calendar: Calendar = .current, catalog: CityCatalog, wishTags: Set<String> = [], revisitCities: Set<String> = [], gate: JourneyGate = .open) {
         guard phase == .pending else { return }
         if remoteContentByTrip != nil {
             remoteContentByTrip?[tripCount + 1] = TripContentSnapshot(cityID: targetCityId)
@@ -306,7 +317,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         phase = .outbound
         phaseSince = now
         homecoming = nil
-        advance(pending, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+        advance(pending, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
     }
 
     public mutating func markRead(_ letterId: Int) {
@@ -346,7 +357,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         }
     }
 
-    private mutating func apply(_ usage: DayUsage, at now: Date, hourly: [HourUsage]? = nil, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
+    private mutating func apply(_ usage: DayUsage, at now: Date, hourly: [HourUsage]? = nil, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>, gate: JourneyGate = .open) {
         recordFirstVoyages(usage, content: catalog.usageEvents)
         var record = days[usage.date] ?? DayRecord()
         let delta = max(0, usage.observedTokens - (record.tokens ?? 0))
@@ -380,21 +391,21 @@ public struct JourneyState: Codable, Equatable, Sendable {
                     cumulative += weights[end]!
                     // Cumulative rounding preserves every integer token, including the last remainder.
                     let share = cumulative == total ? delta : total.dividingFullWidth(delta.multipliedFullWidth(by: cumulative)).quotient
-                    checkTime(at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
-                    advance(share - allocated, at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+                    checkTime(at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
+                    advance(share - allocated, at: end, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
                     allocated = share
                 }
                 return
             }
         }
         // No usable hourly rows (including a failed/old report): use the supplied day-end timestamp.
-        checkTime(at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
-        advance(delta, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+        checkTime(at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
+        advance(delta, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
     }
 
-    private mutating func checkTime(at now: Date, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
+    private mutating func checkTime(at now: Date, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>, gate: JourneyGate = .open) {
         if phase == .pending, now >= phaseSince.addingTimeInterval(30 * 60) {
-            departNow(now: phaseSince.addingTimeInterval(30 * 60), calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+            departNow(now: phaseSince.addingTimeInterval(30 * 60), calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
         }
         if phase == .staying, now >= phaseSince.addingTimeInterval(6 * 3600) {
             let ended = phaseSince.addingTimeInterval(6 * 3600)
@@ -406,7 +417,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
             targetCountryCode = nil
             legCost = max(returnTokensPerKm, Int(legFrom.distanceKm(to: legTo) * Double(returnTokensPerKm)))
             legFuel = 0
-            advance(0, at: ended, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+            advance(0, at: ended, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
         }
     }
 
@@ -427,7 +438,8 @@ public struct JourneyState: Codable, Equatable, Sendable {
         addKm(tokens: amount - saved, rate: outboundTokensPerKm)
     }
 
-    private mutating func advance(_ amount: Int, at now: Date, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
+    private mutating func advance(_ amount: Int, at now: Date, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>, gate: JourneyGate = .open) {
+        if phase == .home, amount > 0, !gate.allowsDeparture(at: now) { return }
         let date = DayKey.string(from: now, calendar: calendar)
         saveFund(0, on: date)
         if amount > 0, days[date, default: DayRecord()].arrivals.isEmpty {
@@ -461,8 +473,8 @@ public struct JourneyState: Codable, Equatable, Sendable {
                 phaseSince = now
                 saveFund(surplus, on: date)
             } else {
-                arriveHome(at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
-                advance(surplus, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities)
+                arriveHome(at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
+                advance(surplus, at: now, calendar: calendar, catalog: catalog, wishTags: wishTags, revisitCities: revisitCities, gate: gate)
             }
         }
     }
@@ -477,7 +489,7 @@ public struct JourneyState: Codable, Equatable, Sendable {
         targetCountryCode = target.isPlaceholder ? nil : target.countryCode
     }
 
-    private mutating func arriveHome(at now: Date, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>) {
+    private mutating func arriveHome(at now: Date, calendar: Calendar, catalog: CityCatalog, wishTags: Set<String>, revisitCities: Set<String>, gate: JourneyGate = .open) {
         homecoming = Homecoming(tripNumber: tripCount + 1, cityId: currentCityId, returnedAt: now,
                                 distanceKm: homeCoordinate.distanceKm(to: catalog.city(currentCityId).coordinate),
                                 medianKm: max(DestinationPicker.configuration.minimumMedianKm,
@@ -495,8 +507,9 @@ public struct JourneyState: Codable, Equatable, Sendable {
         setTarget(next, from: homeCoordinate, catalog: catalog)
     }
 
-    private mutating func settle(_ date: String, calendar: Calendar, deliveryTime: DeliveryTime) {
-        guard let record = days[date], (record.tokens ?? 0) > 0 || record.mainWindowOpened else { return }
+    private mutating func settle(_ date: String, gate: JourneyGate, calendar: Calendar, deliveryTime: DeliveryTime) {
+        guard allowsNewMail(on: date, gate: gate, calendar: calendar),
+              let record = days[date], (record.tokens ?? 0) > 0 || record.mainWindowOpened else { return }
         let median = recentDailyKm(before: date)
         let hasBaseline = days.filter { ($0.value.tokens ?? 0) > 0 && $0.key < date }.count >= 3
         let total = record.byClient.values.reduce(0, +)
@@ -601,7 +614,7 @@ extension Letter {
         case tripNumber
         case storyId, storyVersion, sponsor, arrivalStories, isRevisit, texts, leadTexts, learnedTexts, replyOptions, selectedReplyId, fulfilledReplyId
         case carriedItem, itemTriggered
-        case facts, rewards, rewardItems, memoryReference, encounter, weeklySummary, wishExplanationAt, usageEventNotes, weatherCode, temperatureC, place, photoFile
+        case facts, rewards, rewardItems, memoryReference, encounter, weeklySummary, identitySettlement, friendSettlement, wishExplanationAt, usageEventNotes, weatherCode, temperatureC, place, photoFile
     }
 
     public init(from decoder: Decoder) throws {
@@ -642,6 +655,8 @@ extension Letter {
         rewardItems = try values.decode([Item].self, forKey: .rewardItems, default: [])
         memoryReference = try values.decodeIfPresent(CareState.Memory.self, forKey: .memoryReference)
         encounter = try values.decodeIfPresent(EncounterPhoto.self, forKey: .encounter)
+        identitySettlement = try values.decodeIfPresent(IdentitySettlement.self, forKey: .identitySettlement)
+        friendSettlement = try values.decodeIfPresent(FriendSettlement.self, forKey: .friendSettlement)
         weeklySummary = try values.decodeIfPresent(WeeklyMailSummary.self, forKey: .weeklySummary)
         wishExplanationAt = try values.decodeIfPresent(Date.self, forKey: .wishExplanationAt)
         usageEventNotes = try values.decodeIfPresent([UsageEventNote].self, forKey: .usageEventNotes)

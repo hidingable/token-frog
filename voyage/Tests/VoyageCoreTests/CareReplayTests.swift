@@ -62,6 +62,35 @@ private func replayStories() -> StoryLibrary { cachedReplayStories }
 
 @Suite struct CareReplayTests {
     @Test(arguments: [UInt32(1), 7, 42])
+    func doubledUsageSettlesTheSameIdentityWithTheSameReadingRepliesAndCollections(seed: UInt32) {
+        var (normal, care) = replayCare(seed: seed, multiplier: 1, stories: replayStories())
+        var (doubled, doubledCare) = replayCare(seed: seed, multiplier: 2, stories: replayStories())
+        #expect(care.habits == doubledCare.habits)
+        // Geography may differ with mileage. Hold the passport and displayed collections fixed.
+        doubled.route = normal.route
+        doubled.stamps = normal.stamps
+        doubledCare.souvenirs = care.souvenirs
+        doubledCare.menus = care.menus
+        for _ in 0..<10 {
+            let next = DayKey.next(normal.openDate, calendar: careCalendar)
+            normal.openDate = next
+            doubled.openDate = next
+            CareEngine.markCompanion(date: next, care: &care, calendar: careCalendar)
+            CareEngine.markCompanion(date: next, care: &doubledCare, calendar: careCalendar)
+            CareEngine.process(journey: &normal, care: &care, stories: replayStories(), catalog: testCatalog, calendar: careCalendar)
+            CareEngine.process(journey: &doubled, care: &doubledCare, stories: replayStories(), catalog: testCatalog, calendar: careCalendar)
+        }
+        #expect(care.companionDays.count == 60 && doubledCare.companionDays == care.companionDays)
+        #expect(care.identity != nil && care.identity == doubledCare.identity)
+        #expect(care.settledIdentityStages == [.traveler] && care.settledIdentityStages == doubledCare.settledIdentityStages)
+        let first = normal.letters.last { $0.kind == .identity }
+        let second = doubled.letters.last { $0.kind == .identity }
+        #expect(first?.identitySettlement == second?.identitySettlement && first?.texts == second?.texts)
+        #expect(normal.letters.map(\.kind) == doubled.letters.map(\.kind))
+        #expect(doubled.totalFuel == normal.totalFuel * 2)
+    }
+
+    @Test(arguments: [UInt32(1), 7, 42])
     func savedWishAndDoubledUsagePreserveRaising(seed: UInt32) {
         let (normal, care) = replayCare(seed: seed, multiplier: 1, stories: replayStories(), wish: true)
         let (doubled, doubledCare) = replayCare(seed: seed, multiplier: 2, stories: replayStories(), wish: true)

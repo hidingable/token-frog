@@ -10,6 +10,9 @@ public struct CareState: Codable, Equatable, Sendable {
     public var companionDays: [String] = []
     public var habits = Habits()
     public var identity: String?
+    public var settledIdentityStages: [Stage]? = []
+    public var metFriends: [MetFriend]?
+    public var settledFriendThresholds: [Int]?
     public var bag = Bag()
     public var souvenirs: [Souvenir] = []
     public var menus: [Menu] = []
@@ -118,13 +121,23 @@ public struct CareState: Codable, Equatable, Sendable {
         public var replyId: String?
     }
 
+    public struct MetFriend: Codable, Equatable, Sendable, Identifiable {
+        public var id: String
+        public var date: String
+        public var cityId: String?
+        public var letterId: Int
+        public init(id: String, date: String, cityId: String?, letterId: Int) {
+            self.id = id; self.date = date; self.cityId = cityId; self.letterId = letterId
+        }
+    }
+
     /// References to companion milestones; prose is resolved in the current language.
     public struct SpecialDay: Codable, Equatable, Sendable, Identifiable {
-        public enum Kind: String, Codable, Sendable { case hatched, firstLetter, hundredDays }
+        public enum Kind: String, Codable, Sendable { case hatched, firstLetter, hundredDays, friendMet }
         public var kind: Kind
         public var date: String
         public var letterId: Int?
-        public var id: Kind { kind }
+        public var id: String { kind == .friendMet ? "friendMet:\(letterId.map(String.init) ?? date)" : kind.rawValue }
     }
 
     public init(petName: String, species: PetID, hatchedAt: String, calendar: Calendar = .current) {
@@ -152,6 +165,9 @@ public struct CareState: Codable, Equatable, Sendable {
         companionDays = try values.decodeIfMissing([String].self, forKey: .companionDays, default: [])
         habits = try values.decodeIfMissing(Habits.self, forKey: .habits, default: Habits())
         identity = try values.decodeIfPresent(String.self, forKey: .identity)
+        settledIdentityStages = try values.decodeIfPresent([Stage].self, forKey: .settledIdentityStages)
+        metFriends = try values.decodeIfPresent([MetFriend].self, forKey: .metFriends)
+        settledFriendThresholds = try values.decodeIfPresent([Int].self, forKey: .settledFriendThresholds)
         bag = try values.decodeIfMissing(Bag.self, forKey: .bag, default: Bag())
         souvenirs = try values.decodeIfMissing([Souvenir].self, forKey: .souvenirs, default: [])
         menus = try values.decodeIfMissing([Menu].self, forKey: .menus, default: [])

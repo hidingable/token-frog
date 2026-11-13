@@ -16,7 +16,7 @@ final class OnboardingFlow {
     let calendar: Calendar
     private(set) var step: Step = .eggs
     private(set) var species: PetID?
-    var homeCityId = "shanghai"
+    var homeCityId: String
     var search = ""
     var petName = ""
     private(set) var todayItem: String?
@@ -31,13 +31,35 @@ final class OnboardingFlow {
     private let readTimeout: Duration
 
     init(catalog: CityCatalog, seed: UInt32, today: Date, calendar: Calendar = .current,
+         timeZone: TimeZone = .current, locale: Locale = .current,
          readTimeout: Duration = .seconds(120), readUsage: @escaping UsageReader = OnboardingFlow.readLocalUsage) {
         self.catalog = catalog
         self.seed = seed
         self.calendar = calendar
         date = DayKey.string(from: today, calendar: calendar)
+        homeCityId = Self.preselectedHomeCity(catalog: catalog, timeZone: timeZone, locale: locale)
         self.readTimeout = readTimeout
         self.readUsage = readUsage
+    }
+
+    private static func preselectedHomeCity(catalog: CityCatalog, timeZone: TimeZone, locale: Locale) -> String {
+        // The picker and its continuation check accept active cities only.
+        let cities = catalog.active.sorted {
+            $0.tier == $1.tier ? $0.id < $1.id : $0.tier < $1.tier
+        }
+        let comparisonLocale = Locale(identifier: "en_US_POSIX")
+        let timeZoneCity = timeZone.identifier.components(separatedBy: "/").last!
+            .replacingOccurrences(of: "_", with: " ")
+        if let match = cities.first(where: {
+            $0.names["en"]?.compare(timeZoneCity, options: [.caseInsensitive, .diacriticInsensitive], locale: comparisonLocale) == .orderedSame
+        }) {
+            return match.id
+        }
+        if let region = locale.region?.identifier,
+           let match = cities.first(where: { $0.countryCode == region }) {
+            return match.id
+        }
+        return "shanghai"
     }
 
     static func readLocalUsage(since: String, until: String) async throws -> (days: [DayDetail], hours: [HourUsage]) {
@@ -166,7 +188,9 @@ final class OnboardingFlow {
 
     /// Snapshot examples never start a reader or obtain a save store.
     static func snapshot(catalog: CityCatalog, today: Date, l10n: L10n, step: Step, welcome: Bool) -> OnboardingFlow {
-        let flow = OnboardingFlow(catalog: catalog, seed: 42, today: today, readUsage: { _, _ in ([], []) })
+        let flow = OnboardingFlow(catalog: catalog, seed: 42, today: today,
+                                  timeZone: TimeZone(identifier: "Asia/Shanghai")!, locale: Locale(identifier: "en_US"),
+                                  readUsage: { _, _ in ([], []) })
         if step != .eggs { flow.selectEgg(catalog.pets.defaultID) }
         while flow.step != step { flow.advance(l10n: l10n) }
         flow.hatchFrame = 2

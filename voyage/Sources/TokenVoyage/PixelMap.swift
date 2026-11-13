@@ -57,8 +57,8 @@ enum PixelMap {
         return image
     }
 
-    static func image(for state: JourneyState, catalog: CityCatalog, theme: AppTheme, currentVisible: Bool = true) -> CGImage {
-        let viewport = MapViewport(journey: state, catalog: catalog)
+    static func image(for state: JourneyState, catalog: CityCatalog, theme: AppTheme, scope: JourneyMapScope = .region, currentVisible: Bool = true) -> CGImage {
+        let viewport = scope.viewport(region: MapViewport(journey: state, catalog: catalog))
         let markers = MapMarkers(journey: state, catalog: catalog, viewport: viewport)
         let key = FrameKey(viewport: viewport, markers: markers)
         if let cached = frames[theme.id], cached.key == key { return currentVisible ? cached.visible : cached.hidden }
@@ -89,6 +89,7 @@ struct JourneyMapView: View {
     let availableWidth: CGFloat
     let borderColor: Color
     var animate = true
+    var scope: JourneyMapScope = .region
 
     var body: some View {
         if animate && !state.petIsHome {
@@ -101,7 +102,7 @@ struct JourneyMapView: View {
     }
 
     private func map(currentVisible: Bool) -> some View {
-        PixelMapView(image: PixelMap.image(for: state, catalog: catalog, theme: theme, currentVisible: currentVisible),
+        PixelMapView(image: PixelMap.image(for: state, catalog: catalog, theme: theme, scope: scope, currentVisible: currentVisible),
                      availableWidth: availableWidth, borderColor: borderColor)
     }
 }

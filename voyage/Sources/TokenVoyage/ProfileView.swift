@@ -82,7 +82,17 @@ struct ProfileView: View {
                 }
                 HomeCard {
                     Text(l10n("profile.identity"))
-                    Text(l10n("profile.identityHint")).foregroundStyle(theme.textMuted)
+                    if let identity = IdentityDisplay(journey: journey, care: care, catalog: catalog, now: model.now, l10n: l10n) {
+                        Text(identity.name)
+                        Text(identity.basis).foregroundStyle(theme.textMuted)
+                            .fixedSize(horizontal: false, vertical: true)
+                        if let id = identity.letterID {
+                            Button(l10n("identity.openLetter")) { model.openCollectionLetter(id) }
+                                .buttonStyle(.plain)
+                        }
+                    } else {
+                        Text(l10n("profile.identityHint")).foregroundStyle(theme.textMuted)
+                    }
                 }
             }
             .font(Theme.pixel()).foregroundStyle(theme.text)

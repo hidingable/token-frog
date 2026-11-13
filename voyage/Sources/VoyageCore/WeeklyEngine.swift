@@ -24,11 +24,12 @@ public enum BoxResult: Equatable, Sendable {
 }
 
 extension CareEngine {
-    public static func markCompanion(date: String, care: inout CareState, calendar: Calendar = .current) {
+    public static func markCompanion(date: String, care: inout CareState, calendar: Calendar = .current, gate: JourneyGate = .open) {
         guard let weekStart = WeeklyEngine.weekStart(for: date, calendar: calendar),
               date >= care.hatchedAt, date >= care.weekly.weekStart,
               date >= (care.companionDays.max() ?? care.hatchedAt),
               !care.companionDays.contains(date) else { return }
+        guard gate.allowsNewMail(at: DayKey.end(of: date, calendar: calendar)) else { return }
         if care.weekly.weekStart != weekStart {
             care.weekly.weekStart = weekStart
             care.weekly.stamps = []
@@ -42,7 +43,9 @@ extension CareEngine {
         }
     }
 
-    public static func markCompanion(date: Date, care: inout CareState, calendar: Calendar = .current) {
+    public static func markCompanion(date: Date, care: inout CareState, calendar: Calendar = .current, gate: JourneyGate = .open) {
+        guard gate.allowsNewMail(at: date) else { return }
+        // This overload represents a read now, rather than a backfilled companion day.
         markCompanion(date: DayKey.string(from: date, calendar: calendar), care: &care, calendar: calendar)
     }
 

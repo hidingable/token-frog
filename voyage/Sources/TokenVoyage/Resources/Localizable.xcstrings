@@ -1,6 +1,342 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "journey.mapScope.region": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Region"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "区域"
+          }
+        }
+      }
+    },
+    "journey.mapScope.world": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "World"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "世界"
+          }
+        }
+      }
+    },
+    "journey.mapScope.label": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journey map scope"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "旅途地图范围"
+          }
+        }
+      }
+    },
+    "friends.title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pen pals"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "邮友"
+          }
+        }
+      }
+    },
+    "friends.letterTitle": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An unexpected meeting"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "奇遇信"
+          }
+        }
+      }
+    },
+    "friends.intro": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is a place in this little post office for friends met along the way."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "路上认识的朋友，也在这间小邮局留了个位置。"
+          }
+        }
+      }
+    },
+    "friends.unknown": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A friend yet to meet"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "还没认识的邮友"
+          }
+        }
+      }
+    },
+    "friends.onTheRoad": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On the road"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "路上"
+          }
+        }
+      }
+    },
+    "friends.metAt": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Met on %@ · %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · 相识于%@"
+          }
+        }
+      }
+    },
+    "friends.todayNote": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A little note for today"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今天捎的话"
+          }
+        }
+      }
+    },
+    "friends.openLetter": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read the meeting letter"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "回看奇遇信"
+          }
+        }
+      }
+    },
+    "friends.openNamedLetter": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read the letter about meeting %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "回看与%@相识的奇遇信"
+          }
+        }
+      }
+    },
+    "friends.memoryMet": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Met a new pen pal, %@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "认识了邮友%@。"
+          }
+        }
+      }
+    },
+    "identity.letterTitle": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A name for the way we travel"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "给我们的旅途起个名字"
+          }
+        }
+      }
+    },
+    "identity.openLetter": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read the identity letter"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "读读身份信"
+          }
+        }
+      }
+    },
+    "identity.basis.liaison": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From the conversations we have kept going together."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "来自我们一路接着聊下去的话。"
+          }
+        }
+      }
+    },
+    "identity.basis.sketcher": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From the little details we have learned to notice."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "来自我们慢慢学会留意的小细节。"
+          }
+        }
+      }
+    },
+    "identity.basis.gourmet": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From the different hand-drawn menus we have brought home."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "来自我们带回的不同手绘菜单。"
+          }
+        }
+      }
+    },
+    "identity.basis.collector": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From the different souvenirs we have kept along the way."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "来自我们一路留下的不同纪念品。"
+          }
+        }
+      }
+    },
+    "identity.basis.pathfinder": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From the countries stamped in our passport."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "来自我们护照上盖过章的国家。"
+          }
+        }
+      }
+    },
+    "identity.basis.neighbour": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From the cities where we have stayed at least three times."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "来自我们已停留至少三次的熟客城市。"
+          }
+        }
+      }
+    },
     "notch.headingTo": {
       "extractionState": "manual",
       "localizations": {

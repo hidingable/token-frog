@@ -263,7 +263,7 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         #expect(journey.version == JourneyState.currentVersion && journey.seed == 42 && journey.pet == PetID(rawValue: "snail"))
         #expect(journey.startDate == onboardingDate && journey.openDate == onboardingDate)
         #expect(journey.totalFuel == 0 && journey.legFuel == 0 && journey.days.isEmpty)
-        #expect(journey.homeCityId == "shanghai" && journey.route.isEmpty && journey.targetCityId == firstStation)
+        #expect(journey.homeCityId == flow.homeCityId && journey.route.isEmpty && journey.targetCityId == firstStation)
         #expect(journey.letters.count == 1)
         let letter = try #require(journey.letters.first)
         #expect(letter.kind == .logbook && letter.logbook == flow.logbook)
@@ -348,6 +348,79 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         #expect(flow.cities(l10n: l10n) == cities)
     }
 
+    @Test(arguments: [("Asia/Shanghai", "shanghai"), ("America/Los_Angeles", "losangeles"),
+                      ("Europe/Paris", "paris"), ("Atlantic/Reykjavik", "reykjavik"),
+                      ("America/Sao_Paulo", "q174")])
+    func homePreselectionMatchesTheTimeZoneCityBeforeTheLocaleRegion(identifier: String, cityID: String) throws {
+        let timeZone = try #require(TimeZone(identifier: identifier))
+        let flow = OnboardingFlow(catalog: localizationCatalog, seed: 42, today: onboardingToday,
+                                  timeZone: timeZone, locale: Locale(identifier: "en_US"),
+                                  readUsage: { _, _ in ([], []) })
+        #expect(flow.homeCityId == cityID)
+        flow.selectEgg(localizationCatalog.pets.defaultID)
+        flow.advance(l10n: L10n(language: .en))
+        #expect(flow.canContinue)
+        #expect(flow.cities(l10n: L10n(language: .en)).contains { $0.id == cityID })
+    }
+
+    @Test(arguments: [("Etc/UTC", "en_US", "q100"), ("Etc/UTC", "zh_CN", "hangzhou"),
+                      ("Pacific/Chatham", "en_NZ", "q23661"), ("Asia/Calcutta", "en_IN", "q1070"),
+                      ("Etc/UTC", "en_ZZ", "shanghai"), ("Etc/UTC", "en", "shanghai")])
+    func homePreselectionFallsBackToTheRegionByTierThenIDOrShanghai(identifier: String, localeID: String, cityID: String) throws {
+        let timeZone = try #require(TimeZone(identifier: identifier))
+        let flow = OnboardingFlow(catalog: localizationCatalog, seed: 42, today: onboardingToday,
+                                  timeZone: timeZone, locale: Locale(identifier: localeID),
+                                  readUsage: { _, _ in ([], []) })
+        #expect(flow.homeCityId == cityID)
+    }
+
+    @Test func homePreselectionExcludesCitiesThePickerDoesNotAccept() throws {
+        let fixture = try OnboardingFixture()
+        defer { fixture.remove() }
+        let content = fixture.root.appendingPathComponent("Content")
+        try FileManager.default.copyItem(at: LocalizationTestFiles.root.appendingPathComponent("Content"), to: content)
+        for id in ["shanghai", "hangzhou"] {
+            let url = content.appendingPathComponent("cities/\(id).json")
+            var city = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])
+            city["status"] = "retired"
+            try JSONSerialization.data(withJSONObject: city).write(to: url)
+        }
+        let catalog = try CityCatalog.load(directory: content)
+        let flow = OnboardingFlow(catalog: catalog, seed: 42, today: onboardingToday,
+                                  timeZone: TimeZone(identifier: "Asia/Shanghai")!, locale: Locale(identifier: "zh_CN"),
+                                  readUsage: { _, _ in ([], []) })
+        #expect(flow.homeCityId == "q11720")
+        flow.selectEgg(catalog.pets.defaultID)
+        flow.advance(l10n: L10n(language: .en))
+        #expect(flow.canContinue)
+        let pickerIDs = Set(flow.cities(l10n: L10n(language: .en)).map(\.id))
+        #expect(pickerIDs.contains(flow.homeCityId))
+        #expect(!pickerIDs.contains("shanghai") && !pickerIDs.contains("hangzhou"))
+        flow.homeCityId = "shanghai"
+        #expect(!flow.canContinue)
+    }
+
+    @Test func homePreselectionDoesNotOverrideAnInProgressChoice() async throws {
+        let flow = OnboardingFlow(catalog: localizationCatalog, seed: 42, today: onboardingToday,
+                                  timeZone: TimeZone(identifier: "America/Los_Angeles")!, locale: Locale(identifier: "en_US"),
+                                  readUsage: { _, _ in ([], []) })
+        #expect(flow.homeCityId == "losangeles")
+        flow.selectEgg(localizationCatalog.pets.defaultID)
+        flow.advance(l10n: L10n(language: .en))
+        flow.homeCityId = "beijing"
+        flow.search = "上海"
+        _ = flow.cities(l10n: L10n(language: .zhHans))
+        flow.startReading()
+        try await waitForOnboardingRead(flow)
+        flow.advance(l10n: L10n(language: .zhHans))
+        flow.skipHatching()
+        flow.advance(l10n: L10n(language: .en))
+        flow.advance(l10n: L10n(language: .en))
+        #expect(flow.homeCityId == "beijing")
+        #expect(flow.preview.homeCityId == "beijing")
+        #expect(flow.saves(now: onboardingToday)?.journey.homeCityId == "beijing")
+    }
+
     @Test func homeSearchMatchesBothLanguagesWithoutCaseAndExcludesRetiredCities() throws {
         let fixture = try OnboardingFixture()
         defer { fixture.remove() }
@@ -358,7 +431,9 @@ private func substantialOnboardingHistory() -> [DayDetail] {
         retired["status"] = "retired"
         try JSONSerialization.data(withJSONObject: retired).write(to: retiredURL)
         let catalog = try CityCatalog.load(directory: content)
-        let flow = OnboardingFlow(catalog: catalog, seed: 42, today: onboardingToday, readUsage: { _, _ in ([], []) })
+        let flow = OnboardingFlow(catalog: catalog, seed: 42, today: onboardingToday,
+                                  timeZone: TimeZone(identifier: "Asia/Shanghai")!, locale: Locale(identifier: "en_US"),
+                                  readUsage: { _, _ in ([], []) })
         #expect(flow.homeCityId == "shanghai")
         for language in Language.allCases {
             let l10n = L10n(language: language)

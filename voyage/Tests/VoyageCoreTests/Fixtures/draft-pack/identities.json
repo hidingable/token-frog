@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "identities": [
+    {
+      "id": "liaison",
+      "name": { "zh-Hans": "联络员", "en": "Liaison" },
+      "letters": {
+        "zeroChanged": {
+          "zh-Hans": "再翻旅途记录，还是看不出我们特别偏爱哪一种走法。这回，我想换个名字，让{pet}试着做一阵联络员。可以从一句简单的问候开始，听听它会怎样被接住。我把新名字写在信纸上，给后面留了半行空白，正好够一句慢慢想的开场。",
+          "en": "Our travel record still does not lean toward one kind of adventure. This time I would like to try a different name: liaison. A simple hello could be a comfortable place for {pet} to begin, with room to listen to whatever comes back. I have written the new name on the page and left half a line beside it, enough space to think of an opening at our own pace."
+        },
+        "zeroSame": {
+          "zh-Hans": "我们的旅途记录仍没有偏向哪一边，我想继续保留联络员这个名字，让{pet}再试一阵。眼下不用急着替它找一个答案，想到合适的问候时，轻轻开口就好。我把原来的名字端端正正描了一遍，旁边的空白也留着，够我们安安静静地坐一会儿。",
+          "en": "Our travel record still has no particular leaning, and I would like to keep trying the name liaison. There is no hurry for {pet} to give it a settled meaning. When a suitable greeting comes to mind, a quiet hello will do. I traced the familiar name on the paper and left the space beside it clear. We have time to sit with it a little longer."
+        },
+        "zero": {
+          "zh-Hans": "把旅途记录摊开，还看不出我们特别偏爱哪一种走法。我想先借联络员这个名字试试，看看{pet}的一句问候，会把话带到哪里。也许只是问个好，也许能坐下来听一段小事，都很适合放进信里。现在，我先把这个名字写在纸上，给旁边留一点空白；等我们继续走，它自然会慢慢有自己的模样。",
+          "en": "Our travel record does not lean toward any one kind of adventure yet. I would like to try the name liaison and see where a simple hello might take {pet}. Perhaps it will be a passing greeting, perhaps a little conversation worth putting in a letter. For now, I have written the name on the page with some room beside it. We can let it find its shape as we go."
+        },
+        "first": {
+          "zh-Hans": "一路走来，你和我一起养成了爱搭话的习惯。一句问候，也可以接住别人的小故事，再把这些话捎到你身边。带着这份喜欢开口的心情，{pet}成了联络员。我喜欢这个名字，像邮包多了一只口袋，专门装路上遇见的声音。写到这里，我把信纸往旁边挪了挪，像是给下一句问候腾个位置。",
+          "en": "Somewhere along our journey, you and I have grown into a habit of making conversation. A simple question can turn into a small story, something to carry home with the post. That is how I think of being a liaison. It suits me: {pet}, ready to say hello. I think my mailbag has acquired an invisible pocket, with room for the voices we might meet along the way."
+        },
+        "changed": {
+          "zh-Hans": "回头看这段旅途，你和我一起养成的搭话习惯更鲜明了。我也越来越想先开口，再把听来的小事带回来。以前留下的足迹都还在，只是如今，人与人之间的那几句话更让我惦记。于是这回，{pet}有了一个新身份：联络员。写下这个名字时，我连句号都画得圆一点，像给下一句问候留了个座位。",
+          "en": "The habit of making conversation that you and I share feels clearer now. I like the thought of finding an opening and bringing a small story home. All our earlier travels still belong to us; lately, a conversation sounds especially inviting. So I have a new name for what I do: liaison. {pet}, pleased to meet you again. I left a little space beside that sentence. A conversation always seems to need room for one more voice."
+        },
+        "same": {
+          "zh-Hans": "又看了一遍这段旅途，你和我一起养成的搭话习惯仍很鲜明。问一问、聊一聊，想到这些，我就想多留一点说话的时间。看来联络员这个名字，还很合{pet}的身。它已经不像刚写下时那么新了，倒像邮包带上那处磨软的地方，用起来很顺手。一句问候接住下一句问候的感觉，让我觉得很亲近。",
+          "en": "The habit of making conversation that you and I share still feels very much at home with me. I like the thought of asking a question and leaving time for an answer. Liaison remains a good fit for {pet}. The name feels a little like the softened part of my bag strap now, familiar against my shoulder. Even imagining one voice making room for the next brings a comfortable feeling to the page."
+        }
+      }
+    },
+    {
+      "id": "sketcher",
+      "name": { "zh-Hans": "速写家", "en": "Sketcher" },
+      "letters": {
+        "zeroChanged": {
+          "zh-Hans": "旅途记录里，仍看不出我们更偏爱哪一种经历。这回我想换个方向试试，让{pet}带上速写家这个新名字。也许可以先看近处的一条线，再决定要不要把它画下来。我把名字轻轻写好，铅笔就放在旁边；纸上还有很宽的地方，容得下我们慢慢看。",
+          "en": "Our travel record still has no favourite kind of experience, so I would like to try a different direction this time. Sketcher could be a new name for {pet}. We might begin by looking at a line nearby, then decide whether it belongs on the page. I have written the name lightly and set down the pencil beside it. There is plenty of room for us to take a good, unhurried look."
+        },
+        "zeroSame": {
+          "zh-Hans": "再看旅途记录，我们的喜好仍没有偏向哪一边。我想继续试着做速写家，先让这个名字陪{pet}走一阵。可以停下来看，也可以把铅笔留在口袋里；哪一种舒服，就用哪一种。我没有改动纸上的名字，只把卷起的页角压平，让它安稳地待在手边。",
+          "en": "Our travel record still does not point toward a favourite way of exploring. I would like to keep the name sketcher with {pet} a little longer. We can pause to look, or leave the pencil in its pocket, whichever feels comfortable. The name on the page can stay as it is. I have simply smoothed the curled corner so the paper sits quietly within reach."
+        },
+        "zero": {
+          "zh-Hans": "翻开旅途记录，我们喜欢怎样看世界，还没有偏向哪一边。我想先试着做个速写家，让{pet}在路边多停一小会儿。可以看看近处的线条，也可以等一等光怎么挪动，想画时再拿出铅笔。这个名字暂时像一张干净信纸，放在手边就好。我把纸角压平了，准备和你一起，慢慢看它会留下什么。",
+          "en": "Our travel record has not settled into a favourite way of seeing things. I thought I might try being a sketcher, giving {pet} a reason to pause over a line or watch a patch of light move. The pencil can wait until something asks to be drawn. For now, the name feels like a clean sheet kept close at hand. I have smoothed its corner, ready to see what takes shape with you."
+        },
+        "first": {
+          "zh-Hans": "一路走来，你和我一起养成了留意小地方的习惯。我喜欢停下来，多看一会儿。原本一眼就会走过去的小地方，也值得在信纸上有自己的位置。想着把细节一点点放在一起，就很像一本随身的速写簿。所以，{pet}成了速写家。这个名字让我想把铅笔握稳一点，连纸边的小空白也觉得亲切。",
+          "en": "You and I have grown into a habit of noticing small things. I like the idea of pausing before walking on, giving a detail its own place in a letter. Put together, those details could make a sketchbook, even where the pictures are made of words. That is how {pet} became a sketcher. I like the name. It makes the little blank spaces at the edges of a page feel like somewhere to sit."
+        },
+        "changed": {
+          "zh-Hans": "最近，你和我一起养成的留意习惯更鲜明了，我也越来越愿意慢一点。写完一件事，还想回头找找，刚才有没有漏掉什么。以前的旅途没有被擦去，只是如今，我更想给小地方留出一点位置。于是，{pet}换上了速写家这个名字。我把铅笔放在信纸旁边，它短短一截，倒很适合陪我做这件事。",
+          "en": "The habit of noticing small things that you and I share feels clearer now. Even after finishing a note, I like the thought of looking back for a detail I might have missed. Our earlier adventures are still on the page; I simply want to leave a little more room for a fine pencil line. Sketcher feels like the right name for {pet} now. I set my short pencil beside the paper. We seem to have settled into the same pace."
+        },
+        "same": {
+          "zh-Hans": "看过这段旅途，{pet}还是那个爱多看一眼的速写家。你和我一起养成的留意习惯，仍让我想把小事看清楚一些。这个名字没有变，信纸上的空白也仍值得慢慢填。翻到前面的页角，我还能想起当时为什么停笔；再翻回来，眼前这一页也有值得慢慢看的地方。原来熟悉的做法，也可以留下不一样的线条。",
+          "en": "Looking back over our journey, I am still quite at home with the name sketcher. The habit of noticing small things that you and I share keeps me curious about what deserves a place in a letter. The name has stayed, with room on the page for something new. I can turn back to an older note, then return to this one and pause again. {pet} likes the thought of looking without hurrying."
+        }
+      }
+    },
+    {
+      "id": "gourmet",
+      "name": { "zh-Hans": "美食家", "en": "Gourmet" },
+      "letters": {
+        "zeroChanged": {
+          "zh-Hans": "我们的旅途记录仍没有显出哪一种偏爱。这回，我想换个名字走走看，先让{pet}试着做个美食家。如果一餐让人好奇，可以看看它的名字，也可以想想怎样用几笔画下来。我把新身份写好，轻轻搁在桌边，像给一份尚待展开的菜单留出位置。",
+          "en": "Our travel record still has no particular favourite. This time I would like a different name to try: gourmet. If a meal catches our curiosity, {pet} could look at its name or think about the first few lines of a drawing. For now, I have written the new name and placed it at the edge of the table, leaving a comfortable space for whatever we might want to explore."
+        },
+        "zeroSame": {
+          "zh-Hans": "又看过旅途记录，我们的喜好还是没有偏向哪一项。我想继续把美食家这个名字留给{pet}，慢慢试它合不合身。若有好奇的吃食，就多看一眼；暂时只坐在桌边，也很自在。我把原来的名字留在纸上，手指在旁边轻轻点了点，觉得不急着添字也挺好。",
+          "en": "Our travel record still does not favour one sort of adventure, and I would like to keep trying gourmet as a name for {pet}. We could look more closely when a food makes us curious. Sitting comfortably at the table is fine too. I left the name as it was and tapped a finger lightly beside it. The page feels quite pleasant with a little space left open."
+        },
+        "zero": {
+          "zh-Hans": "我们的旅途记录还没有特别偏爱哪一项，我想先用美食家这个名字走走看。{pet}可以从好奇一餐的模样开始：留意菜单上的名字，看看画下食物时，哪一笔最先落到纸上。现在不用给这个名字下定论，我只是把它写在手边，像给桌旁留了一个位置。等有了适合写进信里的见闻，我们再坐近一点慢慢读。",
+          "en": "No one kind of adventure stands out in our travel record yet, so I would like to give gourmet a try. {pet} could begin with a little curiosity about a meal: its name on a menu, or which line to draw first on the page. The name can stay lightly pencilled in for now. It feels like leaving a place at a table, ready for us to sit together whenever there is a food story to read."
+        },
+        "first": {
+          "zh-Hans": "把我们带回来的手绘菜单摊开，纸上的线条和名字，一下子就把一餐的模样带到眼前。我也把这些小小的见闻认真收好。同样放在信纸上的一餐，总有它自己的样子。看着眼前的纸，{pet}决定认下美食家这个身份。我用手指按住卷起的纸角，觉得我们一路的停留，连翻页时都带着一点热闹。",
+          "en": "I opened our hand-drawn menu collection. The shapes and names on the paper bring a meal to mind, with its own character in every line. I had been carefully keeping this little part of the journey without quite noticing what it said about its keeper. Gourmet seems fair enough for {pet}. One corner kept curling up as I looked, so I held it down and gave the page a little time to settle."
+        },
+        "changed": {
+          "zh-Hans": "整理这段旅途时，我总在收好的手绘菜单前多停一会儿。这是我们一路带回来的餐桌见闻，我也想好好看看纸上的样子。最近，这些小小的线条在邮包里越来越有分量，于是，{pet}有了美食家的新身份。我把菜单慢慢摊平，旅途中写下的信纸也放在旁边，桌面恰好够我们慢慢看完。",
+          "en": "Whenever I sort this stretch of our journey, our hand-drawn menu collection makes me stop and browse. It holds a little of the journey in its lines and names. Lately it has become the part of the bag I most enjoy opening. I think that makes {pet} a gourmet now. I laid the paper beside my travel notes. There was room on the table for everything, once I moved my elbow."
+        },
+        "same": {
+          "zh-Hans": "这回再看一路收好的手绘菜单，{pet}还是很愿意做个美食家。纸上的线条和名字，带着旅途中餐桌旁的气息；即使是熟悉的一页，翻出来也会让我看上片刻。这个身份没有换，我却更知道自己为什么喜欢它了。我把纸角慢慢理顺，在桌上摆好位置，像把旅途中的一张小餐桌，又轻轻挪近了一些。",
+          "en": "I opened the hand-drawn menu collection again, and gourmet still feels right for {pet}. The lines and names hold a meal's place in our journey. Even a familiar page gets a second look when I take it out. The name has not changed, but I understand its appeal a little better now. I smoothed the paper and gave it a comfortable position on the table. It felt like bringing a small dining table a little closer."
+        }
+      }
+    },
+    {
+      "id": "collector",
+      "name": { "zh-Hans": "收藏家", "en": "Collector" },
+      "letters": {
+        "zeroChanged": {
+          "zh-Hans": "再看旅途记录，还是说不准我们最喜欢哪一类经历。这回，我想给{pet}换个名字，试试收藏家是什么感觉。若遇到值得留下的小东西，可以先问问来历，再找一个合适的位置。我把新名字写在一小张纸上，让它先待在桌边，像一个轻巧的开始。",
+          "en": "Our travel record still does not suggest a favourite kind of experience. This time I would like to give {pet} a different name to try: collector. If we come across something worth keeping, we could learn its story before choosing a place for it. I have written the new name on a small piece of paper and set it by the table. It makes a pleasantly light beginning."
+        },
+        "zeroSame": {
+          "zh-Hans": "旅途记录里，我们仍没有特别偏爱哪一项。我想继续保留收藏家这个名字，让{pet}带着它慢慢走。可以先带一点好奇，不必急着往手里添东西。我把写着名字的纸摆正，给旁边留一小块空处；看着它，倒很像把口袋轻轻拍平以后，那种松快的感觉。",
+          "en": "Our travel record still has no particular leaning, and I would like to keep collector as the name {pet} is trying. A little curiosity is enough to carry for now; our hands can stay free. I straightened the paper with the familiar name and left a clear patch beside it. Looking at that small space feels rather like smoothing an empty pocket, light and comfortable as we continue."
+        },
+        "zero": {
+          "zh-Hans": "看着旅途记录，还不能说我们最喜欢哪一种经历。我想先让{pet}试试收藏家这个名字，带着一点好奇往前走。若有小东西值得留下，可以先听听它的来历，再想想该放在哪里。眼下，我把这个名字写好，摆在桌边看了看；它像一块留出的空处，轻轻松松的，正适合让我们慢慢认识自己的喜好。",
+          "en": "Our travel record does not point toward a favourite sort of experience yet. I would like to try collector as a name for {pet}, and carry a little curiosity with it. If something seems worth keeping, we could learn its story and consider where it belongs. For now, I have written the name and set it at the edge of the table. It feels like a clear space, comfortable enough to let our tastes take their time."
+        },
+        "first": {
+          "zh-Hans": "整理邮包时，我把一路带回的纪念品摆在眼前。每件小东西都来自这段旅途，我也认真替它留着位置。仔细看着，这份收藏像是能把走过的路重新讲一遍。所以，{pet}成了收藏家。我喜欢这个名字落在信纸上的样子，也喜欢摆好最后一件以后，再往旁边挪一点，让每件小东西都看得清楚。",
+          "en": "I laid out our souvenir collection where I could see it clearly. Each piece holds a little of the journey, and I have kept a place for it. Looking at the collection almost brings the route to mind again without my help. So collector is the name I have found for {pet}. After putting the last thing down, I adjusted its position slightly. Each souvenir seemed to deserve enough room for its own small introduction."
+        },
+        "changed": {
+          "zh-Hans": "最近整理行李，我总要先看看收好的纪念品。那是一路带回来的小小见闻，我也一直替这份收藏留着位置。和早些时候相比，现在的我更爱把它放在手边。于是，{pet}成了收藏家。这个新名字让我重新看了一遍架子：东西还是原来的东西，安安稳稳地摆着，却很能说明我们怎样走到了这里。",
+          "en": "Lately, the first thing I check when sorting my bag is our souvenir collection. It carries a little of the journey, and I have kept a place for it. Having that small history close at hand has become one of my favourite parts of travelling. Collector suits {pet} now. I tried the name while looking over the shelf. Nothing on it had moved, yet the arrangement seemed to explain this part of our journey rather well."
+        },
+        "same": {
+          "zh-Hans": "又一次收拾纪念品，{pet}还是很认这个收藏家的名字。每件小东西都有自己的来处，也带着这段旅途的一点模样。我拿起一件，再轻轻放回，慢慢熟悉什么位置比较合适。身份没有变，照看这份收藏的动作倒越来越顺手。最后留在桌上的，是一小块刚腾出的空处；我把手掌放上去歇了歇，也觉得这里挺好。",
+          "en": "Another careful look over our souvenir collection, and collector still fits {pet}. Each piece has its own beginnings and holds a little of this journey. Picking something up and setting it back helps me find the place that suits it. The name is unchanged; my hands simply know the shelf better now. When I finished, there was a small clear patch on the table. I rested my palm there for a moment and admired the company."
+        }
+      }
+    },
+    {
+      "id": "pathfinder",
+      "name": { "zh-Hans": "探路者", "en": "Pathfinder" },
+      "letters": {
+        "zeroChanged": {
+          "zh-Hans": "翻回旅途记录，还是看不出哪一种走法最像我们。这回我想试个不同的名字，让{pet}做一阵探路者。可以先看清前面的一小段路，走到哪里，再把那里的模样写给你。我把新名字收在信纸旁边，纸张轻轻碰了一下，像给这次尝试打了个很小的招呼。",
+          "en": "Our travel record still does not point toward a particular way of exploring. This time I would like {pet} to try a different name: pathfinder. We could begin with the small stretch of road ahead, then write about a place when we reach it. I tucked the new name beside the letter paper. The sheets made a soft little sound together, a modest greeting for something we are trying."
+        },
+        "zeroSame": {
+          "zh-Hans": "我们的旅途记录仍没有偏向哪一种经历。我想继续试着做探路者，让这个名字先陪{pet}走下去。前面的路可以一小段一小段地看，到了合适的地方，再坐下来写信。我没有换掉纸上的名字，只把它往信纸旁边挪近一点，拿起来时，两张纸就能稳稳靠在一起。",
+          "en": "Our travel record still has no particular leaning. I would like to keep trying pathfinder as the name beside {pet}. We can look at the road a little at a time and sit down to write when a suitable place comes along. I have kept the name on its paper, moving it a touch closer to the letter sheet. They rest comfortably together when I pick them up."
+        },
+        "zero": {
+          "zh-Hans": "把旅途记录翻开，还看不出哪一项最像我们的样子。我想先借探路者这个名字，让{pet}带着它继续走。可以从看清脚下的一小段路开始，到了一个地方，再认真写下那里是什么模样。现在，这个身份还是一张轻轻放好的纸，不急着填满。我把它收在信纸旁边，觉得和你一起慢慢认识前方，也是一件很合适的事。",
+          "en": "Our travel record has not taken on a particular character yet. I would like to carry the name pathfinder for a while and see how it feels on {pet}. We could begin with the small stretch of road ahead, then take time to write about a place when we reach it. For now, the name sits lightly beside my letter paper. There is room to discover what it means, one part of the journey at a time, together."
+        },
+        "first": {
+          "zh-Hans": "翻开护照，印章在纸上留下了清楚的模样。盖过章的地方，无论是熟悉的家乡还是路上的一站，都在这里有个位置。原来，旅途也可以从一小块印记开始。于是，{pet}成了探路者。我用手指沿着印章边缘走了一小圈，明明坐在桌前，心里却有了先站稳脚、再看清周围的感觉。",
+          "en": "I opened my passport and looked at the stamp ink on the page. A stamped place has a position here, whether it is home or a stop along the way. It makes the idea of a journey feel wonderfully real. That is how {pet} came to be a pathfinder. I traced a little curve in the ink with a finger. Even sitting at the table, I could imagine settling my feet and taking a first look around."
+        },
+        "changed": {
+          "zh-Hans": "这段时间再翻护照，我总会先看看纸上的印章。盖过章的地方，让旅途在手里有了清楚的模样；看着这片印迹，探路者成了{pet}如今的新名字。早先留下的东西都在，我也更想认真看看脚下的路。我把护照慢慢合上，它在手里稳稳当当，像是为我们这一段旅途，留了一个安稳的位置。",
+          "en": "When I open my passport lately, it is the stamp ink that catches my eye. A place has its position on a page, giving the journey something I can hold in my hands. Looking at it, I have found a new name for {pet}: pathfinder. Everything from our earlier travels is still with us. I closed the passport gently. Its comfortable weight felt like a small, steady place for this part of our journey."
+        },
+        "same": {
+          "zh-Hans": "看着护照上的印章，{pet}这次仍然是探路者。盖过章的地方在纸上有了位置，也让我想认真看看脚下。这个名字已经熟悉，我却还会细看印迹怎样留在纸上。它占着页上小小的一块，周围还有宽宽的空白，看着很舒服。我把手指停在页边，觉得这一段有你陪着慢慢认识世界的路，很踏实。",
+          "en": "Pathfinder still feels like home to {pet} when I look at the stamp ink in my passport. A stamped place has a position on the paper, inviting me to look more closely at where I stand. The name is familiar now, but I still enjoy the shape of the ink and the generous space around it. I rested a finger at the edge of the page and took my time, glad to have you beside me as we explore."
+        }
+      }
+    },
+    {
+      "id": "neighbour",
+      "name": { "zh-Hans": "老街坊", "en": "Neighbour" },
+      "letters": {
+        "zeroChanged": {
+          "zh-Hans": "再翻旅途记录，我们仍没有特别偏向哪一类经历。这回，我想换一个名字试试，让{pet}先做一阵老街坊。可以从安安稳稳地停下来开始，看看什么地方让人觉得亲切。我把新名字写在纸上，搁在邮包旁边；它听起来不催人走，倒很适合陪我们坐一会儿。",
+          "en": "Our travel record still does not favour one kind of experience. This time I would like to try a different name for {pet}: neighbour. We could start by settling somewhere comfortably and noticing what makes a place feel welcoming. I wrote the new name and laid it beside the mailbag. It has an unhurried sound, quite suitable company while we sit for a little while."
+        },
+        "zeroSame": {
+          "zh-Hans": "旅途记录里的喜好，仍没有偏向哪一边。我想继续让{pet}试着做老街坊，把这个名字再留一阵。可以慢慢留意一个地方，也可以先找个舒服的位置坐好。我把写着原来名字的纸放回手边，给邮包挪出一点地方；这样摆着，感觉脚边和心里都很宽敞。",
+          "en": "Our travel record still has no particular leaning, and I would like {pet} to keep trying the name neighbour. We can take our time getting to know a place, or simply begin by finding a comfortable seat. I put the paper with the familiar name back within reach and moved it a little to make room for the bag. Everything feels pleasantly spacious arranged this way."
+        },
+        "zero": {
+          "zh-Hans": "我们的旅途记录还没有偏向哪一种经历，我想先让{pet}试试老街坊这个名字。它听起来很适合慢慢熟悉一个地方：每次停下来，都多认得一点，再把见闻写给你。现在先让这个身份留在纸上，就像把邮包安顿在身边，坐一会儿。至于哪里会让我们愿意再回来，可以一边走，一边留意那些使脚步放轻的小地方。",
+          "en": "Our travel record has not leaned toward one sort of experience yet. I thought I might try neighbour as a name for {pet}. It suggests getting to know a place gradually, noticing a little more with each stay and writing home about it. For now, the name can simply sit here on the page, as comfortably as a bag set beside a chair. We can take our time discovering which places might draw us back."
+        },
+        "first": {
+          "zh-Hans": "算一算，我们已经在同一座城市停留至少三次了。一次次停下来，心里也有了前一次留下的参照。同一个地方，在不同日子的停留里慢慢熟悉起来。原来{pet}已经能叫作老街坊了。我把这个名字轻轻念了一遍，像走到常坐的位置，放好邮包，再把身边那一点地方也给你留着。",
+          "en": "We have now stayed in the same city at least three times. Each stay brings a little more familiarity, with something from the time before to hold in mind. Somewhere in those visits, a place on the map became somewhere familiar. Neighbour seems a good name for {pet} after that. I said it quietly as I put down my bag. It has the comfortable feeling of settling into a usual seat and leaving a little room beside me."
+        },
+        "changed": {
+          "zh-Hans": "最近整理旅途，我发现有座城市已经留住我们至少三回。一次停留接着一次，我们在同一个地方留下不同日子的痕迹。比起刚出发时，如今的我更懂得熟悉一个地方的滋味。所以，这回{pet}成了老街坊。我把新名字写好，放下笔，坐了一会儿；连邮包靠在脚边的样子，都显得很安稳。",
+          "en": "Looking back over the journey, I noticed one city has welcomed us for at least a third stay. Spending time in the same place gives it a little more familiarity. Lately, knowing a place across several visits has meant a great deal to me. So {pet} has a new name: neighbour. After writing it, I put the pencil down and sat for a while, my bag leaning comfortably against my feet."
+        },
+        "same": {
+          "zh-Hans": "又看了一遍停留的记录，在同一座城市停留至少三次的经历，还稳稳记在我们的旅途中。再想起那里，前一次留下的印象和眼前的模样，便有了可以慢慢比较的地方。{pet}仍然是老街坊，这个名字越来越顺口了。它像放好邮包后的一声招呼，不必想太久，轻轻说出来就合适。写到这里，我也想这样和你坐一会儿。",
+          "en": "I looked again at a city where we have stayed at least three times. Thinking of it brings a chance to compare a familiar impression with how the place feels now. Neighbour is still the right name for {pet}, and it comes more easily these days. It feels like a greeting after setting down the bag: simple, familiar, with enough time to sit together for a little while. I would like to do just that with you."
+        }
+      }
+    }
+  ]
+}

@@ -15,12 +15,99 @@ private func tripState() -> JourneyState {
     return state
 }
 
-private func observe(_ tokens: Int, at now: Date, state: inout JourneyState) {
+private func observe(_ tokens: Int, at now: Date, state: inout JourneyState, gate: JourneyGate = .open) {
     state.sync(today: DayUsage(date: DayKey.string(from: now, calendar: careCalendar), observedTokens: tokens),
-               now: now, calendar: careCalendar, catalog: testCatalog)
+               now: now, calendar: careCalendar, catalog: testCatalog, gate: gate)
 }
 
 @Suite struct TripStateTests {
+    @Test func closedGateRecordsUsageWithoutStartingATripOrChangingSavedFuel() throws {
+        var state = tripState()
+        state.phase = .home
+        state.legFuel = 77
+        state.travelFund = 20_000_000_001 // Above the cap: a refused amount must not even rebalance it.
+        state.totalKm = 12
+        state.tripCount = 2
+        let before = state
+        state.sync(today: DayUsage(date: "2026-11-01", fuel: 80, byClient: ["codex": 80], observedTokens: 100),
+                   now: tripTime("2026-11-01", 8), calendar: careCalendar, catalog: testCatalog,
+                   gate: JourneyGate { _ in false })
+        let record = try #require(state.days["2026-11-01"])
+        #expect(record.tokens == 100 && record.fuel == 80 && record.byClient == ["codex": 80])
+        #expect(state.totalFuel == before.totalFuel + 80 && record.tripNumber == nil)
+        #expect(state.phase == .home && state.phaseSince == before.phaseSince)
+        #expect(state.legFuel == before.legFuel && state.travelFund == before.travelFund)
+        #expect(state.totalKm == before.totalKm && state.tripCount == before.tripCount)
+        #expect(state.route == before.route && state.targetCityId == before.targetCityId)
+    }
+
+    @Test(arguments: [false, true])
+    func closedGateLetsAnExistingTripFinishButRefusesItsSurplus(immediate: Bool) {
+        var state = tripState()
+        state.phase = .home
+        let cost = state.legCost
+        let returnCost = max(returnTokensPerKm, Int(state.legTo.distanceKm(to: state.homeCoordinate) * Double(returnTokensPerKm)))
+        let destination = state.targetCityId
+        let closed = JourneyGate { _ in false }
+        observe(10, at: tripTime("2026-11-01", 8), state: &state)
+        observe(30, at: tripTime("2026-11-01", 8, 10), state: &state, gate: closed)
+        #expect(state.phase == .pending && state.legFuel == 30)
+        if immediate {
+            state.departNow(now: tripTime("2026-11-01", 8, 10), calendar: careCalendar, catalog: testCatalog, gate: closed)
+        } else {
+            observe(30, at: tripTime("2026-11-01", 8, 30), state: &state, gate: closed)
+        }
+        #expect(state.phase == .outbound && state.legFuel == 30)
+        observe(cost, at: tripTime("2026-11-01", 9), state: &state, gate: closed)
+        #expect(state.phase == .staying && state.route == [destination])
+        observe(cost + 100, at: tripTime("2026-11-01", 10), state: &state, gate: closed)
+        #expect(state.phase == .staying && state.travelFund == 100)
+        var tokens = cost + 100 + returnTokensPerKm
+        observe(tokens, at: tripTime("2026-11-01", 15), state: &state, gate: closed)
+        #expect(state.phase == .returning && state.legFuel == 100 + returnTokensPerKm)
+        tokens += state.remainingFuel + 77
+        observe(tokens, at: tripTime("2026-11-01", 16), state: &state, gate: closed)
+        #expect(state.phase == .home && state.tripCount == 1 && state.currentCityId == state.homeCityId)
+        #expect(state.legFuel == 0 && state.travelFund == 0)
+        #expect(abs(state.totalKm - (Double(cost) / Double(outboundTokensPerKm) + Double(returnCost) / Double(returnTokensPerKm))) < 0.000000001)
+        #expect(state.days["2026-11-01"]?.tokens == tokens && state.days["2026-11-01"]?.tripNumber == 1)
+    }
+
+    @Test(arguments: [false, true])
+    func backfillJudgesDeparturesAtTheirOwnTime(hourly: Bool) {
+        var state = tripState()
+        state.phase = .home
+        let cost = state.legCost
+        let destination = state.targetCityId
+        let cutoff = tripTime("2026-11-02")
+        state.sync(today: DayUsage(date: "2026-11-05", observedTokens: cost),
+                   finalized: [.init(date: "2026-11-01", observedTokens: cost), .init(date: "2026-11-02"),
+                               .init(date: "2026-11-03"), .init(date: "2026-11-04", observedTokens: cost)],
+                   hourly: hourly ? ["2026-11-01": [.init(date: "2026-11-01", hour: 6, tokens: .init(input: cost))],
+                                     "2026-11-04": [.init(date: "2026-11-04", hour: 8, tokens: .init(input: cost))]] : [:],
+                   now: tripTime("2026-11-05", 12), calendar: careCalendar, catalog: testCatalog,
+                   gate: JourneyGate { $0 < cutoff })
+        #expect(state.route == [destination] && state.tripCount == 1 && state.phase == .home)
+        #expect(state.days["2026-11-01"]?.tripNumber == 1)
+        #expect(state.days["2026-11-04"]?.tokens == cost && state.days["2026-11-04"]?.tripNumber == nil)
+        #expect(state.days["2026-11-05"]?.tokens == cost && state.days["2026-11-05"]?.tripNumber == nil)
+        #expect(state.legFuel == 0 && state.travelFund == 0)
+    }
+
+    @Test func reopeningUsesOnlyTheNextPositiveIncrement() {
+        var state = tripState()
+        state.phase = .home
+        let closed = JourneyGate { _ in false }
+        observe(10, at: tripTime("2026-11-01", 8), state: &state, gate: closed)
+        observe(30, at: tripTime("2026-11-01", 9), state: &state, gate: closed)
+        observe(30, at: tripTime("2026-11-01", 10), state: &state)
+        #expect(state.phase == .home && state.legFuel == 0 && state.days["2026-11-01"]?.tripNumber == nil)
+        observe(35, at: tripTime("2026-11-01", 11), state: &state)
+        #expect(state.phase == .pending && state.phaseSince == tripTime("2026-11-01", 11) && state.legFuel == 5)
+        #expect(state.travelFund == 0 && state.totalKm == 0 && state.tripCount == 0)
+        #expect(state.days["2026-11-01"]?.tokens == 35 && state.days["2026-11-01"]?.tripNumber == 1)
+    }
+
     @Test func completeCyclePaysReturnThenNextOutboundAndOnlyDrawsAtHome() {
         var state = tripState()
         #expect(state.phase == .outbound && state.route.isEmpty && state.tripCount == 0)

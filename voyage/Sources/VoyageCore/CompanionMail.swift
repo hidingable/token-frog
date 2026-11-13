@@ -4,20 +4,31 @@ extension CareEngine {
     /// Called for a real main-window open, never by usage collection or catch-up.
     public static func open(
         at now: Date, journey: inout JourneyState, care: inout CareState,
-        catalog: CityCatalog, calendar: Calendar = .current, sponsorContentEnabled: Bool = false
+        catalog: CityCatalog, calendar: Calendar = .current, sponsorContentEnabled: Bool = false,
+        deliveryTime: DeliveryTime = .standard, gate: JourneyGate = .open
     ) {
         let date = DayKey.string(from: now, calendar: calendar)
         guard date >= journey.startDate, date > (journey.lastOpenedDate ?? "") else { return }
         if let previous = journey.lastOpenedDate,
            let from = DayKey.date(from: previous, calendar: calendar),
            let to = DayKey.date(from: date, calendar: calendar),
-           let days = calendar.dateComponents([.day], from: from, to: to).day, days >= 3 {
-            appendCompanionMail(.reunion, date: date, now: now, journey: &journey, care: care, catalog: catalog)
+           let days = calendar.dateComponents([.day], from: from, to: to).day, days >= 3,
+           journey.allowsNewMail(at: now, gate: gate, calendar: calendar) {
+            // Closed days do not manufacture an absence reward on reopening.
+            let allowedDays = (1...days).filter { offset in
+                let day = calendar.date(byAdding: .day, value: offset, to: from)!
+                let key = DayKey.string(from: day, calendar: calendar)
+                return journey.allowsNewMail(at: key == date ? now : DayKey.end(of: key, calendar: calendar),
+                                             gate: gate, calendar: calendar)
+            }.count
+            if allowedDays >= 3 {
+                appendCompanionMail(.reunion, date: date, now: now, journey: &journey, care: care, catalog: catalog)
+            }
         }
         journey.lastOpenedDate = date
         journey.days[date, default: DayRecord()].mainWindowOpened = true
         process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog,
-                sponsorContentEnabled: sponsorContentEnabled, calendar: calendar)
+                sponsorContentEnabled: sponsorContentEnabled, calendar: calendar, identityDate: date, deliveryTime: deliveryTime, gate: gate)
     }
 
     private static func appendCompanionMail(

@@ -6,6 +6,14 @@ struct MapPoint: Equatable, Hashable {
     let y: Int
 }
 
+enum JourneyMapScope: String, CaseIterable {
+    case region, world
+
+    func viewport(region: MapViewport) -> MapViewport {
+        self == .world ? .world : region
+    }
+}
+
 /// Zoom is relative to the original 120×50 world presentation, independent of coastline resolution.
 struct MapViewport: Equatable {
     static let width = 120

@@ -73,6 +73,7 @@ enum Snapshots {
         writeTripSurfaces(model: model, to: directory)
         writePetForms(model: model, to: directory, metrics: metrics)
         writeRevisits(model: model, to: directory)
+        writeFriends(model: model, to: directory)
 
         let todayUsage = model.dashboardDays?.first { $0.date == DayKey.string(from: model.now) }?.usage
         func main(_ tab: MainTab, name: String, size: CGSize = mainSize, dashboard: DashboardSelection = DashboardSelection(), update: (inout JourneyState) -> Void = { _ in }) {
@@ -83,7 +84,7 @@ enum Snapshots {
                 }
             }) {
                 model.navigate(to: tab)
-                render(MainView(model: model, dashboard: dashboard), size: size, name: name, directory, model: model)
+                render(MainView(model: model, measuredDashboard: .constant(dashboard)), size: size, name: name, directory, model: model)
             }
         }
 
@@ -113,6 +114,17 @@ enum Snapshots {
                     state = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: model.now), now: model.now, catalog: catalog)
                 }) {
                     render(MainView(model: model), size: mainSize, name: "profile-empty", directory, model: model)
+                }
+            }
+            let identity = identityExamples(catalog: catalog, now: model.now, petName: model.petName)
+            model.withSnapshotCare({ $0 = identity.care }) {
+                model.withSnapshotState({ $0 = identity.journey }) {
+                    model.showProfile()
+                    render(MainView(model: model), size: CGSize(width: 760, height: 1080), name: "profile-identity", directory, model: model)
+                    model.mailFilter = .all
+                    model.selectedLetterID = identity.journey.letters.last { $0.kind == .identity }?.id
+                    model.navigate(to: .mail)
+                    render(MainView(model: model), size: CGSize(width: 760, height: 1080), name: "mail-identity", directory, model: model)
                 }
             }
             for kind in BoxExample.allCases {
@@ -511,6 +523,9 @@ enum Snapshots {
     /// Run with --language zh-Hans/en and --appearance dark/light for the four review sets.
     private static func writeTripSurfaces(model: AppModel, to directory: URL) {
         guard let catalog = model.catalog else { return }
+        let savedMapScope = model.journeyMapScope
+        model.journeyMapScope = .region
+        defer { model.journeyMapScope = savedMapScope }
         let metrics = [("notch", NotchMetrics(notchSize: CGSize(width: 180, height: 37), menuBarHeight: 37)),
                        ("external-bar", NotchMetrics(notchSize: CGSize(width: 180, height: 37), menuBarHeight: 24, expandedWidth: 560))]
         for phase in [JourneyState.Phase.home, .pending, .outbound, .staying, .returning] {
@@ -571,6 +586,16 @@ enum Snapshots {
                 }
             }
         }
+        let world = journeyWorldExample(catalog: catalog, now: model.now, petName: model.petName)
+        model.withSnapshotCare({ $0 = world.care }) {
+            model.withSnapshotState({ $0 = world.journey }) {
+                model.journeyMapScope = .world
+                model.navigate(to: .journey)
+                render(MainView(model: model), size: CGSize(width: 760, height: 900),
+                       name: "journey-map-world", directory, model: model)
+                model.journeyMapScope = .region
+            }
+        }
         for phase in [JourneyState.Phase.home, .pending] {
             var firstTrip = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: model.now), now: model.now, catalog: catalog)
             firstTrip.phase = phase
@@ -599,6 +624,17 @@ enum Snapshots {
                 render(MainView(model: model), size: CGSize(width: 760, height: 620), name: "passport-no-stays", directory, model: model)
             }
         }
+    }
+
+    static func journeyWorldExample(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
+        var example = journeyPhaseExample(phase: .outbound, catalog: catalog, now: now, petName: petName)
+        let destination = catalog.city("sanfrancisco")
+        example.journey.targetCityId = destination.id
+        example.journey.legTo = destination.coordinate
+        example.journey.legCost = JourneyState.cost(from: catalog.city(example.journey.homeCityId), to: destination)
+        example.journey.legFuel = example.journey.legCost / 2
+        example.journey.route = ["tokyo", "london", "nairobi", "newyork", "buenosaires", "sydney", "suva", "auckland"]
+        return example
     }
 
     static func journeyPhaseExample(phase: JourneyState.Phase, catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
@@ -811,6 +847,73 @@ enum Snapshots {
             journey.letters[index].enrichmentDone = true
         }
         return (journey, care)
+    }
+
+    static func identityExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
+        let calendar = Calendar.current
+        let start = calendar.date(byAdding: .day, value: -60, to: now)!
+        let yesterday = DayKey.string(from: calendar.date(byAdding: .day, value: -1, to: now)!)
+        var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: start), now: start, catalog: catalog)
+        var care = CareState(petName: petName, species: catalog.pets.defaultID, hatchedAt: journey.startDate)
+        for offset in 0..<60 {
+            CareEngine.markCompanion(date: calendar.date(byAdding: .day, value: offset, to: start)!, care: &care)
+        }
+        care.habits.talkative = 80
+        care.habits.observant = 20
+        CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog, identityDate: yesterday)
+        journey.openDate = DayKey.string(from: now)
+        return (journey, care)
+    }
+
+    static func friendExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {
+        let calendar = Calendar.current
+        let start = calendar.date(byAdding: .day, value: -49, to: now)!
+        var journey = JourneyState(seed: 7, startCityId: "shanghai", date: DayKey.string(from: start), now: start, catalog: catalog)
+        var care = CareState(petName: petName, species: journey.pet, hatchedAt: journey.startDate)
+        for offset in 0..<48 {
+            let date = DayKey.string(from: calendar.date(byAdding: .day, value: offset, to: start)!)
+            CareEngine.markCompanion(date: date, care: &care)
+            if [5, 26, 47].contains(offset) {
+                journey.route = offset == 5 ? [] : ["quanzhou", "tokyo"]
+                CareEngine.process(journey: &journey, care: &care, stories: catalog.stories, catalog: catalog, identityDate: date)
+            }
+        }
+        journey.openDate = DayKey.string(from: now)
+        return (journey, care)
+    }
+
+    private static func writeFriends(model: AppModel, to directory: URL) {
+        guard let catalog = model.catalog else { return }
+        // Use the existing bilingual light/dark matrix, regardless of the command's language.
+        for example in encounterCases {
+            let fixture = AppModel(isSnapshot: true, languageOverride: example.language,
+                                   appearanceOverride: example.scheme, catalog: catalog, themes: model.themes,
+                                   now: { model.now }, runtimeEnabled: false)
+            let friends = friendExamples(catalog: catalog, now: model.now, petName: model.petName)
+            fixture.withSnapshotCare({ $0 = friends.care }) {
+                fixture.withSnapshotState({ $0 = friends.journey }) {
+                    fixture.openCollection(.friends)
+                    render(MainView(model: fixture), size: CGSize(width: 760, height: 900),
+                           name: "collection-friends-\(example.suffix)", directory, model: fixture)
+                    fixture.mailFilter = .all
+                    fixture.selectedLetterID = friends.journey.letters.last { $0.kind == .adventure }?.id
+                    fixture.navigate(to: .mail)
+                    render(MainView(model: fixture), size: CGSize(width: 760, height: 1080),
+                           name: "mail-adventure-\(example.suffix)", directory, model: fixture)
+                }
+            }
+            let sprites = LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 24) {
+                ForEach(catalog.friends.friends.sorted { $0.id < $1.id }) { friend in
+                    VStack(spacing: 12) {
+                        PixelArtView(image: Sprites.friend(friend, catalog: catalog.pets), scale: 3).fixedSize()
+                        Text(LetterComposer.localized(friend.name, l10n: fixture.l10n)!).font(Theme.pixel())
+                    }
+                    .foregroundStyle(fixture.theme.text)
+                }
+            }
+            render(sprites.padding(24).frame(maxWidth: .infinity, maxHeight: .infinity).background(fixture.theme.surfaceRaised), size: CGSize(width: 600, height: 300),
+                   name: "friends-sprites-\(example.suffix)", directory, model: fixture)
+        }
     }
 
     static func companionMailExamples(catalog: CityCatalog, now: Date, petName: String) -> (journey: JourneyState, care: CareState) {

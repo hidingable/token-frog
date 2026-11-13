@@ -1,0 +1,407 @@
+{
+  "version": 1,
+  "friends": [
+    {
+      "id": "wick",
+      "name": {
+        "zh-Hans": "灯芯",
+        "en": "Wick"
+      },
+      "intro": {
+        "zh-Hans": "住在旧灯塔里的小提灯，替被潮水送回来的木片信分拣地址。灯罩上那道歪歪的线，是他自己画的微笑。",
+        "en": "A little lantern from an old lighthouse, sorting addresses on driftwood letters washed ashore. He drew the crooked smile on his own glass."
+      },
+      "letters": {
+        "city": {
+          "zh-Hans": "在{city}停留时，我遇见一盏坐在木箱上的小提灯。他叫灯芯，正把漂流木片上的字一点点读出来。我说自己叫{pet}，他把这几个字写在了地址表的空白处。我替他按住一张卷起的地址表，他把灯转向纸边，让最淡的那一行也亮了起来。原来他守着旧灯塔，还替海边断掉的邮路认地址。我们约好，以后在家乡邮局的窗边给他留个座位，木片和普通信也能一起晒晒太阳。",
+          "en": "While staying in {city}, I found a little lantern perched on a crate, reading the faint writing on pieces of driftwood. His name is Wick. I introduced myself as {pet}, and he wrote my name in the margin of his address list. I held down a curling address list while he turned his light toward the palest line. He keeps an old lighthouse and helps letters washed ashore find their way onto the post again. I told him about the window at our hometown post office. It sounds like a good place for him to sit, with room for wooden letters to dry beside the paper ones."
+        },
+        "noCity": {
+          "zh-Hans": "邮路旁有间小棚子，里面坐着一盏会说话的提灯。他叫灯芯，从旧灯塔带来一箱漂流木片，正在辨认上面的地址。我说自己叫{pet}，他把这几个字写在了地址表的空白处。我替他按住卷起的纸，他把灯转了一点，最淡的字忽然也看得清了。我们聊起家乡的小邮局；我想，窗边正好有个位置，能让他和木片信一起晒太阳。临走时，他在灯罩上擦出了一小块明亮的圆。",
+          "en": "I stopped at a little shelter beside the post road and met a talking lantern named Wick. He had brought a crate of driftwood letters from his old lighthouse and was puzzling out their addresses. I introduced myself as {pet}, and he wrote my name in the margin of his address list. I held his paper flat; he tilted his light, and a pale line came into view. We talked about our little post office back home. The window would make a comfortable place for him and his wooden letters. Before I left, he polished a small bright circle on his glass."
+        }
+      },
+      "notes": [
+        {
+          "zh-Hans": "今天晒木片时，发现一封信的背面画着半条鱼。另一半也许正游在别处。",
+          "en": "One driftwood letter has half a fish on the back. Perhaps the other half is swimming somewhere else."
+        },
+        {
+          "zh-Hans": "灯罩擦干净以后，桌上的铅笔也像刚睡醒。",
+          "en": "I polished my glass. Even the pencil on the desk looks a little more awake."
+        },
+        {
+          "zh-Hans": "潮水送来一截没有字的木头。我把它放在凳脚下，正好不晃了。",
+          "en": "The tide brought a blank piece of wood. It fits under the wobbly stool leg perfectly."
+        },
+        {
+          "zh-Hans": "信纸晾成一排，风经过时，像有人轻轻翻书。",
+          "en": "Paper drying on a line makes a soft page-turning sound when the breeze passes."
+        },
+        {
+          "zh-Hans": "今晚的灯光有一点蜂蜜色，照着空杯子也很暖和。",
+          "en": "My light has a honey colour tonight. Even the empty cup looks cosy."
+        }
+      ],
+      "sprite": {
+        "size": [
+          16,
+          16
+        ],
+        "rows": [
+          "................",
+          "......xxxx......",
+          ".....xxxxxx.....",
+          ".....xxxxxx.....",
+          "......xxxx......",
+          "....xxxxxxxx....",
+          "...xxxxxxxxxx...",
+          "...xxxxxxxxxx...",
+          "...xxxxxxxxxx...",
+          "..xxxxxxxxxxxx..",
+          ".xxxxxxxxxxxxxx.",
+          "..xxxxxxxxxxxx..",
+          "...xxxxxxxxx....",
+          ".....xxxxxx.....",
+          ".....xx..xx.....",
+          "....xxx..xxx...."
+        ]
+      }
+    },
+    {
+      "id": "sleeper",
+      "name": {
+        "zh-Hans": "枕木",
+        "en": "Sleeper"
+      },
+      "intro": {
+        "zh-Hans": "夜班邮车上的刺猬盖戳员，帽檐总夹着一张没有用完的站名表。他能听出车轮经过不同桥面的声音。",
+        "en": "A hedgehog who cancels stamps aboard the night mail train. He keeps a station list in his cap and knows a bridge by the sound of the wheels."
+      },
+      "letters": {
+        "city": {
+          "zh-Hans": "在{city}，我循着一声轻轻的“咔哒”找到邮车旁的枕木。他是夜班盖戳员，一只帽子比脸还宽的小刺猬。我报上名字{pet}，他把它念得像一个新的小站名。那声响是他试盖旧印章，旁边的废纸已经排成一列小车厢。我试着给每节车厢添了窗户，他笑得帽檐都颤了。等他轮休，就来家乡邮局坐坐；我们的桌角也很适合停一列纸做的火车。",
+          "en": "In {city}, a quiet clack led me to the mail train and a hedgehog named Sleeper. He works the night shift with a cap wider than his face. When I told him my name was {pet}, he tried saying it like the name of a little station. The sound came from testing an old postmark, and the scrap paper beside him had become a row of railway carriages. I drew windows on them. He laughed until his cap brim trembled. When he has a rest day, he is going to visit our hometown post office. There is a corner of the desk just right for a paper train."
+        },
+        "noCity": {
+          "zh-Hans": "路边的小站停着一节邮车，我在那里认识了枕木。他是夜班盖戳员，一只戴宽帽子的刺猬，正在旧纸上试印章。我报上名字{pet}，他把它念得像一个新的小站名。圆圆的戳排成一行，他说像车轮。我便给每一对车轮画上车厢，最后一节还多画了一扇窗。我们把纸摊平，看了一会儿这列小火车。我告诉他，家乡邮局也有一张够宽的桌子，欢迎他带着帽子来歇脚。",
+          "en": "A mail carriage was waiting at a small wayside station. Beside it I met Sleeper, a hedgehog in a broad cap, testing postmarks on scrap paper before his night shift. When I told him my name was {pet}, he tried saying it like the name of a little station. He said the circles looked like wheels, so I gave each pair a carriage and put an extra window in the last one. We smoothed the paper and admired our little train. I told him there is a broad desk at our hometown post office, a fine place to rest his cap when he visits."
+        }
+      },
+      "notes": [
+        {
+          "zh-Hans": "昨晚盖到最后一枚戳，墨色刚好像一片薄薄的云。",
+          "en": "The last postmark of the night came out as light as a small cloud."
+        },
+        {
+          "zh-Hans": "把帽子放在桌上才发现，它比我的午饭盒还占地方。",
+          "en": "I put my cap on the desk. It takes up more room than my lunch tin."
+        },
+        {
+          "zh-Hans": "桥上的车轮声是长句，进站前的声音是句号。",
+          "en": "The wheels make a long sentence on a bridge. Coming into a station, they find the full stop."
+        },
+        {
+          "zh-Hans": "我给印章垫换了个方向。它看起来像换了个枕头。",
+          "en": "I turned the ink pad around. It looks as though the stamp has a fresh pillow."
+        },
+        {
+          "zh-Hans": "今天的废纸火车有七扇窗，最后一扇留给看月亮。",
+          "en": "The paper train has seven windows today. The last one has a view of the moon."
+        }
+      ],
+      "sprite": {
+        "size": [
+          16,
+          16
+        ],
+        "rows": [
+          "................",
+          "......xxxxx.....",
+          ".....xxxxxxx....",
+          "....xxxxxxxxx...",
+          "....xxxxxxxxxx..",
+          "...xxxxxxxxxx...",
+          "..xxxxxxxxxxxx..",
+          ".xxxxxxxxxxxxxx.",
+          "..xxxxxxxxxxxx..",
+          ".xxxxxxxxxxxxx..",
+          "..xxxxxxxxxxxx..",
+          ".xxxxxxxxxxxxxx.",
+          "..xxxxxxxxxxxxx.",
+          "...xxxxxxxxxx...",
+          ".....xx..xx.....",
+          "....xxx..xxx...."
+        ]
+      }
+    },
+    {
+      "id": "lintwing",
+      "name": {
+        "zh-Hans": "绒翅",
+        "en": "Lintwing"
+      },
+      "intro": {
+        "zh-Hans": "给旧邮路图补洞的小飞蛾，喜欢把补纸剪成云的形状。她随身带的蓝围兜上，有一个专门放橡皮屑的小口袋。",
+        "en": "A little moth who patches old postal maps with cloud-shaped scraps. The small pocket in her blue apron is reserved for eraser crumbs."
+      },
+      "letters": {
+        "city": {
+          "zh-Hans": "在{city}，我看见一张邮路图被风掀得扑扑响，赶紧伸手按住。图后面探出一只小飞蛾，名叫绒翅。我说自己叫{pet}，她从地图后面伸出手，和我轻轻碰了一下。她正在补一道裂口，补纸剪成云的样子，贴好以后，断开的线又能接着看了。我替她把地图翻到背面，她替我抖掉袖口的一点纸屑。聊到家乡邮局时，她说想来看看我们的旧地图；我已经想好了让她坐哪张小凳。",
+          "en": "In {city}, a postal map was flapping in the breeze, so I reached out to hold it steady. A small moth named Lintwing peeped around the edge. I introduced myself as {pet}, and she reached around the map to give my hand a gentle shake. She was mending a tear with a cloud-shaped patch; once it was in place, the route could be followed again. I helped turn the map over, and she brushed a paper crumb from my sleeve. She would like to see the old maps at our hometown post office. I already know which little stool would suit her."
+        },
+        "noCity": {
+          "zh-Hans": "我在邮路边的长桌上遇见了绒翅，一只穿蓝围兜的小飞蛾。我说自己叫{pet}，她从地图后面伸出手，和我轻轻碰了一下。她把破地图摊得很开，补纸却剪得很小，像一朵朵云。我帮她按住纸角，看她把一段断线慢慢对齐。补好以后，我们顺着线走了一遍手指，终点恰好落在桌沿。她想来家乡邮局看看，我说那里也有一张旧地图，和一张能把脚稳稳放好的小凳。",
+          "en": "At a long table beside the post road I met Lintwing, a small moth in a blue apron. I introduced myself as {pet}, and she reached around the map to give my hand a gentle shake. Her torn map spread across the table, but her patches were tiny, each one cut like a cloud. I held a corner while she lined up a broken route. Afterwards, we followed it with a finger, arriving together at the table edge. She would like to visit our hometown post office. I told her about our old map and a little stool where she could rest her feet."
+        }
+      },
+      "notes": [
+        {
+          "zh-Hans": "今天的补纸剪成了长云，刚好盖住一条长长的裂缝。",
+          "en": "Today I cut a long cloud. It fits a long tear very nicely."
+        },
+        {
+          "zh-Hans": "围兜口袋里有三粒橡皮屑，倒出来像一座很小的山。",
+          "en": "Three eraser crumbs in my apron pocket make a very small mountain."
+        },
+        {
+          "zh-Hans": "地图背面也很好看，有纸纹，还有上一回补纸留下的影子。",
+          "en": "The back of a map is lovely too: paper grain and the shadows of old patches."
+        },
+        {
+          "zh-Hans": "翅膀碰到桌沿时，声音比翻一页信纸还轻。",
+          "en": "My wing brushed the desk. It was quieter than turning a page."
+        },
+        {
+          "zh-Hans": "我把铅笔横着放好，它今天不往桌下探路了。",
+          "en": "I laid the pencil across the paper. It has stopped exploring under the desk for now."
+        }
+      ],
+      "sprite": {
+        "size": [
+          16,
+          16
+        ],
+        "rows": [
+          "...x........x...",
+          "....xx....xx....",
+          ".xx..xx..xx..xx.",
+          "xxxx..xxxx..xxxx",
+          "xxxxxxxxxxxxxxxx",
+          "xxxxxxxxxxxxxxxx",
+          ".xxxxxxxxxxxxxx.",
+          "..xxxxxxxxxxxx..",
+          "...xxxxxxxxxx...",
+          "..xxxxxxxxxxxx..",
+          ".xxxxxxxxxxxxxx.",
+          ".xxxxxxxxxxxxxx.",
+          "..xxxxxxxxxxxx..",
+          "...xx.xxxx.xx...",
+          "......x..x......",
+          ".....xx..xx....."
+        ]
+      }
+    },
+    {
+      "id": "tidepin",
+      "name": {
+        "zh-Hans": "潮扣",
+        "en": "Tidepin"
+      },
+      "intro": {
+        "zh-Hans": "渡口替邮袋系绳的小螃蟹，一大一小两只钳子各有分工。他总把解开的旧绳绕成整齐的圆，留着下回用。",
+        "en": "A little ferry crab who ties the mailbags, with a different job for each claw. He coils every untied cord into a neat circle for another day."
+      },
+      "letters": {
+        "city": {
+          "zh-Hans": "在{city}停留时，我认识了潮扣。他是一只替渡船照管邮袋的小螃蟹，今天正带着旧绳在桌边打结。我告诉他自己叫{pet}，他用小钳子在桌边轻轻敲了两下，算是握手。大钳子撑住绳圈，小钳子把线头轻轻送过去，我看得连邮包都忘了放下。他教我把死结一点点松开，桌面最后留下几个圆圆的绳圈。我邀请他来家乡邮局坐坐，他说想看看我们挂邮袋的那排木钩。",
+          "en": "While staying in {city}, I met Tidepin, a little crab who looks after the mailbags on a ferry. I told him my name was {pet}. He tapped the table twice with his little claw, his version of a handshake. He was tying cord at a table: one large claw held the loop, and the small one slipped the end through. I watched so closely that I forgot to put down my own bag. He showed me how to ease a stubborn knot apart. We ended up with several tidy coils. I invited him to our hometown post office; he is curious about the wooden hooks where we hang the bags."
+        },
+        "noCity": {
+          "zh-Hans": "邮路边的歇脚棚下，一只小螃蟹正在解绳结。他叫潮扣，替渡船上的邮袋照管绳子。我告诉他自己叫{pet}，他用小钳子在桌边轻轻敲了两下，算是握手。大钳子撑住线圈，小钳子一点点拨开结心，动作比我想的轻得多。我把松开的绳绕成圆，摆在他身边，桌上很快有了几只小小的“盘子”。他想来家乡邮局看看，我说门边那排木钩挂着的邮袋，正好能给他讲讲我们的邮路。",
+          "en": "I found a little crab undoing knots under a shelter along the post road. His name is Tidepin, and he tends the cords on a ferry’s mailbags. I told him my name was {pet}. He tapped the table twice with his little claw, his version of a handshake. His large claw held a loop while the small one teased its middle loose, more gently than I expected. I wound each freed cord into a circle. Soon the table held a row of tiny empty plates. He would like to visit our hometown post office. The bags on the hooks beside our door should give us plenty to talk about."
+        }
+      },
+      "notes": [
+        {
+          "zh-Hans": "绳圈摆在桌上，像几口不装水的小井。",
+          "en": "Coiled cords on the table look like little wells with no water in them."
+        },
+        {
+          "zh-Hans": "今天一个结也没有打紧，连绳头都舒舒服服的。",
+          "en": "None of today’s knots pulled tight. Even the loose ends look comfortable."
+        },
+        {
+          "zh-Hans": "小钳子夹住了茶杯柄，大钳子在旁边等着，没什么可帮的。",
+          "en": "My small claw has the teacup handle. The large one is waiting beside it, pleasantly unneeded."
+        },
+        {
+          "zh-Hans": "木钩有一个弯得特别圆，我每回经过都想摸一下。",
+          "en": "One wooden hook has a particularly lovely curve. I like to touch it as I pass."
+        },
+        {
+          "zh-Hans": "绳子晾干以后轻了一点，拿起来像少带了一朵小雨云。",
+          "en": "The dry cord feels lighter, as though it has put down a little raincloud."
+        }
+      ],
+      "sprite": {
+        "size": [
+          16,
+          16
+        ],
+        "rows": [
+          "................",
+          "..xx........xx..",
+          ".xxxx......xxxx.",
+          ".xxxxx....xxxxx.",
+          "..xxxx....xxxx..",
+          "...xx..xx..xx...",
+          "...xxxxxxxxxx...",
+          "....xxxxxxx.....",
+          "...xxxxxxxxxx...",
+          "..xxxxxxxxxxxx..",
+          "..xxxxxxxxxxxx..",
+          ".xxxxxxxxxxxxxx.",
+          "..xxxxxxxxxxxx..",
+          ".xxxxxxxxxxxxxx.",
+          "xxxx.x....x.xxxx",
+          "....xx....xx...."
+        ]
+      }
+    },
+    {
+      "id": "bellcrumb",
+      "name": {
+        "zh-Hans": "铃屑",
+        "en": "Bellcrumb"
+      },
+      "intro": {
+        "zh-Hans": "听风认天气的小老鼠，替屋顶上的邮路风向标擦灰。腰间的小铜铃塞着棉絮，走路时只发出很轻的一声。",
+        "en": "A little mouse who dusts rooftop weather vanes along the post routes. Cotton tucked inside the bell at her waist keeps its voice soft."
+      },
+      "letters": {
+        "city": {
+          "zh-Hans": "在{city}，我抬头看风向标，一点细灰恰好落在鼻尖。屋檐边的小老鼠赶紧探出头，她叫铃屑，正在替风向标擦灰。我说自己叫{pet}，她便轻轻摇了摇铜铃，算是问好。下梯子时，她腰间的铜铃只轻轻响了一下，原来里面垫了棉絮。我们坐在梯脚看云，她说云的边缘很像刚撕开的纸。我请她来家乡邮局，窗台上正好能望见一大片天。",
+          "en": "In {city}, I looked up at a weather vane just as a speck of dust landed on my nose. A mouse peeped over the eaves. Her name is Bellcrumb, and she had been cleaning the vane. I introduced myself as {pet}, and she gave her bell a gentle shake to say hello. Climbing down, she made one soft chime: there is cotton tucked inside her little brass bell. We sat by the ladder watching clouds. Their edges, she said, looked like freshly torn paper. I invited her to our hometown post office, where the windowsill has a good wide view of the sky."
+        },
+        "noCity": {
+          "zh-Hans": "一架梯子靠在邮路旁的小棚边，铃屑正从上面慢慢爬下来。她是只小老鼠，刚给屋顶的风向标擦过灰。我说自己叫{pet}，她便轻轻摇了摇铜铃，算是问好。我扶着梯脚，听见她腰间的小铜铃轻轻响了一声，像一句说得很小的“好了”。我们坐下来望了一会儿天，她指出一片像撕开信纸的云。我说家乡邮局的窗台也能看天，她便问，那里容不容得下一位带铃铛的小客人。",
+          "en": "A ladder leaned against a shelter beside the post road. A small mouse named Bellcrumb was coming down after dusting the weather vane. I steadied the foot of the ladder. I introduced myself as {pet}, and she gave her bell a gentle shake to say hello. Her brass bell gave a soft chime, like a very quiet “there.” We sat and looked at the sky for a while. She pointed out a cloud shaped like torn letter paper. I told her about the windowsill at our hometown post office. She wondered whether there was room for a visitor with a bell. There is."
+        }
+      },
+      "notes": [
+        {
+          "zh-Hans": "风向标今天转了半圈，又停下来，像突然忘了要找什么。",
+          "en": "The weather vane turned halfway round and stopped, as if it had forgotten what it was looking for."
+        },
+        {
+          "zh-Hans": "铃铛里的棉絮松了一点，声音也跟着软了一点。",
+          "en": "I loosened the cotton in my bell. Its voice seems softer now."
+        },
+        {
+          "zh-Hans": "窗台上的灰有一串脚印，是我检查有没有灰时留下的。",
+          "en": "There are footprints in the dust on the sill. I left them while checking for dust."
+        },
+        {
+          "zh-Hans": "今天的云很薄，像一张可以透光的信纸。",
+          "en": "The clouds are thin today, like letter paper held up to the light."
+        },
+        {
+          "zh-Hans": "我把尾巴盘在凳脚旁边，刚好围住一小块阳光。",
+          "en": "My tail curled beside the stool, making a little border around a patch of sunshine."
+        }
+      ],
+      "sprite": {
+        "size": [
+          16,
+          16
+        ],
+        "rows": [
+          "................",
+          "..xxxx....xxxx..",
+          ".xxxxxx..xxxxxx.",
+          ".xxxxxx..xxxxxx.",
+          "..xxxxxxxxxxxx..",
+          "...xxxxxxxxxx...",
+          "...xxxxxxxxxx...",
+          "...xxxxxxxxxx...",
+          "....xxxxxxxx....",
+          ".....xxxxxx.....",
+          "...xxxxxxxxx....",
+          "..xxxxxxxxxxx...",
+          "...xxxxxxxxx..xx",
+          "....xxxxxxx..xxx",
+          ".....xx..xxxxxx.",
+          "....xxx..xxxxx.."
+        ]
+      }
+    },
+    {
+      "id": "sprig",
+      "name": {
+        "zh-Hans": "纸芽",
+        "en": "Sprig"
+      },
+      "intro": {
+        "zh-Hans": "照看岔路邮牌的小仙人掌，头顶开着一朵纸白色的小花。每次重画箭头前，他都会先擦干净牌子上的鸟爪印。",
+        "en": "A small cactus who tends the signposts where postal roads meet. Before repainting an arrow, he wipes the bird tracks away; a paper-white flower grows on his crown."
+      },
+      "letters": {
+        "city": {
+          "zh-Hans": "在{city}，我碰见了正在擦路牌的纸芽。他是一株小仙人掌，白花开在头顶，擦布却挂在一边的刺上。我告诉他自己叫{pet}，他很小心地侧过身，免得刺扎到我。我替他取下擦布，他把牌子转正，我们一起看见一个被灰盖住的小箭头。断掉的邮路还有旧方向留在那里，他想先让经过的人看清楚。我告诉他家乡邮局门口也有一块小牌子；他听了，把头上的花轻轻晃了晃。",
+          "en": "In {city}, I met Sprig cleaning a signpost. He is a little cactus with a white flower on his crown and a cleaning cloth caught on one of his spines. I told him my name was {pet}. He turned carefully sideways so his spines would not catch my sleeve. I freed the cloth; he straightened the sign. Under the dust we found a small arrow, still pointing along an old postal route. He wanted passers-by to be able to see it clearly. I told him about the little sign outside our hometown post office. The flower on his head gave a gentle nod."
+        },
+        "noCity": {
+          "zh-Hans": "岔路口的小邮牌旁，纸芽正在和一块擦布较劲。他是株头顶白花的小仙人掌，布角挂在刺上，够来够去总差一点。我告诉他自己叫{pet}，他很小心地侧过身，免得刺扎到我。我帮他取下来，他便擦出牌上一个旧箭头。我们站得远一点看，那个方向又清楚了。聊起家乡邮局时，我说门口的小牌子旁边有一块向阳的地方。他很喜欢，连影子都像往那边挪了一小步。",
+          "en": "At a fork in the post road, a small cactus was wrestling with a cleaning cloth caught on a spine. His name is Sprig, and a white flower grows on his head. I told him my name was {pet}. He turned carefully sideways so his spines would not catch my sleeve. I unhooked the cloth so he could uncover an old arrow on the sign. We stepped back to look. Its direction was clear again. I told him there is a sunny patch beside the sign at our hometown post office. He liked the sound of it. Even his shadow seemed to take a small step that way."
+        }
+      },
+      "notes": [
+        {
+          "zh-Hans": "花瓣上停了一粒灰，我一口气没吹掉，倒把自己吹得晃了一下。",
+          "en": "A speck of dust landed on my flower. I blew at it and managed to wobble myself instead."
+        },
+        {
+          "zh-Hans": "箭头旁边留了一点空白，刚好够一片叶子的影子坐下。",
+          "en": "There is a little space beside the arrow, just enough for a leaf’s shadow to sit."
+        },
+        {
+          "zh-Hans": "今天把擦布折成方块，这下它不容易挂到刺上了。",
+          "en": "I folded the cloth into a square today. It is much less interested in my spines."
+        },
+        {
+          "zh-Hans": "向阳的位置慢慢挪了，我也慢慢把脚尖挪过去。",
+          "en": "The sunny patch has moved a little. I have moved my toes along with it."
+        },
+        {
+          "zh-Hans": "旧路牌背面有木头的年轮，看着像很慢很慢的邮戳。",
+          "en": "The grain on the back of the old sign looks like a very slow postmark."
+        }
+      ],
+      "sprite": {
+        "size": [
+          16,
+          16
+        ],
+        "rows": [
+          "......xxx.......",
+          ".....xxxxx......",
+          "......xxx.......",
+          ".....xxxxx......",
+          "....xxxxxxx.....",
+          ".xx.xxxxxxx.....",
+          "xxxxxxxxxxx..xx.",
+          "xxxxxxxxxxx.xxxx",
+          "xxxxxxxxxxxxxxxx",
+          ".xxxxxxxxxxxxxx.",
+          "..xxxxxxxxxxxx..",
+          "...xxxxxxxxxxx..",
+          "....xxxxxxx.....",
+          "....xxxxxxx.....",
+          ".....xx..xx.....",
+          "....xxx..xxx...."
+        ]
+      }
+    }
+  ]
+}

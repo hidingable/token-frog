@@ -35,6 +35,9 @@ enum Sprites {
             catalog.palette[(recolor[String(symbol)] ?? String(symbol)).first!]
         } }
     }
+    static func friend(_ friend: FriendContent.Entry, catalog: PetCatalog) -> CGImage {
+        PixelImage.make(width: 16, height: 16, pixels: pixels(friend.sprite, catalog: catalog))
+    }
     static func item(_ icon: String, catalog: PetCatalog) -> CGImage {
         let sprite = catalog.icons[icon]!
         return PixelImage.make(width: sprite.size[0], height: sprite.size[1], pixels: itemPixels(icon, catalog: catalog))

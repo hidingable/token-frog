@@ -82,6 +82,8 @@ public struct CityCatalog: Sendable {
     public private(set) var stories: StoryLibrary
     public let pets: PetCatalog
     public private(set) var items: ItemLibrary
+    public let identities: IdentityContent
+    public let friends: FriendContent
     public let weeklyMail: WeeklyMailContent
     public let wishes: WishContent
     public let roadClues: RoadClueContent
@@ -93,7 +95,7 @@ public struct CityCatalog: Sendable {
     private let countries: [String: [String: String]]
     private let lists = CityListCache()
 
-    private init(cities: CityContent, countries: [String: [String: String]], stories: StoryLibrary, items: ItemLibrary, pets: PetCatalog, weeklyMail: WeeklyMailContent, wishes: WishContent, roadClues: RoadClueContent, usageEvents: UsageEventContent, petMoments: PetMomentContent, encounterPostcards: EncounterPostcardContent) {
+    private init(cities: CityContent, countries: [String: [String: String]], stories: StoryLibrary, items: ItemLibrary, pets: PetCatalog, weeklyMail: WeeklyMailContent, wishes: WishContent, roadClues: RoadClueContent, usageEvents: UsageEventContent, petMoments: PetMomentContent, encounterPostcards: EncounterPostcardContent, identities: IdentityContent, friends: FriendContent) {
         all = cities.cities.sorted { $0.id < $1.id }
         active = all.filter { $0.status == "active" }
         var index = Dictionary(uniqueKeysWithValues: all.map { ($0.id, $0) })
@@ -103,6 +105,8 @@ public struct CityCatalog: Sendable {
         self.stories = stories
         self.items = items
         self.pets = pets
+        self.identities = identities
+        self.friends = friends
         self.weeklyMail = weeklyMail
         self.wishes = wishes
         self.roadClues = roadClues
@@ -127,7 +131,9 @@ public struct CityCatalog: Sendable {
             roadClues: RoadClueContent.load(directory: directory),
             usageEvents: UsageEventContent.load(directory: directory),
             petMoments: PetMomentContent.load(directory: directory),
-            encounterPostcards: EncounterPostcardContent.load(directory: directory)
+            encounterPostcards: EncounterPostcardContent.load(directory: directory),
+            identities: IdentityContent.load(directory: directory),
+            friends: FriendContent.load(directory: directory)
         )
     }
 

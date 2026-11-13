@@ -87,9 +87,13 @@ struct MemoryBookDisplay {
             case .hatched: text = l10n("memory.hatched", care.petName)
             case .firstLetter: text = l10n("memory.firstLetter", care.petName)
             case .hundredDays: text = l10n("memory.hundredDays", care.petName)
+            case .friendMet:
+                let names = letter?.friendSettlement?.names
+                    ?? catalog.friends.friends.first { $0.id == care.metFriends?.first { $0.letterId == day.letterId }?.id }?.name
+                text = l10n("friends.memoryMet", LetterComposer.localized(names, l10n: l10n) ?? l10n("friends.unknown"))
             }
-            entries.append(Entry(id: "special:\(day.kind.rawValue)", category: .special, date: day.date,
-                                 text: text, location: location(letter), letterId: letter?.id))
+            entries.append(Entry(id: "special:\(day.id)", category: .special, date: day.date,
+                                 text: text, location: day.kind == .friendMet && letter?.friendSettlement?.cityId == nil ? nil : location(letter), letterId: letter?.id))
         }
         for index in entries.indices {
             let entry = entries[index]
